@@ -1,5 +1,12 @@
 # Encompass
-# Team Members
+
+## Description
+
+## Contact Us
+
+Email: perfectstrangers.tuks@gmail.com
+
+## Team Members
 
 <table>
     <tr>
