@@ -1,71 +1,75 @@
 # Encompass
 
 ## Description
+<p>Encompass is an innovative web app that leverages machine learning to deliver personalized recommendations tailored to the user's interests, while also facilitating connections with like-minded individuals and communities. With optional gamification features, Encompass fosters a dynamic and engaging environment where users can share their interests and resources.</p>
 
-## Contact Us
+## Contact Details
 
 Email: perfectstrangers.tuks@gmail.com
 
 ## Team Members
 
-<table>
-    <tr>
-        <th style="width: 150px">Member</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td align="center">
-            <h4>Julianna Venter</h4>
-        </td>
-        <td align="center"> <hr>
-            <p>
-                Description 
-            </p>
-            <hr>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">
-            <h4>Morgan Bentley</h4>
-        </td>
-        <td align="center"> <hr>
-            <p>
-                Description 
-            </p>
-            <hr>
-        </td>
-    </tr>
-    <tr>
-        <td align="center">
-            <h4>Keabetswe Mothapo</h4>
-        </td>
-        <td align="center"> <hr>
-            <p style="width: 200px">
-                Description
-            </p>
-            <hr>
-        </td>
-    </tr>
-     <tr>
-        <td align="center">
-            <h4>Ronin Brookes</h4>
-        </td>
-        <td align="center"> <hr>
-            <p>
-                Description 
-            </p>
-            <hr>
-        </td>
-    </tr>
-     <tr>
-        <td align="center">
-          <h4>Sameet Keshav</h4>
-        </td>
-        <td align="center"> <hr>
-            <p>
-                Description 
-            </p>
-            <hr>
-        </td>
-    </tr>
-</table>
+### Julianna Venter - Team Lead
+<img align="right" src="" width=150>
+<p>
+Description
+</p>
+<a href="https://github.com/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=github"/>
+</a> 
+<a href="https://www.linkedin.com/in//" target="_blank">
+  <img src="https://skillicons.dev/icons?i=linkedin"/>
+</a>
+<br><br>
+
+### Keabetswe Mothapo
+<img align="right" src="" width=150>
+<p>
+Description
+</p>
+<a href="https://github.com/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=github"/>
+</a> 
+<a href="https://www.linkedin.com/in//" target="_blank">
+  <img src="https://skillicons.dev/icons?i=linkedin"/>
+</a>
+<br><br>
+
+### Julianna Venter - Team Lead
+<img align="right" src="" width=150>
+<p>
+Description
+</p>
+<a href="https://github.com/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=github"/>
+</a> 
+<a href="https://www.linkedin.com/in//" target="_blank">
+  <img src="https://skillicons.dev/icons?i=linkedin"/>
+</a>
+<br><br>
+
+### Ronin Brookes
+<img align="right" src="" width=150>
+<p>
+Description
+</p>
+<a href="https://github.com/" target="_blank">
+    <img src="https://skillicons.dev/icons?i=github"/>
+</a> 
+<a href="https://www.linkedin.com/in//" target="_blank">
+  <img src="https://skillicons.dev/icons?i=linkedin"/>
+</a>
+<br><br>
+
+### Sameet Keshav
+<img align="right" src="https://user-images.githubusercontent.com/105606137/236011909-a6deb24d-d46b-4ae1-8157-3dd9484e1b3c.jpeg" width=150>
+<p>
+I am a Computer Science student with a passion for using technology to solve real-world problems. With experience in programming languages such as Java and C++ as well as knowledge in software engineering, database management, I am equipped with the skills to develop efficient and effective software solutions. I am always seeking opportunities to learn and grow both personally and professionally.
+</p>
+<a href="https://github.com/SameetKeshav" target="_blank">
+    <img src="https://skillicons.dev/icons?i=github"/>
+</a> 
+<a href="https://www.linkedin.com/in/sameetkeshav/" target="_blank">
+  <img src="https://skillicons.dev/icons?i=linkedin"/>
+</a>
+<br><br>
