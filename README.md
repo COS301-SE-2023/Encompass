@@ -49,7 +49,7 @@ immediately see. He is thus ideal for backend Services
 as he can guarantee quality testing, algorithm efficiency
 and a high quality of backend services.
 </p>
-<a href="https://github.com/" target="_blank">
+<a href="https://github.com/Morgan-Bentley" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
 </a> 
 <a href="https://www.linkedin.com/in/morgan-bentley-0bb21a149/" target="_blank">
