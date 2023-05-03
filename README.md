@@ -39,7 +39,7 @@ I am an aspiring expert in IT and law, with experience in software development a
 ### Morgan Bentley
 <img align="right" src="https://user-images.githubusercontent.com/126817281/236040993-d213e57b-6ae3-4b3e-9c6a-72b8dc3f8d2b.jpg" width=150>
 <p>
-Morgan will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, he has a solid understanding of engineering principles. Additionally, he has experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms as well as engineering mathematics, he has a good eye for algorithmic flaws, and noticing finer details many programmers would not immediately see. He is thus ideal for backend Services as he can guarantee quality testing, algorithm efficiency and a high quality of backend services.
+I am a Computer Science student who enjoys solving pure algorithmic problems. I am passionate about cybersecurity and AI and always willing to learn new things. Most of my experience is in programming languages such as C++, Javascript, and Java. 
 </p>
 <a href="https://github.com/" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
