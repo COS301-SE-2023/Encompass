@@ -35,7 +35,7 @@ Description
 </a>
 <br><br>
 
-### Julianna Venter - Team Lead
+### Morgan Bentley
 <img align="right" src="" width=150>
 <p>
 Description
