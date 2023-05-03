@@ -25,14 +25,13 @@ Description
 ### Keabetswe Mothapo
 <img align="right" src="" width=150>
 <p>
-Description
+I am an aspiring expert in IT and law, with experience in software development and database management using various programming languages. I possess strong analytical and critical thinking skills, which enable me to navigate complex legal issues in the fast-paced world of technology. I am adept at communicating technical concepts in simple language and building strong relationships with legal and technical professionals. My strong work ethic and motivation drive me to stay up-to-date with the latest technological advancements and legal developments, allowing me to deliver exceptional results for my clients. Ultimately, I am committed to using my skill set to help individuals and organizations navigate the complex landscape of technology law in a safe, legal, and ethical manner.
 </p>
 <a href="https://github.com/" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
 </a> 
 <a href="https://www.linkedin.com/in//" target="_blank">
-  <img src="https://skillicons.dev/icons?i=linkedin"/>
-</a>
+  <img src="https://skillicons.dev/icons?i=linkedin"/><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="keabetswe-m-03678a172" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://za.linkedin.com/in/keabetswe-m-03678a172?trk=profile-badge">Keabetswe M.</a></div>          </a>
 <br><br>
 
 ### Morgan Bentley
