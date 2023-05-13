@@ -50,9 +50,10 @@ I am a Computer Science student who enjoys solving pure algorithmic problems. I 
 <br><br>
 
 ### Ronin Brookes
-<img align="right" src="" width=150>
+<img align="right" src="https://github.com/COS301-SE-2023/Encompass/assets/126901461/1b1a7ae5-da0b-4d29-a8f6-c810957a2926" width=150>
 <p>
-Description
+
+I am a final year Computer Science Major and an aspiring Software Developer. I have a passion for Software Moddeling. Main interests are Java, C++ and Web applications. I have proficient skills in a number of programming languages such as Java, C++, Python, Javascript, Typescript, PHP, Angular and Ionic to name a few. I am a hard working academic student dedicated to further increasing my depth of knowledge on all topics I am already familiar with as well as topics that I'm not. I am commited to use my skills to develop effective software solutions that ensure the success of any organization I am apart of.
 </p>
 <a href="https://github.com/" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
