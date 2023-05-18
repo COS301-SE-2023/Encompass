@@ -19,7 +19,7 @@ Email: perfectstrangers.tuks@gmail.com
 ## Team Members
 
 ### Julianna Venter - Team Lead
-<img align="right" src="![Jules Portrait](https://github.com/COS301-SE-2023/Encompass/assets/89075980/31bc3b4e-e18f-44d2-ab6d-d331d74e8c2b)" width=150>
+<img align="right" src="https://github.com/COS301-SE-2023/Encompass/assets/89075980/31bc3b4e-e18f-44d2-ab6d-d331d74e8c2b.jpg" width=150>
 <p>
 I will oversee the design and implementation of the front-end spectrum of the application, leveraging my skillset and experience in web development and angular application development. As someone who is skilled in artistic expression such as sketching, drawing, and painting, I excel in areas of front-end design. Additionally, I possess expertise in architecture and pattern design, as well as experience assisting in DevOps.
 
