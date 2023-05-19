@@ -55,10 +55,10 @@ I am an aspiring expert in IT and law, with experience in software development a
 <p>
 I will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, I have a solid understanding of engineering principles. Additionally, I have experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms as well as engineering mathematics, I have a good eye for algorithmic flaws, and noticing finer details many programmers would not immediately see. I am thus ideal for backend Services as I can guarantee quality testing, algorithm efficiency and a high quality of backend services.
 </p>
-<a href="https://github.com/" target="_blank">
+<a href="https://github.com/Morgan-Bentley" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
 </a> 
-<a href="https://www.linkedin.com/in//" target="_blank">
+<a href="https://www.linkedin.com/mwlite/in/morgan-bentley-0bb21a149/" target="_blank">
   <img src="https://skillicons.dev/icons?i=linkedin"/>
 </a>
 <br><br>
