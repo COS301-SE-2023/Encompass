@@ -50,7 +50,7 @@ I am an aspiring expert in IT and law, with experience in software development a
 ### Morgan Bentley
 <img align="right" src="https://user-images.githubusercontent.com/126817281/236040993-d213e57b-6ae3-4b3e-9c6a-72b8dc3f8d2b.jpg" width=150>
 <p>
-Morgan will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, he has a solid understanding of engineering principles. Additionally, he has experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms as well as engineering mathematics, he has a good eye for algorithmic flaws, and noticing finer details many programmers would not immediately see. He is thus ideal for backend Services as he can guarantee quality testing, algorithm efficiency and a high quality of backend services.
+I will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, I have a solid understanding of engineering principles. Additionally, I have experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms as well as engineering mathematics, I have a good eye for algorithmic flaws, and noticing finer details many programmers would not immediately see. I am thus ideal for backend Services as I can guarantee quality testing, algorithm efficiency and a high quality of backend services.
 </p>
 <a href="https://github.com/" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
@@ -61,14 +61,14 @@ Morgan will be responsible for the backend Services, integration, and testing of
 <br><br>
 
 ### Ronin Brookes
-<img align="right" src="" width=150>
+<img align="right" src="![Ronin Portrait](https://github.com/COS301-SE-2023/Encompass/assets/89075980/9cf0de27-e5cd-4828-b9e8-39df0b4a41c3)" width=150>
 <p>
-Description
+I am responsible for backend services, integration and UI design. With experience in angular and ionic, I can guarantee a fully responsive interface that fits the project requirements. I also have advanced knowledge in the field  of human computer interaction, which will allow me to develop an effective, efficient, and pleasurable user experience. I am proficient in mathematics and software modelling and have strong problem-solving skills, giving me an edge when it comes to visualizing and implementing a software solution. I am also experienced with nestjs, and other web development frameworks and software tools; giving me the upper hand when it comes to backend development and integration.
 </p>
-<a href="https://github.com/" target="_blank">
+<a href="https://github.com/RoninBrookesTuks" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
 </a> 
-<a href="https://www.linkedin.com/in//" target="_blank">
+<a href="https://www.linkedin.com/in/ronin-brookes/" target="_blank">
   <img src="https://skillicons.dev/icons?i=linkedin"/>
 </a>
 <br><br>
