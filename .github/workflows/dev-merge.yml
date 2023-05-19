@@ -17,9 +17,12 @@ jobs:
     
     - name: Build Project
       run: yarn build:app:dev && yarn build:api:dev
-    
+
+    - name: Lint Project
+      run: yarn lint
+      
     - name: Test Project
-      run: yarn test:app && yarn test:api
+      run: yarn test
     
     - name: SonarCloud Build and Analyze
       uses: SonarSource/sonarcloud-github-action@master
