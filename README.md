@@ -14,7 +14,10 @@ Email: perfectstrangers.tuks@gmail.com
 <! --- add link here --->
 
 ## Project Board:
-<! --- add link here --->
+<a href="https://github.com/orgs/COS301-SE-2023/projects/25" target="_blank">
+    <img src="https://skillicons.dev/icons?i=github"/>
+</a> 
+<br>
 
 ## Team Members
 
