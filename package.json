@@ -2,7 +2,16 @@
   "name": "encompass",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start:app:dev": "yarn nx run encompass:serve --configuration=development",
+    "start:api:dev": "yarn nx run api:serve --configuration=development",
+    "build:app:dev": "yarn nx run encompass:build --configuration=development",
+    "build:app:prod": "yarn nx run encompass:build --configuration=production",
+    "build:api:dev": "yarn nx run api:build --configuration=development",
+    "build:api:prod": "yarn nx run api:build --configuration=production",
+    "test": "nx run-many --target=test --all --skip-nx-cache --parallel=5",
+    "lint": "nx run-many --target=lint --all --skip-nx-cache --parallel=5"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.0.0",
