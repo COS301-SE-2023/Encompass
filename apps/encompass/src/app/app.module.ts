@@ -10,6 +10,7 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+    IonicModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
