@@ -18,6 +18,10 @@
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
       ],
+      "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
+      "@encompass/app/home-page/feature": [
+        "libs/app/home-page/feature/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
