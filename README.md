@@ -57,6 +57,7 @@ Email: perfectstrangers.tuks@gmail.com
     <ul>
       <li>Business Analyst</li>
       <li>UI Engineer</li>
+      <li>Tester</li>
     </ul>
     <details>
     <summary>See More...</summary>
