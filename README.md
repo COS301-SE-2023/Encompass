@@ -58,9 +58,12 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Business Analyst</li>
       <li>Designer</li>
     </ul>
+    <details>
+    <summary>See More...</summary>
     <p>
       I am an aspiring expert in IT and law, with experience in software development and database management using various programming languages. I possess strong analytical and critical thinking skills, which enable me to navigate complex legal issues in the fast-paced world of technology. I am adept at communicating technical concepts in simple language and building strong relationships with legal and technical professionals. My strong work ethic and motivation drive me to stay up-to-date with the latest technological advancements and legal developments, allowing me to deliver exceptional results for both my work and studies. Ultimately, I am committed to using my skill set to help individuals and organizations navigate the complex landscape of technology law in a safe, legal, and ethical manner.
     </p>
+    </details>
     <div>
       <a href="https://github.com/keamothapo" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
@@ -82,9 +85,12 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Services Engineer</li>
       <li>Tester</li>
     </ul>
+    <details>
+    <summary>See More...</summary>
     <p>
       I will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, I have a solid understanding of engineering principles. Additionally, I have experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms as well as engineering mathematics, I have a good eye for algorithmic flaws and noticing finer details many programmers would not immediately see. I am thus ideal for backend Services as I can guarantee quality testing, algorithm efficiency, and a high quality of backend services.
     </p>
+    </details>
     <div>
       <a href="https://github.com/Morgan-Bentley" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
@@ -106,9 +112,12 @@ Email: perfectstrangers.tuks@gmail.com
       <li>UI Engineer</li>
       <li>Integration Engineer</li>
     </ul>
+    <details>
+    <summary>See More...</summary>
     <p>
       I am responsible for backend services, integration, and UI design. With experience in Angular and Ionic, I can guarantee a fully responsive interface that fits the project requirements. I also have advanced knowledge in the field of human-computer interaction, which will allow me to develop an effective, efficient, and enjoyable user experience. I am proficient in mathematics and software modeling and have strong problem-solving skills, giving me an edge when it comes to visualizing and implementing a software solution. I am also experienced with NestJS and other web development frameworks and software tools, giving me the upper hand when it comes to backend development and integration.
     </p>
+    </details>
     <div>
       <a href="https://github.com/RoninBrookesTuks" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
@@ -130,9 +139,12 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Services Engineer</li>
       <li>Integration Engineer</li>
     </ul>
+    <details>
+    <summary>See More...</summary>
     <p>
       I am a Computer Science student with a passion for using technology to solve real-world problems. With experience in programming languages such as Java and C++ as well as knowledge in software engineering and database management, I am equipped with the skills to develop efficient and effective software solutions. I am always seeking opportunities to learn and grow both personally and professionally.
     </p>
+    </details>
     <div>
       <a href="https://github.com/SameetKeshav" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
