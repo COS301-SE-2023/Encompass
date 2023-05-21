@@ -10,6 +10,6 @@ import { HomeApi } from '@encompass/app/home-page/data-access';
 @NgModule({
   imports: [CommonModule, IonicModule, HomeRouting,],
   declarations: [HomePage],
-  providers: [HomeApi],
+  providers: [],
 })
 export class HomeModule {}

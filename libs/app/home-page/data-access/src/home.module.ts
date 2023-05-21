@@ -7,7 +7,7 @@ import { NgxsModule } from "@ngxs/store";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, NgxsModule.forFeature([HomeState])],
-  providers: [HomeApi],
+  providers: [],
 })
 
 export class HomeModule{}
