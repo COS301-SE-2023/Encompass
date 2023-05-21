@@ -21,8 +21,14 @@ Email: perfectstrangers.tuks@gmail.com
 
 ## Team Members
 
+<style>
+  .circle-img {
+    border-radius: 50%;
+  }
+</style>
+
 <div style="display: flex; align-items: center;">
-  <img src="https://avatars.githubusercontent.com/u/104779369?v=4" width="150" style="margin-right: 20px;">
+  <img src="https://avatars.githubusercontent.com/u/104779369?v=4" width="150" style="margin-right: 20px;" class="circle-img">
   <div>
     <h3>Julianna Venter - Team Lead</h3>
     <ul>
@@ -46,9 +52,9 @@ Email: perfectstrangers.tuks@gmail.com
   </div>
 </div>
 
-
+<br><br>
 <div style="display: flex; align-items: center;">
-  <img src="https://user-images.githubusercontent.com/89075980/236036745-e26dcf3e-c8bf-45a6-92b2-69d7ee0f197d.jpg" width="150" style="margin-right: 20px;">
+  <img src="https://user-images.githubusercontent.com/89075980/236036745-e26dcf3e-c8bf-45a6-92b2-69d7ee0f197d.jpg" width="150" style="margin-right: 20px;" class="circle-img">
   <div>
     <h3>Keabetswe Mothapo</h3>
     <ul>
@@ -69,9 +75,9 @@ Email: perfectstrangers.tuks@gmail.com
   </div>
 </div>
 
-
+<br><br>
 <div style="display: flex; align-items: center;">
-  <img src="https://user-images.githubusercontent.com/126817281/236040993-d213e57b-6ae3-4b3e-9c6a-72b8dc3f8d2b.jpg" width="150" style="margin-right: 20px;">
+  <img src="https://user-images.githubusercontent.com/126817281/236040993-d213e57b-6ae3-4b3e-9c6a-72b8dc3f8d2b.jpg" width="150" style="margin-right: 20px;" class="circle-img">
   <div>
     <h3>Morgan Bentley</h3>
     <ul>
@@ -93,9 +99,9 @@ Email: perfectstrangers.tuks@gmail.com
   </div>
 </div>
 
-
+<br><br>
 <div style="display: flex; align-items: center;">
-  <img src="https://github.com/COS301-SE-2023/Encompass/assets/89075980/9cf0de27-e5cd-4828-b9e8-39df0b4a41c3" width="150" style="margin-right: 20px;">
+  <img src="https://github.com/COS301-SE-2023/Encompass/assets/89075980/9cf0de27-e5cd-4828-b9e8-39df0b4a41c3" width="150" style="margin-right: 20px;" class="circle-img">
   <div>
     <h3>Ronin Brookes</h3>
     <ul>
@@ -117,9 +123,9 @@ Email: perfectstrangers.tuks@gmail.com
   </div>
 </div>
 
-
+<br><br>
 <div style="display: flex; align-items: center;">
-  <img src="https://user-images.githubusercontent.com/105606137/236011909-a6deb24d-d46b-4ae1-8157-3dd9484e1b3c.jpeg" width="150" style="margin-right: 20px;">
+  <img src="https://user-images.githubusercontent.com/105606137/236011909-a6deb24d-d46b-4ae1-8157-3dd9484e1b3c.jpeg" width="150" style="margin-right: 20px;" class="circle-img">
   <div>
     <h3>Sameet Keshav</h3>
     <ul>
