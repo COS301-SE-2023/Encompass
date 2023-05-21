@@ -56,7 +56,7 @@ Email: perfectstrangers.tuks@gmail.com
     <h3>Keabetswe Mothapo</h3>
     <ul>
       <li>Business Analyst</li>
-      <li>Designer</li>
+      <li>UI Engineer</li>
     </ul>
     <details>
     <summary>See More...</summary>
