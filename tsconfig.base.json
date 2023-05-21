@@ -23,6 +23,9 @@
       "@encompass/app/sign-up-interior1/feature": [
         "libs/app/sign-up-interior1/feature/src/index.ts"
       ],
+      "@encompass/app/sign-up-interior2/feature": [
+        "libs/app/sign-up-interior2/feature/src/index.ts"
+      ],
       "@encompass/app/sign-up/feature": [
         "libs/app/sign-up/feature/src/index.ts"
       ],
