@@ -22,11 +22,11 @@ Email: perfectstrangers.tuks@gmail.com
 ## Team Members
 
 ### Julianna Venter - Team Lead
-<img align="right" src="https://github.com/COS301-SE-2023/Encompass/assets/89075980/31bc3b4e-e18f-44d2-ab6d-d331d74e8c2b.jpg" width=150>
+<img align="right" src="https://avatars.githubusercontent.com/u/104779369?v=4" width=150>
 <p>
-I will oversee the design and implementation of the front-end spectrum of the application, leveraging my skillset and experience in web development and angular application development. As someone who is skilled in artistic expression such as sketching, drawing, and painting, I excel in areas of front-end design. Additionally, I possess expertise in architecture and pattern design, as well as experience assisting in DevOps.
+I will oversee the design and implementation of the front-end spectrum of the application, leveraging my skillset and experience in web development and angular application development. As someone who is skilled in artistic expression such as sketching, digital art, and painting, I excel in areas of front-end design - prioritising user-friendly, interesting UI/UX design.
 
-In addition to my technical skills, I also take up the role of project manager, ensuring effective coordination between all members. My past experiences working on many group projects with my team members have equipped me with the necessary skills to deliver quality results on time. It is worth mentioning that I am also skilled in UI/UX design, which will be valuable in designing user-friendly interfaces for the application.
+In addition to my technical skills, I also take up the role of project manager, ensuring effective coordination between all members and managing administration aspects. My past experiences working on many group projects with my team members have equipped me with the necessary skills to deliver quality results on time.
 </p>
 <a href="https://github.com/Julianna-Venter" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
