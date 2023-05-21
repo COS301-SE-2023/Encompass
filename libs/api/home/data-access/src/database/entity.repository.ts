@@ -2,7 +2,7 @@ import { NotFoundException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import {
   FilterQuery,
-  LeanDocument,
+  // LeanDocument,
   Model,
   // _AllowStringsForIds,
 } from 'mongoose';

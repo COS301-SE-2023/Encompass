@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { BaseEntityRepository } from "./database/base-entity.repository";
+import { BaseEntityRepository } from "../database/base-entity.repository";
 import { InjectModel } from "@nestjs/mongoose";
 import { HomeSchema } from "./home.schema";
-import { Home } from "./home";
+import { Home } from "../home";
 import { HomeSchemaFactory } from "./home-schema.factory";
 import { Model } from "mongoose";
 

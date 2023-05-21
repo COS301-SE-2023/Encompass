@@ -1,15 +1,18 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
 export class Home extends AggregateRoot{
-  constructor(private readonly _id: string | undefined, private readonly name: string | undefined){
+  constructor(
+    private readonly _id: string | undefined, 
+    private readonly name: string | undefined
+    ){
     super();
   }
 
-  getId(){
+  getId() : string  | undefined{
     return this._id;
   }
 
-  getName(){
+  getName() : string | undefined {
     return this.name;
   }
 }

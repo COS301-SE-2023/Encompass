@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { EntitySchemaFactory } from "./database/entity-schema.factory";
-import { Home } from "./home";
+import { EntitySchemaFactory } from "../database/entity-schema.factory";
+import { Home } from "../home";
 import { HomeSchema } from "./home.schema";
 import { ObjectId } from "mongodb";
 
