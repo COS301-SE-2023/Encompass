@@ -30,11 +30,14 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Designer</li>
       <li>UI Engineer</li>
     </ul>
+    <details>
+    <summary>See More...</summary>
     <p>
       I will oversee the design and implementation of the front-end spectrum of the application, leveraging my skillset and experience in web development and angular application development. As someone who is skilled in artistic expression such as sketching, digital art, and painting, I excel in areas of front-end design - prioritising user-friendly, interesting UI/UX design.
       <br><br>
       In addition to my technical skills, I also take up the role of project manager, ensuring effective coordination between all members and managing administration aspects. My past experiences working on many group projects with my team members have equipped me with the necessary skills to deliver quality results on time.
     </p>
+    </details>
     <div>
       <a href="https://github.com/Julianna-Venter" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
