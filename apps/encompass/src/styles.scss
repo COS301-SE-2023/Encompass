@@ -14,3 +14,12 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('./assets/fonts/Inder-Regular.otf') ;
+  }
+  @font-face {
+    font-family: 'CustomFont2';
+    src: url('./assets/fonts/Inter-Regular.otf') ;
+  }
