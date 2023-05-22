@@ -7,7 +7,11 @@
       <div class = "SignUpDetails">
         <input type = text class = "input" placeholder = "Username">
         <input type = password class = "input" placeholder = "Password">
-        <ion-button fill = "clear" class = "btn1"  size = "large" (click)="SignUp()">Sign Up</ion-button>
+        <!-- <ion-button fill = "clear" class = "btn1"  size = "large" (click)="SignUp()">Sign Up</ion-button>
+         -->
+        <ion-nav-link [routerLink]="['../home']">
+        <ion-button fill = "clear" class = "btn1"  size = "large">Sign Up</ion-button>
+        </ion-nav-link>
         
     
       </div>

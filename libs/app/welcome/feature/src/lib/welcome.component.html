@@ -8,9 +8,12 @@
    <img src="assets/icon/Logo.png" class = "Overlay4" alt="Encompass Logo" >
    <div class = "Overlayt" >encompass</div>
    <div class = "Overlayt2" >exploring beyond</div>
-   <ion-button fill = "clear" class = "btn1"  size = "large" (click)="LogIn()">Log in</ion-button>
-   <ion-button fill = "clear" class = "btn2"  size = "large" (click)="SignUp()">Sign up</ion-button>
-  
+   <ion-nav-link [routerLink]="['login']">
+   <ion-button fill = "clear" class = "btn1"  size = "large">Log in</ion-button>
+    </ion-nav-link>
+    <ion-nav-link [routerLink]="['register']">
+    <ion-button fill = "clear" class = "btn2"  size = "large">Sign up</ion-button>
+    </ion-nav-link>
    <ion-button fill = "clear" class = "btn3"  size = "large" >
     <ion-icon name="book-outline"></ion-icon>Explore Media</ion-button>
   
