@@ -11,6 +11,7 @@ import { RouteReuseStrategy } from '@angular/router';
     BrowserModule,
     IonicModule.forRoot(),
     CoreRouting,
+    
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [CoreShell],
