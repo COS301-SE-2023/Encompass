@@ -5,7 +5,7 @@ describe("Home", () => {
         expect(new Home("11","Morgan test")).toBeTruthy();
     });
 
-    it("should return the id", () => {
+    it("should return the id 11", () => {
         const home = new Home("11","Morgan test");
         expect(home.getId()).toEqual("11");
     });
@@ -15,7 +15,7 @@ describe("Home", () => {
         expect(home.getId()).toEqual(undefined);
     });
 
-    it("should return the name", () => {
+    it("should return the name Morgan test", () => {
         const home = new Home("11","Morgan test");
         expect(home.getName()).toEqual("Morgan test");
     });
