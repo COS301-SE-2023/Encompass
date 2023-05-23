@@ -17,9 +17,21 @@
         "tsConfig": "apps/encompass/tsconfig.app.json",
         "assets": [
           "apps/encompass/src/favicon.ico",
-          "apps/encompass/src/assets"
+          {
+            "glob": "**/*",
+            "input": "apps/encompass/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/ionicons/dist/ionicons/svg",
+            "output": "./svg"
+          }
         ],
-        "styles": ["apps/encompass/src/styles.scss"],
+        "styles": [
+          "apps/encompass/src/styles.scss",
+          "apps/encompass/src/theme/variables.scss"
+      ],
         "scripts": []
       },
       "configurations": {
@@ -59,7 +71,10 @@
           "browserTarget": "encompass:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/encompass/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

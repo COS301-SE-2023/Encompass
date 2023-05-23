@@ -1,0 +1,82 @@
+.main{
+    background-color: #72747d;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    background-color: #F0EFEF;
+    height: 70%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+.backgroundImage{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.logo{
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top:17%;
+}
+
+.LoginDetails{
+    width: 350px;
+    height: 250px;
+    // background-color: aqua;
+    position: absolute;
+    z-index: 2;
+    top:47%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.input{
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    align-items: center;
+    border: #231942 2px solid;
+    border-radius: 15px;
+}
+
+.btn1{
+    border: 1px solid var(--ion-color-primary-contrast);
+    border-radius: 15px;
+    background-color: #CECAE3;
+    color:#231942;
+    z-index: 3;
+    width: 100%;
+    height: 20%;
+    font-family: CustomFont;
+    text-transform: none;
+  
+  }
+
+  .ForgotPassword{
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+    color: white;
+    font-size: small;
+  }
+
+  .Title{
+    font-family: CustomFont;
+    color: #231942;
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    height: 120px;
+    text-align: center;
+    font-size: 30px;
+  }
