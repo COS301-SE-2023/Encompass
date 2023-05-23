@@ -11,7 +11,7 @@ Email: perfectstrangers.tuks@gmail.com
 <! --- add link here --->
 
 ## SRS Documents:
-<! --- add link here --->
+<a aligh="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/preview">Encompass SRS Document - Version 1</a>
 
 ## Project Board:
 <! --- add link here --->
