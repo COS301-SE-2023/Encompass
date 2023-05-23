@@ -14,15 +14,15 @@ import { Console } from 'console';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePage {
-  @Select(HomeState.home) home$! : Observable<HomeDto>;
+  // @Select(HomeState.home) home$! : Observable<HomeDto>;
   
-  constructor(private router: Router, private store: Store){
-    console.log("Home Page");
-    this.store.dispatch(new getHome());
-    this.home$.subscribe((home) => {
-      if(home){
-        console.log(home.name);
-      }
-    });
-  }
+  // constructor(private router: Router, private store: Store){
+  //   console.log("Home Page");
+  //   this.store.dispatch(new getHome());
+  //   this.home$.subscribe((home) => {
+  //     if(home){
+  //       console.log(home.name);
+  //     }
+  //   });
+  // }
 }

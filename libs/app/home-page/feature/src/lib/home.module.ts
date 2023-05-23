@@ -8,8 +8,8 @@ import { NgxsModule } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
 
 @NgModule({
-  imports: [CommonModule, IonicModule, HomeRouting, NgxsModule.forFeature([HomeState])],
+  imports: [CommonModule, IonicModule, HomeRouting, ],
   declarations: [HomePage],
-  providers: [HomeApi],
+  providers: [],
 })
 export class HomeModule {}
