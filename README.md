@@ -8,7 +8,7 @@
 Email: perfectstrangers.tuks@gmail.com
 
 ## Demo 1 Link:
-<! --- add link here --->
+<a align="right" href="https://drive.google.com/file/d/1AIWL4a7hAJPSfrxHBm-lo8dylBDR2QPa/view?usp=sharing">Encompass Demo 1 Video</a>
 
 ## SRS Documents:
 <a aligh="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/preview">Encompass SRS Document - Version 1</a>
