@@ -7,7 +7,7 @@ import { Test } from "@nestjs/testing";
 
 describe("HomeController", () => {
     let homeController: HomeController;
-    let commandBus: CommandBus;
+    // let commandBus: CommandBus;
     let queryBus: QueryBus;
 
     beforeEach(async () => {
