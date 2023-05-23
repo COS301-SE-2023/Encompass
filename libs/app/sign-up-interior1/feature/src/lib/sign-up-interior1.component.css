@@ -22,6 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: Up 1s;
 }
 
 .Header{
@@ -34,6 +35,7 @@
     font-size: 25px;
     position: relative;
     bottom: 2%;
+    animation: Right 1s;
 }
 
 .Subtitle{
@@ -47,6 +49,7 @@
     color: #625D5D;
     position: relative;
     bottom: 2%;
+    animation: Right 1s;
 }
 
 .TopicList{
@@ -96,3 +99,20 @@
     border: #625D5D 1px solid;
 
 }
+
+@keyframes Up {
+    0%       { transform: translatex(0px) translatey(50px) }
+    100%     { transform: translatex(0px) translatey(0px) }
+  }
+  @keyframes Down {
+    0%       { transform: translatex(0px) translatey(-50px) }
+    100%     { transform: translatex(0px) translatey(0px) }
+  }
+  @keyframes Right {
+    0%       { transform: translatex(-50px) translatey(0px) }
+    100%     { transform: translatex(0px) translatey(0px) }
+  }
+  @keyframes Left {
+    0%       { transform: translatex(50px) translatey(0px) }
+    100%     { transform: translatex(0px) translatey(0px) }
+  }
