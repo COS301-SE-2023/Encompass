@@ -286,6 +286,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/http@^7.2.16":
+  version "7.2.16"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-7.2.16.tgz#f05337dd56faa86ce05b0dc378218a00fb337040"
+  integrity sha512-yvjbNyzFSmmz4UTjCdy5M8mk0cZqf9TvSf8yN5UVIwtw4joyuUdlgJCuin0qSbQOKIf/JjHoofpO2JkPCGSNww==
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/language-service@~16.0.0":
   version "16.0.1"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-16.0.1.tgz#ca73c8c039bb3d85985f8e6b934aadf46871a225"
@@ -8816,6 +8823,13 @@ neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+ngx-moment@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-moment/-/ngx-moment-6.0.2.tgz#7acba9830746e9c2862d261150f2c8adb20eb4f6"
+  integrity sha512-HUvDyoJPZKLA3tc+GMQqDpVyCVT2SPfEiV7/CGj2Dwwsn//JhhQ8eTr+RzKqBzLysrXkCwlzulVVJaJ5A0FJEA==
+  dependencies:
+    tslib "^2.3.0"
 
 nice-napi@^1.0.2:
   version "1.0.2"

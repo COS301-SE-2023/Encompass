@@ -6,7 +6,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgxsModule } from "@ngxs/store";
 
 @NgModule({
-  imports: [CommonModule, NgxsModule.forFeature([HomeState, HttpClientModule])],
+  imports: [CommonModule, HttpClientModule, NgxsModule.forFeature([HomeState]) ],
   providers: [HomeApi],
 })
 

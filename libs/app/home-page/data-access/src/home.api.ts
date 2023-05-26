@@ -1,12 +1,20 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { HomeDto } from "@encompass/api/home/data-access";
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class HomeApi{
   constructor(private httpClient: HttpClient){}
 
   async getHome()
   {
-    return await this.httpClient.get('http://localhost:3000/api/home');
+    try {
+      const response = await this.httpClient.get<HomeDto[]>('/api/home').toPromise();
+      return response;
+    } 
+    catch (error) 
+    {
+      return null;
+    }
   }
 }
