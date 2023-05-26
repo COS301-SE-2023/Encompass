@@ -2497,20 +2497,20 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@ionic/angular@^7.0.6":
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-7.0.6.tgz#2e4f1613e74fc0e039e0c7b92cc4c0c4837f4261"
-  integrity sha512-OgFYg1x/lEZA/eny7RU22E2nXW2ioGytrxwmZgyn1sjqbPT6Si0c37Jy2ENgIKtkuSqwe2HXuDoUWWYshyMy0A==
+"@ionic/angular@^7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-7.0.7.tgz#03f407686ce14f534571175cfdf1f084bdf05ed4"
+  integrity sha512-dbBhxAt2BDfKcZKVUga0SQM2BcGEV5kGvt342lv3ziCkpyxQqvsmXaH3L4sy8n0/6pyji8jIvC0RM40ZMODvGg==
   dependencies:
-    "@ionic/core" "7.0.6"
+    "@ionic/core" "7.0.7"
     ionicons "^7.0.0"
     jsonc-parser "^3.0.0"
     tslib "^2.3.0"
 
-"@ionic/core@7.0.6":
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-7.0.6.tgz#51b1df9efa2adfa458a2536befe38a8edb7c9723"
-  integrity sha512-ssZs8QzyNPmGCUdK5i5OupA7BDmOjJEOhqfpNGbxwXX3YQ08naVDjNxYn/VSW9O1zSyfecJqJz0Akw/LdKIN/Q==
+"@ionic/core@7.0.7":
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-7.0.7.tgz#d09f0daed59d03b0289284598abba24b9280fe96"
+  integrity sha512-3ps2j3Utx49CVazKHHWsPS8QBZYujnh6/dwz1ovHIDTq7HXKzUNbMtHm0UAZC2YkW5rE/Pm41CIBMwfFV0ImKg==
   dependencies:
     "@stencil/core" "^3.2.2"
     ionicons "^7.1.0"

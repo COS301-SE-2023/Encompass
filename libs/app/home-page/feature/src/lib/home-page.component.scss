@@ -1,550 +1,503 @@
 .overlay-container {
+  overflow:auto;
+  background-color: #F0EFEF;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: 1;
+}
 
-    // position: relative;
-       overflow:auto;
-       background-color: #F0EFEF;
-       width: 100%;
-       height: 100%;
-       object-fit: cover;
-       z-index: 1;
-     }
-   
-     .custom-header ion-title {
-       font-size: 50px; /* Increase the font size to make the header larger */
-       padding: 16px; /* Increase the padding for more space around the title */
-     }
-     .btn1{
-       border: 1px solid var(--ion-color-primary-contrast);
-       border-radius: 30px;
-       background-color: #CECAE3;
-       color:#231942;
-       position: relative;
-       top:5%;
-       left:7%;
-       z-index: 3;
-       width: 80%;
-       height: 5%;
-       font-family: CustomFont;
-       text-transform: none;
-     
-     }
-     .btn2{
-       border: 1px solid var(--ion-color-primary-contrast);
-       border-radius: 30px;
-       background-color: #F0EFEF;
-       color:#231942;
-       position: relative;
-       top:5%;
-        left:7%;
-       z-index: 3;
-       width:80%;
-       height: 5%; 
-       font-family: CustomFont;
-       text-transform: none;
-     }
-   
-     
-     .c1{
-   
-       position: relative;
-       top:8%;
-    // bottom: 1%;
-       left: 10%;
-       font-size: larger;
-       font-family: CustomFont;
-       
-     }
-   
-     .c2{
-   
-       position: relative;
-       //top:8%;
-       //bottom: 2%;
-       left: 10%;
-       font-size: larger;
-       font-family: CustomFont;
-     }
-     .c3{
-       position: relative;
-       bottom: 8%;
-       left: 10%;
-       font-size: larger;
-       font-family: CustomFont;
-     }
-     .c4{
-       position: relative;
-       bottom: 16%;
-       left: 10%;
-       font-size: larger;
-       font-family: CustomFont;
-     }
-     .c5{
-       position: relative;
-       bottom: 24%;
-       left: 10%;
-       font-size: larger;
-       font-family: CustomFont;
-     }
-     .c6{
-       position: relative;
-       bottom: 32%;
-       left: 10%;
-       font-size: larger;
-       font-family: CustomFont;
-     }
-   
-   
-     .btn3{
-       display: flex;
-       justify-content: flex-start;
-       border: 1px solid var(--ion-color-primary-contrast);
-       border-radius: 30px;
-       background-color: #F0EFEF;
-       color:#000000;
-       position: relative;
-      
-        left:7%;
-       z-index: 3;
-       width:80%;
-       height: 5%; 
-       font-family: CustomFont;
-       text-transform: none;
-     }
-   
-     .menu {
-       background: #CECAE3;
-       // --ion-background-color:#F0EFEF
-               border-right: 2px solid #D1D0D0; /* Add a 2px wide solid border on the right side */
-       width: 350px;
-       
-     }
-   
-     .logo {
-     position: relative;
-      left: 20%;
-      top:8%;
-       z-index: 3;
-       width: 20%; 
-       height: auto;
-       transform: translate(-50%, -50%);
-     }
-   
-     .Overlayt {
-       position: absolute;
-       z-index: 1;
-        top: 7%;
-        left: 32%;
-       font-size: 200%;
-       color: #231942;
-       font-family: CustomFont;
-     }
-   
-     .recom{
-       position: relative;
-       top: 2%;
-       left: 1%;
-       font-size: 200%;
-       background-color: white;
-       color: #231942;
-       width: 60%;
-       font-family: CustomFont;
-       border-radius: 10px;
-   
-     }
-   
-     .image-container {
-       display: flex;
-       justify-content: space-between;
-     }
-     
-     .card-image {
-       border-radius: 10px;
-       width: 18%;
-       object-fit: cover;
-     }
-   
-     .refresh{
-       position: relative;
-       text-align: center;
-       line-height: 30px;
-       background-color: white;
-       width: 35px;
-       height: 35px;
-       border-radius: 100%;
-       margin-top: 15px;
-       
-       left: 25px;
-       // bottom: 28%;
-     }
-   
-     .profile {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-    
-     
-       background-color: whitesmoke; /* set the background color for the circle */
-       position: relative;
-       
-       border: 1px solid #231942;
-       z-index: 5;
-       width: 150px;
-       height: 150px;
-       border-radius: 50%;
-       
-   
-      
-   
-     }
-     
-     
-     .name{
-       position: fixed;
-       left: 80%;
-       top:25%;
-       font-size: 150%;
-       color: #231942;
-       font-family: CustomFont;
-       z-index: 5;
-     }
-   
-     .RecomCommunities{
-       display: flex;
-       flex-direction: column;
-       justify-content: space-evenly;
-       position: fixed;
-       align-items: center;
-       left: 73%;;
-       width: 25%;
-       height: 62%;
-       top: 35%;
-       z-index: 3;
-       background-color: white;
-       border-radius: 10px;
-     }
-   
-     .card{
-       position: relative;
-       text-align: center;
-       width: 90%;
-       height: 20%;
-       background-color: wheat;
-       border-radius: 10px;
-       background-color: #F0EFEF;
-     }
-   
-   
-     .card2{
-       position: relative;
-       text-align: center;
-       width: 100%;
-       height: 50%;
-       background-color: wheat;
-       border-radius: 10px;
-     }
-   
-     .CommuneCard{
-      
-       background-color: #F0EFEF;
-       width: 95%;
-       height: 60%;
-     }
-   
-     .PostCard{
-      
-       background-color: #D1D0D0;
-       width: 60%;
-       height: 230px;
-       position: relative;
-       left: 1%;
-       display: flex;
-       flex-direction: column;
-       border-radius: 10px;
-     }
-     
-     .div1{
-       display: flex;
-    justify-content: space-evenly;
-     height: 50%;
-     width: 100%;
-     // background-color: #231942;
-     }
-   
-     .div2{
-       width: 50px;
-       height: 50px;
-       object-fit: cover;
-       position: relative;
-       top: 7%;
-       border-radius: 5px;
-     }
-   
-     .div3{
-       display: flex;
-      height: 100%;
-      width: 50%;
-      flex-direction: column;
-     }
-   
-   .div4{
-     display: flex;
-         justify-content: center;
-         align-items: center;
-         height: 50%;
-         width: 100%;
-         color: black;
-         font-family: CustomFont;
-         font-size: 20px;
-   }
-   
-   .div5{
-   
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     height: 50%;
-     width: 100%;
-     color: black;
-     font-family: CustomFont;
-   }
-   
-   .div6{
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     justify-content: space-evenly;
-     height: 50%;
-     width: 100%;
-     color: black;
-     font-family: CustomFont;
-   }
-   
-   .div7{
-     display: flex;
-     justify-content: center;
-     align-items: center;
-      height: 100%;
-      width: 20%;
-   }
-   
-   .div8{
-     display: flex;
-     justify-content: center;
-      font-family: CustomFont2;
-      color: black;
-      height: 50%;
-      width: 100%;
-   }
-   
-   .div9{
-     display: flex;
-       justify-content: center;
-        align-items: center;
-        font-family: CustomFont2;
-        color: black;
-        height: 90%;
-        width: 95%;
-        position: relative;
-        top:10%;
-   }
-   
-   .imgDiv{
-     width: 25px;
-     height: 25px;
-     object-fit: cover;
-   }
-   
-   .postImage{
-     width:70px;
-       height: 70px;
-       object-fit: cover;
-       position: relative;
-       border-radius: 10px;
-       position: relative;
-      
-   }
-   
-   .PostDetails{
-     //  background-color: #231942;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-    height: 100%;
-    width: 85%;
-   }
-   
-   
-   .TitleNameOptions{
-     //  background-color: aqua;
-         display: flex;
-         justify-content: space-between;
-         height: 30%;
-         width: 100%;
-         color: black;
-         font-family: CustomFont;
-         font-size: 20px;
-   }
-   
-   .Title{
-     // background-color: red;
-   
-   }
-   .Name{
-     display: flex;
-     align-items: center;
-     font-size: 15px;
-     // background-color: red;
-     position: relative;
-     right: 30%;
-   }
-   
-   
-   .DOT{
-     // background-color: red;
-     font-size: larger;
-     display: flex;
-     position: relative;
-     right: 15%;
-   }
-   .Options{
-     // background-color: red;
-     font-size: larger;
-     position: relative;
-     right: 5%;
-   }
-   
-   
-   .GenreIcons{
-     // background-color: aqua;
-     display: flex;
-     justify-content: center;
-     justify-content: space-between;
-     align-items: center;
-     height: 30%;
-     width: 20%;
-     color: black;
-     font-family: CustomFont;
-     position: relative;
-     
-   
-   }
-   
-   .div13{
-     // background-color: wheat;
-    
-     
-     width: 55%;
-     display: flex;
-     justify-content: space-between;
-   
-   }
-   
-   .div14{
-     // background-color: #231942;
-     font-family: CustomFont;
-     font-size: 15px;
-     width: 50%;
-     display: flex;
-   justify-content: center;  
-   height: 30%;
+.custom-header ion-title {
+  font-size: 50px; /* Increase the font size to make the header larger */
+  padding: 16px; /* Increase the padding for more space around the title */
+}
+.btn1{
+  border: 1px solid var(--ion-color-primary-contrast);
+  border-radius: 30px;
+  background-color: #CECAE3;
+  color:#231942;
+  position: relative;
+  z-index: 3;
+  width: 80%;
+  height: 60%;
+  font-family: CustomFont;
+  text-transform: none;
+
+}
+.btn2{
+  border: 1px solid var(--ion-color-primary-contrast);
+  border-radius: 30px;
+  background-color: #F0EFEF;
+  color:#231942;
+  position: relative;
+  z-index: 3;
+  width:80%;
+  height: 60%;
+  font-family: CustomFont;
+  text-transform: none;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 14%;
+  animation: Up 1s;
+}
+
+.MenuButton{
+  font-size: larger;
+  position: relative;
+  font-family: CustomFont;
+   height: 7% ;
+   display: flex;
+   align-items: center;
+   left: 15%;
+   animation: Up 1s;
+
+}
+
+
+.menuFooter{
+  width: 100%;
+    height: 7%;
+    position: absolute;
+    top:93%;
+    font-size: 50px;
+    color: #231942;
+    display: flex;
+    justify-content: space-between;
+    animation: Up 1s;
+}
+
+
+.menu {
+  background-color: #F0EFEF;
+  border-right: 2px solid #D1D0D0; 
+  width: 350px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.logo {
+position: relative;
+right: 5%;
+  z-index: 3;
+  width: 60px;
+  height: 60px;
+  animation: Up 1s;
+}
+
+.space{
+  width: 100%;
+  height: 5%;
+}
+.Overlayt {
+  display: flex;
+  justify-content: center;
+  align-items: end ;
+  position: relative;
+  bottom:2%;
+  z-index: 1;
+   width: 100%;
+  font-size: 200%;
+  height: 10%;
+  color: #231942;
+  font-family: CustomFont;
+  animation: Up 1s;
+}
+
+.recom{
+  position: relative;
+  top: 2%;
+  left: 1%;
+  font-size: 200%;
+  background-color: white;
+  color: #231942;
+  width: 60%;
+  font-family: CustomFont;
+  border-radius: 10px;
+  animation: Up 1s;
+}
+
+.optionsOutline {  z-index: 5;
+  position: relative;
+  font-size: xx-large;
+  left: 5%;
+  animation: Up 1s;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-image {
+  border-radius: 10px;
+  width: 18%;
+  object-fit: fill;
+}
+
+.refresh{
+  position: relative;
+  text-align: center;
+  line-height: 30px;
+  background-color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  margin-top: 15px;
+  left: 25px;
+  animation: Up 1s;
+
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke; /* set the background color for the circle */
+  position: relative;
+  border: 1px solid #231942;
+  z-index: 5;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  animation: Up 1s;
+
+}
+
+.profile:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke; /* set the background color for the circle */
+  position: relative;
+  border: 2px solid #231942;
+  z-index: 5;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  animation: Up 1s;
+
+}
+
+
+.name{
+  position: fixed;
+  left: 80%;
+  top:25%;
+  font-size: 150%;
+  color: #231942;
+  font-family: CustomFont;
+  z-index: 5;
+  animation: Up 1s;
+
+}
+
+.RecomCommunities{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: fixed;
+  align-items: center;
+  left: 73%;;
+  width: 25%;
+  height: 62%;
+  top: 35%;
+  z-index: 3;
+  background-color: white;
+  border-radius: 10px;
+  animation: Up 1s;
+}
+
+
+
+.CommunityCard{
+ 
+  background-color: #F0EFEF;
+  width: 95%;
+  height: 60%;
+  
+}
+
+.PostCard{
+ 
+  background-color: #F0EFEF;
+  width: 60%;
+  height: 230px;
+  position: relative;
+  left: 1%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  animation: Up 1s;
+}
+
+.CommunityHeader{
+  display: flex;
+justify-content: space-evenly;
+height: 50%;
+width: 100%;
+// background-color: #231942;
+}
+
+.CommunityIcon{
+  width: 50px;
+  height: 50px;
+  object-fit: fill;
+  position: relative;
+  top: 7%;
+  border-radius: 5px;
+}
+
+.CommunityDetails{
+  display: flex;
+ height: 100%;
+ width: 50%;
+ flex-direction: column;
+}
+
+.CommunityName{
+display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    color: black;
+    font-family: CustomFont;
+    font-size: 20px;
+}
+
+.CommunityMembers{
+
+display: flex;
+justify-content: center;
+align-items: center;
+height: 50%;
+width: 100%;
+color: black;
+font-family: CustomFont;
+}
+
+.CommunityGenres{
+display: flex;
+justify-content: center;
+align-items: center;
+justify-content: space-evenly;
+height: 50%;
+width: 100%;
+color: black;
+font-family: CustomFont;
+}
+
+.CommunityAdd{
+display: flex;
+justify-content: center;
+align-items: center;
+ height: 100%;
+ width: 20%;
+}
+
+.CommunityBody{
+display: flex;
+justify-content: center;
+ font-family: CustomFont2;
+ color: black;
+ height: 50%;
+ width: 100%;
+}
+
+.CommunityDesc{
+display: flex;
+  justify-content: center;
+   align-items: center;
+   font-family: CustomFont2;
+   color: black;
+   height: 90%;
+   width: 95%;
    position: relative;
-     top:10%;
-     color: black;
-   }
-   
-   .div15{
-     // background-color: blue;
-     display: flex;
-     justify-content: center;
-     font-size: 25px;
-     width: 20%;
-     height: 30%;
-     position: relative;
-     top:10%;
-     color: black;
-     
-   }
-   
-   .text{
-     width: 97%;
-     height: 90%;
-     // background-color: #231942;
-     font-family: CustomFont;
-     font-size: medium;
-     color: #000000;
-   }
-   
-   .date{
-     font-family: CustomFont;
-     font-size: 15px;
-       width: 20%;
-     height: 25%;
-     position: relative;
-     // background-color: #231942;
-     display: flex;
-     justify-content: center;
-     // top: 25%;
-   }
-   .icons{
-     //  background-color: wheat;
-     height: 50%;
-     width: 30%;
-     color:#231942;
-     display: flex;
-     flex-direction: column;
-     justify-content: space-around;
-     position: relative;
-   
-      bottom: 20%;
-   }
-   
-   .icons2{
-     // background-color: wheat;
-     font-size: 30px;
-     color:#231942;
-     display: flex;
-     flex-direction: row;
-     justify-content: space-around;
-   }
-   
-   .stats{
-   
-     font-size: 15px;
-     display: flex;
-     flex-direction: row;
-     justify-content: space-around;
-   
-   }
-   
-   .PostCardHeader{
-     display: flex;
-     height: 35%;
-     width: 100%;
-     background-color: #F0EFEF;
-   }
-   
-   .PostImageContainer{
-     width: 15%;
-     height: 100%;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-   }
-   
-   .PostBody{
-     display: flex;
-         justify-content: center;
-         align-items: center;
-         height: 50%;
-         width: 100%;
-         background-color: #F0EFEF;
-   }
-   
-   .PostFooter{
-     display: flex;
-         justify-content: space-between;
-         align-items: center;
-         height: 15%;
-         width: 100%;
-         background-color: #F0EFEF;
-   }
+   top:10%;
+}
+
+.imgDiv{
+width: 25px;
+height: 25px;
+object-fit: fill;
+}
+
+.postImage{
+width:70px;
+  height: 70px;
+  object-fit: fill;
+  position: relative;
+  border-radius: 10px;
+  position: relative;
+ 
+}
+
+.PostDetails{
+//  background-color: #231942;
+display: flex;
+flex-direction: column;
+justify-content: center;
+height: 100%;
+width: 85%;
+}
+
+
+.TitleNameOptions{
+//  background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    height: 30%;
+    width: 100%;
+    color: black;
+    font-family: CustomFont;
+    font-size: 20px;
+}
+
+.Title{
+// background-color: red;
+
+}
+.Name{
+display: flex;
+align-items: center;
+font-size: 15px;
+// background-color: red;
+position: relative;
+right: 30%;
+}
+
+
+.DOT{
+// background-color: red;
+font-size: larger;
+display: flex;
+position: relative;
+right: 15%;
+}
+.Options{
+// background-color: red;
+font-size: larger;
+position: relative;
+right: 5%;
+}
+
+
+.GenreIcons{
+// background-color: aqua;
+display: flex;
+justify-content: center;
+justify-content: space-between;
+align-items: center;
+height: 30%;
+width: 20%;
+color: black;
+font-family: CustomFont;
+position: relative;
+
+
+}
+
+
+
+.text{
+width: 97%;
+height: 90%;
+// background-color: #231942;
+font-family: CustomFont;
+font-size: medium;
+color: #000000;
+}
+
+.date{
+font-family: CustomFont;
+font-size: 15px;
+  width: 20%;
+height: 25%;
+position: relative;
+// background-color: #231942;
+display: flex;
+justify-content: center;
+// top: 25%;
+}
+.icons{
+//  background-color: wheat;
+height: 50%;
+width: 30%;
+color:#231942;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+position: relative;
+
+ bottom: 20%;
+}
+
+.icons2{
+// background-color: wheat;
+font-size: 30px;
+color:#231942;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+}
+
+.stats{
+
+font-size: 15px;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+
+}
+
+.PostCardHeader{
+display: flex;
+height: 35%;
+width: 100%;
+background-color: #F0EFEF;
+}
+
+.PostImageContainer{
+width: 15%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.PostBody{
+display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    background-color: #F0EFEF;
+}
+
+.PostFooter{
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 15%;
+    width: 100%;
+    background-color: #F0EFEF;
+}
+
+@keyframes Up {
+0%       { transform: translatex(0px) translatey(50px) }
+100%     { transform: translatex(0px) translatey(0px) }
+}
+
+.pImage{
+width: 100%;
+height: 100%;
+object-fit: fill;
+border-radius: 50%;
+
+}

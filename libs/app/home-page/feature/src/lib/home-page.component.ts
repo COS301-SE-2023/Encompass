@@ -24,4 +24,9 @@ export class HomePage {
       }
     });
   }
+
+  GoToProfile()
+  {
+    this.router.navigate(['profile']);
+  }
 }
