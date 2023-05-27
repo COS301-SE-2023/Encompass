@@ -16,10 +16,12 @@ import { Console } from 'console';
 export class HomePage {
   @Select(HomeState.home) home$! : Observable<HomeDto | null>;
   
+  home! : HomeDto | null;
   constructor(private router: Router, private store: Store){
     this.store.dispatch(new getHome());
     this.home$.subscribe((home) => {
       if(home){
+        
         console.log(home.name);
       }
     });
