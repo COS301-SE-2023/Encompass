@@ -1,19 +1,21 @@
-import { Controller, Post } from "@nestjs/common";
+import { Controller, Post, Body } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { CreateAccountCommand } from "./commands/create-account.command";
+import { CreateAccountRequest } from "./dto/create-account-request.dto";
 
-
-@Controller('signup')
+@Controller('account')
 export class SignUpController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
+
   @Post()
   async createAccount(
-    @Body() signupRequest: SignUpRequest,
+    @Body() createAccountRequest: CreateAccountRequest,
   ) {
     await this.commandBus.execute<CreateAccountCommand, void>(
-      new CreateNewAccountCommand(this.createAccountRequest),
+      new CreateAccountCommand(createAccountRequest),
     );
   }
 }

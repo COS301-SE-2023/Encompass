@@ -9,15 +9,15 @@ export class Account extends AggregateRoot{
     super();
   }
 
-  getId(): string | undefined{
+  getId(): string {
     return this._id;
   }
 
-  getEmail(): string | undefined{
+  getEmail(): string {
     return this.email;
   }
 
-  getPassword(): string | undefined{
+  getPassword(): string {
     return this.password;
   }
 }

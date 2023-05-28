@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Account } from "../Account";
+import { Account } from "../account";
 import { AccountSchema } from "./account.schema";
 import { EntitySchemaFactory } from "@encompass/api/database/data-access";
 import { ObjectId } from "mongodb";

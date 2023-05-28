@@ -1,7 +1,9 @@
 import { Injectable } from "@nestjs/common";
+import { Account } from "./account";
 import { EntityFactory } from "@encompass/api/database/data-access";
 import { ObjectId } from "mongodb";
-import { Account } from "./Account";
+import { AccountCreatedEvent } from "./events";
+import { AccountEntityRepository } from "./db/account-entity.repository";
 
 @Injectable()
 export class AccountFactory implements EntityFactory<Account>{
