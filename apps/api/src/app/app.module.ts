@@ -3,12 +3,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HomeModule } from '@encompass/api/home/data-access';
-import { SignUpModule } from '@encompass/api/sign-up/data-access';
+import { AccountModule } from '@encompass/api/account/data-access';
 
 @Module({
   imports: [
     HomeModule,
-    SignUpModule,
+    AccountModule,
     MongooseModule.forRoot('mongodb://localhost:27017/encompass-database')
   ],
   controllers: [AppController],

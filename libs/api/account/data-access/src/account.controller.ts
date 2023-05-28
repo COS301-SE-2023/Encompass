@@ -4,7 +4,7 @@ import { CreateAccountCommand } from "./commands/create-account.command";
 import { CreateAccountRequest } from "./dto/create-account-request.dto";
 
 @Controller('account')
-export class SignUpController {
+export class AccountController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,

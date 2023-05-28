@@ -3,7 +3,7 @@ import { CqrsModule } from "@nestjs/cqrs";
 import { AccountSchema } from "./db/account.schema";
 import { SchemaFactory } from "@nestjs/mongoose";
 import { MongooseModule } from "@nestjs/mongoose";
-import { SignUpController } from "./sign-up.controller";
+import { AccountController } from "./account.controller";
 import { AccountEntityRepository } from "./db/account-entity.repository";
 import { AccountDtoRepository } from "./db/account-dto.repository";
 import { AccountSchemaFactory } from "./db/account-schema.factory";
@@ -22,7 +22,7 @@ import { AccountCreatedHandler } from "./events";
     ]),
   ],
 
-  controllers: [SignUpController],
+  controllers: [AccountController],
   providers: [
     AccountEntityRepository,
     AccountDtoRepository,
@@ -33,4 +33,4 @@ import { AccountCreatedHandler } from "./events";
   ],
 })
 
-export class SignUpModule{}
+export class AccountModule{}
