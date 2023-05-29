@@ -6,7 +6,7 @@
     <label class = "Title">Encompass</label>
     <form class = "LoginDetails">
 
-      <input type = text class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required>
+      <input type = email class = "input" [(ngModel)]="user.email" name="email" placeholder = "Email" required>
       <input type = password class = "input" [(ngModel)]="user.password" name="password" placeholder = "Password" required>
       <ion-button fill = "clear" class = "btn1"  size = "large" (click)="LogIn()">Log in</ion-button>
 
