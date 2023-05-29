@@ -4,8 +4,8 @@ import { IdentifiableEntitySchema } from "@encompass/api/database/data-access";
 @Schema({ versionKey: false, collection: "account" })
 export class AccountSchema extends IdentifiableEntitySchema {
   @Prop()
-  readonly email?: string;
+  readonly email!: string;
 
   @Prop()
-  readonly password?: string;
+  readonly password!: string;
 }

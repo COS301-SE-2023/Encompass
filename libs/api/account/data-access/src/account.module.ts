@@ -10,6 +10,7 @@ import { AccountSchemaFactory } from "./db/account-schema.factory";
 import { AccountFactory } from "./account.factory";
 import { CreateAccountHandler } from "./commands";
 import { AccountCreatedHandler } from "./events";
+import { GetAccountHandler } from "./queries";
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AccountCreatedHandler } from "./events";
     AccountFactory,
     CreateAccountHandler,
     AccountCreatedHandler,
+    GetAccountHandler
   ],
 })
 

@@ -17,7 +17,7 @@ export class AccountSchemaFactory
 
   createFromSchema(entitySchema: AccountSchema): Account{
     return new Account(
-      entitySchema._id?.toHexString(),
+      entitySchema._id.toHexString(),
       entitySchema.email,
       entitySchema.password
     );

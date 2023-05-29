@@ -17,7 +17,7 @@ export class Account extends AggregateRoot{
     return this.email;
   }
 
-  getPassword(): string {
+  getPassword(): string{
     return this.password;
   }
 }

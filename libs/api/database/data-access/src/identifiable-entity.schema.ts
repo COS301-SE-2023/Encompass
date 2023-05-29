@@ -3,5 +3,5 @@ import { ObjectId } from 'mongodb';
 
 export abstract class IdentifiableEntitySchema{
   @Prop()
-  readonly _id: ObjectId | undefined | null;
+  readonly _id!: ObjectId;
 }

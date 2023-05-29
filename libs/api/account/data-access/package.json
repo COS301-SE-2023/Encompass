@@ -1,5 +1,5 @@
 {
-  "name": "@encompass/api/sign-up/data-access",
+  "name": "@encompass/api/account/data-access",
   "version": "0.0.1",
   "type": "commonjs"
 }

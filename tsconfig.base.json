@@ -15,14 +15,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@encompass/api/account/data-access": [
+        "libs/api/account/data-access/src/index.ts"
+      ],
       "@encompass/api/database/data-access": [
         "libs/api/database/data-access/src/index.ts"
       ],
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
-      ],
-      "@encompass/api/account/data-access": [
-        "libs/api/account/data-access/src/index.ts"
       ],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
       "@encompass/app/home-page/data-access": [
@@ -42,9 +42,13 @@
       "@encompass/app/sign-up-interior2/feature": [
         "libs/app/sign-up-interior2/feature/src/index.ts"
       ],
+      "@encompass/app/sign-up/data-access": [
+        "libs/app/sign-up/data-access/src/index.ts"
+      ],
       "@encompass/app/sign-up/feature": [
         "libs/app/sign-up/feature/src/index.ts"
       ],
+      "@encompass/app/sign-up/util": ["libs/app/sign-up/util/src/index.ts"],
       "@encompass/app/welcome/feature": [
         "libs/app/welcome/feature/src/index.ts"
       ]
