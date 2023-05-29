@@ -17,6 +17,12 @@ export class SignUpPage {
 
   constructor(private router: Router, private store: Store){}
   
+  user = {
+    name: '',
+    email:'',
+    password: '',
+  };
+
     SignUp()
     {
       this.store.dispatch(new signUp({email: this.values.email, password: this.values.password}));
