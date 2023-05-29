@@ -2,3 +2,4 @@
 export * from './sign-up.api'
 export * from './sign-up.state'
 export * from './sign-up.module'
+export * from './sign-up.model'
