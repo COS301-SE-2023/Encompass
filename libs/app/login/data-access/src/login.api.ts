@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { GetAccountRequest } from "@encompass/api/account/data-access";
-import { Injectable } from "@nestjs/common";
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class LoginApi{
