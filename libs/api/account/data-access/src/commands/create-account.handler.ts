@@ -16,5 +16,7 @@ export class CreateAccountHandler
       await this.accountFactory.create(email, password),
     );
     account.commit();
+
+    return account.getId();
   }
 }

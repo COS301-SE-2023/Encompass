@@ -25,7 +25,7 @@ export class AccountController {
       password: password,
     }
 
-    await this.commandBus.execute<CreateAccountCommand, void>(
+    return await this.commandBus.execute<CreateAccountCommand, string>(
       new CreateAccountCommand(data),
     );
   }
@@ -35,7 +35,7 @@ export class AccountController {
     @Body() getAccountRequest: GetAccountRequest,
   ) : Promise<string | null>{
 
-      return this.commandBus.execute<GetAccountCommand, string>(
+      return await this.commandBus.execute<GetAccountCommand, string>(
       new GetAccountCommand(getAccountRequest.email, getAccountRequest.password),
     );
   }
