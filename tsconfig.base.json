@@ -53,6 +53,9 @@
         "libs/app/sign-up/feature/src/index.ts"
       ],
       "@encompass/app/sign-up/util": ["libs/app/sign-up/util/src/index.ts"],
+      "@encompass/app/user-profile/feature": [
+        "libs/app/user-profile/feature/src/index.ts"
+      ],
       "@encompass/app/welcome/feature": [
         "libs/app/welcome/feature/src/index.ts"
       ]
