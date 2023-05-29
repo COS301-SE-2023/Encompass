@@ -31,4 +31,8 @@ export class HomePage {
   {
     this.router.navigate(['profile']);
   }
+
+  UserProfile(){
+    this.router.navigate(['user-profile']);
+  }
 }

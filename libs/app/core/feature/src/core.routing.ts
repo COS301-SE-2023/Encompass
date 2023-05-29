@@ -47,6 +47,12 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/sign-up-interior2/feature').then((m) => m.SignUpInterior2Module)
+  },
+  {
+    path: 'user-profile',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
   }
 ];
 
