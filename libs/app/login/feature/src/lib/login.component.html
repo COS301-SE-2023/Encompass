@@ -4,13 +4,15 @@
     <img src="assets/WelcomeImg2.png" class="backgroundImage">
     <img src = "assets/icon/Logo.png" class = "logo">
     <label class = "Title">Encompass</label>
-    <div class = "LoginDetails">
-      <input type = text class = "input" placeholder = "Username">
-      <input type = password class = "input" placeholder = "Password">
+    <form class = "LoginDetails">
+
+      <input type = text class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required>
+      <input type = password class = "input" [(ngModel)]="user.password" name="password" placeholder = "Password" required>
       <ion-button fill = "clear" class = "btn1"  size = "large" (click)="LogIn()">Log in</ion-button>
+
       <label class = "ForgotPassword">Forgot Password?</label>
   
-    </div>
+    </form>
     
   </div>
   </div>
