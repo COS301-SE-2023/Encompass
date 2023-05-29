@@ -5,16 +5,17 @@
     <img src = "assets/icon/Logo.png" class = "logo">
     <label class = "Title">Encompass</label>
     
-    <form (ngSubmit)="SignUp()">
+    <form (ngSubmit)="SignUp()" class = "SignUpDetails">
 
       
-      <input type="email" class = "input" [(ngModel)]="user.email" name="email" required>
+      <input type="email" class = "input" [(ngModel)]="user.email" name="email" placeholder = "Email" required>
 
-      <input type="text" class = "input" [(ngModel)]="user.name" name="name" required>
+      <input type="text" class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required>
     
-      <input type="password" class = "input" [(ngModel)]="user.password" name="password" required>
+      <input type="password" class = "input" [(ngModel)]="user.password" name="password" placeholder = "Password" required>
     
-      <button type="submit">Sign Up</button>
+      <!-- <button type="submit">Sign Up</button> -->
+      <ion-button type = "submit" fill = "clear" class = "btn1"  size = "large" (click)="SignUp()">Sign Up</ion-button>
     </form>
     
     <!-- <div class = "SignUpDetails">
