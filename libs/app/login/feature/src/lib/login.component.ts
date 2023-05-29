@@ -11,7 +11,7 @@ export class LoginPage {
 
     LogIn()
     {
-      this.store.dispatch(new signUp({email: this.user.email, password: this.user.password}));
+      this.store.dispatch(new LogIn({name: this.user.name, password: this.user.password}));
       this.router.navigate(['home']);
     }
 }
