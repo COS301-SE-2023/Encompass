@@ -7,6 +7,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
 import { HttpClientModule } from '@angular/common/http';
 import { SignUpModule } from '@encompass/app/sign-up/data-access';
+import { LoginModule } from '@encompass/app/login/data-access';
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -15,7 +16,8 @@ import { SignUpModule } from '@encompass/app/sign-up/data-access';
     IonicModule.forRoot(),
     CoreRouting,
     NgxsModule.forRoot([]),
-    SignUpModule
+    SignUpModule,
+    LoginModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [CoreShell],

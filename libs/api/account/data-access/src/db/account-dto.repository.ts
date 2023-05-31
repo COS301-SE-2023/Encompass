@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { AccountSchema } from "./account.schema";
 import { Model } from "mongoose";
 import { AccountDto } from "../account.dto";
+import { Account } from "../account";
 
 @Injectable()
 export class AccountDtoRepository{

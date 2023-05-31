@@ -24,6 +24,9 @@
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
       ],
+      "@encompass/api/profile/data-access": [
+        "libs/api/profile/data-access/src/index.ts"
+      ],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
       "@encompass/app/home-page/data-access": [
         "libs/app/home-page/data-access/src/index.ts"

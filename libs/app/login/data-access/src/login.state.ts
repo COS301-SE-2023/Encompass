@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core"
 import { AccountDto, GetAccountRequest } from "@encompass/api/account/data-access"
 import { Selector, State, StateContext, Action } from "@ngxs/store"
 import { LoginApi } from "./login.api"
-import{ login } from '@encompass/app/login/util'
+import { login } from '@encompass/app/login/util'
+
 
 export interface LoginStateModel{
   LoginForm: {
@@ -11,7 +12,6 @@ export interface LoginStateModel{
     }
   }
 }
-
 @State<LoginStateModel>({
   name: 'login',
   defaults: {
@@ -35,7 +35,15 @@ export class LoginState{
     }
 
     const response = await this.loginApi.login(data);
-    console.log(response)
+    const newData: AccountDto = { _id: response, email: request.email, password: request.password }
+
+    ctx.patchState({
+      LoginForm: {
+        model: {
+          login: newData
+        }
+      }
+    });
   }
 
   @Selector()

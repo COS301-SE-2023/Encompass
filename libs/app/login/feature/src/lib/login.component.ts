@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginModel } from '@encompass/app/login/data-access';
+import { AccountDto } from '@encompass/api/account/data-access';
+import { LoginStateModel, LoginState, LoginModel } from '@encompass/app/login/data-access';
 import { login } from '@encompass/app/login/util';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -10,6 +12,9 @@ import { Store } from '@ngxs/store';
 })
 export class LoginPage {
   user: LoginModel = new LoginModel();
+  @Select(LoginState.loginModel) loginModel$!: Observable<AccountDto>;
+
+  account!: AccountDto;
 
   constructor(
     private router: Router, private store: Store){}
@@ -17,6 +22,17 @@ export class LoginPage {
     LogIn()
     {
       this.store.dispatch(new login({email: this.user.email, password: this.user.password}));
-      this.router.navigate(['home']);
+      this.loginModel$.subscribe((data) => {
+        if(data){
+          this.account = data;
+          console.log(this.account._id);
+
+          if(this.account._id != null || this.account._id != undefined){
+            if(this.account._id != ""){
+              this.router.navigate(['home']);
+            }
+          }
+        }
+      });
     }
 }

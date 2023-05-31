@@ -30,10 +30,10 @@ export class AccountController {
     );
   }
 
-  @Post('/login')
+  @Post('login')
   async getAccount(
     @Body() getAccountRequest: GetAccountRequest,
-  ) : Promise<string | null>{
+  ) : Promise<string>{
 
       return await this.commandBus.execute<GetAccountCommand, string>(
       new GetAccountCommand(getAccountRequest.email, getAccountRequest.password),
