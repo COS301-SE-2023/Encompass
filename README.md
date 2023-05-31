@@ -8,10 +8,11 @@
 Email: perfectstrangers.tuks@gmail.com
 
 ## Demo 1 Link:
-<! --- add link here --->
+<a align="right" href="https://drive.google.com/file/d/1AIWL4a7hAJPSfrxHBm-lo8dylBDR2QPa/view?usp=sharing">Encompass Demo 1 Video</a>
 
 ## SRS Documents:
-<! --- add link here --->
+<a aligh="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/preview">Encompass SRS Document - Version 1</a>
+<br> <a align="right" href="https://drive.google.com/file/d/1ZrEhdJvutY49g469G8GucriM647tVn5z/preview"> Demo 1 Contribtions </a>
 
 ## Project Board:
 <a href="https://github.com/orgs/COS301-SE-2023/projects/25" target="_blank">

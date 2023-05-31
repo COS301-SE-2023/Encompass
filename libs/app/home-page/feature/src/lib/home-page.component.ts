@@ -14,6 +14,7 @@ import { Console } from 'console';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePage {
+<<<<<<< HEAD
   @Select(HomeState.home) home$! : Observable<HomeDto | null>;
   
   home! : HomeDto | null;
@@ -35,4 +36,17 @@ export class HomePage {
   UserProfile(){
     this.router.navigate(['user-profile']);
   }
+=======
+  // @Select(HomeState.home) home$! : Observable<HomeDto>;
+  
+  // constructor(private router: Router, private store: Store){
+  //   console.log("Home Page");
+  //   this.store.dispatch(new getHome());
+  //   this.home$.subscribe((home) => {
+  //     if(home){
+  //       console.log(home.name);
+  //     }
+  //   });
+  // }
+>>>>>>> dev
 }
