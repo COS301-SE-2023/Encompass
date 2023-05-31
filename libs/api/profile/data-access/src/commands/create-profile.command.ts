@@ -1,3 +1,5 @@
+import { CreateProfileRequest } from '../dto/create-profile-request.dto';
+
 export class CreateProfileCommand {
-    constructor(public readonly profile: CreateProfileRequest) {}
+    constructor(public readonly createProfileRequest: CreateProfileRequest) {}
 }

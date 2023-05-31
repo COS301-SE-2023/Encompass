@@ -1,15 +1,13 @@
-import { ObjectId } from "mongoose";
-
 export class CreateProfileRequest{
   _id!: string;
   username!: string;
-  firstName!: string;
+  name!: string;
   lastName!: string;
-  category!: Array<string>;
-  awards!: Array<string>;
-  events!: Array<ObjectId>;
-  followers!: Array<ObjectId>;
-  following!: Array<ObjectId>;
-  posts!: Array<ObjectId>;
-  reviews!: Array<ObjectId>;
+  categories!: string [];
+  awards!: string [];
+  events!: string [];
+  followers!: string [];
+  following!: string [];
+  posts!: string [];
+  reviews!: string [];
 }
