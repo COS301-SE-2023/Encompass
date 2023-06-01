@@ -29,11 +29,9 @@ jobs:
     - name: Test Project
       run: yarn test
     
-    - name: SonarCloud Build and Analyze
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         
     - name: Archive Build Artifact
       uses: actions/upload-artifact@v3
