@@ -11,8 +11,8 @@ export class HomeController{
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Get(':id')
-  async getHome(@Param('id') id: string) : Promise<void> {}
+  // @Get(':id')
+  // async getHome(@Param('id') id: string) : Promise<void> {}
 
   @Get()
   async getCampers(): Promise<HomeDto[]> {
