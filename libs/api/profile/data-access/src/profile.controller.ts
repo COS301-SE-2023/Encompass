@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Post, Param } from "@nestjs/common";
+import { Body, Controller, Get, Post, Param, Patch } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { CreateProfileRequest } from "./dto";
-import { CreateProfileCommand } from "./commands/create-profile.command";
+import { CreateProfileRequest, UpdateProfileRequest } from "./dto";
+import { CreateProfileCommand } from "./commands/create-profile/create-profile.command";
 import { Profile } from "./profile";
 import { GetProfileQuery } from "./queries/get-profile.query";
 import { ProfileDto } from "./profile.dto";
+import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -27,5 +28,14 @@ export class ProfileController {
     return await this.queryBus.execute<GetProfileQuery, ProfileDto>(
       new GetProfileQuery(userId),
     );
+  }
+
+  @Patch(':id')
+  async updateProfile(
+    @Param('id') userId: string, 
+    @Body() profile: UpdateProfileRequest){
+      return await this.commandBus.execute<UpdateProfileCommand, ProfileDto>(
+        new UpdateProfileCommand(userId, profile),
+      )
   }
 }

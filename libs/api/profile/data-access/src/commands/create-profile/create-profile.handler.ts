@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler, EventPublisher } from "@nestjs/cqrs";
 import { CreateProfileCommand } from "./create-profile.command";
-import { ProfileFactory } from "../profile.factory";
+import { ProfileFactory } from "../../profile.factory";
 
 @CommandHandler(CreateProfileCommand)
 export class CreateProfileHandler

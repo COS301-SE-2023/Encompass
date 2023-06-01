@@ -1,18 +1,19 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+import { UpdateProfileRequest } from "./dto/update-profile-request.dto";
 
 export class Profile extends AggregateRoot{
   constructor(
     public readonly _id: string ,
-    public readonly username: string,
-    public readonly name: string,
-    public readonly lastName: string,
-    public readonly categories: string [],
-    public readonly awards: string [],
-    public readonly events: string [],
-    public readonly followers: string [],
-    public readonly following: string [],
-    public readonly posts: string [],
-    public readonly reviews: string [],
+    public username: string,
+    public name: string,
+    public lastName: string,
+    public categories: string [],
+    public awards: string [],
+    public events: string [],
+    public followers: string [],
+    public following: string [],
+    public posts: string [],
+    public reviews: string [],
   ){
     super();
   }
@@ -59,5 +60,18 @@ export class Profile extends AggregateRoot{
 
   getReviews(): string []{
     return this.reviews;
+  }
+
+  updateProfile(updateProfileRequest: UpdateProfileRequest){
+    this.username = updateProfileRequest.username;
+    this.name = updateProfileRequest.name;
+    this.lastName = updateProfileRequest.lastName;
+    this.categories = updateProfileRequest.categories;
+    this.awards = updateProfileRequest.awards;
+    this.events = updateProfileRequest.events;
+    this.followers = updateProfileRequest.followers;
+    this.following = updateProfileRequest.following;
+    this.posts = updateProfileRequest.posts;
+    this.reviews = updateProfileRequest.reviews;
   }
 }
