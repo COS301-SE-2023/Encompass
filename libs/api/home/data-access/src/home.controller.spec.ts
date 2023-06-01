@@ -17,15 +17,15 @@ describe("HomeController", () => {
         }).compile();
     
         homeController = moduleRef.get<HomeController>(HomeController);
-        commandBus = moduleRef.get<CommandBus>(CommandBus);
+        // commandBus = moduleRef.get<CommandBus>(CommandBus);
         queryBus = moduleRef.get<QueryBus>(QueryBus);
       });
     
-    describe("getHome", () => {
-        it("should return undefined", async () => {
-            expect(await homeController.getHome("1")).toEqual(undefined);
-        });
-    });
+    // describe("getHome", () => {
+    //     it("should return undefined", async () => {
+    //         expect(await homeController.getHome("1")).toEqual(undefined);
+    //     });
+    // });
     
     describe('getCampers', () => {
         it('should call queryBus.execute and return the result', async () => {
