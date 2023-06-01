@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { QueryBus } from '@nestjs/cqrs';
 import { HomeDto } from './home.dto'

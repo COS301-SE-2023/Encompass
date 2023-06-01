@@ -35,6 +35,7 @@
         "libs/app/home-page/feature/src/index.ts"
       ],
       "@encompass/app/home-page/util": ["libs/app/home-page/util/src/index.ts"],
+      
       "@encompass/app/login/data-access": [
         "libs/app/login/data-access/src/index.ts"
       ],
