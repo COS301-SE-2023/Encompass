@@ -89,7 +89,7 @@ Email: perfectstrangers.tuks@gmail.com
     <details>
     <summary>See More...</summary>
     <p>
-      I will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, I have a solid understanding of engineering principles. Additionally, I have experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms as well as engineering mathematics, I have a good eye for algorithmic flaws and noticing finer details many programmers would not immediately see. I am thus ideal for backend Services as I can guarantee quality testing, algorithm efficiency, and a high quality of backend services.
+      I will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, I have a solid understanding of engineering principles. Additionally, I have experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms. I am thus ideal for backend Services, quality testing, algorithm efficiency.
     </p>
     </details>
     <div>

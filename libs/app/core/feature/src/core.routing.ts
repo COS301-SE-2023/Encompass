@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, importProvidersFrom } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -35,6 +35,24 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/sign-up/feature').then((m) => m.SignUpModule)
+  },
+  {
+    path: 'sign-up-categories',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/sign-up-interior1/feature').then((m) => m.SignUpInterior1Module)
+  },
+  {
+    path: 'sign-up-communities',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/sign-up-interior2/feature').then((m) => m.SignUpInterior2Module)
+  },
+  {
+    path: 'user-profile',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
   }
 ];
 

@@ -14,15 +14,25 @@ import { Console } from 'console';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePage {
-  // @Select(HomeState.home) home$! : Observable<HomeDto>;
+  @Select(HomeState.home) home$! : Observable<HomeDto | null>;
   
-  // constructor(private router: Router, private store: Store){
-  //   console.log("Home Page");
-  //   this.store.dispatch(new getHome());
-  //   this.home$.subscribe((home) => {
-  //     if(home){
-  //       console.log(home.name);
-  //     }
-  //   });
-  // }
+  home! : HomeDto | null;
+  constructor(private router: Router, private store: Store){
+    this.store.dispatch(new getHome());
+    this.home$.subscribe((home) => {
+      if(home){
+        
+        console.log(home.name);
+      }
+    });
+  }
+
+  GoToProfile()
+  {
+    this.router.navigate(['profile']);
+  }
+
+  UserProfile(){
+    this.router.navigate(['user-profile']);
+  }
 }
