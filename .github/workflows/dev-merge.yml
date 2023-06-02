@@ -28,8 +28,10 @@ jobs:
       
     - name: Test Project
       working-directory: ./
-      run: yarn test --coverage
-      
+      run: |
+          yarn nx run-many --target=test --all --skip-nx-cache --parallel=6 --coverage
+          yarn nx run-many --target=lint --all --skip-nx-cache --parallel=6
+          
     - name: Codecov
       uses: codecov/codecov-action@v3.1.0
       with:
