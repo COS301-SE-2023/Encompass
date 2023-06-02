@@ -29,10 +29,10 @@ jobs:
     - name: Test Project
       run: yarn test --coverage
     
-    - name: Upload coverage reports to Codecov
+    - name: Codecov
       uses: codecov/codecov-action@v3
       env: 
-        token: ${{ secrets.CODECOV_TOKEN }}
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         directory: ./coverage
         
     - name: Archive Build Artifact
