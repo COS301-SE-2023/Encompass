@@ -28,11 +28,11 @@ jobs:
       
     - name: Test Project
       run: yarn test --coverage
-    
+      
     - name: Codecov
-      uses: codecov/codecov-action@v3
-      env: 
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      uses: codecov/codecov-action@v3.1.0
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         directory: ./coverage
         
     - name: Archive Build Artifact
