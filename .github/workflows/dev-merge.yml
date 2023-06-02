@@ -33,7 +33,7 @@ jobs:
       uses: codecov/codecov-action@v3.1.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        directory: ./coverage
+        directory: ../coverage
         
     - name: Archive Build Artifact
       uses: actions/upload-artifact@v3
