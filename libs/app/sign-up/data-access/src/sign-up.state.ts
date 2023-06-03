@@ -2,9 +2,10 @@ import { Injectable } from "@angular/core";
 import { SignUpApi } from "./sign-up.api";
 import { Action, State, StateContext, Selector } from "@ngxs/store";
 import { CreateAccountRequest } from "@encompass/api/account/data-access";
-import { SignUp, CheckAccount, CheckUsername } from "@encompass/app/sign-up/util";
+import { CreateProfileRequest } from "@encompass/api/profile/data-access";
+import { SignUp, CheckAccount, CheckUsername, CreateProfile } from "@encompass/app/sign-up/util";
 import { AccountDto } from "@encompass/api/account/data-access";
-import { ToastController } from "@ionic/angular";
+import { ToastController } from "@ionic/angular"
 export interface SignUpStateModel{
   SignUpForm: {
     model:{
@@ -13,12 +14,30 @@ export interface SignUpStateModel{
   }
 }
 
+export interface ProfileStateModel{
+  ProfileForm: {
+    model:{
+      profile: AccountDto | null
+    }
+  }
+}
 @State<SignUpStateModel>({
   name: 'signup',
   defaults: {
     SignUpForm: {
       model: {
         signup: null
+      }
+    }
+  }
+})
+
+@State<ProfileStateModel>({
+  name: 'profile',
+  defaults: {
+    ProfileForm: {
+      model: {
+        profile: null
       }
     }
   }
@@ -43,6 +62,25 @@ export class SignUpState{
       if(variable2 == false)
       {
         const response = await this.signupApi.signUp(data);
+
+        if(response != null){
+          
+          const profileData : CreateProfileRequest = {
+            _id: response,
+            username: request.username,
+            name: null,
+            lastName: null,
+            categories: null,
+            awards: null,
+            events: null,
+            followers: null,
+            following: null,
+            posts: null,
+            reviews: null,
+          }
+
+          ctx.dispatch(new CreateProfile(profileData))
+        }
 
         ctx.patchState({
           SignUpForm: {
@@ -97,9 +135,18 @@ export class SignUpState{
     return response;
   }
 
+  @Action(CreateProfile)
+  async createProfile(ctx: StateContext<ProfileStateModel>, {request}: CreateProfile){
+    const response = await this.signupApi.createProfile(request);
+  }
+
   @Selector()
-  static signup(state: SignUpStateModel)
-  {
+  static signup(state: SignUpStateModel){
     return state.SignUpForm.model.signup;
+  }
+
+  @Selector()
+  static profile(state: ProfileStateModel){
+    return state.ProfileForm.model.profile;
   }
 }

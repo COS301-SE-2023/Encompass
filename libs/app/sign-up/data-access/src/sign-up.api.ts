@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreateAccountRequest } from "@encompass/api/account/data-access";
+import { CreateProfileRequest } from "@encompass/api/profile/data-access";
 
 
 @Injectable()
@@ -45,6 +46,18 @@ export class SignUpApi{
 
       else
         return false;
+    }
+
+    catch(error){
+      return null;
+    }
+  }
+
+  async createProfile(request: CreateProfileRequest){
+    try{
+      const response = await this.httpClient.post('/api/profile/create', request).toPromise();
+
+      return response;
     }
 
     catch(error){

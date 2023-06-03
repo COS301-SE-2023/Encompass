@@ -10,9 +10,9 @@ export class ProfileSchemaFactory
     create(profile: Profile): ProfileSchema {
       return {
         _id: new ObjectId(profile.getId()),
+        username: profile.getUsername(),
         name: profile.getName(),
         lastName: profile.getLastName(),
-        username: profile.getUsername(),
         categories: profile.getCategories(),
         awards: profile.getAwards(),
         events: profile.getEvents(),
@@ -26,9 +26,9 @@ export class ProfileSchemaFactory
     createFromSchema(entitySchema: ProfileSchema): Profile{
       return new Profile(
         entitySchema._id.toHexString(),
+        entitySchema.username,
         entitySchema.name,
         entitySchema.lastName,
-        entitySchema.username,
         entitySchema.categories,
         entitySchema.awards,
         entitySchema.events,

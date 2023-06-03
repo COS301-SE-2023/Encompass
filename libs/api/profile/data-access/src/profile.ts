@@ -5,15 +5,15 @@ export class Profile extends AggregateRoot{
   constructor(
     public readonly _id: string ,
     public username: string,
-    public name: string,
-    public lastName: string,
-    public categories: string [],
-    public awards: string [],
-    public events: string [],
-    public followers: string [],
-    public following: string [],
-    public posts: string [],
-    public reviews: string [],
+    public name: string | null,
+    public lastName: string | null,
+    public categories: string [] | null,
+    public awards: string [] | null,
+    public events: string [] | null,
+    public followers: string [] | null,
+    public following: string [] | null,
+    public posts: string [] | null,
+    public reviews: string [] | null,
   ){
     super();
   }
@@ -26,39 +26,39 @@ export class Profile extends AggregateRoot{
     return this.username;
   }
 
-  getName(): string{
+  getName(): string | null{
     return this.name;
   }
 
-  getLastName(): string{
+  getLastName(): string | null{
     return this.lastName;
   }
 
-  getCategories(): string []{
+  getCategories(): string [] | null{
     return this.categories;
   }
 
-  getAwards(): string []{
+  getAwards(): string [] | null{
     return this.awards;
   }
 
-  getEvents(): string []{
+  getEvents(): string [] | null{
     return this.events;
   }
 
-  getFollowers(): string []{
+  getFollowers(): string [] | null{
     return this.followers;
   }
 
-  getFollowing(): string []{
+  getFollowing(): string [] | null{
     return this.following;
   }
 
-  getPosts(): string []{
+  getPosts(): string [] | null{
     return this.posts;
   }
 
-  getReviews(): string []{
+  getReviews(): string [] | null{
     return this.reviews;
   }
 

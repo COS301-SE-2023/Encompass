@@ -4,32 +4,32 @@ import { Prop, Schema } from "@nestjs/mongoose";
 @Schema({ versionKey: false, collection: "profile" })
 export class ProfileSchema extends IdentifiableEntitySchema{
   @Prop()
-  readonly name!: string;
-
-  @Prop()
-  readonly lastName!: string;
-
-  @Prop()
   readonly username!: string;
 
   @Prop()
-  readonly categories!: string[];
+  readonly name!: string | null;
 
   @Prop()
-  readonly awards!: string[];
+  readonly lastName!: string | null;
 
   @Prop()
-  readonly events!: string[];
+  readonly categories!: string[] | null;
 
   @Prop()
-  readonly followers!: string[];
+  readonly awards!: string[] | null;
 
   @Prop()
-  readonly following!: string[];
+  readonly events!: string[] | null;
 
   @Prop()
-  readonly posts!: string[];
+  readonly followers!: string[] | null;
 
   @Prop()
-  readonly reviews!: string[];
+  readonly following!: string[] | null;
+
+  @Prop()
+  readonly posts!: string[] | null;
+
+  @Prop()
+  readonly reviews!: string[] | null;
 }
