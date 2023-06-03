@@ -11,7 +11,7 @@ import { ProfileModule } from '@encompass/api/profile/data-access';
     HomeModule,
     AccountModule,
     ProfileModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/encompass-database')
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/encompass-database')
   ],
   controllers: [AppController],
   providers: [AppService],
