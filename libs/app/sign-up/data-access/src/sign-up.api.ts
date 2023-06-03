@@ -9,8 +9,26 @@ export class SignUpApi{
 
   async signUp(request: CreateAccountRequest){
     try {
-      const response = await this.httpClient.post('/api/account', request).toPromise();
+      const response = await this.httpClient.post('/api/account', request, {responseType: 'text'}).toPromise();
+
+      console.log(response);
       return response;
+    } 
+    catch (error) 
+    {
+      return null;
+    }
+  }
+
+  async checkAccount(request: string) : Promise<boolean | null>{
+    try {
+      const response = await this.httpClient.get('/api/account/' + request, {responseType: 'text'}).toPromise();
+
+      if(response == "true")
+        return true;
+
+      else
+        return false;
     } 
     catch (error) 
     {

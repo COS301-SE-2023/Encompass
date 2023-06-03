@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignUpModel } from '@encompass/app/sign-up/data-access';
-import { Store } from '@ngxs/store';
+import { SignUpModel, SignUpState } from '@encompass/app/sign-up/data-access';
+import { Select, Store } from '@ngxs/store';
 import { CreateAccountRequest } from '@encompass/api/account/data-access';
-import { signUp } from '@encompass/app/sign-up/util';
+import { SignUp } from '@encompass/app/sign-up/util';
+import { Observable } from 'rxjs';
+import { AccountDto } from '@encompass/api/account/data-access';
 @Component({
   selector: 'sign-up',
   templateUrl: './sign-up.component.html',
@@ -13,15 +15,22 @@ export class SignUpPage {
 
   
 
-  values: CreateAccountRequest = {"email": "test@frontend.com", "password": "12345678"};
+  @Select(SignUpState.signup) signup$!: Observable<AccountDto | null>;
 
-  constructor(private router: Router, private store: Store){}
+  constructor(private router: Router, private store: Store){
+  }
 
     user : SignUpModel = new SignUpModel();
 
     SignUp()
     {
-      this.store.dispatch(new signUp({email: this.user.email, password: this.user.password}));
-      this.router.navigate(['sign-up-categories']);
+      this.store.dispatch(new SignUp({email: this.user.email, password: this.user.password}));
+      this.signup$.subscribe((data) => {
+        console.log(data);
+        if(data?._id != null)
+        {
+           this.router.navigate(['sign-up-categories']);
+        }
+      });
     }
 }

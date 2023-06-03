@@ -32,7 +32,7 @@ export abstract class EntityRepository<
     );
 
     if (!entityDocument) {
-      throw new NotFoundException('Entity was not found.');
+      throw new NotFoundException('Unable to find the entity.');
     }
 
     return this.entitySchemaFactory.createFromSchema(entityDocument);

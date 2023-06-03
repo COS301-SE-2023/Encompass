@@ -1,11 +1,11 @@
-import { Controller, Post, Body, Get, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CreateAccountCommand } from "./commands/create-account.command";
 import { CreateAccountRequest } from "./dto/create-account-request.dto";
 import { GetAccountRequest } from "./dto";
 import * as bcrypt from 'bcrypt';
-import { Account } from "./account";
 import { GetAccountCommand } from "./queries/account.command";
+import { DoesExistQuery } from "./queries/does-exist/does-exist.query";
 @Controller('account')
 export class AccountController {
   constructor(
@@ -37,6 +37,15 @@ export class AccountController {
 
       return await this.commandBus.execute<GetAccountCommand, string>(
       new GetAccountCommand(getAccountRequest.email, getAccountRequest.password),
+    );
+  }
+
+  @Get(':email')
+  async getAccountById(
+    @Param('email') email: string
+  ){
+    return await this.queryBus.execute<DoesExistQuery, boolean>(
+      new DoesExistQuery(email),
     );
   }
 }

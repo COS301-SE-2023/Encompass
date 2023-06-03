@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
-import { MongooseModule, Schema } from "@nestjs/mongoose";
+import { MongooseModule } from "@nestjs/mongoose";
 import { ProfileSchema } from "./db/profile.schema";
 import { SchemaFactory } from "@nestjs/mongoose";
 import { ProfileController } from "./profile.controller";
