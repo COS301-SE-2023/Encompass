@@ -10,7 +10,7 @@ import { ProfileSchemaFactory } from "./db/profile-schema.factory";
 import { ProfileFactory } from "./profile.factory";
 import { CreateProfileHandler, UpdateProfileHandler } from "./commands";
 import { ProfileCreatedHandler } from "./events";
-import { GetProfileHandler } from "./queries";
+import { GetProfileHandler, GetUsernameHandler } from "./queries";
 
 @Module({
   imports: [
@@ -32,7 +32,8 @@ import { GetProfileHandler } from "./queries";
     CreateProfileHandler,
     ProfileCreatedHandler,
     GetProfileHandler,
-    UpdateProfileHandler
+    UpdateProfileHandler,
+    GetUsernameHandler
   ],
 })
 

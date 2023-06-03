@@ -2,11 +2,9 @@ import { Injectable } from "@angular/core";
 import { SignUpApi } from "./sign-up.api";
 import { Action, State, StateContext, Selector } from "@ngxs/store";
 import { CreateAccountRequest } from "@encompass/api/account/data-access";
-import { SignUp, CheckAccount } from "@encompass/app/sign-up/util";
+import { SignUp, CheckAccount, CheckUsername } from "@encompass/app/sign-up/util";
 import { AccountDto } from "@encompass/api/account/data-access";
 import { ToastController } from "@ionic/angular";
-import { Navigate } from "@ngxs/router-plugin";
-
 export interface SignUpStateModel{
   SignUpForm: {
     model:{
@@ -38,29 +36,43 @@ export class SignUpState{
       password: request.password
     }
     const variable = await this.checkAccount(ctx, {request: request.email});
+    const variable2 = await this.checkUsername(ctx, {request: request.username});
 
     if(variable == false)
     {
-      const response = await this.signupApi.signUp(data);
-      console.log(response);
+      if(variable2 == false)
+      {
+        const response = await this.signupApi.signUp(data);
 
-      ctx.patchState({
-        SignUpForm: {
-          model: {
-            signup: {
-              _id: response,
-              email: request.email,
-              password: request.password
-           }
-         }
-        }
-      })
+        ctx.patchState({
+          SignUpForm: {
+            model: {
+              signup: {
+                _id: response,
+                email: request.email,
+                password: request.password
+              }
+            }
+          }
+        })
+      }
+
+      else
+      {
+        const toast = await this.toastController.create({
+          message: 'Username already exists',
+          duration: 2000,
+          color: 'danger'
+        });
+  
+        await toast.present();
+      }
     }
     
     else
     {
       const toast = await this.toastController.create({
-        message: 'Account already exists',
+        message: 'Email already exists',
         duration: 2000,
         color: 'danger'
       });
@@ -73,6 +85,14 @@ export class SignUpState{
   async checkAccount(ctx: StateContext<SignUpStateModel>, {request}: CheckAccount) : Promise<boolean | null>{
 
     const response = await this.signupApi.checkAccount(request);
+
+    return response;
+  }
+
+  @Action(CheckUsername)
+  async checkUsername(ctx: StateContext<SignUpStateModel>, {request}: CheckUsername) : Promise<boolean | null>{
+
+    const response = await this.signupApi.checkUsername(request);
 
     return response;
   }

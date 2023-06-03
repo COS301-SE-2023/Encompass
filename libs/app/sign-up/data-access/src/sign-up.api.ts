@@ -35,4 +35,20 @@ export class SignUpApi{
       return null;
     }
   }
+
+  async checkUsername(request: string) : Promise<boolean | null>{
+    try{
+      const response = await this.httpClient.get('/api/profile/username/' + request, {responseType: 'text'}).toPromise();
+
+      if(response == "true")
+        return true;
+
+      else
+        return false;
+    }
+
+    catch(error){
+      return null;
+    }
+  }
 }

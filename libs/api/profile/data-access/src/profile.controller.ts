@@ -6,6 +6,7 @@ import { Profile } from "./profile";
 import { GetProfileQuery } from "./queries/get-profile.query";
 import { ProfileDto } from "./profile.dto";
 import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
+import { GetUsernameQuery } from "./queries/get-username/get-username.query";
 
 @Controller('profile')
 export class ProfileController {
@@ -37,5 +38,12 @@ export class ProfileController {
       return await this.commandBus.execute<UpdateProfileCommand, ProfileDto>(
         new UpdateProfileCommand(userId, profile),
       )
+  }
+
+  @Get('/user/:username')
+  async getProfileByUsername(@Param('username') username: string){
+    return await this.queryBus.execute<GetUsernameQuery, boolean>(
+      new GetUsernameQuery(username),
+    );
   }
 }
