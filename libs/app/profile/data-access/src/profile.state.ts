@@ -7,7 +7,7 @@ import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
 import { ProfileDto } from "@encompass/api/profile/data-access"
-import { tap } from "rxjs/operators"
+import { tap } from "rxjs"
 import { produce } from "immer"
 
 export interface ProfileStateModel{
@@ -35,17 +35,16 @@ export class ProfileState{
 
   @Action(SubscribeToProfile)
   subscribeToProfile(ctx: StateContext<ProfileStateModel>){
-    console.log("SubscribeToProfile");
-    const user = this.store.selectSnapshot(LoginState.loginModel);
-    console.log("UserId", user?._id);
-    if(!user)
+    const id = localStorage.getItem('UserID');
+
+    if(!id)
     {
       console.log("User is null");
       return null
     }
 
     return this.profileApi
-      .user$(user._id)
+      .user$(id)
       .pipe(tap((profile: ProfileDto) => ctx.dispatch(new SetProfile(profile))))
   }
 

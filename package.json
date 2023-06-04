@@ -42,6 +42,7 @@
     "@nx/angular": "16.1.0",
     "@nxtend/ionic-angular": "^13.1.0",
     "@types/bcrypt": "^5.0.0",
+    "async_hooks": "^1.0.0",
     "axios": "^1.0.0",
     "bcrypt": "^5.1.0",
     "immer": "^10.0.2",

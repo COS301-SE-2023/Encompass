@@ -6,6 +6,7 @@ import { GetAccountRequest } from "./dto";
 import * as bcrypt from 'bcrypt';
 import { GetAccountCommand } from "./queries/account.command";
 import { DoesExistQuery } from "./queries/does-exist/does-exist.query";
+import { AccountDto } from "./account.dto";
 @Controller('account')
 export class AccountController {
   constructor(
@@ -33,9 +34,9 @@ export class AccountController {
   @Post('login')
   async getAccount(
     @Body() getAccountRequest: GetAccountRequest,
-  ) : Promise<string>{
+  ) : Promise<AccountDto>{
 
-      return await this.commandBus.execute<GetAccountCommand, string>(
+      return await this.commandBus.execute<GetAccountCommand, AccountDto>(
       new GetAccountCommand(getAccountRequest.email, getAccountRequest.password),
     );
   }

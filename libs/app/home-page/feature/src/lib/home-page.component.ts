@@ -30,10 +30,6 @@ export class HomePage {
         console.log(profile);
         this.profile = profile;
       }
-
-      else{
-        console.log("no profile");
-      }
     });
 
     this.store.dispatch(new getHome());
