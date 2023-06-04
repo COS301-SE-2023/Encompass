@@ -39,7 +39,7 @@ export class SignUpApi{
 
   async checkUsername(request: string) : Promise<boolean | null>{
     try{
-      const response = await this.httpClient.get('/api/profile/username/' + request, {responseType: 'text'}).toPromise();
+      const response = await this.httpClient.get('/api/profile/user/' + request, {responseType: 'text'}).toPromise();
 
       if(response == "true")
         return true;
