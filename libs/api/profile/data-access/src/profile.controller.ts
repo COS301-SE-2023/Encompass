@@ -25,7 +25,7 @@ export class ProfileController {
   }
 
   @Get(':id')
-  async getProfile(@Param('id') userId: string){
+  async getProfile(@Param('id') userId: string) : Promise<ProfileDto>{
     return await this.queryBus.execute<GetProfileQuery, ProfileDto>(
       new GetProfileQuery(userId),
     );

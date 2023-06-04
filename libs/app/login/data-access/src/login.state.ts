@@ -35,15 +35,19 @@ export class LoginState{
     }
 
     const response = await this.loginApi.login(data);
-    const newData: AccountDto = { _id: response, email: request.email, password: request.password }
+    if(response != null)
+    {
+      const newData: AccountDto = { _id: response, email: request.email, password: request.password }
 
-    ctx.patchState({
-      LoginForm: {
-        model: {
-          login: newData
+      ctx.patchState({
+        LoginForm: {
+          model: {
+            login: newData
+          }
         }
-      }
-    });
+      });
+    }
+    
   }
 
   @Selector()

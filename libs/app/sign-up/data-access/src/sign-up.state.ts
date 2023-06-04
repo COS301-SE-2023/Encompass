@@ -5,6 +5,7 @@ import { CreateAccountRequest } from "@encompass/api/account/data-access";
 import { CreateProfileRequest } from "@encompass/api/profile/data-access";
 import { SignUp, CheckAccount, CheckUsername, CreateProfile } from "@encompass/app/sign-up/util";
 import { AccountDto } from "@encompass/api/account/data-access";
+import { ProfileDto } from "@encompass/api/profile/data-access";
 import { ToastController } from "@ionic/angular"
 export interface SignUpStateModel{
   SignUpForm: {
@@ -17,7 +18,7 @@ export interface SignUpStateModel{
 export interface ProfileStateModel{
   ProfileForm: {
     model:{
-      profile: AccountDto | null
+      profile: ProfileDto | null
     }
   }
 }
@@ -81,18 +82,20 @@ export class SignUpState{
 
           ctx.dispatch(new CreateProfile(profileData))
         }
-
-        ctx.patchState({
-          SignUpForm: {
-            model: {
-              signup: {
-                _id: response,
-                email: request.email,
-                password: request.password
+        if(response != null)
+        {
+          ctx.patchState({
+            SignUpForm: {
+              model: {
+                signup: {
+                  _id: response,
+                  email: request.email,
+                  password: request.password
+                }
               }
             }
-          }
-        })
+          })
+        }
       }
 
       else
