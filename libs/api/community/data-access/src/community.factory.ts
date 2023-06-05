@@ -10,6 +10,7 @@ export class CommunityFactory implements EntityFactory<Community> {
     constructor(private readonly communityEntityRepository: CommunityEntityRepository) {}
 
     async create(
+        _id: string,
         name: string,
         admin: string,
         about: string,

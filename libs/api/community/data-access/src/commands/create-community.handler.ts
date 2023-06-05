@@ -11,9 +11,9 @@ export class CreateCommunityHandler
     ) {}
 
     async execute({ createCommunityRequest }: CreateCommunityCommand) {
-        const { name, admin, about, members, events, posts } = createCommunityRequest;
+        const { _id, name, admin, about, members, events, posts } = createCommunityRequest;
         const community = this.eventPublisher.mergeObjectContext(
-            await this.communityFactory.create(name, admin, about, members, events, posts),
+            await this.communityFactory.create( _id, name, admin, about, members, events, posts),
         );
         community.commit();
         return community.getId();
