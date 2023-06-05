@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Community } from '../community';
-import { EntityFactory } from '../../database/data-access/src';
+import { Community } from './community';
+import { EntityFactory } from "@encompass/api/database/data-access";
 import { ObjectId } from 'mongodb';
 import { CommunityCreatedEvent } from './events';
 import { CommunityEntityRepository } from './db/community-entity.repository';

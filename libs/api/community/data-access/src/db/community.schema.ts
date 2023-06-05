@@ -1,5 +1,5 @@
 import { Schema, Prop } from '@nestjs/mongoose';
-import { IdentifiableEntitySchema } from "../../../database/data-access/src";
+import { IdentifiableEntitySchema } from '@encompass/api/database/data-access';
 
 @Schema({ versionKey: false, collection: 'community' })
 export class CommunitySchema extends IdentifiableEntitySchema {

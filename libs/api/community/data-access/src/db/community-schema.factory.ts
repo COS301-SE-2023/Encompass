@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Community } from '../community';
 import { CommunitySchema } from './community.schema';
-import { EntitySchemaFactory } from '../../../database/data-access/src';
+import { EntitySchemaFactory } from "@encompass/api/database/data-access";
 import { ObjectId } from 'mongodb';
 
 @Injectable()

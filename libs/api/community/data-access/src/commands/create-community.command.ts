@@ -1,4 +1,4 @@
-import { CreateCommunityRequest } from "../dto/create-community.request.dto";
+import { CreateCommunityRequest } from "../dto/create-community-request.dto";
 
 export class CreateCommunityCommand {
     constructor(

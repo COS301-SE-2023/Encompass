@@ -1,4 +1,4 @@
-import { BaseEntityRepository } from "../../../database/data-access/src/base-entity.repository";
+import { BaseEntityRepository } from "@encompass/api/database/data-access";
 import { Injectable } from "@nestjs/common";
 import { CommunitySchema } from "./community.schema";
 import { InjectModel } from "@nestjs/mongoose";

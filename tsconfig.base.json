@@ -18,6 +18,13 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/community/data-access": [
+        "libs/api/community/data-access/src/index.ts"
+      ],
+      "@encompass/api/community/feature": [
+        "libs/api/community/feature/src/index.ts"
+      ],
+      "@encompass/api/community/util": ["libs/api/community/util/src/index.ts"],
       "@encompass/api/database/data-access": [
         "libs/api/database/data-access/src/index.ts"
       ],
@@ -35,7 +42,6 @@
         "libs/app/home-page/feature/src/index.ts"
       ],
       "@encompass/app/home-page/util": ["libs/app/home-page/util/src/index.ts"],
-      
       "@encompass/app/login/data-access": [
         "libs/app/login/data-access/src/index.ts"
       ],

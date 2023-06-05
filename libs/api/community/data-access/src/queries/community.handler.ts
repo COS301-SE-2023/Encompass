@@ -10,9 +10,9 @@ export class GetCommunityHandler implements ICommandHandler<GetCommunityCommand>
         private readonly eventPublisher: EventPublisher,
     ) {}
 
-    async execute({ name, admin, about, members, events, posts }: GetCommunityCommand) {
+    async execute({ _id, name, admin, about, members, events, posts }: GetCommunityCommand) {
         const community = await this.eventPublisher.mergeObjectContext(
-            await this.communityEntityRepository.findOneById(_id),
+            await this.communityEntityRepository.findOneById( _id ),
         );
     }
 }
