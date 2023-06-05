@@ -17,6 +17,18 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v3
       
+    - name: Create .env file
+      env:
+        NX_FIREBASE_USE_EMULATORS: ${{ secrets.NX_MONGO_DB_URL }}
+        
+      run: |
+          cat <<EOF > .env
+          NX_ENVIRONMENT=development
+          NX_MONGO_DB_URL="$NX_MONGO_DB_URL"
+          EOF
+
+          echo "cat .env"
+          
     - name: Install Dependencies
       run: yarn install --frozen-lockfile
     
