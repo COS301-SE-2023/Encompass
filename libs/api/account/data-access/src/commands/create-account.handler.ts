@@ -16,7 +16,8 @@ export class CreateAccountHandler
       await this.accountFactory.create(email, password),
     );
     account.commit();
-
-    return account.getId();
+    
+    // console.log(account._id)
+    return account._id;
   }
 }

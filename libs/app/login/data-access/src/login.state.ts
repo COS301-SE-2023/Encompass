@@ -35,15 +35,21 @@ export class LoginState{
     }
 
     const response = await this.loginApi.login(data);
-    const newData: AccountDto = { _id: response, email: request.email, password: request.password }
 
-    ctx.patchState({
-      LoginForm: {
-        model: {
-          login: newData
+    if(response != null)
+    {
+      localStorage.setItem('UserID', response._id);
+      const newData: AccountDto = { _id: response._id, email: request.email, password: request.password }
+
+      ctx.patchState({
+        LoginForm: {
+          model: {
+            login: newData
+          }
         }
-      }
-    });
+      });
+    }
+    
   }
 
   @Selector()

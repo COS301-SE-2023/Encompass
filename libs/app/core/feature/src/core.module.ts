@@ -8,6 +8,7 @@ import { NgxsModule } from '@ngxs/store';
 import { HttpClientModule } from '@angular/common/http';
 import { SignUpModule } from '@encompass/app/sign-up/data-access';
 import { LoginModule } from '@encompass/app/login/data-access';
+import { ProfileModule } from '@encompass/app/profile/data-access';
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -17,7 +18,8 @@ import { LoginModule } from '@encompass/app/login/data-access';
     CoreRouting,
     NgxsModule.forRoot([]),
     SignUpModule,
-    LoginModule
+    LoginModule,
+    ProfileModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [CoreShell],

@@ -20,7 +20,7 @@ export class GetAccountHandler implements ICommandHandler<GetAccountCommand>{
     const isPasswordValid = await bcrypt.compare(password, account.getPassword());
 
     if(isPasswordValid){
-      return account._id;
+      return account;
     }
 
     return null;

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AccountDto } from '@encompass/api/account/data-access';
 import { LoginStateModel, LoginState, LoginModel } from '@encompass/app/login/data-access';
 import { login } from '@encompass/app/login/util';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 @Component({
@@ -29,6 +30,7 @@ export class LoginPage {
 
           if(this.account._id != null || this.account._id != undefined){
             if(this.account._id != ""){
+              // this.store.dispatch(new SubscribeToProfile())
               this.router.navigate(['home']);
             }
           }

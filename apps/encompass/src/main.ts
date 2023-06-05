@@ -1,5 +1,5 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app/app.module';
+// import { AppModule } from './app/app.module';
 import { CoreModule } from '@encompass/app/core/feature';
 
 // platformBrowserDynamic()
