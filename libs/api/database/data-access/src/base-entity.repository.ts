@@ -24,6 +24,10 @@ export abstract class BaseEntityRepository<
     );
   }
 
+  async findOneByUsername(item: string): Promise<TEntity> {
+    return this.findOne({ username: item } as FilterQuery<TSchema>);
+  }
+
   async findAll(): Promise<TEntity[]> {
     return this.find({});
   }

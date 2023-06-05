@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
-import { MongooseModule, Schema } from "@nestjs/mongoose";
+import { MongooseModule } from "@nestjs/mongoose";
 import { ProfileSchema } from "./db/profile.schema";
 import { SchemaFactory } from "@nestjs/mongoose";
 import { ProfileController } from "./profile.controller";
@@ -10,7 +10,7 @@ import { ProfileSchemaFactory } from "./db/profile-schema.factory";
 import { ProfileFactory } from "./profile.factory";
 import { CreateProfileHandler, UpdateProfileHandler } from "./commands";
 import { ProfileCreatedHandler } from "./events";
-import { GetProfileHandler } from "./queries";
+import { GetProfileHandler, GetUsernameHandler } from "./queries";
 
 @Module({
   imports: [
@@ -32,7 +32,8 @@ import { GetProfileHandler } from "./queries";
     CreateProfileHandler,
     ProfileCreatedHandler,
     GetProfileHandler,
-    UpdateProfileHandler
+    UpdateProfileHandler,
+    GetUsernameHandler
   ],
 })
 
