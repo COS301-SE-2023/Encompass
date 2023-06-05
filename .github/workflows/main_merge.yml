@@ -1,39 +1,39 @@
-name: (DEV) Build and Deploy
+name: (MAIN) Build and Deploy
 on:
   push:
     branches:
-    - dev
+    - main
     
   pull_request:
     branches:
-    - dev
+    - main
     
 jobs:
-  dev_build:
+  prod_build:
     name: Lint, Test & Build
-    environment: development
+    environment: production
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
-      
-    - name: Create .env file
+    
+    - name: Create .env.prod file
       env:
         NX_FIREBASE_USE_EMULATORS: ${{ secrets.NX_MONGO_DB_URL }}
         
       run: |
-          cat <<EOF > .env
-          NX_ENVIRONMENT=development
+          cat <<EOF > .env.prod
+          NX_ENVIRONMENT=production
           NX_MONGO_DB_URL="$NX_MONGO_DB_URL"
           EOF
 
-          echo "cat .env"
+          echo "cat .env.prod"
           
     - name: Install Dependencies
       run: yarn install --frozen-lockfile
     
     - name: Build Project
-      run: yarn build:app:dev && yarn build:api:dev
+      run: yarn build:app:prod && yarn build:api:prod
 
     - name: Lint Project
       run: yarn lint
