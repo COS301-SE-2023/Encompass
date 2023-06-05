@@ -1,0 +1,64 @@
+name: (MAIN) Build and Deploy
+on:
+  push:
+    branches:
+    - main
+    
+  pull_request:
+    branches:
+    - main
+    
+jobs:
+  prod_build:
+    name: Lint, Test & Build
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+    
+    - name: Create .env.prod file
+      env:
+        NX_FIREBASE_USE_EMULATORS: ${{ secrets.NX_MONGO_DB_URL }}
+        
+      run: |
+          cat <<EOF > .env.prod
+          NX_ENVIRONMENT=production
+          NX_MONGO_DB_URL="$NX_MONGO_DB_URL"
+          EOF
+
+          echo "cat .env.prod"
+          
+    - name: Install Dependencies
+      run: yarn install --frozen-lockfile
+    
+    - name: Build Project
+      run: yarn build:app:prod && yarn build:api:prod
+
+    - name: Lint Project
+      run: yarn lint
+      
+    - name: Test Project
+      working-directory: ./
+      run: |
+          yarn nx run-many --target=test --all --skip-nx-cache --parallel=6 --coverage
+          yarn nx run-many --target=lint --all --skip-nx-cache --parallel=6
+    
+    - name: Codecov
+      uses: codecov/codecov-action@v3.1.0
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./coverage
+
+#     - name: SonarCloud Build and Analyze
+#       uses: SonarSource/sonarcloud-github-action@master
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        
+    - name: Archive Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist-artifact
+        path: dist
+        retention-days: 1
