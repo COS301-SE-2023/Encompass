@@ -6,7 +6,20 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-  }
+    children: [
+      {
+        path: 'feed',
+        // match: 'full',
+        loadChildren: () =>
+          import('@encompass/app/feed/feature').then((m) => m.FeedModule),
+      },
+    ],
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/home/feed',
+  },
 ];
 
 @NgModule({
