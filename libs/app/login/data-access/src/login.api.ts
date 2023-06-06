@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
-import { GetAccountRequest } from "@encompass/api/account/data-access";
+import { AccountDto, GetAccountRequest } from "@encompass/api/account/data-access";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 @Injectable()
 export class LoginApi{
   constructor(private httpClient: HttpClient){}
@@ -8,8 +9,7 @@ export class LoginApi{
   async login(request: GetAccountRequest){
     try{
       
-      const response =  await this.httpClient.post('/api/account/login', request, {responseType: 'text'}).toPromise();
-      // const response = await this.httpClient.get('/api/home').toPromise();
+      const response =  await this.httpClient.post<AccountDto>('/api/account/login', request).toPromise();
       return response;
     }
 

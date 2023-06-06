@@ -32,7 +32,7 @@ export abstract class EntityRepository<
     );
 
     if (!entityDocument) {
-      throw new NotFoundException('Entity was not found.');
+      throw new NotFoundException('Unable to find the entity.');
     }
 
     return this.entitySchemaFactory.createFromSchema(entityDocument);
@@ -52,24 +52,24 @@ export abstract class EntityRepository<
     await new this.entityModel(this.entitySchemaFactory.create(entity)).save();
   }
 
-  // protected async findOneAndReplace(
-  //   entityFilterQuery: FilterQuery<TSchema>,
-  //   entity: TEntity,
-  // ): Promise<void> {
-  //   const updatedEntityDocument = await this.entityModel.findOneAndReplace(
-  //     entityFilterQuery,
-  //     (this.entitySchemaFactory.create(
-  //       entity,
-  //     ) as unknown) as _AllowStringsForIds<LeanDocument<TSchema>>,
-  //     {
-  //       new: true,
-  //       useFindAndModify: false,
-  //       lean: true,
-  //     },
-  //   );
+  protected async findOneAndReplace(
+    entityFilterQuery: FilterQuery<TSchema>,
+    entity: TEntity,
+  ): Promise<void> {
+    const updatedEntityDocument = await this.entityModel.findOneAndReplace(
+      entityFilterQuery,
+      (this.entitySchemaFactory.create(
+        entity,
+      )),
+      {
+        new: true,
+        useFindAndModify: false,
+        lean: true,
+      },
+    );
 
-  //   if (!updatedEntityDocument) {
-  //     throw new NotFoundException('Unable to find the entity to replace.');
-  //   }
-  // }
+    if (!updatedEntityDocument) {
+      throw new NotFoundException('Unable to find the entity to replace.');
+    }
+  }
 }

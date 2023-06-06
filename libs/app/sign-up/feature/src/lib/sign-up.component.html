@@ -8,14 +8,14 @@
     <form (ngSubmit)="SignUp()" class = "SignUpDetails">
 
       
-      <input type="email" class = "input" [(ngModel)]="user.email" name="email" placeholder = "Email" required>
+      <input type="email" class = "input" [(ngModel)]="user.email" name="email" autocomplete="email" email="true" placeholder = "Email" required = "true">
 
-      <input type="text" class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required>
+      <input type="text" class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required = "true">
     
-      <input type="password" class = "input" [(ngModel)]="user.password" name="password" placeholder = "Password" required>
+      <input type="password" class = "input" [(ngModel)]="user.password" name="password" autocomplete="password" placeholder = "Password" required = "true">
     
       <!-- <button type="submit">Sign Up</button> -->
-      <ion-button type = "submit" fill = "clear" class = "btn1"  size = "large" >Sign Up</ion-button>
+      <ion-button type = "submit" fill = "clear" class = "btn1"  size = "large" [disabled]="!isValid()">Sign Up</ion-button>
     </form>
     
     <!-- <div class = "SignUpDetails">
