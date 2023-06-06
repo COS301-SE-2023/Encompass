@@ -15,6 +15,7 @@
     justify-content: space-around;
     flex-direction: column;
     border-radius: 15px;
+    
 }
 .Rocket{
     width : 100%;
@@ -53,29 +54,54 @@
 }
 
 .TopicList{
-    width : 100%;
     height: 40px;
     display: flex;
     align-items: center;
-    font-family: CustomFont;
-    font-size: 30px;
+    justify-content: center;
 }
 
 .Topic{
     height: 90%;
     border-radius: 20px;
     background-color: #CECAE3;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 20px;
     padding-left:10px;
     padding-right:10px;
-    position: relative;
-    left: 3%;
+    padding-bottom:10px;
+    padding-top:10px;
     margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    align-items: center;
+    // display: inline-block;
 
+    
 }
+
+.Topic > span{
+    font-family: CustomFont;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+.Topic > img{
+    width:20px; height:20px;
+    max-width: 100%;
+    height: auto;
+    margin-right: 5px;
+    vertical-align: middle;
+    white-space: nowrap;  
+}
+
+.Topic:hover{
+    background-color: #B484F5;
+    
+}
+// .Topic:active{
+//     background-color: #F0EFEF;
+//     color: #231942;
+// }
 
 .nextList{
     width : 100%;
