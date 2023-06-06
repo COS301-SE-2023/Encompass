@@ -10,6 +10,8 @@ import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { ModalController } from '@ionic/angular';
+import {CreatePostComponent} from '../../../../create-post/feature/src/lib/create-post.component';
 
 @Component({
   selector: 'home-page',
@@ -23,7 +25,7 @@ export class HomePage {
   home! : HomeDto | null;
   profile! : ProfileDto | null;
 
-  constructor(private router: Router, private store: Store){
+  constructor(private router: Router, private store: Store,private modalController: ModalController){
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -39,6 +41,17 @@ export class HomePage {
         console.log(home.name);
       }
     });
+  }
+
+  async openPopup() {
+    const modal = await this.modalController.create({
+      component: CreatePostComponent, // Replace with the component or template for your popup
+      componentProps: {
+        // Add any input properties or data you want to pass to the popup component
+      }
+    });
+  
+    await modal.present();
   }
 
   GoToProfile()
