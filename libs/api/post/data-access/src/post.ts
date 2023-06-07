@@ -1,4 +1,5 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+import { UpdatePostRequest } from "./dto/update-post-request.dto";
 
 export class Post extends AggregateRoot{
   constructor(
@@ -51,4 +52,12 @@ export class Post extends AggregateRoot{
     return this.dateAdded;
   }
   
+  updatePost(updatePostRequest: UpdatePostRequest)
+  {
+    this.title = updatePostRequest.title;
+    this.text = updatePostRequest.text;
+    this.imageUrl = updatePostRequest.imageUrl;
+    this.categories = updatePostRequest.categories;
+    this.likes = updatePostRequest.likes;
+  }
 }

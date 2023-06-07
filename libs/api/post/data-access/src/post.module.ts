@@ -8,7 +8,7 @@ import { PostEntityRepository } from "./db/post-entity.repository";
 import { PostDtoRepository } from "./db/post-dto.repository";
 import { PostSchemaFactory } from "./db/post-schema.factory";
 import { PostFactory } from "./post.factory";
-import { CreatePostHandler } from "./commands";
+import { CreatePostHandler, UpdatePostHandler } from "./commands";
 
 @Module({
   imports: [
@@ -27,6 +27,7 @@ import { CreatePostHandler } from "./commands";
     PostSchemaFactory,
     PostFactory,
     CreatePostHandler,
+    UpdatePostHandler
   ],
 })
 
