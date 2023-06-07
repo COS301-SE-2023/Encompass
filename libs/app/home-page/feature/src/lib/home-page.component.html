@@ -1,12 +1,12 @@
 
-<ion-split-pane contentId="main" id="main-content">
+<!-- <ion-split-pane contentId="main" id="main-content"> -->
   <!-- <app-side-menu *ng-if="!isSideMenuOpen"></app-side-menu> -->
   <!-- <ion-menu-toggle *ng-if="!isSideMenuOpen">
     <ion-button>Close</ion-button>
   </ion-menu-toggle> -->
   <!-- <static-menu> -->
     <!-- *ng-if="isSideMenuOpen" -->
-  <div class = "menu" >
+  <!-- <div class = "menu" >
     
 
       
@@ -15,7 +15,7 @@
    
  
     <div class = "MenuButton" >
-    <ion-icon name="search-outline" style="font-size: larger; position:relative; right:5%"></ion-icon></div>
+    <ion-icon name="search-outline" style="font-size: larger; position:relative; "></ion-icon></div>
 
      <div class = "MenuButton" >
       <ion-icon name="rocket-outline" style="font-size: larger;position:relative; right:5%"></ion-icon></div>
@@ -39,5 +39,40 @@
   </div>
 
  
-</ion-split-pane>
+</ion-split-pane> -->
 
+<ion-split-pane>
+  <ion-menu side="start" contentId="main-content">
+    <!-- <ion-header> -->
+        <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+    <!-- </ion-header> -->
+    <ion-content class="ion-padding">
+      <div class="MenuButton">
+        <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+      </div>
+
+      <div class="MenuButton">
+        <ion-icon name="rocket" style="font-size: larger; position:relative;"></ion-icon>
+      </div>
+
+      <div class="MenuButton">
+        <ion-icon name="chatbubbles" style="font-size: larger; position:relative;"></ion-icon>
+      </div>
+
+      <div class="MenuButton">
+        <ion-icon name="notifications" style="font-size: larger; position:relative;"></ion-icon>
+      </div>
+
+      <div class="MenuButton">
+        <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
+      </div>
+
+
+      <div class="menuFooter" >
+        <ion-icon name="menu"></ion-icon>
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>
