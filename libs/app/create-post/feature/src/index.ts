@@ -1,1 +1,1 @@
-export * from './lib/app-create-post-feature';
+export * from './lib';
