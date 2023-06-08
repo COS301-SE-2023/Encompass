@@ -31,6 +31,9 @@
         "libs/api/profile/data-access/src/index.ts"
       ],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
+      "@encompass/app/create-post/data-access": [
+        "libs/app/create-post/data-access/src/index.ts"
+      ],
       "@encompass/app/create-post/feature": [
         "libs/app/create-post/feature/src/index.ts"
       ],

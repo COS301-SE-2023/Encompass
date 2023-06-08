@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignUpModule } from '@encompass/app/sign-up/data-access';
 import { LoginModule } from '@encompass/app/login/data-access';
 import { ProfileModule } from '@encompass/app/profile/data-access';
-import { FormsModule } from '@angular/forms'; 
+import { CreatePostModule } from '@encompass/app/create-post/data-access';
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -20,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     NgxsModule.forRoot([]),
     SignUpModule,
     LoginModule,
-    ProfileModule
+    ProfileModule,
+    CreatePostModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [CoreShell],
