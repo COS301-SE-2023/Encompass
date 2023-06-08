@@ -15,6 +15,6 @@ export class ProfileDtoRepository{
   }
 
   async findById(id: string){
-    return this.profileModel.findOne({ _id: id });
+    return await this.profileModel.findOne({ _id: id });
   }
 }
