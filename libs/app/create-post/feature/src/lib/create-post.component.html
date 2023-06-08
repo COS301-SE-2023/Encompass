@@ -4,14 +4,14 @@
     <button  class = "btn2">Event</button>
 </div>
 
-<form  (ngSubmit)="onSubmit()" class = "form">
+<form [formGroup]="postForm"  (ngSubmit)="onSubmit()" class = "form">
 
     <div class = "Subhead">
         <div  class = "SelectCommunity">
             <div class = "title">Community:</div>
             <div  class = "select" >
                 <ion-select formControlName="community" placeholder="Add a community"  >
-                    <ion-select-option *ngFor="let community of communities" [value]="community.id" class = "option">
+                    <ion-select-option *ngFor="let community of communities" [value]="community" class = "option">
                         {{ community }}</ion-select-option>
                 </ion-select>
             </div>
@@ -20,7 +20,7 @@
             <div class = "title">Categories:</div>
              <div class = "select">
                 <ion-select multiple formControlName="categories" placeholder="Add categories">
-                    <ion-select-option *ngFor="let category of categories" [value]="category.id" >
+                    <ion-select-option *ngFor="let category of categories" [value]="category" >
                      {{ category }}</ion-select-option>
                 </ion-select>
             </div>
@@ -30,6 +30,9 @@
        
     <div class = "TextHead">
         <ion-textarea
+        
+        name="title"
+        formControlName="title"
         placeholder="Add a title"
         class="custom"
         [counter]="true"
@@ -46,9 +49,8 @@
     </div>
     <div class = "TextFooter">
         <ion-icon name="image-outline" style = "font-size: 25px;"></ion-icon>
-        <button class = "btns" style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Spoilers</button>
-        <button class = "btns"  style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Age Restricted</button>
-        <button class = "btns" >Save Draft</button>
+        <button type="button" class = "btns" style="background-color: #CECAE3;" (click)="displayText()"><ion-icon name="add-outline"></ion-icon>Spoilers</button>
+        <button type="button" class = "btns"  style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Age Restricted</button>
         <button type = "submit" class = "btns"  style="background-color: #66617F; color:white" (click)="closePopup()">Post</button>
 
     </div>

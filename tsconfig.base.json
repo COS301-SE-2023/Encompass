@@ -34,6 +34,9 @@
       "@encompass/app/create-post/feature": [
         "libs/app/create-post/feature/src/index.ts"
       ],
+      "@encompass/app/create-post/util": [
+        "libs/app/create-post/util/src/index.ts"
+      ],
       "@encompass/app/home-page/data-access": [
         "libs/app/home-page/data-access/src/index.ts"
       ],
