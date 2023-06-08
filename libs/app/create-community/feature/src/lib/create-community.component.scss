@@ -1,0 +1,162 @@
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: #ECECEC;
+}
+.head{
+    height: 12%;
+    width: 100%;
+    display: flex;
+}
+
+.Subhead{
+    height:10%;
+    width: 100%;
+   display: flex;
+}
+.form{
+    width: 100%;
+    height: 85%;
+}
+.btn1{
+    width: 50%;
+    background-color: #CECAE3;
+    font-family: CustomFont;
+    font-size: 25px;
+    border-bottom: 2px solid #AFABC5;
+    border-right: 1px solid #AFABC5;
+}
+.btn2{
+    width: 50%;
+    background-color: #CECAE3;
+    font-family: CustomFont;
+    font-size: 25px;
+}
+.SelectCommunity{
+    width: 50%;
+    background-color: #ECECEC;
+    text-align: center;
+    
+}
+.title{
+    font-size: 12px;
+    font-family: CustomFont;
+    margin-top: 1% ;
+    height: 2%;
+}
+.Comm{
+    height: 50%;
+    max-width: 45%;
+    font-size: 15px;
+    border: 1px solid #AFABC5;
+    font-family: CustomFont;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.SelectCategory{
+    width: 50%;
+    background-color: #ECECEC;
+    text-align: center;
+   
+}
+.SelectCommunity >span{
+    font-family: CustomFont;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 15px;
+    border: 1px solid #AFABC5;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.SelectCategory >span{
+    font-family: CustomFont;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 15px;
+    border: 1px solid #AFABC5;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.select{
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    max-width: 95%;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+ion-select{
+    font-family: CustomFont;
+    font-size: 15px;
+    display: flex;
+    justify-content: right;
+}
+
+.TextHead{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //height: 15%;
+}
+.TextBody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+}
+
+ion-textarea.custom {
+   
+    font-size: 15px;
+    font-family: CustomFont;
+    width: 97%;
+    --background: white;
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+    --border-radius: 10px;
+    --border-width: 1px;
+      }
+
+      ion-textarea.custom2 {
+        border: 1px solid #AFABC5; /* Set the desired border style */
+        border-radius: 10px;
+        font-size: 15px;
+        font-family: CustomFont;
+        width: 97%;
+        height:  100%;
+        --background: white;
+        --padding-bottom: 8px;
+        --padding-end: 8px;
+        --padding-start: 8px;
+        --padding-top: 8px;
+        --border-radius: 10px;
+        --border-width: 1px;
+          }
+
+          .TextFooter{
+            width: 100%;
+            height: 15%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+          }
+
+          .btns{
+            font-family: CustomFont;
+            font-size: 15px;
+            border-radius: 15px;
+            border: 1px solid #AFABC5;
+            padding: 10px;;
+          }
