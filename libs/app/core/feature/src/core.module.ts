@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignUpModule } from '@encompass/app/sign-up/data-access';
 import { LoginModule } from '@encompass/app/login/data-access';
 import { ProfileModule } from '@encompass/app/profile/data-access';
+import { FormsModule } from '@angular/forms'; 
 @NgModule({
   declarations: [CoreShell],
   imports: [
