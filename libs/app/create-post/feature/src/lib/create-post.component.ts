@@ -2,16 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgModel } from '@angular/forms';
-import { FormsModule } from '@angular/forms'; // Import the FormsModule
-import { Select } from '@ngxs/store';
 import { CreatePost } from '@encompass/app/create-post/util';
-import {
-  ActionsExecuting,
-  actionsExecuting
-} from '@ngxs-labs/actions-executing';
-
-
+import { Select, Store } from '@ngxs/store';
+import { ProfileState } from '@encompass/app/profile/data-access';
+import { Observable } from 'rxjs';
+import { ProfileDto } from '@encompass/api/profile/data-access';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
 
 @Component({
   selector: 'create-post',
@@ -27,32 +23,99 @@ export class CreatePostComponent {
   ,"War","IT","Arts","Business","Musical","Horror","Adventure","History","Comedy"];   
 
   
-  constructor(private modalController: ModalController,private formBuilder: FormBuilder) { 
+  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
+
+  profile! : ProfileDto;
+
+  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
+    this.store.dispatch(new SubscribeToProfile());
+    this.profile$.subscribe((profile) => {
+      if(profile){
+        console.log(profile);
+        this.profile = profile;
+      }
+    })
   }
   // @Select(actionsExecuting([CreatePost]))
   postForm = this.formBuilder.group({
-    title: ['', [Validators.required, Validators.maxLength(250)]],
+    title: ['', [ Validators.required, Validators.maxLength(100)]],
     text: ['', Validators.maxLength(1000)],
     community: ['', Validators.required],
-    categories: [[]]
+    category: [[]]
   });
-
-  // ngOnInit() {
-   
-  // }
-  
-  // title: string = '';
 
   get title() {
     return this.postForm.get('title');
   }
 
+  get text() {
+    return this.postForm.get('text');
+  }
+
+  get community() {
+    return this.postForm.get('community');
+  }
+
+  get category() {
+    return this.postForm.get('category');
+  }
+
   onSubmit() {
-    console.log(this.title);
+    let communityData : string;
+    let titleData : string;
+    let textData : string;
+    let categoryData : string[] | null;
+
+    if(this.community?.value == null || this.community?.value == undefined){
+      communityData = "";
+    }
+
+    else{
+      communityData = this.community?.value;
+    }
+
+    if(this.title?.value == null || this.title?.value == undefined){
+      titleData = "";
+    }
+
+    else{
+      titleData = this.title?.value;
+    }
+
+    if(this.text?.value == null || this.text?.value == undefined){
+      textData = "";
+    }
+
+    else{
+      textData = this.text?.value;
+    }
+
+    if(this.category?.value == null || this.category?.value == undefined){
+      categoryData = null;
+    }
+
+    else{
+      categoryData = this.category?.value;
+    }
+
+    const data = {
+      communityId: communityData,
+      title: titleData,
+      text: textData, 
+      username: this.profile.username,
+      imageUrl: null,
+      categories: categoryData,
+      likes: null
+    };
+
+    this.store.dispatch(new CreatePost(data));
   }
 
   displayText() {
     console.log(this.title?.value);
+    console.log(this.text?.value);
+    console.log(this.community?.value);
+    console.log(this.category?.value);
   }
 
   closePopup() {

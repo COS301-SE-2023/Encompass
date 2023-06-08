@@ -19,7 +19,7 @@
         <div  class = "SelectCategory">
             <div class = "title">Categories:</div>
              <div class = "select">
-                <ion-select multiple formControlName="categories" placeholder="Add categories">
+                <ion-select multiple formControlName="category" placeholder="Add categories">
                     <ion-select-option *ngFor="let category of categories" [value]="category" >
                      {{ category }}</ion-select-option>
                 </ion-select>
@@ -30,18 +30,17 @@
        
     <div class = "TextHead">
         <ion-textarea
-        
-        name="title"
         formControlName="title"
         placeholder="Add a title"
         class="custom"
         [counter]="true"
-        [maxlength]="250"
+        [maxlength]="100"
        
       ></ion-textarea>
     </div>
     <div class = "TextBody">
         <ion-textarea
+        formControlName="text"
         placeholder="Text (Optional)"
         class="custom2"
       ></ion-textarea>
