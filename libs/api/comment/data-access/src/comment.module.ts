@@ -9,6 +9,7 @@ import { CommentDtoRepository } from "./db/comment-dto.repository";
 import { CommentSchemaFactory } from "./db/comment-schema.factory";
 import { CommentFactory } from "./comment.factory";
 import { CreateCommentHandler } from "./commands";
+import { DeleteCommandHandler } from "./commands/delete-comment/delete-comment.handler";
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CreateCommentHandler } from "./commands";
     CommentSchemaFactory,
     CommentFactory,
     CreateCommentHandler,
+    DeleteCommandHandler
   ],
 })
 
