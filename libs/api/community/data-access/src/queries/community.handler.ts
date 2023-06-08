@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler} from "@nestjs/cqrs";
+import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { GetCommunityCommand } from "./community.command"
 import { CommunityEntityRepository } from "../db/community-entity.repository";
 import { EventPublisher } from "@nestjs/cqrs";
