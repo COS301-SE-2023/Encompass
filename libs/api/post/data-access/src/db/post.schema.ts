@@ -4,7 +4,7 @@ import { Schema, Prop } from "@nestjs/mongoose";
 @Schema({ versionKey: false, collection: "post" })
 export class PostSchema extends IdentifiableEntitySchema{
   @Prop()
-  readonly communityId!: string;
+  readonly community!: string;
 
   @Prop()
   readonly title!: string;
@@ -26,4 +26,10 @@ export class PostSchema extends IdentifiableEntitySchema{
 
   @Prop()
   readonly dateAdded!: Date;
+
+  @Prop()
+  readonly spoiler!: boolean;
+
+  @Prop()
+  readonly ageRestricted!: boolean;
 }

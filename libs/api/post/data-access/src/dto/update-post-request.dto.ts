@@ -4,4 +4,6 @@ export class UpdatePostRequest{
   imageUrl!: string | null;
   categories!: string [] | null;
   likes!: string [] | null;
+  spoiler!: boolean;
+  ageRestricted!: boolean;
 }

@@ -12,24 +12,28 @@ export class CreatePostHandler
 
     async execute({ createPostRequest }: CreatePostCommand){
       const {
-        communityId,
+        community,
         title,
         text,
         username,
         imageUrl,
         categories,
         likes,
+        spoiler,
+        ageRestricted
       } = createPostRequest;
 
       const post = this.eventPublisher.mergeObjectContext(
         await this.postFactory.create(
-          communityId,
+          community,
           title,
           text,
           username,
           imageUrl,
           categories,
-          likes
+          likes,
+          spoiler,
+          ageRestricted
         )
       );
 
