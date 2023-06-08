@@ -17,16 +17,10 @@ export class CreatePostComponent implements OnInit {
   communities: any[] =['Hobbits and all thatsdadwadawda','Community2222']; // Replace with the actual type of the communities array
   categories: any[]=["Mathematics","Information-Technology","Geography"]; 
 
-  selectedOption: string | null;
-  CommunitySelected:boolean = false;
-  CommunityNotSelected:boolean = true;
+  
   constructor(private modalController: ModalController,private formBuilder: FormBuilder) { 
-    this.selectedOption = null;
   }
-  SelectCom(){
-    this.CommunitySelected = true;
-    this.CommunityNotSelected = false;
-  }
+  
   ngOnInit() {
     this.postForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(250)]],
@@ -43,10 +37,6 @@ export class CreatePostComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  showCat:boolean = true;
-  change(){
-    this.showCat = false;
-    }
 
    
   
