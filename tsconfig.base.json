@@ -18,6 +18,9 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/comment/data-access": [
+        "libs/api/comment/data-access/src/index.ts"
+      ],
       "@encompass/api/database/data-access": [
         "libs/api/database/data-access/src/index.ts"
       ],
