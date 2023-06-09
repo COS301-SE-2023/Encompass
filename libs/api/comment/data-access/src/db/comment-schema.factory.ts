@@ -13,6 +13,7 @@ export class CommentSchemaFactory
           postId: comment.getPostId(),
           username: comment.getUsername(),
           text: comment.getText(),
+          replies: comment.getReplies(),
           dateAdded: comment.getDateAdded(),
         }
     }
@@ -23,6 +24,7 @@ export class CommentSchemaFactory
         entitySchema.postId,
         entitySchema.username,
         entitySchema.text,
+        entitySchema.replies,
         entitySchema.dateAdded,
       )
     }

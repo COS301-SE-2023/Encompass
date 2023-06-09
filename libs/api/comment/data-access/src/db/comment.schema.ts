@@ -13,5 +13,13 @@ export class CommentSchema extends IdentifiableEntitySchema{
   readonly username!: string;
 
   @Prop()
+  readonly replies!: {
+    id: string;
+    username: string;
+    text: string;
+    dateAdded: Date;
+  }[];
+
+  @Prop()
   readonly dateAdded!: Date;
 }

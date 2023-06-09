@@ -6,6 +6,12 @@ export class Comment extends AggregateRoot{
     public postId: string,
     public username: string,
     public text: string,
+    public replies: {
+      id: string;
+      username: string;
+      text: string;
+      dateAdded: Date;
+    }[],
     public dateAdded: Date,
   ){
     super();
@@ -31,4 +37,12 @@ export class Comment extends AggregateRoot{
     return this.dateAdded;
   }
   
+  getReplies(): {
+    id: string;
+    username: string;
+    text: string;
+    dateAdded: Date;
+  }[] {
+    return this.replies;
+  }
 }

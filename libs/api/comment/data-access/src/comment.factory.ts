@@ -21,6 +21,7 @@ export class CommentFactory implements EntityFactory<Comment>{
       postId,
       username,
       text,
+      [],
       new Date(),
     );
     await this.commentEntityRepository.create(comment);
