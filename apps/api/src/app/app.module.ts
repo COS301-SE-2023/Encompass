@@ -7,6 +7,7 @@ import { AccountModule } from '@encompass/api/account/data-access';
 import { ProfileModule } from '@encompass/api/profile/data-access';
 import { PostModule } from '@encompass/api/post/data-access';
 import { CommentModule } from '@encompass/api/comment/data-access';
+import { CommunityModule } from '@encompass/api/community/data-access';
 
 const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
 
@@ -17,6 +18,7 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     ProfileModule,
     PostModule,
     CommentModule,
+    CommunityModule,
     MongooseModule.forRoot(NX_MONGO_DB_URL)
   ],
   controllers: [AppController],
