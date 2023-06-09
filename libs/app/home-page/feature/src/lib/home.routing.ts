@@ -5,20 +5,20 @@ import { HomePage } from './home-page.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: '/home/feed',
+  },
+  {
+    path: '',
     component: HomePage,
     children: [
       {
-        path: 'feed',
+        path: 'home/feed',
         // match: 'full',
         loadChildren: () =>
           import('@encompass/app/feed/feature').then((m) => m.FeedModule),
       },
     ],
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: '/home/feed',
   },
 ];
 

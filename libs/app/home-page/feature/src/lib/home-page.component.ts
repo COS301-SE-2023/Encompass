@@ -11,6 +11,7 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 
+
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',

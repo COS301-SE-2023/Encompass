@@ -1,5 +1,13 @@
 import { NgModule, importProvidersFrom } from '@angular/core';
+// import {
+//   AuthGuard,
+//   redirectLoggedInTo,
+//   redirectUnauthorizedTo
+// } from '@angular/fire/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
+// const redirectLoggedOut = () => redirectUnauthorizedTo(['']);
+// const redirectLoggedIn = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   {
@@ -12,6 +20,7 @@ const routes: Routes = [
   {
     path: 'home',
     pathMatch: 'full',
+    // data: { authGuardPipe: redirectLoggedOut },
     loadChildren: () =>
       import('@encompass/app/home-page/feature').then((m) => m.HomeModule)
   },
@@ -53,6 +62,12 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
+  },
+  {
+    path: 'feed',
+    pathMatch: 'full',
+    loadChildren: () =>
+    import('@encompass/app/feed/feature').then((m) => m.FeedModule)
   }
 ];
 
