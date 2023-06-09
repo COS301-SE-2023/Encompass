@@ -4,7 +4,7 @@ import { UpdatePostRequest } from "./dto/update-post-request.dto";
 export class Post extends AggregateRoot{
   constructor(
     public readonly _id: string ,
-    public communityId: string,
+    public community: string,
     public title: string,
     public text: string,
     public username: string,
@@ -12,6 +12,8 @@ export class Post extends AggregateRoot{
     public categories: string [] | null,
     public likes: string [] | null,
     public dateAdded: Date,
+    public spoiler: boolean,
+    public ageRestricted: boolean
   ){
     super();
   }
@@ -20,8 +22,8 @@ export class Post extends AggregateRoot{
     return this._id;
   }
 
-  getCommunityId(): string {
-    return this.communityId;
+  getCommunity(): string {
+    return this.community;
   }
 
   getTitle(): string {
@@ -52,6 +54,14 @@ export class Post extends AggregateRoot{
     return this.dateAdded;
   }
   
+  getSpoiler(): boolean {
+    return this.spoiler;
+  }
+
+  getAgeRestricted(): boolean {
+    return this.ageRestricted;
+  }
+
   updatePost(updatePostRequest: UpdatePostRequest)
   {
     this.title = updatePostRequest.title;
@@ -59,5 +69,7 @@ export class Post extends AggregateRoot{
     this.imageUrl = updatePostRequest.imageUrl;
     this.categories = updatePostRequest.categories;
     this.likes = updatePostRequest.likes;
+    this.spoiler = updatePostRequest.spoiler;
+    this.ageRestricted = updatePostRequest.ageRestricted;
   }
 }

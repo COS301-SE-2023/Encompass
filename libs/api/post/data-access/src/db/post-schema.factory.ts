@@ -11,7 +11,7 @@ export class PostSchemaFactory
     create(post: Post): PostSchema {
       return{
         _id: new ObjectId(post.getId()),
-        communityId: post.getCommunityId(),
+        community: post.getCommunity(),
         title: post.getTitle(),
         text: post.getText(),
         username: post.getUsername(),
@@ -19,13 +19,15 @@ export class PostSchemaFactory
         categories: post.getCategories(),
         likes: post.getLikes(),
         dateAdded: post.getDateAdded(),
+        spoiler: post.getSpoiler(),
+        ageRestricted: post.getAgeRestricted()
       };
     }
 
     createFromSchema(entitySchema: PostSchema): Post{
       return new Post(
         entitySchema._id.toHexString(),
-        entitySchema.communityId,
+        entitySchema.community,
         entitySchema.title,
         entitySchema.text,
         entitySchema.username,
@@ -33,6 +35,8 @@ export class PostSchemaFactory
         entitySchema.categories,
         entitySchema.likes,
         entitySchema.dateAdded,
+        entitySchema.spoiler,
+        entitySchema.ageRestricted
       )
     }
   }

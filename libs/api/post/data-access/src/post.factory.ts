@@ -12,17 +12,19 @@ export class PostFactory implements EntityFactory<Post>{
   ){}
 
   async create(
-    communityId: string,
+    community: string,
     title: string,
     text: string,
     username: string,
     imageUrl: string | null,
     categories: string[] | null,
     likes: string[] | null,
+    spoiler: boolean,
+    ageRestricted: boolean
   ) : Promise<Post>{
     const post = new Post(
       new ObjectId().toHexString(),
-      communityId,
+      community,
       title,
       text,
       username,
@@ -30,6 +32,8 @@ export class PostFactory implements EntityFactory<Post>{
       categories,
       likes,
       new Date(),
+      spoiler,
+      ageRestricted
     );
     await this.postEntityRepository.create(post);
     post.apply(new PostCreatedEvent(post.getId()))

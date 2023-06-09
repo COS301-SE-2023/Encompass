@@ -26,21 +26,23 @@ export class HomePage {
   profile! : ProfileDto | null;
 
   constructor(private router: Router, private store: Store,private modalController: ModalController){
-    this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        console.log(profile);
-        this.profile = profile;
-      }
-    });
+    if(!this.profile){
+      this.store.dispatch(new SubscribeToProfile())
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          console.log(profile);
+          this.profile = profile;
+        }
+      });
 
-    this.store.dispatch(new getHome());
-    this.home$.subscribe((home) => {
-      if(home){
-      
-        console.log(home.name);
-      }
-    });
+      this.store.dispatch(new getHome());
+      this.home$.subscribe((home) => {
+        if(home){
+        
+          console.log(home.name);
+        }
+      });
+    }
   }
 
   async openPopup() {
@@ -52,7 +54,7 @@ export class HomePage {
       }
     });
   
-    await modal.present();
+    return await modal.present();
   }
 
   GoToProfile()

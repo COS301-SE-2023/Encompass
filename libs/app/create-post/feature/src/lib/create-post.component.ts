@@ -28,14 +28,26 @@ export class CreatePostComponent {
   profile! : ProfileDto;
 
   constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
-    this.store.dispatch(new SubscribeToProfile());
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        console.log(profile);
-        this.profile = profile;
-      }
-    })
+      if(!this.profile){
+      this.store.dispatch(new SubscribeToProfile());
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          console.log(profile);
+          this.profile = profile;
+        }
+      })
+    }
   }
+
+  // ngOnInit(){
+  //   this.store.dispatch(new SubscribeToProfile());
+  //   this.profile$.subscribe((profile) => {
+  //     if(profile){
+  //       console.log(profile);
+  //       this.profile = profile;
+  //     }
+  //   })
+  // }
   // @Select(actionsExecuting([CreatePost]))
   postForm = this.formBuilder.group({
     title: ['', [ Validators.required, Validators.maxLength(100)]],
@@ -99,13 +111,15 @@ export class CreatePostComponent {
     }
 
     const data = {
-      communityId: communityData,
+      community: communityData,
       title: titleData,
       text: textData, 
       username: this.profile.username,
       imageUrl: null,
       categories: categoryData,
-      likes: null
+      likes: null,
+      spoiler: false,
+      ageRestricted: false
     };
 
     this.store.dispatch(new CreatePost(data));
