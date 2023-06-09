@@ -6,7 +6,7 @@ import { CommentDto } from "./comment.dto";
 import { DeleteCommentCommand } from "./commands/delete-comment/delete-comment.command";
 import { AddReplyCommand } from "./commands/add-reply/add-reply.command";
 import { AddReplyRequest } from "./dto/add-reply-request.dto";
-
+import { DeleteReplyCommand } from "./commands/delete-reply/delete-reply.command";
 @Controller('comment')
 export class CommentController {
   constructor(
@@ -36,9 +36,19 @@ export class CommentController {
   async addReply(
     @Param('id') id: string,
     @Body() addReplyRequest: AddReplyRequest
-    ){
-      return await this.commandBus.execute<AddReplyCommand, CommentDto>(
-        new AddReplyCommand(id, addReplyRequest),
-      );
-    }
+  ){
+    return await this.commandBus.execute<AddReplyCommand, CommentDto>(
+      new AddReplyCommand(id, addReplyRequest),
+    );
+  }
+
+  @Delete('delete-reply/:id/:replyId')
+  async deleteReply(
+    @Param('id') id: string,
+    @Param('replyId') replyId: string,
+  ){
+    return await this.commandBus.execute<DeleteReplyCommand, string>(
+      new DeleteReplyCommand(id, replyId),
+    );
+  }
 }
