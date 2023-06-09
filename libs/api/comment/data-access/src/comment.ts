@@ -1,4 +1,6 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+import { AddReplyRequest } from "./dto/add-reply-request.dto";
+import { ObjectId } from "mongodb";
 
 export class Comment extends AggregateRoot{
   constructor(
@@ -44,5 +46,14 @@ export class Comment extends AggregateRoot{
     dateAdded: Date;
   }[] {
     return this.replies;
+  }
+
+  addReply(reply: AddReplyRequest): void {
+    this.replies.push({
+      id: new ObjectId().toHexString(),
+      username: reply.username,
+      text: reply.text,
+      dateAdded: new Date(),
+    })
   }
 }

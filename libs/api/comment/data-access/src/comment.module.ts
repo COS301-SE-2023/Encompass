@@ -10,6 +10,7 @@ import { CommentSchemaFactory } from "./db/comment-schema.factory";
 import { CommentFactory } from "./comment.factory";
 import { CreateCommentHandler } from "./commands";
 import { DeleteCommandHandler } from "./commands/delete-comment/delete-comment.handler";
+import { AddReplyHandler } from "./commands/add-reply/add-reply.handler";
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { DeleteCommandHandler } from "./commands/delete-comment/delete-comment.h
     CommentSchemaFactory,
     CommentFactory,
     CreateCommentHandler,
-    DeleteCommandHandler
+    DeleteCommandHandler,
+    AddReplyHandler,
   ],
 })
 

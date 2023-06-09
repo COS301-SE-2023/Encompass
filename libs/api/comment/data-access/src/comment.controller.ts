@@ -1,9 +1,11 @@
-import { Controller, Post, Body, Delete, Param } from "@nestjs/common";
+import { Controller, Post, Body, Delete, Param, Patch } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CreateCommentCommand } from "./commands/create-comment/create-comment.command";
 import { CreateCommentRequest } from "./dto/create-comment-request.dto";
 import { CommentDto } from "./comment.dto";
 import { DeleteCommentCommand } from "./commands/delete-comment/delete-comment.command";
+import { AddReplyCommand } from "./commands/add-reply/add-reply.command";
+import { AddReplyRequest } from "./dto/add-reply-request.dto";
 
 @Controller('comment')
 export class CommentController {
@@ -29,4 +31,14 @@ export class CommentController {
       new DeleteCommentCommand(id),
     );
   }
+
+  @Patch('add-reply/:id')
+  async addReply(
+    @Param('id') id: string,
+    @Body() addReplyRequest: AddReplyRequest
+    ){
+      return await this.commandBus.execute<AddReplyCommand, CommentDto>(
+        new AddReplyCommand(id, addReplyRequest),
+      );
+    }
 }
