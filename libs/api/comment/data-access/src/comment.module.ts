@@ -11,6 +11,7 @@ import { CommentFactory } from "./comment.factory";
 import { CreateCommentHandler } from "./commands";
 import { DeleteCommandHandler } from "./commands/delete-comment/delete-comment.handler";
 import { AddReplyHandler } from "./commands/add-reply/add-reply.handler";
+import { DeleteReplyHandler } from "./commands/delete-reply/delete-reply.handler";
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AddReplyHandler } from "./commands/add-reply/add-reply.handler";
     CreateCommentHandler,
     DeleteCommandHandler,
     AddReplyHandler,
+    DeleteReplyHandler
   ],
 })
 

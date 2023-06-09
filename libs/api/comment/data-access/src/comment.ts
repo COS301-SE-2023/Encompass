@@ -56,4 +56,8 @@ export class Comment extends AggregateRoot{
       dateAdded: new Date(),
     })
   }
+
+  deleteReply(replyId: string): void {
+    this.replies = this.replies.filter(reply => reply.id != replyId);
+  }
 }
