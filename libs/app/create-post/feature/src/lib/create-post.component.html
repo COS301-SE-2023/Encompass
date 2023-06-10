@@ -1,0 +1,61 @@
+<div class="container">
+<div class = "head">
+    <button class = "btn1">Post</button>
+    <button  class = "btn2">Event</button>
+</div>
+
+<form [formGroup]="postForm"  (ngSubmit)="onSubmit()" class = "form">
+
+    <div class = "Subhead">
+        <div  class = "SelectCommunity">
+            <div class = "title">Community:</div>
+            <div  class = "select" >
+                <ion-select formControlName="community" placeholder="Add a community"  >
+                    <ion-select-option *ngFor="let community of communities" [value]="community" class = "option">
+                        {{ community }}</ion-select-option>
+                </ion-select>
+            </div>
+        </div>
+        <div  class = "SelectCategory">
+            <div class = "title">Categories:</div>
+             <div class = "select">
+                <ion-select multiple formControlName="category" placeholder="Add categories">
+                    <ion-select-option *ngFor="let category of categories" [value]="category" >
+                     {{ category }}</ion-select-option>
+                </ion-select>
+            </div>
+        </div> 
+    </div>
+   
+       
+    <div class = "TextHead">
+        <ion-textarea
+        formControlName="title"
+        placeholder="Add a title"
+        class="custom"
+        [counter]="true"
+        [maxlength]="100"
+       
+      ></ion-textarea>
+    </div>
+    <div class = "TextBody">
+        <ion-textarea
+        formControlName="text"
+        placeholder="Text (Optional)"
+        class="custom2"
+      ></ion-textarea>
+   
+    </div>
+    <div class = "TextFooter">
+        <ion-icon name="image-outline" style = "font-size: 25px;"></ion-icon>
+        <button type="button" class = "btns" style="background-color: #CECAE3;" (click)="displayText()"><ion-icon name="add-outline"></ion-icon>Spoilers</button>
+        <button type="button" class = "btns"  style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Age Restricted</button>
+        <button type = "submit" class = "btns"  style="background-color: #66617F; color:white" (click)="closePopup()">Post</button>
+
+    </div>
+
+    
+  </form>
+
+  
+</div>

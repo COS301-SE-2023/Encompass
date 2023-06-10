@@ -18,16 +18,34 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/comment/data-access": [
+        "libs/api/comment/data-access/src/index.ts"
+      ],
+      "@encompass/api/community/data-access": [
+        "libs/api/community/data-access/src/index.ts"
+      ],
       "@encompass/api/database/data-access": [
         "libs/api/database/data-access/src/index.ts"
       ],
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
       ],
+      "@encompass/api/post/data-access": [
+        "libs/api/post/data-access/src/index.ts"
+      ],
       "@encompass/api/profile/data-access": [
         "libs/api/profile/data-access/src/index.ts"
       ],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
+      "@encompass/app/create-post/data-access": [
+        "libs/app/create-post/data-access/src/index.ts"
+      ],
+      "@encompass/app/create-post/feature": [
+        "libs/app/create-post/feature/src/index.ts"
+      ],
+      "@encompass/app/create-post/util": [
+        "libs/app/create-post/util/src/index.ts"
+      ],
       "@encompass/app/home-page/data-access": [
         "libs/app/home-page/data-access/src/index.ts"
       ],
