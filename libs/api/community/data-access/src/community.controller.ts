@@ -31,4 +31,12 @@ export class CommunityController {
         );
     }
 
+    @Patch('update/:id')
+    async updateCommunity(
+        @Param('id') communityId: string,
+        @Body() community: UpdateCommunityRequest) {
+        return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
+            new UpdateCommunityCommand(communityId, community),
+        );
+    }
 }
