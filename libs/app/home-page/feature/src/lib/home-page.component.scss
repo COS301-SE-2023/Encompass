@@ -505,7 +505,17 @@ border-radius: 50%;
 
 }
 
-.split-pane-visible >.split-pane-side {
-  min-width: 70px!important;
-  max-width: 70px!important;
+ion-split-pane {
+  &.split-pane-visible {
+    .menu-pane {
+      min-width: 70px !important;
+      max-width: 70px !important;
+    }
+
+    .router-pane {
+      min-width: calc(100% - 70px) !important;
+      max-width: calc(100% - 70px) !important;
+    }
+  }
 }
+
