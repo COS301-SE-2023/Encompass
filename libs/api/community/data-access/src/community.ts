@@ -1,4 +1,5 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+import { UpdateCommunityCommand } from "./commands/update-community.command";
 
 export class Community extends AggregateRoot{
     constructor(
@@ -41,5 +42,12 @@ export class Community extends AggregateRoot{
         return this.members;
     }
 
-    //add update later
+    updateCommunity(updateCommunityRequest: UpdateCommunityRequest){
+        this.name = updateCommunityRequest.name;
+        this.admin = updateCommunityRequest.admin;
+        this.about = updateCommunityRequest.about;
+        this.events = updateCommunityRequest.events;
+        this.posts = updateCommunityRequest.posts;
+        this.members = updateCommunityRequest.members;
+    }
 }
