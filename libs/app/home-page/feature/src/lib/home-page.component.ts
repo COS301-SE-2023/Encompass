@@ -46,7 +46,7 @@ export class HomePage {
   }
 
   goToProfile() {
-    this.router.navigate(['profile']);
+    this.router.navigate(['/home/profile']);
   }
 
   UserProfile(){

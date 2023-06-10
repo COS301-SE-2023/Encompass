@@ -63,12 +63,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
   },
-  {
-    path: 'feed',
-    pathMatch: 'full',
-    loadChildren: () =>
-    import('@encompass/app/feed/feature').then((m) => m.FeedModule)
-  }
+  // {
+  //   path: 'feed',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //   import('@encompass/app/feed/feature').then((m) => m.FeedModule)
+  // }
 ];
 
 @NgModule({
