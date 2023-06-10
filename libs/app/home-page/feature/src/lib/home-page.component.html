@@ -5,28 +5,40 @@
     <!-- </ion-header> -->
     <ion-content class="ion-padding">
       <div class="MenuButton">
-        <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+        <ion-button fill="clear" id="popover-button">
+          <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+        </ion-button>
       </div>
 
       <div class="MenuButton">
-        <ion-icon name="rocket" style="font-size: larger; position:relative;"></ion-icon>
+        <ion-button fill="clear">
+          <ion-icon name="rocket" style="font-size: larger; position:relative;"></ion-icon>
+        </ion-button>
       </div>
 
       <div class="MenuButton">
-        <ion-icon name="chatbubbles" style="font-size: larger; position:relative;"></ion-icon>
+        <ion-button fill="clear">
+          <ion-icon name="chatbubbles" style="font-size: larger; position:relative;"></ion-icon>
+        </ion-button>
       </div>
 
       <div class="MenuButton">
-        <ion-icon name="notifications" style="font-size: larger; position:relative;"></ion-icon>
+        <ion-button fill="clear">
+          <ion-icon name="notifications" style="font-size: larger; position:relative;"></ion-icon>
+        </ion-button>
       </div>
 
       <div class="MenuButton">
-        <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
+        <ion-button fill="clear" (click)="goToProfile()">
+          <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
+        </ion-button>
       </div>
 
 
       <div class="menuFooter">
+        <ion-button fill="clear">
         <ion-icon name="menu"></ion-icon>
+      </ion-button>
       </div>
     </ion-content>
   </ion-menu>

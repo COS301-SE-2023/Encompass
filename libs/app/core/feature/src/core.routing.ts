@@ -32,12 +32,12 @@ const routes: Routes = [
       import('@encompass/app/login/feature').then((m) => m.LoginModule)
   },
 
-  {
-    path: 'profile',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/profile/feature').then((m) => m.ProfileModule)
-  },
+  // {
+  //   path: 'profile',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/profile/feature').then((m) => m.ProfileModule)
+  // },
 
   {
     path: 'register',

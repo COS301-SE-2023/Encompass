@@ -10,6 +10,7 @@ import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { PopoverController } from '@ionic/angular';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class HomePage {
   home! : HomeDto | null;
   profile! : ProfileDto | null;
 
-  constructor(private router: Router, private store: Store){
+  constructor(private router: Router, private store: Store, private popoverController: PopoverController){
+
+    
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -42,8 +45,7 @@ export class HomePage {
     });
   }
 
-  GoToProfile()
-  {
+  goToProfile() {
     this.router.navigate(['profile']);
   }
 
