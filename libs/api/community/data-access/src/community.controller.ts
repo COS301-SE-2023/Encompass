@@ -31,7 +31,7 @@ export class CommunityController {
         );
     }
 
-    @Patch('update/:id')
+    @Patch(':id')
     async updateCommunity(
         @Param('id') communityId: string,
         @Body() community: UpdateCommunityRequest) {

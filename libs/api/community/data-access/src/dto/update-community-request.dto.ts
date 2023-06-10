@@ -1,4 +1,4 @@
-export class updateCommunityRequest {
+export class UpdateCommunityRequest {
     name!: string;
     admin!: string;
     about!: string;

@@ -1,15 +1,16 @@
 import { AggregateRoot } from "@nestjs/cqrs";
-import { UpdateCommunityCommand } from "./commands/update-community.command";
+import { UpdateCommunityCommand } from "./commands/update-community/update-community.command";
+import { UpdateCommunityRequest } from "./dto/update-community-request.dto";
 
 export class Community extends AggregateRoot{
     constructor(
-        public readonly _id: string,
-        public readonly name: string,
-        public readonly admin: string,
-        public readonly about: string,
-        public readonly events: string[],
-        public readonly posts: string[],
-        public readonly members: string[],
+        public _id: string,
+        public name: string,
+        public admin: string,
+        public about: string,
+        public events: string[],
+        public posts: string[],
+        public members: string[],
     ) {
         super();
     }

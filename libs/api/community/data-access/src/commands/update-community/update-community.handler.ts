@@ -1,6 +1,6 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { UpdateCommunityCommand } from "./update-community.command";
-import { CommunityEntityRepository } from "../db/community-entity.repository";
+import { CommunityEntityRepository } from "../../db/community-entity.repository";
 
 @CommandHandler(UpdateCommunityCommand)
 export class UpdateCommunityHandler
