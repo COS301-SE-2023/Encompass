@@ -63,6 +63,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
   },
+  {
+    path: 'settings',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
+  },
+  {
+    path: 'themes',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
+  },
   // {
   //   path: 'feed',
   //   pathMatch: 'full',

@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent {
+export class SettingsPage{
 
 }
