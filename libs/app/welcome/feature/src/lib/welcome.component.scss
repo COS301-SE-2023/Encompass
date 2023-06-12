@@ -24,7 +24,7 @@
   z-index: 3;
   width: 7%; 
   height: auto;
-  animation: Up 1s;
+  
 
 }
 
@@ -35,7 +35,7 @@
   z-index: 3;
   width: 10%; 
   height: auto;
-  animation: Down 1s;
+  
 
 }
 
@@ -48,7 +48,7 @@
   width: 2%; 
   height: auto;
  
-  animation: Down 1s;
+  
   
 
 }
@@ -62,7 +62,7 @@
   width: 15%; 
   height: auto;
   transform: translate(-50%, -50%);
-  //animation: Right 1s;
+  //
 
 }
 
@@ -88,7 +88,7 @@
     font-size: 300%;
     color: #231942;
     font-family: CustomFont;
-    animation: Right 1s;
+    
 
   }
 
@@ -100,7 +100,7 @@
     font-size: 100%;
     color: #231942;
     font-family: CustomFont;
-    animation: Up 1s;
+    
 
   }
 
@@ -113,7 +113,7 @@
     font-size: 100%;
     color: white;
     font-family: CustomFont;
-   // animation: Up 1s;
+   // 
 
   }
 }
@@ -123,8 +123,8 @@
 .btn1{
   border: 2px solid var(--ion-color-primary-contrast);
   border-radius: 30px;
-  background-color: #CECAE3;
-  color:#231942;
+  background-color: #20173F;
+  color:white;
   position: relative;
   bottom:63%;
   left:5%;
@@ -133,7 +133,7 @@
   height: 7%;
   font-family: CustomFont2;
   text-transform: none;
-  animation: Right 1s;
+  
 
 
 }
@@ -150,7 +150,7 @@
   height: 7%; 
   font-family: CustomFont2;
   text-transform: none;
-  animation: Right 1s;
+  
 
 }
 
@@ -167,7 +167,7 @@
   height: 7%;
   font-family: CustomFont2;
   text-transform: none;
-  animation: Left 1s;
+  
 
 }
 .btn4{
@@ -183,7 +183,7 @@
   height: 7%; 
   font-family: CustomFont2;
   text-transform: none;
-  animation: Left 1s;
+  
 
 }
 .btn5{
@@ -199,8 +199,8 @@
   height: 7%; 
   font-family: CustomFont2;
   text-transform: none;
-  animation: Up 1s;
-  animation: Left 1s;
+  
+  
 
 
 }
@@ -220,7 +220,7 @@
   color: white;
   font-size: 300%; 
    transform: translate(-50%, -50%);
-   //animation: Up 1s;
+   //
 
 }
 
@@ -232,7 +232,7 @@
   color: white;
   font-size: 300%; 
    transform: translate(-50%, -50%);
-  // animation: Up 1s;
+  // 
 
 }
 
@@ -252,4 +252,28 @@
 @keyframes Down {
   0%       { transform: translatex(0px) translatey(-50px) }
   100%     { transform: translatex(0px) translatey(0px) }
+}
+
+span {
+  font-size: 20px;
+}
+
+#frame_2.right-align {
+  text-align: right;
+}
+
+.left-align {
+  text-align: left;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+
+.tagline {
+  text-align: center;
+}
+
+.footer{
+  height: 100px;
+  color: white;
 }

@@ -1,28 +1,61 @@
-<ion-content scrollY = "false">
+<ion-content>
   <div class="overlay-container">
-   
-    <img src="assets/WelcomeImg.png" class = "full-screen-image" alt="Encompass Logo" >
-    <img src="assets/icon/Planet.png" class = "Overlay1" alt="Encompass Logo" >
- <img src="assets/icon/Swirl.png" class = "Overlay2" alt="Encompass Logo" >
- <img src="assets/icon/Planet.png" class = "Overlay3" alt="Encompass Logo" >
- <img src="assets/icon/Logo.png" class = "Overlay4" alt="Encompass Logo" >
- <div class = "Overlayt" >encompass</div>
- <div class = "Overlayt2" >exploring beyond</div>
- <ion-button fill = "clear" class = "btn1"  size = "large" (click)="LogIn()">Log in</ion-button>
- <ion-button fill = "clear" class = "btn2"  size = "large" (click)="SignUp()">Sign up</ion-button>
-
- <ion-button fill = "clear" class = "btn3"  size = "large" >
-  <ion-icon name="book-outline"></ion-icon>Explore Media</ion-button>
-
- <ion-button fill = "clear" class = "btn4"  size = "large" >
-  <ion-icon name="rocket-outline"></ion-icon>Explore Communities</ion-button>
-
- <ion-button fill = "clear" class = "btn5"  size = "large" >
-  <ion-icon name="help-circle-outline"></ion-icon>About Us</ion-button>
-
- <ion-button fill = "clear" class = "btn6"  size = "smaller" >Terms of Service</ion-button>
-<ion-icon name="logo-linkedin" class = "lnk"></ion-icon>
-<ion-icon name="logo-github" class = "git"></ion-icon>
-<div class = "Overlayt3">PerfectStrangers Capstone 2023</div>
+    <img src="assets/WelcomeImg.png" class="full-screen-image" alt="Encompass Logo">
+    <img src="assets/icon/Planet.png" class="Overlay1" alt="Encompass Logo">
+    <img src="assets/icon/Swirl.png" class="Overlay2" alt="Encompass Logo">
+    <img src="assets/icon/Planet.png" class="Overlay3" alt="Encompass Logo">
+    <img src="assets/icon/Logo.png" class="Overlay4" alt="Encompass Logo">
+    <div class="Overlayt">encompass</div>
+    <div class="Overlayt2">exploring beyond</div>
+    <ion-button fill="clear" class="btn1" size="large" (click)="LogIn()">Log in</ion-button>
+    <ion-button fill="clear" class="btn2" size="large" (click)="SignUp()">Sign up</ion-button>
   </div>
+
+  <div id="tagline" class="tagline">
+    <h1>Discover communities, people, and media tailored to your interests.</h1>
+  </div>
+
+  <div id="frame_1" class="left-align">
+    <h2>Get personalized recommendations</h2>
+    <span>Our Machine Learning algorithm will bring you specially tailored content right to your home page.</span>
+  </div>
+
+  <div id="frame_2" class="right-align">
+    <h2>Join communities</h2>
+    <span>Connect with like-minded communities and friends.
+      Make your own community, or join one celebrating your beloved interests.</span>
+  </div>
+
+  <div id="frame_3" class="left-align">
+    <h2>Check out events and challenges</h2>
+    <span>Explore our Events page, featuring quizzes, meetups, challenges, and more!
+      Win awards and level up your profile!</span>
+  </div>
+
+  <ion-footer>
+    <ion-toolbar class="footer" color="primary">
+      <ion-buttons slot="start">
+        <ion-button>
+          <ion-icon name="people"></ion-icon>
+          Team
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="secondary">
+        <ion-button>
+          <ion-icon name="document-text"></ion-icon>
+          T&amp;Cs
+        </ion-button>
+        <ion-button>
+          <ion-icon name="lock-closed"></ion-icon>
+          Privacy
+        </ion-button>
+      </ion-buttons>
+      <div class="footer-content">
+        <ion-icon name="logo-linkedin" class="lnk"></ion-icon>
+        <ion-icon name="logo-github" class="git"></ion-icon>
+        <div class="Overlayt3">PerfectStrangers Capstone 2023</div>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+  
 </ion-content>
