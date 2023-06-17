@@ -19,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        pathMatch: 'full',
+        // pathMatch: 'full',
         loadChildren: () => import('@encompass/app/profile/feature').then((m) => m.ProfileModule), 
       },
     ],
