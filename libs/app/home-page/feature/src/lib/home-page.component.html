@@ -1,8 +1,10 @@
 <ion-split-pane>
   <ion-menu side="start" contentId="main-content" class="menu-pane">
-    <!-- <ion-header> -->
-    <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-    <!-- </ion-header> -->
+      <div class="logoButton" (click)="goHome()">
+        <ion-button fill="clear" class="centeredButton">
+          <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+        </ion-button>
+      </div>
     <ion-content class="ion-padding">
       <div class="MenuButton">
         <ion-button fill="clear" id="popover-button">

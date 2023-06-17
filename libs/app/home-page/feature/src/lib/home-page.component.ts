@@ -49,6 +49,10 @@ export class HomePage {
     this.router.navigate(['/home/profile']);
   }
 
+  goHome() {
+    this.router.navigate(['/home/feed']);
+  }
+
   UserProfile(){
     this.router.navigate(['user-profile']);
   }
