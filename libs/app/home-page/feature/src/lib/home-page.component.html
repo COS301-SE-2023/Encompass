@@ -6,26 +6,26 @@
         </ion-button>
       </div>
     <ion-content class="ion-padding">
-      <div class="MenuButton">
-        <ion-button fill="clear" id="popover-button">
+      <div class="MenuButton" >
+        <ion-button fill="clear" id="popover-button" (click)="OpenSearch()">
           <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
         </ion-button>
       </div>
 
       <div class="MenuButton">
-        <ion-button fill="clear">
+        <ion-button fill="clear" (click)="goToExplore()">
           <ion-icon name="rocket" style="font-size: larger; position:relative;"></ion-icon>
         </ion-button>
       </div>
 
       <div class="MenuButton">
-        <ion-button fill="clear">
+        <ion-button fill="clear" (click)="goToChat()">
           <ion-icon name="chatbubbles" style="font-size: larger; position:relative;"></ion-icon>
         </ion-button>
       </div>
 
       <div class="MenuButton">
-        <ion-button fill="clear">
+        <ion-button fill="clear"(click)="openNotifications()">
           <ion-icon name="notifications" style="font-size: larger; position:relative;"></ion-icon>
         </ion-button>
       </div>

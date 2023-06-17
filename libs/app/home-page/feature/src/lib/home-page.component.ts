@@ -53,7 +53,29 @@ export class HomePage {
     this.router.navigate(['/home/feed']);
   }
 
-  UserProfile(){
-    this.router.navigate(['user-profile']);
+  OpenSearch() {
+    // this.router.navigate(['/home/search']);
   }
+
+  goToExplore(){
+    // this.router.navigate(['/home/explore']);
+  }
+
+  goToChat(){
+    // this.router.navigate(['/home/chat']);
+  }
+
+  openNotifications(){
+    // this.router.navigate(['/home/notifications']);
+  }
+
+  goToSettings(){
+    this.router.navigate(['/home/settings']);
+  }
+
+  goToThemes(){
+    this.router.navigate(['/home/themes']);
+  }
+
+
 }

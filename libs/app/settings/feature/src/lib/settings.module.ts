@@ -11,4 +11,5 @@ import { SettingsRouting } from './settings.routing';
   declarations: [SettingsPage],
   providers: [],
 })
-export class SettingsModule {}
+export class SettingsModule {
+}

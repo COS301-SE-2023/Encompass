@@ -26,3 +26,11 @@
     </ion-buttons>
   </ion-toolbar>
   
+  <ion-content>
+    <ion-button (mouseover)="toggleLabel(true)" (mouseout)="toggleLabel(false)">Hello</ion-button>
+    <ion-label [hidden]="labelHidden" id="label">This is the settings page</ion-label>
+  </ion-content>
+  
+  
+  
+  

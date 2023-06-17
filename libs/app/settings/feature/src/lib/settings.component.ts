@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsPage{
+  labelHidden = true;
+
+  toggleLabel(show: boolean) {
+    this.labelHidden = !show;
+  }
 
 }

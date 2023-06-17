@@ -22,6 +22,16 @@ const routes: Routes = [
         // pathMatch: 'full',
         loadChildren: () => import('@encompass/app/profile/feature').then((m) => m.ProfileModule), 
       },
+      {
+        path: 'themes',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/themes/feature').then((m) => m.ThemesModule), 
+      },
+      {
+        path: 'settings',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/settings/feature').then((m) => m.SettingsModule), 
+      },
     ],
   },
 ];
