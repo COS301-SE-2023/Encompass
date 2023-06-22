@@ -4,6 +4,7 @@ export class CreateProfileRequest{
   name!: string | null;
   lastName!: string | null;
   categories!: string [] | null;
+  communities!: string [] | null;
   awards!: string [] | null;
   events!: string [] | null;
   followers!: string [] | null;

@@ -5,6 +5,7 @@ import { CreatePostCommand } from "./commands/create-post/create-post.command";
 import { CreatePostRequest } from "./dto/create-post-request.dto";
 import { UpdatePostCommand } from "./commands/update-post/update-post.command";
 import { DeletePostCommand } from "./commands/delete-post/delete-post.command";
+import { UploadImageCommand } from "./commands/upload-image/upload-image.command";
 
 @Controller('post')
 export class PostController {
@@ -38,6 +39,15 @@ export class PostController {
   ){
     return await this.commandBus.execute<DeletePostCommand, string>(
       new DeletePostCommand(id),
+    );
+  }
+
+  @Post('upload-image')
+  async uploadImage(
+    @Body() image: FormData,
+  ){
+    return await this.commandBus.execute<UploadImageCommand, string>(
+      new UploadImageCommand(image),
     );
   }
 }

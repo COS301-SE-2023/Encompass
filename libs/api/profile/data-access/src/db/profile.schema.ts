@@ -16,6 +16,9 @@ export class ProfileSchema extends IdentifiableEntitySchema{
   readonly categories!: string[] | null;
 
   @Prop()
+  readonly communities!: string[] | null;
+  
+  @Prop()
   readonly awards!: string[] | null;
 
   @Prop()

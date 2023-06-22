@@ -11,7 +11,7 @@
             <div class = "title">Community:</div>
             <div  class = "select" >
                 <ion-select formControlName="community" placeholder="Add a community"  >
-                    <ion-select-option *ngFor="let community of communities" [value]="community" class = "option">
+                    <ion-select-option *ngFor="let community of profile.communities" [value]="community" class = "option">
                         {{ community }}</ion-select-option>
                 </ion-select>
             </div>
@@ -47,13 +47,26 @@
    
     </div>
     <div class = "TextFooter">
-        <ion-icon name="image-outline" style = "font-size: 25px;"></ion-icon>
+        <ion-icon name="image-outline" style = "font-size: 25px;" (click) = "insertImage()"></ion-icon>
         <button type="button" class = "btns" style="background-color: #CECAE3;" (click)="displayText()"><ion-icon name="add-outline"></ion-icon>Spoilers</button>
         <button type="button" class = "btns"  style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Age Restricted</button>
         <button type = "submit" class = "btns"  style="background-color: #66617F; color:white" (click)="closePopup()">Post</button>
-
+        <br>
+        <div *ngIf="hasImage" class = "Image">
+            <input type="file" class="file-input"
+            [accept]="requiredFileType"
+            (change)="onFileSelected($event)" #fileUpload>
+            
+            <div class="file-upload">
+                {{fileName || "No file uploaded yet."}}
+    
+                <button mat-mini-fab color="primary" class="upload-btn"
+                    (click)="fileUpload.click()">
+                    <!-- <mat-icon>attach_file</mat-icon> -->
+                </button>
+            </div>
+        </div>
     </div>
-
     
   </form>
 

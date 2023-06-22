@@ -16,5 +16,17 @@ export class CreatePostApi{
     {
       return null;
     }
-  }  
+  }
+  
+  async uploadFile(request: FormData){
+    try {
+      const response = await this.httpClient.post<string>('/api/post/upload', request).toPromise();
+
+      return response;
+    } 
+    catch (error) 
+    {
+      return null;
+    }
+  }
 }

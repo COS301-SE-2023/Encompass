@@ -3,6 +3,7 @@ export class UpdateProfileRequest{
   name!: string;
   lastName!: string;
   categories!: string [];
+  communities!: string [];
   awards!: string [];
   events!: string [];
   followers!: string [];

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreatePost } from '@encompass/app/create-post/util';
+import { CreatePost, UploadFile } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
@@ -22,10 +22,13 @@ export class CreatePostComponent {
   ,"Physics","Geography","Series","Western","Mystery","Fantasy","Life-Science"
   ,"War","IT","Arts","Business","Musical","Horror","Adventure","History","Comedy"];   
 
-  
+  requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
+
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
 
   profile! : ProfileDto;
+  hasImage = false;
+  fileName! : string;
 
   constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
       if(!this.profile){
@@ -136,7 +139,30 @@ export class CreatePostComponent {
     this.modalController.dismiss();
   }
 
+  insertImage() {
+    this.hasImage = !this.hasImage;
+    console.log(this.hasImage);
+  }
 
-   
-  
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+        this.fileName = file.name;
+
+        const formData = new FormData();
+
+        // formData.append("thumbnail", file);
+        formData.append(this.fileName, file);
+
+        const url = this.store.dispatch(new UploadFile(file));
+        //const upload$ = this.http.post("/api/thumbnail-upload", file);
+        console.log(url);
+
+        // upload$.subscribe();
+
+    }
+  }
 }

@@ -72,6 +72,7 @@ export class SignUpState{
             name: null,
             lastName: null,
             categories: null,
+            communities: null,
             awards: null,
             events: null,
             followers: null,
