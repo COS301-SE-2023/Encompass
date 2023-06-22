@@ -29,6 +29,7 @@ export class CreatePostComponent {
   profile! : ProfileDto;
   hasImage = false;
   fileName! : string;
+  file! : File;
 
   constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
       if(!this.profile){
@@ -80,6 +81,24 @@ export class CreatePostComponent {
     let titleData : string;
     let textData : string;
     let categoryData : string[] | null;
+    let imageUrl : string | null = null;
+
+    if(this.file){
+      const formData = new FormData();
+      formData.append('file', this.file, this.fileName);
+
+      const item = this.store.dispatch(new UploadFile(formData));
+      item.subscribe((response) => {
+        if(response){
+          console.log(response);
+          imageUrl = response;
+        }
+      })
+    }
+
+    else{
+      imageUrl = null;
+    }
 
     if(this.community?.value == null || this.community?.value == undefined){
       communityData = "";
@@ -118,7 +137,7 @@ export class CreatePostComponent {
       title: titleData,
       text: textData, 
       username: this.profile.username,
-      imageUrl: null,
+      imageUrl: imageUrl,
       categories: categoryData,
       likes: null,
       spoiler: false,
@@ -149,19 +168,19 @@ export class CreatePostComponent {
     const file:File = event.target.files[0];
 
     if (file) {
-
+        this.file = file;
         this.fileName = file.name;
 
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        // formData.append("thumbnail", file);
-        formData.append(this.fileName, file);
+        // // formData.append("thumbnail", file);
+        // formData.append(this.fileName, file);
 
-        const url = this.store.dispatch(new UploadFile(file));
-        //const upload$ = this.http.post("/api/thumbnail-upload", file);
-        console.log(url);
+        // const url = this.store.dispatch(new UploadFile(file));
+        // //const upload$ = this.http.post("/api/thumbnail-upload", file);
+        // console.log(url);
 
-        // upload$.subscribe();
+        // // upload$.subscribe();
 
     }
   }

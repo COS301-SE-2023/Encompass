@@ -6,6 +6,12 @@ import { CreatePostRequest } from "./dto/create-post-request.dto";
 import { UpdatePostCommand } from "./commands/update-post/update-post.command";
 import { DeletePostCommand } from "./commands/delete-post/delete-post.command";
 import { UploadImageCommand } from "./commands/upload-image/upload-image.command";
+import { UseInterceptors } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { Request } from "express";
+import { Multer } from "multer";
+import { UploadedFile } from "@nestjs/common";
+import { UploadImage } from "./upload-image.service";
 
 @Controller('post')
 export class PostController {
@@ -43,11 +49,13 @@ export class PostController {
   }
 
   @Post('upload-image')
+  @UseInterceptors(FileInterceptor('file'))
   async uploadImage(
-    @Body() image: FormData,
+    @UploadedFile() file: Express.Multer.File,
   ){
-    return await this.commandBus.execute<UploadImageCommand, string>(
-      new UploadImageCommand(image),
-    );
+    console.log("Here")
+    const uploadImage = new UploadImage();
+    
+    return await uploadImage.uploadImage(file.buffer, file.originalname);
   }
 }

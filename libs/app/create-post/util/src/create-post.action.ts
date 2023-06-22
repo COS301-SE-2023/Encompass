@@ -7,5 +7,5 @@ export class CreatePost{
 
 export class UploadFile{
   static readonly type = '[Post] Upload File';
-  constructor(public readonly file: File){}
+  constructor(public readonly file: FormData){}
 }

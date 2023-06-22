@@ -48,14 +48,14 @@
        
         </div>
         <div class = "TextFooter">
-            <ion-icon name="image-outline" style = "font-size: 25px;"></ion-icon>
+            <ion-icon name="image-outline" style = "font-size: 25px;" (click) = "insertImage()"></ion-icon>
             <button type="button" class = "btns" style="background-color: #CECAE3;" (click)="displayText()"><ion-icon name="add-outline"></ion-icon>Spoilers</button>
             <button type="button" class = "btns"  style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Age Restricted</button>
             <button type = "submit" class = "btns"  style="background-color: #66617F; color:white" (click)="closePopup()">Post</button>
     
         </div>
     
-        <!-- <div *ngIf="hasImage" class = "Image">
+        <div *ngIf="hasImage" class = "Image">
               <input type="file" class="file-input"
             [accept]="requiredFileType"
             (change)="onFileSelected($event)" #fileUpload>
@@ -68,7 +68,7 @@
                     (click)="fileUpload.click()">
                 </button>
             </div>
-        </div> -->
+        </div>
         <!-- <div class = "Image">
             <input type="file" class="file-input"
             [accept]="requiredFileType"
