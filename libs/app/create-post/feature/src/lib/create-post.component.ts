@@ -30,6 +30,12 @@ export class CreatePostComponent {
   hasImage = false;
   fileName! : string;
   file! : File;
+  spoilers = false;
+  agerestricted = false;
+  isValid = false;
+  inputValue : string = "";
+  inputValue2 : string = "";
+
 
   constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
       if(!this.profile){
@@ -75,6 +81,27 @@ export class CreatePostComponent {
   get category() {
     return this.postForm.get('category');
   }
+
+  Spoilers(){
+    this.spoilers = !this.spoilers;
+  }
+  AgeRestricted(){
+    this.agerestricted = !this.agerestricted;
+  }
+  checkInput(){
+    if(this.community?.value == null || this.community?.value == undefined 
+        || this.title?.value == null || this.title?.value == undefined
+        || this.community?.value =="" || this.title?.value =="" ){
+
+      this.isValid = false;
+          console.log(this.community?.value);
+          console.log(this.title?.value);
+    }else{
+      this.isValid = true;
+    }
+    
+  }
+
 
   onSubmit() {
     let communityData : string;
@@ -140,8 +167,8 @@ export class CreatePostComponent {
       imageUrl: imageUrl,
       categories: categoryData,
       likes: null,
-      spoiler: false,
-      ageRestricted: false
+      spoiler: this.spoilers,
+      ageRestricted: this.agerestricted
     };
 
     this.store.dispatch(new CreatePost(data));
