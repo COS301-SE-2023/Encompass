@@ -11,8 +11,10 @@
             <div  class = "SelectCommunity">
                 <div class = "title">Community:</div>
                 <div  class = "select" >
-                    <ion-select formControlName="community" placeholder="Add a community"  >
-                        <ion-select-option *ngFor="let community of communities" [value]="community" class = "option">
+                    <ion-select formControlName="community" placeholder="Add a community"  [(ngModel)]="inputValue2" (ionChange)="checkInput()">
+                       
+                        <ion-select-option *ngFor="let community of communities" [value]="community" class = "option" >
+                           
                             {{ community }}</ion-select-option>
                     </ion-select>
                 </div>
@@ -31,6 +33,7 @@
            
         <div class = "TextHead">
             <ion-textarea
+            [(ngModel)]="inputValue" (input)="checkInput()"
             formControlName="title"
             placeholder="Add a title"
             class="custom"
@@ -48,10 +51,56 @@
        
         </div>
         <div class = "TextFooter">
-            <ion-icon name="image-outline" style = "font-size: 25px;" (click) = "insertImage()"></ion-icon>
-            <button type="button" class = "btns" style="background-color: #CECAE3;" (click)="displayText()"><ion-icon name="add-outline"></ion-icon>Spoilers</button>
-            <button type="button" class = "btns"  style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Age Restricted</button>
-            <button type = "submit" class = "btns"  style="background-color: #66617F; color:white" (click)="closePopup()">Post</button>
+            <ion-icon name="image-outline"
+            class = "icon"
+            style = "font-size: 25px;" 
+            (click) = "insertImage()"></ion-icon>
+
+            <button *ngIf = "spoilers" 
+            type="button" 
+            class = "btns" 
+            style="background-color: #66617F;
+            color: white;"
+            (click)="Spoilers()"><ion-icon 
+            name="add-outline"></ion-icon>Spoilers</button>
+
+            <button *ngIf = "!spoilers" 
+            type="button" 
+            class = "btns" 
+            style="background-color: #CECAE3;"  
+            (click)="Spoilers()"><ion-icon
+             name="add-outline"></ion-icon>Spoilers</button>
+            
+            <button *ngIf = "agerestricted" 
+            type="button" 
+            class = "btns"  
+            style="background-color: #66617F;
+            color: white;"
+             
+            (click)="AgeRestricted()">
+            <ion-icon name="add-outline">
+            </ion-icon>Age Restricted</button>
+
+            <button *ngIf = "!agerestricted" 
+            type="button" 
+            class = "btns"  
+            style="background-color: #CECAE3;" 
+            (click)="AgeRestricted()">
+            <ion-icon name="add-outline">
+            </ion-icon>Age Restricted</button>
+            
+            <button *ngIf = "isValid" 
+            type = "submit" 
+            class = "btns"  
+            style="background-color: #231942; color:white" 
+            (click)="closePopup()">Post</button>
+
+            <button *ngIf = "!isValid" 
+            type = "submit" 
+            disabled = true 
+            class = "btns"  
+            style="background-color: #AFABC5; color:black" 
+            (click)="closePopup()">Post</button>
     
         </div>
     
