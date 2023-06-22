@@ -2,7 +2,7 @@ import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile } from "@encompass/app/profile/util"
 import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
@@ -57,6 +57,11 @@ export class ProfileState{
         draft.ProfileForm.model.profile = profile;
       })
     )
+  }
+
+  @Action(UpdateProfile)
+  updateProfile(ctx: StateContext<ProfileStateModel>, {updateProfileRequest, userId}: UpdateProfile){
+    this.profileApi.updateProfile(updateProfileRequest, userId);
   }
 
   getExpireLocalStorage(key: string): string | null{
