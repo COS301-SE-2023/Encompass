@@ -164,7 +164,7 @@ ion-textarea.custom {
     width: 100%;
     height: 10%;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -181,5 +181,8 @@ background-color: #66617F;
 color: white;
 
 }
-   
+   .Footer>ion-icon{
+    margin-left: 2%;
+    font-size: 25px;
+   }
    
