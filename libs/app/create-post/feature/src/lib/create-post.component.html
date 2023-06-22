@@ -52,19 +52,19 @@
         <button type="button" class = "btns"  style="background-color: #CECAE3;"><ion-icon name="add-outline"></ion-icon>Age Restricted</button>
         <button type = "submit" class = "btns"  style="background-color: #66617F; color:white" (click)="closePopup()">Post</button>
         <br>
-        <div *ngIf="hasImage" class = "Image">
-            <input type="file" class="file-input"
-            [accept]="requiredFileType"
-            (change)="onFileSelected($event)" #fileUpload>
-            
-            <div class="file-upload">
-                {{fileName || "No file uploaded yet."}}
-    
-                <button mat-mini-fab color="primary" class="upload-btn"
-                    (click)="fileUpload.click()">
-                    <!-- <mat-icon>attach_file</mat-icon> -->
-                </button>
-            </div>
+    </div>
+    <div *ngIf="hasImage" class = "TextFooter">
+        <input type="file" class="file-input"
+        [accept]="requiredFileType"
+        (change)="onFileSelected($event)" #fileUpload>
+        
+        <div class="file-upload">
+            {{fileName || "No file uploaded yet."}}
+
+            <button mat-mini-fab color="primary" class="upload-btn"
+                (click)="fileUpload.click()">
+                <!-- <mat-icon>attach_file</mat-icon> -->
+            </button>
         </div>
     </div>
     
