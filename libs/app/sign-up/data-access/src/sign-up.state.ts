@@ -142,6 +142,19 @@ export class SignUpState{
   @Action(CreateProfile)
   async createProfile(ctx: StateContext<ProfileStateModel>, {request}: CreateProfile){
     const response = await this.signupApi.createProfile(request);
+
+    if(response != null && response != undefined){
+      this.setExpireLocalStorage('profile', response, 3600000);
+    }
+  }
+
+  setExpireLocalStorage(key: string, value: string, expirationTime: number){
+    const item = {
+      value: value,
+      expirationTime: Date.now() + expirationTime
+    };
+
+    localStorage.setItem(key, JSON.stringify(item));
   }
 
   @Selector()
