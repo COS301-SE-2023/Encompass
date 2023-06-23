@@ -22,6 +22,7 @@ export class HomeApi{
   async getAllPosts(){
     try{
       const response = await this.httpClient.get<PostDto[]>('/api/post/get-all').toPromise();
+      return response;
     }
 
     catch(error){

@@ -5,13 +5,14 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { getHome } from '@encompass/app/home-page/util';
+import { GetAllPosts, getHome } from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
+import { PostDto } from '@encompass/api/post/data-access';
 
 @Component({
   selector: 'home-page',
@@ -20,13 +21,12 @@ import {CreatePostComponent} from '@encompass/app/create-post/feature';
 })
 export class HomePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(HomeState.home) home$! : Observable<HomeDto | null>;
+  @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
   
-  home! : HomeDto | null;
   profile! : ProfileDto | null;
+  posts! : PostDto[] | null;
 
-  constructor(private router: Router, private store: Store,private modalController: ModalController){
-    if(!this.profile){
+  constructor(private router: Router, private store: Store, private modalController: ModalController){
       this.store.dispatch(new SubscribeToProfile())
       this.profile$.subscribe((profile) => {
         if(profile){
@@ -35,14 +35,13 @@ export class HomePage {
         }
       });
 
-      this.store.dispatch(new getHome());
-      this.home$.subscribe((home) => {
-        if(home){
-        
-          console.log(home.name);
+      this.store.dispatch(new GetAllPosts());
+      this.homePosts$.subscribe((posts) => {
+        if(posts){
+          console.log(posts);
+          this.posts = posts;
         }
-      });
-    }
+      })
   }
 
   async openPopup() {

@@ -10,6 +10,7 @@ import { SignUpModule } from '@encompass/app/sign-up/data-access';
 import { LoginModule } from '@encompass/app/login/data-access';
 import { ProfileModule } from '@encompass/app/profile/data-access';
 import { CreatePostModule } from '@encompass/app/create-post/data-access';
+import { HomeModule } from '@encompass/app/home-page/data-access';
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -21,7 +22,8 @@ import { CreatePostModule } from '@encompass/app/create-post/data-access';
     SignUpModule,
     LoginModule,
     ProfileModule,
-    CreatePostModule
+    HomeModule,
+    CreatePostModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [CoreShell],
