@@ -159,7 +159,3 @@ Email: perfectstrangers.tuks@gmail.com
     </div>
   </div>
 </div>
-
-
-## Code Quality Badges
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_Encompass&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_Encompass)
