@@ -8,7 +8,7 @@
     background-color: #ECECEC;
 }
 .head{
-    height: 12%;
+    height: 10%;
     width: 100%;
     display: flex;
 }
@@ -20,7 +20,7 @@
 }
 .form{
     width: 100%;
-    height: 85%;
+    height: 100%;
 }
 .btn1{
     width: 50%;
@@ -106,13 +106,14 @@ ion-select{
     display: flex;
     justify-content: center;
     align-items: center;
-    //height: 15%;
+    height: 13%;
+    // background-color: red;
 }
 .TextBody{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60%;
+    height: 47%;
 }
 
 ion-textarea.custom {
@@ -147,7 +148,7 @@ ion-textarea.custom {
 
           .TextFooter{
             width: 100%;
-            height: 15%;
+            height: 10%;
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -159,4 +160,22 @@ ion-textarea.custom {
             border-radius: 15px;
             border: 1px solid #AFABC5;
             padding: 10px;;
+          }
+        
+          .Image{
+            height: 10%;
+            // background-color: blue;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            font-family: customFont;
+          }
+
+          .file-input{
+            margin-left: 2%;
+            // font-family: CustomFont;
+          }
+
+          .icon:hover{
+            color: #231942;
           }

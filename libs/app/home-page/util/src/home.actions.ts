@@ -1,4 +1,7 @@
 export class getHome{
   static readonly type = '[Home] Get Home';
-  constructor(){console.log("Get Home")}
+}
+
+export class GetAllPosts{
+  static readonly type = '[Home] Get All Posts';
 }

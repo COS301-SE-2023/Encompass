@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access"
-import { Action, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { CreatePostApi } from "./create-post.api";
-import { CreatePost } from "@encompass/app/create-post/util";
+import { CreatePost, UploadFile } from "@encompass/app/create-post/util";
 
 export interface PostStateModel {
   PostForm:{
@@ -12,12 +12,30 @@ export interface PostStateModel {
   }
 }
 
+export interface CreateFileModel{
+  CreateFileForm:{
+    model: {
+      url: string | null;
+    }
+  }
+}
 @State<PostStateModel>({
   name: 'post',
   defaults: {
     PostForm: {
       model: {
         post: null
+      }
+    }
+  }
+})
+
+@State<CreateFileModel>({
+  name: 'createFile',
+  defaults: {
+    CreateFileForm: {
+      model: {
+        url: null
       }
     }
   }
@@ -44,5 +62,35 @@ export class CreatePostState{
         }
       }
     })
+  }
+
+  @Action(UploadFile)
+  async uploadFile(ctx: StateContext<CreateFileModel>, {file}: UploadFile){
+    // console.log("Here")
+    const response = await this.createPostApi.uploadFile(file);
+
+    console.log(response);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CreateFileForm: {
+        model: {
+          url: response.url
+        }
+      }
+    })
+  }
+
+  @Selector()
+  static post(state: PostStateModel){
+    return state.PostForm.model.post;
+  }
+
+  @Selector()
+  static url(state: CreateFileModel){
+    return state.CreateFileForm.model.url;
   }
 }

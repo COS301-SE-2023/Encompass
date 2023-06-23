@@ -36,6 +36,13 @@
       "@encompass/api/profile/data-access": [
         "libs/api/profile/data-access/src/index.ts"
       ],
+      "@encompass/app/comments/data-access": [
+        "libs/app/comments/data-access/src/index.ts"
+      ],
+      "@encompass/app/comments/feature": [
+        "libs/app/comments/feature/src/index.ts"
+      ],
+      "@encompass/app/comments/util": ["libs/app/comments/util/src/index.ts"],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
       "@encompass/app/create-community/data-access": [
         "libs/app/create-community/data-access/src/index.ts"
@@ -74,8 +81,14 @@
         "libs/app/profile/feature/src/index.ts"
       ],
       "@encompass/app/profile/util": ["libs/app/profile/util/src/index.ts"],
+      "@encompass/app/sign-up-interior1/data-access": [
+        "libs/app/sign-up-interior1/data-access/src/index.ts"
+      ],
       "@encompass/app/sign-up-interior1/feature": [
         "libs/app/sign-up-interior1/feature/src/index.ts"
+      ],
+      "@encompass/app/sign-up-interior1/util": [
+        "libs/app/sign-up-interior1/util/src/index.ts"
       ],
       "@encompass/app/sign-up-interior2/feature": [
         "libs/app/sign-up-interior2/feature/src/index.ts"

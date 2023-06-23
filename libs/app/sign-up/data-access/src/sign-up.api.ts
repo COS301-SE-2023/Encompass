@@ -55,7 +55,7 @@ export class SignUpApi{
 
   async createProfile(request: CreateProfileRequest){
     try{
-      const response = await this.httpClient.post('/api/profile/create', request).toPromise();
+      const response = await this.httpClient.post('/api/profile/create', request, {responseType: 'text'}).toPromise();
 
       return response;
     }

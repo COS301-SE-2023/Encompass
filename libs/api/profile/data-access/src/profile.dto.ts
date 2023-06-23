@@ -6,6 +6,7 @@ export class ProfileDto {
   readonly name!: string;
   readonly lastName!: string;
   readonly category!: string [];
+  readonly communities!: string [];
   readonly awards!: string [];
   readonly events!: string [];
   readonly followers!: string [];

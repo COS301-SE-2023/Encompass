@@ -86,7 +86,8 @@
         <div class = "GenreIcons">
         <img src = "assets/icon/Karaoke.png" class="imgDiv">
         <img src = "assets/icon/Art.png"  class="imgDiv" >
-        <img src = "assets/icon/Activism.png"  class="imgDiv"></div>
+        <!-- <img src = "assets/icon/Activism.png"  class="imgDiv"> -->
+      </div>
     </div> 
       </div>
       <div class = "PostBody">
@@ -99,7 +100,7 @@
         <div class = "icons">
           <div class = "icons2">
             <ion-icon name="share-social-outline"></ion-icon>
-            <ion-icon name="chatbubble-outline"></ion-icon>
+            <ion-icon name="chatbubble-outline" (click)="GoToComments()"></ion-icon>
             <ion-icon name="heart-outline"></ion-icon>
           </div>
           <div class = "stats">
