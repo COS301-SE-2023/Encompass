@@ -38,8 +38,8 @@ export class CreatePostComponent {
   spoilers = false;
   agerestricted = false;
   isValid = false;
-  inputValue : string = "";
-  inputValue2 : string = "";
+  inputValue! : string;
+  inputValue2! : string;
 
 
   constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
