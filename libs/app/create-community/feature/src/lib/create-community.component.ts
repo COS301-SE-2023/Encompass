@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreatePost } from '@encompass/app/create-post/util';
+import { CreateCommunity } from '@encompass/app/create-community/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
@@ -16,7 +16,6 @@ import { SubscribeToProfile } from '@encompass/app/profile/util';
 })
 export class CreateCommunityComponent {
 
-  communities: string[] =["Hobbits and all thatsdadwadawda","Community2222"]; // Replace with the actual type of the communities array
   categories: string[]=["Movies","Mathematics","Action","Science-Fiction"
   ,"Drama","Romance","Anime","Books","Hospitality","Animation","Documentary"
   ,"Physics","Geography","Series","Western","Mystery","Fantasy","Life-Science"
@@ -40,16 +39,55 @@ export class CreateCommunityComponent {
 
   postForm = this.formBuilder.group({
     title: ['', [ Validators.required, Validators.maxLength(100)]],
-    text: ['', Validators.maxLength(1000)],
-    community: ['', Validators.required],
     category: [[]]
   });
 
 
-  
-  onSubmit(){
-    console.log(this.postForm.value);
+  get title() {
+    return this.postForm.get('title');
   }
+
+  get category() {
+    return this.postForm.get('category');
+  }
+
+  onSubmit() {
+    let communityData : string;
+    let titleData : string;
+    let textData : string;
+    let categoryData : string[] | null;
+
+
+
+    if(this.title?.value == null || this.title?.value == undefined){
+      titleData = "";
+    }
+
+    else{
+      titleData = this.title?.value;
+    }
+
+    
+    if(this.category?.value == null || this.category?.value == undefined){
+      categoryData = null;
+    }
+
+    else{
+      categoryData = this.category?.value;
+    }
+
+    const data = {
+      title: titleData,
+      username: this.profile.username,
+      imageUrl: null,
+      categories: categoryData,
+      ageRestricted: false
+    };
+
+    this.store.dispatch(new CreateCommunity(data));
+  }
+  
+
   closePopup() {
     this.modalController.dismiss();
   }
