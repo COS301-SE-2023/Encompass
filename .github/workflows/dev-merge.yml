@@ -19,12 +19,20 @@ jobs:
       
     - name: Create .env file
       env:
-        NX_FIREBASE_USE_EMULATORS: ${{ secrets.NX_MONGO_DB_URL }}
+        NX_MONGO_DB_URL: ${{ secrets.NX_MONGO_DB_URL }}
+        AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+        AWS_BUCKET_REGION: ${{ secrets.AWS_BUCKET_REGION }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
         
       run: |
           cat <<EOF > .env
           NX_ENVIRONMENT=development
           NX_MONGO_DB_URL="$NX_MONGO_DB_URL"
+          AWS_BUCKET_NAME="$AWS_BUCKET_NAME"
+          AWS_BUCKET_REGION="$AWS_BUCKET_REGION"
+          AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"
+          AWS_SECRET_KEY="$AWS_SECRET_KEY"
           EOF
 
           echo "cat .env"
