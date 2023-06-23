@@ -2,13 +2,14 @@
   width: 100%; 
   height: 200px;
   overflow: hidden;
+  
 }
 
 .rocket {
   position: absolute;
   top: 0;
   left: 3%;
-  width: 180px; 
+  width: 130px; 
 }
 
 .cropped-image {
@@ -35,14 +36,29 @@
 .content-container {
   flex: 1;
   max-width: 50%;
+  margin-left: 10%;
 }
 
 .content-container ion-text {
   font-size: 25px;
+
 }
 
 .buttons-container {
   display: flex;
   flex-direction: column;
-  max-width: 50%;
+  margin-left: 10%;
+
+}
+
+.posts {
+  border: 1px solid #000;
+  border-radius: 50px;
+  padding: 10px 20px;
+}
+
+.comms {
+  border: 1px solid #000;
+  border-radius: 50px;
+  padding: 10px 20px;
 }
