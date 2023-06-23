@@ -1,4 +1,7 @@
 # Encompass
+[![codecov](https://codecov.io/gh/COS301-SE-2023/Encompass/branch/main/graph/badge.svg?token=M20C3A1SU1)](https://codecov.io/gh/COS301-SE-2023/Encompass)
+![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main_merge.yml/badge.svg?branch=main)
+![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/Encompass)
 
 ## Description
 <p>Encompass is an innovative web app that leverages machine learning to deliver personalized recommendations tailored to the user's interests, while also facilitating connections with like-minded individuals and communities. With optional gamification features, Encompass fosters a dynamic and engaging environment where users can share their interests and resources.</p>
