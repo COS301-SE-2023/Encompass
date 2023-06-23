@@ -31,17 +31,50 @@
       </div>
 
       <div class="MenuButton">
-        <ion-button fill="clear" (click)="goToProfile()">
+        <ion-button id="profile-trigger" fill="clear" (click)="goToProfile()">
           <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
         </ion-button>
       </div>
+<!-- 
+      <ion-popover trigger="profile-trigger" triggerAction="hover" side="right" alignment="end" showBackdrop="false">
+        <ng-template>
+          <ion-content class="ion-padding hover-ref">Profile</ion-content>
+        </ng-template>
+      </ion-popover> -->
 
-
+      
+      
       <div class="menuFooter">
-        <ion-button fill="clear">
+        <ion-button id="menu-pop" fill="clear">
         <ion-icon name="menu"></ion-icon>
       </ion-button>
       </div>
+
+      <ion-popover trigger="menu-pop" [dismissOnSelect]="true" side="right" alignment="end" showBackdrop="false">
+        <ng-template>
+          <ion-content style="margin-bottom: 210px;">
+            <ion-list>
+              <ion-item [button]="true" [detail]="false" >
+                <ion-icon name="megaphone-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+                Events
+              </ion-item>
+              <ion-item [button]="true" [detail]="false">
+                <ion-icon name="color-palette-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+                Themes
+              </ion-item>
+              <ion-item [button]="true" [detail]="false">
+                <ion-icon name="settings-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+                Settings
+              </ion-item>
+              <ion-item [button]="true" [detail]="false">
+                <ion-icon name="exit-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+                Logout
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+
     </ion-content>
   </ion-menu>
 
