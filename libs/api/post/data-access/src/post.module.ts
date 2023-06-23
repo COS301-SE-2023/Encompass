@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Get, Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
 import { MongooseModule } from "@nestjs/mongoose";
 import { PostSchema } from "./db/post.schema";
@@ -9,6 +9,7 @@ import { PostDtoRepository } from "./db/post-dto.repository";
 import { PostSchemaFactory } from "./db/post-schema.factory";
 import { PostFactory } from "./post.factory";
 import { CreatePostHandler, UpdatePostHandler, DeletePostHandler } from "./commands";
+import { GetAllPostsHandler } from "./queries";
 import { UploadImage } from "./upload-image.service";
 
 @Module({
@@ -30,6 +31,7 @@ import { UploadImage } from "./upload-image.service";
     CreatePostHandler,
     UpdatePostHandler,
     DeletePostHandler,
+    GetAllPostsHandler,
     UploadImage,
   ],
 })
