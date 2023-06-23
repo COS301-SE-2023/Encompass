@@ -8,6 +8,10 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { CreatePostApi, CreatePostState } from '@encompass/app/create-post/data-access';
+import { PostDto } from '@encompass/api/post/data-access';
+import { HttpClient } from '@angular/common/http';
+import { fileReturn } from '@encompass/app/create-post/data-access';
 
 @Component({
   selector: 'create-post',
@@ -25,6 +29,7 @@ export class CreatePostComponent {
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
+  @Select(CreatePostState.url) url$! : Observable<string | null>;
 
   profile! : ProfileDto;
   hasImage = false;
@@ -49,16 +54,6 @@ export class CreatePostComponent {
     }
   }
 
-  // ngOnInit(){
-  //   this.store.dispatch(new SubscribeToProfile());
-  //   this.profile$.subscribe((profile) => {
-  //     if(profile){
-  //       console.log(profile);
-  //       this.profile = profile;
-  //     }
-  //   })
-  // }
-  // @Select(actionsExecuting([CreatePost]))
   postForm = this.formBuilder.group({
     title: ['', [ Validators.required, Validators.maxLength(100)]],
     text: ['', Validators.maxLength(1000)],
@@ -94,8 +89,8 @@ export class CreatePostComponent {
         || this.community?.value =="" || this.title?.value =="" ){
 
       this.isValid = false;
-          console.log(this.community?.value);
-          console.log(this.title?.value);
+          // console.log(this.community?.value);
+          // console.log(this.title?.value);
     }else{
       this.isValid = true;
     }
@@ -103,7 +98,7 @@ export class CreatePostComponent {
   }
 
 
-  onSubmit() {
+  async onSubmit() {
     let communityData : string;
     let titleData : string;
     let textData : string;
@@ -111,16 +106,8 @@ export class CreatePostComponent {
     let imageUrl : string | null = null;
 
     if(this.file){
-      const formData = new FormData();
-      formData.append('file', this.file, this.fileName);
-
-      const item = this.store.dispatch(new UploadFile(formData));
-      item.subscribe((response) => {
-        if(response){
-          console.log(response);
-          imageUrl = response;
-        }
-      })
+      imageUrl = await this.uploadFile();
+      console.log(imageUrl);
     }
 
     else{
@@ -159,27 +146,30 @@ export class CreatePostComponent {
       categoryData = this.category?.value;
     }
 
-    const data = {
-      community: communityData,
-      title: titleData,
-      text: textData, 
-      username: this.profile.username,
-      imageUrl: imageUrl,
-      categories: categoryData,
-      likes: null,
-      spoiler: this.spoilers,
-      ageRestricted: this.agerestricted
-    };
-
-    this.store.dispatch(new CreatePost(data));
+    if(imageUrl != null){
+      const data = {
+        community: communityData,
+        title: titleData,
+        text: textData, 
+        username: this.profile.username,
+        imageUrl: imageUrl,
+        categories: categoryData,
+        likes: null,
+        spoiler: this.spoilers,
+        ageRestricted: this.agerestricted
+      };
+      console.log(data.imageUrl)
+      this.store.dispatch(new CreatePost(data));
+    }
+    
   }
 
-  displayText() {
-    console.log(this.title?.value);
-    console.log(this.text?.value);
-    console.log(this.community?.value);
-    console.log(this.category?.value);
-  }
+  // displayText() {
+  //   console.log(this.title?.value);
+  //   console.log(this.text?.value);
+  //   console.log(this.community?.value);
+  //   console.log(this.category?.value);
+  // }
 
   closePopup() {
     this.modalController.dismiss();
@@ -210,5 +200,23 @@ export class CreatePostComponent {
         // // upload$.subscribe();
 
     }
+  }
+
+  async uploadFile() : Promise<string | null>{
+    
+    return new Promise((resolve) =>{
+      const formData = new FormData();
+      formData.append('file', this.file, this.fileName);
+
+      this.store.dispatch(new UploadFile(formData));
+      this.url$.subscribe((response) => {
+        if(response){
+          console.log(response);
+          resolve(response);
+        }
+      })
+      
+    })
+    
   }
 }

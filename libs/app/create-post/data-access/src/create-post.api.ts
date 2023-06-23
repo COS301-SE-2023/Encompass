@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CreatePostRequest, PostDto } from "@encompass/api/post/data-access";
 
-interface fileReturn{
+export interface fileReturn{
   key: string,
   url: string;
 }
@@ -22,10 +22,10 @@ export class CreatePostApi{
     }
   }
   
-  async uploadFile(request: FormData){
+  async uploadFile(request: FormData) : Promise<fileReturn | null | undefined>{
     try {
 
-      console.log("HERE")
+      // console.log("HERE")
       const response = await this.httpClient.post<fileReturn>('/api/post/upload-image', request).toPromise();
 
       return response;

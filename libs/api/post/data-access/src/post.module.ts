@@ -8,7 +8,7 @@ import { PostEntityRepository } from "./db/post-entity.repository";
 import { PostDtoRepository } from "./db/post-dto.repository";
 import { PostSchemaFactory } from "./db/post-schema.factory";
 import { PostFactory } from "./post.factory";
-import { CreatePostHandler, UpdatePostHandler, DeletePostHandler, UploadImageHandler } from "./commands";
+import { CreatePostHandler, UpdatePostHandler, DeletePostHandler } from "./commands";
 import { UploadImage } from "./upload-image.service";
 
 @Module({
@@ -30,7 +30,6 @@ import { UploadImage } from "./upload-image.service";
     CreatePostHandler,
     UpdatePostHandler,
     DeletePostHandler,
-    UploadImageHandler,
     UploadImage,
   ],
 })

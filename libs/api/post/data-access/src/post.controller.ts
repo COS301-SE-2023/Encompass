@@ -5,7 +5,6 @@ import { CreatePostCommand } from "./commands/create-post/create-post.command";
 import { CreatePostRequest } from "./dto/create-post-request.dto";
 import { UpdatePostCommand } from "./commands/update-post/update-post.command";
 import { DeletePostCommand } from "./commands/delete-post/delete-post.command";
-import { UploadImageCommand } from "./commands/upload-image/upload-image.command";
 import { UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Request } from "express";

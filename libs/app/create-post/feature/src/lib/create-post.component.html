@@ -13,7 +13,7 @@
                 <div  class = "select" >
                     <ion-select formControlName="community" placeholder="Add a community"  [(ngModel)]="inputValue2" (ionChange)="checkInput()">
                        
-                        <ion-select-option *ngFor="let community of communities" [value]="community" class = "option" >
+                        <ion-select-option *ngFor="let community of profile.communities" [value]="community" class = "option" >
                            
                             {{ community }}</ion-select-option>
                     </ion-select>
@@ -109,14 +109,14 @@
             [accept]="requiredFileType"
             (change)="onFileSelected($event)" #fileUpload>
             
-            <div class="file-upload">
+            <!-- <div class="file-upload">
 
                 
     
                 <button mat-mini-fab color="primary" class="upload-btn"
                     (click)="fileUpload.click()">
                 </button>
-            </div>
+            </div> -->
         </div>
         <!-- <div class = "Image">
             <input type="file" class="file-input"
