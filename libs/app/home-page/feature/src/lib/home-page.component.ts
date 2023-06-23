@@ -65,4 +65,8 @@ export class HomePage {
   UserProfile(){
     this.router.navigate(['user-profile']);
   }
+
+  GoToComments(){
+    this.router.navigate(['app-comments-feature']);
+  }
 }

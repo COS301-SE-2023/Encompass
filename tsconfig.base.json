@@ -36,6 +36,13 @@
       "@encompass/api/profile/data-access": [
         "libs/api/profile/data-access/src/index.ts"
       ],
+      "@encompass/app/comments/data-access": [
+        "libs/app/comments/data-access/src/index.ts"
+      ],
+      "@encompass/app/comments/feature": [
+        "libs/app/comments/feature/src/index.ts"
+      ],
+      "@encompass/app/comments/util": ["libs/app/comments/util/src/index.ts"],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
       "@encompass/app/create-post/data-access": [
         "libs/app/create-post/data-access/src/index.ts"

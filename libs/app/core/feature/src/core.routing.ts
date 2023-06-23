@@ -54,6 +54,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule)
   }
+  ,
+  {
+    path: 'app-comments-feature',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/comments/feature').then((m) => m.CommentsModule)
+  }
 ];
 
 @NgModule({
