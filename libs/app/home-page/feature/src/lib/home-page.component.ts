@@ -13,6 +13,7 @@ import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto } from '@encompass/api/post/data-access';
+import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
 
 @Component({
   selector: 'home-page',
@@ -47,6 +48,18 @@ export class HomePage {
   async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
+      cssClass: 'custom-modal', // Replace with the component or template for your popup
+      componentProps: {
+        // Add any input properties or data you want to pass to the popup component
+      }
+    });
+  
+    return await modal.present();
+  }
+
+  async openPopup2() {
+    const modal = await this.modalController.create({
+      component: CreateCommunityComponent,
       cssClass: 'custom-modal', // Replace with the component or template for your popup
       componentProps: {
         // Add any input properties or data you want to pass to the popup component

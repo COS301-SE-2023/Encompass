@@ -1,0 +1,185 @@
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: #ECECEC;
+}
+
+.HeadText{
+    width: 100%;
+    background-color: #CECAE3;
+    font-family: CustomFont;
+    font-size: 25px;
+    border-bottom: 2px solid #AFABC5;
+    border-right: 1px solid #AFABC5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.head{
+    height: 15%;
+    width: 100%;
+    display: flex;
+}
+
+.TextHead{
+    font-family: CustomFont;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2%;
+}
+
+
+.Subhead{
+    height:10%;
+    width: 100%;
+   display: flex;
+   justify-content: center;
+
+}
+.form{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.title{
+    font-size: 12px;
+    font-family: CustomFont;
+    margin-top: 1% ;
+    height: 2%;
+}
+
+
+.SelectCategory{
+    background-color: #ECECEC;
+    width: 95%;
+   
+}
+
+
+.SelectCategory >span{
+    font-family: CustomFont;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 15px;
+    border: 1px solid #AFABC5;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.select{
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    max-width: 95%;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+ion-select{
+    font-family: CustomFont;
+    font-size: 15px;
+    display: flex;
+    justify-content: right;
+}
+
+
+
+ion-textarea.custom {
+   
+    font-size: 15px;
+    font-family: CustomFont;
+    width: 97%;
+    --background: white;
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+    --border-radius: 10px;
+    --border-width: 1px;
+      }
+
+   .SectionTitle{
+    color: #464646;
+    width: 100%;
+    height: 10%;
+    font-size: 25px;
+    font-family: CustomFont;
+    display: flex;
+    align-items:   center ;
+    margin-left: 1.5%;
+   }
+
+     
+   .TypeOptions{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    font-family: CustomFont;
+    color: #464646;
+   }
+   .TypeOptions >div >div> span{
+    font-size: 12px;
+   }
+
+   .TypeOptions >div{
+    width: 97%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+   }
+
+   .space{
+    height: 2%;
+    width: 100%;
+   }
+
+   .Age{
+    width: 100%;
+    height: 5%;
+    display: flex;
+    justify-content: center;
+    font-family: CustomFont;
+    color: #464646;
+   }
+
+   .Age >div{
+    width: 97%;
+   }
+
+.Footer{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.Footer>button{
+margin-right: 2%;
+font-size: 25px;
+font-family: CustomFont;
+border-radius: 20px;
+padding-left: 15px;
+padding-right: 15px;
+padding-top: 5px;
+padding-bottom: 5px;
+background-color: #66617F;
+color: white;
+
+}
+   
+   

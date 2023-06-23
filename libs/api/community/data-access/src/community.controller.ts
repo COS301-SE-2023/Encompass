@@ -1,11 +1,11 @@
 import { Body , Controller, Get, Param, Post, Patch } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateCommunityRequest } from './dto';
+import { CreateCommunityRequest, UpdateCommunityRequest } from './dto';
 import { CreateCommunityCommand } from './commands/create-community.command';
 import { Community } from './community';
 import { GetCommunityQuery } from './queries/get-community.query';
 import { CommunityDto } from './community.dto';
-//import { UpdateCommunityCommand } from './commands/update-community/update-community.command';
+import { UpdateCommunityCommand } from './commands/update-community/update-community.command';
 
 
 @Controller('community')
@@ -31,4 +31,12 @@ export class CommunityController {
         );
     }
 
+    @Patch(':id')
+    async updateCommunity(
+        @Param('id') communityId: string,
+        @Body() community: UpdateCommunityRequest) {
+        return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
+            new UpdateCommunityCommand(communityId, community),
+        );
+    }
 }

@@ -1,0 +1,84 @@
+
+<div class="container">
+    
+    
+    <form [formGroup]="postForm"  (ngSubmit)="onSubmit()" class = "form">
+        <div class = "head">
+            <div class = "HeadText">Create a Community</div>
+        </div>
+           
+        <div class = "TextHead">
+            <ion-textarea
+            formControlName="title"
+            placeholder="Add a name"
+            class="custom"
+            [counter]="true"
+            [maxlength]="100"
+          ></ion-textarea>
+        </div>
+
+        <div class = "Subhead">
+            <div  class = "SelectCategory">
+                <div class = "title">Categories:</div>
+                 <div class = "select">
+                    <ion-select multiple formControlName="category" placeholder="Add categories">
+                        <ion-select-option *ngFor="let category of categories" [value]="category" >
+                         {{ category }}</ion-select-option>
+                    </ion-select>
+                </div>
+            </div> 
+        </div>
+       
+        <div class = "SectionTitle" >
+                Community Type
+        </div>
+       
+        <div class = "TypeOptions" >
+            <div>
+                <div>
+                    <input type="radio" id="public" name="option" value="Public">
+                    Public
+                    <span>-everyone can join and post on the community</span>
+                </div>
+                <div>
+                    <input type="radio" id="private" name="option" value="Private">
+                    Private
+                    <span>-only approved users can make posts, but everyone can view the community</span>
+                </div>
+                <div>
+                    <input type="radio" id="restricted" name="option" value="Restricted">
+                    Restricted
+                    <span>-only approved users can view, join, and post on the community</span>
+                </div>
+            </div>
+           
+        </div>
+
+        <div class = "space"></div>
+
+        <div class = "SectionTitle" >
+               Mature Content 
+        </div>
+        <div class = "Age" >
+            <div>
+                <input type="checkbox" id="mature" name="AgeRestricted" value="restricted">
+                Age restricted (18+)
+            </div>
+        </div>
+
+        <div class = "space"></div>
+
+        <div class = "Footer">
+            <Button type = "submit" class = "btn1">Create</Button>
+        </div>
+
+
+
+       
+        
+        
+      </form>
+    
+      
+    </div>
+    

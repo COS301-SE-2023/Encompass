@@ -8,7 +8,7 @@ import { CommunityEntityRepository } from "./db/community-entity.repository";
 import { CommunityDtoRepository } from "./db/community-dto.repository";
 import { CommunitySchemaFactory } from "./db/community-schema.factory";
 import { CommunityFactory } from "./community.factory";
-import { CreateCommunityHandler} from "./commands";
+import { CreateCommunityHandler, UpdateCommunityHandler} from "./commands";
 import { CommunityCreatedHandler } from "./events";
 import { GetCommunityHandler} from "./queries";
 
@@ -33,6 +33,7 @@ import { GetCommunityHandler} from "./queries";
     CreateCommunityHandler,
     CommunityCreatedHandler,
     GetCommunityHandler,
+    UpdateCommunityHandler,
   ],
 })
 
