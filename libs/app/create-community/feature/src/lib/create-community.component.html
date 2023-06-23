@@ -36,7 +36,7 @@
         <div class = "TypeOptions" >
             <div>
                 <div>
-                    <input type="radio" id="public" name="option" value="Public">
+                    <input type="radio" id="public" name="option" value="Public" >
                     Public
                     <span>-everyone can join and post on the community</span>
                 </div>
@@ -61,7 +61,7 @@
         </div>
         <div class = "Age" >
             <div>
-                <input type="checkbox" id="mature" name="AgeRestricted" value="restricted">
+                <input type="checkbox" id="mature" name="AgeRestricted" value="restricted" (click)="isAgeRestricted()">
                 Age restricted (18+)
             </div>
         </div>
@@ -69,10 +69,23 @@
         <div class = "space"></div>
 
         <div class = "Footer">
-            <ion-icon name="image-outline" style = "font-size: 25px;"></ion-icon>
+            <ion-icon name="image-outline" style = "font-size: 25px;" (click)="insertImage()"></ion-icon>
             <Button type = "submit" class = "btn1">Create</Button>
         </div>
+        <div *ngIf="hasImage" class = "Image">
+            <input type="file" class="file-input"
+          [accept]="requiredFileType"
+          (change)="onFileSelected($event)" #fileUpload>
+          
+          <!-- <div class="file-upload">
 
+              
+  
+              <button mat-mini-fab color="primary" class="upload-btn"
+                  (click)="fileUpload.click()">
+              </button>
+          </div> -->
+      </div>
 
 
        

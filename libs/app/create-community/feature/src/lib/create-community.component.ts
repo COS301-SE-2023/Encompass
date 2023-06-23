@@ -8,6 +8,9 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { CreateCommunityRequest } from '@encompass/api/community/data-access';
+import { CreatePostState } from '@encompass/app/create-post/data-access';
+import { UploadFile } from '@encompass/app/create-post/util';
 
 @Component({
   selector: 'create-community',
@@ -21,9 +24,17 @@ export class CreateCommunityComponent {
   ,"Physics","Geography","Series","Western","Mystery","Fantasy","Life-Science"
   ,"War","IT","Arts","Business","Musical","Horror","Adventure","History","Comedy"]; 
 
+  requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
+
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
+  @Select(CreatePostState.url) url$! : Observable<string | null>;
 
   profile! : ProfileDto;
+  hasImage = false;
+  ageRestricted = false;
+  type = "";
+  fileName! : string;
+  file! : File;
 
   constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
       if(!this.profile){
@@ -51,13 +62,43 @@ export class CreateCommunityComponent {
     return this.postForm.get('category');
   }
 
-  onSubmit() {
+  insertImage() {
+    this.hasImage = !this.hasImage;
+  }
+
+  isAgeRestricted(){
+    this.ageRestricted = !this.ageRestricted;
+    console.log(this.ageRestricted)
+  }
+
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.file = file;
+        this.fileName = file.name;
+    }
+  }
+
+  async onSubmit() {
     let communityData : string;
     let titleData : string;
     let textData : string;
     let categoryData : string[] | null;
+    let imageUrl : string | null
 
+    if(this.file){
+      imageUrl = await this.uploadFile();
 
+      if(imageUrl == null){
+        imageUrl = ""
+      }
+    }
+
+    else{
+      imageUrl = "";
+    }
 
     if(this.title?.value == null || this.title?.value == undefined){
       titleData = "";
@@ -69,19 +110,25 @@ export class CreateCommunityComponent {
 
     
     if(this.category?.value == null || this.category?.value == undefined){
-      categoryData = null;
+      categoryData = [];
     }
 
     else{
       categoryData = this.category?.value;
     }
 
-    const data = {
-      title: titleData,
-      username: this.profile.username,
-      imageUrl: null,
+    const data : CreateCommunityRequest = {
+      name: titleData,
+      type: this.type,
+      admin: this.profile.username,
+      about: "",
+      rules: "",
+      groupImage: imageUrl,
       categories: categoryData,
-      ageRestricted: false
+      events: [],
+      posts: [],
+      members: [],
+      ageRestricted: this.ageRestricted
     };
 
     this.store.dispatch(new CreateCommunity(data));
@@ -92,4 +139,21 @@ export class CreateCommunityComponent {
     this.modalController.dismiss();
   }
 
+  async uploadFile() : Promise<string | null>{
+    
+    return new Promise((resolve) =>{
+      const formData = new FormData();
+      formData.append('file', this.file, this.fileName);
+
+      this.store.dispatch(new UploadFile(formData));
+      this.url$.subscribe((response) => {
+        if(response){
+          console.log(response);
+          resolve(response);
+        }
+      })
+      
+    })
+    
+  }
 }

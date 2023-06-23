@@ -10,16 +10,32 @@ export class CreateCommunityHandler implements ICommandHandler<CreateCommunityCo
     ) {}
 
     async execute({ createCommunityRequest }: CreateCommunityCommand){
-        const { _id, name, admin, about, events, posts, members } = createCommunityRequest;
+        const { 
+            name,
+            type, 
+            admin, 
+            about,
+            rules,
+            groupImage,
+            categories,
+            events, 
+            posts, 
+            members,
+            ageRestricted 
+        } = createCommunityRequest;
         const community = this.eventPublisher.mergeObjectContext( 
             await this.communityFactory.create(
-            _id,
             name,
+            type,
             admin,
             about,
+            rules,
+            groupImage,
+            categories,
             events,
             posts,
             members,
+            ageRestricted
             )
         );
 

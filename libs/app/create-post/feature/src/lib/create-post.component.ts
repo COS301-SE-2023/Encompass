@@ -177,7 +177,6 @@ export class CreatePostComponent {
 
   insertImage() {
     this.hasImage = !this.hasImage;
-    console.log(this.hasImage);
   }
 
   onFileSelected(event: any) {
@@ -187,18 +186,6 @@ export class CreatePostComponent {
     if (file) {
         this.file = file;
         this.fileName = file.name;
-
-        // const formData = new FormData();
-
-        // // formData.append("thumbnail", file);
-        // formData.append(this.fileName, file);
-
-        // const url = this.store.dispatch(new UploadFile(file));
-        // //const upload$ = this.http.post("/api/thumbnail-upload", file);
-        // console.log(url);
-
-        // // upload$.subscribe();
-
     }
   }
 
