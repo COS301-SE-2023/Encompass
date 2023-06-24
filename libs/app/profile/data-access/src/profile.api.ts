@@ -12,6 +12,14 @@ export class ProfileApi{
   }
 
   updateProfile(updateProfileRequest: UpdateProfileRequest, userId: string){
-    return this.httpClient.post<ProfileDto>('/api/profile/' + userId, updateProfileRequest);
+    try{
+      const response = this.httpClient.patch<ProfileDto>('/api/profile/' + userId, updateProfileRequest).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      return null;
+    }
   }
 }

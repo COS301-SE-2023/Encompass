@@ -143,7 +143,7 @@ export class CreateCommunityComponent {
       ageRestricted: this.ageRestricted
     };
 
-    this.store.dispatch(new CreateCommunity(data));
+    this.store.dispatch(new CreateCommunity(data, this.profile));
   }
   
 

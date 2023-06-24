@@ -40,7 +40,7 @@ export class CreateCommunityHandler implements ICommandHandler<CreateCommunityCo
         );
 
         community.commit();
-        return community.getId();
+        return community;
     }
 
 }
