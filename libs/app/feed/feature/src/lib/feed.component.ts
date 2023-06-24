@@ -124,5 +124,7 @@ Report(n:number){
       popBtn.classList.add('active-button');
     }
   }
-
+  GoToComments(){
+    this.router.navigate(['app-comments-feature']);
+  }
 }
