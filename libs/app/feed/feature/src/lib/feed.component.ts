@@ -28,7 +28,13 @@ export class FeedPage {
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
-  images : string[] = [];
+  reportedPosts : boolean[]=[];
+  datesAdded : string[] = [];
+  comments  : number[] = [];
+  shares : number[] = [];
+   categories : string[] | null = [] ;
+   likes : number | null = null ;
+
 
   constructor(private router: Router, private store: Store, private modalController: ModalController){
     this.store.dispatch(new SubscribeToProfile())
@@ -47,12 +53,28 @@ export class FeedPage {
         this.posts = posts;
         for(let i =0;i<posts.length;i++){
               this.reports.push(false);
-            } 
+              this.reportedPosts.push(false);
+              if(posts[i].dateAdded!=null&&posts[i].comments!=null
+                &&posts[i].shares!=null&&posts[i].categories!=null){
+                this.datesAdded.push(posts[i].dateAdded);
+                  this.comments.push(posts[i].comments);
+                  this.shares.push(posts[i].shares);
+            }
+            if(posts!=null&&posts[i].likes!=null){
+              console.log(posts[i].likes?.length);   
+
+              }
+            
+
+          }
             console.log(this.reports);
       }
     })
 
 }
+
+
+
 
 async openPopup() {
   const modal = await this.modalController.create({
@@ -85,6 +107,14 @@ Report(n:number){
     this.reports[n]=true;
   }
  
+}
+
+ReportPost(n:number){
+  console.log("reporting post");
+  
+  if(this.reportedPosts[n]==false){
+    this.reportedPosts[n]=true;
+  }
 }
 
   recChange(){
