@@ -16,5 +16,36 @@ export class CreateCommunityApi{
     {
       return null;
     }
-  }  
+  }
+  
+  async checkCommunity(request: string){
+    try{
+      const response = await this.httpClient.get('/api/community/does-exist/' + request, {responseType: 'text'}).toPromise();
+
+      if(response == "true"){
+        return true;
+      }
+
+      else{
+        return false;
+      }
+    }
+
+    catch(error){
+      return null
+    }
+  }
+
+  async addPost(name: string, id: string){
+    try{
+      const response = await this.httpClient.patch<CommunityDto>('/api/community/add-post/' + name + "/" + id, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
 }

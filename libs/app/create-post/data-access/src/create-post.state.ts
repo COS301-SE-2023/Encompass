@@ -3,6 +3,7 @@ import { PostDto } from "@encompass/api/post/data-access"
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { CreatePostApi } from "./create-post.api";
 import { CreatePost, UploadFile } from "@encompass/app/create-post/util";
+import { AddPost } from "@encompass/app/create-community/util";
 
 export interface PostStateModel {
   PostForm:{
@@ -62,6 +63,8 @@ export class CreatePostState{
         }
       }
     })
+
+    ctx.dispatch(new AddPost(post.community, post._id));
   }
 
   @Action(UploadFile)

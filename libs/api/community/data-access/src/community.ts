@@ -86,4 +86,9 @@ export class Community extends AggregateRoot{
         this.members = updateCommunityRequest.members;
         this.ageRestricted = updateCommunityRequest.ageRestricted;
     }
+
+    addPost(postName: string){
+        const arr = [...this.posts, postName]
+        this.posts = arr;
+    }
 }

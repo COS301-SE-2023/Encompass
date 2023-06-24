@@ -10,7 +10,8 @@ import { CommunitySchemaFactory } from "./db/community-schema.factory";
 import { CommunityFactory } from "./community.factory";
 import { CreateCommunityHandler, UpdateCommunityHandler} from "./commands";
 import { CommunityCreatedHandler } from "./events";
-import { GetCommunityHandler} from "./queries";
+import { DoesExistHandler, GetCommunityHandler} from "./queries";
+import { AddPostHandler } from "./commands/add-post/add-post.handler";
 
 
 @Module({
@@ -34,6 +35,8 @@ import { GetCommunityHandler} from "./queries";
     CommunityCreatedHandler,
     GetCommunityHandler,
     UpdateCommunityHandler,
+    DoesExistHandler,
+    AddPostHandler
   ],
 })
 

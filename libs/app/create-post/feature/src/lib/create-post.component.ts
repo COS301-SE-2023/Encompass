@@ -105,7 +105,7 @@ export class CreatePostComponent {
     let categoryData : string[] | null;
     let imageUrl : string | null = null;
 
-    if(this.file){
+    if(this.file && this.hasImage){
       imageUrl = await this.uploadFile();
       console.log(imageUrl);
     }
@@ -146,7 +146,6 @@ export class CreatePostComponent {
       categoryData = this.category?.value;
     }
 
-    if(imageUrl != null){
       const data = {
         community: communityData,
         title: titleData,
@@ -160,7 +159,6 @@ export class CreatePostComponent {
       };
       console.log(data.imageUrl)
       this.store.dispatch(new CreatePost(data));
-    }
     
   }
 

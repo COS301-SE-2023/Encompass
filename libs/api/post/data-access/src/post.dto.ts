@@ -1,5 +1,5 @@
 export class PostDto{
-  readonly id!: string;
+  readonly _id!: string;
   readonly community!: string;
   readonly title!: string;
   readonly text!: string;

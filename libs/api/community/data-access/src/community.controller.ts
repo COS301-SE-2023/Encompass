@@ -6,6 +6,8 @@ import { Community } from './community';
 import { GetCommunityQuery } from './queries/get-community.query';
 import { CommunityDto } from './community.dto';
 import { UpdateCommunityCommand } from './commands/update-community/update-community.command';
+import { DoesExistQuery } from './queries/does-exist/does-exist.query';
+import { AddPostCommand } from './commands/add-post/add-post.command';
 
 
 @Controller('community')
@@ -38,5 +40,24 @@ export class CommunityController {
         return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
             new UpdateCommunityCommand(communityId, community),
         );
+    }
+
+    @Get('does-exist/:name')
+    async getDoesExist(
+        @Param('name') communityName: string
+    ){
+        return await this.queryBus.execute<DoesExistQuery, boolean>(
+            new DoesExistQuery(communityName)
+        )
+    }
+
+    @Patch('add-post/:name/:post')
+    async addPost(
+        @Param('name') communityName: string,
+        @Param('post') post: string
+    ){
+        return await this.commandBus.execute<AddPostCommand, CommunityDto>(
+            new AddPostCommand(communityName, post)
+        )
     }
 }

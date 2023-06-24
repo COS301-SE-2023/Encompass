@@ -144,6 +144,7 @@ export class CreateCommunityComponent {
     };
 
     this.store.dispatch(new CreateCommunity(data, this.profile));
+    this.closePopup();
   }
   
 
