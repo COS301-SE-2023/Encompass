@@ -1,7 +1,7 @@
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ProfileController } from "./profile.controller";
 import { Test, TestingModule } from "@nestjs/testing";
-import { CreateProfileRequest } from "./dto";
+import { CreateProfileRequest, UpdateProfileRequest } from "./dto";
 import { CreateProfileHandler } from "./commands";
 
 describe('ProfileController', () => {
@@ -93,5 +93,28 @@ describe('ProfileController', () => {
             const returnedProfile = await controller.getProfile('testing123');
             expect(returnedProfile).toBe(expectedProfile);
         });
+    });
+
+    describe('updateProfile', () => {
+        it('should call the profile controller with the given profile id and profile details', async () => {
+            const updateProfileRequest: UpdateProfileRequest = {
+                username: 'test',
+                name: 'test',
+                lastName: 'test',
+                categories: ['test'],
+                communities: ['test'],
+                awards: ['test'],
+                events: ['test'],
+                followers: ['test'],
+                following: ['test'],
+                posts: ['test'],
+                reviews: ['test'],
+            };
+            const updateProfileSpy = jest.spyOn(controller, 'updateProfile');
+            await controller.updateProfile('test123', updateProfileRequest);
+            expect(updateProfileSpy).toBeCalledWith('test123', updateProfileRequest);
+        });
+
+        
     });
 });
