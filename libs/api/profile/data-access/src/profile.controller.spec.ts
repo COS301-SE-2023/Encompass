@@ -5,9 +5,7 @@ import { CreateProfileRequest } from "./dto";
 import { CreateProfileHandler } from "./commands";
 
 describe('ProfileController', () => {
-    let module: TestingModule;
     let controller: ProfileController;
-    let commandBus: CommandBus;
     let mockQueryBus: { execute: jest.Mock };
     let mockCommandBus: { execute: jest.Mock };
     
@@ -20,22 +18,16 @@ describe('ProfileController', () => {
         }).compile();
     
         controller = module.get<ProfileController>(ProfileController);
-        //commandBus = module.get<CommandBus>(CommandBus);
-        //queryBus = module.get<QueryBus>(QueryBus);
-
-        await module.init();
     });
     
     it('should be defined', () => {
         expect(controller).toBeDefined();
-        //expect(commandBus).toBeDefined();
-        //expect(queryBus).toBeDefined();
     });
 
-    /*describe('createProfile', () => {
-        it('should create a profile with given profile details', async () => {
+    describe('createProfile', () => {
+        it('should call profile controller with given profile details', async () => {
             const createProfileRequest: CreateProfileRequest = {
-                _id: 'test',
+                _id: 'test123',
                 username: 'test',
                 name: 'test',
                 lastName: 'test',
@@ -49,22 +41,22 @@ describe('ProfileController', () => {
                 reviews: ['test'],
             };
             
-            //const createProfileSpy = jest.spyOn(controller, 'createProfile');
+            const createProfileSpy = jest.spyOn(controller, 'createProfile');
             await controller.createProfile(createProfileRequest);
-            //expect(createProfileSpy).toBeCalledWith(createProfileRequest);
+            expect(createProfileSpy).toBeCalledWith(createProfileRequest);
         });
-    });*/
+    });
 
     describe('getProfile', () => {
         it('should call the profile controller with the given profile id', async () => {
             const getProfileSpy = jest.spyOn(controller, 'getProfile');
-            await controller.getProfile('6496e5e9571ba68130d6e1cd');
-            expect(getProfileSpy).toBeCalledWith('6496e5e9571ba68130d6e1cd');
+            await controller.getProfile('testing123');
+            expect(getProfileSpy).toBeCalledWith('testing123');
         });
 
         it('should return the profile with the given profile id', async () => {
-            const expectProfile = {
-                _id: '6496e5e9571ba68130d6e1ca',
+            const expectedProfile = {
+                _id: 'testing123',
                 username: 'test',
                 name: 'test',
                 lastName: 'test',
@@ -77,8 +69,8 @@ describe('ProfileController', () => {
                 posts: ['test'],
                 reviews: ['test'],
             };
-            mockQueryBus.execute.mockReturnValue(expectProfile);
-            expect(await controller.getProfile('6496e5e9571ba68130d6e1cd')).toBe(expectProfile);
+            mockQueryBus.execute.mockReturnValue(expectedProfile);
+            expect(await controller.getProfile('testing123')).toBe(expectedProfile);
         });
     });
 });
