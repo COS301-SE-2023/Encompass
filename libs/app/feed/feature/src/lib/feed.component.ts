@@ -125,4 +125,16 @@ Report(n:number){
     }
   }
 
+
+  collapse1 = false;
+  collapse2 = false;
+
+  Collapse1(){
+    this.collapse1 = !this.collapse1;
+  }
+  Collapse2(){
+    this.collapse2 = !this.collapse2;
+  }
+
+
 }
