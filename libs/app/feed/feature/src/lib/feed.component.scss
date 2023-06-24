@@ -1,26 +1,24 @@
 .overlay-container {
-
-  // position: relative;
-     overflow:auto;
-     background-color: #F0EFEF;
-     width: 100%;
-     height: 100%;
-     object-fit: fill;
-     z-index: 1;
-   }
+    overflow:auto;
+    background-color: #f8f8f8;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 1;
+  }
 
 .image-container {
   width: 100%; 
-  height: 200px;
+  height: 130px;
   overflow: hidden;
   
 }
 
 .rocket {
   position: absolute;
-  top: 10%;
-  left: 3%;
-  width: 10%; 
+  top: 9%;
+  left: 4%;
+  width: 8.5%; 
 }
 
 .cropped-image {
@@ -32,10 +30,11 @@
 }
 
 .custom-title {
-  font-size: 350%; 
+  font-size: 300%; 
   font-weight: bold;
   position: absolute;
   left: 17%;
+  margin-bottom: 10px;
 }
 
 .container {
@@ -49,17 +48,18 @@
   max-width: 50%;
   margin-left: 10%;
   text-align: center;
+  margin-top: 0.5%;
 }
 
 .content-container ion-text {
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .buttons-container {
   display: flex;
   flex-direction: column;
   margin-left: 10%;
-  margin-bottom: 1%;
+  margin-bottom: 0.5%;
 }
 
 .posts {
@@ -233,10 +233,7 @@
         margin-top: 10px;
     }
     
-    .Title{
-    // background-color: red;
-    
-    }
+
     .Name{
       display: flex;
       align-items: center;
@@ -297,5 +294,5 @@
     }
 
 ion-card {
-  background-color: #F8F8F8;
+  background-color: #fdfdfd;
 }
