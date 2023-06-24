@@ -61,5 +61,24 @@ describe('ProfileController', () => {
             await controller.getProfile('6496e5e9571ba68130d6e1cd');
             expect(getProfileSpy).toBeCalledWith('6496e5e9571ba68130d6e1cd');
         });
+
+        it('should return the profile with the given profile id', async () => {
+            const expectProfile = {
+                _id: '6496e5e9571ba68130d6e1ca',
+                username: 'test',
+                name: 'test',
+                lastName: 'test',
+                categories: ['test'],
+                communities: ['test'],
+                awards: ['test'],
+                events: ['test'],
+                followers: ['test'],
+                following: ['test'],
+                posts: ['test'],
+                reviews: ['test'],
+            };
+            mockQueryBus.execute.mockReturnValue(expectProfile);
+            expect(await controller.getProfile('6496e5e9571ba68130d6e1cd')).toBe(expectProfile);
+        });
     });
 });
