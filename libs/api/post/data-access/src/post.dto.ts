@@ -7,7 +7,7 @@ export class PostDto{
   readonly imageUrl!: string | null;
   readonly categories!: string [] | null;
   readonly likes!: string [] | null;
-  readonly dateAdded!: Date;
+  readonly dateAdded!: string;
   readonly spoiler!: boolean;
   readonly ageRestricted!: boolean;
   readonly shares!: number;
