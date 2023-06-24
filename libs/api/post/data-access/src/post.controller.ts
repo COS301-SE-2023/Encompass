@@ -12,6 +12,7 @@ import { Multer } from "multer";
 import { UploadedFile } from "@nestjs/common";
 import { UploadImage } from "./upload-image.service";
 import { GetAllPostsQuery } from "./queries/getAllPosts.query";
+import { UpdatePostRequest } from "./dto/update-post-request.dto";
 
 @Controller('post')
 export class PostController {
@@ -32,7 +33,7 @@ export class PostController {
   @Patch(':id')
   async updatePost(
     @Param('id') id: string,
-    @Body() updatePostRequest: CreatePostRequest,
+    @Body() updatePostRequest: UpdatePostRequest,
   ){
     return await this.commandBus.execute<UpdatePostCommand, PostDto>(
       new UpdatePostCommand(id, updatePostRequest),
