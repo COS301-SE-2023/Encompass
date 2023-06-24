@@ -45,6 +45,7 @@
     "async_hooks": "^1.0.0",
     "axios": "^1.0.0",
     "bcrypt": "^5.1.0",
+    "env-cmd": "^10.1.0",
     "immer": "^10.0.2",
     "ionicons": "^7.1.0",
     "mongoose": "^7.1.1",
