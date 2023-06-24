@@ -62,49 +62,64 @@
 
         <div *ngFor="let post of posts;let i = index">
 
-          <ion-card class = "PostCard">
+          <ion-card class = "PostCard" >
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
                 <img src =  {{post.imageUrl}}  class = "postImage" >
               </div>
-            <div class = "PostDetails" >
+            <div class = "PostDetails"  >
               <div class = "TitleNameOptions">
                 <div style = "display: flex;">
                   <div class = "Title">{{post.community}}</div>
                   <div class = "Name" > @{{post.username}}</div>
                 </div>
                 <div style = "display: flex;">
-                  <a href = "#" *ngIf="reports[i]" style = "font-size: small; position: relative; right: 10%;">Report Post</a>
+                  <!-- <label *ngIf="reportedPosts[i]"> REPORTED</label> -->
+                  <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
+                  style = "font-size: small; position: relative; right: 10%;"
+                  (click)="ReportPost(i)">Report Post</label>
+                  <label *ngIf="reports[i]&&reportedPosts[i]" 
+                  style = "font-size: small; position: relative; right: 10%; color: red;"
+                  >Post Reported.</label>
                   <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
                 </div>
       
                </div>
               
-              <div class = "GenreIcons">
-              <img src = "assets/icon/Karaoke.png" class="imgDiv">
-              <img src = "assets/icon/Arts.png"  class="imgDiv" >
+              <div class = "GenreIcons" onload = "func(i)">
+
+              <img *ngFor="let category of categories" src = "assets/icon/Action.png" class="imgDiv">
+              
               <!-- <img src = "assets/icon/Activism.png"  class="imgDiv"> -->
+
             </div>
           </div> 
             </div>
             <div class = "PostBody"  (click)="GoToComments()">
+
               <div class = "text">
+                  <h5>{{post.title}}</h5>
                   {{post.text}}
               </div>
             </div>
             <div class = "PostFooter">
-              <div class = "date">2 weeks ago</div>
+              <div class = "date">{{datesAdded[i]}}</div>
+              <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+              <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
               <div class = "icons">
-                <div class = "icons2">
-                  <ion-icon name="share-social-outline"></ion-icon>
-                  <ion-icon name="chatbubble-outline" class = "comment" (click)="GoToComments()"></ion-icon>
-                  <ion-icon name="heart-outline" class = "heart"></ion-icon>
+                <div style = "text-align: center;">
+                  <ion-icon name="share-social-outline" id = "icons2"></ion-icon>
+                  <div>{{shares[i]}}</div>
                 </div>
-                <div class = "stats">
-                  <div>0</div>
-                  <div>0</div>
+                <div style = "text-align: center;">
+                  <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments()"></ion-icon>
+                  <div>{{comments[i]}}</div>
+                </div>
+                <div style = "text-align: center;">
+                  <ion-icon name="heart-outline" id = "icons2"></ion-icon>
                   <div>0</div>
                 </div>
+                
               </div>
             </div>
            </ion-card>
