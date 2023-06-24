@@ -14,24 +14,13 @@ describe('AccountController', () => {
     let controller: AccountController;
     let commandBus: CommandBus;
     let queryBus: QueryBus;
+    //let mockCommandBus: { execute: jest.Mock };
     
-    beforeEach(async () => {
+    beforeAll(async () => {
+        //mockCommandBus = { execute: jest.fn() };
         const module: TestingModule = await Test.createTestingModule({
-        controllers: [AccountController],
-        providers: [
-            {
-            provide: CommandBus,
-            useValue: {
-                execute: jest.fn(),
-            },
-            },
-            {
-            provide: QueryBus,
-            useValue: {
-                execute: jest.fn(),
-            },
-            },
-        ],
+            controllers: [AccountController],
+            providers: [QueryBus, CommandBus],
         }).compile();
     
         controller = module.get<AccountController>(AccountController);
@@ -42,34 +31,23 @@ describe('AccountController', () => {
     it('should be defined', () => {
         expect(controller).toBeDefined();
     });
-    
-    /*describe('createAccount', () => {
-        it('should call commandBus.execute and return the result', async () => {
-            const expectedResult = 'test'; // Add your expected result here
-            const executeSpy = jest
-            .spyOn(commandBus, 'execute')
-            .mockResolvedValue(expectedResult);
-    
-            const result = await controller.createAccount(new CreateAccountRequest());
-    
-            expect(executeSpy).toHaveBeenCalledWith(new CreateAccountCommand(new CreateAccountRequest()));
-            expect(result).toEqual(expectedResult);
-        });
-    });*/
 
-    describe('getAccount', () => {
-        it('should call commandBus.execute and return the result', async () => {
-            const expectedResult = 'test'; // Add your expected result here
-            const executeSpy = jest
-            .spyOn(commandBus, 'execute')
-            .mockResolvedValue(expectedResult);
-    
-            const result = await controller.getAccount(new GetAccountRequest());
-            const getAccountRequest = new GetAccountRequest();
-            console.log(getAccountRequest.email);
-
-            expect(executeSpy).toHaveBeenCalledWith(new GetAccountCommand(new GetAccountRequest().email, new GetAccountRequest().password));
-            expect(result).toEqual(expectedResult);
+    describe('createAccount', () => {
+        it('should create an account with given password and email', async () => {
+            const password = await bcrypt.hash('test123', 10);
+            const createAccountRequest: CreateAccountRequest = {
+                email: 'test@gmail.com',
+                password: password,
+            }
+            
+            const createAccountSpy = jest.spyOn(controller, 'createAccount');
+            await controller.createAccount(createAccountRequest);
+            expect(createAccountSpy).toHaveBeenCalledWith(createAccountRequest);
         });
-    });
+
+    });    
+        
+        /*it('should create an account', async () => {
+        expect(controller.createAccount({  }));
+    */
 });
