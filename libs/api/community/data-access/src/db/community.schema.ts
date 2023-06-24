@@ -37,5 +37,5 @@ export class CommunitySchema extends IdentifiableEntitySchema {
     readonly ageRestricted!: boolean;
 
     @Prop()
-    readonly createdAt!: Date;
+    readonly createdAt!: string;
 }

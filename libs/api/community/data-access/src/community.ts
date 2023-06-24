@@ -16,7 +16,7 @@ export class Community extends AggregateRoot{
         public posts: string[],
         public members: string[],
         public ageRestricted: boolean,
-        public createdAt: Date,
+        public createdAt: string,
     ) {
         super();
     }
@@ -69,7 +69,7 @@ export class Community extends AggregateRoot{
         return this.ageRestricted;
     }
 
-    getCreatedAt(): Date {
+    getCreatedAt(): string {
         return this.createdAt;
     }
 

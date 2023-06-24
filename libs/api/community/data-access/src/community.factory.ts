@@ -37,10 +37,20 @@ export class CommunityFactory implements EntityFactory<Community> {
             posts,
             members,
             ageRestricted,
-            new Date(),
+            this.createDateAsString(),
         );
         await this.communityEntityRepository.create(community);
         community.apply(new CommunityCreatedEvent(community.getId()));
         return community;
+    }
+
+    createDateAsString(): string {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const dateString = `${year}-${month}-${day}`;
+    
+        return dateString;
     }
 }

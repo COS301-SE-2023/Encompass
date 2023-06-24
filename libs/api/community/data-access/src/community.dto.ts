@@ -12,5 +12,5 @@ export class CommunityDto {
     readonly posts!: string[];
     readonly members!: string[];
     readonly ageRestricted!: boolean;
-    readonly createdAt!: Date;
+    readonly createdAt!: string;
 }
