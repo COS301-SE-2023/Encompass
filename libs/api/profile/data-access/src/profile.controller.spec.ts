@@ -117,4 +117,14 @@ describe('ProfileController', () => {
             expect(mockCommandBus.execute).toBeCalledWith(new UpdateProfileCommand('test123', updateProfileRequest));
         });
     });
+
+    describe('getProfileByUsername', () => {
+        it('should call the profile controller with the given username', async () => {
+            const getProfileByUsernameSpy = jest.spyOn(controller, 'getProfileByUsername');
+            await controller.getProfileByUsername('test');
+            expect(getProfileByUsernameSpy).toBeCalledWith('test');
+        });
+
+        
+    })
 });
