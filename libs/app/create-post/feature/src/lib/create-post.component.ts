@@ -158,7 +158,7 @@ export class CreatePostComponent {
         ageRestricted: this.agerestricted
       };
       console.log(data.imageUrl)
-      this.store.dispatch(new CreatePost(data));
+      this.store.dispatch(new CreatePost(data, this.profile));
     
   }
 

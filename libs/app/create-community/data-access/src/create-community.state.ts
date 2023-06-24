@@ -68,7 +68,7 @@ export class CreateCommunityState{
         username: profile.username,
         name: profile.name,
         lastName: profile.lastName,
-        categories: profile.category,
+        categories: profile.categories,
         communities: arr1,
         awards: profile.awards,
         events: profile.events,
