@@ -3,6 +3,7 @@ import { ProfileController } from "./profile.controller";
 import { Test, TestingModule } from "@nestjs/testing";
 import { CreateProfileRequest, UpdateProfileRequest } from "./dto";
 import { CreateProfileHandler } from "./commands";
+import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
 
 describe('ProfileController', () => {
     let controller: ProfileController;
@@ -96,7 +97,7 @@ describe('ProfileController', () => {
     });
 
     describe('updateProfile', () => {
-        it('should call the profile controller with the given profile id and profile details', async () => {
+        it('should call the profile controller and the commandBus with the user id and profile', async () => {
             const updateProfileRequest: UpdateProfileRequest = {
                 username: 'test',
                 name: 'test',
@@ -113,8 +114,7 @@ describe('ProfileController', () => {
             const updateProfileSpy = jest.spyOn(controller, 'updateProfile');
             await controller.updateProfile('test123', updateProfileRequest);
             expect(updateProfileSpy).toBeCalledWith('test123', updateProfileRequest);
+            expect(mockCommandBus.execute).toBeCalledWith(new UpdateProfileCommand('test123', updateProfileRequest));
         });
-
-        
     });
 });
