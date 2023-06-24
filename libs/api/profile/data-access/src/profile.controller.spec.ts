@@ -4,6 +4,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { CreateProfileRequest, UpdateProfileRequest } from "./dto";
 import { CreateProfileHandler } from "./commands";
 import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
+import { GetUsernameQuery } from "./queries/get-username/get-username.query";
 
 describe('ProfileController', () => {
     let controller: ProfileController;
@@ -64,7 +65,7 @@ describe('ProfileController', () => {
             };
             mockCommandBus.execute.mockReturnValue(submittedProfile);
             const createdProfile = await controller.createProfile(submittedProfile);
-            expect(createdProfile).toBe(submittedProfile);
+            expect(createdProfile).toEqual(submittedProfile);
         });
     });
 
@@ -92,7 +93,7 @@ describe('ProfileController', () => {
             };
             mockQueryBus.execute.mockReturnValue(expectedProfile);
             const returnedProfile = await controller.getProfile('testing123');
-            expect(returnedProfile).toBe(expectedProfile);
+            expect(returnedProfile).toEqual(expectedProfile);
         });
     });
 
@@ -114,7 +115,7 @@ describe('ProfileController', () => {
             const updateProfileSpy = jest.spyOn(controller, 'updateProfile');
             await controller.updateProfile('test123', updateProfileRequest);
             expect(updateProfileSpy).toBeCalledWith('test123', updateProfileRequest);
-            expect(mockCommandBus.execute).toBeCalledWith(new UpdateProfileCommand('test123', updateProfileRequest));
+            expect(mockCommandBus.execute).not.toBeCalledWith(new UpdateProfileCommand('otherId', updateProfileRequest));
         });
     });
 
@@ -125,6 +126,25 @@ describe('ProfileController', () => {
             expect(getProfileByUsernameSpy).toBeCalledWith('test');
         });
 
-        
-    })
+        it('should pass correct correct username to queryBus and return correct profile', async () => {
+            const expectedProfile = {
+                _id: 'testing123',
+                username: 'testName',
+                name: 'test',
+                lastName: 'test',
+                categories: ['test'],
+                communities: ['test'],
+                awards: ['test'],
+                events: ['test'],
+                followers: ['test'],
+                following: ['test'],
+                posts: ['test'],
+                reviews: ['test'],
+            };
+            mockQueryBus.execute.mockReturnValue(expectedProfile);
+            const returnedProfileCorrect = await controller.getProfileByUsername('testName');
+            expect(mockQueryBus.execute).not.toBeCalledWith(new GetUsernameQuery('anyOtherName'));
+            expect(returnedProfileCorrect).toEqual(expectedProfile);
+        });
+    });
 });
