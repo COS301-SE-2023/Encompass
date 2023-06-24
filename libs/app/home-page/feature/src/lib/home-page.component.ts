@@ -23,70 +23,71 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePage {
-  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
+  // @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
+  // @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
   
-  profile! : ProfileDto | null;
-  posts! : PostDto[] | null;
-  reports : boolean[] =[];
-  images : string[] = [];
+  // profile! : ProfileDto | null;
+  // posts! : PostDto[] | null;
+  // reports : boolean[] =[];
+  // images : string[] = [];
 
-  constructor(private router: Router, private store: Store, private modalController: ModalController, private popoverController: PopoverController){
-      this.store.dispatch(new SubscribeToProfile())
-      this.profile$.subscribe((profile) => {
-        if(profile){
-          console.log(profile);
-          this.profile = profile;
-        }
-      });
+  constructor(private router: Router){}
+  // constructor(private router: Router, private store: Store, private modalController: ModalController, private popoverController: PopoverController){
+  //     this.store.dispatch(new SubscribeToProfile())
+  //     this.profile$.subscribe((profile) => {
+  //       if(profile){
+  //         console.log(profile);
+  //         this.profile = profile;
+  //       }
+  //     });
 
-      this.store.dispatch(new GetAllPosts());
-      this.homePosts$.subscribe((posts) => {
-        if(posts){
-          console.log(posts);
-          console.log(posts.length)
-          this.posts = posts;
-          for(let i =0;i<posts.length;i++){
-                this.reports.push(false);
-              } 
-              console.log(this.reports);
-        }
-      })
+  //     this.store.dispatch(new GetAllPosts());
+  //     this.homePosts$.subscribe((posts) => {
+  //       if(posts){
+  //         console.log(posts);
+  //         console.log(posts.length)
+  //         this.posts = posts;
+  //         for(let i =0;i<posts.length;i++){
+  //               this.reports.push(false);
+  //             } 
+  //             console.log(this.reports);
+  //       }
+  //     })
 
-  }
+  // }
 
-  async openPopup() {
-    const modal = await this.modalController.create({
-      component: CreatePostComponent,
-      cssClass: 'custom-modal', // Replace with the component or template for your popup
-      componentProps: {
-        // Add any input properties or data you want to pass to the popup component
-      }
-    });
+  // async openPopup() {
+  //   const modal = await this.modalController.create({
+  //     component: CreatePostComponent,
+  //     cssClass: 'custom-modal', // Replace with the component or template for your popup
+  //     componentProps: {
+  //       // Add any input properties or data you want to pass to the popup component
+  //     }
+  //   });
   
-    return await modal.present();
-  }
+  //   return await modal.present();
+  // }
 
-  async openPopup2() {
-    const modal = await this.modalController.create({
-      component: CreateCommunityComponent,
-      cssClass: 'custom-modal', // Replace with the component or template for your popup
-      componentProps: {
-        // Add any input properties or data you want to pass to the popup component
-      }
-    });
+  // async openPopup2() {
+  //   const modal = await this.modalController.create({
+  //     component: CreateCommunityComponent,
+  //     cssClass: 'custom-modal', // Replace with the component or template for your popup
+  //     componentProps: {
+  //       // Add any input properties or data you want to pass to the popup component
+  //     }
+  //   });
   
-    return await modal.present();
-  }
+  //   return await modal.present();
+  // }
 
-  Report(n:number){
-    if(this.reports[n]==true){
-      this.reports[n]=false;
-    }else if(this.reports[n]==false){
-      this.reports[n]=true;
-    }
+  // Report(n:number){
+  //   if(this.reports[n]==true){
+  //     this.reports[n]=false;
+  //   }else if(this.reports[n]==false){
+  //     this.reports[n]=true;
+  //   }
    
-  }
+  // }
   
   goToProfile() {
     this.router.navigate(['/home/profile']);
