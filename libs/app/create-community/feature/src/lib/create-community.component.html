@@ -36,19 +36,19 @@
         <div class = "TypeOptions" >
             <div>
                 <div>
-                    <input type="radio" id="public" name="option" value="Public" >
+                    <input type="radio" id="public" name="option" value="Public" [checked]="true" (click)="setPublic()">
                     Public
                     <span>-everyone can join and post on the community</span>
                 </div>
                 <div>
-                    <input type="radio" id="private" name="option" value="Private">
+                    <input type="radio" id="private" name="option" value="Private" (click)="setPrivate()">
                     Private
-                    <span>-only approved users can make posts, but everyone can view the community</span>
+                    <span>-only approved users can view, join, and post on the community</span>
                 </div>
                 <div>
-                    <input type="radio" id="restricted" name="option" value="Restricted">
+                    <input type="radio" id="restricted" name="option" value="Restricted" (click)="setRestricted()">
                     Restricted
-                    <span>-only approved users can view, join, and post on the community</span>
+                    <span>-only approved users can make posts, but everyone can view the community</span>
                 </div>
             </div>
            

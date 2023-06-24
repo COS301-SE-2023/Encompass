@@ -32,7 +32,7 @@ export class CreateCommunityComponent {
   profile! : ProfileDto;
   hasImage = false;
   ageRestricted = false;
-  type = "";
+  type = "Public";
   fileName! : string;
   file! : File;
 
@@ -69,6 +69,18 @@ export class CreateCommunityComponent {
   isAgeRestricted(){
     this.ageRestricted = !this.ageRestricted;
     console.log(this.ageRestricted)
+  }
+
+  setPublic(){
+    this.type = "Public";
+  }
+
+  setPrivate(){
+    this.type = "Private";
+  }
+
+  setRestricted(){
+    this.type = "Restricted";
   }
 
   onFileSelected(event: any) {
