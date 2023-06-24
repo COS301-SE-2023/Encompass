@@ -55,4 +55,11 @@ describe('ProfileController', () => {
         });
     });*/
 
+    describe('getProfile', () => {
+        it('should call the profile controller with the given profile id', async () => {
+            const getProfileSpy = jest.spyOn(controller, 'getProfile');
+            await controller.getProfile('6496e5e9571ba68130d6e1cd');
+            expect(getProfileSpy).toBeCalledWith('6496e5e9571ba68130d6e1cd');
+        });
+    });
 });
