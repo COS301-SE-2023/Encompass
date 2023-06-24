@@ -10,7 +10,19 @@ describe('ProfileController', () => {
     let controller: ProfileController;
     let mockQueryBus: { execute: jest.Mock };
     let mockCommandBus: { execute: jest.Mock };
-    
+    const genericProfile = {
+        username: 'test',
+        name: 'test',
+        lastName: 'test',
+        categories: ['test'],
+        communities: ['test'],
+        awards: ['test'],
+        events: ['test'],
+        followers: ['test'],
+        following: ['test'],
+        posts: ['test'],
+        reviews: ['test'],
+    };
     beforeEach(async () => {
         mockCommandBus = { execute: jest.fn() };
         mockQueryBus = { execute: jest.fn() };
@@ -30,17 +42,7 @@ describe('ProfileController', () => {
         it('should call profile controller with given profile details', async () => {
             const createProfileRequest: CreateProfileRequest = {
                 _id: 'test123',
-                username: 'test',
-                name: 'test',
-                lastName: 'test',
-                categories: ['test'],
-                communities: ['test'],
-                awards: ['test'],
-                events: ['test'],
-                followers: ['test'],
-                following: ['test'],
-                posts: ['test'],
-                reviews: ['test'],
+                ...genericProfile,
             };
             
             const createProfileSpy = jest.spyOn(controller, 'createProfile');
@@ -51,17 +53,7 @@ describe('ProfileController', () => {
         it('should return the created profile and it should equal to the submitted profile', async () => {
             const submittedProfile = {
                 _id: 'test123',
-                username: 'test',
-                name: 'test',
-                lastName: 'test',
-                categories: ['test'],
-                communities: ['test'],
-                awards: ['test'],
-                events: ['test'],
-                followers: ['test'],
-                following: ['test'],
-                posts: ['test'],
-                reviews: ['test'],
+                ...genericProfile,
             };
             mockCommandBus.execute.mockReturnValue(submittedProfile);
             const createdProfile = await controller.createProfile(submittedProfile);
@@ -79,17 +71,7 @@ describe('ProfileController', () => {
         it('should return the profile with the given profile id', async () => {
             const expectedProfile = {
                 _id: 'testing123',
-                username: 'test',
-                name: 'test',
-                lastName: 'test',
-                categories: ['test'],
-                communities: ['test'],
-                awards: ['test'],
-                events: ['test'],
-                followers: ['test'],
-                following: ['test'],
-                posts: ['test'],
-                reviews: ['test'],
+                ...genericProfile,
             };
             mockQueryBus.execute.mockReturnValue(expectedProfile);
             const returnedProfile = await controller.getProfile('testing123');
@@ -100,17 +82,7 @@ describe('ProfileController', () => {
     describe('updateProfile', () => {
         it('should call the profile controller and the commandBus with the user id and profile', async () => {
             const updateProfileRequest: UpdateProfileRequest = {
-                username: 'test',
-                name: 'test',
-                lastName: 'test',
-                categories: ['test'],
-                communities: ['test'],
-                awards: ['test'],
-                events: ['test'],
-                followers: ['test'],
-                following: ['test'],
-                posts: ['test'],
-                reviews: ['test'],
+                ...genericProfile,
             };
             const updateProfileSpy = jest.spyOn(controller, 'updateProfile');
             await controller.updateProfile('test123', updateProfileRequest);
@@ -129,17 +101,7 @@ describe('ProfileController', () => {
         it('should pass correct correct username to queryBus and return correct profile', async () => {
             const expectedProfile = {
                 _id: 'testing123',
-                username: 'testName',
-                name: 'test',
-                lastName: 'test',
-                categories: ['test'],
-                communities: ['test'],
-                awards: ['test'],
-                events: ['test'],
-                followers: ['test'],
-                following: ['test'],
-                posts: ['test'],
-                reviews: ['test'],
+                ...genericProfile,
             };
             mockQueryBus.execute.mockReturnValue(expectedProfile);
             const returnedProfileCorrect = await controller.getProfileByUsername('testName');
