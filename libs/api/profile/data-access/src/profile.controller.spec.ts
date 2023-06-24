@@ -45,6 +45,26 @@ describe('ProfileController', () => {
             await controller.createProfile(createProfileRequest);
             expect(createProfileSpy).toBeCalledWith(createProfileRequest);
         });
+
+        it('should return the created profile and it should equal to the submitted profile', async () => {
+            const submittedProfile = {
+                _id: 'test123',
+                username: 'test',
+                name: 'test',
+                lastName: 'test',
+                categories: ['test'],
+                communities: ['test'],
+                awards: ['test'],
+                events: ['test'],
+                followers: ['test'],
+                following: ['test'],
+                posts: ['test'],
+                reviews: ['test'],
+            };
+            mockCommandBus.execute.mockReturnValue(submittedProfile);
+            const createdProfile = await controller.createProfile(submittedProfile);
+            expect(createdProfile).toBe(submittedProfile);
+        });
     });
 
     describe('getProfile', () => {
@@ -70,7 +90,8 @@ describe('ProfileController', () => {
                 reviews: ['test'],
             };
             mockQueryBus.execute.mockReturnValue(expectedProfile);
-            expect(await controller.getProfile('testing123')).toBe(expectedProfile);
+            const returnedProfile = await controller.getProfile('testing123');
+            expect(returnedProfile).toBe(expectedProfile);
         });
     });
 });
