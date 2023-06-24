@@ -1,5 +1,13 @@
 import { NgModule, importProvidersFrom } from '@angular/core';
+// import {
+//   AuthGuard,
+//   redirectLoggedInTo,
+//   redirectUnauthorizedTo
+// } from '@angular/fire/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
+// const redirectLoggedOut = () => redirectUnauthorizedTo(['']);
+// const redirectLoggedIn = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   {
@@ -11,7 +19,8 @@ const routes: Routes = [
 
   {
     path: 'home',
-    pathMatch: 'full',
+    // pathMatch: 'full',
+    // data: { authGuardPipe: redirectLoggedOut },
     loadChildren: () =>
       import('@encompass/app/home-page/feature').then((m) => m.HomeModule)
   },
@@ -23,12 +32,12 @@ const routes: Routes = [
       import('@encompass/app/login/feature').then((m) => m.LoginModule)
   },
 
-  {
-    path: 'profile',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/profile/feature').then((m) => m.ProfileModule)
-  },
+  // {
+  //   path: 'profile',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/profile/feature').then((m) => m.ProfileModule)
+  // },
 
   {
     path: 'register',
@@ -60,7 +69,25 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/comments/feature').then((m) => m.CommentsModule)
-  }
+  },
+  {
+    path: 'settings',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/settings/feature').then((m) => m.SettingsModule)
+  },
+  {
+    path: 'themes',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/themes/feature').then((m) => m.ThemesModule)
+  },
+  // {
+  //   path: 'feed',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //   import('@encompass/app/feed/feature').then((m) => m.FeedModule)
+  // }
 ];
 
 @NgModule({

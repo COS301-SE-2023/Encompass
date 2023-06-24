@@ -5,6 +5,7 @@ import { ProfilePage } from './profile.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: ProfilePage,
   }
 ];

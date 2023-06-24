@@ -14,6 +14,8 @@ import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
+import { PopoverController } from '@ionic/angular';
+
 
 @Component({
   selector: 'home-page',
@@ -27,7 +29,7 @@ export class HomePage {
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
 
-  constructor(private router: Router, private store: Store, private modalController: ModalController){
+  constructor(private router: Router, private store: Store, private modalController: ModalController, private popoverController: PopoverController){
       this.store.dispatch(new SubscribeToProfile())
       this.profile$.subscribe((profile) => {
         if(profile){
@@ -69,16 +71,40 @@ export class HomePage {
     return await modal.present();
   }
 
-  GoToProfile()
-  {
-    this.router.navigate(['profile']);
+  goToProfile() {
+    this.router.navigate(['/home/profile']);
   }
 
-  UserProfile(){
-    this.router.navigate(['user-profile']);
+  goHome() {
+    this.router.navigate(['/home/feed']);
   }
 
   GoToComments(){
     this.router.navigate(['app-comments-feature']);
   }
+  OpenSearch() {
+    // this.router.navigate(['/home/search']);
+  }
+
+  goToExplore(){
+    // this.router.navigate(['/home/explore']);
+  }
+
+  goToChat(){
+    // this.router.navigate(['/home/chat']);
+  }
+
+  openNotifications(){
+    // this.router.navigate(['/home/notifications']);
+  }
+
+  goToSettings(){
+    this.router.navigate(['/home/settings']);
+  }
+
+  goToThemes(){
+    this.router.navigate(['/home/themes']);
+  }
+
+
 }
