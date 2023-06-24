@@ -10,4 +10,6 @@ export class PostDto{
   readonly dateAdded!: Date;
   readonly spoiler!: boolean;
   readonly ageRestricted!: boolean;
+  readonly shares!: number;
+  readonly comments!: number;
 }

@@ -33,7 +33,9 @@ export class PostFactory implements EntityFactory<Post>{
       likes,
       new Date(),
       spoiler,
-      ageRestricted
+      ageRestricted,
+      0,
+      0,
     );
     await this.postEntityRepository.create(post);
     post.apply(new PostCreatedEvent(post.getId()))

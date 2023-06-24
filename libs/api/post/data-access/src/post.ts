@@ -13,7 +13,9 @@ export class Post extends AggregateRoot{
     public likes: string [] | null,
     public dateAdded: Date,
     public spoiler: boolean,
-    public ageRestricted: boolean
+    public ageRestricted: boolean,
+    public shares: number,
+    public comments: number,
   ){
     super();
   }
@@ -62,6 +64,14 @@ export class Post extends AggregateRoot{
     return this.ageRestricted;
   }
 
+  getShares(): number {
+    return this.shares;
+  }
+
+  getComments(): number {
+    return this.comments;
+  }
+
   updatePost(updatePostRequest: UpdatePostRequest)
   {
     this.title = updatePostRequest.title;
@@ -71,5 +81,7 @@ export class Post extends AggregateRoot{
     this.likes = updatePostRequest.likes;
     this.spoiler = updatePostRequest.spoiler;
     this.ageRestricted = updatePostRequest.ageRestricted;
+    this.shares = updatePostRequest.shares;
+    this.comments = updatePostRequest.comments;
   }
 }

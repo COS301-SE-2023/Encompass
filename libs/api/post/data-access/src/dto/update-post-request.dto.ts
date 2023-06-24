@@ -6,4 +6,6 @@ export class UpdatePostRequest{
   likes!: string [] | null;
   spoiler!: boolean;
   ageRestricted!: boolean;
+  shares!: number;
+  comments!: number;
 }

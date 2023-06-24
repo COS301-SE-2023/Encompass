@@ -32,4 +32,10 @@ export class PostSchema extends IdentifiableEntitySchema{
 
   @Prop()
   readonly ageRestricted!: boolean;
+
+  @Prop()
+  readonly shares!: number;
+
+  @Prop()
+  readonly comments!: number;
 }

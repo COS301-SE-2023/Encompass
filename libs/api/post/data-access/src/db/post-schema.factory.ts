@@ -20,7 +20,9 @@ export class PostSchemaFactory
         likes: post.getLikes(),
         dateAdded: post.getDateAdded(),
         spoiler: post.getSpoiler(),
-        ageRestricted: post.getAgeRestricted()
+        ageRestricted: post.getAgeRestricted(),
+        shares: post.getShares(),
+        comments: post.getComments(),
       };
     }
 
@@ -36,7 +38,9 @@ export class PostSchemaFactory
         entitySchema.likes,
         entitySchema.dateAdded,
         entitySchema.spoiler,
-        entitySchema.ageRestricted
+        entitySchema.ageRestricted,
+        entitySchema.shares,
+        entitySchema.comments,
       )
     }
   }
