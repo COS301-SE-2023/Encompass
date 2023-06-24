@@ -28,6 +28,8 @@ export class HomePage {
   
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
+  reports : boolean[] =[];
+  images : string[] = [];
 
   constructor(private router: Router, private store: Store, private modalController: ModalController, private popoverController: PopoverController){
       this.store.dispatch(new SubscribeToProfile())
@@ -42,9 +44,15 @@ export class HomePage {
       this.homePosts$.subscribe((posts) => {
         if(posts){
           console.log(posts);
+          console.log(posts.length)
           this.posts = posts;
+          for(let i =0;i<posts.length;i++){
+                this.reports.push(false);
+              } 
+              console.log(this.reports);
         }
       })
+
   }
 
   async openPopup() {
@@ -71,6 +79,15 @@ export class HomePage {
     return await modal.present();
   }
 
+  Report(n:number){
+    if(this.reports[n]==true){
+      this.reports[n]=false;
+    }else if(this.reports[n]==false){
+      this.reports[n]=true;
+    }
+   
+  }
+  
   goToProfile() {
     this.router.navigate(['/home/profile']);
   }
