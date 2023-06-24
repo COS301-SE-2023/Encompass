@@ -45,40 +45,24 @@
   </div>
 
   <div class="overlay-container" id="main">
-    <div style="background-color: #F0EFEF; display: flex; justify-content: left;">
-      <ion-card class = "recom">
-     
-        <ion-card-content>
-          <div class="image-container">
-            <img src="assets/icon/Batman.jpg" class="card-image" />
-            <img src="assets/icon/Dune.jpg" class="card-image" />
-            <img src="assets/icon/GreatGatsby.jpg" class="card-image" />
-            <img src="assets/icon/lovecraft.jpg" class="card-image" />
-            <img src="assets/icon/127Hours.jpg" class="card-image" />
-          </div>
-        </ion-card-content>
-      </ion-card>
-
-      <div class = "refresh">
-        <ion-icon name="refresh-outline" style="font-size: 30px;"></ion-icon>
-      </div>
-
-
-    </div>
-    
     <ion-icon class = "optionsOutline" name="options-outline"></ion-icon>
+
+    <div *ngFor="let post of posts;let i = index">
 
     <ion-card class = "PostCard">
       <div class = "PostCardHeader">
         <div class = "PostImageContainer" >
-          <img src = "assets/icon/pp.png" class = "postImage" >
+          <img src = {{post.imageUrl}} class = "postImage" >
         </div>
       <div class = "PostDetails" >
         <div class = "TitleNameOptions">
-          <div class = "Title">Aca-Maniacs</div>
-          <div class = "DOT">.</div>
-          <div class = "Name" (click)="UserProfile()">@RoninBrookes</div>
-          <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+          <div style = "display: flex;">
+            <div class = "Title">{{post.community}}</div>
+            <div class = "Name" (click)="UserProfile()"> @{{post.username}}</div>
+          </div>
+          <div style = "display: flex;">
+            <a href = "#" *ngIf="reports[i]" style = "font-size: small; position: relative; right: 10%; color:#231942">Report Post</a>
+            <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
           </div>
 
          </div>
@@ -90,9 +74,9 @@
       </div>
     </div> 
       </div>
-      <div class = "PostBody">
+      <div class = "PostBody"  (click)="GoToComments()">
         <div class = "text">
-          Attention all 'Pitch Perfect' fans! We've hit the high note of hilarity with this gem: What do you call an aca-awesome group of penguins singing their hearts out? Pitch-perfectly adorable! Join our club for more aca-larious moments, behind-the-scenes gossips, and epic mashup battles. Let's aca-celebrate together!
+            {{post.text}}
         </div>
       </div>
       <div class = "PostFooter">
@@ -100,104 +84,18 @@
         <div class = "icons">
           <div class = "icons2">
             <ion-icon name="share-social-outline"></ion-icon>
-            <ion-icon name="chatbubble-outline" (click)="GoToComments()"></ion-icon>
-            <ion-icon name="heart-outline"></ion-icon>
+            <ion-icon name="chatbubble-outline" class = "comment" (click)="GoToComments()"></ion-icon>
+            <ion-icon name="heart-outline" class = "heart"></ion-icon>
           </div>
           <div class = "stats">
-            <div>42</div>
-            <div>7</div>
-            <div>9</div>
+            <div>0</div>
+            <div>0</div>
+            <div>0</div>
           </div>
         </div>
       </div>
      </ion-card>
-
-     <ion-card class = "PostCard">
-      <div class = "PostCardHeader">
-        <div class = "PostImageContainer">
-          <img src = "assets/icon/DragonAge.jpg" class = "postImage">
-        </div>
-      <div class = "PostDetails" >
-        <div class = "TitleNameOptions">
-          <div class = "Title">Inquisition</div>
-          <div class = "DOT">.</div>
-          <div class = "Name">@MorganBentley</div>
-          <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-          </div>
-
-         </div>
-        
-        <div class = "GenreIcons">
-        <img src = "assets/icon/D&D.png" class="imgDiv">
-        <img src = "assets/icon/Gaming.png"  class="imgDiv" >
-        <img src = "assets/icon/Adventure.png"  class="imgDiv"></div>
-    </div> 
-      </div>
-      <div class = "PostBody">
-        <div class = "text">
-          Breaking News: Dragon Age fan club members request in-game 'napping' skill to increase real-life productivity levels. In a groundbreaking petition, fans demand BioWare to grant characters the ability to snooze their way through battles, quests, and meetings. A surefire way to conquer both Thedas and deadlines simultaneously!
-        </div>
-      </div>
-      <div class = "PostFooter">
-        <div class = "date">2 weeks ago</div>
-        <div class = "icons">
-          <div class = "icons2">
-            <ion-icon name="share-social-outline"></ion-icon>
-            <ion-icon name="chatbubble-outline"></ion-icon>
-            <ion-icon name="heart-outline"></ion-icon>
-          </div>
-          <div class = "stats">
-            <div>9</div>
-            <div>66</div>
-            <div>25</div>
-          </div>
-        </div>
-      </div>
-     </ion-card>
-
-     <ion-card class = "PostCard">
-      <div class = "PostCardHeader">
-        <div class = "PostImageContainer">
-          <img src = "assets/icon/Jon.jpg" class = "postImage">
-        </div>
-      <div class = "PostDetails" >
-        <div class = "TitleNameOptions">
-          <div class = "Title">Favreau's</div>
-          <div class = "DOT">.</div>
-          <div class = "Name">@SameetKeshav</div>
-          <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-          </div>
-
-         </div>
-        
-        <div class = "GenreIcons">
-        <img src = "assets/icon/Vegan.png" class="imgDiv">
-        <img src = "assets/icon/Baking.png"  class="imgDiv" >
-        <img src = "assets/icon/Cooking.png"  class="imgDiv"></div>
-    </div> 
-      </div>
-      <div class = "PostBody">
-        <div class = "text">
-          Breaking news: Jon Favreau just discovered the secret recipe for turning Iron into delicious BBQ! Welcome to the Jon Favreau Fan Club, where we celebrate his culinary and cinematic talents. Stay tuned for sizzling updates and mouthwatering movie recommendations. Remember, #FavreauFriesAreTheRealSuperheroes!
-        </div>
-      </div>
-      <div class = "PostFooter">
-        <div class = "date">5 weeks ago</div>
-        <div class = "icons">
-          <div class = "icons2">
-            <ion-icon name="share-social-outline"></ion-icon>
-            <ion-icon name="chatbubble-outline"></ion-icon>
-            <ion-icon name="heart-outline"></ion-icon>
-          </div>
-          <div class = "stats">
-            <div>6</div>
-            <div>52</div>
-            <div>8</div>
-          </div>
-        </div>
-      </div>
-     </ion-card>
-   
+    </div>
   </div>
 
  <div style="display: flex;position: fixed;justify-content: center;left: 75%;

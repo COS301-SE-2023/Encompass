@@ -227,7 +227,7 @@ right: 5%;
  
   background-color: #F0EFEF;
   width: 60%;
-  height: 230px;
+  height: auto;
   position: relative;
   left: 1%;
   display: flex;
@@ -348,6 +348,7 @@ width: 85%;
 }
 
 
+
 .TitleNameOptions{
 //  background-color: aqua;
     display: flex;
@@ -360,26 +361,21 @@ width: 85%;
 }
 
 .Title{
-// background-color: red;
+display: inline-block;
+width: auto;
 
 }
 .Name{
 display: flex;
 align-items: center;
 font-size: 15px;
-// background-color: red;
 position: relative;
-right: 30%;
+font-family: CustomFont2;
+left: 5%;
+
 }
 
 
-.DOT{
-// background-color: red;
-font-size: larger;
-display: flex;
-position: relative;
-right: 15%;
-}
 .Options{
 // background-color: red;
 font-size: larger;
@@ -412,6 +408,11 @@ height: 90%;
 font-family: CustomFont;
 font-size: medium;
 color: #000000;
+display: -webkit-box;
+-webkit-line-clamp: 5; /* Set the desired number of lines to display */
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
 }
 
 .date{
@@ -440,7 +441,7 @@ position: relative;
 
 .icons2{
 // background-color: wheat;
-font-size: 30px;
+font-size: 25px;
 color:#231942;
 display: flex;
 flex-direction: row;
@@ -463,6 +464,8 @@ width: 100%;
 background-color: #F0EFEF;
 }
 
+
+
 .PostImageContainer{
 width: 15%;
 height: 100%;
@@ -480,6 +483,10 @@ display: flex;
     background-color: #F0EFEF;
 }
 
+.PostBody:hover{
+  cursor: pointer;
+}
+
 .PostFooter{
 display: flex;
     justify-content: space-between;
@@ -488,6 +495,8 @@ display: flex;
     width: 100%;
     background-color: #F0EFEF;
 }
+
+
 
 @keyframes Up {
 0%       { transform: translatex(0px) translatey(50px) }
@@ -500,4 +509,13 @@ height: 100%;
 object-fit: fill;
 border-radius: 50%;
 
+}
+
+.comment:hover{
+  cursor: pointer;
+}
+
+.heart:hover{
+  cursor: pointer;
+  color: red;
 }
