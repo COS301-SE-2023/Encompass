@@ -32,7 +32,6 @@ export class FeedPage {
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   categoriesDisplay: string[][] = [];
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
@@ -75,18 +74,7 @@ export class FeedPage {
                   this.likedComments[i]=true;
               }
             }
-
-            if(posts[i].categories!=null){
-              this.categoriesDisplay.push(posts[i].categories);
-            }
-
           }
-
-            for(let i = 0; i<posts.length;i++){
-              for(let j =0;j<this.categoriesDisplay[i].length;j++){
-                this.categoriesDisplay[i][j] = "assets/icon/"+this.categoriesDisplay[i][j]+".png";
-              }
-            }
 
 
       }

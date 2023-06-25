@@ -5,16 +5,13 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetAllPosts, getHome } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
-import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
 import { UpdatePost } from '@encompass/app/home-page/util';
-import { APP_BASE_HREF } from '@angular/common';
 
 @Component({
   selector: 'profile',
@@ -23,7 +20,7 @@ import { APP_BASE_HREF } from '@angular/common';
 })
 export class ProfilePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
 
   profile! : ProfileDto;
   posts! : PostDto[] | null;
@@ -32,7 +29,6 @@ export class ProfilePage {
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   categoriesDisplay: string[][] = [];
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
@@ -47,8 +43,8 @@ export class ProfilePage {
     });
 
 
-    this.store.dispatch(new GetAllPosts());
-    this.homePosts$.subscribe((posts) => {
+    this.store.dispatch(new GetPosts(this.profile.username));
+    this.posts$.subscribe((posts) => {
       if(posts){
         this.posts = posts;
 
@@ -75,17 +71,7 @@ export class ProfilePage {
               }
             }
 
-            if(posts[i].categories!=null){
-              this.categoriesDisplay.push(posts[i].categories);
-            }
-
           }
-
-            for(let i = 0; i<posts.length;i++){
-              for(let j =0;j<this.categoriesDisplay[i].length;j++){
-                this.categoriesDisplay[i][j] = "assets/icon/"+this.categoriesDisplay[i][j]+".png";
-              }
-            }
 
 
       }
