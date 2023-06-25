@@ -21,7 +21,7 @@ export class CommentsComponent {
 
   comments!: CommentDto[];
   profile!: ProfileDto;
-  post!: PostDto;
+  post!: PostDto | null;
   comment = false;
   reply = false;
   viewreply = false;
