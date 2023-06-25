@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { GetAllPosts, getHome } from '@encompass/app/home-page/util';
-import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -52,8 +51,6 @@ export class FeedPage {
     this.store.dispatch(new GetAllPosts());
     this.homePosts$.subscribe((posts) => {
       if(posts){
-        console.log(posts);
-        console.log(posts.length)
         this.posts = posts;
 
         for(let i =0;i<posts.length;i++){
@@ -73,25 +70,19 @@ export class FeedPage {
             }
 
             if(posts!=null&&posts[i].likes!=null){
-              console.log(posts[i].likes?.length);   
                 this.likes.push(posts[i].likes?.length);
                 if(posts[i].likes?.includes(posts[i].username)){
-                  console.log("liked");
-                  console.log(this.likedComments[i]);
                   this.likedComments[i]=true;
               }
             }
 
             if(posts[i].categories!=null){
-              console.log(posts[i].categories);
               this.categories.push(posts[i].categories);
             }
 
 
 
           }
-            console.log(this.reports);
-            console.log(this.likedComments);
 
             for(let i = 0; i<posts.length;i++){
               for(let j =0;j<this.categories[i].length;j++){
