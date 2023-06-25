@@ -53,5 +53,19 @@ describe('CommunityController', () => {
         });
     });
 
+    describe('getCommunityByName', () => {
+        it('should call Community controller with name', async () => {
+            const createCommunitySpy = jest.spyOn(controller, 'getCommunityByName');
+            await controller.getCommunityByName('get-community/testname');
+            expect(createCommunitySpy).toBeCalledWith('get-community/testname');
+        });
+
+        it('should return the a community when given a name parameter', async () => {
+            mockCommandBus.execute.mockReturnValue(genericCommunity);
+            const returnedCommunity = await controller.getCommunityByName('get-community/testname');
+            expect(returnedCommunity).toEqual(genericCommunity);
+        });
+    });
+
     
 })
