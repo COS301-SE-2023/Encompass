@@ -48,5 +48,19 @@ describe('PostController', () => {
         expect(controller).toBeDefined();
     });
 
+    describe('createPost', () => {
+        it('should call Post controller with given Post details', async () => {
+            const createPostSpy = jest.spyOn(controller, 'createPost');
+            await controller.createPost(genericPost);
+            expect(createPostSpy).toBeCalledWith(genericPost);
+        });
+
+        it('should return the created Post and it should equal to the submitted Post', async () => {
+            mockCommandBus.execute.mockReturnValue(genericPost);
+            const createdPost = await controller.createPost(genericPost);
+            expect(createdPost).toEqual(genericPost);
+        });
+    });
+
     
 })
