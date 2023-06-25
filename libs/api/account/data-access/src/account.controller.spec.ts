@@ -63,4 +63,14 @@ describe('AccountController', () => {
             expect(returnedAccount).toEqual(submittedAccount);
         });
     });
+
+    describe('getAccountById', () => {
+        it('should call the Account controller with the given Account id', async () => {
+            const getAccountSpy = jest.spyOn(controller, 'getAccountById');
+            await controller.getAccountById('testing123');
+            expect(getAccountSpy).toBeCalledWith('testing123');
+        });
+
+        
+    })
 })
