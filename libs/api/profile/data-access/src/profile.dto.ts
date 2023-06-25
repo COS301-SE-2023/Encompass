@@ -1,11 +1,11 @@
 import { ObjectId } from "mongoose";
 
 export class ProfileDto {
-  readonly id!: string ;
+  readonly _id!: string ;
   readonly username!: string;
   readonly name!: string;
   readonly lastName!: string;
-  readonly category!: string [];
+  readonly categories!: string [];
   readonly communities!: string [];
   readonly awards!: string [];
   readonly events!: string [];

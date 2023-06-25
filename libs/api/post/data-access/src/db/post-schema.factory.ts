@@ -16,11 +16,14 @@ export class PostSchemaFactory
         text: post.getText(),
         username: post.getUsername(),
         imageUrl: post.getImageUrl(),
+        communityImageUrl: post.getCommunityImageUrl(),
         categories: post.getCategories(),
         likes: post.getLikes(),
         dateAdded: post.getDateAdded(),
         spoiler: post.getSpoiler(),
-        ageRestricted: post.getAgeRestricted()
+        ageRestricted: post.getAgeRestricted(),
+        shares: post.getShares(),
+        comments: post.getComments(),
       };
     }
 
@@ -32,11 +35,14 @@ export class PostSchemaFactory
         entitySchema.text,
         entitySchema.username,
         entitySchema.imageUrl,
+        entitySchema.communityImageUrl,
         entitySchema.categories,
         entitySchema.likes,
         entitySchema.dateAdded,
         entitySchema.spoiler,
-        entitySchema.ageRestricted
+        entitySchema.ageRestricted,
+        entitySchema.shares,
+        entitySchema.comments,
       )
     }
   }

@@ -63,7 +63,7 @@ export class SignUpInterior1Page {
       reviews: this.profile.reviews
     }
 
-    this.store.dispatch(new UpdateProfile(data, this.profile.id))
+    this.store.dispatch(new UpdateProfile(data, this.profile._id))
     this.router.navigate(['sign-up-communities']);
   }
 }

@@ -4,6 +4,16 @@
   "sourceRoot": "libs/app/comments/util/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/app/comments/util",
+        "main": "libs/app/comments/util/src/index.ts",
+        "tsConfig": "libs/app/comments/util/tsconfig.lib.json",
+        "assets": ["libs/app/comments/util/*.md"]
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

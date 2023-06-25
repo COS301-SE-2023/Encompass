@@ -9,11 +9,14 @@ export class Post extends AggregateRoot{
     public text: string,
     public username: string,
     public imageUrl: string | null,
-    public categories: string [] | null,
-    public likes: string [] | null,
-    public dateAdded: Date,
+    public communityImageUrl: string | null,
+    public categories: string [],
+    public likes: string [],
+    public dateAdded: string,
     public spoiler: boolean,
-    public ageRestricted: boolean
+    public ageRestricted: boolean,
+    public shares: number,
+    public comments: number,
   ){
     super();
   }
@@ -42,15 +45,19 @@ export class Post extends AggregateRoot{
     return this.imageUrl;
   }
 
-  getCategories(): string [] | null{
+  getCommunityImageUrl(): string | null{
+    return this.communityImageUrl;
+  }
+
+  getCategories(): string []{
     return this.categories;
   }
 
-  getLikes(): string [] | null{
+  getLikes(): string []{
     return this.likes;
   }
 
-  getDateAdded(): Date {
+  getDateAdded(): string {
     return this.dateAdded;
   }
   
@@ -62,14 +69,25 @@ export class Post extends AggregateRoot{
     return this.ageRestricted;
   }
 
+  getShares(): number {
+    return this.shares;
+  }
+
+  getComments(): number {
+    return this.comments;
+  }
+
   updatePost(updatePostRequest: UpdatePostRequest)
   {
     this.title = updatePostRequest.title;
     this.text = updatePostRequest.text;
     this.imageUrl = updatePostRequest.imageUrl;
+    this.communityImageUrl = updatePostRequest.communityImageUrl;
     this.categories = updatePostRequest.categories;
     this.likes = updatePostRequest.likes;
     this.spoiler = updatePostRequest.spoiler;
     this.ageRestricted = updatePostRequest.ageRestricted;
+    this.shares = updatePostRequest.shares;
+    this.comments = updatePostRequest.comments;
   }
 }

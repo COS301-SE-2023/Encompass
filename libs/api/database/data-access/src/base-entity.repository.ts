@@ -17,6 +17,10 @@ export abstract class BaseEntityRepository<
     return this.findOne({ email: item } as FilterQuery<TSchema>);
   }
 
+  async findOneByName(item: string):Promise<TEntity>{
+    return this.findOne({ name: item } as FilterQuery<TSchema>);
+  }
+
   async findOneAndReplaceById(id: string, entity: TEntity): Promise<void> {
     await this.findOneAndReplace(
       { _id: new ObjectId(id) } as FilterQuery<TSchema>,

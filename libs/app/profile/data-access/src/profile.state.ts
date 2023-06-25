@@ -61,7 +61,9 @@ export class ProfileState{
 
   @Action(UpdateProfile)
   updateProfile(ctx: StateContext<ProfileStateModel>, {updateProfileRequest, userId}: UpdateProfile){
-    this.profileApi.updateProfile(updateProfileRequest, userId);
+    const response = this.profileApi.updateProfile(updateProfileRequest, userId);
+
+    console.log(response);
   }
 
   getExpireLocalStorage(key: string): string | null{

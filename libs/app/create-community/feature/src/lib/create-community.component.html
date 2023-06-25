@@ -9,6 +9,7 @@
            
         <div class = "TextHead">
             <ion-textarea
+            [(ngModel)]="inputValue" (input)="checkInput()"
             formControlName="title"
             placeholder="Add a name"
             class="custom"
@@ -21,7 +22,7 @@
             <div  class = "SelectCategory">
                 <div class = "title">Categories:</div>
                  <div class = "select">
-                    <ion-select multiple formControlName="category" placeholder="Add categories">
+                    <ion-select multiple formControlName="category" placeholder="Add categories" [(ngModel)]="inputValue2" (ionChange)="checkInput()">
                         <ion-select-option *ngFor="let category of categories" [value]="category" >
                          {{ category }}</ion-select-option>
                     </ion-select>
@@ -36,19 +37,19 @@
         <div class = "TypeOptions" >
             <div>
                 <div>
-                    <input type="radio" id="public" name="option" value="Public">
+                    <input type="radio" id="public" name="option" value="Public" [checked]="true" (click)="setPublic()">
                     Public
                     <span>-everyone can join and post on the community</span>
                 </div>
                 <div>
-                    <input type="radio" id="private" name="option" value="Private">
+                    <input type="radio" id="private" name="option" value="Private" (click)="setPrivate()">
                     Private
-                    <span>-only approved users can make posts, but everyone can view the community</span>
+                    <span>-only approved users can view, join, and post on the community</span>
                 </div>
                 <div>
-                    <input type="radio" id="restricted" name="option" value="Restricted">
+                    <input type="radio" id="restricted" name="option" value="Restricted" (click)="setRestricted()">
                     Restricted
-                    <span>-only approved users can view, join, and post on the community</span>
+                    <span>-only approved users can make posts, but everyone can view the community</span>
                 </div>
             </div>
            
@@ -61,17 +62,32 @@
         </div>
         <div class = "Age" >
             <div>
-                <input type="checkbox" id="mature" name="AgeRestricted" value="restricted">
+                <input type="checkbox" id="mature" name="AgeRestricted" value="restricted" (click)="isAgeRestricted()">
                 Age restricted (18+)
             </div>
         </div>
 
-        <div class = "space"></div>
 
         <div class = "Footer">
-            <Button type = "submit" class = "btn1">Create</Button>
-        </div>
+            <ion-icon name="image-outline" style = "font-size: 25px;" (click)="insertImage()"></ion-icon>
+            <Button *ngIf = "!isValid" type = "submit" class = "btn1" disabled = "true">Create</Button>
+            <Button *ngIf = "isValid" type = "submit" class = "btn2">Create</Button>
 
+        </div>
+        <div *ngIf="hasImage" class = "Image">
+            <input type="file" class="file-input"
+          [accept]="requiredFileType"
+          (change)="onFileSelected($event)" #fileUpload>
+          
+          <!-- <div class="file-upload">
+
+              
+  
+              <button mat-mini-fab color="primary" class="upload-btn"
+                  (click)="fileUpload.click()">
+              </button>
+          </div> -->
+      </div>
 
 
        

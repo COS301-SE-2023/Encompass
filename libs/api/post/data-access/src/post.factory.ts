@@ -17,8 +17,9 @@ export class PostFactory implements EntityFactory<Post>{
     text: string,
     username: string,
     imageUrl: string | null,
-    categories: string[] | null,
-    likes: string[] | null,
+    communityImageUrl: string | null,
+    categories: string[],
+    likes: string[],
     spoiler: boolean,
     ageRestricted: boolean
   ) : Promise<Post>{
@@ -29,14 +30,28 @@ export class PostFactory implements EntityFactory<Post>{
       text,
       username,
       imageUrl,
+      communityImageUrl,
       categories,
       likes,
-      new Date(),
+      this.createDateAsString(),
       spoiler,
-      ageRestricted
+      ageRestricted,
+      0,
+      0,
     );
     await this.postEntityRepository.create(post);
     post.apply(new PostCreatedEvent(post.getId()))
     return post;
   }
+
+  createDateAsString(): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const dateString = `${year}-${month}-${day}`;
+
+    return dateString;
+  }
+  
 }
