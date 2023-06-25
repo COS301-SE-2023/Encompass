@@ -14,6 +14,7 @@ import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
 import { UpdatePost } from '@encompass/app/home-page/util';
+import { APP_BASE_HREF } from '@angular/common';
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
@@ -35,7 +36,6 @@ export class FeedPage {
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
-   link = "";
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController){
@@ -193,19 +193,36 @@ ReportPost(n:number){
   }
 }
 
-Share(n:number, id: string){
+async Share(n:number, post: PostDto){
   this.shares[n]++;
   for(let i =0;i<this.sharing.length;i++){
     this.sharing[i]=false;
   }
   this.sharing[n]=true;
-  this.link += id;
-  // if(this.posts[n]!=null){
-  //   this.link += this.posts[n]?.imageUrl
+  
+  const obj = location.origin
+  if(obj == undefined){
+    return;
+  }
 
-  // }
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: post.likes,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares + 1,
+    comments: post.comments,
+  }
 
+  this.store.dispatch(new UpdatePost(post._id, data));
 
+  const link : string = obj + '/app-comments-feature/' + post._id;
+
+  await navigator.clipboard.writeText(link)
 }
 
   recChange(){
