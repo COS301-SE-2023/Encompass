@@ -1,6 +1,7 @@
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CommentController } from "./comment.controller"
 import { Test, TestingModule } from "@nestjs/testing";
+import { CreateCommentRequest } from "./dto";
 
 describe('CommentController', () => {
     let controller: CommentController;
@@ -23,4 +24,19 @@ describe('CommentController', () => {
         controller = module.get<CommentController>(CommentController);
     });
 
+    it('should be defined', () => {
+        expect(controller).toBeDefined();
+    });
+
+    describe('createComment', () => {
+        it('should call Comment controller with given Comment details', async () => {
+            const createCommentRequest: CreateCommentRequest = genericComment;
+            
+            const createCommentSpy = jest.spyOn(controller, 'createComment');
+            await controller.createComment(createCommentRequest);
+            expect(createCommentSpy).toBeCalledWith(createCommentRequest);
+        });
+
+        
+    });
 });
