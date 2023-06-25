@@ -31,7 +31,7 @@ export class FeedPage {
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   categories: string[][] = []; 
+   categoriesDisplay: string[][] = []; 
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
@@ -77,7 +77,7 @@ export class FeedPage {
             }
 
             if(posts[i].categories!=null){
-              this.categories.push(posts[i].categories);
+              this.categoriesDisplay.push(posts[i].categories);
             }
 
 
@@ -85,8 +85,8 @@ export class FeedPage {
           }
 
             for(let i = 0; i<posts.length;i++){
-              for(let j =0;j<this.categories[i].length;j++){
-                this.categories[i][j] = "assets/icon/"+this.categories[i][j]+".png";
+              for(let j =0;j<this.categoriesDisplay[i].length;j++){
+                this.categoriesDisplay[i][j] = "assets/icon/"+this.categoriesDisplay[i][j]+".png";
               }
             }
 
