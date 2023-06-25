@@ -81,5 +81,20 @@ describe('CommunityController', () => {
         });
     })
 
+    describe('updateCommunity', () => {
+        const { _id,...communityRequest } = genericCommunity;
+        it('should call the Community controller with the given Community id', async () => {
+            const getCommunitySpy = jest.spyOn(controller, 'updateCommunity');
+            await controller.updateCommunity( _id, communityRequest );
+            expect(getCommunitySpy).toBeCalledWith( _id, communityRequest );
+        });
+
+        it('should return the Community with the given Community id', async () => {
+            mockCommandBus.execute.mockReturnValue(genericCommunity);
+            const CommunityExists = await controller.updateCommunity( _id, communityRequest );
+            expect(CommunityExists).toEqual({_id, ...communityRequest});
+        });
+    })
+
     
 })
