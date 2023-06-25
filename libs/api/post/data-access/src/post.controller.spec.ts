@@ -76,5 +76,20 @@ describe('PostController', () => {
         });
     });
 
+    describe('deletePost', () => {
+        it('should call the Post controller with the given Post id', async () => {
+            const getPostSpy = jest.spyOn(controller, 'deletePost');
+            await controller.deletePost('testing123');
+            expect(getPostSpy).toBeCalledWith('testing123');
+        });
+
+        it('should return string representing boolean when Post id is passed as argument', async () => {
+            mockCommandBus.execute.mockReturnValue(true);
+            const PostExists = await controller.deletePost('testing123');
+            expect(PostExists).toEqual(true);
+        });
+    })
+
+
     
 })
