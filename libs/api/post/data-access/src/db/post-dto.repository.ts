@@ -17,4 +17,8 @@ export class PostDtoRepository{
   async findById(id: string){
     return await this.postModel.findOne({ _id: id });
   }
+
+  async getPostsByUserId(userId: string){
+    return await this.postModel.find({ username: userId });
+  }
 }
