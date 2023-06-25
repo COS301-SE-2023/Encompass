@@ -58,7 +58,7 @@ export class CreateCommunityApi{
     try {
 
       // console.log("HERE")
-      const response = await this.httpClient.post<fileReturn>('/api/post/upload-image', request).toPromise();
+      const response = await this.httpClient.post<fileReturn>('/api/community/upload-image', request).toPromise();
 
       return response;
     } 

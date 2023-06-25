@@ -9,6 +9,13 @@ import { UpdateCommunityCommand } from './commands/update-community/update-commu
 import { DoesExistQuery } from './queries/does-exist/does-exist.query';
 import { AddPostCommand } from './commands/add-post/add-post.command';
 import { GetByNameQuery } from './queries/get-by-name/get-by-name.query';
+import { UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Request } from 'express';
+import { Multer } from 'multer';
+import { UploadedFile } from '@nestjs/common';
+import { UploadImage } from './upload-image.service';
+
 
 
 @Controller('community')
@@ -67,5 +74,16 @@ export class CommunityController {
         return await this.commandBus.execute<AddPostCommand, CommunityDto>(
             new AddPostCommand(communityName, post)
         )
+    }
+
+    @Post('upload-image')
+    @UseInterceptors(FileInterceptor('file'))
+    async uploadImage(
+    @UploadedFile() file: Express.Multer.File,
+    ){
+        console.log("Here")
+        const uploadImage = new UploadImage();
+    
+        return await uploadImage.uploadImage(file.buffer, file.originalname);
     }
 }
