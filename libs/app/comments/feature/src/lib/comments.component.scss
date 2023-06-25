@@ -125,27 +125,6 @@ display: flex;
 justify-content: center;
 // top: 25%;
 }
-.icons{
-//  background-color: wheat;
-height: 50%;
-width: 30%;
-color:#231942;
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-position: relative;
-
- bottom: 20%;
-}
-
-.icons2{
-// background-color: wheat;
-font-size: 25px;
-color:#231942;
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-}
 
 .stats{
 
@@ -273,8 +252,8 @@ ion-textarea.custom {
 .lineBreakers{
   width: 100%;
   display: flex;
-  justify-content: center;
-}
+  flex-direction: column;
+align-items: center;}
 
 .Comment{
   width: 90%;
@@ -354,3 +333,44 @@ ion-textarea.custom {
   font-size: larger;
 }
 
+
+.report:hover{
+  cursor: pointer;
+}
+
+.specialBtn{
+  background-color: #66617F;
+  color: white;
+  border-radius: 50px;
+  border: 1px solid #66617F;
+  font-size: 15px;
+  font-family: CustomFont;
+  padding: 1%;
+}
+
+
+.icons{
+  height: 50%;
+  width: 30%;
+  color:#231942;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+   bottom: 20%;
+  }
+  
+  #icons2{
+  font-size: 25px;
+  color:#231942;
+  
+  }
+  
+  // #icons2:hover{
+  //   color: purple;
+  //   cursor: pointer;
+  // }
+
+  .specialBtn:hover{
+    cursor: default;
+
+  }

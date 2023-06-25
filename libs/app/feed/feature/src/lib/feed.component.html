@@ -78,7 +78,6 @@
                   <div class = "Name" > @{{post.username}}</div>
                 </div>
                 <div style = "display: flex;">
-                  <!-- <label *ngIf="reportedPosts[i]"> REPORTED</label> -->
                   <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
                   style = "font-size: small; position: relative; right: 10%;"
                   (click)="ReportPost(i, post)">Report Post</label>
@@ -113,6 +112,7 @@
               <div class = "date">{{datesAdded[i]}}</div>
               <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
               <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+              
               <div class = "icons">
                 <div style = "text-align: center;">
                   <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
