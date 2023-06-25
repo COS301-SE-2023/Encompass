@@ -96,5 +96,19 @@ describe('CommunityController', () => {
         });
     })
 
+    describe('getDoesExist', () => {
+        it('should call the Community controller with the given Community id', async () => {
+            const getCommunitySpy = jest.spyOn(controller, 'getDoesExist');
+            await controller.getDoesExist('testing123');
+            expect(getCommunitySpy).toBeCalledWith('testing123');
+        });
+
+        it('should return boolean when given Community id', async () => {
+            mockQueryBus.execute.mockReturnValue(true);
+            const CommunityExists = await controller.getDoesExist('testing123');
+            expect(CommunityExists).toEqual(true);
+        });
+    })
+
     
 })
