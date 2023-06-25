@@ -1,7 +1,7 @@
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CommentController } from "./comment.controller"
 import { Test, TestingModule } from "@nestjs/testing";
-import { CreateCommentRequest } from "./dto";
+import { AddReplyRequest, CreateCommentRequest } from "./dto";
 
 describe('CommentController', () => {
     let controller: CommentController;
@@ -11,6 +11,12 @@ describe('CommentController', () => {
         postId: 'test12345',
         username: 'tester',
         text: 'testComment'
+    }
+    const genericCommentDto = {
+        id: 'testid123',
+        ...genericComment,
+        replies: {},
+        dateAdded: new Date()
     }
 
     beforeAll(async () => {
@@ -58,4 +64,16 @@ describe('CommentController', () => {
             expect(deleteResult).toEqual(true);
         });
     });
+
+    describe('addReply', () => {
+        const { postId,...addReplyRequest } = genericComment;
+        it('should call Comment controller with given Comment details', async () => {
+            const addReplySpy = jest.spyOn(controller, 'addReply');
+            await controller.addReply(postId,addReplyRequest);
+            expect(addReplySpy).toBeCalledWith(postId,addReplyRequest);
+        });
+
+        
+    });
+    
 });
