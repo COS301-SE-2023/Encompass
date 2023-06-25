@@ -87,7 +87,11 @@ describe('CommentController', () => {
             expect(deleteReplySpy).toBeCalledWith('test1233','test44');
         });
 
-        
+        it('should return commandbus boolean when called with id of comment and reply', async () => {
+            mockCommandBus.execute.mockReturnValue('true');
+            const deleteResult = await controller.deleteReply('testing123','test44');
+            expect(deleteResult).toEqual('true');
+        });
     });
     
     
