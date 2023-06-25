@@ -56,7 +56,7 @@ export class HomeState{
     if(response == null || response == undefined){
       return;
     }
-
+    
     ctx.setState({
       HomePostsForm: {
         model: {
@@ -74,13 +74,23 @@ export class HomeState{
       return;
     }
 
-    // ctx.setState({
-    //   HomePostsForm: {
-    //     model: {
-    //       homePosts: response
-    //     }
-    //   }
-    // })
+    const posts = ctx.getState().HomePostsForm.model.homePosts;
+
+    if(posts == null ){
+      return
+    }
+
+    const index = posts?.findIndex(x => x._id == response._id)
+
+    posts[index] = response;
+
+    ctx.setState({
+      HomePostsForm: {
+        model: {
+          homePosts: posts
+        }
+      }
+    })
   }
 
   @Selector()
