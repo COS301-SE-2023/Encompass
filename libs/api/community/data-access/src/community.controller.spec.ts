@@ -110,5 +110,17 @@ describe('CommunityController', () => {
         });
     })
 
-    
+    describe('addPost', () => {
+        it('should call the Community controller with the passed in name and post', async () => {
+            const getCommunitySpy = jest.spyOn(controller, 'addPost');
+            await controller.addPost('add-post/testname/testing123','test-message');
+            expect(getCommunitySpy).toBeCalledWith('add-post/testname/testing123','test-message');
+        });
+
+        it('should return the Community when name and post string it passed in', async () => {
+            mockCommandBus.execute.mockReturnValue(genericCommunity);
+            const CommunityExists = await controller.addPost('add-post/testname/testing123','test-message');
+            expect(CommunityExists).toEqual(genericCommunity);
+        });
+    })
 })
