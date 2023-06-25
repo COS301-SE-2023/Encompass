@@ -62,5 +62,19 @@ describe('PostController', () => {
         });
     });
 
+    describe('updatePost', () => {
+        it('should call the Post controller with the given PostRequest and id', async () => {
+            const getPostSpy = jest.spyOn(controller, 'updatePost');
+            await controller.updatePost('123test',genericPostRequest);
+            expect(getPostSpy).toBeCalledWith('123test',genericPostRequest);
+        });
+
+        it('should return a post when id and postrequest is passed as parameter', async () => {
+            mockCommandBus.execute.mockReturnValue(genericPost);
+            const returnedPost = await controller.updatePost('123test',genericPostRequest);
+            expect(returnedPost).toEqual(genericPost);
+        });
+    });
+
     
 })
