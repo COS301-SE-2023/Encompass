@@ -95,7 +95,7 @@
             </div>
           </div> 
             </div>
-            <div class = "PostBody"  (click)="GoToComments()">
+            <div class = "PostBody"  (click)="GoToComments(post._id)">
 
               <div class = "text">
                   <h5>{{post.title}}</h5>
@@ -116,7 +116,7 @@
                   <div>{{shares[i]}}</div>
                 </div>
                 <div style = "text-align: center;">
-                  <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments()"></ion-icon>
+                  <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
                   <div>{{comments[i]}}</div>
                 </div>
                 <div style = "text-align: center;">

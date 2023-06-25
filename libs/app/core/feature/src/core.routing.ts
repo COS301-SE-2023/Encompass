@@ -65,7 +65,7 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'app-comments-feature',
+    path: 'app-comments-feature/:id',
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/comments/feature').then((m) => m.CommentsModule)
