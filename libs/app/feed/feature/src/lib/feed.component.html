@@ -120,7 +120,8 @@
                   <div>{{comments[i]}}</div>
                 </div>
                 <div style = "text-align: center;">
-                  <ion-icon name="heart-outline" id = "icons2"></ion-icon>
+                  <ion-icon name="heart-circle-outline" *ngIf = "likedComments[i]" id="icons2"style = "color:red" (click)="Dislike(i)"></ion-icon>
+                  <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments[i]" (click)="Like(i)"></ion-icon>
                   <div>{{likes[i]}}</div>
                 </div>
                 

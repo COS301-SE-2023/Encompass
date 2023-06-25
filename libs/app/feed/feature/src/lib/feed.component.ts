@@ -34,6 +34,7 @@ export class FeedPage {
   shares : number[] = [];
    categories: string[][] = []; 
    likes: number[] =[] ;
+   likedComments: boolean[] = [];
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController){
@@ -45,13 +46,20 @@ export class FeedPage {
       }
     });
 
+
     this.store.dispatch(new GetAllPosts());
     this.homePosts$.subscribe((posts) => {
       if(posts){
         console.log(posts);
         console.log(posts.length)
         this.posts = posts;
+
         for(let i =0;i<posts.length;i++){
+          this.likedComments.push(false);
+        }
+
+        for(let i =0;i<posts.length;i++){
+
               this.reports.push(false);
               this.reportedPosts.push(false);
               if(posts[i].dateAdded!=null&&posts[i].comments!=null
@@ -60,24 +68,35 @@ export class FeedPage {
                   this.comments.push(posts[i].comments);
                   this.shares.push(posts[i].shares);
             }
+
             if(posts!=null&&posts[i].likes!=null){
               console.log(posts[i].likes?.length);   
                 this.likes.push(posts[i].likes?.length);
+                if(posts[i].likes?.includes(posts[i].username)){
+                  console.log("liked");
+                  console.log(this.likedComments[i]);
+                  this.likedComments[i]=true;
               }
+            }
 
             if(posts[i].categories!=null){
               console.log(posts[i].categories);
               this.categories.push(posts[i].categories);
             }
 
+
+
           }
             console.log(this.reports);
+            console.log(this.likedComments);
 
             for(let i = 0; i<posts.length;i++){
               for(let j =0;j<this.categories[i].length;j++){
                 this.categories[i][j] = "assets/icon/"+this.categories[i][j]+".png";
               }
             }
+
+
       }
     })
 
@@ -117,6 +136,16 @@ Report(n:number){
     this.reports[n]=true;
   }
  
+}
+
+Like(n:number){
+  this.likedComments[n]=true;
+  this.likes[n]++;
+}
+
+Dislike(n:number){
+  this.likedComments[n]=false;
+  this.likes[n]--;
 }
 
 ReportPost(n:number){
