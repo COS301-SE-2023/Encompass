@@ -105,5 +105,17 @@ describe('PostController', () => {
         });
     });
 
-    
+    describe('getPostsByUserId', () => {
+        it('should call the Post controller with the given string id', async () => {
+            const getPostSpy = jest.spyOn(controller, 'getPostsByUserId');
+            await controller.getPostsByUserId('id123');
+            expect(getPostSpy).toBeCalledWith('id123');
+        });
+
+        it('should return a postDto if a string id is passed', async () => {
+            mockQueryBus.execute.mockReturnValue(genericPost);
+            const returnedPost = await controller.getPostsByUserId('id123');
+            expect(returnedPost).toEqual(genericPost);
+        });
+    });
 })
