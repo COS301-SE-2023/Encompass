@@ -1,5 +1,5 @@
 /*
-FILENAME: create-account.command.ts
+FILENAME: create-account.handler.ts
 
 AUTHOR: Sameet Keshav
 

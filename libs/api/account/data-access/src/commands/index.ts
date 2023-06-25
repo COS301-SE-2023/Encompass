@@ -1,5 +1,5 @@
 /*
-FILENAME: create-account.command.ts
+FILENAME: index.ts
 
 AUTHOR: Sameet Keshav
 
