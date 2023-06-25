@@ -1,1 +1,210 @@
-<p>comments works!</p>
+
+<div class="overlay-container" id="main">
+  
+
+    <ion-card class = "PostCard">
+      <div class = "PostCardHeader">
+        <div class = "PostImageContainer" >
+          <img src =  "assets/icon/Movies.png"  class = "postImage" >
+        </div>
+        <div class = "PostDetails" >
+          <div class = "TitleNameOptions">
+            <div style = "display: flex;">
+              <div class = "Title">POST TITLE</div>
+              <div class = "Name"> @Poster</div>
+            </div>
+            <div style = "display: flex;">
+              <a href = "# "  style = "font-size: small; position: relative; right: 10%;">Report Post</a>
+              <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+            </div>
+  
+           </div>
+          
+          <div class = "GenreIcons">
+          <img src = "assets/icon/Karaoke.png" class="imgDiv">
+          <img src = "assets/icon/Art.png"  class="imgDiv" >
+          <!-- <img src = "assets/icon/Activism.png"  class="imgDiv"> -->
+        </div>
+      </div> 
+        </div>
+        <div class = "PostBody" >
+          <div class = "text">
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+             Here be text Here be text Here be text Here be text Here be text
+           
+             
+            
+          </div>
+        </div>
+        <div class = "PostFooter">
+          <div class = "date">2 weeks ago</div>
+          <div class = "icons">
+            <div class = "icons2">
+              <ion-icon name="share-social-outline"></ion-icon>
+              <ion-icon name="chatbubble-outline" class = "comment"></ion-icon>
+              <ion-icon name="heart-outline" class = "heart"></ion-icon>
+            </div>
+            <div class = "stats">
+              <div>0</div>
+              <div>0</div>
+              <div>0</div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class = "CommentAddition" *ngIf = "!comment">
+          <button class="AddCommentBtn" (click)="AddComment()">Add Comment</button>
+        </div>
+        <form *ngIf = "comment">
+          <div class = "CommentAddition" >
+            <button class="AddCommentBtn" type = "button" style="background-color: #CB7F7F;" (click)="AddComment()">Cancel</button>
+            <button class="AddCommentBtn" type = "submit" style = "background-color:#66617F" (click)="AddComment()">Post Comment</button>
+          </div>
+          <br>
+          <div class = "TextHead">
+              <ion-textarea
+              placeholder="Add a title"
+              class="custom"
+              [counter]="true"
+              [maxlength]="250">
+              </ion-textarea></div>
+        </form>
+
+        <br>
+        <div class = "lineBreakers" >
+            <div class = Comment>
+                <div class = "CommentHead">
+                  <div class = CommentIDs>
+                      <img src = "assets/icon/Batman.jpg" style="object-fit: fill;
+                      width: 50px; height: 50px; border-radius: 50%;">
+                    <div class = "UserName">
+                        @UserName
+                    </div>
+                  </div>
+                  <div class = "CommentStats">
+                    <ion-icon name="arrow-undo-outline" class = "reply" (click)="Reply()"></ion-icon>
+                    <ion-icon name="chatbubble-outline" class = "comment" (click)="viewReplies()"></ion-icon>
+                    500
+                    <ion-icon name="heart-outline" class = "heart"></ion-icon>
+                    552
+                  </div>
+                </div>
+                <div class = "CommentBody">
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+
+                </div>
+                
+            </div>
+        </div>
+
+        <form *ngIf = "reply">
+          <div class = "CommentAddition" >
+            <button class="AddCommentBtn" type = "button" style="background-color: #CB7F7F;" (click)="Reply()">Cancel</button>
+            <button class="AddCommentBtn" type = "submit" style = "background-color:#66617F" (click)="Reply()">Post Comment</button>
+          </div>
+          <br>
+          <div class = "TextHead">
+              <ion-textarea
+              placeholder="@UserName"
+              class="custom"
+              [counter]="true"
+              [maxlength]="250">
+              </ion-textarea></div>
+        </form>
+
+        <div class = "CommentReply" *ngIf = "viewreply">
+          <div style="width: 100%;display: flex;justify-content: center;"><button>Replies:</button></div>
+          <div class = "lineBreakers" >
+            <div class = CommentReplies>
+                <div class = "CommentHead">
+                  <div class = CommentIDs>
+                      <img src = "assets/icon/Batman.jpg" style="object-fit: fill;
+                      width: 50px; height: 50px; border-radius: 50%;">
+                    <div class = "UserName">
+                        @UserName
+                    </div>
+                  </div>
+                  <div class = "CommentStats">
+                    
+                    <ion-icon name="heart-outline" class = "heart"></ion-icon>
+                    552
+                  </div>
+                </div>
+                <div class = "CommentBody">
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+                    This is text for the commentBody. Rince and repeat.
+                </div>
+                
+            </div>
+        </div>
+        <div class = "lineBreakers" >
+          <div class = CommentReplies>
+              <div class = "CommentHead">
+                <div class = CommentIDs>
+                    <img src = "assets/icon/Batman.jpg" style="object-fit: fill;
+                    width: 50px; height: 50px; border-radius: 50%;">
+                  <div class = "UserName">
+                      @UserName
+                  </div>
+                </div>
+                <div class = "CommentStats">
+                  <ion-icon name="heart-outline" class = "heart"></ion-icon>
+                  552
+                </div>
+              </div>
+              <div class = "CommentBody">
+                  This is text for the commentBody. Rince and repeat.
+                  This is text for the commentBody. Rince and repeat.
+                  This is text for the commentBody. Rince and repeat.
+                  This is text for the commentBody. Rince and repeat.
+                  This is text for the commentBody. Rince and repeat.
+
+              </div>
+              
+          </div>
+      </div>
+        </div>
+
+
+       </ion-card> 
+
+       
+
+       
+        
+     
+
+       
+</div>
+    
+  
+   
+  
+  
+  
+  
+  
