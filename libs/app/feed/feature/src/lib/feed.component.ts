@@ -63,7 +63,7 @@ export class FeedPage {
               this.reports.push(false);
               this.reportedPosts.push(false);
               if(posts[i].dateAdded!=null&&posts[i].comments!=null
-                &&posts[i].shares!=null&&posts[i].categories!=null){
+                &&posts[i].shares!=null){
                 this.datesAdded.push(posts[i].dateAdded);
                   this.comments.push(posts[i].comments);
                   this.shares.push(posts[i].shares);
@@ -79,8 +79,6 @@ export class FeedPage {
             if(posts[i].categories!=null){
               this.categoriesDisplay.push(posts[i].categories);
             }
-
-
 
           }
 
