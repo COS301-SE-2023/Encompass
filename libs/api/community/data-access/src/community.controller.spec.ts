@@ -39,5 +39,16 @@ describe('CommunityController', () => {
         expect(controller).toBeDefined();
     });
 
+    describe('getCommunity', () => {
+        it('should call the Community controller with the given id', async () => {
+            const getCommunitySpy = jest.spyOn(controller, 'getCommunity');
+            await controller.getCommunity('testid123');
+            expect(getCommunitySpy).toBeCalledWith('testid123');
+        });
+
+        
+    });
+
     
+
 })
