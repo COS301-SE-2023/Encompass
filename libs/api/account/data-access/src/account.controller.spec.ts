@@ -1,7 +1,7 @@
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AccountController } from "./account.controller";
 import { Test } from "@nestjs/testing";
-import { CreateAccountRequest } from "./dto";
+import { CreateAccountRequest, GetAccountRequest } from "./dto";
 describe('AccountController', () => {
     let controller: AccountController;
     let mockQueryBus: { execute: jest.Mock };
@@ -45,5 +45,14 @@ describe('AccountController', () => {
         });
     });
 
-    
+    describe('getAccount', () => {
+        it('should call the Account controller with the given AccountRequest', async () => {
+            const submittedAccount: GetAccountRequest = genericAccount;
+            const getAccountSpy = jest.spyOn(controller, 'getAccount');
+            await controller.getAccount(submittedAccount);
+            expect(getAccountSpy).toBeCalledWith(submittedAccount);
+        });
+
+        
+    });
 })
