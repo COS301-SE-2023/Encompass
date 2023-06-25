@@ -94,5 +94,13 @@ describe('CommentController', () => {
         });
     });
     
-    
+    describe('getPostComments', () => {
+        it('should call Comment controller with given reply details', async () => {
+            const getPostCommentsSpy = jest.spyOn(controller, 'getPostComments');
+            await controller.getPostComments('test1233');
+            expect(getPostCommentsSpy).toBeCalledWith('test1233');
+        });
+
+        
+    });
 });
