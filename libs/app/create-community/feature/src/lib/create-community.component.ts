@@ -35,6 +35,10 @@ export class CreateCommunityComponent {
   type = "Public";
   fileName! : string;
   file! : File;
+  inputValue! : string;
+  inputValue2! : string;
+  isValid!: boolean;
+
 
   constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
       if(!this.profile){
@@ -83,6 +87,15 @@ export class CreateCommunityComponent {
     this.type = "Restricted";
   }
 
+  checkInput(){
+    if(this.title?.value == null || this.title?.value == undefined
+      ||this.category?.value==null||this.category?.value==undefined
+      || this.category?.value =="" || this.title?.value =="" ){
+      this.isValid = false;
+      }else{
+        this.isValid = true;
+      }
+  }
   onFileSelected(event: any) {
 
     const file:File = event.target.files[0];

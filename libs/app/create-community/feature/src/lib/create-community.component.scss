@@ -168,23 +168,25 @@ ion-textarea.custom {
     align-items: center;
 }
 
-.Footer>button{
-margin-right: 2%;
-font-size: 25px;
-font-family: CustomFont;
-border-radius: 20px;
-padding-left: 15px;
-padding-right: 15px;
-padding-top: 5px;
-padding-bottom: 5px;
-background-color: #66617F;
-color: white;
+.btn1{
+    background-color: #AFABC5; color:black
 
+}
+
+.btn2{
+    background-color: #231942; color:white
 }
    .Footer>ion-icon{
     margin-left: 2%;
     font-size: 25px;
    }
 
+   .Footer>button{
+    margin-right: 2%;
+    font-size: 25px;
+    font-family: CustomFont;
+    padding: 1%;
+    border-radius: 50px;
+   }
 
    

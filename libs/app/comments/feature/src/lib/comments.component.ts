@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent {
-comment: boolean = false;
-reply : boolean = false;
-viewreply : boolean = false;
+comment = false;
+reply = false;
+viewreply = false;
 
 
 AddComment(){
