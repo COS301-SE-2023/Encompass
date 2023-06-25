@@ -13,4 +13,5 @@ export class PostDto{
   readonly ageRestricted!: boolean;
   readonly shares!: number;
   readonly comments!: number;
+  readonly reported!: boolean;
 }

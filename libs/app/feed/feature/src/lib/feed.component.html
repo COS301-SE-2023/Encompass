@@ -77,7 +77,7 @@
                   <!-- <label *ngIf="reportedPosts[i]"> REPORTED</label> -->
                   <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
                   style = "font-size: small; position: relative; right: 10%;"
-                  (click)="ReportPost(i)">Report Post</label>
+                  (click)="ReportPost(i, post)">Report Post</label>
                   <label *ngIf="reports[i]&&reportedPosts[i]" 
                   style = "font-size: small; position: relative; right: 10%; color: red;"
                   >Post Reported.</label>

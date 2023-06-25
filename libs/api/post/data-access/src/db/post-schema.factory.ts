@@ -24,6 +24,7 @@ export class PostSchemaFactory
         ageRestricted: post.getAgeRestricted(),
         shares: post.getShares(),
         comments: post.getComments(),
+        reported: post.getReported()
       };
     }
 
@@ -43,6 +44,7 @@ export class PostSchemaFactory
         entitySchema.ageRestricted,
         entitySchema.shares,
         entitySchema.comments,
+        entitySchema.reported
       )
     }
   }

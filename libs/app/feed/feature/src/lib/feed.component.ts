@@ -157,6 +157,7 @@ Like(n:number, post: PostDto){
     ageRestricted: post.ageRestricted,
     shares: post.shares,
     comments: post.comments,
+    reported: post.reported
   }
 
   this.store.dispatch(new UpdatePost(post._id, data));
@@ -180,17 +181,34 @@ Dislike(n:number, post: PostDto){
     ageRestricted: post.ageRestricted,
     shares: post.shares,
     comments: post.comments,
+    reported: post.reported
   }
 
   this.store.dispatch(new UpdatePost(post._id, data));
 }
 
-ReportPost(n:number){
+ReportPost(n:number, post: PostDto){
   console.log("reporting post");
   
   if(this.reportedPosts[n]==false){
     this.reportedPosts[n]=true;
   }
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: post.likes,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+    reported: true
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
 }
 
 async Share(n:number, post: PostDto){
@@ -216,6 +234,7 @@ async Share(n:number, post: PostDto){
     ageRestricted: post.ageRestricted,
     shares: post.shares + 1,
     comments: post.comments,
+    reported: post.reported
   }
 
   this.store.dispatch(new UpdatePost(post._id, data));

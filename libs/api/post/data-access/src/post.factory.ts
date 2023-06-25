@@ -38,6 +38,7 @@ export class PostFactory implements EntityFactory<Post>{
       ageRestricted,
       0,
       0,
+      false
     );
     await this.postEntityRepository.create(post);
     post.apply(new PostCreatedEvent(post.getId()))

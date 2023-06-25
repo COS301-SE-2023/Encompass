@@ -41,4 +41,7 @@ export class PostSchema extends IdentifiableEntitySchema{
 
   @Prop()
   readonly comments!: number;
+
+  @Prop()
+  readonly reported!: boolean;
 }

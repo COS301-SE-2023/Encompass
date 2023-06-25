@@ -9,4 +9,5 @@ export class UpdatePostRequest{
   ageRestricted!: boolean;
   shares!: number;
   comments!: number;
+  reported!: boolean
 }
