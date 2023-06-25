@@ -112,8 +112,11 @@
               <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
               <div class = "icons">
                 <div style = "text-align: center;">
-                  <ion-icon name="share-social-outline" id = "icons2"></ion-icon>
-                  <div>{{shares[i]}}</div>
+                  <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post._id)"></ion-icon>
+                  <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
+                  <div *ngIf = "!sharing[i]">{{shares[i]}}</div>
+                  <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
+
                 </div>
                 <div style = "text-align: center;">
                   <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>

@@ -35,6 +35,8 @@ export class FeedPage {
    categories: string[][] = []; 
    likes: number[] =[] ;
    likedComments: boolean[] = [];
+   sharing: boolean[] = [];
+   link = "";
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController){
@@ -56,6 +58,7 @@ export class FeedPage {
 
         for(let i =0;i<posts.length;i++){
           this.likedComments.push(false);
+          this.sharing.push(false);
         }
 
         for(let i =0;i<posts.length;i++){
@@ -199,6 +202,21 @@ ReportPost(n:number){
   if(this.reportedPosts[n]==false){
     this.reportedPosts[n]=true;
   }
+}
+
+Share(n:number, id: string){
+  this.shares[n]++;
+  for(let i =0;i<this.sharing.length;i++){
+    this.sharing[i]=false;
+  }
+  this.sharing[n]=true;
+  this.link += id;
+  // if(this.posts[n]!=null){
+  //   this.link += this.posts[n]?.imageUrl
+
+  // }
+
+
 }
 
   recChange(){
