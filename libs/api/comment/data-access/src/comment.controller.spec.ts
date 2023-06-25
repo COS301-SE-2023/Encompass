@@ -59,25 +59,36 @@ describe('CommentController', () => {
         });
 
         it('should return commandbus boolean when called with id string', async () => {
-            mockCommandBus.execute.mockReturnValue(true);
+            mockCommandBus.execute.mockReturnValue('true');
             const deleteResult = await controller.deleteComment('testing123');
-            expect(deleteResult).toEqual(true);
+            expect(deleteResult).toEqual('true');
         });
     });
 
     describe('addReply', () => {
         const { postId,...addReplyRequest } = genericComment;
-        it('should call Comment controller with given Comment details', async () => {
+        it('should call Comment controller with given reply input', async () => {
             const addReplySpy = jest.spyOn(controller, 'addReply');
             await controller.addReply(postId,addReplyRequest);
             expect(addReplySpy).toBeCalledWith(postId,addReplyRequest);
         });
 
-        it('should return the created Comment and it should equal to the submitted Comment', async () => {
+        it('should return the Comment when given postId and reply as arguments', async () => {
             mockCommandBus.execute.mockReturnValue(genericCommentDto);
             const returnedComment = await controller.addReply(postId,addReplyRequest);
             expect(returnedComment).toEqual(genericCommentDto);
         });
     });
+
+    describe('deleteReply', () => {
+        it('should call Comment controller with given reply details', async () => {
+            const deleteReplySpy = jest.spyOn(controller, 'deleteReply');
+            await controller.deleteReply('test1233','test44');
+            expect(deleteReplySpy).toBeCalledWith('test1233','test44');
+        });
+
+        
+    });
+    
     
 });
