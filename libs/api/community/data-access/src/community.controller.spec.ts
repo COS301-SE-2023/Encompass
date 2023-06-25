@@ -46,9 +46,12 @@ describe('CommunityController', () => {
             expect(getCommunitySpy).toBeCalledWith('testid123');
         });
 
-        
+        it('should return the Community submitted', async () => {
+            mockQueryBus.execute.mockReturnValue(genericCommunity);
+            const returnedCommunity = await controller.getCommunity('id123');
+            expect(returnedCommunity).toEqual(genericCommunity);
+        });
     });
 
     
-
 })
