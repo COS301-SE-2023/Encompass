@@ -25,7 +25,6 @@ export class CommentsComponent {
 
   constructor(private store: Store, private route: ActivatedRoute){
     const profileId = this.route.snapshot.paramMap.get('id');
-    console.log(profileId);
     
     if(profileId == null){
       return;
@@ -41,6 +40,7 @@ export class CommentsComponent {
     this.store.dispatch(new GetComments(profileId));
     this.comments$.subscribe((comments) => {
       if(comments){
+        console.log(comments);
         this.comments = comments;
       }
     })

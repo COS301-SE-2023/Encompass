@@ -2,7 +2,7 @@ import { CommentDto } from '@encompass/api/comment/data-access';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { CommentsApi } from './comments.api';
-import { GetComments } from '@encompass/app/comments/util';
+import { GetComments, AddReply, AddComment } from '@encompass/app/comments/util';
 
 export interface CommentStateModel {
   CommentForm:{
@@ -36,6 +36,40 @@ export class CommentsState{
     }
 
     ctx.setState({
+      CommentForm: {
+        model: {
+          comments: response
+        }
+      }
+    })
+  }
+
+  @Action(AddComment)
+  async addComment(ctx: StateContext<CommentStateModel>, {comment}: AddComment){
+    const response = await this.commentsApi.addComment(comment);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.patchState({
+      CommentForm: {
+        model: {
+          comments: response
+        }
+      }
+    })
+  }
+
+  @Action(AddReply)
+  async addReply(ctx: StateContext<CommentStateModel>, {comment, commentId}: AddReply){
+    const response = await this.commentsApi.addReply(comment, commentId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.patchState({
       CommentForm: {
         model: {
           comments: response
