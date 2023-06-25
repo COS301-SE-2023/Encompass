@@ -71,6 +71,10 @@ describe('AccountController', () => {
             expect(getAccountSpy).toBeCalledWith('testing123');
         });
 
-        
+        it('should return the Account with the given Account id', async () => {
+            mockQueryBus.execute.mockReturnValue(true);
+            const accountExists = await controller.getAccountById('testing123');
+            expect(accountExists).toEqual(true);
+        });
     })
 })
