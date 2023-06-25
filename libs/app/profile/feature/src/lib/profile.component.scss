@@ -143,6 +143,10 @@ ion-card {
         width: 100%;
         // background-color: #F0EFEF;
     }
+
+    .PostBody:hover{
+      cursor: pointer;
+    }
     
     .PostFooter{
     display: flex;
@@ -160,21 +164,32 @@ ion-card {
       width: 30%;
       color:#231942;
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       justify-content: space-around;
       position: relative;
       
        bottom: 20%;
       }
+
+      #icons2{
+        font-size: 25px;
+        color:#231942;
+    
+        }
+    
+        #icons2:hover{
+          color: purple;
+          cursor: pointer;
+        }
       
-      .icons2{
-      // background-color: wheat;
-      font-size: 30px;
-      color:#231942;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      }
+      // .icons2{
+      // // background-color: wheat;
+      // font-size: 30px;
+      // color:#231942;
+      // display: flex;
+      // flex-direction: row;
+      // justify-content: space-around;
+      // }
 
   .stats{
 
@@ -208,6 +223,11 @@ ion-card {
       color: #000000;
       margin-left: 3%;
       margin-right: 3%;
+      display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     }
 
 
@@ -244,6 +264,11 @@ ion-card {
         margin-top: 10px;
     }
     
+    .Title{
+      display: inline-block;
+      width: auto;
+  
+      }
 
     .Name{
       display: flex;

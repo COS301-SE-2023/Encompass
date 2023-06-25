@@ -121,7 +121,7 @@
       position: relative;
       border-radius: 10px;
       position: relative;
-
+      margin-top: 10px;
     }
 
     .PostDetails{
@@ -144,6 +144,7 @@
         color: black;
         font-family: CustomFont;
         font-size: 20px;
+        margin-top: 10px;
     }
 
     .Title{
@@ -152,12 +153,14 @@
 
     }
     .Name{
-    display: flex;
-    align-items: center;
-    font-size: 15px;
-    position: relative;
-    font-family: CustomFont2;
-    left: 5%;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      // background-color: red;
+      position: relative;
+      right: 30%;
+      color: grey;
+      margin-bottom: 8px;
 
     }
 
@@ -181,7 +184,7 @@
     color: black;
     font-family: CustomFont;
     position: relative;
-
+    margin-top: 5px;
 
     }
 
@@ -193,6 +196,8 @@
     font-family: CustomFont;
     font-size: medium;
     color: #000000;
+    margin-left: 3%;
+      margin-right: 3%;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
@@ -207,7 +212,8 @@
     height: 25%;
     position: relative;
     display: flex;
-    justify-content: center;
+    // justify-content: center;
+    margin-left: 3%;
     }
     .icons{
     height: 50%;
@@ -242,7 +248,9 @@
     display: flex;
     height: 35%;
     width: 100%;
-    background-color: #F0EFEF;
+    // background-color: #F0EFEF;
+    margin-top: 10px;
+    margin-bottom: 30px;
     }
 
 
@@ -262,7 +270,7 @@
         align-items: center;
         height: 50%;
         width: 100%;
-        background-color: #F0EFEF;
+        // background-color: #F0EFEF;
     }
 
     .PostBody:hover{
@@ -275,7 +283,7 @@
         align-items: center;
         height: 15%;
         width: 100%;
-        background-color: #F0EFEF;
+        // background-color: #F0EFEF;
     }
 
 
