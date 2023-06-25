@@ -203,13 +203,11 @@
     .date{
     font-family: CustomFont;
     font-size: 15px;
-      width: 20%;
+    width: 20%;
     height: 25%;
     position: relative;
-    // background-color: #231942;
     display: flex;
     justify-content: center;
-    // top: 25%;
     }
     .icons{
     height: 50%;
@@ -298,10 +296,10 @@ ion-card {
 }
 
 .specialBtn{
-  background-color: #231942;
+  background-color: #66617F;
   color: white;
   border-radius: 50px;
-  border: 1px solid #231942;
+  border: 1px solid #66617F;
   font-size: 15px;
   font-family: CustomFont;
   padding: 1%;
