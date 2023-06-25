@@ -12,6 +12,7 @@ import { ProfileModule } from '@encompass/app/profile/data-access';
 import { CreatePostModule } from '@encompass/app/create-post/data-access';
 import { HomeModule } from '@encompass/app/home-page/data-access';
 import { CreateCommunityModule } from '@encompass/app/create-community/data-access';
+import { CommentsModule } from '@encompass/app/comments/data-access';
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -26,6 +27,7 @@ import { CreateCommunityModule } from '@encompass/app/create-community/data-acce
     HomeModule,
     CreatePostModule,
     CreateCommunityModule,
+    CommentsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [CoreShell],
