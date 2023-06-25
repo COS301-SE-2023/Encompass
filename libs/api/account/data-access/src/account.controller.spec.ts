@@ -1,3 +1,13 @@
+/*
+FILENAME: account.controller.spec.ts
+
+AUTHOR: Morgan Bentley
+
+CREATION DATE: 1 June 2023
+
+DESCRIPTION: This file handles tests for the account creation.
+*/
+
 //writing test cases for account.controller.ts
 import { Test, TestingModule } from '@nestjs/testing';
 import { AccountController } from './account.controller';
