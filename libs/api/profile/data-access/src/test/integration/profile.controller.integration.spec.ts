@@ -1,9 +1,10 @@
 import { Connection } from "mongoose";
 import * as request from "supertest";
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { AppModule } from '../../../../../../../apps/api/src/app/app.module';
+import { AppModule } from "../../../../../../../apps/api/src/app/app.module";
+//import { AppModule } from "@encompass/api/app.module";
 import { Test, TestingModule } from "@nestjs/testing";
 import { DatabaseService } from "../../dbTest/database.service";
+//import { DatabaseService } from "@encompass/api/dbTest/data-access";
 import { profileStub } from "../stubs/profile.stub";
 
 describe('profileController', () => {

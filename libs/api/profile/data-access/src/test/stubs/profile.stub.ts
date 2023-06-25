@@ -1,6 +1,6 @@
-import { UpdateProfileRequest } from "../../dto"
-import { Profile } from "../../profile"
-import { ProfileDto } from "../../profile.dto"
+import { UpdateProfileRequest } from "../../data-access/src/dto"
+import { Profile } from "../../data-access/src/profile"
+import { ProfileDto } from "../../data-access/src/profile.dto"
 import mongoose, { ObjectId } from "mongoose";
 
 export const profileStub = () =>{
