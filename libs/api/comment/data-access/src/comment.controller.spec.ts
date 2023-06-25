@@ -44,4 +44,14 @@ describe('CommentController', () => {
             expect(createdComment).toEqual(submittedComment);
         });
     });
+
+    describe('deleteComment', () => {
+        it('should call Comment controller with given Comment details', async () => {
+            const createCommentSpy = jest.spyOn(controller, 'deleteComment');
+            await controller.deleteComment('test1233');
+            expect(createCommentSpy).toBeCalledWith('test1233');
+        });
+
+        
+    });
 });
