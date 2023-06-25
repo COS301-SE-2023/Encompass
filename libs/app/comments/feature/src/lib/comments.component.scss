@@ -329,3 +329,24 @@ ion-textarea.custom {
   font-family: CustomFont;
 
 }
+
+.centeredButton {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 190px;
+  height: 70px;
+}
+
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.text {
+  margin-left: 1px;
+  // margin-top: 10px;
+  font-size: larger;
+}

@@ -6,7 +6,7 @@ import { CommentsState } from '@encompass/app/comments/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GetComments } from '@encompass/app/comments/util';
 @Component({
   selector: 'comments',
@@ -23,7 +23,7 @@ export class CommentsComponent {
   reply = false;
   viewreply = false;
 
-  constructor(private store: Store, private route: ActivatedRoute){
+  constructor(private store: Store, private route: ActivatedRoute, private router: Router){
     const profileId = this.route.snapshot.paramMap.get('id');
     
     if(profileId == null){
@@ -57,5 +57,9 @@ export class CommentsComponent {
 
   viewReplies(){
     this.viewreply = !this.viewreply;
+  }
+
+  goHome() {
+    this.router.navigate(['/home']);
   }
 }

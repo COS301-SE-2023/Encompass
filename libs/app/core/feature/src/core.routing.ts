@@ -31,6 +31,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/login/feature').then((m) => m.LoginModule)
   },
+  {
+    path: 'comments',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/comments/feature').then((m) => m.CommentsModule)
+  },
 
   // {
   //   path: 'profile',

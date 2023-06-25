@@ -32,6 +32,11 @@ const routes: Routes = [
         // pathMatch: 'full',
         loadChildren: () => import('@encompass/app/settings/feature').then((m) => m.SettingsModule), 
       },
+      // {
+      //   path: 'comments', //comments/:id
+      //   // pathMatch: 'full',
+      //   loadChildren: () => import('@encompass/app/comments/feature').then((m) => m.CommentsModule), 
+      // },
     ],
   },
 ];
