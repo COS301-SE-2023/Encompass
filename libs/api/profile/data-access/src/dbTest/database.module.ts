@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
     imports: [
         MongooseModule.forRootAsync({
             useFactory: (configService: ConfigService) => ({
-                uri: configService.get<string>('NODE_ENV') === 'development' 
+                uri: configService.get<string>('NX_ENVIRONMENT') === 'development' 
                 ? configService.get<string>('NX_MONGO_DB_URL') 
                 : configService.get<string>('NX_MONGO_DB_TEST_URL')
             }),

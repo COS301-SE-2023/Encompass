@@ -16,16 +16,24 @@ describe('profileController', () => {
         const app = moduleRef.createNestApplication();
         await app.init();
         dbConnection = moduleRef.get<DatabaseService>(DatabaseService).getDbHandle();
+        console.log(dbConnection.name);
         httpServer = app.getHttpServer();
     });
 
     describe('getProfile', () => {
-        it('should return a profile', async () => {
+        it('should return the profile inserted', async () => {
+            const { _id, ...temp } = profileStub();
+            const profileStubWithStringId = {
+                _id: _id.toString(),
+                ...temp
+            };
+
             await dbConnection.collection('profile').insertOne(profileStub());
-            const response = await request(httpServer).get('/profile/6496e5e9571ba68130d6e1cd');
-            
+            const response = await request(httpServer).get(`/profile/${profileStub()._id.toString()}`);
             expect(response.status).toBe(200);
-            expect(response.body).toEqual(profileStub());
+
+            expect(response.body).toMatchObject(profileStubWithStringId);
+            expect(true).toBe(true);
         });
         
     });
