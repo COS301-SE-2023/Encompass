@@ -17,8 +17,9 @@ export class PostFactory implements EntityFactory<Post>{
     text: string,
     username: string,
     imageUrl: string | null,
-    categories: string[] | null,
-    likes: string[] | null,
+    communityImageUrl: string | null,
+    categories: string[],
+    likes: string[],
     spoiler: boolean,
     ageRestricted: boolean
   ) : Promise<Post>{
@@ -29,6 +30,7 @@ export class PostFactory implements EntityFactory<Post>{
       text,
       username,
       imageUrl,
+      communityImageUrl,
       categories,
       likes,
       this.createDateAsString(),

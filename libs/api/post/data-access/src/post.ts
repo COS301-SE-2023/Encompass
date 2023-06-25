@@ -9,8 +9,9 @@ export class Post extends AggregateRoot{
     public text: string,
     public username: string,
     public imageUrl: string | null,
-    public categories: string [] | null,
-    public likes: string [] | null,
+    public communityImageUrl: string | null,
+    public categories: string [],
+    public likes: string [],
     public dateAdded: string,
     public spoiler: boolean,
     public ageRestricted: boolean,
@@ -44,11 +45,15 @@ export class Post extends AggregateRoot{
     return this.imageUrl;
   }
 
-  getCategories(): string [] | null{
+  getCommunityImageUrl(): string | null{
+    return this.communityImageUrl;
+  }
+
+  getCategories(): string []{
     return this.categories;
   }
 
-  getLikes(): string [] | null{
+  getLikes(): string []{
     return this.likes;
   }
 
@@ -77,6 +82,7 @@ export class Post extends AggregateRoot{
     this.title = updatePostRequest.title;
     this.text = updatePostRequest.text;
     this.imageUrl = updatePostRequest.imageUrl;
+    this.communityImageUrl = updatePostRequest.communityImageUrl;
     this.categories = updatePostRequest.categories;
     this.likes = updatePostRequest.likes;
     this.spoiler = updatePostRequest.spoiler;

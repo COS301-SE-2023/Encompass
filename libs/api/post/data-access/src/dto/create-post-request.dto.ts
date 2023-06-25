@@ -4,6 +4,7 @@ export class CreatePostRequest{
   readonly text!: string;
   readonly username!: string;
   readonly imageUrl!: string | null;
+  communityImageUrl!: string | null;
   readonly categories!: string [];
   readonly likes!: string [];
   readonly spoiler!: boolean;

@@ -18,4 +18,8 @@ export class CommunityDtoRepository {
     async findById(id: string){
         return await this.communityModel.findOne({ _id: id });
     }
+
+    async getByName(name: string){
+        return await this.communityModel.findOne({ name: name });
+    }
 }

@@ -154,6 +154,7 @@ export class CreatePostComponent {
       text: textData, 
       username: this.profile.username,
       imageUrl: imageUrl,
+      communityImageUrl: null,
       categories: categoryData,
       likes: emptyArray,
       spoiler: this.spoilers,

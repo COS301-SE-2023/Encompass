@@ -10,7 +10,7 @@ import { CommunitySchemaFactory } from "./db/community-schema.factory";
 import { CommunityFactory } from "./community.factory";
 import { CreateCommunityHandler, UpdateCommunityHandler} from "./commands";
 import { CommunityCreatedHandler } from "./events";
-import { DoesExistHandler, GetCommunityHandler} from "./queries";
+import { DoesExistHandler, GetByNameHandler, GetCommunityHandler} from "./queries";
 import { AddPostHandler } from "./commands/add-post/add-post.handler";
 
 
@@ -36,7 +36,8 @@ import { AddPostHandler } from "./commands/add-post/add-post.handler";
     GetCommunityHandler,
     UpdateCommunityHandler,
     DoesExistHandler,
-    AddPostHandler
+    AddPostHandler,
+    GetByNameHandler,
   ],
 })
 

@@ -8,6 +8,7 @@ import { CommunityDto } from './community.dto';
 import { UpdateCommunityCommand } from './commands/update-community/update-community.command';
 import { DoesExistQuery } from './queries/does-exist/does-exist.query';
 import { AddPostCommand } from './commands/add-post/add-post.command';
+import { GetByNameQuery } from './queries/get-by-name/get-by-name.query';
 
 
 @Controller('community')
@@ -24,6 +25,13 @@ export class CommunityController {
         );
     }
 
+    @Get('get-community/:name')
+    async getCommunityByName(@Param('name') name: string): Promise<CommunityDto> {
+        return await this.queryBus.execute<GetByNameQuery, CommunityDto>(
+            new GetByNameQuery(name),
+        );
+    }
+    
     @Post('create')
     async createCommunity(
         @Body() createCommunityRequest: CreateCommunityRequest,
