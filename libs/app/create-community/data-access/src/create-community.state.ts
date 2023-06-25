@@ -80,6 +80,14 @@ export class CreateCommunityState{
 
       console.log(profile._id);
       ctx.dispatch(new UpdateProfile(request, profile._id))
+
+      const toast = await this.toastController.create({
+        message: 'Community created successfully',
+        duration: 2000,
+        color: 'success'
+      })
+
+      await toast.present();
     }
     
     else{
