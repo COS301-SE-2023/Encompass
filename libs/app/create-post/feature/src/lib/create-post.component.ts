@@ -99,6 +99,8 @@ export class CreatePostComponent {
 
 
   async onSubmit() {
+    const emptyArray : string[] = [];
+
     let communityData : string;
     let titleData : string;
     let textData : string;
@@ -139,26 +141,26 @@ export class CreatePostComponent {
     }
 
     if(this.category?.value == null || this.category?.value == undefined){
-      categoryData = null;
+      categoryData = emptyArray;
     }
 
     else{
       categoryData = this.category?.value;
     }
 
-      const data = {
-        community: communityData,
-        title: titleData,
-        text: textData, 
-        username: this.profile.username,
-        imageUrl: imageUrl,
-        categories: categoryData,
-        likes: null,
-        spoiler: this.spoilers,
-        ageRestricted: this.agerestricted
-      };
-      console.log(data.imageUrl)
-      this.store.dispatch(new CreatePost(data, this.profile));
+    const data = {
+      community: communityData,
+      title: titleData,
+      text: textData, 
+      username: this.profile.username,
+      imageUrl: imageUrl,
+      categories: categoryData,
+      likes: emptyArray,
+      spoiler: this.spoilers,
+      ageRestricted: this.agerestricted
+    };
+    console.log(data.imageUrl)
+    this.store.dispatch(new CreatePost(data, this.profile));
     
   }
 

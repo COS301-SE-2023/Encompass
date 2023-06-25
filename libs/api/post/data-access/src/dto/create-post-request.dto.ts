@@ -4,8 +4,8 @@ export class CreatePostRequest{
   readonly text!: string;
   readonly username!: string;
   readonly imageUrl!: string | null;
-  readonly categories!: string [] | null;
-  readonly likes!: string [] | null;
+  readonly categories!: string [];
+  readonly likes!: string [];
   readonly spoiler!: boolean;
   readonly ageRestricted!: boolean;
 }
