@@ -73,7 +73,11 @@ describe('CommentController', () => {
             expect(addReplySpy).toBeCalledWith(postId,addReplyRequest);
         });
 
-        
+        it('should return the created Comment and it should equal to the submitted Comment', async () => {
+            mockCommandBus.execute.mockReturnValue(genericCommentDto);
+            const returnedComment = await controller.addReply(postId,addReplyRequest);
+            expect(returnedComment).toEqual(genericCommentDto);
+        });
     });
     
 });
