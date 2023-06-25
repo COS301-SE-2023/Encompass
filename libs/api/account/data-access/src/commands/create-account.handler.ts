@@ -1,3 +1,13 @@
+/*
+FILENAME: create-account.command.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 27 May 2023
+
+DESCRIPTION: This file ensures that a newly created account is successfully added.
+*/
+
 import { CommandHandler, ICommandHandler, EventPublisher } from "@nestjs/cqrs";
 import { CreateAccountCommand } from "./create-account.command";
 import { AccountFactory } from "../account.factory";
