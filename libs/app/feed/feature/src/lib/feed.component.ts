@@ -282,7 +282,9 @@ async Share(n:number, post: PostDto){
     }
   }
 
-
+  GoToComments(postId : string){
+    this.router.navigate(['app-comments-feature/' + postId]);
+  }
 
   collapse1 = false;
   collapse2 = false;
