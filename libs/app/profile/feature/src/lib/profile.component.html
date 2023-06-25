@@ -1,236 +1,152 @@
+<div class="overlay">
+
+  <ion-header>
+    <ion-toolbar class="profileToolbar">
+      <div class="toolbar-content">
+        <ion-grid>
+          <ion-row class="row-filter">
+            <ion-col size="2">
+              <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle" (click)="postChange()">
+                Posts
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" (click)="commChange()">
+                Comments
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
+                Events
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-toolbar>
+  </ion-header>
 
 
-  <div class="overlay-container" id="main">
-   
-   <div class = "Top">
-    <div class = "ProfileCardsContainer">
-      <div class = "ProfileCards">
-        <div class = "ProfileDetails">
-          <div class = "ProfileImage">
-            <img src = "assets/profile.jpg" class = "pImage">
-          </div>
-          <div class = "ProfileText">
-            <div class = "ProfileTextHeader">
-              <div class = "ProfileName">
-                  <div>Julianna Venter</div>
-                  <div>@Jules123</div>
+  <ion-grid>
+    <ion-row class="filter-row">
+      <ion-col size="5">
+
+        <ion-button class="comms active-button" fill="clear">Create a Post</ion-button>
+
+        <ion-card class = "PostCard">
+          <div class = "PostCardHeader">
+            <div class = "PostImageContainer">
+              <img src = "assets/icon/DragonAge.jpg" class = "postImage">
+            </div>
+          <div class = "PostDetails" >
+            <div class = "TitleNameOptions">
+              <div class = "Title">Inquisition</div>
+              <div class = "DOT">⋅</div>
+              <div class = "Name">@MorganBentley</div>
+              <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
               </div>
-              <div class = "ProfileIcons">
-                <ion-icon name="create-outline"></ion-icon>
+    
+             </div>
+            
+            <div class = "GenreIcons">
+            <img src = "assets/icon/D&D.png" class="imgDiv">
+            <img src = "assets/icon/Gaming.png"  class="imgDiv" >
+            <img src = "assets/icon/Adventure.png"  class="imgDiv"></div>
+        </div> 
+          </div>
+          <div class = "PostBody" style="margin-top: 20px;">
+            <div class = "text">
+              Breaking News: Dragon Age fan club members request in-game 'napping' skill to increase real-life productivity levels. In a groundbreaking petition, fans demand BioWare to grant characters the ability to snooze their way through battles, quests, and meetings. A surefire way to conquer both Thedas and deadlines simultaneously!
+            </div>
+          </div>
+          <div class = "PostFooter" style="margin-top: 20px;">
+            <div class = "date">2 weeks ago</div>
+            <div class = "icons">
+              <div class = "icons2">
                 <ion-icon name="share-social-outline"></ion-icon>
+                <ion-icon name="chatbubble-outline"></ion-icon>
+                <ion-icon name="heart-outline"></ion-icon>
               </div>
-            </div>
-            <div class = "ProfileBio">
-              One does not simply deny the power of elven Fasion. 
-              Indeed, Lord of the Rings is my passion. 
-            </div>
-            <div class = "ProfileFooter">
-                <div class = "ProfileStat">
-                  <div class = "ProfileStatNumber">3</div>
-                  <div class = "ProfileStatText">Posts</div>
-                </div>
-                <div class = "ProfileStat">
-                  <div class = "ProfileStatNumber">10</div>
-                  <div class = "ProfileStatText">Followers</div>
-                </div>
-                <div class = "ProfileStat">
-                  <div class = "ProfileStatNumber">15</div>
-                  <div class = "ProfileStatText">Following</div>
-                </div>
+              <div class = "stats" style="margin-top: 5px; margin-bottom: 5px;">
+                <div>9</div>
+                <div>66</div>
+                <div>25</div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class = "ProfileMsc">
-          <div class = "Awards">
-            <div class = "AwardsTitle">Awards</div>
-            <div class = "ListofRewards">
-              <img src = "assets/icon/Award1.jpg" class = "AwardImage">
-              <img src = "assets/icon/Award2.JPG" class = "AwardImage">
-            </div>
-          </div>
-          <div class = "TopCommunities">
-            <div class = "CommunityTitle">Top Communities</div>
-          <div class = "ListofCommunities">
-            <div class = "CommunityItem" >
-              <div class = "CommunityHeader">
-                <img src = "assets/icon/StrangerThings.jpg" class = "CommunityImage">
-              </div>
-              <div class = "CommunityName">
-                Upside Downers
-              </div>
-              <div class = "CommunityText">
-                Upside Down addicts unite! We binge, meme, and rock retro fashion. Stranger Things forever!
-              </div>
-            </div>
-            <div class = "CommunityItem" >
-              <div class = "CommunityHeader">
-                <img src = "assets/icon/tlou.jpg" class = "CommunityImage">
-              </div>
-              <div class = "CommunityName">
-                The Infected
-              </div>
-              <div class = "CommunityText">
-                The Infected have never been funnier! Join our Last of Us Fan Club
-              </div>
-            </div>
-            <div class = "CommunityItem" >
-              <div class = "CommunityHeader">
-                <img src = "assets/icon/pp.png" class = "CommunityImage">
-              </div>
-              <div class = "CommunityName">
-                Aca-Maniacs Anonymous
-              </div>
-              <div class = "CommunityText">
-                The hilarious hub for die-hard Pitch Perfect fans who sing, dance, and laugh together!
-              </div>
-            </div>
-           
-          </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-
-    <div class = "ProfileFilterContainer">
-      <div class = "ProfileFilter">
-        <div class = "profileFilterOption" style = "background-color: #AFABC5;">Posts</div>
-        <div class = "profileFilterOption">Reviews</div>
-        <div class = "profileFilterOption">Events</div>
-      </div>
-    </div>
+         </ion-card>
+      </ion-col>
 
 
-   </div>
 
-   <div class = "Bottom">
-    <ion-card class = "PostCard">
-      <div class = "PostCardHeader">
-        <div class = "PostImageContainer">
-          <img src = "assets/icon/Thanos.jpg" class = "postImage">
-        </div>
-      <div class = "PostDetails" >
-        <div class = "TitleNameOptions">
-          <div class = "Title">Thanos' Chin</div>
-          <div class = "DOT">.</div>
-          <div class = "Name">@Jules123</div>
-          <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-          </div>
 
-         </div>
+
+      <ion-col size="3">
         
-        <div class = "GenreIcons">
-        <img src = "assets/icon/action.png" class="imgDiv">
-        <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-        <img src = "assets/icon/Sci-Fi.png"  class="imgDiv"></div>
-    </div> 
-      </div>
-      <div class = "PostBody">
-        <div class = "text">
-          Just realized Iron Man's superpower was being fabulously wealthy. Guess I'll stick to my power of eating snacks while binge-watching Marvel movies. #AvengersLife #SnackAttack
-        </div>
-      </div>
-      <div class = "PostFooter">
-        <div class = "date">4 weeks ago</div>
-        <div class = "icons">
-          <div class = "icons2">
-            <ion-icon name="share-social-outline"></ion-icon>
-            <ion-icon name="chatbubble-outline"></ion-icon>
-            <ion-icon name="heart-outline"></ion-icon>
+        <ion-card>
+          <div style="position: relative">
+          <img class="profilePicture" alt="Silhouette of mountains" src="https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg" />
+          <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
           </div>
-          <div class = "stats">
-            <div>66</div>
-            <div>88</div>
-            <div>21</div>
-          </div>
-        </div>
-      </div>
-     </ion-card>
-     <ion-card class = "PostCard">
-      <div class = "PostCardHeader">
-        <div class = "PostImageContainer">
-          <img src = "assets/icon/Hobbit.jpg" class = "postImage">
-        </div>
-      <div class = "PostDetails" >
-        <div class = "TitleNameOptions">
-          <div class = "Title">HobbitsAnon</div>
-          <div class = "DOT">.</div>
-          <div class = "Name">@Jules123</div>
-          <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-          </div>
-
-         </div>
+          <ion-card-header>
+            <ion-card-title>Random User
+              <ion-button
+            fill="clear"
+            size="medium"
+            color="dark"
+            class="edit-button">
+            <ion-icon name="pencil"></ion-icon>
+            <ion-icon name="share-social"></ion-icon>
+          </ion-button>
+          <ion-card-subtitle style="margin-top: 5px;">@randouser123</ion-card-subtitle>
+            </ion-card-title>
+          </ion-card-header>
         
-        <div class = "GenreIcons">
-        <img src = "assets/icon/action.png" class="imgDiv">
-        <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-        <img src = "assets/icon/Fantasy.png"  class="imgDiv"></div>
-    </div> 
-      </div>
-      <div class = "PostBody">
-        <div class = "text">
-          Turns out my neighbors are actual hobbits! Caught them having second breakfast in their garden. I asked for an invite, but they said I'm too tall for the Shire. Guess I'll stick to elevensies and pretend to be a giant. #HobbitEnvy #HeightDisadvantage
-        </div>
-      </div>
-      <div class = "PostFooter">
-        <div class = "date">5 weeks ago</div>
-        <div class = "icons">
-          <div class = "icons2">
-            <ion-icon name="share-social-outline"></ion-icon>
-            <ion-icon name="chatbubble-outline"></ion-icon>
-            <ion-icon name="heart-outline"></ion-icon>
-          </div>
-          <div class = "stats">
-            <div>23</div>
-            <div>42</div>
-            <div>31</div>
-          </div>
-        </div>
-      </div>
-     </ion-card>
-     <ion-card class = "PostCard">
-      <div class = "PostCardHeader">
-        <div class = "PostImageContainer">
-          <img src = "assets/icon/xmen.jpg" class = "postImage">
-        </div>
-      <div class = "PostDetails" >
-        <div class = "TitleNameOptions">
-          <div class = "Title">X-People</div>
-          <div class = "DOT">.</div>
-          <div class = "Name">@Jules123</div>
-          <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-          </div>
+          <ion-card-content style="font-size: 15px; margin-bottom: 15px;">
+            Here's a small text description for the card content. Nothing more, nothing less.
+          </ion-card-content>
+        </ion-card>
 
-         </div>
+        <div class="awards">
+          <ion-title class="awards-header">
+            Awards
+          </ion-title>
+          <div class="badges">
+            <img src="assets/icon/Award1.jpg" class="badge">
+            <img src="assets/icon/Award2.JPG" class="badge">
+          </div>
+        </div>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title color="grey">Top Communities</ion-card-title>
+          </ion-card-header>
         
-        <div class = "GenreIcons">
-        <img src = "assets/icon/action.png" class="imgDiv">
-        <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-        <img src = "assets/icon/Sci-Fi.png"  class="imgDiv"></div>
-    </div> 
-      </div>
-      <div class = "PostBody">
-        <div class = "text">
-          Just discovered my mutant power: being able to binge-watch all X-Men movies without blinking! Professor X, where's my invitation to join the X-Men? I'll be the team's official popcorn supplier and mutant trivia champion! #XMenFanForLife
-        </div>
-      </div>
-      <div class = "PostFooter">
-        <div class = "date">7 weeks ago</div>
-        <div class = "icons">
-          <div class = "icons2">
-            <ion-icon name="share-social-outline"></ion-icon>
-            <ion-icon name="chatbubble-outline"></ion-icon>
-            <ion-icon name="heart-outline"></ion-icon>
-          </div>
-          <div class = "stats">
-            <div>11</div>
-            <div>26</div>
-            <div>36</div>
-          </div>
-        </div>
-      </div>
-     </ion-card>
-   </div>
-  </div>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row class="small-square-row">
+                <ion-col size="5">
+                  <div class="small-square">
+                    <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                    <div class = "CommunityName">Alien</div>
+                    <div class = "CommunityDesc">Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!</div>
+                  </div>
+                </ion-col>
+                <ion-col size="5">
+                  <div class="small-square">
+                    <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
+                    <div class = "CommunityName">Potterheads</div>
+                    <div class = "CommunityDesc">Join in on all things Potterverse!</div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            
+          </ion-card-content>
+        </ion-card>
 
- 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</div>

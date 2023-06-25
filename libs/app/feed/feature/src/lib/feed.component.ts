@@ -24,7 +24,7 @@ export class FeedPage {
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
-  
+
   profile! : ProfileDto;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
@@ -32,7 +32,7 @@ export class FeedPage {
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   categoriesDisplay: string[][] = []; 
+   categoriesDisplay: string[][] = [];
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
@@ -127,7 +127,7 @@ Report(n:number){
   }else if(this.reports[n]==false){
     this.reports[n]=true;
   }
- 
+
 }
 
 Like(n:number, post: PostDto){
@@ -189,7 +189,7 @@ Dislike(n:number, post: PostDto){
 
 ReportPost(n:number, post: PostDto){
   console.log("reporting post");
-  
+
   if(this.reportedPosts[n]==false){
     this.reportedPosts[n]=true;
   }
@@ -217,7 +217,7 @@ async Share(n:number, post: PostDto){
     this.sharing[i]=false;
   }
   this.sharing[n]=true;
-  
+
   const obj = location.origin
   if(obj == undefined){
     return;
@@ -254,8 +254,8 @@ async Share(n:number, post: PostDto){
       newBtn.classList.remove('active-button');
       popBtn.classList.remove('active-button');
     }
-      
-    
+
+
   }
 
   newChange(){
@@ -281,7 +281,18 @@ async Share(n:number, post: PostDto){
       popBtn.classList.add('active-button');
     }
   }
-  GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+
+
+
+  collapse1 = false;
+  collapse2 = false;
+
+  Collapse1(){
+    this.collapse1 = !this.collapse1;
   }
+  Collapse2(){
+    this.collapse2 = !this.collapse2;
+  }
+
+
 }
