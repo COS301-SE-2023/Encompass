@@ -66,16 +66,29 @@ export class CommentsState{
 
   @Action(AddComment)
   async addComment(ctx: StateContext<CommentStateModel>, {comment}: AddComment){
+
+    const old = ctx.getState().CommentForm.model.comments;
+
     const response = await this.commentsApi.addComment(comment);
 
     if(response == null || response == undefined){
       return;
     }
 
+    let newComments : CommentDto[];
+
+    if(old == null || old == undefined){
+      newComments = [response];
+    }
+
+    else{
+      newComments = [...old, response];
+    }
+
     ctx.patchState({
       CommentForm: {
         model: {
-          comments: response
+          comments: newComments
         }
       }
     })
@@ -83,16 +96,28 @@ export class CommentsState{
 
   @Action(AddReply)
   async addReply(ctx: StateContext<CommentStateModel>, {comment, commentId}: AddReply){
+    const old = ctx.getState().CommentForm.model.comments;
+    
     const response = await this.commentsApi.addReply(comment, commentId);
 
     if(response == null || response == undefined){
       return;
     }
 
+    let newComments : CommentDto[];
+
+    if(old == null || old == undefined){
+      newComments = [response];
+    }
+
+    else{
+      newComments = [...old, response];
+    }
+
     ctx.patchState({
       CommentForm: {
         model: {
-          comments: response
+          comments: newComments
         }
       }
     })

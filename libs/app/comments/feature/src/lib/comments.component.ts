@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { CommentDto } from '@encompass/api/comment/data-access';
+import { AddReplyRequest, CommentDto, CreateCommentRequest } from '@encompass/api/comment/data-access';
 import { CommentsState } from '@encompass/app/comments/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GetComments, GetPost } from '@encompass/app/comments/util';
+import { AddComment, AddReply, GetComments, GetPost } from '@encompass/app/comments/util';
 import { PostDto } from '@encompass/api/post/data-access';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 @Component({
   selector: 'comments',
   templateUrl: './comments.component.html',
@@ -22,7 +24,7 @@ export class CommentsComponent {
   comments!: CommentDto[];
   profile!: ProfileDto;
   post!: PostDto | null;
-  comment = false;
+  commentBool = false;
   reply : boolean[] = [];
   reports = false;
   reportedPosts = false;
@@ -35,7 +37,7 @@ export class CommentsComponent {
   viewreplies : boolean[] = [];
 
 
-  constructor(private store: Store, private route: ActivatedRoute, private router: Router){
+  constructor(private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){
     const postId = this.route.snapshot.paramMap.get('id');
     
     this.likes=0;
@@ -86,6 +88,22 @@ export class CommentsComponent {
     })
   }
 
+  commentForm = this.formBuilder.group({
+    comment: ['', [ Validators.required, Validators.maxLength(250)]],
+  });
+
+  replyForm = this.formBuilder.group({
+    replyField: ['', [ Validators.required, Validators.maxLength(250)]],
+  })
+
+  get comment(){
+    return this.commentForm.get('comment');
+  }
+
+  get replyField(){
+    return this.replyForm.get('replyField');
+  }
+
   Report(){
     if(this.reports==true){
       this.reports=false;
@@ -102,14 +120,33 @@ export class CommentsComponent {
     }
   }
 
-  AddComment(){
-    this.comment = !this.comment;
+  CancelComment(){
+    this.commentBool = !this.commentBool;
   }
 
   Cancel(n:number){
     this.reply[n] = !this.reply[n];
 
   }
+
+  AddComment(){
+    if(this.comment?.value == null || this.comment?.value == undefined){
+      return;
+    }
+
+    if(this.post == undefined){
+      return;
+    }
+
+    const data: CreateCommentRequest ={
+      postId: this.post._id,
+      username: this.profile.username,
+      text: this.comment?.value
+    }
+
+    this.store.dispatch(new AddComment(data));
+  }
+
   Reply(n:number){
     for(let i=0;i<this.reply.length;i++){
       if(i!=n){
@@ -123,8 +160,24 @@ export class CommentsComponent {
       this.reply[n] = !this.reply[n];
     }
 
-    PostReply(n:number){
+    PostReply(comment: CommentDto){
 
+      let reply;
+
+      if(this.replyField?.value == null || this.replyField?.value == undefined){
+        reply = "";
+      }
+
+      else{
+        reply = this.replyField?.value;
+      }
+
+      const data: AddReplyRequest ={
+        username: this.profile.username,
+        text: reply
+      }
+
+      this.store.dispatch(new AddReply(data, comment._id));
     }
 
 

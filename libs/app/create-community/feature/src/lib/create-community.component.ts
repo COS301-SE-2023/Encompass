@@ -52,7 +52,7 @@ export class CreateCommunityComponent {
   }
 
   postForm = this.formBuilder.group({
-    title: ['', [ Validators.required, Validators.maxLength(100)]],
+    title: ['', [ Validators.required, Validators.maxLength(250)]],
     category: [[]]
   });
 

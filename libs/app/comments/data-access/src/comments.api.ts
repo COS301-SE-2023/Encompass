@@ -23,7 +23,7 @@ export class CommentsApi{
 
   async addComment(comment: CreateCommentRequest){
     try{
-      const response = await this.httpClient.post<CommentDto[]>('/api/comment/create', comment).toPromise();
+      const response = await this.httpClient.post<CommentDto>('/api/comment/create', comment).toPromise();
 
       return response;
     }
@@ -36,7 +36,7 @@ export class CommentsApi{
 
   async addReply(comment: AddReplyRequest, commentId: string){
     try{
-      const response = await this.httpClient.post<CommentDto[]>('/api/comment/add-reply/' + commentId, comment).toPromise();
+      const response = await this.httpClient.patch<CommentDto>('/api/comment/add-reply/' + commentId, comment).toPromise();
 
       return response;
     }
