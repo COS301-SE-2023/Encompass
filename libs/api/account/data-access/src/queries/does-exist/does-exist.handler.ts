@@ -1,3 +1,13 @@
+/*
+FILENAME: does-exist.handler.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 27 May 2023
+
+DESCRIPTION: This file checks if an account asssociated with an email exists or not.
+*/
+
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { DoesExistQuery } from "./does-exist.query";
 import { AccountEntityRepository } from "../../db/account-entity.repository";
