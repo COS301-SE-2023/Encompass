@@ -2,7 +2,6 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ProfileController } from "./profile.controller";
 import { Test, TestingModule } from "@nestjs/testing";
 import { CreateProfileRequest, UpdateProfileRequest } from "./dto";
-import { CreateProfileHandler } from "./commands";
 import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
 import { GetUsernameQuery } from "./queries/get-username/get-username.query";
 
@@ -23,7 +22,7 @@ describe('ProfileController', () => {
         posts: ['test'],
         reviews: ['test'],
     };
-    beforeEach(async () => {
+    beforeAll(async () => {
         mockCommandBus = { execute: jest.fn() };
         mockQueryBus = { execute: jest.fn() };
         const module = await Test.createTestingModule({
