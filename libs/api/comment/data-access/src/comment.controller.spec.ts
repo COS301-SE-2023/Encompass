@@ -101,6 +101,10 @@ describe('CommentController', () => {
             expect(getPostCommentsSpy).toBeCalledWith('test1233');
         });
 
-        
+        it('should return commentDto array when called with id of comment and reply', async () => {
+            mockQueryBus.execute.mockReturnValue([genericCommentDto]);
+            const deleteResult = await controller.getPostComments('testing123');
+            expect(deleteResult).toEqual([genericCommentDto]);
+        });
     });
 });
