@@ -12,9 +12,9 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
-import { PostDto } from '@encompass/api/post/data-access';
+import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
-
+import { UpdatePost } from '@encompass/app/home-page/util';
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
@@ -25,7 +25,7 @@ export class FeedPage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
   
-  profile! : ProfileDto | null;
+  profile! : ProfileDto;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
   reportedPosts : boolean[]=[];
@@ -142,12 +142,55 @@ Like(n:number, post: PostDto){
   this.likedComments[n]=true;
   this.likes[n]++;
 
-  // likedArr = 
+  let likesArr;
+
+  const emptyArray : string[] = [];
+
+  if(post.likes == emptyArray){
+    likesArr = [this.profile.username];
+  }
+
+  else{
+    likesArr = [...post.likes, this.profile.username];
+  }
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: likesArr,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
 }
 
 Dislike(n:number, post: PostDto){
   this.likedComments[n]=false;
   this.likes[n]--;
+
+  let likesArr = [...post.likes];
+  likesArr = likesArr.filter((like) => like !== this.profile.username);
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: likesArr,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
 }
 
 ReportPost(n:number){
