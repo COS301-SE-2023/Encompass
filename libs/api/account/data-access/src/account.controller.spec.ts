@@ -33,8 +33,17 @@ describe('AccountController', () => {
             expect(createAccountSpy).toBeCalledWith(createAccountRequest);
         });
 
-        
+        it('should return the created Account and it should equal to the submitted Account', async () => {
+            const submittedAccount = {
+                email: "nit@test.com",
+                password: "tes12334"
+            };
+            mockCommandBus.execute.mockReturnValue(submittedAccount);
+            const createdAccount = await controller.createAccount(genericAccount);
+            expect(createdAccount).not.toEqual(genericAccount);
+            expect(createdAccount).toEqual(submittedAccount);
+        });
     });
 
-
+    
 })
