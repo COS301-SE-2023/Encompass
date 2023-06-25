@@ -138,12 +138,14 @@ Report(n:number){
  
 }
 
-Like(n:number){
+Like(n:number, post: PostDto){
   this.likedComments[n]=true;
   this.likes[n]++;
+
+  // likedArr = 
 }
 
-Dislike(n:number){
+Dislike(n:number, post: PostDto){
   this.likedComments[n]=false;
   this.likes[n]--;
 }
