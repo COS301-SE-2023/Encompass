@@ -15,3 +15,8 @@ export class AddPost{
   static readonly type = '[CreateCommunity] AddPost'
   constructor(public name: string, public id: string){}
 }
+
+export class UploadFile{
+  static readonly type = '[Post] Upload File';
+  constructor(public readonly file: FormData){}
+}

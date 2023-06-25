@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { S3 } from "aws-sdk";
+// import { crypto } from 'crypto'
+import * as crypto from 'crypto'
 
 @Injectable()
 export class UploadImage{
@@ -16,11 +18,14 @@ export class UploadImage{
 
       const s3 = new S3();
 
+      const randomString = crypto.randomBytes(32).toString('hex');
+
       const uploadResult = await s3
       .upload({
         Bucket: this.bucketName,
         Body: dataBuffer,
-        Key: `${filename}.jpg`,
+        //Key: `${filename}.jpg`,
+        Key: randomString
       })
       .promise();
 

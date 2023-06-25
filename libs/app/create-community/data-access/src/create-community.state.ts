@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { CommunityDto } from "@encompass/api/community/data-access"
-import { Action, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { CreateCommunityApi } from "./create-community.api";
-import { CreateCommunity, CheckCommunity, AddPost } from "@encompass/app/create-community/util";
+import { CreateCommunity, CheckCommunity, AddPost, UploadFile } from "@encompass/app/create-community/util";
 import { UpdateProfile } from "@encompass/app/profile/util";
 import { ToastController } from "@ionic/angular";
 
@@ -10,6 +10,14 @@ export interface CommunityStateModel {
   CommunityForm:{
     model: {
       community: CommunityDto | null;
+    }
+  }
+}
+
+export interface CommunityFileModel{
+  CommunityFileForm:{
+    model: {
+      url: string | null,
     }
   }
 }
@@ -24,6 +32,8 @@ export interface CommunityStateModel {
     }
   }
 })
+
+
 
 @Injectable()
 export class CreateCommunityState{
@@ -124,4 +134,28 @@ export class CreateCommunityState{
       }
     })
   }
+
+  @Action(UploadFile)
+  async uploadFile(ctx: StateContext<CommunityFileModel>, {file}: UploadFile){
+    const response = await this.createCommunityApi.uploadFile(file);
+
+    console.log(response);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunityFileForm: {
+        model: {
+          url: response.url
+        }
+      }
+    })
+  }
+
+  @Selector()
+  static communityUrl(state: CommunityFileModel){
+    return state.CommunityFileForm.model.url;
+  } 
 }

@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreateCommunity } from '@encompass/app/create-community/util';
+import { CreateCommunity, UploadFile } from '@encompass/app/create-community/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { CreateCommunityRequest } from '@encompass/api/community/data-access';
-import { CreatePostState } from '@encompass/app/create-post/data-access';
-import { UploadFile } from '@encompass/app/create-post/util';
+import { CreateCommunityState } from '@encompass/app/create-community/data-access';
 
 @Component({
   selector: 'create-community',
@@ -27,7 +26,7 @@ export class CreateCommunityComponent {
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(CreatePostState.url) url$! : Observable<string | null>;
+  @Select(CreateCommunityState.communityUrl) url$! : Observable<string | null>;
 
   profile! : ProfileDto;
   hasImage = false;
