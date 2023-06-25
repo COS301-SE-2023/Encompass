@@ -297,9 +297,154 @@ ion-card {
   background-color: #fdfdfd;
 }
 
-.RecomHeader{
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.ContentCard{
+  width:95% ;
+  
 }
+
+.recomRow{
+  justify-content: space-evenly;
+}
+
+
+
+.RecomCommunities{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+  // align-items: center;
+  width: 60%;
+  // left: 30%;
+  // height: auto;
+  // z-index: 3;
+  // background-color: white;
+  font-family: CustomFont;
+}
+
+.headtext {
+  color: black;
+}
+
+.CommunityCard{
+ 
+  background-color: #f8f8f8;
+
+}
+
+.CommunityHeader{
+  display: flex;
+justify-content: space-evenly;
+height: 50%;
+width: 100%;
+// background-color: #231942;
+}
+
+.CommunityIcon{
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  // object-fit: fill;
+  // position: relative;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.CommunityDetails{
+  display: flex;
+ height: 100%;
+ width: 50%;
+ flex-direction: column;
+ margin-top: 10px;
+}
+
+.CommunityName{
+display: flex;
+    // justify-content: center;
+    // align-items: center;
+    height: 50%;
+    width: 100%;
+    color: black;
+    font-family: CustomFont;
+    font-size: 20px;
+}
+
+.CommunityMembers{
+
+display: flex;
+// justify-content: center;
+// align-items: center;
+height: 50%;
+width: 100%;
+color: black;
+font-family: CustomFont;
+}
+
+.CommunityGenres{
+display: flex;
+// justify-content: center;
+// align-items: center;
+justify-content: space-between;
+height: 50%;
+width: 50%;
+color: black;
+font-family: CustomFont;
+margin-top: 10px;
+}
+
+.CommunityAdd{
+display: flex;
+// justify-content: center;
+// align-items: center;
+margin-top: 10px;
+ height: 70%;
+ width: 8%;
+}
+
+.CommunityBody{
+display: flex;
+justify-content: center;
+align-items: center;
+ font-family: CustomFont2;
+ color: black;
+ margin-top: 15px;
+ margin-left: 20px;
+ margin-bottom: 15px;
+ height: 50%;
+ width: 80%;
+}
+
+.CommunityDesc{
+display: flex;
+  
+   font-family: CustomFont2;
+   color: black;
+   height: 90%;
+   width: 95%;
+   
+}
+
+.imgDiv{
+width: 25px;
+height: 25px;
+object-fit: fill;
+}
+
+.RecomHeader{
+  width: 150%;
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+}
+
+.contentrecs img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.content-row {
+  justify-content: space-evenly;
+}
+
