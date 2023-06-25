@@ -1,5 +1,6 @@
 import { Connection } from "mongoose";
 import * as request from "supertest";
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '../../../../../../../apps/api/src/app/app.module';
 import { Test, TestingModule } from "@nestjs/testing";
 import { DatabaseService } from "../../dbTest/database.service";
