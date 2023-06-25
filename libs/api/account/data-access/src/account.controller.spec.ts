@@ -53,6 +53,14 @@ describe('AccountController', () => {
             expect(getAccountSpy).toBeCalledWith(submittedAccount);
         });
 
-        
+        it('should return the Account submitted', async () => {
+            const submittedAccount: GetAccountRequest = {
+                email: "nit@test.com",
+                password: "tes12334"
+            };
+            mockCommandBus.execute.mockReturnValue(submittedAccount);
+            const returnedAccount = await controller.getAccount(submittedAccount);
+            expect(returnedAccount).toEqual(submittedAccount);
+        });
     });
 })
