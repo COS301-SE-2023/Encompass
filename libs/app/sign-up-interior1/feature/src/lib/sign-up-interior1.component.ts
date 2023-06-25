@@ -60,7 +60,9 @@ export class SignUpInterior1Page {
       followers: this.profile.followers,
       following: this.profile.following,
       posts: this.profile.posts,
-      reviews: this.profile.reviews
+      reviews: this.profile.reviews,
+      profileImage: this.profile.profileImage,
+      bio: this.profile.bio,
     }
 
     this.store.dispatch(new UpdateProfile(data, this.profile._id))

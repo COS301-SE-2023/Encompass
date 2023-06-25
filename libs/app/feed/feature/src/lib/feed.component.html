@@ -88,7 +88,7 @@
               
               <div class = "GenreIcons" >
 
-              <img *ngFor="let category of categoriesDisplay[i]; let k=index" src = {{this.categoriesDisplay[i][k]}} class="imgDiv">
+              <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
               
 
             </div>

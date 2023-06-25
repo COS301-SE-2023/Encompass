@@ -24,6 +24,8 @@ export class ProfileFactory implements EntityFactory<Profile>{
     following: string[] | null,
     posts: string[] | null,
     reviews: string[] | null,
+    profileImage: string | null,
+    bio: string | null,
   ) : Promise<Profile>{
     const profile = new Profile(
       new ObjectId(_id).toHexString(),
@@ -38,6 +40,8 @@ export class ProfileFactory implements EntityFactory<Profile>{
       following,
       posts,
       reviews,
+      profileImage,
+      bio,
     );
     await this.profileEntityRepository.create(profile);
     profile.apply(new ProfileCreatedEvent(profile.getId()))

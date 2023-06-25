@@ -86,6 +86,8 @@ export class CreateCommunityState{
         following: profile.following,
         posts: profile.posts,
         reviews: profile.reviews,
+        profileImage: profile.profileImage,
+        bio: profile.bio,
       }
 
       console.log(profile._id);

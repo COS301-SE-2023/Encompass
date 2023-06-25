@@ -96,6 +96,8 @@ export class CreatePostState{
       following: profile.following,
       posts: arr,
       reviews: profile.reviews,
+      profileImage: profile.profileImage,
+      bio: profile.bio,
     }
 
     ctx.dispatch(new UpdateProfile(data, profile._id));

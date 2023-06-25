@@ -2,7 +2,7 @@ import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost } from "@encompass/app/profile/util"
 import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
@@ -10,11 +10,20 @@ import { ProfileDto } from "@encompass/api/profile/data-access"
 import { tap } from "rxjs"
 import { produce } from "immer"
 import { set } from "mongoose"
+import { PostDto } from "@encompass/api/post/data-access"
 
 export interface ProfileStateModel{
   ProfileForm: {
     model:{
       profile: ProfileDto | null
+    }
+  }
+}
+
+export interface ProfilePostModel{
+  ProfilePostForm: {
+    model:{
+      posts: PostDto[] | null
     }
   }
 }
@@ -25,6 +34,17 @@ export interface ProfileStateModel{
     ProfileForm: {
       model: {
         profile: null
+      }
+    }
+  }
+})
+
+@State<ProfilePostModel>({
+  name: 'profilePost',
+  defaults: {
+    ProfilePostForm: {
+      model: {
+        posts: null
       }
     }
   }
@@ -66,6 +86,52 @@ export class ProfileState{
     console.log(response);
   }
 
+  @Action(GetPosts)
+  async getPosts(ctx: StateContext<ProfilePostModel>, {username}: GetPosts){
+    const response = await this.profileApi.getPosts(username);
+    
+    if(response == null || response == undefined){
+      return;
+    }
+
+    console.log(response);
+
+    return ctx.setState({
+      ProfilePostForm: {
+        model: {
+          posts: response
+        }
+      }
+    })
+  }
+
+  @Action(UpdatePost)
+  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest}: UpdatePost){
+    const response = await this.profileApi.updatePost(updateRequest, postId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const posts = ctx.getState().ProfilePostForm.model.posts;
+
+    if(posts == null ){
+      return
+    }
+
+    const index = posts?.findIndex(x => x._id == response._id)
+
+    posts[index] = response;
+
+    ctx.setState({
+      ProfilePostForm: {
+        model: {
+          posts: posts
+        }
+      }
+    })
+  }
+
   getExpireLocalStorage(key: string): string | null{
     const item = localStorage.getItem(key);
     
@@ -100,5 +166,10 @@ export class ProfileState{
   @Selector()
   static profile(state: ProfileStateModel){
     return state.ProfileForm.model.profile;
+  }
+
+  @Selector()
+  static posts(state: ProfilePostModel){
+    return state.ProfilePostForm.model.posts;
   }
 }

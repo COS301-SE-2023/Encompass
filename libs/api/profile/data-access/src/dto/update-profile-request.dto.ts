@@ -10,4 +10,6 @@ export class UpdateProfileRequest{
   following!: string [];
   posts!: string [];
   reviews!: string [];
+  profileImage!: string | null;
+  bio!: string | null;
 }

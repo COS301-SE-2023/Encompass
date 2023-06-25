@@ -21,6 +21,8 @@ export class ProfileSchemaFactory
         following: profile.getFollowing(),
         posts: profile.getPosts(),
         reviews: profile.getReviews(),
+        profileImage: profile.getProfileImage(),
+        bio: profile.getBio(),
       };
     }
 
@@ -37,7 +39,9 @@ export class ProfileSchemaFactory
         entitySchema.followers,
         entitySchema.following,
         entitySchema.posts,
-        entitySchema.reviews
+        entitySchema.reviews,
+        entitySchema.profileImage,
+        entitySchema.bio,
       )
     }
   }

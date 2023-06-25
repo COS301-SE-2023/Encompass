@@ -13,4 +13,6 @@ export class ProfileDto {
   readonly following!: string [];
   readonly posts!: string [];
   readonly reviews!: string [];
+  readonly profileImage!: string;
+  readonly bio!: string;
 }

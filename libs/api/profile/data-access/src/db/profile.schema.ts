@@ -35,4 +35,10 @@ export class ProfileSchema extends IdentifiableEntitySchema{
 
   @Prop()
   readonly reviews!: string[] | null;
+
+  @Prop()
+  readonly profileImage!: string | null;
+
+  @Prop()
+  readonly bio!: string | null;
 }
