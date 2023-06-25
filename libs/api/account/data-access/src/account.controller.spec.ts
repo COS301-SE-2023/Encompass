@@ -1,22 +1,14 @@
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { AccountController } from "./account.controller";
 import { Test } from "@nestjs/testing";
+import { CreateAccountRequest } from "./dto";
 describe('AccountController', () => {
     let controller: AccountController;
     let mockQueryBus: { execute: jest.Mock };
     let mockCommandBus: { execute: jest.Mock };
     const genericAccount = {
-        username: 'test',
-        name: 'test',
-        lastName: 'test',
-        categories: ['test'],
-        communities: ['test'],
-        awards: ['test'],
-        events: ['test'],
-        followers: ['test'],
-        following: ['test'],
-        posts: ['test'],
-        reviews: ['test'],
+        email: "unit@test.com",
+        password: "test12334"
     };
     beforeAll(async () => {
         mockCommandBus = { execute: jest.fn() };
@@ -32,4 +24,17 @@ describe('AccountController', () => {
     it('should be defined', () => {
         expect(controller).toBeDefined();
     });
+
+    describe('createAccount', () => {
+        it('should call Account controller with given Account details', async () => {
+            const createAccountRequest: CreateAccountRequest = genericAccount;
+            const createAccountSpy = jest.spyOn(controller, 'createAccount');
+            await controller.createAccount(createAccountRequest);
+            expect(createAccountSpy).toBeCalledWith(createAccountRequest);
+        });
+
+        
+    });
+
+
 })
