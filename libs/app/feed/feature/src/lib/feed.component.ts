@@ -32,8 +32,8 @@ export class FeedPage {
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   categories : string[] | null = [] ;
-   likes : number | null = null ;
+   categories: string[][] = []; 
+   likes: number[] =[] ;
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController){
@@ -62,12 +62,22 @@ export class FeedPage {
             }
             if(posts!=null&&posts[i].likes!=null){
               console.log(posts[i].likes?.length);   
-
+                this.likes.push(posts[i].likes?.length);
               }
-            
+
+            if(posts[i].categories!=null){
+              console.log(posts[i].categories);
+              this.categories.push(posts[i].categories);
+            }
 
           }
             console.log(this.reports);
+
+            for(let i = 0; i<posts.length;i++){
+              for(let j =0;j<this.categories[i].length;j++){
+                this.categories[i][j] = "assets/icon/"+this.categories[i][j]+".png";
+              }
+            }
       }
     })
 

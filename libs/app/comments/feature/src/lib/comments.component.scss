@@ -4,7 +4,6 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
-
 }
 
 
@@ -14,6 +13,7 @@
   background-color: #F0EFEF;
   width: 40%;
   position: relative;
+  bottom: 22%;
   left: 30%;
   display: flex;
   flex-direction: column;
@@ -338,6 +338,9 @@ ion-textarea.custom {
   flex-direction: column;
   width: 190px;
   height: 70px;
+  border-radius: 50px;
+  border: 1px solid #231942;
+  padding: 0.5%;
 }
 
 .logo {
@@ -350,3 +353,4 @@ ion-textarea.custom {
   // margin-top: 10px;
   font-size: larger;
 }
+

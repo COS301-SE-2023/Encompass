@@ -88,7 +88,7 @@
               
               <div class = "GenreIcons" onload = "func(i)">
 
-              <img *ngFor="let category of categories" src = "assets/icon/Action.png" class="imgDiv">
+              <img *ngFor="let category of categories[i]; let k=index" src = {{this.categories[i][k]}} class="imgDiv">
               
               <!-- <img src = "assets/icon/Activism.png"  class="imgDiv"> -->
 
@@ -121,7 +121,7 @@
                 </div>
                 <div style = "text-align: center;">
                   <ion-icon name="heart-outline" id = "icons2"></ion-icon>
-                  <div>0</div>
+                  <div>{{likes[i]}}</div>
                 </div>
                 
               </div>
