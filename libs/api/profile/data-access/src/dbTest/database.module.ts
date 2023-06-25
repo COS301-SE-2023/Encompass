@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
             useFactory: (configService: ConfigService) => ({
                 uri: configService.get<string>('NX_ENVIRONMENT') === 'development' 
                 ? configService.get<string>('NX_MONGO_DB_URL') 
-                : configService.get<string>('NX_MONGO_DB_TEST_URL')
+                : configService.get<string>('NX_MONGO_DB_URL')
             }),
             inject: [ConfigService]
         }),
