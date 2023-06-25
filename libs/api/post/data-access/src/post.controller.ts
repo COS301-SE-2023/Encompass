@@ -14,6 +14,7 @@ import { UploadImage } from "./upload-image.service";
 import { GetAllPostsQuery } from "./queries/getAllPosts.query";
 import { UpdatePostRequest } from "./dto/update-post-request.dto";
 import { UserIdGetPostQuery } from "./queries/userId-get-post/userId-get-post.query";
+import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
 
 @Controller('post')
 export class PostController {
@@ -74,6 +75,15 @@ export class PostController {
   ){
     return await this.queryBus.execute<UserIdGetPostQuery, PostDto[]>(
       new UserIdGetPostQuery(username),
+    );
+  }
+
+  @Get(':id')
+  async getPostById(
+    @Param('id') id: string,
+  ){
+    return await this.queryBus.execute<GetByIdQuery, PostDto>(
+      new GetByIdQuery(id),
     );
   }
 }

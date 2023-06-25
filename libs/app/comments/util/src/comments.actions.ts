@@ -14,3 +14,8 @@ export class AddReply{
   static readonly type = '[Comments] Add Reply';
   constructor(public readonly comment: AddReplyRequest, public readonly commentId: string){}
 }
+
+export class GetPost{
+  static readonly type = '[Comments] Get Post';
+  constructor(public readonly postId: string){}
+}

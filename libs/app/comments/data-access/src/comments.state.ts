@@ -2,12 +2,21 @@ import { CommentDto } from '@encompass/api/comment/data-access';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { CommentsApi } from './comments.api';
-import { GetComments, AddReply, AddComment } from '@encompass/app/comments/util';
+import { GetComments, AddReply, AddComment, GetPost } from '@encompass/app/comments/util';
+import { PostDto } from '@encompass/api/post/data-access';
 
 export interface CommentStateModel {
   CommentForm:{
     model: {
       comments: CommentDto[] | null;
+    }
+  }
+}
+
+export interface CommentPostModel{
+  CommentPostForm:{
+    model: {
+      post: PostDto | null;
     }
   }
 }
@@ -21,6 +30,17 @@ export interface CommentStateModel {
       }
     }
   }
+})
+
+@State<CommentPostModel>({
+  name: 'commentPost',
+  defaults: {
+    CommentPostForm: {
+      model: {
+        post: null
+      }
+    }
+  } 
 })
 
 @Injectable()
@@ -78,8 +98,30 @@ export class CommentsState{
     })
   }
 
+  @Action(GetPost)
+  async getPost(ctx: StateContext<CommentPostModel>, {postId}: GetPost){
+    const response = await this.commentsApi.getPost(postId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.patchState({
+      CommentPostForm: {
+        model: {
+          post: response
+        }
+      }
+    })
+  }
+
   @Selector()
   static comments(state: CommentStateModel){
     return state.CommentForm.model.comments;
+  }
+
+  @Selector()
+  static post(state: CommentPostModel){
+    return state.CommentPostForm.model.post;
   }
 }
