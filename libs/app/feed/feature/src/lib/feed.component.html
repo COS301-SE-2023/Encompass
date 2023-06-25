@@ -86,11 +86,11 @@
       
                </div>
               
-              <div class = "GenreIcons" onload = "func(i)">
+              <div class = "GenreIcons" >
 
-              <img *ngFor="let category of categories[i]; let k=index" src = {{this.categories[i][k]}} class="imgDiv">
+              <img *ngFor="let category of myCategories[i]; let k=index" 
+              src = {{this.myCategories[i][k]}} class="imgDiv">
               
-              <!-- <img src = "assets/icon/Activism.png"  class="imgDiv"> -->
 
             </div>
           </div> 

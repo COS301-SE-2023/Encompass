@@ -31,7 +31,7 @@ export class FeedPage {
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   categories: string[][] = []; 
+   myCategories: string[][] = []; 
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
@@ -63,7 +63,7 @@ export class FeedPage {
               this.reports.push(false);
               this.reportedPosts.push(false);
               if(posts[i].dateAdded!=null&&posts[i].comments!=null
-                &&posts[i].shares!=null&&posts[i].categories!=null){
+                &&posts[i].shares!=null){
                 this.datesAdded.push(posts[i].dateAdded);
                   this.comments.push(posts[i].comments);
                   this.shares.push(posts[i].shares);
@@ -77,17 +77,22 @@ export class FeedPage {
             }
 
             if(posts[i].categories!=null){
-              this.categories.push(posts[i].categories);
+              this.myCategories.push(posts[i].categories);
             }
 
+          }
+          for(let i = 0; i<this.myCategories.length;i++){
 
-
+            console.log("OG CATEGORIES:");
+            console.log(this.myCategories[i]);
           }
 
             for(let i = 0; i<posts.length;i++){
-              for(let j =0;j<this.categories[i].length;j++){
-                this.categories[i][j] = "assets/icon/"+this.categories[i][j]+".png";
+              for(let j =0;j<this.myCategories[i].length;j++){
+                this.myCategories[i][j] = "assets/icon/"+posts[i].categories[j]+".png";
               }
+              console.log("categories");
+              console.log(this.myCategories[i]);
             }
 
 
