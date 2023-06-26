@@ -1,5 +1,5 @@
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { CommunityController } from "./Community.controller";
+import { CommunityController } from "./community.controller";
 import { Test } from "@nestjs/testing";
 import { CreateCommunityRequest, UpdateCommunityRequest } from "./dto";
 import { AddPostCommand } from './commands/add-post/add-post.command'
