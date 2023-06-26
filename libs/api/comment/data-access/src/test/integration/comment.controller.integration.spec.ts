@@ -22,7 +22,6 @@ describe('CommentController', () => {
         const app = moduleRef.createNestApplication();
         await app.init();
         dbConnection = moduleRef.get<DatabaseService>(DatabaseService).getDbHandle();
-        console.log(dbConnection.name);
         httpServer = app.getHttpServer();
     });
 
@@ -45,7 +44,6 @@ describe('CommentController', () => {
 
             await dbConnection.collection('comment').insertOne(commentDtoStub());
             const response = await request(httpServer).delete(`/comment/delete/${_id.toString()}`);
-            console.log(response);
             expect(response.status).toBe(200);
 
             expect(response.text).toBe(_id.toString());
@@ -85,17 +83,11 @@ describe('CommentController', () => {
     
     /*describe('getPostComments', () => {
         it('should return the Comment inserted', async () => {
-            const { _id, ...temp } = commentStub();
-            const CommentStubWithStringId = {
-                _id: _id.toString(),
-                ...temp
-            };
-
-            await dbConnection.collection('Comment').insertOne(commentStub());
-            const response = await request(httpServer).get(`/comment/${commentStub()._id.toString()}`);
+            await dbConnection.collection('comment').insertOne(commentWithReplyStub());
+            const response = await request(httpServer).get(`/comment/get-post-comments/${commentWithReplyStub()._id.toString()}`);
             expect(response.status).toBe(200);
-
-            expect(response.body).toMatchObject(CommentStubWithStringId);
+            console.log(response);
+            //expect(response.body).toMatchObject(C);
         });
         
     });*/
