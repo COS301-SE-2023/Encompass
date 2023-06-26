@@ -111,7 +111,11 @@ export class CommentsState{
     }
 
     else{
-      newComments = [...old, response];
+      newComments = [...old];
+
+      const index = newComments.findIndex(x => x._id == response._id)
+
+      newComments[index] = response;
     }
 
     ctx.patchState({

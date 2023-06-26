@@ -12,7 +12,7 @@ import { CreateCommentHandler } from "./commands";
 import { DeleteCommandHandler } from "./commands/delete-comment/delete-comment.handler";
 import { AddReplyHandler } from "./commands/add-reply/add-reply.handler";
 import { DeleteReplyHandler } from "./commands/delete-reply/delete-reply.handler";
-import { PostIdGetCommentsHandler } from "./queries";
+import { GetCommentsByUsernameHandler, PostIdGetCommentsHandler } from "./queries";
 
 @Module({
   imports: [
@@ -34,7 +34,8 @@ import { PostIdGetCommentsHandler } from "./queries";
     DeleteCommandHandler,
     AddReplyHandler,
     DeleteReplyHandler,
-    PostIdGetCommentsHandler
+    PostIdGetCommentsHandler,
+    GetCommentsByUsernameHandler
   ],
 })
 
