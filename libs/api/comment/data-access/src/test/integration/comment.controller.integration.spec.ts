@@ -7,7 +7,7 @@ import { DatabaseService } from "../../../../../../../apps/api/src/dbTest/databa
 //import { DatabaseService } from "@encompass/api/dbTest/data-access";
 import { commentStub } from "../stubs/comment.stub";
 import { commentDtoStub } from "../stubs/comment.dto.stub";
-
+import { replyStub } from "../stubs/reply.stub";
 
 
 describe('CommentController', () => {
@@ -28,10 +28,6 @@ describe('CommentController', () => {
     describe('createComment', () => {
         it('should create and return the same Comment', async () => {
             const { _id, ...temp } = commentStub();
-            const CommentStubWithStringId = {
-                _id: _id.toString(),
-                ...temp
-            };
 
             const response = await request(httpServer)
                 .post(`/comment/create`)
@@ -56,26 +52,22 @@ describe('CommentController', () => {
         
     });
 
-    /*describe('updateComment', () => {
-        it('should return the updated profiile', async () => {
-            const { _id, ...temp } = CommentStubTwo();
-            const CommentStubWithStringId = {
-                _id: _id.toString(),
-                ...temp
-            };
+    describe('addReply', () => {
+        it('should return comment with added reply', async () => {
+            const { _id } = commentDtoStub();
 
-            await dbConnection.collection('Comment').insertOne(CommentStub());
+            await dbConnection.collection('comment').insertOne(commentDtoStub());
             const response = await request(httpServer)
-                .patch(`/Comment/${_id}`)
-                .send(temp);
+                .patch(`/comment/add-reply/${_id.toString()}`)
+                .send(replyStub());
 
             expect(response.status).toBe(200);
-            expect(response.body).not.toMatchObject(CommentStub());
-            expect(response.body).toMatchObject(CommentStubWithStringId);
+            expect(response.body).not.toEqual(commentDtoStub());
+            expect(response.body.replies[0]).toMatchObject(replyStub());
         }); 
     });
 
-    describe('getCommentByUsername', () => {
+    /*describe('getCommentByUsername', () => {
         it('should return true when Comment is found', async () => {
             await dbConnection.collection('Comment').insertOne(CommentStub());
             const response = await request(httpServer).get(`/Comment/user/${CommentStub().username}`);
