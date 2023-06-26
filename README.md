@@ -11,7 +11,8 @@
 Email: perfectstrangers.tuks@gmail.com
 
 ## SRS Documents:
-### Current Version: <a align="right" href="https://drive.google.com/file/d/1AMkReT5Jp2jAPremb05QKAqUlL61X8iz/view?usp=sharing">Encompass SRS Doc Ver 2</a>
+### Current Version:
+<a align="right" href="https://drive.google.com/file/d/10isCadRUUbwuoZUJAXucHE76Przm9RVR/view?usp=sharing">Encompass SRS Doc Ver 2</a>
 
 ### Older Versions:
 <a align="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/view?usp=sharing">Encompass SRS Doc Ver 1</a>
@@ -19,6 +20,7 @@ Email: perfectstrangers.tuks@gmail.com
 
 ## Other Documents:
 <a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Architecture Documentation</a>
+<a align="right" href="https://drive.google.com/file/d/1dhy1m-4ChnO6DJOg6ZY5fytJL9fR1k8D/view?usp=sharing">Encompass Coding Standards Documentation </a>
 
 ## Demo Video Links:
 <a align="right" href="https://drive.google.com/file/d/1AIWL4a7hAJPSfrxHBm-lo8dylBDR2QPa/view?usp=sharing">Encompass Demo 1 Video</a>
@@ -26,7 +28,7 @@ Email: perfectstrangers.tuks@gmail.com
 ## Project Board:
 <a href="https://github.com/orgs/COS301-SE-2023/projects/25" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
-</a> 
+</a>
 <br>
 
 ## Team Members
