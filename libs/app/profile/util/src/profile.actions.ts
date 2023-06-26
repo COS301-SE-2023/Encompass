@@ -24,3 +24,8 @@ export class UpdatePost{
   static readonly type = '[Profile] Update Post';
   constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
 }
+
+export class GetComments{
+  static readonly type = '[Profile] GetComments';
+  constructor(public readonly username: string){}
+}

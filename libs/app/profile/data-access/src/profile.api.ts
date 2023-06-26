@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { ProfileDto, UpdateProfileRequest } from "@encompass/api/profile/data-access";
 import { Observable } from "rxjs";
 import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
+import { CommentDto } from "@encompass/api/comment/data-access";
 
 @Injectable()
 export class ProfileApi{
@@ -42,6 +43,20 @@ export class ProfileApi{
       return response;
     }
     catch(error){
+      return null;
+    }
+  }
+
+  async getComments(username: string){
+    try{
+      const response = await this.httpClient.get<CommentDto[]>('/api/comment/username/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
       return null;
     }
   }

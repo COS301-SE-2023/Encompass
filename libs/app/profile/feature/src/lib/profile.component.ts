@@ -7,11 +7,12 @@ import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetComments, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { UpdatePost } from '@encompass/app/home-page/util';
+import { CommentDto } from '@encompass/api/comment/data-access';
 
 @Component({
   selector: 'profile',
@@ -21,9 +22,11 @@ import { UpdatePost } from '@encompass/app/home-page/util';
 export class ProfilePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
+  @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
 
   profile! : ProfileDto;
   posts! : PostDto[] | null;
+  commentsList!: CommentDto[] | null;
   reports : boolean[] =[];
   reportedPosts : boolean[]=[];
   datesAdded : string[] = [];
@@ -74,6 +77,14 @@ export class ProfilePage {
           }
 
 
+      }
+    })
+
+    this.store.dispatch(new GetComments(this.profile.username));
+    this.commentsList$.subscribe((comments) => {
+      if(comments){
+        console.log(comments);
+        this.commentsList = comments;
       }
     })
    }
