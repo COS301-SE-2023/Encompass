@@ -23,22 +23,15 @@ describe('accountController', () => {
     });
 
     describe('createAccount', () => {
-        it('should insert account to database and return id', async () => {
+        it('should insert account to database and return id length of 24', async () => {
             const { _id, ...temp } = accountStub();
-            const accountStubWithStringId = {
-                _id: _id.toString(),
-                ...temp
-            };
 
             const response = await request(httpServer)
                 .post(`/account`)
                 .send(temp);
 
-            //console.log(response);
             expect(response.status).toBe(201);
-            
-            //expect(response.body).toHaveLength(24);
-            //expect(response.body).toMatchObject(accountStubWithStringId);
+            expect(response.text).toHaveLength(24);
         });
         
     });
@@ -56,24 +49,22 @@ describe('accountController', () => {
                 .post(`/account/login`)
                 .send(temp);
 
-            //console.log(response);
             expect(response.status).toBe(201);
-            
             expect(response.body).toBeDefined();
-            console.log(response.header);
-            console.log(response.body);
             //expect(response.body).toMatchObject(accountStubWithStringId);
         });
         
     });
 
     describe('getAccountById', () => {
-        it('should ', async () => {
+        it('should return true when given the email of the inserted account', async () => {
             const { _id, ...temp } = accountStub();
             await dbConnection.collection('account').insertOne(accountStub());
             const response = await request(httpServer).get(`/account/${temp.email}`);
 
+            console.log(response);
             expect(response.status).toBe(200);
+            expect(response.text).toBe('true');
         });
         
     });
