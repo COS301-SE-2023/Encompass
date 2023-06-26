@@ -7,8 +7,8 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddComment, AddReply, GetComments, GetPost } from '@encompass/app/comments/util';
-import { PostDto } from '@encompass/api/post/data-access';
+import { AddComment, AddReply, GetComments, GetPost, UpdatePost } from '@encompass/app/comments/util';
+import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 @Component({
@@ -165,7 +165,22 @@ for(let i=0;i<this.reply.length;i++){
 
     this.store.dispatch(new AddComment(data));
     this.commentForm.reset();
+
+    const postData: UpdatePostRequest ={
+      title: this.post.title,
+      text: this.post.text,
+      imageUrl: this.post.imageUrl,
+      communityImageUrl: this.post.communityImageUrl,
+      categories: this.post.categories,
+      likes: this.post.likes,
+      spoiler: this.post.spoiler,
+      ageRestricted: this.post.ageRestricted,
+      shares: this.post.shares,
+      comments: this.post.comments+1,
+      reported: this.post.reported,
+    }
     
+    this.store.dispatch(new UpdatePost(this.post._id, postData));
   }
 
   Reply(n:number){
@@ -198,6 +213,10 @@ for(let i=0;i<this.reply.length;i++){
         reply = this.replyField?.value;
       }
 
+      if(this.post == undefined){
+        return;
+      }
+      
       const data: AddReplyRequest ={
         username: this.profile.username,
         text: reply
@@ -205,6 +224,22 @@ for(let i=0;i<this.reply.length;i++){
 
       this.store.dispatch(new AddReply(data, comment._id));
       this.commentForm.reset();
+
+      const postData: UpdatePostRequest ={
+        title: this.post.title,
+        text: this.post.text,
+        imageUrl: this.post.imageUrl,
+        communityImageUrl: this.post.communityImageUrl,
+        categories: this.post.categories,
+        likes: this.post.likes,
+        spoiler: this.post.spoiler,
+        ageRestricted: this.post.ageRestricted,
+        shares: this.post.shares,
+        comments: this.post.comments+1,
+        reported: this.post.reported,
+      }
+      
+      this.store.dispatch(new UpdatePost(this.post._id, postData));
     }
 
 
