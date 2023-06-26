@@ -270,16 +270,15 @@ ion-card {
   
       }
 
-    .Name{
-      display: flex;
-      align-items: center;
-      font-size: 15px;
-      // background-color: red;
-      position: relative;
-      right: 30%;
-      color: grey;
-      margin-bottom: 8px;
-    }
+      .Name{
+        display: flex;
+  align-items: center;
+  font-size: 15px;
+  position: relative;
+  font-family: CustomFont2;
+  left: 5%;
+  
+      }
     
     
     .DOT{
@@ -742,4 +741,14 @@ ion-card {
 
 .awards-header {
   margin-bottom: 10px;
+}
+
+.specialBtn{
+  background-color: #66617F;
+  color: white;
+  border-radius: 50px;
+  border: 1px solid #66617F;
+  font-size: 15px;
+  font-family: CustomFont;
+  padding: 1%;
 }
