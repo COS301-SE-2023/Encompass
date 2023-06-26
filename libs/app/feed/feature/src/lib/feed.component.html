@@ -40,7 +40,7 @@
             <ion-row class="row-filter">
               <ion-col size="3">
                 <ion-button id="recommendedBtn" fill="clear" class="active-button" (click)="recChange()">
-                  <ion-icon name="alert-circle-outline" style="margin-right: 5px;"></ion-icon>
+                  <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
                   Recommended
                 </ion-button>
               </ion-col>
@@ -64,7 +64,7 @@
 
         <!-- posts -->
 
-        <div *ngFor="let post of posts;let i = index">
+        <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
           <ion-card class = "PostCard" >
             <div class = "PostCardHeader">
@@ -97,7 +97,7 @@
             </div>
           </div> 
             </div>
-            <div class = "PostBody"  (click)="GoToComments(post._id)">
+            <div class = "PostBody" (click)="GoToComments(post._id)">
 
               <div class = "text">
                   <h5>{{post.title}}</h5>

@@ -31,12 +31,12 @@
     <ion-row class="filter-row">
       <ion-col size="5">
 
-        <!-- <ion-button class="comms active-button" fill="clear" (click) = "openPopup()">Create a Post</ion-button> -->
+        <ion-button class="comms active-button" id = "comm" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
 
         <!-- Posts -->
 
         <div *ngIf = "seePosts">
-          <div  *ngFor="let post of posts;let i = index">
+          <div  *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
             <ion-card class = "PostCard" >
               <div class = "PostCardHeader">
@@ -173,7 +173,7 @@
 
       <ion-col size="3">
         
-        <ion-card>
+        <ion-card >
           <div style="position: relative">
           <img class="profilePicture" alt="Silhouette of mountains" src="https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg" />
           <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
