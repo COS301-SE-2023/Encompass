@@ -128,7 +128,7 @@
                     552 -->
                   </div>
                 </div>
-                <div class = "CommentBody" (click)="ViewPostofComment()">{{comment?.text}}</div>
+                <div class = "CommentBody" (click)="ViewPostofComment(comment.postId)">{{comment?.text}}</div>
                 
                 <br>
                 <div class = "CommentReply" *ngIf = "viewreplies[i]">

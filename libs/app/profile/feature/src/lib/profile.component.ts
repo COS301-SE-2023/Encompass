@@ -102,9 +102,10 @@ export class ProfilePage {
     });
    }
 
-   ViewPostofComment(){
-    
+   ViewPostofComment(postId: string){
+    this.router.navigate(['app-comments-feature/' + postId]);
    }
+    
    async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
