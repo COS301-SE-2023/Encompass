@@ -320,6 +320,7 @@ align-items: center;}
   border-radius: 50px;
   border: 1px solid #231942;
   padding: 0.5%;
+  position: fixed;
 }
 
 .logo {
@@ -373,4 +374,9 @@ align-items: center;}
   .specialBtn:hover{
     cursor: default;
 
+  }
+
+  .header{
+    width: 25%;
+    background-color: #231942;
   }

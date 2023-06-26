@@ -130,6 +130,9 @@ export class CommentsComponent {
   }
 
   AddComment(){
+
+
+    this.commentBool = !this.commentBool;
     if(this.comment?.value == null || this.comment?.value == undefined){
       return;
     }
@@ -160,7 +163,9 @@ export class CommentsComponent {
       this.reply[n] = !this.reply[n];
     }
 
-    PostReply(comment: CommentDto){
+    PostReply(comment: CommentDto,n:number){
+
+      this.reply[n] = !this.reply[n];
 
       let reply;
 
@@ -194,17 +199,7 @@ for(let i=0;i<this.viewreplies.length;i++){
     this.router.navigate(['/home']);
   }
 
-  Share(id: string){
-    this.shares++;
-    this.sharing=true;
-
-    // this.link += id;
-    // if(this.posts[n]!=null){
-    //   this.link += this.posts[n]?.imageUrl
   
-    // }
-  
-  }
   Like(post:PostDto){
     this.likedComments=true;
     this.likes++;

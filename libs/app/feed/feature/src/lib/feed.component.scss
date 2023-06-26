@@ -192,19 +192,19 @@
     }
     .Name{
       display: flex;
-      align-items: center;
-      font-size: 15px;
-      // background-color: red;
-      position: relative;
-      right: 30%;
-      color: grey;
-      margin-bottom: 8px;
+align-items: center;
+font-size: 15px;
+position: relative;
+font-family: CustomFont2;
+left: 5%;
 
     }
 
-
+.report:hover{
+  cursor:pointer;
+}
     .Options{
-    // background-color: red;
+     background-color: white;
     font-size: larger;
     position: relative;
     right: 5%;
@@ -487,4 +487,15 @@ object-fit: fill;
 
 .content-row {
   justify-content: space-evenly;
+}
+
+
+.specialBtn{
+  background-color: #66617F;
+  color: white;
+  border-radius: 50px;
+  border: 1px solid #66617F;
+  font-size: 15px;
+  font-family: CustomFont;
+  padding: 1%;
 }
