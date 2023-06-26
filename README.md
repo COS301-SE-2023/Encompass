@@ -16,7 +16,7 @@ Email: perfectstrangers.tuks@gmail.com
 ## SRS Documents:
 <a align="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/view?usp=sharing">Encompass SRS Doc Ver 1</a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/1AMkReT5Jp2jAPremb05QKAqUlL61X8iz/view?usp=sharing">Encompass SRS Doc Ver 2</a>
+<a align="right" href="https://drive.google.com/file/d/10isCadRUUbwuoZUJAXucHE76Przm9RVR/view?usp=sharing">Encompass SRS Doc Ver 2</a>
 
 ## Other Documents:
 <a align="right" href="https://drive.google.com/file/d/1qBd5Rin9Wpc6C0BpvgH4zxbGnXcirCWh/view?usp=sharing">Architecture Documentation</a>
