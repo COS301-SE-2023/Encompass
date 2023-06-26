@@ -70,11 +70,20 @@ export class FeedPage {
 
             if(posts!=null&&posts[i].likes!=null){
                 this.likes.push(posts[i].likes?.length);
-                if(posts[i].likes?.includes(posts[i].username)){
+                console.log("OLAH"); 
+                console.log(posts[i].likes);
+
+                if(this.profile==undefined){
+                  return;}
+                if(posts[i].likes.includes(this.profile.username)){
                   this.likedComments[i]=true;
               }
+              
             }
           }
+          
+          console.log("OLAH AGAIN"); 
+          console.log(this.likedComments);
 
 
       }
