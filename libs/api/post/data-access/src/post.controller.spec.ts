@@ -1,5 +1,5 @@
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { PostController } from "./Post.controller";
+import { PostController } from "./post.controller";
 import { Test } from "@nestjs/testing";
 import { CreatePostRequest } from "./dto";
 describe('PostController', () => {
