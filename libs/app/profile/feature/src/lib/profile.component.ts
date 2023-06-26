@@ -24,7 +24,7 @@ export class ProfilePage {
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
 
-  profile! : ProfileDto;
+  profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
   reports : boolean[] =[];
@@ -79,41 +79,27 @@ export class ProfilePage {
 
               }
 
-
-          }
-        })
-
-        this.store.dispatch(new GetComments(profile.username));
-        this.commentsList$.subscribe((comments) => {
-          if(comments){
-            console.log(comments);
-            this.commentsList = comments;
+              this.store.dispatch(new GetComments(profile.username));
+              this.commentsList$.subscribe((comments) => {
+                if(comments){
+                  console.log(comments);
+                  this.commentsList = comments;
+          
+                  for(let i =0;i<comments.length;i++){
+                    this.viewreplies.push(false);
+                    if(comments[i].replies.length>0){
+                      this.replies[i]=comments[i].replies.length;
+                    }
+                    else{
+                      this.replies[i]=0;
+                    }
+                  }
+                }
+              })
           }
         })
       }
-<<<<<<< HEAD
-    })
-
-    this.store.dispatch(new GetComments(this.profile.username));
-    this.commentsList$.subscribe((comments) => {
-      if(comments){
-        console.log(comments);
-        this.commentsList = comments;
-
-        for(let i =0;i<comments.length;i++){
-          this.viewreplies.push(false);
-          if(comments[i].replies.length>0){
-            this.replies[i]=comments[i].replies.length;
-          }
-          else{
-            this.replies[i]=0;
-          }
-        }
-      }
-    })
-=======
     });
->>>>>>> 8b832e614a817cac7e3c9f6693e73e361218f717
    }
 
    ViewPostofComment(){
@@ -157,7 +143,11 @@ export class ProfilePage {
     let likesArr;
   
     const emptyArray : string[] = [];
-  
+    
+    if(this.profile == null){
+      return
+    }
+
     if(post.likes == emptyArray){
       likesArr = [this.profile.username];
     }
@@ -188,7 +178,7 @@ export class ProfilePage {
     this.likes[n]--;
   
     let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile.username);
+    likesArr = likesArr.filter((like) => like !== this.profile?.username);
   
     const data : UpdatePostRequest = {
       title: post.title,
