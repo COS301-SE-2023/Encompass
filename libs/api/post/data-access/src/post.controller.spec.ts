@@ -31,6 +31,7 @@ describe('PostController', () => {
         ageRestricted: false,
         shares: 0,
         comments: 0,
+        reported: false,
     }
 
     beforeAll(async () => {
