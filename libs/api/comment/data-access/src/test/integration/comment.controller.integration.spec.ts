@@ -1,4 +1,4 @@
-import { Connection } from "mongoose";
+import mongoose, { Connection } from "mongoose";
 import * as request from "supertest";
 import { AppModule } from "../../../../../../../apps/api/src/app/app.module";
 //import { AppModule } from "@encompass/api/app.module";
@@ -8,6 +8,7 @@ import { DatabaseService } from "../../../../../../../apps/api/src/dbTest/databa
 import { commentStub } from "../stubs/comment.stub";
 import { commentDtoStub } from "../stubs/comment.dto.stub";
 import { replyStub } from "../stubs/reply.stub";
+import { commentWithReplyStub } from "../stubs/commentWithReply.stub"
 
 
 describe('CommentController', () => {
@@ -67,18 +68,22 @@ describe('CommentController', () => {
         }); 
     });
 
-    /*describe('getCommentByUsername', () => {
+    describe('deleteReply', () => {
         it('should return true when Comment is found', async () => {
-            await dbConnection.collection('Comment').insertOne(CommentStub());
-            const response = await request(httpServer).get(`/Comment/user/${CommentStub().username}`);
+            const replyId = commentWithReplyStub().replies[0].id;
+            const commentId = commentWithReplyStub()._id;
+
+            await dbConnection.collection('comment').insertOne(commentWithReplyStub());
+            const response = await request(httpServer)
+                .delete(`/comment/delete-reply/${commentId}/${replyId}`);
             
             expect(response.status).toBe(200);
-            expect(response.text).toBe('true');
+            expect(response.text).toBe(replyId);
         });
         
     });
     
-    describe('getPostComments', () => {
+    /*describe('getPostComments', () => {
         it('should return the Comment inserted', async () => {
             const { _id, ...temp } = commentStub();
             const CommentStubWithStringId = {
