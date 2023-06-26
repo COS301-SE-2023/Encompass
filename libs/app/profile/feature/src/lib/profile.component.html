@@ -121,7 +121,7 @@
           <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
           </div>
           <ion-card-header>
-            <ion-card-title>{{profile.name}} {{profile.lastName}}
+            <ion-card-title>{{profile?.name}} {{profile?.lastName}}
               <ion-button
             fill="clear"
             size="medium"
@@ -137,12 +137,12 @@
             <ion-icon name="pencil"></ion-icon>
           </ion-button>
           
-          <ion-card-subtitle style="margin-top: 5px;">@{{profile.username}}</ion-card-subtitle>
+          <ion-card-subtitle style="margin-top: 5px;">@{{profile?.username}}</ion-card-subtitle>
             </ion-card-title>
           </ion-card-header>
         
           <ion-card-content style="font-size: 15px; margin-bottom: 15px;">
-            {{profile.bio}}
+            {{profile?.bio}}
           </ion-card-content>
         </ion-card>
 
