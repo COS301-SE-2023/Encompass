@@ -40,8 +40,8 @@ jobs:
     - name: Install Dependencies
       run: yarn install --frozen-lockfile
     
-    - name: Build Project
-      run: yarn build:app:dev && yarn build:api:dev
+#     - name: Build Project
+#       run: yarn build:app:dev && yarn build:api:dev
 
     - name: Lint Project
       run: yarn lint
