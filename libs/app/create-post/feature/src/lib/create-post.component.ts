@@ -99,13 +99,15 @@ export class CreatePostComponent {
 
 
   async onSubmit() {
+    const emptyArray : string[] = [];
+
     let communityData : string;
     let titleData : string;
     let textData : string;
     let categoryData : string[] | null;
     let imageUrl : string | null = null;
 
-    if(this.file){
+    if(this.file && this.hasImage){
       imageUrl = await this.uploadFile();
       console.log(imageUrl);
     }
@@ -139,28 +141,27 @@ export class CreatePostComponent {
     }
 
     if(this.category?.value == null || this.category?.value == undefined){
-      categoryData = null;
+      categoryData = emptyArray;
     }
 
     else{
       categoryData = this.category?.value;
     }
 
-    if(imageUrl != null){
-      const data = {
-        community: communityData,
-        title: titleData,
-        text: textData, 
-        username: this.profile.username,
-        imageUrl: imageUrl,
-        categories: categoryData,
-        likes: null,
-        spoiler: this.spoilers,
-        ageRestricted: this.agerestricted
-      };
-      console.log(data.imageUrl)
-      this.store.dispatch(new CreatePost(data));
-    }
+    const data = {
+      community: communityData,
+      title: titleData,
+      text: textData, 
+      username: this.profile.username,
+      imageUrl: imageUrl,
+      communityImageUrl: null,
+      categories: categoryData,
+      likes: emptyArray,
+      spoiler: this.spoilers,
+      ageRestricted: this.agerestricted
+    };
+    console.log(data.imageUrl)
+    this.store.dispatch(new CreatePost(data, this.profile));
     
   }
 
@@ -177,7 +178,6 @@ export class CreatePostComponent {
 
   insertImage() {
     this.hasImage = !this.hasImage;
-    console.log(this.hasImage);
   }
 
   onFileSelected(event: any) {
@@ -187,18 +187,6 @@ export class CreatePostComponent {
     if (file) {
         this.file = file;
         this.fileName = file.name;
-
-        // const formData = new FormData();
-
-        // // formData.append("thumbnail", file);
-        // formData.append(this.fileName, file);
-
-        // const url = this.store.dispatch(new UploadFile(file));
-        // //const upload$ = this.http.post("/api/thumbnail-upload", file);
-        // console.log(url);
-
-        // // upload$.subscribe();
-
     }
   }
 

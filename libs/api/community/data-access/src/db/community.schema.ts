@@ -3,15 +3,26 @@ import { Prop, Schema,} from "@nestjs/mongoose";
 
 @Schema({ versionKey: false, collection: 'community' })
 export class CommunitySchema extends IdentifiableEntitySchema {
-    //what about _id????
     @Prop()
     readonly name!: string;
+
+    @Prop()
+    readonly type!: string;
 
     @Prop()
     readonly admin!: string;
     
     @Prop()
     readonly about!: string;
+
+    @Prop()
+    readonly rules!: string;
+
+    @Prop()
+    readonly groupImage!: string;
+
+    @Prop()
+    readonly categories!: string[];
     
     @Prop()
     readonly events!: string[];
@@ -21,4 +32,10 @@ export class CommunitySchema extends IdentifiableEntitySchema {
     
     @Prop()
     readonly members!: string[];
+
+    @Prop()
+    readonly ageRestricted!: boolean;
+
+    @Prop()
+    readonly createdAt!: string;
 }

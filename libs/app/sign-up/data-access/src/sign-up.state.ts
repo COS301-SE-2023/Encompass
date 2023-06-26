@@ -79,6 +79,8 @@ export class SignUpState{
             following: null,
             posts: null,
             reviews: null,
+            profileImage: null,
+            bio: null,
           }
 
           ctx.dispatch(new CreateProfile(profileData))

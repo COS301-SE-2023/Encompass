@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { HomeDto } from "@encompass/api/home/data-access";
-import { PostDto } from "@encompass/api/post/data-access";
+import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 
 @Injectable()
 export class HomeApi{
@@ -25,6 +25,16 @@ export class HomeApi{
       return response;
     }
 
+    catch(error){
+      return null;
+    }
+  }
+
+  async updatePost(post: UpdatePostRequest, postId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
+      return response;
+    }
     catch(error){
       return null;
     }

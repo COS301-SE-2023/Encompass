@@ -1,5 +1,5 @@
 export class CommentDto{
-  readonly id!: string;
+  readonly _id!: string;
   readonly postId!: string;
   readonly username!: string;
   readonly text!: string;

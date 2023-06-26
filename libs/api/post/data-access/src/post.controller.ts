@@ -12,6 +12,9 @@ import { Multer } from "multer";
 import { UploadedFile } from "@nestjs/common";
 import { UploadImage } from "./upload-image.service";
 import { GetAllPostsQuery } from "./queries/getAllPosts.query";
+import { UpdatePostRequest } from "./dto/update-post-request.dto";
+import { UserIdGetPostQuery } from "./queries/userId-get-post/userId-get-post.query";
+import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
 
 @Controller('post')
 export class PostController {
@@ -32,7 +35,7 @@ export class PostController {
   @Patch(':id')
   async updatePost(
     @Param('id') id: string,
-    @Body() updatePostRequest: CreatePostRequest,
+    @Body() updatePostRequest: UpdatePostRequest,
   ){
     return await this.commandBus.execute<UpdatePostCommand, PostDto>(
       new UpdatePostCommand(id, updatePostRequest),
@@ -63,6 +66,24 @@ export class PostController {
   async getAllPosts(){
     return await this.queryBus.execute<GetAllPostsQuery, PostDto[]>(
       new GetAllPostsQuery(),
+    );
+  }
+
+  @Get('get-by-user/:username')
+  async getPostsByUserId(
+    @Param('username') username: string,
+  ){
+    return await this.queryBus.execute<UserIdGetPostQuery, PostDto[]>(
+      new UserIdGetPostQuery(username),
+    );
+  }
+
+  @Get(':id')
+  async getPostById(
+    @Param('id') id: string,
+  ){
+    return await this.queryBus.execute<GetByIdQuery, PostDto>(
+      new GetByIdQuery(id),
     );
   }
 }

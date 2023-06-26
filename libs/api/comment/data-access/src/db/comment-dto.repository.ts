@@ -17,4 +17,8 @@ export class CommentDtoRepository {
   async findById(id: string){
     return await this.commentModel.findOne({ _id: id });
   }
+
+  async findByPostId(postId: string){
+    return await this.commentModel.find({ postId: postId });
+  }
 }

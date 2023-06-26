@@ -15,6 +15,8 @@ export class Profile extends AggregateRoot{
     public following: string [] | null,
     public posts: string [] | null,
     public reviews: string [] | null,
+    public profileImage: string | null,
+    public bio: string | null,
   ){
     super();
   }
@@ -67,6 +69,14 @@ export class Profile extends AggregateRoot{
     return this.reviews;
   }
 
+  getProfileImage(): string | null{
+    return this.profileImage;
+  }
+
+  getBio(): string | null{
+    return this.bio;
+  }
+
   updateProfile(updateProfileRequest: UpdateProfileRequest){
     this.username = updateProfileRequest.username;
     this.name = updateProfileRequest.name;
@@ -79,5 +89,7 @@ export class Profile extends AggregateRoot{
     this.following = updateProfileRequest.following;
     this.posts = updateProfileRequest.posts;
     this.reviews = updateProfileRequest.reviews;
+    this.profileImage = updateProfileRequest.profileImage;
+    this.bio = updateProfileRequest.bio;
   }
 }

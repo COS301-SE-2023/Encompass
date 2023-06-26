@@ -1,13 +1,17 @@
 export class PostDto{
-  readonly id!: string;
+  readonly _id!: string;
   readonly community!: string;
   readonly title!: string;
   readonly text!: string;
   readonly username!: string;
   readonly imageUrl!: string | null;
-  readonly categories!: string [] | null;
-  readonly likes!: string [] | null;
-  readonly dateAdded!: Date;
+  readonly communityImageUrl!: string | null;
+  readonly categories!: string [];
+  readonly likes!: string [];
+  readonly dateAdded!: string;
   readonly spoiler!: boolean;
   readonly ageRestricted!: boolean;
+  readonly shares!: number;
+  readonly comments!: number;
+  readonly reported!: boolean;
 }

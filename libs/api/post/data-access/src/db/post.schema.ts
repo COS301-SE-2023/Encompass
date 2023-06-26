@@ -15,21 +15,33 @@ export class PostSchema extends IdentifiableEntitySchema{
   @Prop()
   readonly username!: string;
 
-  @Prop()
+  @Prop( { type: String } )
   readonly imageUrl!: string | null;
 
-  @Prop()
-  readonly categories!: string[] | null;
+  @Prop( { type: [String] } )
+  readonly communityImageUrl!: string | null;
 
-  @Prop()
-  readonly likes!: string[] | null;
+  @Prop() 
+  readonly categories!: string[];
 
-  @Prop()
-  readonly dateAdded!: Date;
+  @Prop( { type: [String] } )
+  readonly likes!: string[];
 
-  @Prop()
+  @Prop( { type: String } )
+  readonly dateAdded!: string;
+
+  @Prop( { type: Boolean } )
   readonly spoiler!: boolean;
 
-  @Prop()
+  @Prop( { type: Boolean } )
   readonly ageRestricted!: boolean;
+
+  @Prop()
+  readonly shares!: number;
+
+  @Prop()
+  readonly comments!: number;
+
+  @Prop()
+  readonly reported!: boolean;
 }

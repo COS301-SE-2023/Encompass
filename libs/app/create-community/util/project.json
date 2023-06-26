@@ -4,6 +4,16 @@
   "sourceRoot": "libs/app/create-community/util/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/app/create-community/util",
+        "main": "libs/app/create-community/util/src/index.ts",
+        "tsConfig": "libs/app/create-community/util/tsconfig.lib.json",
+        "assets": ["libs/app/create-community/util/*.md"]
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

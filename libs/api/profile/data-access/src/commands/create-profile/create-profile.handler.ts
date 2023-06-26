@@ -23,7 +23,9 @@ export class CreateProfileHandler
         followers, 
         following, 
         posts, 
-        reviews 
+        reviews,
+        profileImage,
+        bio,
       } = createProfileRequest;
 
       const profile = this.eventPublisher.mergeObjectContext(
@@ -39,7 +41,9 @@ export class CreateProfileHandler
           followers, 
           following, 
           posts, 
-          reviews 
+          reviews,
+          profileImage,
+          bio,
         )
       );
 
