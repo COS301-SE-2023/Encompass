@@ -21,6 +21,8 @@ describe('ProfileController', () => {
         following: ['test'],
         posts: ['test'],
         reviews: ['test'],
+        profileImage: '',
+        bio: 'test',
     };
     beforeAll(async () => {
         mockCommandBus = { execute: jest.fn() };
