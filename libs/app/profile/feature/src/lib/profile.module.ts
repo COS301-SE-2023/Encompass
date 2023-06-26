@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ProfilePage } from './profile.component';
 import { ProfileRouting } from './profile.routing';
+import { NgxsModule } from '@ngxs/store';
+import { ProfileState } from '@encompass/app/profile/data-access';
 // import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
-  imports: [CommonModule, IonicModule, ProfileRouting,],
+  imports: [CommonModule, IonicModule, ProfileRouting, NgxsModule.forFeature([ProfileState])],
   declarations: [ProfilePage],
   providers: [],
 })

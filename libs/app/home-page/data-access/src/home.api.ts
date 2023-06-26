@@ -1,12 +1,42 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { HomeDto } from "@encompass/api/home/data-access";
+import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class HomeApi{
   constructor(private httpClient: HttpClient){}
 
   async getHome()
   {
-    return await this.httpClient.get('http://localhost:3000/api/home');
+    try {
+      const response = await this.httpClient.get<HomeDto[]>('/api/home').toPromise();
+      return response;
+    } 
+    catch (error) 
+    {
+      return null;
+    }
+  }
+
+  async getAllPosts(){
+    try{
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-all').toPromise();
+      return response;
+    }
+
+    catch(error){
+      return null;
+    }
+  }
+
+  async updatePost(post: UpdatePostRequest, postId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
+      return response;
+    }
+    catch(error){
+      return null;
+    }
   }
 }

@@ -1,18 +1,20 @@
 <div class = main>
-    <div class = "login">
-      <ion-icon name="chevron-back-outline"></ion-icon>
-      <img src="assets/WelcomeImg2.png" class="backgroundImage">
-      <img src = "assets/icon/Logo.png" class = "logo">
-      <label class = "Title">Encompass</label>
-      <div class = "LoginDetails">
-        <input type = text class = "input" placeholder = "Username">
-        <input type = password class = "input" placeholder = "Password">
-        <ion-nav-link [routerLink]="['../home']">
-        <ion-button fill = "clear" class = "btn1"  size = "large" >Log in</ion-button>
-        </ion-nav-link>
-        <label class = "ForgotPassword">Forgot Password?</label>
+  <div class = "login">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+    <img src="assets/WelcomeImg2.png" class="backgroundImage">
+    <img src = "assets/icon/Logo.png" class = "logo">
+    <label class = "Title">Encompass</label>
+    <form class = "LoginDetails">
+
+      <input type = email class = "input" [(ngModel)]="user.email" name="email" placeholder = "Email" required>
+      <input type = password class = "input" [(ngModel)]="user.password" name="password" placeholder = "Password" required>
+      <ion-button fill = "clear" class = "btn1"  size = "large" (click)="LogIn()">Log in</ion-button>
+
+      <label class = "ForgotPassword">Forgot Password?</label>
+  
+    </form>
     
-      </div>
-      
-    </div>
-    </div>
+  </div>
+  </div>
+  
+  

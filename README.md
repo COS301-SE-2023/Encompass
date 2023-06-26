@@ -1,4 +1,7 @@
 # Encompass
+[![codecov](https://codecov.io/gh/COS301-SE-2023/Encompass/branch/main/graph/badge.svg?token=M20C3A1SU1)](https://codecov.io/gh/COS301-SE-2023/Encompass)
+![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main_merge.yml/badge.svg?branch=main)
+![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/Encompass)
 
 ## Description
 <p>Encompass is an innovative web app that leverages machine learning to deliver personalized recommendations tailored to the user's interests, while also facilitating connections with like-minded individuals and communities. With optional gamification features, Encompass fosters a dynamic and engaging environment where users can share their interests and resources.</p>
@@ -11,8 +14,12 @@ Email: perfectstrangers.tuks@gmail.com
 <a align="right" href="https://drive.google.com/file/d/1AIWL4a7hAJPSfrxHBm-lo8dylBDR2QPa/view?usp=sharing">Encompass Demo 1 Video</a>
 
 ## SRS Documents:
-<a aligh="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/preview">Encompass SRS Document - Version 1</a>
+<a align="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/view?usp=sharing">Encompass SRS Doc Ver 1</a>
+<br>
+<a align="right" href="https://drive.google.com/file/d/1AMkReT5Jp2jAPremb05QKAqUlL61X8iz/view?usp=sharing">Encompass SRS Doc Ver 2</a>
 
+## Other Documents:
+<a align="right" href="https://drive.google.com/file/d/1qBd5Rin9Wpc6C0BpvgH4zxbGnXcirCWh/view?usp=sharing">Architecture Documentation</a>
 
 ## Project Board:
 <a href="https://github.com/orgs/COS301-SE-2023/projects/25" target="_blank">
@@ -90,7 +97,7 @@ Email: perfectstrangers.tuks@gmail.com
     <details>
     <summary>See More...</summary>
     <p>
-      I will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, I have a solid understanding of engineering principles. Additionally, I have experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms as well as engineering mathematics, I have a good eye for algorithmic flaws and noticing finer details many programmers would not immediately see. I am thus ideal for backend Services as I can guarantee quality testing, algorithm efficiency, and a high quality of backend services.
+      I will be responsible for the backend Services, integration, and testing of the application. With a background in engineering, I have a solid understanding of engineering principles. Additionally, I have experience in testing and integration with NestJS. Having proficient skills in data structures and algorithms. I am thus ideal for backend Services, quality testing, algorithm efficiency.
     </p>
     </details>
     <div>
@@ -157,7 +164,3 @@ Email: perfectstrangers.tuks@gmail.com
     </div>
   </div>
 </div>
-
-
-## Code Quality Badges
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2023_Encompass&metric=coverage)](https://sonarcloud.io/summary/new_code?id=COS301-SE-2023_Encompass)

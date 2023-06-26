@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { BaseEntityRepository } from "../database/base-entity.repository";
+import { BaseEntityRepository } from "@encompass/api/database/data-access";
 import { InjectModel } from "@nestjs/mongoose";
 import { HomeSchema } from "./home.schema";
 import { Home } from "../home";

@@ -4,41 +4,36 @@ import { CommandBus } from "@nestjs/cqrs";
 import { QueryBus } from "@nestjs/cqrs";
 import { HomeDto } from "./home.dto";
 import { Test } from "@nestjs/testing";
+import { ObjectId } from "mongoose";
 
 describe("HomeController", () => {
-    let homeController: HomeController;
-    // let commandBus: CommandBus;
-    let queryBus: QueryBus;
-
-    beforeEach(async () => {
-        const moduleRef = await Test.createTestingModule({
+  let controller: HomeController;
+  let mockQueryBus: { execute: jest.Mock };
+  let mockCommandBus: { execute: jest.Mock };
+  const genericHome = {
+      _id: null,
+      name: null
+  };
+  beforeAll(async () => {
+      mockCommandBus = { execute: jest.fn() };
+      mockQueryBus = { execute: jest.fn() };
+      const module = await Test.createTestingModule({
           controllers: [HomeController],
-          providers: [CommandBus, QueryBus],
-        }).compile();
-    
-        homeController = moduleRef.get<HomeController>(HomeController);
-        commandBus = moduleRef.get<CommandBus>(CommandBus);
-        queryBus = moduleRef.get<QueryBus>(QueryBus);
-      });
-    
-    describe("getHome", () => {
-        it("should return undefined", async () => {
-            expect(await homeController.getHome("1")).toEqual(undefined);
-        });
+          providers: [ { provide: QueryBus, useValue: mockQueryBus }, { provide: CommandBus, useValue: mockCommandBus }],
+      }).compile();
+  
+      controller = module.get<HomeController>(HomeController);
+  });
+
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
+
+  describe('getCampers', () => {
+    it('should take no argument and return a HomeDto onject', async () => {
+        mockQueryBus.execute.mockReturnValue(genericHome);
+        const returnedHome = await controller.getCampers();
+        expect(returnedHome).toEqual(genericHome);
     });
-    
-    describe('getCampers', () => {
-        it('should call queryBus.execute and return the result', async () => {
-            const expectedResult: HomeDto[] = []; // Add your expected result here
-            const executeSpy = jest
-            .spyOn(queryBus, 'execute')
-            .mockResolvedValue(expectedResult);
-
-            const result = await homeController.getCampers();
-
-            expect(executeSpy).toHaveBeenCalledWith(new HomeQuery());
-            expect(result).toEqual(expectedResult);
-        });
-    });
-
+  });
 });

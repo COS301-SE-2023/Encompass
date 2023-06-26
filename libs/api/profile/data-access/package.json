@@ -1,0 +1,8 @@
+{
+  "name": "@encompass/api/profile/data-access",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/text-encoding": "^0.0.36"
+  }
+}

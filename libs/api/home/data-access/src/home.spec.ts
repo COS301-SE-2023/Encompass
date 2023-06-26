@@ -1,6 +1,6 @@
 import { Home } from "./home";
 
-describe("Home", () => {
+describe("HomeModule", () => {
     it("should create an instance", () => {
         expect(new Home("11","Morgan test")).toBeTruthy();
     });

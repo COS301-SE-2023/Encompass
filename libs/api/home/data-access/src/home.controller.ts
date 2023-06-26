@@ -16,6 +16,7 @@ export class HomeController{
 
   @Get()
   async getCampers(): Promise<HomeDto[]> {
+    console.log("In API")
     return this.queryBus.execute<HomeQuery, HomeDto[]>(new HomeQuery());
   }
 }
