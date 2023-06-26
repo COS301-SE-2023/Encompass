@@ -36,6 +36,7 @@ export class CommentsComponent {
   replies : number[] = [];
   viewreplies : boolean[] = [];
   inputValue!: string;
+  inputValue2!: string;
   isValid = false;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){
@@ -106,6 +107,7 @@ export class CommentsComponent {
   }
 
   checkInput(){
+
     if(this.comment?.value == null || this.comment?.value == undefined 
         || this.comment?.value =="" ){
 
@@ -114,6 +116,25 @@ export class CommentsComponent {
     }else{
       this.isValid = true;
     }
+    console.log("HELLO");
+
+    console.log(this.isValid);
+    
+  }
+
+  checkInput2(){
+
+    if(this.replyField?.value == null || this.replyField?.value == undefined 
+        || this.replyField?.value =="" ){
+
+      this.isValid = false;
+         
+    }else{
+      this.isValid = true;
+    }
+    console.log("HELLO");
+
+    console.log(this.isValid);
     
   }
 
@@ -223,7 +244,7 @@ for(let i=0;i<this.reply.length;i++){
       }
 
       this.store.dispatch(new AddReply(data, comment._id));
-      this.commentForm.reset();
+      this.replyField?.reset();
 
       const postData: UpdatePostRequest ={
         title: this.post.title,

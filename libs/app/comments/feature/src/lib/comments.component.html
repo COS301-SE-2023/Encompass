@@ -82,6 +82,7 @@
            
             <button class="AddCommentBtn" *ngIf = "!isValid" 
             type = "submit" style = "background-color:#66617F" 
+            disabled = true
             (click)="AddComment()">Post Comment</button>
 
             <button class="AddCommentBtn" *ngIf = "isValid" 
@@ -132,17 +133,18 @@
 
                       <button class="AddCommentBtn" *ngIf = "!isValid" 
                       type = "submit" style = "background-color:#66617F" 
-                      (click)="PostReply(comment,i)">Post Comment</button>
+                      disabled = true
+                      (click)="PostReply(comment,i)">Post Reply</button>
 
                       <button class="AddCommentBtn" *ngIf = "isValid"  
                       type = "submit" style = "background-color:#231942" 
-                      (click)="PostReply(comment,i)">Post Comment</button>
+                      (click)="PostReply(comment,i)">Post Reply</button>
 
                     </div>
                        <br>
                         <div class = "TextHead">
                         <ion-textarea
-                        [(ngModel)]="inputValue" (input)="checkInput()"
+                        [(ngModel)]="inputValue2" (input)="checkInput2()"
                         placeholder="@{{comment?.username}}"
                         formControlName="replyField"
                         class="custom"
