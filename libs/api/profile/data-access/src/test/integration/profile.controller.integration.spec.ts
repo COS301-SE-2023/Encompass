@@ -24,7 +24,7 @@ describe('profileController', () => {
     });
 
     describe('createProfile', () => {
-        it('should return the profile inserted', async () => {
+        it('should create and return the same profile', async () => {
             const { _id, ...temp } = profileStub();
             const profileStubWithStringId = {
                 _id: _id.toString(),
@@ -90,7 +90,7 @@ describe('profileController', () => {
     });
 
     afterEach(async () => {
-        //await dbConnection.collection('profile').deleteMany({});
+        await dbConnection.collection('profile').deleteMany({});
     });
 
     afterAll(async () => {
