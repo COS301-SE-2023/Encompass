@@ -78,8 +78,19 @@ describe('profileController', () => {
         }); 
     });
 
+    describe('getProfileByUsername', () => {
+        it('should return true when profile is found', async () => {
+            await dbConnection.collection('profile').insertOne(profileStub());
+            const response = await request(httpServer).get(`/profile/user/${profileStub().username}`);
+            
+            expect(response.status).toBe(200);
+            expect(response.text).toBe('true');
+        });
+        
+    });
+
     afterEach(async () => {
-        await dbConnection.collection('profile').deleteMany({});
+        //await dbConnection.collection('profile').deleteMany({});
     });
 
     afterAll(async () => {
