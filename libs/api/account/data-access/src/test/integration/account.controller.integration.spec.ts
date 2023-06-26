@@ -62,15 +62,17 @@ describe('accountController', () => {
             await dbConnection.collection('account').insertOne(accountStub());
             const response = await request(httpServer).get(`/account/${temp.email}`);
 
-            console.log(response);
             expect(response.status).toBe(200);
             expect(response.text).toBe('true');
         });
         
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
         await dbConnection.collection('account').deleteMany({});
+    })
+
+    afterAll(async () => {
         await dbConnection.close();
     });
 });
