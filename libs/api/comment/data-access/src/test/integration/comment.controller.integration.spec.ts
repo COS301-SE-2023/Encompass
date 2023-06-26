@@ -42,24 +42,21 @@ describe('CommentController', () => {
         }); 
     });
 
-    /*describe('getComment', () => {
-        it('should return the Comment inserted', async () => {
-            const { _id, ...temp } = commentStub();
-            const CommentStubWithStringId = {
-                _id: _id.toString(),
-                ...temp
-            };
+    describe('deleteComment', () => {
+        it('should delete inserted comment and return id of deleted comment', async () => {
+            const { _id } = commentDtoStub();
 
-            await dbConnection.collection('Comment').insertOne(commentStub());
-            const response = await request(httpServer).get(`/comment/${commentStub()._id.toString()}`);
+            await dbConnection.collection('comment').insertOne(commentDtoStub());
+            const response = await request(httpServer).delete(`/comment/delete/${_id.toString()}`);
+            console.log(response);
             expect(response.status).toBe(200);
 
-            expect(response.body).toMatchObject(CommentStubWithStringId);
+            expect(response.text).toBe(_id.toString());
         });
         
     });
 
-    describe('updateComment', () => {
+    /*describe('updateComment', () => {
         it('should return the updated profiile', async () => {
             const { _id, ...temp } = CommentStubTwo();
             const CommentStubWithStringId = {
@@ -85,6 +82,23 @@ describe('CommentController', () => {
             
             expect(response.status).toBe(200);
             expect(response.text).toBe('true');
+        });
+        
+    });
+    
+    describe('getPostComments', () => {
+        it('should return the Comment inserted', async () => {
+            const { _id, ...temp } = commentStub();
+            const CommentStubWithStringId = {
+                _id: _id.toString(),
+                ...temp
+            };
+
+            await dbConnection.collection('Comment').insertOne(commentStub());
+            const response = await request(httpServer).get(`/comment/${commentStub()._id.toString()}`);
+            expect(response.status).toBe(200);
+
+            expect(response.body).toMatchObject(CommentStubWithStringId);
         });
         
     });*/
