@@ -161,10 +161,7 @@ for(let i=0;i<this.reply.length;i++){
 }
   }
 
-  Cancel(n:number){
-    this.reply[n] = !this.reply[n];
-
-  }
+  
 
   AddComment(){
 
@@ -217,6 +214,7 @@ for(let i=0;i<this.reply.length;i++){
 
     CancelReply(n:number){
       this.reply[n] = !this.reply[n];
+      this.replyField?.reset();
     }
 
     PostReply(comment: CommentDto,n:number){
