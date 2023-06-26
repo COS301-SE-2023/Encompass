@@ -6,6 +6,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { DatabaseService } from "../../../../../../../apps/api/src/dbTest/database.service";
 //import { DatabaseService } from "@encompass/api/dbTest/data-access";
 import { profileStub } from "../stubs/profile.stub";
+import { profileStubTwo } from "../stubs/profile.stubTwo";
 
 describe('profileController', () => {
     let dbConnection: Connection;
@@ -58,7 +59,24 @@ describe('profileController', () => {
         
     });
 
-    
+    describe('updateProfile', () => {
+        it('should return the updated profiile', async () => {
+            const { _id, ...temp } = profileStubTwo();
+            const profileStubWithStringId = {
+                _id: _id.toString(),
+                ...temp
+            };
+
+            await dbConnection.collection('profile').insertOne(profileStub());
+            const response = await request(httpServer)
+                .patch(`/profile/${_id}`)
+                .send(temp);
+
+            expect(response.status).toBe(200);
+            expect(response.body).not.toMatchObject(profileStub());
+            expect(response.body).toMatchObject(profileStubWithStringId);
+        }); 
+    });
 
     afterEach(async () => {
         await dbConnection.collection('profile').deleteMany({});
