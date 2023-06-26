@@ -7,7 +7,7 @@ import { ProfileModule } from '@encompass/api/profile/data-access';
 import { PostModule } from '@encompass/api/post/data-access';
 import { CommentModule } from '@encompass/api/comment/data-access';
 import { CommunityModule } from '@encompass/api/community/data-access';
-import { DatabaseModule } from '@encompass/api/profile/data-access';
+import { DatabaseModule } from '../dbTest/database.module';
 import { ConfigModule } from '@nestjs/config';
 
 
