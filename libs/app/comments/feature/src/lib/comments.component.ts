@@ -35,7 +35,8 @@ export class CommentsComponent {
   likes = 0;
   replies : number[] = [];
   viewreplies : boolean[] = [];
-
+  inputValue!: string;
+  isValid = false;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){
     const postId = this.route.snapshot.paramMap.get('id');
@@ -104,6 +105,18 @@ export class CommentsComponent {
     return this.replyForm.get('replyField');
   }
 
+  checkInput(){
+    if(this.comment?.value == null || this.comment?.value == undefined 
+        || this.comment?.value =="" ){
+
+      this.isValid = false;
+         
+    }else{
+      this.isValid = true;
+    }
+    
+  }
+
   Report(){
     if(this.reports==true){
       this.reports=false;
@@ -122,6 +135,9 @@ export class CommentsComponent {
 
   CancelComment(){
     this.commentBool = !this.commentBool;
+for(let i=0;i<this.reply.length;i++){
+  this.reply[i]=false;
+}
   }
 
   Cancel(n:number){
@@ -131,7 +147,7 @@ export class CommentsComponent {
 
   AddComment(){
 
-
+    this.isValid=false;
     this.commentBool = !this.commentBool;
     if(this.comment?.value == null || this.comment?.value == undefined){
       return;
@@ -148,9 +164,13 @@ export class CommentsComponent {
     }
 
     this.store.dispatch(new AddComment(data));
+    this.commentForm.reset();
+    
   }
 
   Reply(n:number){
+
+    this.commentBool = false;
     for(let i=0;i<this.reply.length;i++){
       if(i!=n){
         this.reply[i]=false;
@@ -165,6 +185,7 @@ export class CommentsComponent {
 
     PostReply(comment: CommentDto,n:number){
 
+      this.isValid = false;
       this.reply[n] = !this.reply[n];
 
       let reply;
@@ -183,6 +204,7 @@ export class CommentsComponent {
       }
 
       this.store.dispatch(new AddReply(data, comment._id));
+      this.commentForm.reset();
     }
 
 

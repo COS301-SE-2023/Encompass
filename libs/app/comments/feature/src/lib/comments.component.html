@@ -75,13 +75,25 @@
         </div>
         <form *ngIf = "commentBool" [formGroup]="commentForm">
           <div class = "CommentAddition" >
-            <button class="AddCommentBtn" type = "button" style="background-color: #F03535;" (click)="CancelComment()">Cancel</button>
-            <button class="AddCommentBtn" type = "submit" style = "background-color:#66617F" (click)="AddComment()">Post Comment</button>
+
+            <button class="AddCommentBtn" type = "button" 
+            style="background-color: #F03535;" 
+            (click)="CancelComment()">Cancel</button>
+           
+            <button class="AddCommentBtn" *ngIf = "!isValid" 
+            type = "submit" style = "background-color:#66617F" 
+            (click)="AddComment()">Post Comment</button>
+
+            <button class="AddCommentBtn" *ngIf = "isValid" 
+            type = "submit" style = "background-color:#231942" 
+            (click)="AddComment()">Post Comment</button>
+          
           </div>
           <br>
           <div class = "TextHead">
               <ion-textarea
-              placeholder="Add a title"
+              [(ngModel)]="inputValue" (input)="checkInput()"
+              placeholder="Add a Comment"
               formControlName="comment"
               class="custom"
               [counter]="true"
@@ -113,12 +125,24 @@
                   <br>
                   <form [formGroup]="replyForm">
                     <div class = "CommentAddition" >
-                      <button class="AddCommentBtn" type = "button" style="background-color: #F03535;" (click)="CancelReply(i)">Cancel</button>
-                      <button class="AddCommentBtn" type = "submit" style = "background-color:#66617F" (click)="PostReply(comment,i)">Post Comment</button>
+
+                      <button class="AddCommentBtn" type = "button" 
+                      style="background-color: #F03535;" 
+                      (click)="CancelReply(i)">Cancel</button>
+
+                      <button class="AddCommentBtn" *ngIf = "!isValid" 
+                      type = "submit" style = "background-color:#66617F" 
+                      (click)="PostReply(comment,i)">Post Comment</button>
+
+                      <button class="AddCommentBtn" *ngIf = "isValid"  
+                      type = "submit" style = "background-color:#231942" 
+                      (click)="PostReply(comment,i)">Post Comment</button>
+
                     </div>
                        <br>
                         <div class = "TextHead">
                         <ion-textarea
+                        [(ngModel)]="inputValue" (input)="checkInput()"
                         placeholder="@{{comment?.username}}"
                         formControlName="replyField"
                         class="custom"
