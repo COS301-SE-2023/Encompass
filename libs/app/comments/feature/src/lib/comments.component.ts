@@ -175,6 +175,10 @@ for(let i=0;i<this.reply.length;i++){
       return;
     }
 
+    if(this.profile == null){
+      return;
+    }
+
     const data: CreateCommentRequest ={
       postId: this.post._id,
       username: this.profile.username,
