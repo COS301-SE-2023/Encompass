@@ -18,6 +18,9 @@ Email: perfectstrangers.tuks@gmail.com
 <br>
 <a align="right" href="https://drive.google.com/file/d/1VW0GRBekOAx409A_RUcBm023E1JZRA1c/view?usp=sharing">Encompass Demo 1 SRS Doc Ver 2</a>
 
+## Other Documents:
+<a align="right" href="https://drive.google.com/file/d/1qBd5Rin9Wpc6C0BpvgH4zxbGnXcirCWh/view?usp=sharing">Architecture Documentation</a>
+
 ## Project Board:
 <a href="https://github.com/orgs/COS301-SE-2023/projects/25" target="_blank">
     <img src="https://skillicons.dev/icons?i=github"/>
