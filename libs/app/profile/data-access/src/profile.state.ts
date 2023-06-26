@@ -14,11 +14,7 @@ import { PostDto } from "@encompass/api/post/data-access"
 import { CommentDto } from "@encompass/api/comment/data-access"
 
 export interface ProfileStateModel{
-  ProfileForm: {
-    model:{
-      profile: ProfileDto | null
-    }
-  }
+  profile: ProfileDto | null
 }
 
 export interface ProfilePostModel{
@@ -39,11 +35,7 @@ export interface ProfileCommentModel{
 @State<ProfileStateModel>({
   name: 'profile',
   defaults: {
-    ProfileForm: {
-      model: {
         profile: null
-      }
-    }
   }
 })
 
@@ -93,7 +85,7 @@ export class ProfileState{
   setProfile(ctx: StateContext<ProfileStateModel>, {profile}: SetProfile){
     return ctx.setState(
       produce((draft) => {
-        draft.ProfileForm.model.profile = profile;
+        draft.profile = profile;
       })
     )
   }
@@ -203,7 +195,7 @@ export class ProfileState{
 
   @Selector()
   static profile(state: ProfileStateModel){
-    return state.ProfileForm.model.profile;
+    return state.profile;
   }
 
   @Selector()
