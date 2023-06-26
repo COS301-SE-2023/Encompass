@@ -35,6 +35,12 @@ export class ProfilePage {
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
+   seePosts=true;
+   seeComments=false;
+   viewreplies : boolean[] = [];
+   replies : number[] = [];
+
+
 
   constructor(private router: Router, private store: Store, private modalController: ModalController) {
     this.store.dispatch(new SubscribeToProfile())
@@ -42,42 +48,50 @@ export class ProfilePage {
       if(profile){
         console.log(profile);
         this.profile = profile;
-      }
-    });
 
+        this.store.dispatch(new GetPosts(profile.username));
+        this.posts$.subscribe((posts) => {
+          if(posts){
+            this.posts = posts;
 
-    this.store.dispatch(new GetPosts(this.profile.username));
-    this.posts$.subscribe((posts) => {
-      if(posts){
-        this.posts = posts;
-
-        for(let i =0;i<posts.length;i++){
-          this.likedComments.push(false);
-          this.sharing.push(false);
-        }
-
-        for(let i =0;i<posts.length;i++){
-
-              this.reports.push(false);
-              this.reportedPosts.push(false);
-              if(posts[i].dateAdded!=null&&posts[i].comments!=null
-                &&posts[i].shares!=null){
-                this.datesAdded.push(posts[i].dateAdded);
-                  this.comments.push(posts[i].comments);
-                  this.shares.push(posts[i].shares);
+            for(let i =0;i<posts.length;i++){
+              this.likedComments.push(false);
+              this.sharing.push(false);
             }
 
-            if(posts!=null&&posts[i].likes!=null){
-                this.likes.push(posts[i].likes?.length);
-                if(posts[i].likes?.includes(posts[i].username)){
-                  this.likedComments[i]=true;
+            for(let i =0;i<posts.length;i++){
+
+                  this.reports.push(false);
+                  this.reportedPosts.push(false);
+                  if(posts[i].dateAdded!=null&&posts[i].comments!=null
+                    &&posts[i].shares!=null){
+                    this.datesAdded.push(posts[i].dateAdded);
+                      this.comments.push(posts[i].comments);
+                      this.shares.push(posts[i].shares);
+                }
+
+                if(posts!=null&&posts[i].likes!=null){
+                    this.likes.push(posts[i].likes?.length);
+                    if(posts[i].likes?.includes(posts[i].username)){
+                      this.likedComments[i]=true;
+                  }
+                }
+
               }
-            }
+
 
           }
+        })
 
-
+        this.store.dispatch(new GetComments(profile.username));
+        this.commentsList$.subscribe((comments) => {
+          if(comments){
+            console.log(comments);
+            this.commentsList = comments;
+          }
+        })
       }
+<<<<<<< HEAD
     })
 
     this.store.dispatch(new GetComments(this.profile.username));
@@ -85,10 +99,26 @@ export class ProfilePage {
       if(comments){
         console.log(comments);
         this.commentsList = comments;
+
+        for(let i =0;i<comments.length;i++){
+          this.viewreplies.push(false);
+          if(comments[i].replies.length>0){
+            this.replies[i]=comments[i].replies.length;
+          }
+          else{
+            this.replies[i]=0;
+          }
+        }
       }
     })
+=======
+    });
+>>>>>>> 8b832e614a817cac7e3c9f6693e73e361218f717
    }
 
+   ViewPostofComment(){
+    
+   }
    async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
@@ -101,7 +131,16 @@ export class ProfilePage {
     return await modal.present();
   }
   
+  viewReplies(n:number){
+    for(let i=0;i<this.viewreplies.length;i++){
+      if(i!=n){
+        this.viewreplies[i]=false;
+      }
+    }
+        this.viewreplies[n] =!this.viewreplies[n];
+        }
 
+        
   Report(n:number){
     if(this.reports[n]==true){
       this.reports[n]=false;
@@ -237,7 +276,9 @@ export class ProfilePage {
       CommentsBtn.classList.remove('active-button');
       eventBtn.classList.remove('active-button');
     }
-      
+
+    this.seePosts=true;
+   this.seeComments=false;
     
   }
 
@@ -251,6 +292,9 @@ export class ProfilePage {
       CommentsBtn.classList.add('active-button');
       eventBtn.classList.remove('active-button');
     }
+
+    this.seePosts=false;
+    this.seeComments=true;
   }
 
   eventChange(){

@@ -31,82 +31,140 @@
     <ion-row class="filter-row">
       <ion-col size="5">
 
-        <ion-button class="comms active-button" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
+        <!-- <ion-button class="comms active-button" fill="clear" (click) = "openPopup()">Create a Post</ion-button> -->
 
         <!-- Posts -->
 
+        <div *ngIf = "seePosts">
+          <div  *ngFor="let post of posts;let i = index">
 
-        <div *ngFor="let post of posts;let i = index">
-
-          <ion-card class = "PostCard" >
-            <div class = "PostCardHeader">
-              <div class = "PostImageContainer" >
-                <img src =  {{post.communityImageUrl}}  class = "postImage" >
-              </div>
-            <div class = "PostDetails"  >
-              <div class = "TitleNameOptions">
-                <div style = "display: flex;">
-                  <div class = "Title">{{post.community}}</div>
-                  <div class = "Name" > @{{post.username}}</div>
+            <ion-card class = "PostCard" >
+              <div class = "PostCardHeader">
+                <div class = "PostImageContainer" >
+                  <img src =  {{post.communityImageUrl}}  class = "postImage" >
                 </div>
-                <div style = "display: flex;">
-                  <!-- <label *ngIf="reportedPosts[i]"> REPORTED</label> -->
-                  <!-- <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
-                  style = "font-size: small; position: relative; right: 10%;"
-                  (click)="ReportPost(i, post)">Report Post</label>
-                  <label *ngIf="reports[i]&&reportedPosts[i]" 
-                  style = "font-size: small; position: relative; right: 10%; color: red;"
-                  >Post Reported.</label>
-                  <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
-                </div>
-      
-               </div>
-              
-              <div class = "GenreIcons" >
-
-              <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
-              
-
-            </div>
-          </div> 
-            </div>
-            <div class = "PostBody"  (click)="GoToComments(post._id)">
-
-              <div class = "text">
-                  <h5>{{post.title}}</h5>
-                  <div style = "display:flex;justify-content: center;">
-                    <img src = {{post.imageUrl}} style="border-radius: 10px;" >
+              <div class = "PostDetails"  >
+                <div class = "TitleNameOptions">
+                  <div style = "display: flex;">
+                    <div class = "Title">{{post.community}}</div>
+                    <div class = "Name" > @{{post.username}}</div>
                   </div>
-                  <br>
-                  {{post.text}}
+                  <div style = "display: flex;">
+                    <!-- <label *ngIf="reportedPosts[i]"> REPORTED</label> -->
+                    <!-- <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
+                    style = "font-size: small; position: relative; right: 10%;"
+                    (click)="ReportPost(i, post)">Report Post</label>
+                    <label *ngIf="reports[i]&&reportedPosts[i]" 
+                    style = "font-size: small; position: relative; right: 10%; color: red;"
+                    >Post Reported.</label>
+                    <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
+                  </div>
+        
+                 </div>
+                
+                <div class = "GenreIcons" >
+  
+                <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                
+  
               </div>
+            </div> 
+              </div>
+              <div class = "PostBody"  (click)="GoToComments(post._id)">
+  
+                <div class = "text">
+                    <h5>{{post.title}}</h5>
+                    <div style = "display:flex;justify-content: center;">
+                      <img src = {{post.imageUrl}} style="border-radius: 10px;" >
+                    </div>
+                    <br>
+                    {{post.text}}
+                </div>
+              </div>
+              <div class = "PostFooter">
+                <div class = "date">{{datesAdded[i]}}</div>
+                <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+                <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                <div class = "icons">
+                  <div style = "text-align: center;">
+                    <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
+                    <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
+                    <div *ngIf = "!sharing[i]">{{shares[i]}}</div>
+                    <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
+  
+                  </div>
+                  <div style = "text-align: center;">
+                    <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
+                    <div>{{comments[i]}}</div>
+                  </div>
+                  <div style = "text-align: center;">
+                    <ion-icon name="heart-circle-outline" *ngIf = "likedComments[i]" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments[i]" (click)="Like(i, post)"></ion-icon>
+                    <div>{{likes[i]}}</div>
+                  </div>
+                  
+                </div>
+              </div>
+             </ion-card>
             </div>
-            <div class = "PostFooter">
-              <div class = "date">{{datesAdded[i]}}</div>
-              <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-              <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
-              <div class = "icons">
-                <div style = "text-align: center;">
-                  <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
-                  <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
-                  <div *ngIf = "!sharing[i]">{{shares[i]}}</div>
-                  <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
+        </div>
+        <div *ngIf = "seeComments">
+          <div class = "lineBreakers" *ngFor="let comment of commentsList;let i = index" >
+            <br>
+            <div class = Comment>
+                <div class = "CommentHead">
+                  <div class = CommentIDs>
+                      <img src = "assets/icon/profile.jpg" style="object-fit: fill;
+                      width: 50px; height: 50px; border-radius: 50%;">
+                      <div class = "UserName">
+                        @{{comment?.username}}
+                      </div>
+                  </div>
+                  <div class = "CommentStats">
+                    <!-- <ion-icon name="arrow-undo-outline" class = "reply" (click)="Reply(i)"></ion-icon> -->
+                    <ion-icon name="chatbubble-outline" class = "comment" (click)="viewReplies(i)"></ion-icon>
+                    {{replies[i]}}
+                    <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
+                    552 -->
+                  </div>
+                </div>
+                <div class = "CommentBody" (click)="ViewPostofComment()">{{comment?.text}}</div>
+                
+                <br>
+                <div class = "CommentReply" *ngIf = "viewreplies[i]">
+                  <div style="width: 100%;display: flex;justify-content: center; border-radius: 10px;"><button>Replies:</button></div>
+                  <br>
+                  <div class = "lineBreakers2" *ngFor="let reply of comment?.replies" >
+                    <div class = CommentReplies>
+                        <div class = "CommentHead">
+                          <div class = CommentIDs>
+                              <img src = "assets/icon/profile.jpg" style="object-fit: fill;
+                              width: 50px; height: 50px; border-radius: 50%;">
+                            <div class = "UserName">
+                                @ {{reply?.username}}
+                            </div>
+                          </div>
+                          <div class = "CommentStats">
+                            <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
+                            552 -->
+                          </div>
+                        </div>
+                        <div class = "CommentBody">{{reply?.text}}</div>
+                        <br>
+                    </div>
+        
 
                 </div>
-                <div style = "text-align: center;">
-                  <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
-                  <div>{{comments[i]}}</div>
-                </div>
-                <div style = "text-align: center;">
-                  <ion-icon name="heart-circle-outline" *ngIf = "likedComments[i]" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                  <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments[i]" (click)="Like(i, post)"></ion-icon>
-                  <div>{{likes[i]}}</div>
-                </div>
-                
+            
+            
               </div>
-            </div>
-           </ion-card>
-          </div>
+              <br>
+         </div> 
+         <br>
+        </div>
+        <br>
+      </div>
+       
       </ion-col>
 
 
@@ -121,7 +179,7 @@
           <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
           </div>
           <ion-card-header>
-            <ion-card-title>{{profile.name}} {{profile.lastName}}
+            <ion-card-title>{{profile?.name}} {{profile?.lastName}}
               <ion-button
             fill="clear"
             size="medium"
@@ -137,12 +195,12 @@
             <ion-icon name="pencil"></ion-icon>
           </ion-button>
           
-          <ion-card-subtitle style="margin-top: 5px;">@{{profile.username}}</ion-card-subtitle>
+          <ion-card-subtitle style="margin-top: 5px;">@{{profile?.username}}</ion-card-subtitle>
             </ion-card-title>
           </ion-card-header>
         
           <ion-card-content style="font-size: 15px; margin-bottom: 15px;">
-            {{profile.bio}}
+            {{profile?.bio}}
           </ion-card-content>
         </ion-card>
 

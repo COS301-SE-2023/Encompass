@@ -25,7 +25,7 @@ export class FeedPage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
 
-  profile! : ProfileDto;
+  profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
   reportedPosts : boolean[]=[];
@@ -122,16 +122,20 @@ Like(n:number, post: PostDto){
   this.likedComments[n]=true;
   this.likes[n]++;
 
-  let likesArr;
+  let likesArr : string[];
 
   const emptyArray : string[] = [];
 
+  if(this.profile?.username == null){
+    return;
+  }
+  
   if(post.likes == emptyArray){
-    likesArr = [this.profile.username];
+    likesArr = [this.profile?.username];
   }
 
   else{
-    likesArr = [...post.likes, this.profile.username];
+    likesArr = [...post.likes, this.profile?.username];
   }
 
   const data : UpdatePostRequest = {
@@ -156,7 +160,7 @@ Dislike(n:number, post: PostDto){
   this.likes[n]--;
 
   let likesArr = [...post.likes];
-  likesArr = likesArr.filter((like) => like !== this.profile.username);
+  likesArr = likesArr.filter((like) => like !== this.profile?.username);
 
   const data : UpdatePostRequest = {
     title: post.title,
