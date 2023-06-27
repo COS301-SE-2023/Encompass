@@ -10,7 +10,7 @@ on:
     
 jobs:
   dev_build:
-    name: Lint, Test & Build
+    name: Lint and Test
     environment: development
     runs-on: ubuntu-latest
     steps:
