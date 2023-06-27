@@ -35,6 +35,7 @@ export class FeedPage {
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
+   size=0;
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController){
@@ -51,7 +52,8 @@ export class FeedPage {
     this.homePosts$.subscribe((posts) => {
       if(posts){
         this.posts = posts;
-
+        this.size=posts.length-1;
+        console.log("SIZE: " + this.size)
         for(let i =0;i<posts.length;i++){
           this.likedComments.push(false);
           this.sharing.push(false);
@@ -70,11 +72,20 @@ export class FeedPage {
 
             if(posts!=null&&posts[i].likes!=null){
                 this.likes.push(posts[i].likes?.length);
-                if(posts[i].likes?.includes(posts[i].username)){
+                console.log("OLAH"); 
+                console.log(posts[i].likes);
+
+                if(this.profile==undefined){
+                  return;}
+                if(posts[i].likes.includes(this.profile.username)){
                   this.likedComments[i]=true;
               }
+              
             }
           }
+          
+          console.log("OLAH AGAIN"); 
+          console.log(posts);
 
 
       }
@@ -110,11 +121,23 @@ async openPopup2() {
 }
 
 Report(n:number){
-  if(this.reports[n]==true){
-    this.reports[n]=false;
-  }else if(this.reports[n]==false){
-    this.reports[n]=true;
+  if(this.posts?.length==null){
+    return;
   }
+  const i = this.posts?.length-n-1;
+
+  console.log("n: " + n);
+  console.log("i: " + i);
+
+  if(this.reports[i]==true){
+    this.reports[i]=false;
+  }else if(this.reports[i]==false){
+    this.reports[i]=true;
+  }
+
+  console.log("Values Are:");
+  console.log(this.reports[i]);
+  console.log(this.reportedPosts[i]);
 
 }
 
@@ -182,8 +205,12 @@ Dislike(n:number, post: PostDto){
 ReportPost(n:number, post: PostDto){
   console.log("reporting post");
 
-  if(this.reportedPosts[n]==false){
-    this.reportedPosts[n]=true;
+  if(this.posts?.length==null){
+    return;
+  }
+  const i = this.posts?.length-n-1;
+  if(this.reportedPosts[i]==false){
+    this.reportedPosts[i]=true;
   }
 
   const data : UpdatePostRequest = {
