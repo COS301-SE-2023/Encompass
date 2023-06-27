@@ -26,6 +26,8 @@ Email: perfectstrangers.tuks@gmail.com
 <a align="right" href="https://drive.google.com/file/d/18SMqq4ZQBi8sAXr0g1ZFmSEBQjnk_eid/view?usp=sharing">Encompass User Manual </a>
 
 ## Demo Video Links:
+<a align="right" href="https://drive.google.com/file/d/1tQxs1yPxbQBnUl5uCtrbVn_q0S7w_ODg/view?usp=sharing">Encompass Demo 2 Video<a>
+<br>
 <a align="right" href="https://drive.google.com/file/d/1AIWL4a7hAJPSfrxHBm-lo8dylBDR2QPa/view?usp=sharing">Encompass Demo 1 Video</a>
 
 ## Project Board:
