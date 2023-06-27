@@ -10,7 +10,7 @@ on:
     
 jobs:
   prod_build:
-    name: Lint, Test & Build
+    name: Lint and Test
     environment: production
     runs-on: ubuntu-latest
     steps:
