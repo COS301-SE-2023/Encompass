@@ -8,6 +8,7 @@ import { AddReplyCommand } from "./commands/add-reply/add-reply.command";
 import { AddReplyRequest } from "./dto/add-reply-request.dto";
 import { DeleteReplyCommand } from "./commands/delete-reply/delete-reply.command";
 import { PostIdGetCommentsQuery } from "./queries/postId-get-comments/postId-get-comments.query";
+import { GetCommentsByUsernameQuery } from "./queries/get-by-username/get-by-username.query";
 @Controller('comment')
 export class CommentController {
   constructor(
@@ -59,6 +60,15 @@ export class CommentController {
   ){
     return await this.queryBus.execute<PostIdGetCommentsQuery, CommentDto[]>(
       new PostIdGetCommentsQuery(postId),
+    );
+  }
+
+  @Get('username/:username')
+  async getCommentsByUsername(
+    @Param('username') username: string,
+  ){
+    return await this.queryBus.execute<GetCommentsByUsernameQuery, CommentDto[]>(
+      new GetCommentsByUsernameQuery(username),
     );
   }
 }

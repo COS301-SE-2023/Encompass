@@ -13,14 +13,16 @@ export interface CommunityStateModel {
     }
   }
 }
-
+export interface FileUpload{
+  url: string | null;
+}
 export interface CommunityFileModel{
   CommunityFileForm:{
     model: {
-      url: string | null,
+        communityUrl: FileUpload | null,
+      }
     }
   }
-}
 
 @State<CommunityStateModel>({
   name: 'community',
@@ -33,7 +35,16 @@ export interface CommunityFileModel{
   }
 })
 
-
+@State<CommunityFileModel>({
+  name: 'communityFile',
+  defaults: {
+    CommunityFileForm: {
+      model: {
+        communityUrl: null
+      }
+    }
+  }
+})
 
 @Injectable()
 export class CreateCommunityState{
@@ -150,7 +161,7 @@ export class CreateCommunityState{
     ctx.setState({
       CommunityFileForm: {
         model: {
-          url: response.url
+          communityUrl: {url: response.url}
         }
       }
     })
@@ -158,6 +169,6 @@ export class CreateCommunityState{
 
   @Selector()
   static communityUrl(state: CommunityFileModel){
-    return state.CommunityFileForm.model.url;
+    return state.CommunityFileForm.model.communityUrl;
   } 
 }

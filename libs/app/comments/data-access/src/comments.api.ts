@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { CommentDto, AddReplyRequest, CreateCommentRequest } from "@encompass/api/comment/data-access";
-import { PostDto } from "@encompass/api/post/data-access";
+import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 
 @Injectable()
 export class CommentsApi{
@@ -53,6 +53,20 @@ export class CommentsApi{
 
       return response;
     }
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
+
+      return response;
+    }
+
     catch(error){
       console.log(error);
 

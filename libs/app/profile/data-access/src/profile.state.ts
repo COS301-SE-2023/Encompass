@@ -2,7 +2,7 @@ import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments } from "@encompass/app/profile/util"
 import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
@@ -11,6 +11,7 @@ import { tap } from "rxjs"
 import { produce } from "immer"
 import { set } from "mongoose"
 import { PostDto } from "@encompass/api/post/data-access"
+import { CommentDto } from "@encompass/api/comment/data-access"
 
 export interface ProfileStateModel{
   ProfileForm: {
@@ -28,6 +29,13 @@ export interface ProfilePostModel{
   }
 }
 
+export interface ProfileCommentModel{
+  ProfileCommentForm: {
+    model:{
+      comments: CommentDto[] | null
+    }
+  }
+}
 @State<ProfileStateModel>({
   name: 'profile',
   defaults: {
@@ -45,6 +53,17 @@ export interface ProfilePostModel{
     ProfilePostForm: {
       model: {
         posts: null
+      }
+    }
+  }
+})
+
+@State<ProfileCommentModel>({
+  name: 'profileComment',
+  defaults: {
+    ProfileCommentForm: {
+      model: {
+        comments: null
       }
     }
   }
@@ -132,6 +151,25 @@ export class ProfileState{
     })
   }
 
+  @Action(GetComments)
+  async getComments(ctx: StateContext<ProfileCommentModel>, {username}: GetComments){
+    const response = await this.profileApi.getComments(username);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    console.log(response);
+
+    ctx.setState({
+      ProfileCommentForm: {
+        model: {
+          comments: response
+        }
+      }
+    })
+  }
+
   getExpireLocalStorage(key: string): string | null{
     const item = localStorage.getItem(key);
     
@@ -171,5 +209,10 @@ export class ProfileState{
   @Selector()
   static posts(state: ProfilePostModel){
     return state.ProfilePostForm.model.posts;
+  }
+
+  @Selector()
+  static comments(state: ProfileCommentModel){
+    return state.ProfileCommentForm.model.comments;
   }
 }

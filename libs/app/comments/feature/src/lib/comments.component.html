@@ -1,14 +1,14 @@
 
+ 
+
 <div class="overlay-container" id="main" >
   
-  <div class="header">
-      <ion-button fill="clear" class="centeredButton" (click)="goHome()">
-        <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-        <div class="text">Home</div>
-      </ion-button>
-  </div>
+  <ion-button fill="clear" class="centeredButton" (click)="goHome()">
+    <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+    <div class="text">Home</div>
+  </ion-button>
 
-    <ion-card class = "PostCard" style="margin-top: 8%;">
+    <ion-card class = "PostCard" style="margin-top: 15%;">
       <div class = "PostCardHeader">
         <div class = "PostImageContainer" >
           <img src = {{post?.communityImageUrl}}  class = "postImage" >
@@ -75,13 +75,26 @@
         </div>
         <form *ngIf = "commentBool" [formGroup]="commentForm">
           <div class = "CommentAddition" >
-            <button class="AddCommentBtn" type = "button" style="background-color: #CB7F7F;" (click)="CancelComment()">Cancel</button>
-            <button class="AddCommentBtn" type = "submit" style = "background-color:#66617F" (click)="AddComment()">Post Comment</button>
+
+            <button class="AddCommentBtn" type = "button" 
+            style="background-color: #F03535;" 
+            (click)="CancelComment()">Cancel</button>
+           
+            <button class="AddCommentBtn" *ngIf = "!isValid" 
+            type = "submit" style = "background-color:#66617F" 
+            disabled = true
+            (click)="AddComment()">Post Comment</button>
+
+            <button class="AddCommentBtn" *ngIf = "isValid" 
+            type = "submit" style = "background-color:#231942" 
+            (click)="AddComment()">Post Comment</button>
+          
           </div>
           <br>
           <div class = "TextHead">
               <ion-textarea
-              placeholder="Add a title"
+              [(ngModel)]="inputValue" (input)="checkInput()"
+              placeholder="Add a Comment"
               formControlName="comment"
               class="custom"
               [counter]="true"
@@ -113,12 +126,25 @@
                   <br>
                   <form [formGroup]="replyForm">
                     <div class = "CommentAddition" >
-                      <button class="AddCommentBtn" type = "button" style="background-color: #CB7F7F;" (click)="CancelReply(i)">Cancel</button>
-                      <button class="AddCommentBtn" type = "submit" style = "background-color:#66617F" (click)="PostReply(comment)">Post Comment</button>
+
+                      <button class="AddCommentBtn" type = "button" 
+                      style="background-color: #F03535;" 
+                      (click)="CancelReply(i)">Cancel</button>
+
+                      <button class="AddCommentBtn" *ngIf = "!isValid" 
+                      type = "submit" style = "background-color:#66617F" 
+                      disabled = true
+                      (click)="PostReply(comment,i)">Post Reply</button>
+
+                      <button class="AddCommentBtn" *ngIf = "isValid"  
+                      type = "submit" style = "background-color:#231942" 
+                      (click)="PostReply(comment,i)">Post Reply</button>
+
                     </div>
                        <br>
                         <div class = "TextHead">
                         <ion-textarea
+                        [(ngModel)]="inputValue2" (input)="checkInput2()"
                         placeholder="@{{comment?.username}}"
                         formControlName="replyField"
                         class="custom"
@@ -174,7 +200,7 @@
        
 </div>
     
-  
+
    
   
   

@@ -2,7 +2,7 @@ import { CommentDto } from '@encompass/api/comment/data-access';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { CommentsApi } from './comments.api';
-import { GetComments, AddReply, AddComment, GetPost } from '@encompass/app/comments/util';
+import { GetComments, AddReply, AddComment, GetPost, UpdatePost } from '@encompass/app/comments/util';
 import { PostDto } from '@encompass/api/post/data-access';
 
 export interface CommentStateModel {
@@ -111,7 +111,11 @@ export class CommentsState{
     }
 
     else{
-      newComments = [...old, response];
+      newComments = [...old];
+
+      const index = newComments.findIndex(x => x._id == response._id)
+
+      newComments[index] = response;
     }
 
     ctx.patchState({
@@ -126,6 +130,23 @@ export class CommentsState{
   @Action(GetPost)
   async getPost(ctx: StateContext<CommentPostModel>, {postId}: GetPost){
     const response = await this.commentsApi.getPost(postId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.patchState({
+      CommentPostForm: {
+        model: {
+          post: response
+        }
+      }
+    })
+  }
+
+  @Action(UpdatePost)
+  async updatePost(ctx: StateContext<CommentPostModel>, {postId, postUpdateRequest}: UpdatePost){
+    const response = await this.commentsApi.updatePost(postId, postUpdateRequest);
 
     if(response == null || response == undefined){
       return;

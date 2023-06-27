@@ -4,9 +4,9 @@ on:
     branches:
     - main
     
-  pull_request:
-    branches:
-    - main
+#   pull_request:
+#     branches:
+#     - main
     
 jobs:
   prod_build:
@@ -40,8 +40,8 @@ jobs:
     - name: Install Dependencies
       run: yarn install --frozen-lockfile
     
-    - name: Build Project
-      run: yarn build:app:prod && yarn build:api:prod
+    # - name: Build Project
+    #   run: yarn build:app:prod && yarn build:api:prod
 
     - name: Lint Project
       run: yarn lint

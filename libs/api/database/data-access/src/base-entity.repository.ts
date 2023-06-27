@@ -39,4 +39,12 @@ export abstract class BaseEntityRepository<
   async findAndDelete(id: string): Promise<void> {
     await this.findOneAndDelete({ _id: new ObjectId(id) });
   }
+
+  async findCommentsByUsername(item: string): Promise<TEntity[]> {
+   return await this.find({ username: item } as FilterQuery<TSchema>);
+  }
+
+  async findSubCommentsByUsername(item: string): Promise<TEntity[]> {
+    return await this.find({ replies: {username: item} } as FilterQuery<TSchema>);
+  }
 }

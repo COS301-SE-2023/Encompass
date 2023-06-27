@@ -25,14 +25,13 @@ export class FeedPage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
 
-  profile! : ProfileDto;
+  profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
   reportedPosts : boolean[]=[];
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   categoriesDisplay: string[][] = [];
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
@@ -75,18 +74,7 @@ export class FeedPage {
                   this.likedComments[i]=true;
               }
             }
-
-            if(posts[i].categories!=null){
-              this.categoriesDisplay.push(posts[i].categories);
-            }
-
           }
-
-            for(let i = 0; i<posts.length;i++){
-              for(let j =0;j<this.categoriesDisplay[i].length;j++){
-                this.categoriesDisplay[i][j] = "assets/icon/"+this.categoriesDisplay[i][j]+".png";
-              }
-            }
 
 
       }
@@ -134,16 +122,20 @@ Like(n:number, post: PostDto){
   this.likedComments[n]=true;
   this.likes[n]++;
 
-  let likesArr;
+  let likesArr : string[];
 
   const emptyArray : string[] = [];
 
+  if(this.profile?.username == null){
+    return;
+  }
+  
   if(post.likes == emptyArray){
-    likesArr = [this.profile.username];
+    likesArr = [this.profile?.username];
   }
 
   else{
-    likesArr = [...post.likes, this.profile.username];
+    likesArr = [...post.likes, this.profile?.username];
   }
 
   const data : UpdatePostRequest = {
@@ -168,7 +160,7 @@ Dislike(n:number, post: PostDto){
   this.likes[n]--;
 
   let likesArr = [...post.likes];
-  likesArr = likesArr.filter((like) => like !== this.profile.username);
+  likesArr = likesArr.filter((like) => like !== this.profile?.username);
 
   const data : UpdatePostRequest = {
     title: post.title,

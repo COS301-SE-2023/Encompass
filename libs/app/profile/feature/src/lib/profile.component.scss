@@ -270,16 +270,15 @@ ion-card {
   
       }
 
-    .Name{
-      display: flex;
-      align-items: center;
-      font-size: 15px;
-      // background-color: red;
-      position: relative;
-      right: 30%;
-      color: grey;
-      margin-bottom: 8px;
-    }
+      .Name{
+        display: flex;
+  align-items: center;
+  font-size: 15px;
+  position: relative;
+  font-family: CustomFont2;
+  left: 5%;
+  
+      }
     
     
     .DOT{
@@ -742,4 +741,119 @@ ion-card {
 
 .awards-header {
   margin-bottom: 10px;
+}
+
+.specialBtn{
+  background-color: #66617F;
+  color: white;
+  border-radius: 50px;
+  border: 1px solid #66617F;
+  font-size: 15px;
+  font-family: CustomFont;
+  padding: 1%;
+}
+
+.lineBreakers{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+align-items: center;}
+
+.Comment{}
+
+.CommentHead{}
+
+.CommentIDs{}
+
+.UserName{}
+
+.CommentStats{}
+
+.comment{}
+
+.CommentBody{}
+
+.CommentReply{}
+
+.lineBreakers{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+align-items: center;
+background-color: #ECECEC;
+
+}
+.lineBreakers2{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+align-items: center;
+background-color: white;
+
+}
+
+.Comment{
+  width: 90%;
+  color: #000000;
+  font-family: CustomFont;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.CommentHead{
+  display: flex;
+  justify-content: space-between;
+}
+.CommentIDs{
+  display: flex;
+  align-items: center;
+  padding: 1%;
+  font-size: larger;
+}
+.CommentStats{
+  display: flex;
+  align-items: center;
+  font-size: larger;
+}
+.UserName{
+  position: relative;
+  left:5%;
+}
+
+
+.reply{
+  font-size: larger; 
+  position: relative; 
+  right: 15%;
+}
+
+.reply:hover{
+  cursor: pointer;
+  color:purple;
+}
+
+.CommentReply>div>button{
+  border: 1px solid #231942;
+  border-radius: 50px;
+  padding: 1%;
+  position: relative;
+}
+
+.CommentReplies{
+  width: 75%;
+  color: #000000;
+  font-family: CustomFont;
+  background-color: #ECECEC;
+  border-radius: 10px;
+
+}
+
+.comment:hover{
+  cursor: pointer;
+  color: purple;
+}
+
+.CommentBody:hover{
+  cursor: pointer;
+  
 }

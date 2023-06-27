@@ -7,8 +7,8 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddComment, AddReply, GetComments, GetPost } from '@encompass/app/comments/util';
-import { PostDto } from '@encompass/api/post/data-access';
+import { AddComment, AddReply, GetComments, GetPost, UpdatePost } from '@encompass/app/comments/util';
+import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 @Component({
@@ -35,7 +35,9 @@ export class CommentsComponent {
   likes = 0;
   replies : number[] = [];
   viewreplies : boolean[] = [];
-
+  inputValue!: string;
+  inputValue2!: string;
+  isValid = false;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){
     const postId = this.route.snapshot.paramMap.get('id');
@@ -104,6 +106,38 @@ export class CommentsComponent {
     return this.replyForm.get('replyField');
   }
 
+  checkInput(){
+
+    if(this.comment?.value == null || this.comment?.value == undefined 
+        || this.comment?.value =="" ){
+
+      this.isValid = false;
+         
+    }else{
+      this.isValid = true;
+    }
+    console.log("HELLO");
+
+    console.log(this.isValid);
+    
+  }
+
+  checkInput2(){
+
+    if(this.replyField?.value == null || this.replyField?.value == undefined 
+        || this.replyField?.value =="" ){
+
+      this.isValid = false;
+         
+    }else{
+      this.isValid = true;
+    }
+    console.log("HELLO");
+
+    console.log(this.isValid);
+    
+  }
+
   Report(){
     if(this.reports==true){
       this.reports=false;
@@ -122,14 +156,17 @@ export class CommentsComponent {
 
   CancelComment(){
     this.commentBool = !this.commentBool;
+for(let i=0;i<this.reply.length;i++){
+  this.reply[i]=false;
+}
   }
 
-  Cancel(n:number){
-    this.reply[n] = !this.reply[n];
-
-  }
+  
 
   AddComment(){
+
+    this.isValid=false;
+    this.commentBool = !this.commentBool;
     if(this.comment?.value == null || this.comment?.value == undefined){
       return;
     }
@@ -145,9 +182,28 @@ export class CommentsComponent {
     }
 
     this.store.dispatch(new AddComment(data));
+    this.commentForm.reset();
+
+    const postData: UpdatePostRequest ={
+      title: this.post.title,
+      text: this.post.text,
+      imageUrl: this.post.imageUrl,
+      communityImageUrl: this.post.communityImageUrl,
+      categories: this.post.categories,
+      likes: this.post.likes,
+      spoiler: this.post.spoiler,
+      ageRestricted: this.post.ageRestricted,
+      shares: this.post.shares,
+      comments: this.post.comments+1,
+      reported: this.post.reported,
+    }
+    
+    this.store.dispatch(new UpdatePost(this.post._id, postData));
   }
 
   Reply(n:number){
+
+    this.commentBool = false;
     for(let i=0;i<this.reply.length;i++){
       if(i!=n){
         this.reply[i]=false;
@@ -158,9 +214,13 @@ export class CommentsComponent {
 
     CancelReply(n:number){
       this.reply[n] = !this.reply[n];
+      this.replyField?.reset();
     }
 
-    PostReply(comment: CommentDto){
+    PostReply(comment: CommentDto,n:number){
+
+      this.isValid = false;
+      this.reply[n] = !this.reply[n];
 
       let reply;
 
@@ -172,12 +232,33 @@ export class CommentsComponent {
         reply = this.replyField?.value;
       }
 
+      if(this.post == undefined){
+        return;
+      }
+      
       const data: AddReplyRequest ={
         username: this.profile.username,
         text: reply
       }
 
       this.store.dispatch(new AddReply(data, comment._id));
+      this.replyField?.reset();
+
+      const postData: UpdatePostRequest ={
+        title: this.post.title,
+        text: this.post.text,
+        imageUrl: this.post.imageUrl,
+        communityImageUrl: this.post.communityImageUrl,
+        categories: this.post.categories,
+        likes: this.post.likes,
+        spoiler: this.post.spoiler,
+        ageRestricted: this.post.ageRestricted,
+        shares: this.post.shares,
+        comments: this.post.comments+1,
+        reported: this.post.reported,
+      }
+      
+      this.store.dispatch(new UpdatePost(this.post._id, postData));
     }
 
 
@@ -194,17 +275,7 @@ for(let i=0;i<this.viewreplies.length;i++){
     this.router.navigate(['/home']);
   }
 
-  Share(id: string){
-    this.shares++;
-    this.sharing=true;
-
-    // this.link += id;
-    // if(this.posts[n]!=null){
-    //   this.link += this.posts[n]?.imageUrl
   
-    // }
-  
-  }
   Like(post:PostDto){
     this.likedComments=true;
     this.likes++;
