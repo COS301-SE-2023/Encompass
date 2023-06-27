@@ -1,3 +1,13 @@
+/*
+FILENAME: account.module.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 28 May 2023
+
+DESCRIPTION: This file completes the process of account creation.
+*/
+
 import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
 import { AccountSchema } from "./db/account.schema";

@@ -40,7 +40,7 @@
             <ion-row class="row-filter">
               <ion-col size="3">
                 <ion-button id="recommendedBtn" fill="clear" class="active-button" (click)="recChange()">
-                  <ion-icon name="alert-circle-outline" style="margin-right: 5px;"></ion-icon>
+                  <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
                   Recommended
                 </ion-button>
               </ion-col>
@@ -64,7 +64,7 @@
 
         <!-- posts -->
 
-        <div *ngFor="let post of posts;let i = index">
+        <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
           <ion-card class = "PostCard" >
             <div class = "PostCardHeader">
@@ -78,10 +78,10 @@
                   <div class = "Name" > @{{post.username}}</div>
                 </div>
                 <div style = "display: flex;">
-                  <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
+                  <label class = "report" *ngIf="reports[size-i]&&!reportedPosts[size-i]" 
                   style = "font-size: small; position: relative; right: 10%;"
                   (click)="ReportPost(i, post)">Report Post</label>
-                  <label *ngIf="reports[i]&&reportedPosts[i]" 
+                  <label *ngIf="reports[size-i]&&reportedPosts[size-i]" 
                   style = "font-size: small; position: relative; right: 10%; color: red;"
                   >Post Reported.</label>
                   <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
@@ -97,7 +97,7 @@
             </div>
           </div> 
             </div>
-            <div class = "PostBody"  (click)="GoToComments(post._id)">
+            <div class = "PostBody" (click)="GoToComments(post._id)">
 
               <div class = "text">
                   <h5>{{post.title}}</h5>
@@ -109,7 +109,7 @@
               </div>
             </div>
             <div class = "PostFooter">
-              <div class = "date">{{datesAdded[i]}}</div>
+              <div class = "date">{{post.dateAdded}}</div>
               <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
               <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
               
@@ -117,18 +117,20 @@
                 <div style = "text-align: center;">
                   <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
                   <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
-                  <div *ngIf = "!sharing[i]">{{shares[i]}}</div>
+                  <div *ngIf = "!sharing[i]">{{post.shares}}</div>
                   <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
 
                 </div>
                 <div style = "text-align: center;">
                   <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
-                  <div>{{comments[i]}}</div>
+                  <div>{{post.comments}}</div>
                 </div>
                 <div style = "text-align: center;">
-                  <ion-icon name="heart-circle-outline" *ngIf = "likedComments[i]" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                  <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments[i]" (click)="Like(i, post)"></ion-icon>
-                  <div>{{likes[i]}}</div>
+                  <div *ngIf="profile != null">
+                  <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                  <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                  <div>{{post.likes.length}}</div>
+                  </div>
                 </div>
                 
               </div>

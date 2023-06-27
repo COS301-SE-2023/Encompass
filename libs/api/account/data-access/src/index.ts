@@ -1,3 +1,13 @@
+/*
+FILENAME: index.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 27 May 2023
+
+DESCRIPTION: **
+*/
+
 // export * from './lib/api-sign-up-data-access';
 export * from './account.dto'
 export * from './account.controller'

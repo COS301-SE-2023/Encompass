@@ -1,7 +1,23 @@
-import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { AccountController } from "./account.controller";
-import { Test } from "@nestjs/testing";
+/*
+FILENAME: account.controller.spec.ts
+
+AUTHOR: Morgan Bentley
+
+CREATION DATE: 1 June 2023
+
+DESCRIPTION: This file handles tests for the account creation.
+*/
+
+//writing test cases for account.controller.ts
+import { Test, TestingModule } from '@nestjs/testing';
+import { AccountController } from './account.controller';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CreateAccountCommand } from './commands/create-account.command';
+import * as bcrypt from 'bcrypt';
+import { GetAccountCommand } from './queries/account.command';
+import { Account } from './account';
 import { CreateAccountRequest, GetAccountRequest } from "./dto";
+
 describe('AccountController', () => {
     let controller: AccountController;
     let mockQueryBus: { execute: jest.Mock };

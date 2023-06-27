@@ -64,7 +64,9 @@ export class CommentsComponent {
         this.post = post;
         console.log("Categories: " + post.categories);
         this.likes = post.likes.length;
-        if(post.likes?.includes(post.username)){
+        if(this.profile==undefined){
+          return;}
+        if(post.likes.includes(this.profile.username)){
           this.likedComments=true;
       }
       }
@@ -172,6 +174,10 @@ for(let i=0;i<this.reply.length;i++){
     }
 
     if(this.post == undefined){
+      return;
+    }
+
+    if(this.profile == null){
       return;
     }
 

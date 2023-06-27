@@ -1,3 +1,13 @@
+/*
+FILENAME: account.factory.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 27 May 2023
+
+DESCRIPTION: This file initiates the creation of an account.
+*/
+
 import { Injectable } from "@nestjs/common";
 import { Account } from "./account";
 import { EntityFactory } from "@encompass/api/database/data-access";
