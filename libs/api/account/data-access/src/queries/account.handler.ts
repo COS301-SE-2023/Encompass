@@ -1,3 +1,13 @@
+/*
+FILENAME: account.handler.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 27 May 2023
+
+DESCRIPTION: This file ensures that an account login is valid.
+*/
+
 import { CommandHandler, ICommandHandler} from "@nestjs/cqrs";
 import { GetAccountCommand } from "./account.command"
 import { AccountEntityRepository } from "../db/account-entity.repository";

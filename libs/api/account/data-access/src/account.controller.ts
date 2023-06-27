@@ -1,3 +1,12 @@
+/*
+FILENAME: account.controller.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 28 May 2023
+
+DESCRIPTION: This file handles the the account creation queries and commands.
+*/
 import { Controller, Post, Body, Get, Param } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CreateAccountCommand } from "./commands/create-account.command";
