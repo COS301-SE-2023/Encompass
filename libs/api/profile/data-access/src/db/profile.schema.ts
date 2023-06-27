@@ -6,34 +6,34 @@ export class ProfileSchema extends IdentifiableEntitySchema{
   @Prop()
   readonly username!: string;
 
-  @Prop()
+  @Prop({ type: String})
   readonly name!: string | null;
 
-  @Prop()
+  @Prop( { type: String } )
   readonly lastName!: string | null;
 
-  @Prop()
+  @Prop( { type: [String] } )
   readonly categories!: string[] | null;
 
-  @Prop()
+  @Prop( { type: [String] } )
   readonly communities!: string[] | null;
   
-  @Prop()
+  @Prop( { type: [String] } )
   readonly awards!: string[] | null;
 
-  @Prop()
+  @Prop( { type: [String] } )
   readonly events!: string[] | null;
 
-  @Prop()
+  @Prop( { type: [String] } )
   readonly followers!: string[] | null;
 
-  @Prop()
+  @Prop( { type: [String] } )
   readonly following!: string[] | null;
 
-  @Prop()
+  @Prop( { type: [String] } )
   readonly posts!: string[] | null;
 
-  @Prop()
+  @Prop( { type: [String] } )
   readonly reviews!: string[] | null;
 
   @Prop()
