@@ -22,6 +22,8 @@ Email: perfectstrangers.tuks@gmail.com
 <a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation</a>
 <br>
 <a align="right" href="https://drive.google.com/file/d/1dhy1m-4ChnO6DJOg6ZY5fytJL9fR1k8D/view?usp=sharing">Encompass Coding Standards Documentation </a>
+<br>
+<a align="right" href="https://drive.google.com/file/d/18SMqq4ZQBi8sAXr0g1ZFmSEBQjnk_eid/view?usp=sharing">Encompass User Manual </a>
 
 ## Demo Video Links:
 <a align="right" href="https://drive.google.com/file/d/1AIWL4a7hAJPSfrxHBm-lo8dylBDR2QPa/view?usp=sharing">Encompass Demo 1 Video</a>
