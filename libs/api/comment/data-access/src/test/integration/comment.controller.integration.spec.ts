@@ -48,7 +48,6 @@ describe('CommentController', () => {
 
             expect(response.text).toBe(_id.toString());
         });
-        
     });
 
     describe('addReply', () => {
