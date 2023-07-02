@@ -7,7 +7,7 @@ export class DeleteCommunityHandler implements ICommandHandler<DeleteCommunityCo
   constructor(private readonly communityEntityRepository: CommunityEntityRepository){}
 
   async execute({ communityName }: DeleteCommunityCommand){
-    await this.communityEntityRepository.findAndDelete(communityName);
+    await this.communityEntityRepository.findAndDeleteByName(communityName);
 
     return communityName;
   }
