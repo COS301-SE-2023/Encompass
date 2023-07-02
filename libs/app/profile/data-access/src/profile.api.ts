@@ -60,4 +60,46 @@ export class ProfileApi{
       return null;
     }
   }
+
+  async deletePost(postId: string){
+    try{
+      const response = await this.httpClient.delete<string>('/api/post/delete/' + postId).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async deleteComment(commentId: string){
+    try{
+      const response = await this.httpClient.delete<string>('/api/comment/delete/' + commentId).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async deleteCommunity(communityName: string){
+    try{
+      const response = await this.httpClient.delete<string>('/api/community/delete/' + communityName).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
 }
