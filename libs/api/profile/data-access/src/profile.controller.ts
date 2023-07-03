@@ -42,7 +42,7 @@ export class ProfileController {
       )
   }
 
-  @Patch('profile/remove-post/:username/:postId')
+  @Patch('remove-post/:username/:postId')
   async removePost(
     @Param('username') username: string,
     @Param('postId') postId: string,
@@ -52,7 +52,7 @@ export class ProfileController {
     );
   }
 
-  @Patch('profile/remove-community/:username/:communityName')
+  @Patch('remove-community/:username/:communityName')
   async removeCommunity(
     @Param('username') username: string,
     @Param('communityName') communityName: string,
