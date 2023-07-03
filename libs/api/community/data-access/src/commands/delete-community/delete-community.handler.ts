@@ -14,8 +14,7 @@ export class DeleteCommunityHandler implements ICommandHandler<DeleteCommunityCo
     const community = await this.communityEntityRepository.findOneByName(communityName);
 
     const postIds : string[] = community.posts
-
-    await this.communityEntityRepository.findAndDeleteByName(communityName);
+    const profileUsernames : string[] = community.members
 
     postIds.forEach(element => {
       try{
@@ -26,6 +25,18 @@ export class DeleteCommunityHandler implements ICommandHandler<DeleteCommunityCo
         console.log(error);
       }
     });
+
+    profileUsernames.forEach(element => {
+      try{
+        this.httpService.patch(url + '/api/profile/remove-community/' + element + '/' + communityName).toPromise();
+      }
+
+      catch(error){
+        console.log(error);
+      }
+    })
+
+    await this.communityEntityRepository.findAndDeleteByName(communityName);
 
     return communityName;
   }

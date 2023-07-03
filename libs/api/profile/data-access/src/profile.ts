@@ -97,4 +97,9 @@ export class Profile extends AggregateRoot{
     if(this.posts) 
       this.posts = this.posts.filter(post => post !== postId);
   }
+
+  removeCommunity(communityName: string){
+    if(this.communities)
+      this.communities = this.communities.filter(community => community !== communityName);
+  }
 }

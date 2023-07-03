@@ -8,6 +8,7 @@ import { ProfileDto } from "./profile.dto";
 import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
 import { GetUsernameQuery } from "./queries/get-username/get-username.query";
 import { RemovePostCommand } from "./commands/remove-post/remove-post.command";
+import { RemoveCommunityCommand } from "./commands/remove-community/remove-community.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -48,6 +49,16 @@ export class ProfileController {
   ){
     return await this.commandBus.execute<RemovePostCommand, ProfileDto>(
       new RemovePostCommand(username, postId),
+    );
+  }
+
+  @Patch('profile/remove-community/:username/:communityName')
+  async removeCommunity(
+    @Param('username') username: string,
+    @Param('communityName') communityName: string,
+  ){
+    return await this.commandBus.execute<RemoveCommunityCommand, ProfileDto>(
+      new RemoveCommunityCommand(username, communityName),
     );
   }
 

@@ -151,7 +151,7 @@ export class CreateCommunityComponent {
       categories: categoryData,
       events: [],
       posts: [],
-      members: [],
+      members: [this.profile.username],
       ageRestricted: this.ageRestricted
     };
 
