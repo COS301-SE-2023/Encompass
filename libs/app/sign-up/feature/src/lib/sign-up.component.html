@@ -1,34 +1,31 @@
 <div class = main>
-  <div class = "login">
-    <ion-icon name="chevron-back-outline"></ion-icon>
+  <div class = "Canvas">
     <img src="assets/WelcomeImg2.png" class="backgroundImage">
-    <img src = "assets/icon/Logo.png" class = "logo">
-    <label class = "Title">Encompass</label>
-    
-    <form (ngSubmit)="SignUp()" class = "SignUpDetails">
+    <div class = "Details">
+      <div class = "back">
+        <ion-icon name="caret-back-outline" style = "position: relative; padding: 2%;"></ion-icon>
+      </div>
 
+      <img src = "assets/icon/Logo.png" class = "logo">
+      <label class = "Title">Encompass</label>
       
-      <input type="email" class = "input" [(ngModel)]="user.email" name="email" autocomplete="email" email="true" placeholder = "Email" required = "true">
-
-      <input type="text" class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required = "true">
-    
-      <input type="password" class = "input" [(ngModel)]="user.password" name="password" autocomplete="password" placeholder = "Password" required = "true">
-    
-      <!-- <button type="submit">Sign Up</button> -->
-      <ion-button type = "submit" fill = "clear" class = "btn1"  size = "large" [disabled]="!isValid()">Sign Up</ion-button>
-    </form>
-    
-    <!-- <div class = "SignUpDetails">
-      <input type = email class = "input" placeholder = "email">
-      <input type = password class = "input" placeholder = "Password">
-      <input type = text class = "input" placeholder = "Username">
-
-      <ion-button fill = "clear" class = "btn1"  size = "large" (click)="SignUp()">Sign Up</ion-button>
-      
+      <form (ngSubmit)="SignUp()" class = "SignUpDetails">
   
-    </div> -->
-    
+        <input type="text" class = "input" name="firstName" placeholder = "First Name" required = "true">
+  
+        <input type="email" class = "input" name="secondName"  placeholder = "Second Name" required = "true">
+        
+        <input type="text" class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required = "true">
+  
+        <input type="email" class = "input" [(ngModel)]="user.email" name="email" autocomplete="email" email="true" placeholder = "Email" required = "true">
+      
+        <input type="password" class = "input" [(ngModel)]="user.password" name="password" autocomplete="password" placeholder = "Password" required = "true">
+      
+        <ion-button type = "submit" fill = "clear" class = "btn1"  size = "large" [disabled]="!isValid()">Sign Up</ion-button>
+      </form>
+    </div>
+   
   </div>
-  </div>
+</div>
   
   
