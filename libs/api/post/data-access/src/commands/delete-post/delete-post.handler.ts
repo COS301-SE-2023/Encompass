@@ -16,10 +16,10 @@ export class DeletePostHandler
     const url = process.env["BASE_URL"] ;
 
     const post = await this.postEntityRepository.findOneById(id);
-    this.httpService.patch(url + '/api/community/remove-post/' + post.community + '/' + id).toPromise();
-    this.httpService.patch(url + '/api/profile/remove-post/' + post.username + '/' + id).toPromise();
-
+   
     try{
+      this.httpService.patch(url + '/api/community/remove-post/' + post.community + '/' + id).toPromise();
+      this.httpService.patch(url + '/api/profile/remove-post/' + post.username + '/' + id).toPromise();
       this.httpService.delete(url + '/api/comment/delete-by-post-id/' + id).toPromise();
     }
 
