@@ -13,6 +13,7 @@ import { CommunityCreatedHandler } from "./events";
 import { DoesExistHandler, GetByNameHandler, GetCommunityHandler} from "./queries";
 import { AddPostHandler } from "./commands/add-post/add-post.handler";
 import { UploadImage } from "./upload-image.service";
+import { HttpModule } from "@nestjs/axios";
 
 
 @Module({
@@ -24,6 +25,7 @@ import { UploadImage } from "./upload-image.service";
         schema: SchemaFactory.createForClass(CommunitySchema),
       },
     ]),
+    HttpModule
   ],
 
   controllers: [CommunityController],
