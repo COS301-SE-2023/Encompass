@@ -53,7 +53,7 @@ export class FeedPage {
       if(posts){
         this.posts = posts;
         this.size=posts.length-1;
-        console.log("SIZE: " + this.size)
+        // console.log("SIZE: " + this.size)
         for(let i =0;i<posts.length;i++){
           this.likedComments.push(false);
           this.sharing.push(false);
@@ -73,8 +73,8 @@ export class FeedPage {
 
             if(posts!=null&&posts[i].likes!=null){
                 this.likes.push(posts[i].likes?.length);
-                console.log("OLAH"); 
-                console.log(posts[i].likes);
+                // console.log("OLAH"); 
+                // console.log(posts[i].likes);
 
                 if(this.profile==undefined){
                   return;}
@@ -85,8 +85,8 @@ export class FeedPage {
             }
           }
           
-          console.log("OLAH AGAIN"); 
-          console.log(posts);
+          // console.log("OLAH AGAIN"); 
+          // console.log(posts);
 
 
       }
@@ -129,8 +129,8 @@ Report(n:number){
   }
   const i = this.posts?.length-n-1;
 
-  console.log("n: " + n);
-  console.log("i: " + i);
+  // console.log("n: " + n);
+  // console.log("i: " + i);
 
   
   if(this.posts[i].reported==true){
@@ -153,8 +153,8 @@ Report(n:number){
 
 
 
-  console.log("Values Are:");
-  console.log(this.reports[i]);
+  // console.log("Values Are:");
+  // console.log(this.reports[i]);
 
 }
 
@@ -220,7 +220,7 @@ Dislike(n:number, post: PostDto){
 }
 
 ReportPost(n:number, post: PostDto){
-  console.log("reporting post");
+  // console.log("reporting post");
 
   if(this.posts?.length==null){
     return;

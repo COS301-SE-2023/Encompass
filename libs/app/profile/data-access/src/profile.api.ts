@@ -4,6 +4,7 @@ import { ProfileDto, UpdateProfileRequest } from "@encompass/api/profile/data-ac
 import { Observable } from "rxjs";
 import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { CommentDto } from "@encompass/api/comment/data-access";
+import { response } from "express";
 
 @Injectable()
 export class ProfileApi{
@@ -63,7 +64,9 @@ export class ProfileApi{
 
   async deletePost(postId: string){
     try{
-      const response = await this.httpClient.delete<string>('/api/post/delete/' + postId).toPromise();
+      const response = await this.httpClient.delete('/api/post/delete/' + postId, {responseType: 'text'}).toPromise();
+
+      console.log(response);
 
       return response;
     }

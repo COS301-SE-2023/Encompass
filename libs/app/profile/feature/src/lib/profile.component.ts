@@ -84,7 +84,7 @@ export class ProfilePage {
               this.store.dispatch(new GetComments(profile.username));
               this.commentsList$.subscribe((comments) => {
                 if(comments){
-                  console.log(comments);
+                  // console.log(comments);
                   this.commentsList = comments;
           
                   for(let i =0;i<comments.length;i++){

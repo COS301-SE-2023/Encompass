@@ -38,16 +38,6 @@ export interface HomePostsModel{
 export class HomeState{
   constructor(private homeApi: HomeApi){}
 
-  @Action(getHome)
-  async getHome(ctx: StateContext<HomeStateModel>){
-    console.log("Here 1")
-    // const state = ctx.getState();
-    const response = await this.homeApi.getHome();
-    //const rsp = response.;
-    console.log("Here");
-    console.log(response);
-  }
-
   @Action(GetAllPosts)
   async getAllPosts(ctx: StateContext<HomePostsModel>){
     const response = await this.homeApi.getAllPosts();
