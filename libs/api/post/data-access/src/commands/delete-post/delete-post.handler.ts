@@ -16,7 +16,6 @@ export class DeletePostHandler
     const url = process.env["BASE_URL"] ;
 
     const post = await this.postEntityRepository.findOneById(id);
-    console.log(post)
    
     try{
       this.httpService.patch(url + '/api/community/remove-post/' + post.community + '/' + id).toPromise();
