@@ -8,7 +8,7 @@ import { ProfileEntityRepository } from "./db/profile-entity.repository";
 import { ProfileDtoRepository } from "./db/profile-dto.repository";
 import { ProfileSchemaFactory } from "./db/profile-schema.factory";
 import { ProfileFactory } from "./profile.factory";
-import { CreateProfileHandler, UpdateProfileHandler } from "./commands";
+import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCommunityHandler } from "./commands";
 import { ProfileCreatedHandler } from "./events";
 import { GetProfileHandler, GetUsernameHandler } from "./queries";
 
@@ -33,7 +33,9 @@ import { GetProfileHandler, GetUsernameHandler } from "./queries";
     ProfileCreatedHandler,
     GetProfileHandler,
     UpdateProfileHandler,
-    GetUsernameHandler
+    GetUsernameHandler,
+    RemovePostHandler,
+    RemoveCommunityHandler,
   ],
 })
 
