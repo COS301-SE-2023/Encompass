@@ -18,6 +18,12 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/chat-list/data-access": [
+        "libs/api/chat-list/data-access/src/index.ts"
+      ],
+      "@encompass/api/chat/data-access": [
+        "libs/api/chat/data-access/src/index.ts"
+      ],
       "@encompass/api/comment/data-access": [
         "libs/api/comment/data-access/src/index.ts"
       ],
