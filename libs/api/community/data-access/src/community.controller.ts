@@ -1,4 +1,4 @@
-import { Body , Controller, Get, Param, Post, Patch } from '@nestjs/common';
+import { Body , Controller, Get, Param, Post, Patch, Delete } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateCommunityRequest, UpdateCommunityRequest } from './dto';
 import { CreateCommunityCommand } from './commands/create-community.command';
@@ -15,6 +15,7 @@ import { Request } from 'express';
 import { Multer } from 'multer';
 import { UploadedFile } from '@nestjs/common';
 import { UploadImage } from './upload-image.service';
+import { DeleteCommunityCommand } from './commands/delete-community/delete-community.command';
 
 
 
@@ -73,6 +74,15 @@ export class CommunityController {
     ){
         return await this.commandBus.execute<AddPostCommand, CommunityDto>(
             new AddPostCommand(communityName, post)
+        )
+    }
+
+    @Delete('delete/:name')
+    async deleteCommunity(
+        @Param('name') communityName: string
+    ){
+        return await this.commandBus.execute<DeleteCommunityCommand, string>(
+            new DeleteCommunityCommand(communityName)
         )
     }
 

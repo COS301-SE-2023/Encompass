@@ -26,6 +26,7 @@
     "@angular/service-worker": "^16.0.2",
     "@capacitor/core": "^5.0.4",
     "@ionic/angular": "^7.0.7",
+    "@nestjs/axios": "^3.0.0",
     "@nestjs/common": "^9.1.1",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.1.1",
