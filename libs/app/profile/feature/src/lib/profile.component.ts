@@ -27,8 +27,6 @@ export class ProfilePage {
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
-  reports : boolean[] =[];
-  reportedPosts : boolean[]=[];
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
@@ -39,6 +37,9 @@ export class ProfilePage {
    seeComments=false;
    viewreplies : boolean[] = [];
    replies : number[] = [];
+   deletes: boolean[] = [];
+   deleteComment: boolean[] =[];
+   size=0;
 
 
 
@@ -53,7 +54,7 @@ export class ProfilePage {
         this.posts$.subscribe((posts) => {
           if(posts){
             this.posts = posts;
-
+            this.size=posts.length-1;
             for(let i =0;i<posts.length;i++){
               this.likedComments.push(false);
               this.sharing.push(false);
@@ -61,8 +62,8 @@ export class ProfilePage {
 
             for(let i =0;i<posts.length;i++){
 
-                  this.reports.push(false);
-                  this.reportedPosts.push(false);
+                  this.deletes.push(false);
+                  this.deleteComment.push(false);
                   if(posts[i].dateAdded!=null&&posts[i].comments!=null
                     &&posts[i].shares!=null){
                     this.datesAdded.push(posts[i].dateAdded);
@@ -127,14 +128,56 @@ export class ProfilePage {
         this.viewreplies[n] =!this.viewreplies[n];
         }
 
+   
         
-  Report(n:number){
-    if(this.reports[n]==true){
-      this.reports[n]=false;
-    }else if(this.reports[n]==false){
-      this.reports[n]=true;
+       
+  Delete(n:number){
+
+    if(this.posts?.length==null){
+      return;
     }
-  
+
+    const i = this.posts?.length-n-1;
+
+    if(this.deletes[i]==true){
+      for(let k = 0;k<this.deletes.length;k++){
+        this.deletes[k]=false;
+     }
+    }
+    else{
+      for(let k = 0;k<this.deletes.length;k++){
+        this.deletes[k]=false;
+     }
+     this.deletes[i]=true;
+    }
+  }
+
+  Delete2(n:number){
+
+    if(this.comments?.length==null){
+      return;
+    }
+
+    if(this.deleteComment[n]==true){
+      for(let k = 0;k<this.deleteComment.length;k++){
+        this.deleteComment[k]=false;
+     }
+    }else{
+      for(let k = 0;k<this.deleteComment.length;k++){
+        this.deleteComment[k]=false;
+     }
+     this.deleteComment[n]=true;
+    }
+      
+    
+  }
+
+  DeletePost(n:number, post: PostDto){
+    return;
+  }
+
+  DeleteComment(n:number, comment: CommentDto){
+    return;
   }
   
   Like(n:number, post: PostDto){
@@ -198,29 +241,7 @@ export class ProfilePage {
     this.store.dispatch(new UpdatePost(post._id, data));
   }
   
-  ReportPost(n:number, post: PostDto){
-    console.log("reporting post");
   
-    if(this.reportedPosts[n]==false){
-      this.reportedPosts[n]=true;
-    }
-  
-    const data : UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: post.likes,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: true
-    }
-  
-    this.store.dispatch(new UpdatePost(post._id, data));
-  }
   
   async Share(n:number, post: PostDto){
     this.shares[n]++;
