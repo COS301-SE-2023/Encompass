@@ -17,10 +17,7 @@ export class DeletePostHandler
 
     const post = await this.postEntityRepository.findOneById(id);
     this.httpService.patch(url + '/api/community/remove-post/' + post.community + '/' + id).toPromise();
-
-    await this.postEntityRepository.findAndDelete(id);
-
-    
+    this.httpService.patch(url + '/api/profile/remove-post/' + post.username + '/' + id).toPromise();
 
     try{
       this.httpService.delete(url + '/api/comment/delete-by-post-id/' + id).toPromise();
@@ -30,6 +27,8 @@ export class DeletePostHandler
       console.log(error);
     }
     
+    await this.postEntityRepository.findAndDelete(id);
+
     return id;
   }
 }

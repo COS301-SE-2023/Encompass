@@ -7,6 +7,7 @@ import { GetProfileQuery } from "./queries/get-profile.query";
 import { ProfileDto } from "./profile.dto";
 import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
 import { GetUsernameQuery } from "./queries/get-username/get-username.query";
+import { RemovePostCommand } from "./commands/remove-post/remove-post.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -38,6 +39,16 @@ export class ProfileController {
       return await this.commandBus.execute<UpdateProfileCommand, ProfileDto>(
         new UpdateProfileCommand(userId, profile),
       )
+  }
+
+  @Patch('profile/remove-post/:username/:postId')
+  async removePost(
+    @Param('username') username: string,
+    @Param('postId') postId: string,
+  ){
+    return await this.commandBus.execute<RemovePostCommand, ProfileDto>(
+      new RemovePostCommand(username, postId),
+    );
   }
 
   @Get('/user/:username')
