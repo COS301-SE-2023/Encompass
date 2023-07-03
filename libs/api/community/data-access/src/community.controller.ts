@@ -16,6 +16,7 @@ import { Multer } from 'multer';
 import { UploadedFile } from '@nestjs/common';
 import { UploadImage } from './upload-image.service';
 import { DeleteCommunityCommand } from './commands/delete-community/delete-community.command';
+import { RemovePostCommand } from './commands/remove-post/remove-post.command';
 
 
 
@@ -74,6 +75,16 @@ export class CommunityController {
     ){
         return await this.commandBus.execute<AddPostCommand, CommunityDto>(
             new AddPostCommand(communityName, post)
+        )
+    }
+
+    @Patch('remove-post/:name/:post')
+    async removePost(
+        @Param('name') communityName: string,
+        @Param('post') post: string
+    ){
+        return await this.commandBus.execute<RemovePostCommand, CommunityDto>(
+            new RemovePostCommand(communityName, post)
         )
     }
 

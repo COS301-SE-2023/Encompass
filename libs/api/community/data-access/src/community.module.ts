@@ -14,6 +14,7 @@ import { DoesExistHandler, GetByNameHandler, GetCommunityHandler} from "./querie
 import { AddPostHandler } from "./commands/add-post/add-post.handler";
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
+import { RemovePostHandler } from "./commands/remove-post/remove-post.handler";
 
 
 @Module({
@@ -42,7 +43,8 @@ import { HttpModule } from "@nestjs/axios";
     AddPostHandler,
     GetByNameHandler,
     UploadImage,
-    DeleteCommunityHandler
+    DeleteCommunityHandler,
+    RemovePostHandler
   ],
 })
 

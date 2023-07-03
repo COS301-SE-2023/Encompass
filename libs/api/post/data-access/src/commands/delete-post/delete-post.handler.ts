@@ -13,15 +13,17 @@ export class DeletePostHandler
   ){}
 
   async execute({ id }: DeletePostCommand){
-    
+    const url = process.env["BASE_URL"] ;
 
-    // post.deletePost();
+    const post = await this.postEntityRepository.findOneById(id);
+    this.httpService.patch(url + '/api/community/remove-post/' + post.community + '/' + id).toPromise();
+
     await this.postEntityRepository.findAndDelete(id);
 
-    const url = process.env["BASE_URL"] + '/api/comment/delete-by-post-id/';
+    
 
     try{
-      this.httpService.delete(url + id).toPromise();
+      this.httpService.delete(url + '/api/comment/delete-by-post-id/' + id).toPromise();
     }
 
     catch(error){
