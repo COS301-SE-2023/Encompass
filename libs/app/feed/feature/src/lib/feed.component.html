@@ -78,10 +78,11 @@
                   <div class = "Name" > @{{post.username}}</div>
                 </div>
                 <div style = "display: flex;">
-                  <label class = "report" *ngIf="reports[size-i]&&!reportedPosts[size-i]" 
+                  <label class = "report" *ngIf="reports[size-i]&&!postReported[size-i]" 
                   style = "font-size: small; position: relative; right: 10%;"
                   (click)="ReportPost(i, post)">Report Post</label>
-                  <label *ngIf="reports[size-i]&&reportedPosts[size-i]" 
+
+                  <label *ngIf="post.reported" 
                   style = "font-size: small; position: relative; right: 10%; color: red;"
                   >Post Reported.</label>
                   <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>

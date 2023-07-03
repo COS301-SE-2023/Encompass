@@ -28,7 +28,7 @@ export class FeedPage {
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
-  reportedPosts : boolean[]=[];
+  postReported : boolean[] = [];
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
@@ -62,7 +62,8 @@ export class FeedPage {
         for(let i =0;i<posts.length;i++){
 
               this.reports.push(false);
-              this.reportedPosts.push(false);
+              this.postReported.push(false);
+
               if(posts[i].dateAdded!=null&&posts[i].comments!=null
                 &&posts[i].shares!=null){
                 this.datesAdded.push(posts[i].dateAdded);
@@ -121,6 +122,8 @@ async openPopup2() {
 }
 
 Report(n:number){
+
+  
   if(this.posts?.length==null){
     return;
   }
@@ -129,15 +132,29 @@ Report(n:number){
   console.log("n: " + n);
   console.log("i: " + i);
 
-  if(this.reports[i]==true){
-    this.reports[i]=false;
-  }else if(this.reports[i]==false){
-    this.reports[i]=true;
+  
+  if(this.posts[i].reported==true){
+    return;
   }
+
+  if(this.reports[i]==true){
+    for(let k = 0;k<this.reports.length;k++){
+      this.reports[k]=false;
+   }
+  }
+  else{
+    for(let k = 0;k<this.reports.length;k++){
+      this.reports[k]=false;
+   }
+   this.reports[i]=true;
+  }
+ 
+
+
+
 
   console.log("Values Are:");
   console.log(this.reports[i]);
-  console.log(this.reportedPosts[i]);
 
 }
 
@@ -208,10 +225,14 @@ ReportPost(n:number, post: PostDto){
   if(this.posts?.length==null){
     return;
   }
+  
   const i = this.posts?.length-n-1;
-  if(this.reportedPosts[i]==false){
-    this.reportedPosts[i]=true;
-  }
+
+
+for(let k = 0;k<this.postReported.length;k++){
+      this.postReported[k]=false;
+   }
+   this.postReported[i]=true;  
 
   const data : UpdatePostRequest = {
     title: post.title,
