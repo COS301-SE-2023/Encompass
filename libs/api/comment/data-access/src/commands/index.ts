@@ -1,3 +1,5 @@
 export * from './create-comment/create-comment.handler'
 export * from './delete-comment/delete-comment.handler'
 export * from './add-reply/add-reply.handler'
+export * from './delete-reply/delete-reply.handler'
+export * from './delete-by-post-id/delete-by-post-id.handler'
