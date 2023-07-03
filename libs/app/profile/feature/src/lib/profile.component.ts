@@ -13,7 +13,8 @@ import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { UpdatePost } from '@encompass/app/home-page/util';
 import { CommentDto } from '@encompass/api/comment/data-access';
-
+import {DeletePost} from '@encompass/app/profile/util';
+import {DeleteComment} from '@encompass/app/profile/util';
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
@@ -172,12 +173,12 @@ export class ProfilePage {
     
   }
 
-  DeletePost(n:number, post: PostDto){
-    return;
+  DeletePost(post: PostDto){
+    this.store.dispatch(new DeletePost(post._id));
   }
 
-  DeleteComment(n:number, comment: CommentDto){
-    return;
+  DeleteComment(comment: CommentDto){
+    this.store.dispatch(new DeleteComment(comment._id));
   }
   
   Like(n:number, post: PostDto){
