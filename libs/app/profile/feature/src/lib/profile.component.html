@@ -36,7 +36,7 @@
         <!-- Posts -->
 
         <div *ngIf = "seePosts">
-          <div  *ngFor="let post of posts?.slice()?.reverse();let i = index">
+          <div  *ngFor="let post of posts;let i = index">
 
             <ion-card class = "PostCard" >
               <div class = "PostCardHeader">
@@ -50,11 +50,15 @@
                     <div class = "Name" > @{{post.username}}</div>
                   </div>
                   <div style = "display: flex;">
-                    <label class = "report" *ngIf="deletes[size-i]" 
-                    style = "font-size: small; position: relative; right: 10%;"
-                    (click)="DeletePost(post)">Delete Post</label>
+
+                    <label class = "report" *ngIf="deletePost[i]&&MarkedForPostDeletion[i]" 
+                    (click)="DeletePost(i,post)">Delete Post</label>
+
+                    <label class = "report" *ngIf="deletePost[i]&&!MarkedForPostDeletion[i]" 
+                    style = "color:red">Post Deleted</label>
                     
-                    <button class = "Options" (click)="Delete(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                    <button class = "Options" (click)="Delete(i)"> 
+                      <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
                   </div>
         
                  </div>
@@ -121,11 +125,14 @@
                   </div>
                   <div class = "CommentStats">
 
-                    <label class = "report" *ngIf="deleteComment[i]" 
-                    style = "font-size: small; position: relative; right: 10%;"
-                    (click)="DeleteComment(comment)">Delete Comment</label>
+                    <label class = "report" *ngIf="deleteComment[i]&&MarkedForCommentDeletion[i]" 
+                    (click)="DeleteComment(i,comment)">Delete Comment</label>
+
+                    <label class = "report" *ngIf="deleteComment[i]&&!MarkedForCommentDeletion[i]" 
+                    style = "color:red">Comment Deleted</label>
 
                     <button class = "Options2" (click)="Delete2(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                  
                     <ion-icon name="chatbubble-outline" class = "comment" (click)="viewReplies(i)"></ion-icon>
                     {{replies[i]}}
                   </div>

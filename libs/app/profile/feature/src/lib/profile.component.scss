@@ -846,3 +846,14 @@ align-items: center;
   cursor: pointer;
   
 }
+
+.report{
+  font-size: small; 
+  position: relative; 
+  right: 10%;
+}
+
+.report:hover{
+  cursor: pointer;
+  color:purple;
+}
