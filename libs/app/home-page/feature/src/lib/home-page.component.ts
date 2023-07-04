@@ -124,5 +124,13 @@ export class HomePage {
     this.router.navigate(['/home/themes']);
   }
 
+  goToEvents(){
+    // this.router.navigate(['/home/events']);
+  }
+
+  logout() {
+    this.router.navigate(['/']);
+  }
+
 
 }

@@ -99,7 +99,7 @@
                   </div>
                   <div style = "text-align: center;">
                     <div *ngIf="profile != null">
-                    <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                    <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
                     <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
                     <div>{{post.likes.length}}</div>
                     </div>
