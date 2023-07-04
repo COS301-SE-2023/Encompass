@@ -5,6 +5,7 @@ import { Model } from "mongoose";
 import { ChatListSchema } from "./chat-list.schema";
 import { ChatList } from "../chat-list";
 import { ChatListSchemaFactory } from "./chat-list-schema.factory";
+
 @Injectable()
 export class ChatListEntityRepository extends BaseEntityRepository<
   ChatListSchema,
