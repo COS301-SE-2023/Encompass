@@ -65,11 +65,6 @@
         <div class="temp"></div>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>
-        
-      </ion-col>
-    </ion-row>
   </ion-grid>
   
 
@@ -101,7 +96,7 @@
         </ion-row>
         <ion-row class="footer-row">
           <ion-col size="1">
-            <ion-icon name="logo-linkedin" class="lnk"></ion-icon>
+            <ion-icon id="click-trigger" name="logo-linkedin" class="lnk"></ion-icon>
           </ion-col>
           <ion-col size="1">
               <a href="https://github.com/COS301-SE-2023/Encompass/" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" class="git"></ion-icon></a>
@@ -115,5 +110,29 @@
       </ion-grid>
     </ion-toolbar>
   </ion-footer>
+
+  <ion-popover trigger="click-trigger" triggerAction="click" side="top" alignment="center">
+    <ng-template >
+      <ion-content style="margin-bottom: 280px;">
+      <ion-list >
+        <ion-item>
+          <a href="https://www.linkedin.com/in/julianna-venter-3b4841232/" target="_blank" rel="noopener noreferrer">Julianna Venter</a>
+        </ion-item>
+        <ion-item>
+          <a href="https://www.linkedin.com/in/keabetswe-mothapo/" target="_blank" rel="noopener noreferrer">Keabetswe Mothapo</a>
+        </ion-item>
+        <ion-item>
+          <a href="https://www.linkedin.com/in/morgan-bentley-0bb21a149/" target="_blank" rel="noopener noreferrer">Morgan Bentley</a>
+        </ion-item>
+        <ion-item>
+          <a href="https://www.linkedin.com/in/ronin-brookes/" target="_blank" rel="noopener noreferrer">Ronin Brookes</a>
+        </ion-item>
+        <ion-item>
+          <a href="https://www.linkedin.com/in/sameetkeshav/" target="_blank" rel="noopener noreferrer">Sameet Keshav</a>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    </ng-template>
+  </ion-popover>
   
 </ion-content>

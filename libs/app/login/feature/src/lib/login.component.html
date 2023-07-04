@@ -1,17 +1,25 @@
 <div class = main>
   <div class = "login">
-    <ion-icon name="chevron-back-outline"></ion-icon>
+    <a href="/">
+      <ion-icon name="chevron-back-outline" class="back-icon" color="primary"></ion-icon>
+    </a>
     <img src="assets/WelcomeImg2.png" class="backgroundImage">
     <img src = "assets/icon/Logo.png" class = "logo">
     <label class = "Title">Encompass</label>
     <form class = "LoginDetails">
 
-      <input type = email class = "input" [(ngModel)]="user.email" name="email" placeholder = "Email" required>
-      <input type = password class = "input" [(ngModel)]="user.password" name="password" placeholder = "Password" required>
-      <ion-button fill = "clear" class = "btn1"  size = "large" (click)="LogIn()">Log in</ion-button>
-
-      <label class = "ForgotPassword">Forgot Password?</label>
-  
+      <ion-input fill="outline" type=email class="input" [(ngModel)]="user.email" name="email" labelPlacement="floating" label="Email" required></ion-input>
+      <ion-input fill="outline" type=password class="input" [(ngModel)]="user.password" name="password" labelPlacement="floating" label="Password" required></ion-input>
+      <ion-button fill="clear" class="btn1"  size="large" (click)="LogIn()">Log in</ion-button>
+      <div class="options">
+        <a href="/">
+          <label class = "ForgotPassword">Forgot Password?</label>
+        </a>
+        <br>
+        <a href="/register">
+          <label class = "ForgotPassword">Don't have an account?</label>
+        </a>
+      </div>
     </form>
     
   </div>
