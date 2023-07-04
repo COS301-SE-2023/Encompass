@@ -12,49 +12,107 @@
   </div>
 
   <div id="tagline" class="tagline">
-    <h1>Discover communities, people, and media tailored to your interests.</h1>
+    <h1><a>Discover</a> communities, people, and media tailored to your <a>interests</a>.</h1>
   </div>
 
-  <div id="frame_1" class="left-align">
-    <h2>Get personalized recommendations</h2>
-    <span>Our Machine Learning algorithm will bring you specially tailored content right to your home page.</span>
-  </div>
+  <ion-grid style="margin-bottom: 3%;">
+    <ion-row class="image-row">
+      <ion-col size="6">
+        <div id="frame_1" class="left-align">
+          <div class="icon-block">
+            <ion-icon name="star-outline" class="block-icon"></ion-icon>
+          </div>
+          <h2>Get personalized recommendations</h2><br>
+          <span>Our 
+            <a>Machine Learning algorithm</a> will bring you specially <a>tailored content</a> right to your home page.</span>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <!-- <img src="https://marine.weathersa.co.za/Under_Construction.png" class="screenshots" alt="Feature Screenshot"> -->
+        <div class="temp"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="image-row-left">
+      <ion-col size="6">
+        <!-- <img src="https://marine.weathersa.co.za/Under_Construction.png" class="screenshots" alt="Feature Screenshot"> -->
+        <div class="temp-left"></div>
+      </ion-col>
+      <ion-col size="6">
+        <div id="frame_2" class="right-align">
+          <div class="icon-block block-right">
+            <ion-icon name="happy-outline" class="block-icon"></ion-icon>
+          </div>
+          <h2>Join communities</h2><br>
+          <span><a>Connect</a> with like-minded communities and friends.<br><br>
+          <a>Make your own</a> community, or <a>join</a> one celebrating your beloved interests.</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="image-row">
+      <ion-col size="6">
+        <div id="frame_3" class="left-align">
+          <div class="icon-block">
+            <ion-icon name="trophy-outline" class="block-icon"></ion-icon>
+          </div>
+          <h2>Check out events and challenges</h2><br>
+          <span><a>Explore</a> our <a>Events</a> page, featuring quizzes, meetups, challenges, and more!
+            <br><br>
+            Win <a>awards</a> and <a>level up</a> your profile!</span>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <!-- <img src="https://marine.weathersa.co.za/Under_Construction.png" class="screenshots" alt="Feature Screenshot"> -->
+        <div class="temp"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 
-  <div id="frame_2" class="right-align">
-    <h2>Join communities</h2>
-    <span>Connect with like-minded communities and friends.
-      Make your own community, or join one celebrating your beloved interests.</span>
-  </div>
+  
 
-  <div id="frame_3" class="left-align">
-    <h2>Check out events and challenges</h2>
-    <span>Explore our Events page, featuring quizzes, meetups, challenges, and more!
-      Win awards and level up your profile!</span>
-  </div>
+  
+
+  
 
   <ion-footer>
     <ion-toolbar class="footer" color="primary">
-      <ion-buttons slot="start">
-        <ion-button>
-          <ion-icon name="people"></ion-icon>
-          Team
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="secondary">
-        <ion-button>
-          <ion-icon name="document-text"></ion-icon>
-          T&amp;Cs
-        </ion-button>
-        <ion-button>
-          <ion-icon name="lock-closed"></ion-icon>
-          Privacy
-        </ion-button>
-      </ion-buttons>
-      <div class="footer-content">
-        <ion-icon name="logo-linkedin" class="lnk"></ion-icon>
-        <ion-icon name="logo-github" class="git"></ion-icon>
-        <div class="Overlayt3">PerfectStrangers Capstone 2023</div>
-      </div>
+      <ion-grid class="footer footer-grid">
+        <ion-row class="footer-row">
+          <ion-col size="1">
+            <ion-button fill="clear" class="footer-text">
+              Team
+            </ion-button>
+          </ion-col>
+          <ion-col size="1">
+            <ion-button fill="clear" class="footer-text">
+              T&amp;Cs
+            </ion-button>
+          </ion-col>
+          <ion-col size="1">
+            <ion-button fill="clear" class="footer-text">
+              Privacy
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row class="footer-row">
+          <ion-col size="1">
+            <ion-icon name="logo-linkedin" class="lnk"></ion-icon>
+          </ion-col>
+          <ion-col size="1">
+              <a href="https://github.com/COS301-SE-2023/Encompass/" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" class="git"></ion-icon></a>
+          </ion-col>
+        </ion-row>
+        <ion-row class="footer-row footer-row-text">
+          <ion-col size="3">
+            <div class="Overlayt3">PerfectStrangers Capstone 2023</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-toolbar>
   </ion-footer>
   
