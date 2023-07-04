@@ -11,6 +11,6 @@ export class SignUpInterior2Page{
 
   done()
   {
-    this.router.navigate(['']);
+    this.router.navigate(['/home']);
   }
 }
