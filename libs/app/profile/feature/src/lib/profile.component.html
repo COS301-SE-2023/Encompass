@@ -202,9 +202,26 @@
           </ion-card-header>
         
           <ion-card-content style="font-size: 15px; margin-bottom: 15px;">
-            {{profile?.bio}}
+            <div>{{profile?.bio}} This is the temp bio</div>
+            <ion-grid>
+              <ion-row class="profile-info-row">
+                <ion-col size="4">
+                  <div class="profile-info info-post">3 Posts</div>
+                </ion-col>
+                <ion-col size="4">
+                  <div class="profile-info">12 Followers</div>
+                </ion-col>
+                <ion-col size="4">
+                  <div class="profile-info">122 Following</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-card-content>
         </ion-card>
+
+
+
+
 
         <div class="awards">
           <ion-title class="awards-header">
@@ -215,6 +232,11 @@
             <img src="assets/icon/Award2.JPG" class="badge">
           </div>
         </div>
+
+
+
+
+
 
         <ion-card>
           <ion-card-header>

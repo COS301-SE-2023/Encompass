@@ -327,9 +327,9 @@ ion-card {
     }
 
     .active-button {
-      background-color: #AFABC5;
+      background-color: var(--ion-color-secondary-contrast);
       font-weight: bold;
-      border-radius: 50px ;
+      border-radius: 50px;
     }
 
 ion-card {
@@ -665,7 +665,7 @@ ion-card {
 }
 
 .profileToolbar {
-  --background: #CECAE3;
+  --background: var(--ion-color-secondary);
   height: 70px;
   display: flex;
 }
@@ -864,4 +864,29 @@ ion-card {
 
 .PostCard {
   padding-bottom: 10px;
+}
+.profile-info {
+  display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  margin-top: 20px;
+  background-color: var(--ion-color-secondary);
+  border-radius: 50px;
+  width: 120px;
+  height: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 3px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.info-post {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.profile-info-row {
+  justify-content: space-evenly;
+  margin-left: 15px;
 }
