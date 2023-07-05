@@ -158,6 +158,10 @@ Report(n:number){
 
 }
 
+GoToCommunity(communityName:string){
+
+}
+
 Like(n:number, post: PostDto){
   this.likedComments[n]=true;
   this.likes[n]++;

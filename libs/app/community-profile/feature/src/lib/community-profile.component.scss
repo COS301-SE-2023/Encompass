@@ -1,0 +1,568 @@
+.overlay-container {
+    overflow:auto;
+    background-color: #F8F8F8;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 1;
+  }
+
+.image-container {
+  width: 100%;
+  height: 130px;
+  overflow: hidden;
+
+}
+
+.rocket {
+  position: absolute;
+  top: 9%;
+  left: 4%;
+  width: 8.5%;
+}
+
+.cropped-image {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  position: absolute;
+  top: -80px;
+}
+
+.custom-title {
+  font-family: CustomFont;
+  font-size: 300%;
+  font-weight: bold;
+  position: absolute;
+  left: 17%;
+  margin-bottom: 5px;
+  margin-top: 17px;
+  color: var(--ion-color-primary-contrast);
+}
+
+@media (max-width: 1622px) {
+  .custom-title {
+    font-size: 250%; 
+  }
+}
+
+@media (max-width: 1300px) {
+  .custom-title {
+    font-size: 200%; 
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.content-container {
+  flex: 1;
+  max-width: 50%;
+  margin-left: 10%;
+  text-align: center;
+  margin-top: 0.5%;
+}
+
+@media (max-width: 1622px) {
+  .custom-title {
+    font-size: 250%; 
+  }
+}
+
+@media (max-width: 1300px) {
+  .custom-title {
+    font-size: 200%; 
+  }
+}
+
+.home-text {
+  font-size: 22px;
+  font-family: CustomFont2;
+  color:black;
+}
+
+@media (max-width: 1622px) {
+  .home-text {
+    font-size: 18px; 
+  }
+}
+
+@media (max-width: 1300px) {
+  .home-text {
+    font-size: 14px; 
+  }
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  margin-bottom: 0.5%;
+}
+
+.posts {
+  border: 1px solid var(--ion-color-primary-contrast);
+  border-radius: 50px;
+  padding: 10px 20px;
+  color: white;
+  background-color: var(--ion-color-primary-contrast);
+  font-family: CustomFont;
+
+}
+
+.comms {
+  border: 1px solid var(--ion-color-primary-contrast);
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-family: CustomFont;
+}
+
+.image-container ion-card-title {
+  top: 10%
+}
+
+.row-filter {
+  justify-content: space-evenly;
+}
+
+
+  .content-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .post-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .post-content ion-label {
+    margin-right: auto;
+  }
+
+  .post-content ion-button {
+    margin-left: 10px;
+  }
+
+
+
+
+  .imgDiv{
+    width: 25px;
+    height: 25px;
+    object-fit: fill;
+    }
+
+    .postImage{
+    width:70px;
+      height: 70px;
+      object-fit: fill;
+      border-radius: 15px;
+    }
+
+    .PostDetails{
+      display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 82%;
+    }
+
+
+
+    .TitleNameOptions{
+        display: flex;
+        justify-content: space-between;
+        height: 30%;
+        width: 100%;
+        color: black;
+        font-family: CustomFont;
+        font-size: 20px;
+    }
+
+    .Title{
+    display: inline-block;
+    width: auto;
+
+    }
+    .Name{
+      display: flex;
+align-items: center;
+font-size: 15px;
+position: relative;
+font-family: CustomFont2;
+left: 5%;
+
+    }
+
+
+    .report{
+      font-size: small; position: relative; right: 10%;
+    }
+.report:hover{
+  cursor:pointer;
+  color: #8231DD;
+
+}
+    .Options{
+    font-size: larger;
+    position: relative;
+    right:5%;
+    }
+
+    .Options:hover{
+      color: #8231DD;
+    }
+
+
+    .GenreIcons{
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    height: 30%;
+    color: black;
+    font-family: CustomFont;
+    margin-left: 1.5%;
+
+    }
+
+
+
+    .text{
+    width: 97%;
+    height: 90%;
+    font-family: CustomFont;
+    font-size: medium;
+    color: #000000;
+    margin-left: 3%;
+      margin-right: 3%;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+    .date{
+    font-family: CustomFont;
+    font-size: 15px;
+    width: 20%;
+    height: 25%;
+    position: relative;
+    display: flex;
+    // justify-content: center;
+    margin-left: 3%;
+    }
+    .icons{
+    height: 50%;
+    width: 30%;
+    color:#231942;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+     padding-bottom: 2%;
+     padding-top:1%;
+    }
+
+    #icons2{
+    font-size: 25px;
+    color:#231942;
+
+    }
+
+    #icons2:hover{
+      color: #8231DD;
+      cursor: pointer;
+    }
+
+    .stats{
+
+    font-size: 15px;
+    display: flex;
+    justify-content: space-evenly;
+
+    }
+
+    .PostCard{
+      background-color: #F0EFEF;
+
+    }
+    .PostCardHeader{
+    display: flex;
+    justify-content: center;
+    height: 35%;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    }
+
+
+
+
+    .PostImageContainer{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .PostBody{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50%;
+        width: 100%;
+    }
+
+    .PostBody:hover{
+      cursor: pointer;
+    }
+
+    .PostFooter{
+    display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 97%;
+    }
+
+
+
+    .active-button {
+      color: #8231DD;
+      font-weight: bold;
+      border-radius: 50px ;
+      border: 1px solid #8231DD;
+    }
+
+ion-card {
+  background-color: #fdfdfd;
+}
+
+
+.ContentCard{
+  width:95% ;
+
+}
+
+.recomRow{
+  justify-content: space-evenly;
+}
+
+
+
+.RecomCommunities{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+  width: 60%;
+  font-family: CustomFont;
+}
+
+.headtext {
+  color: black;
+}
+
+.CommunityCard{
+
+  background-color: #f8f8f8;
+
+}
+
+.CommunityHeader{
+  display: flex;
+justify-content: space-evenly;
+height: 50%;
+width: 100%;
+}
+
+.CommunityIcon{
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.CommunityDetails{
+  display: flex;
+ height: 100%;
+ width: 50%;
+ flex-direction: column;
+ margin-top: 10px;
+}
+
+.CommunityName{
+display: flex;
+    // justify-content: center;
+    // align-items: center;
+    height: 50%;
+    width: 100%;
+    color: black;
+    font-family: CustomFont;
+    font-size: 20px;
+}
+
+.CommunityMembers{
+
+display: flex;
+// justify-content: center;
+// align-items: center;
+height: 50%;
+width: 100%;
+color: black;
+font-family: CustomFont;
+}
+
+.CommunityGenres{
+display: flex;
+// justify-content: center;
+// align-items: center;
+justify-content: space-between;
+height: 50%;
+width: 50%;
+color: black;
+font-family: CustomFont;
+margin-top: 10px;
+}
+
+.CommunityAdd{
+display: flex;
+// justify-content: center;
+// align-items: center;
+margin-top: 10px;
+ height: 70%;
+ width: 8%;
+}
+
+.CommunityBody{
+display: flex;
+justify-content: center;
+align-items: center;
+ font-family: CustomFont2;
+ color: black;
+ margin-top: 15px;
+ margin-left: 20px;
+ margin-bottom: 15px;
+ height: 50%;
+ width: 80%;
+}
+
+.CommunityDesc{
+display: flex;
+
+   font-family: CustomFont2;
+   color: black;
+   height: 90%;
+   width: 95%;
+
+}
+
+.imgDiv{
+width: 25px;
+height: 25px;
+object-fit: fill;
+}
+
+.RecomHeader{
+  width: 150%;
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+}
+
+.MediaImage {
+  width: 150px;
+  height: 240px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+
+
+
+.specialBtn{
+  background-color: #66617F;
+  color: white;
+  border-radius: 50px;
+  border: 1px solid #66617F;
+  font-size: 15px;
+  font-family: CustomFont;
+  padding: 2%;
+}
+
+#recommendedBtn{
+  font-family: CustomFont;
+  font-size: larger;
+
+}
+#newBtn{
+  font-family: CustomFont;
+  font-size: larger;
+
+
+}
+
+#popularBtn{
+  font-family: CustomFont;
+  font-size: larger;
+
+}
+
+ion-card{
+  border-radius: 15px;
+}
+
+.header{
+  background-color: #F8F8F8;
+}
+
+
+
+
+.content-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.Media{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 240px;
+  font-family: CustomFont;
+}
+
+.MediaTitle{
+  text-align: center  ;
+  width: 100%;
+  font-size: 30px;
+
+}
+.MediaDate{
+  text-align: center  ;
+  width: 100%;
+  font-size: 20px;
+
+}
+.MediaAuthor{
+  text-align: center  ;
+  width: 100%;
+  font-size: 20px;
+
+}
+
+.MediaGenres{
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
+

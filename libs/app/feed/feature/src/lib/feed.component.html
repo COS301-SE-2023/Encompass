@@ -77,7 +77,7 @@
 
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
-                <img src =  {{post.communityImageUrl}}  class = "postImage" >
+                <img src =  {{post.communityImageUrl}}  class = "postImage" (click)="GoToCommunity(post.community)">
               </div>
             <div class = "PostDetails"  >
               <div class = "TitleNameOptions">

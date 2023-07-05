@@ -1,1 +1,203 @@
-<p>community-profile works!</p>
+<div class="overlay-container">
+
+    <ion-grid>
+        <ion-row class="row-filter">
+          <ion-col size="12">
+            <ion-card class="header">
+              <!-- <ion-card-header class="header-header"> -->
+                <div class="image-container">
+                  <div color="dark" class="custom-title">Welcome Home</div>
+                  <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
+                  <img class="rocket" src="assets/icon/rocket-planet.png" alt="Rocket">
+                </div>
+              <!-- </ion-card-header> -->
+             
+              <ion-card-content>
+                <div class="container">
+                  <div class="content-container">
+                    <div class="home-text">
+                      This is your home page, where you check in with your favorite communities, see your daily recommendations, and see what your friends are up to.
+                    </div>
+                  </div>
+                  <div class="buttons-container">
+                    <ion-button class="posts" fill="clear" >Create a Post</ion-button>
+                    <ion-button class="comms" fill="clear" >Create a Community</ion-button>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="row-filter">
+          <ion-col size="10">
+            <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0EFEF;">
+              <ion-grid>
+                <ion-row class="row-filter">
+                  <ion-col size="3">
+                    <div style = "display:flex;justify-content:center">
+                      <ion-button id="recommendedBtn" fill="clear" class="active-button" >
+                        <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
+                        Recommended
+                      </ion-button>
+                    </div>
+                   
+                  </ion-col>
+                  <ion-col size="3">
+                    <div style = "display:flex;justify-content:center">
+                      <ion-button id="newBtn" fill="clear" class="none" >
+                        <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
+                        New
+                      </ion-button>
+                    </div>
+                  </ion-col>
+                  <ion-col size="3">
+                    <div style = "display:flex;justify-content:center">
+                    <ion-button id="popularBtn" fill="clear" class="none" >
+                      <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
+                      Popular
+                    </ion-button>
+                  </div>
+                  </ion-col>
+                  <ion-col size="3">
+                    <div style = "display:flex;justify-content:center">
+                    <ion-button id="popularBtn" fill="clear" class="none" >
+                      <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
+                      Events
+                    </ion-button>
+                  </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card>    
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="row-filter">
+            <ion-col size = "5">
+                <ion-card class = "PostCard" >
+
+                    <div class = "PostCardHeader">
+                      <div class = "PostImageContainer" >
+                        <img src =  "assets/icon/Action.png"  class = "postImage" >
+                      </div>
+                    <div class = "PostDetails"  >
+                      <div class = "TitleNameOptions">
+                        <div style = "display: flex; margin-left: 1.5%;">
+                          <div class = "Title">Text</div>
+                          <div class = "Name" > Text</div>
+                        </div>
+                        <div style = "display: flex; margin-right: 1.5%; ">
+        
+                         
+        
+                          <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                        </div>
+              
+                       </div>
+                      
+                  </div> 
+                    </div>
+        
+                    <div class = "PostBody" >
+        
+                      <div class = "text">
+                          <h5>Title</h5>
+                          <div style = "display:flex;justify-content: center;">
+                            <img src = "assets/icon/Action.png" style="border-radius: 15px;" >
+                          </div>
+                          <br>
+                          Text
+                      </div>
+                    </div>
+                    <div class = "PostFooter">
+                      <div class = "date">12/07/00</div>
+                     
+                      
+                      <div class = "icons">
+                        <div style = "text-align: center;">
+                          <ion-icon name="share-social-outline" id = "icons2" ></ion-icon>
+                          <div >5</div>
+        
+                        </div>
+                        <div style = "text-align: center;">
+                          <ion-icon name="chatbubble-outline" id = "icons2" ></ion-icon>
+                          <div>7</div>
+                        </div>
+                        <div style = "text-align: center;">
+                          <ion-icon name="heart-outline" id = "icons2" ></ion-icon>
+                          <div>17</div>
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                   </ion-card>
+            </ion-col>
+            <ion-col size = "4">
+                <ion-card class = "PostCard" >
+
+                    <div class = "PostCardHeader">
+                      <div class = "PostImageContainer" >
+                        <img src =  "assets/icon/Action.png"  class = "postImage" >
+                      </div>
+                    <div class = "PostDetails"  >
+                      <div class = "TitleNameOptions">
+                        <div style = "display: flex; margin-left: 1.5%;">
+                          <div class = "Title">Text</div>
+                          <div class = "Name" > Text</div>
+                        </div>
+                        <div style = "display: flex; margin-right: 1.5%; ">
+        
+                         
+        
+                          <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                        </div>
+              
+                       </div>
+                      
+                  </div> 
+                    </div>
+        
+                    <div class = "PostBody" >
+        
+                      <div class = "text">
+                          <h5>Title</h5>
+                          <div style = "display:flex;justify-content: center;">
+                            <img src = "assets/icon/Action.png" style="border-radius: 15px;" >
+                          </div>
+                          <br>
+                          Text
+                      </div>
+                    </div>
+                    <div class = "PostFooter">
+                      <div class = "date">12/07/00</div>
+                     
+                      
+                      <div class = "icons">
+                        <div style = "text-align: center;">
+                          <ion-icon name="share-social-outline" id = "icons2" ></ion-icon>
+                          <div >5</div>
+        
+                        </div>
+                        <div style = "text-align: center;">
+                          <ion-icon name="chatbubble-outline" id = "icons2" ></ion-icon>
+                          <div>7</div>
+                        </div>
+                        <div style = "text-align: center;">
+                          <ion-icon name="heart-outline" id = "icons2" ></ion-icon>
+                          <div>17</div>
+                          
+                        </div>
+                        
+                      </div>
+                    </div>
+                   </ion-card>
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+</div>
