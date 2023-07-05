@@ -4,31 +4,31 @@
       <ion-icon name="chevron-back-outline" class="back-icon" color="primary"></ion-icon>
     </a>
     <img src="assets/WelcomeImg2.png" class="backgroundImage">
-    <div class = "Details">
-      <div class = "back">
-        <ion-icon class = "backButton" name="caret-back-outline"
-        style = "position: relative; padding: 2%;"
-        (click)="Back()"></ion-icon>
-      </div>
+    <img src = "assets/icon/Logo.png" class = "logo">
+    <label class = "Title">Encompass</label>
+    
+    <form (ngSubmit)="SignUp()"  class = "SignUpDetails">
 
-      <img src = "assets/icon/Logo.png" class = "logo">
-      <label class = "Title">Encompass</label>
 
-      <form (ngSubmit)="SignUp()" class = "SignUpDetails">
+        <ion-input fill="outline" type="text" class = "input" [(ngModel)]="user.name" name="name" label = "Firstname" required = "true" labelPlacement="floating"></ion-input>
+        
+        <ion-input fill="outline" type="text" class = "input" [(ngModel)]="user.name" name="name" label = "Surname" required = "true" labelPlacement="floating"></ion-input>
+    
+        <ion-input fill="outline" type="text" class = "input" [(ngModel)]="user.name" name="name" label = "Username" required = "true" labelPlacement="floating"></ion-input>
+    
+        <ion-input fill="outline" type="email" class="input" [(ngModel)]="user.email" name="email" autocomplete="email" email="true" label="Email" labelPlacement="floating" required = "true"></ion-input>
+    
+        <ion-input fill="outline" type="password" class = "input" [(ngModel)]="user.password" name="password" autocomplete="password" label = "Password" required = "true" labelPlacement="floating"></ion-input>
 
-        <input type="text" class = "input" name="firstName" placeholder = "First Name" required = "true">
-
-        <input type="email" class = "input" name="secondName"  placeholder = "Second Name" required = "true">
-
-        <input type="text" class = "input" [(ngModel)]="user.name" name="name" placeholder = "Username" required = "true">
-
-        <input type="email" class = "input" [(ngModel)]="user.email" name="email" autocomplete="email" email="true" placeholder = "Email" required = "true">
-
-        <input type="password" class = "input" [(ngModel)]="user.password" name="password" autocomplete="password" placeholder = "Password" required = "true">
+        <div class="options">
+          <ion-checkbox labelPlacement="end" class="ForgotPassword">I have read and accepted the terms of service</ion-checkbox> 
 
         <ion-button type = "submit" fill = "clear" class = "btn1"  size = "large" [disabled]="!isValid()">Sign Up</ion-button>
-      </form>
-    </div>
-
+      </div>
+    </form>
+    
+    
   </div>
-</div>
+  </div>
+  
+  

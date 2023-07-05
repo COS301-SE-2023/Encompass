@@ -33,7 +33,75 @@ ion-toolbar {
   }
 
   .buttonStyle {
-    width: 10%;
+    width: 15%;
     height: 40px;
     font-size: 18px;
   }
+
+
+.header {
+  font-size: 40px;
+  font-family: customFont;
+  width: 70%;
+  // text-align: center;
+  margin-top: 50px;
+  padding-bottom: 10px;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh; 
+  height: fit-content;
+}
+
+.content {
+  width: 70%;
+}
+
+.info {
+  text-align: right;
+  color: var(--ion-color-medium);
+  font-size: 16px;
+}
+
+.edit-icons {
+  margin-left: 30px;
+}
+
+.info-label {
+  font-size: 20px;
+  font-family: customFont;
+  margin-bottom: 10px;
+}
+
+.custom-list {
+  margin-top: 40px;
+}
+
+a {
+  color: var(--ion-color-medium);
+  font-size: 16px;
+}
+
+ion-item {
+  margin-bottom: 30px;
+}
+
+.banner {
+  height: 110%;
+  width: 15%;
+  border-radius: 5px;
+  border: solid 1px var(--ion-color-medium);
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.avatar {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  margin-top: 10px;
+}
