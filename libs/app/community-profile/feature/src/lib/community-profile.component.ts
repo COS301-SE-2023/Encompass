@@ -45,4 +45,68 @@ export class CommunityProfileComponent {
       }
     })
   }
+
+  recChange(){
+    const recBtn = document.getElementById('recommendedBtn');
+    const newBtn = document.getElementById('newBtn');
+    const popBtn = document.getElementById('popularBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+
+    if (recBtn && newBtn && popBtn&&eventBtn) {
+      recBtn.classList.add('active-button');
+      newBtn.classList.remove('active-button');
+      popBtn.classList.remove('active-button');
+      eventBtn.classList.remove('active-button');
+
+    }
+  }
+
+  newChange(){
+    const recBtn = document.getElementById('recommendedBtn');
+    const newBtn = document.getElementById('newBtn');
+    const popBtn = document.getElementById('popularBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+
+    if (recBtn && newBtn && popBtn&&eventBtn) {
+      recBtn.classList.remove('active-button');
+      newBtn.classList.add('active-button');
+      popBtn.classList.remove('active-button');
+      eventBtn.classList.remove('active-button');
+
+    }
+  }
+
+  popChange(){
+    const recBtn = document.getElementById('recommendedBtn');
+    const newBtn = document.getElementById('newBtn');
+    const popBtn = document.getElementById('popularBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+
+    if (recBtn && newBtn && popBtn&&eventBtn) {
+      recBtn.classList.remove('active-button');
+      newBtn.classList.remove('active-button');
+      popBtn.classList.add('active-button');
+      eventBtn.classList.remove('active-button');
+
+    }
+  }
+
+  eventChange(){
+    const recBtn = document.getElementById('recommendedBtn');
+    const newBtn = document.getElementById('newBtn');
+    const popBtn = document.getElementById('popularBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+
+    if (recBtn && newBtn && popBtn&&eventBtn) {
+      recBtn.classList.remove('active-button');
+      newBtn.classList.remove('active-button');
+      popBtn.classList.remove('active-button');
+      eventBtn.classList.add('active-button');
+
+    }
+  }
 }

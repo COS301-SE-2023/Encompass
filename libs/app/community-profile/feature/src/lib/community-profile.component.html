@@ -1,44 +1,33 @@
 <div class="overlay-container">
 
-    <ion-grid>
-        <ion-row class="row-filter">
-          <ion-col size="12">
-            <ion-card class="header">
-              <!-- <ion-card-header class="header-header"> -->
-                <div class="image-container">
-                  <div color="dark" class="custom-title">Welcome Home</div>
-                  <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
-                  <img class="rocket" src="assets/icon/rocket-planet.png" alt="Rocket">
-                </div>
-              <!-- </ion-card-header> -->
-             
-              <ion-card-content>
-                <div class="container">
-                  <div class="content-container">
-                    <div class="home-text">
-                      This is your home page, where you check in with your favorite communities, see your daily recommendations, and see what your friends are up to.
-                    </div>
-                  </div>
-                  <div class="buttons-container">
-                    <ion-button class="posts" fill="clear" >Create a Post</ion-button>
-                    <ion-button class="comms" fill="clear" >Create a Community</ion-button>
-                  </div>
-                </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-grid>
-        <ion-row class="row-filter">
+   <div class = "Banner">
+      <img src = "assets/icon/banner.jpg" class="BannerImage">
+      <img src = "assets/icon/profile.jpg" class="CommunityImage">
+      
+   </div>
+   <div class = "Community">
+     <div class = "CommunityDetails">
+        <div class = "CommunityName"><label >Community Name</label><ion-icon name="pencil-outline"></ion-icon></div>
+        <div class = "Admin">Created by </div>
+        <div class = "CommunityDescription">Community Description that describes the community</div>
+     </div>
+     <div class = CommunityOptions>
+        <div class = "ListOfOptions">
+          <button class = "Join">Join</button>
+          <ion-icon name="share-social-outline" style="font-size: 25px;"></ion-icon>
+          <ion-icon name="notifications-outline" style="font-size: 25px;"></ion-icon>
+        </div>
+     </div>
+   </div>
+      <ion-grid >
+        <ion-row class="row-filter"  >
           <ion-col size="10">
             <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0EFEF;">
               <ion-grid>
                 <ion-row class="row-filter">
                   <ion-col size="3">
                     <div style = "display:flex;justify-content:center">
-                      <ion-button id="recommendedBtn" fill="clear" class="active-button" >
+                      <ion-button id="recommendedBtn" fill="clear" class="active-button" (click)="recChange()">
                         <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
                         Recommended
                       </ion-button>
@@ -47,7 +36,7 @@
                   </ion-col>
                   <ion-col size="3">
                     <div style = "display:flex;justify-content:center">
-                      <ion-button id="newBtn" fill="clear" class="none" >
+                      <ion-button id="newBtn" fill="clear" class="none" (click)="newChange()" >
                         <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
                         New
                       </ion-button>
@@ -55,148 +44,137 @@
                   </ion-col>
                   <ion-col size="3">
                     <div style = "display:flex;justify-content:center">
-                    <ion-button id="popularBtn" fill="clear" class="none" >
+                    <ion-button id="popularBtn" fill="clear" class="none" (click)="popChange()" >
                       <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
                       Popular
                     </ion-button>
                   </div>
                   </ion-col>
-                  <ion-col size="3">
+                  <ion-col size="3" >
                     <div style = "display:flex;justify-content:center">
-                    <ion-button id="popularBtn" fill="clear" class="none" >
-                      <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
+                    <ion-button id="eventBtn" fill="clear" class="none" (click)="eventChange()">
+                      <ion-icon name="ribbon-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
                       Events
                     </ion-button>
                   </div>
                   </ion-col>
+
                 </ion-row>
               </ion-grid>
             </ion-card>    
           </ion-col>
         </ion-row>
-      </ion-grid>
-
-      <ion-grid>
+      
         <ion-row class="row-filter">
-            <ion-col size = "5">
-                <ion-card class = "PostCard" >
+            <ion-col size = "5" >
+              <!-- <div *ngFor="let post of community?.posts.slice().reverse();let i = index">
 
-                    <div class = "PostCardHeader">
-                      <div class = "PostImageContainer" >
-                        <img src =  "assets/icon/Action.png"  class = "postImage" >
-                      </div>
-                    <div class = "PostDetails"  >
-                      <div class = "TitleNameOptions">
-                        <div style = "display: flex; margin-left: 1.5%;">
-                          <div class = "Title">Text</div>
-                          <div class = "Name" > Text</div>
-                        </div>
-                        <div style = "display: flex; margin-right: 1.5%; ">
-        
-                         
-        
-                          <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
-                        </div>
-              
-                       </div>
-                      
-                  </div> 
+                <ion-card class = "PostCard" >
+      
+                  <div class = "PostCardHeader">
+                    <div class = "PostImageContainer" >
+                      <img src =  {{post.communityImageUrl}}  class = "postImage">
                     </div>
-        
-                    <div class = "PostBody" >
-        
-                      <div class = "text">
-                          <h5>Title</h5>
-                          <div style = "display:flex;justify-content: center;">
-                            <img src = "assets/icon/Action.png" style="border-radius: 15px;" >
-                          </div>
-                          <br>
-                          Text
+                  <div class = "PostDetails"  >
+                    <div class = "TitleNameOptions">
+                      <div style = "display: flex; margin-left: 1.5%;">
+                        <div class = "Title">{{post.community}}</div>
+                        <div class = "Name" > @{{post.username}}</div>
                       </div>
-                    </div>
-                    <div class = "PostFooter">
-                      <div class = "date">12/07/00</div>
+                      <div style = "display: flex; margin-right: 1.5%; ">
+      
+                       
+      
+                        <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                      </div>
+            
+                     </div>
+                    
+                      <div class = "GenreIcons" >
+                        <div style = "width: 30%; display: flex; justify-content: space-around;">
+                        <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                        </div>
+                        <div style = "width: 70%; display: flex; justify-content: space-evenly;">
+                          <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+                          <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                     </div>
+                     </div>
+      
                      
-                      
-                      <div class = "icons">
-                        <div style = "text-align: center;">
-                          <ion-icon name="share-social-outline" id = "icons2" ></ion-icon>
-                          <div >5</div>
-        
+                    
+      
+                </div> 
+                  </div>
+      
+      
+      
+      
+      
+                  <div class = "PostBody" (click)="GoToComments(post._id)">
+      
+                    <div class = "text">
+                        <h5>{{post.title}}</h5>
+                        <div style = "display:flex;justify-content: center;">
+                          <img src = {{post.imageUrl}} style="border-radius: 15px;" >
                         </div>
-                        <div style = "text-align: center;">
-                          <ion-icon name="chatbubble-outline" id = "icons2" ></ion-icon>
-                          <div>7</div>
-                        </div>
-                        <div style = "text-align: center;">
-                          <ion-icon name="heart-outline" id = "icons2" ></ion-icon>
-                          <div>17</div>
-                          
-                        </div>
-                        
-                      </div>
+                        <br>
+                        {{post.text}}
                     </div>
-                   </ion-card>
+                  </div>
+                  <div class = "PostFooter">
+                    <div class = "date">{{post.dateAdded}}</div>
+                   
+                    
+                    <div class = "icons">
+                      <div style = "text-align: center;">
+                        <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
+                        <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
+                        <div *ngIf = "!sharing[i]">{{post.shares}}</div>
+                        <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
+      
+                      </div>
+                      <div style = "text-align: center;">
+                        <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
+                        <div>{{post.comments}}</div>
+                      </div>
+                      <div style = "text-align: center;">
+                        <div *ngIf="profile != null">
+                        <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                        <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                        <div>{{post.likes.length}}</div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                 </ion-card>
+                </div> -->
             </ion-col>
-            <ion-col size = "4">
-                <ion-card class = "PostCard" >
+            <ion-col size = "4" >
+                <ion-card class = "CommunityCard" >
+                  <div class = "Cloud">
+                    <img src = "assets/WelcomeImg.png" class="cloudImg">
+                  </div>
+                  <div class = "About">
+                    About this Community
+                  </div>
+                  <div class = "DateCreated">
+                    Created 8th July 2023
+                  </div>
+                  <div class = "Rules">
+                    <div class = "RulesTitle">Community Rules:</div>
+                    <div class = "RulesDescr"> No Discrimination. <br> No Spoilers.</div>
+                  </div>
+                  <div class = "Statistics">
+                    <div>#2 Rank</div>
+                    <div>10 Members</div>
 
-                    <div class = "PostCardHeader">
-                      <div class = "PostImageContainer" >
-                        <img src =  "assets/icon/Action.png"  class = "postImage" >
-                      </div>
-                    <div class = "PostDetails"  >
-                      <div class = "TitleNameOptions">
-                        <div style = "display: flex; margin-left: 1.5%;">
-                          <div class = "Title">Text</div>
-                          <div class = "Name" > Text</div>
-                        </div>
-                        <div style = "display: flex; margin-right: 1.5%; ">
-        
-                         
-        
-                          <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
-                        </div>
-              
-                       </div>
-                      
-                  </div> 
-                    </div>
-        
-                    <div class = "PostBody" >
-        
-                      <div class = "text">
-                          <h5>Title</h5>
-                          <div style = "display:flex;justify-content: center;">
-                            <img src = "assets/icon/Action.png" style="border-radius: 15px;" >
-                          </div>
-                          <br>
-                          Text
-                      </div>
-                    </div>
-                    <div class = "PostFooter">
-                      <div class = "date">12/07/00</div>
-                     
-                      
-                      <div class = "icons">
-                        <div style = "text-align: center;">
-                          <ion-icon name="share-social-outline" id = "icons2" ></ion-icon>
-                          <div >5</div>
-        
-                        </div>
-                        <div style = "text-align: center;">
-                          <ion-icon name="chatbubble-outline" id = "icons2" ></ion-icon>
-                          <div>7</div>
-                        </div>
-                        <div style = "text-align: center;">
-                          <ion-icon name="heart-outline" id = "icons2" ></ion-icon>
-                          <div>17</div>
-                          
-                        </div>
-                        
-                      </div>
-                    </div>
-                   </ion-card>
+                  </div>
+                  <div class = "Buttons">
+                    <button class="Button1">Create a Post</button>
+                    <button class="Button2">Community Events</button>
+                  </div>
+                </ion-card>
             </ion-col>
         </ion-row>
       </ion-grid>
