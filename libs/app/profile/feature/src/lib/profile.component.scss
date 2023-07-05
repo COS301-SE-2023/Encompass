@@ -1,5 +1,6 @@
 ion-card {
   background-color: #fdfdfd;
+  border-radius: 15px;
 }
 
 .overlay-container {
@@ -117,24 +118,28 @@ ion-card {
      
    }
   
+   .PostCard{
+    background-color: #F0EFEF;
+    z-index: 2;
+
+  }
    
-  .PostCardHeader{
+   .PostCardHeader{
     display: flex;
+    justify-content: center;
     height: 35%;
     width: 100%;
-    // background-color: #F0EFEF;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     }
     
     .PostImageContainer{
-    width: 15%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
-    
+      width: 15%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      }
     .PostBody{
     display: flex;
         justify-content: center;
@@ -149,33 +154,29 @@ ion-card {
     }
     
     .PostFooter{
-    display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 15%;
-        width: 100%;
-        // background-color: #F0EFEF;
-    }
-
-
-    .icons{
-      //  background-color: wheat;
-      height: 50%;
-      width: 30%;
-      color:#231942;
       display: flex;
-      // flex-direction: column;
-      justify-content: space-around;
-      position: relative;
-      
-       bottom: 20%;
+          justify-content: space-between;
+          align-items: center;
+          width: 97%;
       }
 
-      #icons2{
-        font-size: 25px;
+
+      .icons{
+        height: 50%;
+        width: 30%;
         color:#231942;
-    
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+         padding-bottom: 2%;
+         padding-top:1%;
         }
+
+        #icons2{
+          font-size: 25px;
+          color:#231942;
+      
+          }
     
         #icons2:hover{
           color: purple;
@@ -232,37 +233,30 @@ ion-card {
 
 
 
-  .postImage{
-    width:70px;
-      height: 70px;
-      object-fit: fill;
-      position: relative;
-      border-radius: 10px;
-      position: relative;
-      margin-top: 10px;
+    .postImage{
+      width:70px;
+        height: 70px;
+        object-fit: fill;
+        border-radius: 15px;
+      }
+    
+  .PostDetails{
+    display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 82%;
   }
     
-    .PostDetails{
-    //  background-color: #231942;
+    
+  .TitleNameOptions{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 85%;
-    }
-    
-    
-    .TitleNameOptions{
-    //  background-color: aqua;
-        display: flex;
-        justify-content: space-between;
-        height: 30%;
-        width: 100%;
-        color: black;
-        font-family: CustomFont;
-        font-size: 20px;
-        margin-top: 10px;
-    }
+    justify-content: space-between;
+    height: 30%;
+    width: 100%;
+    color: black;
+    font-family: CustomFont;
+    font-size: 20px;
+}
     
     .Title{
       display: inline-block;
@@ -291,27 +285,35 @@ ion-card {
     }
 
     .Options{
-      // background-color: red;
       font-size: larger;
       position: relative;
-      right: 5%;
-    }
+      right:5%;
+      }
+  
+      .Options:hover{
+        color: #8231DD;
+      }
+
+     .Options2{
+      background-color: #ECECEC;
+     font-size: larger;
+     position: relative;
+     padding-right: 30px;
+ 
+     }
     
     
-    .GenreIcons{
-      // background-color: aqua;
+     .GenreIcons{
       display: flex;
       justify-content: center;
       justify-content: space-between;
       align-items: center;
       height: 30%;
-      width: 20%;
       color: black;
       font-family: CustomFont;
-      position: relative;
-      margin-top: 5px;
-    
-    }
+      margin-left: 1.5%;
+  
+      }
 
 
     .imgDiv{
@@ -683,7 +685,6 @@ ion-card {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  z-index: 1;
 }
 
 .badges img {
@@ -750,7 +751,7 @@ ion-card {
   border: 1px solid #66617F;
   font-size: 15px;
   font-family: CustomFont;
-  padding: 1%;
+  padding: 2%;
 }
 
 .lineBreakers{
@@ -759,21 +760,7 @@ ion-card {
   flex-direction: column;
 align-items: center;}
 
-.Comment{}
 
-.CommentHead{}
-
-.CommentIDs{}
-
-.UserName{}
-
-.CommentStats{}
-
-.comment{}
-
-.CommentBody{}
-
-.CommentReply{}
 
 .lineBreakers{
   width: 100%;
@@ -788,7 +775,6 @@ background-color: #ECECEC;
   display: flex;
   flex-direction: column;
 align-items: center;
-background-color: white;
 
 }
 
@@ -796,7 +782,6 @@ background-color: white;
   width: 90%;
   color: #000000;
   font-family: CustomFont;
-  background-color: white;
   border-radius: 10px;
 }
 
@@ -856,4 +841,37 @@ background-color: white;
 .CommentBody:hover{
   cursor: pointer;
   
+}
+
+.report{
+  font-size: small; position: relative; right: 10%;
+}
+.report:hover{
+cursor:pointer;
+color: #8231DD;
+
+}
+
+.curve{
+  border-radius: 50px;
+}
+
+.Rocket1{
+  position: absolute;
+  z-index: 1;
+  top:95%;
+  animation: moveDiagonal 3s forwards;
+  font-size: larger;
+}
+
+@keyframes moveDiagonal{
+  0%{
+    transform: translate(0, 0);
+    z-index: 1;
+  }
+  100%{
+    transform: translate(600px, -525px);
+    z-index: 1;
+
+  }
 }

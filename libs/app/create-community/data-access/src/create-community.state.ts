@@ -83,7 +83,7 @@ export class CreateCommunityState{
         arr1 = [community.name];
       }
 
-      console.log(arr1);
+      // console.log(arr1);
 
       const request = {
         username: profile.username,

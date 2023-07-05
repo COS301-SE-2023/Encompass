@@ -1,6 +1,6 @@
 .overlay-container {
     overflow:auto;
-    background-color: #f8f8f8;
+    background-color: #F8F8F8;
     width: 100%;
     height: 100%;
     object-fit: fill;
@@ -81,6 +81,7 @@
 .home-text {
   font-size: 22px;
   font-family: CustomFont2;
+  color:black;
 }
 
 @media (max-width: 1622px) {
@@ -106,7 +107,6 @@
   border: 1px solid var(--ion-color-primary-contrast);
   border-radius: 50px;
   padding: 10px 20px;
-  // background-color: #8231DD;
   color: white;
   background-color: var(--ion-color-primary-contrast);
   font-family: CustomFont;
@@ -161,25 +161,19 @@
     width:70px;
       height: 70px;
       object-fit: fill;
-      position: relative;
-      border-radius: 10px;
-      position: relative;
-      margin-top: 10px;
+      border-radius: 15px;
     }
 
     .PostDetails{
-    //  background-color: #231942;
-    display: flex;
+      display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 85%;
+    justify-content: space-evenly;
+    width: 82%;
     }
 
 
 
     .TitleNameOptions{
-    //  background-color: aqua;
         display: flex;
         justify-content: space-between;
         height: 30%;
@@ -187,7 +181,6 @@
         color: black;
         font-family: CustomFont;
         font-size: 20px;
-        margin-top: 10px;
     }
 
     .Title{
@@ -205,30 +198,35 @@ left: 5%;
 
     }
 
+
+    .report{
+      font-size: small; position: relative; right: 10%;
+    }
 .report:hover{
   cursor:pointer;
+  color: #8231DD;
+
 }
     .Options{
-     background-color: white;
     font-size: larger;
     position: relative;
-    padding-right: 30px;
+    right:5%;
+    }
 
+    .Options:hover{
+      color: #8231DD;
     }
 
 
     .GenreIcons{
-    // background-color: aqua;
     display: flex;
     justify-content: center;
     justify-content: space-between;
     align-items: center;
     height: 30%;
-    width: 20%;
     color: black;
     font-family: CustomFont;
-    position: relative;
-    margin-top: 5px;
+    margin-left: 1.5%;
 
     }
 
@@ -277,7 +275,7 @@ left: 5%;
     }
 
     #icons2:hover{
-      color: purple;
+      color: #8231DD;
       cursor: pointer;
     }
 
@@ -289,12 +287,17 @@ left: 5%;
 
     }
 
+    .PostCard{
+      background-color: #F0EFEF;
+
+    }
     .PostCardHeader{
     display: flex;
+    justify-content: center;
     height: 35%;
     width: 100%;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     }
 
 
@@ -314,7 +317,6 @@ left: 5%;
         align-items: center;
         height: 50%;
         width: 100%;
-        // background-color: #F0EFEF;
     }
 
     .PostBody:hover{
@@ -331,10 +333,10 @@ left: 5%;
 
 
     .active-button {
-      color: purple;
+      color: #8231DD;
       font-weight: bold;
       border-radius: 50px ;
-      border: 1px solid purple;
+      border: 1px solid #8231DD;
     }
 
 ion-card {
@@ -358,12 +360,7 @@ ion-card {
   flex-direction: column;
   justify-content: space-evenly;
   position: relative;
-  // align-items: center;
   width: 60%;
-  // left: 30%;
-  // height: auto;
-  // z-index: 3;
-  // background-color: white;
   font-family: CustomFont;
 }
 
@@ -382,15 +379,12 @@ ion-card {
 justify-content: space-evenly;
 height: 50%;
 width: 100%;
-// background-color: #231942;
 }
 
 .CommunityIcon{
   object-fit: cover;
   width: 80px;
   height: 80px;
-  // object-fit: fill;
-  // position: relative;
   margin-top: 10px;
   border-radius: 5px;
 }
@@ -482,16 +476,13 @@ object-fit: fill;
   // align-items: center;
 }
 
-.contentrecs img {
-  width: 100%;
-  height: 80%;
-  object-fit: cover;
+.MediaImage {
+  width: 150px;
+  height: 240px;
+  object-fit: fill;
   border-radius: 10px;
 }
 
-.content-row {
-  justify-content: space-evenly;
-}
 
 
 .specialBtn{
@@ -501,18 +492,77 @@ object-fit: fill;
   border: 1px solid #66617F;
   font-size: 15px;
   font-family: CustomFont;
-  padding: 1%;
+  padding: 2%;
 }
 
 #recommendedBtn{
   font-family: CustomFont;
+  font-size: larger;
+
 }
 #newBtn{
   font-family: CustomFont;
+  font-size: larger;
+
 
 }
 
 #popularBtn{
   font-family: CustomFont;
+  font-size: larger;
+
 }
+
+ion-card{
+  border-radius: 15px;
+}
+
+.header{
+  background-color: #F8F8F8;
+}
+
+
+
+
+.content-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.Media{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 240px;
+  font-family: CustomFont;
+}
+
+.MediaTitle{
+  text-align: center  ;
+  width: 100%;
+  font-size: 30px;
+
+}
+.MediaDate{
+  text-align: center  ;
+  width: 100%;
+  font-size: 20px;
+
+}
+.MediaAuthor{
+  text-align: center  ;
+  width: 100%;
+  font-size: 20px;
+
+}
+
+.MediaGenres{
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
 

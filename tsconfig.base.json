@@ -43,6 +43,9 @@
         "libs/app/comments/feature/src/index.ts"
       ],
       "@encompass/app/comments/util": ["libs/app/comments/util/src/index.ts"],
+      "@encompass/app/community-profile/feature": [
+        "libs/app/community-profile/feature/src/index.ts"
+      ],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
       "@encompass/app/create-community/data-access": [
         "libs/app/create-community/data-access/src/index.ts"

@@ -87,4 +87,19 @@ export abstract class EntityRepository<
       throw new NotFoundException('Unable to find the entity to delete.');
     }
   }
+
+  protected async findAndDeleteByPost(
+    entityFilterQuery: FilterQuery<TSchema>,
+  ): Promise<void> {
+    const deletedEntityDocument = await this.entityModel.deleteMany(
+      entityFilterQuery,
+      {
+        lean: true,
+      },
+    );
+
+    if (!deletedEntityDocument) {
+      throw new NotFoundException('Unable to find the entity to delete.');
+    }
+  }
 }
