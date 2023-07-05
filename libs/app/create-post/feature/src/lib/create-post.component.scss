@@ -106,14 +106,15 @@ ion-select{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 13%;
-    // background-color: red;
+    height: 17%;
 }
 .TextBody{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 47%;
+    height: 45%;
+    position: relative;
+    
 }
 
 ion-textarea.custom {
@@ -163,8 +164,7 @@ ion-textarea.custom {
           }
         
           .Image{
-            height: 10%;
-            // background-color: blue;
+            padding: 0.5%;
             display: flex;
             justify-content: start;
             align-items: center;

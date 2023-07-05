@@ -9,6 +9,7 @@ import { AddReplyRequest } from "./dto/add-reply-request.dto";
 import { DeleteReplyCommand } from "./commands/delete-reply/delete-reply.command";
 import { PostIdGetCommentsQuery } from "./queries/postId-get-comments/postId-get-comments.query";
 import { GetCommentsByUsernameQuery } from "./queries/get-by-username/get-by-username.query";
+import { DeleteByPostIdCommand } from "./commands/delete-by-post-id/delete-by-post-id.command";
 @Controller('comment')
 export class CommentController {
   constructor(
@@ -51,6 +52,15 @@ export class CommentController {
   ){
     return await this.commandBus.execute<DeleteReplyCommand, string>(
       new DeleteReplyCommand(id, replyId),
+    );
+  }
+
+  @Delete('delete-by-post-id/:postId')
+  async deleteByPostId(
+    @Param('postId') postId: string,
+  ){
+    return await this.commandBus.execute<DeleteByPostIdCommand, string>(
+      new DeleteByPostIdCommand(postId),
     );
   }
 

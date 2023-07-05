@@ -13,7 +13,7 @@
                 <div  class = "select" >
                     <ion-select formControlName="community" placeholder="Add a community"  [(ngModel)]="inputValue2" (ionChange)="checkInput()">
                        
-                        <ion-select-option *ngFor="let community of profile.communities" [value]="community" class = "option" >
+                        <ion-select-option *ngFor="let community of profile?.communities" [value]="community" class = "option" >
                            
                             {{ community }}</ion-select-option>
                     </ion-select>

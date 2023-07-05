@@ -47,4 +47,8 @@ export class LoginPage {
 
       
     }
+
+    Back(){
+      this.router.navigate(['welcome']);
+    }
 }
