@@ -159,7 +159,7 @@ Report(n:number){
 }
 
 GoToCommunity(communityName:string){
-
+  this.router.navigate(['community-profile/' + communityName]);
 }
 
 Like(n:number, post: PostDto){

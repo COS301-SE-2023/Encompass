@@ -1,4 +1,14 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ProfileDto } from '@encompass/api/profile/data-access';
+import { ProfileState } from '@encompass/app/profile/data-access';
+import { CommunityState } from '@encompass/app/community-profile/data-access';
+import { CommunityDto } from '@encompass/api/community/data-access';
+import { GetCommunity } from '@encompass/app/community-profile/util';
+
 
 @Component({
   selector: 'community-profile',
@@ -7,4 +17,32 @@ import { Component } from '@angular/core';
 })
 export class CommunityProfileComponent {
 
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
+
+  profile!: ProfileDto | null;
+  community!: CommunityDto | null;
+
+  constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
+    const communityName = this.route.snapshot.paramMap.get('name');
+
+    if(communityName == null){
+      return;
+    }
+
+    this.store.dispatch(new SubscribeToProfile())
+    this.profile$.subscribe((profile) => {
+      if(profile){
+        this.profile = profile;
+      }
+    })
+
+    this.store.dispatch(new GetCommunity(communityName));
+    this.community$.subscribe((community) => {
+      if(community){
+        this.community = community;
+        console.log(community);
+      }
+    })
+  }
 }
