@@ -4,24 +4,34 @@
   </ion-buttons>
 
   <div class="ion-button-group">
-    <ion-button>
-      <ion-icon name="cog" aria-hidden="true" class="ion-padding-end"></ion-icon>
+    <ion-button id="accBtn" class="active-button buttonStyle" fill="clear" (click)="eventChange('accBtn')">
+      <ion-icon name="lock-closed" aria-hidden="true" class="ion-padding-end"></ion-icon>
       <ion-label>Account</ion-label>
     </ion-button>
 
-    <ion-button>
+    <ion-button id="proBtn" class="none buttonStyle" fill="clear" (click)="eventChange('proBtn')">
+      <ion-icon name="person" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-button>
+
+    <ion-button  id="notBtn" class="none buttonStyle" fill="clear" (click)="eventChange('notBtn')">
+      <ion-icon name="notifications" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Notifications</ion-label>
+    </ion-button>
+
+    <ion-button id="messBtn" class="none buttonStyle" fill="clear" (click)="eventChange('messBtn')">
+      <ion-icon name="chatbubble" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Messaging</ion-label>
+    </ion-button>
+
+    <ion-button id="secBtn" class="none buttonStyle" fill="clear" (click)="eventChange('secBtn')">
       <ion-icon name="finger-print" aria-hidden="true" class="ion-padding-end"></ion-icon>
       <ion-label>Security</ion-label>
     </ion-button>
 
-    <ion-button>
-      <ion-icon name="person" aria-hidden="true" class="ion-padding-end"></ion-icon>
+    <ion-button id="privBtn" class="none buttonStyle" fill="clear" (click)="eventChange('privBtn')">
+      <ion-icon name="eye-off" aria-hidden="true" class="ion-padding-end"></ion-icon>
       <ion-label>Privacy</ion-label>
-    </ion-button>
-
-    <ion-button>
-      <ion-icon name="notifications" aria-hidden="true" class="ion-padding-end"></ion-icon>
-      <ion-label>Notifications</ion-label>
     </ion-button>
   </div>
 </ion-toolbar>

@@ -304,5 +304,11 @@ export class ProfilePage {
     this.router.navigate(['app-comments-feature/' + postId]);
   }
 
+  presentingElement: any;
+  presentingElement2: any;
 
+  ngOnInit() {
+    this.presentingElement = document.querySelector('.ion-page');
+    this.presentingElement2 = document.querySelector('.ion-page');
+  }
 }

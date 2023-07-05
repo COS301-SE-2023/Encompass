@@ -866,27 +866,41 @@ ion-card {
   padding-bottom: 10px;
 }
 .profile-info {
-  display: flex;
-  // flex-direction: column;
-  // align-items: center;
+  flex: 1;
+  margin: 0 5px;
   margin-top: 20px;
   background-color: var(--ion-color-secondary);
   border-radius: 50px;
   width: 120px;
   height: 50px;
-  padding-left: 15px;
-  padding-right: 15px;
+  // padding-left: 15px;
+  // padding-right: 15px;
   padding-top: 3px;
   text-align: center;
   font-size: 16px;
+  font-weight: bold;
 }
 
 .info-post {
-  padding-left: 35px;
-  padding-right: 35px;
+  // padding-left: 35px;
+  // padding-right: 35px;
 }
 
 .profile-info-row {
   justify-content: space-evenly;
   margin-left: 15px;
 }
+
+.profile-info-container {
+  display: flex;
+}
+
+.popover-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // height: 100vh;
+  margin-top: 400px;
+  margin-right: 700px;
+}
+
