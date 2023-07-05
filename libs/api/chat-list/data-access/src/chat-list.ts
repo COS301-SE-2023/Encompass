@@ -26,4 +26,13 @@ export class ChatList extends AggregateRoot{
   }[] {
     return this.chatList;
   }
+
+  addChat(chatRef: string, otherUser: string){
+    const chat = {
+      chatRef,
+      otherUser,
+    }
+    const arr = [...this.chatList, chat]
+    this.chatList = arr;
+  }
 }

@@ -8,7 +8,7 @@ import { ChatListEntityRepository } from "./db/chat-list-entity.repository";
 import { ChatListDtoRepository } from "./db/chat-list-dto.repository";
 import { ChatListSchemaFactory } from "./db/chat-list-schema.factory";
 import { ChatListFactory } from "./chat-list.factory";
-import { CreateChatListHandler } from "./commands";
+import { AddChatHandler, CreateChatListHandler } from "./commands";
 import { ChatListCreateHandler } from "./events";
 import { GetChatListHandler } from "./queries";
 
@@ -30,7 +30,8 @@ import { GetChatListHandler } from "./queries";
     ChatListFactory,
     CreateChatListHandler,
     ChatListCreateHandler,
-    GetChatListHandler
+    GetChatListHandler,
+    AddChatHandler
   ]
 })
 
