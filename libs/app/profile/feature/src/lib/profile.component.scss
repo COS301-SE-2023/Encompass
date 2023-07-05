@@ -1,5 +1,6 @@
 ion-card {
   background-color: #fdfdfd;
+  border-radius: 15px;
 }
 
 .overlay-container {
@@ -117,24 +118,28 @@ ion-card {
      
    }
   
+   .PostCard{
+    background-color: #F0EFEF;
+    z-index: 2;
+
+  }
    
-  .PostCardHeader{
+   .PostCardHeader{
     display: flex;
+    justify-content: center;
     height: 35%;
     width: 100%;
-    // background-color: #F0EFEF;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     }
     
     .PostImageContainer{
-    width: 15%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
-    
+      width: 15%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      }
     .PostBody{
     display: flex;
         justify-content: center;
@@ -228,37 +233,30 @@ ion-card {
 
 
 
-  .postImage{
-    width:70px;
-      height: 70px;
-      object-fit: fill;
-      position: relative;
-      border-radius: 10px;
-      position: relative;
-      margin-top: 10px;
+    .postImage{
+      width:70px;
+        height: 70px;
+        object-fit: fill;
+        border-radius: 15px;
+      }
+    
+  .PostDetails{
+    display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 82%;
   }
     
-    .PostDetails{
-    //  background-color: #231942;
+    
+  .TitleNameOptions{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 85%;
-    }
-    
-    
-    .TitleNameOptions{
-    //  background-color: aqua;
-        display: flex;
-        justify-content: space-between;
-        height: 30%;
-        width: 100%;
-        color: black;
-        font-family: CustomFont;
-        font-size: 20px;
-        margin-top: 10px;
-    }
+    justify-content: space-between;
+    height: 30%;
+    width: 100%;
+    color: black;
+    font-family: CustomFont;
+    font-size: 20px;
+}
     
     .Title{
       display: inline-block;
@@ -287,12 +285,14 @@ ion-card {
     }
 
     .Options{
-      background-color: white;
-     font-size: larger;
-     position: relative;
-     padding-right: 30px;
- 
-     }
+      font-size: larger;
+      position: relative;
+      right:5%;
+      }
+  
+      .Options:hover{
+        color: #8231DD;
+      }
 
      .Options2{
       background-color: #ECECEC;
@@ -303,20 +303,17 @@ ion-card {
      }
     
     
-    .GenreIcons{
-      // background-color: aqua;
+     .GenreIcons{
       display: flex;
       justify-content: center;
       justify-content: space-between;
       align-items: center;
       height: 30%;
-      width: 20%;
       color: black;
       font-family: CustomFont;
-      position: relative;
-      margin-top: 5px;
-    
-    }
+      margin-left: 1.5%;
+  
+      }
 
 
     .imgDiv{
@@ -688,7 +685,6 @@ ion-card {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  z-index: 1;
 }
 
 .badges img {
@@ -755,7 +751,7 @@ ion-card {
   border: 1px solid #66617F;
   font-size: 15px;
   font-family: CustomFont;
-  padding: 1%;
+  padding: 2%;
 }
 
 .lineBreakers{
@@ -848,12 +844,34 @@ align-items: center;
 }
 
 .report{
-  font-size: small; 
-  position: relative; 
-  right: 10%;
+  font-size: small; position: relative; right: 10%;
+}
+.report:hover{
+cursor:pointer;
+color: #8231DD;
+
 }
 
-.report:hover{
-  cursor: pointer;
-  color:purple;
+.curve{
+  border-radius: 50px;
+}
+
+.Rocket1{
+  position: absolute;
+  z-index: 1;
+  top:95%;
+  animation: moveDiagonal 3s forwards;
+  font-size: larger;
+}
+
+@keyframes moveDiagonal{
+  0%{
+    transform: translate(0, 0);
+    z-index: 1;
+  }
+  100%{
+    transform: translate(600px, -525px);
+    z-index: 1;
+
+  }
 }

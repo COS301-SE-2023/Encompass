@@ -94,6 +94,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
   },
+ 
   // {
   //   path: 'feed',
   //   pathMatch: 'full',
