@@ -26,6 +26,7 @@ ion-toolbar {
 
     
   }
+  
   .active-button {
     background-color: var(--ion-color-secondary-contrast);
     font-weight: bold;
@@ -40,12 +41,13 @@ ion-toolbar {
 
 
 .header {
-  font-size: 40px;
+  font-size: 30px;
   font-family: customFont;
   width: 70%;
   // text-align: center;
   margin-top: 50px;
   padding-bottom: 10px;
+  font-weight: bold;
 }
 
 .settings {

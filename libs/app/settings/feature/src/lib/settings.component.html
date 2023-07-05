@@ -147,30 +147,16 @@
     <div class="content">
       <ion-list class="custom-list">
         <ion-item lines="none">
-          <ion-label class="info-label">Name</ion-label>
-          <ion-label class="info">Ronin</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-label">Who can send you messages</ion-label>
+          <ion-select placeholder="Everyone">
+            <ion-select-option value="everyone">Everyone</ion-select-option>
+            <ion-select-option value="followers-only">Followers Only</ion-select-option>
+            <ion-select-option value="noone">No One</ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">Surname</ion-label>
-          <ion-label class="info">Brookes</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Username</ion-label>
-          <ion-label class="info">@roninbrookes</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Email</ion-label>
-          <ion-label class="info">thisismyverygoodemail@gmail.com</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Password <br> <a>Passwords must be at least 8 characters long</a></ion-label>
-          <ion-label class="info">*******</ion-label> 
-          <!-- //this does not change -->
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-label">Mark all as read</ion-label>
+          <ion-button fill="clear" class="active-button">Mark as Read</ion-button>
         </ion-item>
       </ion-list>
     </div>
@@ -181,30 +167,20 @@
     <div class="content">
       <ion-list class="custom-list">
         <ion-item lines="none">
-          <ion-label class="info-label">Name</ion-label>
-          <ion-label class="info">Ronin</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-label">People Blocked</ion-label>
+          <ion-icon name="chevron-forward" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">Surname</ion-label>
-          <ion-label class="info">Brookes</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-label">Personalize Posts <br> <a>Give specialized posts on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">Username</ion-label>
-          <ion-label class="info">@roninbrookes</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-label">Personalize Communities <br> <a>Give specialized communities on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">Email</ion-label>
-          <ion-label class="info">thisismyverygoodemail@gmail.com</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Password <br> <a>Passwords must be at least 8 characters long</a></ion-label>
-          <ion-label class="info">*******</ion-label> 
-          <!-- //this does not change -->
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-label">Personalize Content <br> <a>Give specialized content on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
         </ion-item>
       </ion-list>
     </div>
