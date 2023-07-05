@@ -4,6 +4,7 @@ import { GetCommunity } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
+import { Injectable } from '@angular/core';
 
 
 export interface CommunityStateModel{
@@ -15,7 +16,7 @@ export interface CommunityStateModel{
 }
 
 @State<CommunityStateModel>({
-  name: 'community',
+  name: 'communityModel',
   defaults: {
     CommunityStateForm: {
       model: {
@@ -25,6 +26,7 @@ export interface CommunityStateModel{
   }
 })
 
+@Injectable()
 export class CommunityState{
   constructor(private communityApi: CommunityApi){}
   @Action(GetCommunity)
