@@ -28,4 +28,13 @@ export class Chat extends AggregateRoot{
   }[] {
     return this.messages;
   }
+
+  addMessage(
+    username: string,
+    message: string,
+    dateTime: Date,
+  ){
+    const arr = [...this.messages, {username, message, dateTime}]
+    this.messages = arr;
+  }
 }

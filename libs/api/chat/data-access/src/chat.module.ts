@@ -8,7 +8,7 @@ import { ChatEntityRepository } from "./db/chat-entity.repository";
 import { ChatDtoRepository } from "./db/chat-dto.repository";
 import { ChatSchemaFactory } from "./db/chat-schema.factory";
 import { ChatFactory } from "./chat.factory";
-import { CreateChatHandler } from "./commands";
+import { AddMessageHandler, CreateChatHandler } from "./commands";
 import { ChatCreatedEvent } from "./events/create-chat.event";
 import { GetChatHandler } from "./queries";
 
@@ -30,7 +30,8 @@ import { GetChatHandler } from "./queries";
     ChatFactory,
     CreateChatHandler,
     ChatCreatedEvent,
-    GetChatHandler
+    GetChatHandler,
+    AddMessageHandler
   ],
 })
 
