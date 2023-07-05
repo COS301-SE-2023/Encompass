@@ -1,0 +1,25 @@
+.labelhover{
+    display: none;
+}
+
+ion-toolbar {
+    .ion-button-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-grow: 1;
+    }
+  
+    ion-button {
+      --padding-end: 8px; /* Adjust the padding as needed */
+    }
+  
+    ion-icon {
+      font-size: 24px; /* Adjust the icon size as needed */
+    }
+  
+    ion-label {
+      font-size: 14px; /* Adjust the label font size as needed */
+    }
+  }
+  

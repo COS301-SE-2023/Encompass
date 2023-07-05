@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsPage{
   labelHidden = true;
@@ -11,5 +11,6 @@ export class SettingsPage{
   toggleLabel(show: boolean) {
     this.labelHidden = !show;
   }
+
 
 }
