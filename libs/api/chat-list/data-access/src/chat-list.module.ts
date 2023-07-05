@@ -10,6 +10,7 @@ import { ChatListSchemaFactory } from "./db/chat-list-schema.factory";
 import { ChatListFactory } from "./chat-list.factory";
 import { CreateChatListHandler } from "./commands";
 import { ChatListCreateHandler } from "./events";
+import { GetChatListHandler } from "./queries";
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { ChatListCreateHandler } from "./events";
     ChatListSchemaFactory,
     ChatListFactory,
     CreateChatListHandler,
-    ChatListCreateHandler
+    ChatListCreateHandler,
+    GetChatListHandler
   ]
 })
 
