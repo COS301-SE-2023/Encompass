@@ -24,12 +24,14 @@ export class CommunityEntityRepository extends BaseEntityRepository<
         const allCommunities = await this.findAll();
       
         const filteredCommunities = allCommunities.filter(community => {
-          const members = community.members as string[];
-          return !members.includes(id);
+            const members = community.members as string[];
+            const isAdmin = community.admin === id;
+            const isMember = members.includes(id);
+            return !isAdmin && !isMember;
         });
 
         //put AI here
-        
+
       
         return filteredCommunities;
     }
