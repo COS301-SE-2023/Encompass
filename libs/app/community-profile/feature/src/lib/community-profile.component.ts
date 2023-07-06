@@ -7,7 +7,8 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { GetCommunity } from '@encompass/app/community-profile/util';
+import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
+import { PostDto } from '@encompass/api/post/data-access';
 
 
 @Component({
@@ -19,9 +20,11 @@ export class CommunityProfileComponent {
 
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
+  @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
 
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
+  communityPosts!: PostDto[] | null;
 
   constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
     const communityName = this.route.snapshot.paramMap.get('name');
@@ -42,6 +45,14 @@ export class CommunityProfileComponent {
       if(community){
         this.community = community;
         console.log(community);
+      }
+    })
+
+    this.store.dispatch(new GetCommunityPosts(communityName));
+    this.communityPosts$.subscribe((posts) => {
+      if(posts){
+        this.communityPosts = posts;
+        console.log(posts);
       }
     })
   }
