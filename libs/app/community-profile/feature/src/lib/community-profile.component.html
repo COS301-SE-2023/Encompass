@@ -20,7 +20,7 @@
 
      
 
-      <form  (ngSubmit)="onSubmit()" class = "EditDetails" *ngIf = "edit" >
+      <form  [formGroup]="postForm" (ngSubmit)="onSubmit()" class = "EditDetails" *ngIf = "edit" >
           
         <ion-textarea [maxlength]="80" class = "DescInput"  
         placeholder = "Enter New Description" formControlName="text"></ion-textarea>
@@ -29,16 +29,16 @@
 
           <button *ngIf="!hasImage" (click)="insertImage()">Change Photo</button>
           <div *ngIf="hasImage" class = "Image">
-          <!-- <input type="file" class="file-input"
+          <input type="file" class="file-input"
           [accept]="requiredFileType"
-          (change)="onFileSelected($event)" #fileUpload> -->
+          (change)="onFileSelected($event)" #fileUpload>
           </div>
 
           <button *ngIf="!hasBanner">Change Banner</button>
           <div *ngIf="hasBanner" class = "Image">
-            <!-- <input type="file" class="file-input"
+            <input type="file" class="file-input"
             [accept]="requiredFileType"
-            (change)="onFileSelected($event)" #fileUpload> -->
+            (change)="onFileBannerSelected($event)" #fileUpload>
             </div>
 
           <button type = "submit" class="FinishEdit" (click)="FinishEdit()">

@@ -5,12 +5,14 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { CommunityState } from '@encompass/app/community-profile/data-access';
+import { CommunityApi, CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
+import { UpdateCommunity } from '@encompass/app/community-profile/util';
 
 
 @Component({
@@ -20,10 +22,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CommunityProfileComponent {
 
+  requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
+
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
   @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
 
+  file!: File;
+  fileBanner!: File;
+  fileName!: string;
+  fileNameBanner!: string;
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
@@ -35,7 +43,7 @@ export class CommunityProfileComponent {
    members=0;
    hasImage=false;
    hasBanner=false;
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute,private formBuilder: FormBuilder) {
+  constructor(private store: Store, private router: Router, private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if(communityName == null){
@@ -143,14 +151,55 @@ export class CommunityProfileComponent {
 
     const file:File = event.target.files[0];
 
-    // if (file) {
-    //     this.file = file;
-    //     this.fileName = file.name;
-    // }
+    if (file) {
+        this.file = file;
+        this.fileName = file.name;
+    }
   }
 
-  onSubmit(){
+  onFileBannerSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.fileBanner = file;
+        this.fileNameBanner = file.name;
+    }
+  }
+
+  async onSubmit(){
+
+    if(this.community == null){
+      return;
+    }
+
     let textData : string;
+    let imageUrl : string | null;
+    let bannerUrl : string | null;
+
+    if(this.file){
+      imageUrl = await this.uploadImage(this.file, this.fileName);
+
+      if(imageUrl == null){
+        imageUrl = this.community?.groupImage;
+      }
+    }
+
+    else{
+      imageUrl = this.community?.groupImage;
+    }
+
+    if(this.fileBanner){
+      bannerUrl = await this.uploadImage(this.fileBanner, this.fileNameBanner);
+
+      if(bannerUrl == null){
+        bannerUrl = this.community?.bannerImage;
+      }
+    }
+
+    else{
+      bannerUrl = this.community?.bannerImage;
+    }
 
     if(this.text?.value == null || this.text?.value == undefined){
       textData = "";
@@ -158,8 +207,35 @@ export class CommunityProfileComponent {
     else{
       textData = this.text?.value;
     }
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: textData,
+      rules: this.community?.rules,
+      groupImage: imageUrl,
+      bannerImage: bannerUrl,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: this.community?.members,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
   }
 
+  async uploadImage(file: File, fileName: string) : Promise<string | null>{
+    return new Promise((resolve) => {
+      const formData = new FormData();
+      formData.append('file', file, fileName);
+
+      const uploadFile = this.communityApi.uploadFile(formData)
+      console.log(uploadFile);
+      resolve(uploadFile);
+    })
+  }
 
 
   //***********************************UI FUNCTIONS**************************************************** */
