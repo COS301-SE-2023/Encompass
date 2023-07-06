@@ -8,7 +8,8 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
-import { PostDto } from '@encompass/api/post/data-access';
+import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
+import { UpdatePost } from '@encompass/app/home-page/util';
 
 
 @Component({
@@ -25,6 +26,10 @@ export class CommunityProfileComponent {
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
+  likes: number[] =[] ;
+   likedComments: boolean[] = [];
+   shares : number[] = [];
+   sharing: boolean[] = [];
 
   constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
     const communityName = this.route.snapshot.paramMap.get('name');
@@ -53,10 +58,57 @@ export class CommunityProfileComponent {
       if(posts){
         this.communityPosts = posts;
         console.log(posts);
+
+        for(let i =0;i<posts.length;i++){
+
+          this.sharing.push(false);
+
+          if(posts[i].dateAdded!=null&&posts[i].comments!=null
+            &&posts[i].shares!=null){
+              this.shares.push(posts[i].shares);
+        }
+      }
+
       }
     })
   }
 
+
+  GoToComments(postId : string){
+    this.router.navigate(['app-comments-feature/' + postId]);
+  }
+  async Share(n:number, post: PostDto){
+    this.shares[n]++;
+    for(let i =0;i<this.sharing.length;i++){
+      this.sharing[i]=false;
+    }
+    this.sharing[n]=true;
+  
+    const obj = location.origin
+    if(obj == undefined){
+      return;
+    }
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: post.likes,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares + 1,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  
+    const link : string = obj + '/app-comments-feature/' + post._id;
+  
+    await navigator.clipboard.writeText(link)
+  }
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');

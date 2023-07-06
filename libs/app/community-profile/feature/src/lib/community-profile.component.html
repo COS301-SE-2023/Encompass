@@ -2,14 +2,14 @@
 
    <div class = "Banner">
       <img src = "assets/icon/banner.jpg" class="BannerImage">
-      <img src = "assets/icon/profile.jpg" class="CommunityImage">
+      <img src = {{community?.groupImage}} class="CommunityImage">
       
    </div>
    <div class = "Community">
      <div class = "CommunityDetails">
-        <div class = "CommunityName"><label >Community Name</label><ion-icon name="pencil-outline"></ion-icon></div>
-        <div class = "Admin">Created by </div>
-        <div class = "CommunityDescription">Community Description that describes the community</div>
+        <div class = "CommunityName"><label >{{community?.name}}</label><ion-icon name="pencil-outline"></ion-icon></div>
+        <div class = "Admin">Created by {{community?.admin}} </div>
+        <div class = "CommunityDescription">{{community?.about}}</div>
      </div>
      <div class = CommunityOptions>
         <div class = "ListOfOptions">
@@ -67,7 +67,7 @@
       
         <ion-row class="row-filter">
             <ion-col size = "5" >
-              <!-- <div *ngFor="let post of community?.posts.slice().reverse();let i = index">
+              <div *ngFor="let post of communityPosts?.slice()?.reverse();let i = index">
 
                 <ion-card class = "PostCard" >
       
@@ -139,8 +139,8 @@
                       </div>
                       <div style = "text-align: center;">
                         <div *ngIf="profile != null">
-                        <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                        <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                        <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
+                        <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" ></ion-icon>
                         <div>{{post.likes.length}}</div>
                         </div>
                       </div>
@@ -148,7 +148,7 @@
                     </div>
                   </div>
                  </ion-card>
-                </div> -->
+                </div>
             </ion-col>
             <ion-col size = "4" >
                 <ion-card class = "CommunityCard" >
@@ -159,15 +159,15 @@
                     About this Community
                   </div>
                   <div class = "DateCreated">
-                    Created 8th July 2023
+                    Date Created: {{community?.createdAt}}
                   </div>
                   <div class = "Rules">
                     <div class = "RulesTitle">Community Rules:</div>
-                    <div class = "RulesDescr"> No Discrimination. <br> No Spoilers.</div>
+                    <div class = "RulesDescr"> {{community?.rules}}</div>
                   </div>
                   <div class = "Statistics">
-                    <div>#2 Rank</div>
-                    <div>10 Members</div>
+                    <div>#2<br> Rank</div>
+                    <div>10<br> Members</div>
 
                   </div>
                   <div class = "Buttons">

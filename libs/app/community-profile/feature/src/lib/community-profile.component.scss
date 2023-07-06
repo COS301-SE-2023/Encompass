@@ -590,10 +590,11 @@ justify-content: space-evenly;
   margin: 5%;
   border: #D9D9D9 1px solid;
   border-radius: 10px;
-  width: 50%;
+  width: 150px;
   text-align: center;
   font-size: 20px;
   color: #000000;
+  padding: 1%;
 }
 
 .Buttons{
@@ -604,9 +605,9 @@ justify-content: space-evenly;
 }
 
 .Button1{
-  border-radius: 15px;
+  border-radius: 30px;
   font-size: 20px;
-  margin:1%;
+  margin-bottom:2%;
   width:60%;
   padding: 2%;
   color: white;
@@ -614,9 +615,9 @@ justify-content: space-evenly;
 
 }
 .Button2{
-  border-radius: 15px;
+  border-radius: 30px;
   font-size: 20px;
-  margin:1%;
+  margin-bottom:2%;
   width:60%;
   padding: 2%;
   color: black;
