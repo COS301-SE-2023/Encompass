@@ -4,6 +4,7 @@ import { CreateCommunityRequest, UpdateCommunityRequest } from './dto';
 import { CreateCommunityCommand } from './commands/create-community.command';
 import { Community } from './community';
 import { GetCommunityQuery } from './queries/get-community.query';
+import { GetRecommendedCommunitiesQuery } from './queries/recommended/get-recommended-communities.query'
 import { CommunityDto } from './community.dto';
 import { UpdateCommunityCommand } from './commands/update-community/update-community.command';
 import { DoesExistQuery } from './queries/does-exist/does-exist.query';
@@ -29,6 +30,13 @@ export class CommunityController {
     async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
         return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
             new GetCommunityQuery(id),
+        );
+    }
+
+    @Get('get-recommended-communities/:userid')
+    async getRecommendedCommunities(@Param('userid') userId: string): Promise<CommunityDto[]> {
+        return await this.queryBus.execute<GetRecommendedCommunitiesQuery, CommunityDto[]>(
+            new GetRecommendedCommunitiesQuery(userId),
         );
     }
 

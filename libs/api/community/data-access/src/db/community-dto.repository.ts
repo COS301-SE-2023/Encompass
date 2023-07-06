@@ -22,4 +22,10 @@ export class CommunityDtoRepository {
     async getByName(name: string){
         return await this.communityModel.findOne({ name: name });
     }
+
+    
+
+    /*async findCommunitiesByUserId(id: string): Promise<CommunityDto[]> {
+        return await this.findAll();
+    }*/
 }
