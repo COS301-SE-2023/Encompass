@@ -6,11 +6,33 @@
       
    </div>
    <div class = "Community">
-     <div class = "CommunityDetails">
-        <div class = "CommunityName"><label >{{community?.name}}</label><ion-icon name="pencil-outline"></ion-icon></div>
+
+     <div class = "CommunityDetails" *ngIf = "!edit">
+        <div class = "CommunityName">
+          <label >{{community?.name}}</label>
+          <button class = "Edit" (click)="Edit()">
+            <ion-icon name="pencil-outline" ></ion-icon>
+          </button>
+        </div>
         <div class = "Admin">Created by {{community?.admin}} </div>
         <div class = "CommunityDescription">{{community?.about}}</div>
      </div>
+
+     
+
+     <div class = "CommunityDetails" *ngIf = "edit">
+      <form >
+        <div class = "CommunityName">
+          <ion-textarea [maxlength]="15" class = "NameInput"  placeholder = {{community?.name}}></ion-textarea>
+          <button type = "submit" class="FinishEdit" (click)="FinishEdit()">
+            <ion-icon name="checkmark"  ></ion-icon>
+          </button>
+        </div>
+        <ion-textarea [maxlength]="80" class = "DescInput"  placeholder = {{community?.about}}></ion-textarea>
+      </form>
+    </div>
+
+
      <div class = CommunityOptions>
         <div class = "ListOfOptions">
           <button class = "Join">Join</button>
@@ -85,7 +107,7 @@
       
                        
       
-                        <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                        <!-- <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
                       </div>
             
                      </div>
@@ -139,7 +161,7 @@
                       </div>
                       <div style = "text-align: center;">
                         <div *ngIf="profile != null">
-                        <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
+                        <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
                         <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" ></ion-icon>
                         <div>{{post.likes.length}}</div>
                         </div>
@@ -167,7 +189,7 @@
                   </div>
                   <div class = "Statistics">
                     <div>#2<br> Rank</div>
-                    <div>10<br> Members</div>
+                    <div>{{members}}<br> Members</div>
 
                   </div>
                   <div class = "Buttons">

@@ -269,10 +269,10 @@ left: 5%;
 
     }
 
-    #icons2:hover{
-      color: #8231DD;
-      cursor: pointer;
-    }
+    // #icons2:hover{
+    //   color: #8231DD;
+    //   cursor: pointer;
+    // }
 
     .stats{
 
@@ -533,6 +533,11 @@ justify-content: space-evenly;
   border-radius: 15px;
   background-color: #66617F;
   font-size: large;
+  color:white;
+}
+
+.Join:hover{
+  background-color: #8231DD;
 }
 
 .CommunityCard{
@@ -623,4 +628,50 @@ justify-content: space-evenly;
   color: black;
   background-color: #DADADA;
 
+}
+
+.DescInput{
+  font-size: 15px;
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  border: #D9D9D9 1px solid;
+  color: #000000;
+  font-family: CustomFont;
+  
+}
+
+.NameInput{
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 10px;
+  width: 50%;
+  height: auto;
+  border: #D9D9D9 1px solid;
+  color: #000000;
+  font-family: CustomFont;
+}
+
+.Edit{
+  border-radius: 30px;
+  font-size: 20px;
+  width:30%;
+  padding: 2%;
+  color: black;
+  background-color: #DADADA;
+}
+
+.Edit:hover{
+  color: white;
+  background-color: #8231DD;
+}
+
+.FinishEdit{
+  border-radius: 30px;
+  font-size: 20px;
+  width:30%;
+  padding: 2%;
+  color: white;
+  background-color: #66617F;
+  
 }

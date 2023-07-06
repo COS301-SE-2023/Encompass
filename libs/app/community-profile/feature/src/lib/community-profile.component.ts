@@ -30,7 +30,8 @@ export class CommunityProfileComponent {
    likedComments: boolean[] = [];
    shares : number[] = [];
    sharing: boolean[] = [];
-
+   edit=false;
+   members=0;
   constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
@@ -50,6 +51,7 @@ export class CommunityProfileComponent {
       if(community){
         this.community = community;
         console.log(community);
+        this.members = community.members.length;
       }
     })
 
@@ -108,6 +110,13 @@ export class CommunityProfileComponent {
     const link : string = obj + '/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
+  }
+
+  Edit(){
+    this.edit=true;
+  }
+  FinishEdit(){
+    this.edit=false;
   }
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');
