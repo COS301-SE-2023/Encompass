@@ -5,7 +5,7 @@ import { HttpService } from "@nestjs/axios";
 
 @CommandHandler(DeleteCommunityCommand)
 export class DeleteCommunityHandler implements ICommandHandler<DeleteCommunityCommand>{
-  constructor(private readonly communityEntityRepository: CommunityEntityRepository, private readonly httpService: HttpService,){}
+  constructor(private readonly communityEntityRepository: CommunityEntityRepository, private readonly httpService: HttpService){}
 
   async execute({ communityName }: DeleteCommunityCommand){
 

@@ -145,7 +145,7 @@ export class CreateCommunityComponent {
       name: titleData,
       type: this.type,
       admin: this.profile.username,
-      about: "",
+      about: "Group Description",
       rules: "",
       groupImage: imageUrl,
       bannerImage: "",

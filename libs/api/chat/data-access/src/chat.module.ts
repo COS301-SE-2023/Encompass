@@ -11,6 +11,7 @@ import { ChatFactory } from "./chat.factory";
 import { AddMessageHandler, CreateChatHandler } from "./commands";
 import { ChatCreatedEvent } from "./events/create-chat.event";
 import { GetChatHandler } from "./queries";
+import { HttpModule } from "@nestjs/axios";
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { GetChatHandler } from "./queries";
         name: ChatSchema.name,
         schema: SchemaFactory.createForClass(ChatSchema),
       }
-    ])
+    ]),
+    HttpModule
   ],
   controllers: [ChatController],
   providers: [
