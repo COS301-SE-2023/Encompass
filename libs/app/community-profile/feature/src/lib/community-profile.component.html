@@ -1,8 +1,8 @@
 <div class="overlay-container">
 
    <div class = "Banner">
-      <img src = "assets/icon/banner.jpg" class="BannerImage">
-      <img src = {{community?.groupImage}} class="CommunityImage">
+      <img src = {{community?.bannerImage}} onerror="this.src='assets/icon/Banner.png';" class="BannerImage">
+      <img src = {{community?.groupImage}} onerror="this.src='assets/icon/Group.png';" class="CommunityImage">
       
    </div>
    <div class = "Community">
@@ -21,14 +21,14 @@
      
 
      <div class = "CommunityDetails" *ngIf = "edit">
-      <form >
-        <div class = "CommunityName">
-          <ion-textarea [maxlength]="15" class = "NameInput"  placeholder = {{community?.name}}></ion-textarea>
+      <form  (ngSubmit)="onSubmit()">
+        <div class = "ready">
           <button type = "submit" class="FinishEdit" (click)="FinishEdit()">
             <ion-icon name="checkmark"  ></ion-icon>
           </button>
         </div>
-        <ion-textarea [maxlength]="80" class = "DescInput"  placeholder = {{community?.about}}></ion-textarea>
+        <ion-textarea [maxlength]="80" class = "DescInput"  
+        placeholder = "Enter New Description" formControlName="text"></ion-textarea>
       </form>
     </div>
 

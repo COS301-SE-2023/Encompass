@@ -638,19 +638,10 @@ justify-content: space-evenly;
   border: #D9D9D9 1px solid;
   color: #000000;
   font-family: CustomFont;
-  
+  padding: 1%;
 }
 
-.NameInput{
-  font-weight: bold;
-  font-size: 15px;
-  border-radius: 10px;
-  width: 50%;
-  height: auto;
-  border: #D9D9D9 1px solid;
-  color: #000000;
-  font-family: CustomFont;
-}
+
 
 .Edit{
   border-radius: 30px;
@@ -671,7 +662,17 @@ justify-content: space-evenly;
   font-size: 20px;
   width:30%;
   padding: 2%;
-  color: white;
-  background-color: #66617F;
-  
+  color: black;
+  background-color: #DADADA;
 }
+
+.FinishEdit:hover{
+  color: white;
+  background-color: #8231DD;
+}
+
+.ready{
+  
+  display: flex;
+  justify-content: center;
+  margin: 1%;}

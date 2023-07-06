@@ -10,6 +10,7 @@ import { CommunityDto } from '@encompass/api/community/data-access';
 import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { UpdatePost } from '@encompass/app/home-page/util';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class CommunityProfileComponent {
    sharing: boolean[] = [];
    edit=false;
    members=0;
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
+  constructor(private store: Store, private router: Router, private route: ActivatedRoute,private formBuilder: FormBuilder) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if(communityName == null){
@@ -73,6 +74,14 @@ export class CommunityProfileComponent {
 
       }
     })
+  }
+
+  postForm = this.formBuilder.group({
+    text: ['', Validators.maxLength(80)]
+  });
+
+  get text() {
+    return this.postForm.get('text');
   }
 
 
@@ -118,6 +127,21 @@ export class CommunityProfileComponent {
   FinishEdit(){
     this.edit=false;
   }
+
+  onSubmit(){
+    let textData : string;
+
+    if(this.text?.value == null || this.text?.value == undefined){
+      textData = "";
+    }
+    else{
+      textData = this.text?.value;
+    }
+  }
+
+
+
+  //***********************************UI FUNCTIONS**************************************************** */
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
