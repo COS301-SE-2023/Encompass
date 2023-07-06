@@ -20,17 +20,37 @@
 
      
 
-     <div class = "CommunityDetails" *ngIf = "edit">
-      <form  (ngSubmit)="onSubmit()">
-        <div class = "ready">
+      <form  (ngSubmit)="onSubmit()" class = "EditDetails" *ngIf = "edit" >
+          
+        <ion-textarea [maxlength]="80" class = "DescInput"  
+        placeholder = "Enter New Description" formControlName="text"></ion-textarea>
+
+        <div class = "EditButtons">
+
+          <button *ngIf="!hasImage" (click)="insertImage()">Change Photo</button>
+          <div *ngIf="hasImage" class = "Image">
+          <!-- <input type="file" class="file-input"
+          [accept]="requiredFileType"
+          (change)="onFileSelected($event)" #fileUpload> -->
+          </div>
+
+          <button *ngIf="!hasBanner">Change Banner</button>
+          <div *ngIf="hasBanner" class = "Image">
+            <!-- <input type="file" class="file-input"
+            [accept]="requiredFileType"
+            (change)="onFileSelected($event)" #fileUpload> -->
+            </div>
+
           <button type = "submit" class="FinishEdit" (click)="FinishEdit()">
             <ion-icon name="checkmark"  ></ion-icon>
           </button>
+
         </div>
-        <ion-textarea [maxlength]="80" class = "DescInput"  
-        placeholder = "Enter New Description" formControlName="text"></ion-textarea>
+       
+
+       
+
       </form>
-    </div>
 
 
      <div class = CommunityOptions>

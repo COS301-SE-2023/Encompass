@@ -33,6 +33,8 @@ export class CommunityProfileComponent {
    sharing: boolean[] = [];
    edit=false;
    members=0;
+   hasImage=false;
+   hasBanner=false;
   constructor(private store: Store, private router: Router, private route: ActivatedRoute,private formBuilder: FormBuilder) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
@@ -126,6 +128,25 @@ export class CommunityProfileComponent {
   }
   FinishEdit(){
     this.edit=false;
+  }
+
+  insertImage() {
+    this.hasImage = !this.hasImage;
+  }
+
+  insertBanner() {
+    this.hasBanner = !this.hasBanner;
+  }
+
+
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    // if (file) {
+    //     this.file = file;
+    //     this.fileName = file.name;
+    // }
   }
 
   onSubmit(){

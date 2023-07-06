@@ -633,8 +633,8 @@ justify-content: space-evenly;
 .DescInput{
   font-size: 15px;
   border-radius: 10px;
-  width: 100%;
-  height: auto;
+  width: 90%;
+  height: 50%;
   border: #D9D9D9 1px solid;
   color: #000000;
   font-family: CustomFont;
@@ -657,22 +657,44 @@ justify-content: space-evenly;
   background-color: #8231DD;
 }
 
-.FinishEdit{
-  border-radius: 30px;
-  font-size: 20px;
-  width:30%;
-  padding: 2%;
-  color: black;
-  background-color: #DADADA;
-}
 
-.FinishEdit:hover{
-  color: white;
-  background-color: #8231DD;
-}
 
 .ready{
   
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 1%;}
+
+  .EditDetails{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+  }
+
+  .EditButtons{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .EditButtons Button{
+    width: 20%;
+    color: black;
+  background-color: #DADADA;
+    border-radius: 30px;
+    font-size: 15px;
+    padding: 2%;
+  }
+  .EditButtons Button:hover{
+    color: white;
+    background-color: #8231DD;
+  }
+
+  .Image{
+    width: 20%
+  }
+
+  
