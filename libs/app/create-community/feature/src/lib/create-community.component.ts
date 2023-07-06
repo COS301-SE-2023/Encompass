@@ -148,6 +148,7 @@ export class CreateCommunityComponent {
       about: "",
       rules: "",
       groupImage: imageUrl,
+      bannerImage: "",
       categories: categoryData,
       events: [],
       posts: [],
