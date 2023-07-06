@@ -18,6 +18,14 @@ const routes: Routes = [
   },
 
   {
+    path: 'welcome',
+    // pathMatch: 'full',
+    // data: { authGuardPipe: redirectLoggedOut },
+    loadChildren: () =>
+    import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
+  },
+
+  {
     path: 'home',
     // pathMatch: 'full',
     // data: { authGuardPipe: redirectLoggedOut },

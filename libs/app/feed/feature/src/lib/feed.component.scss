@@ -42,13 +42,13 @@
 
 @media (max-width: 1622px) {
   .custom-title {
-    font-size: 250%; 
+    font-size: 250%;
   }
 }
 
 @media (max-width: 1300px) {
   .custom-title {
-    font-size: 200%; 
+    font-size: 200%;
   }
 }
 
@@ -68,13 +68,13 @@
 
 @media (max-width: 1622px) {
   .custom-title {
-    font-size: 250%; 
+    font-size: 250%;
   }
 }
 
 @media (max-width: 1300px) {
   .custom-title {
-    font-size: 200%; 
+    font-size: 200%;
   }
 }
 
@@ -86,13 +86,13 @@
 
 @media (max-width: 1622px) {
   .home-text {
-    font-size: 18px; 
+    font-size: 18px;
   }
 }
 
 @media (max-width: 1300px) {
   .home-text {
-    font-size: 14px; 
+    font-size: 14px;
   }
 }
 
@@ -288,7 +288,7 @@ left: 5%;
     }
 
     .PostCard{
-      background-color: #F0EFEF;
+      background-color: #f8f8f8;
 
     }
     .PostCardHeader{
@@ -340,7 +340,7 @@ left: 5%;
     }
 
 ion-card {
-  background-color: #fdfdfd;
+  background-color: #f8f8f8;
 }
 
 
@@ -361,7 +361,12 @@ ion-card {
   justify-content: space-evenly;
   position: relative;
   width: 60%;
-  font-family: CustomFont;
+  // left: 30%;
+  // height: auto;
+  // z-index: 3;
+  // background-color: white;
+  // font-family: CustomFont;
+  font-weight: 550;
 }
 
 .headtext {
@@ -564,5 +569,3 @@ ion-card{
   justify-content: space-evenly;
   width: 50%;
 }
-
-
