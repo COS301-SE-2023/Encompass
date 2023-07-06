@@ -47,15 +47,4 @@ export abstract class BaseEntityRepository<
   async findSubCommentsByUsername(item: string): Promise<TEntity[]> {
     return await this.find({ replies: {username: item} } as FilterQuery<TSchema>);
   }
-
-  //review this later
-  /*async findCommunitiesByUserId(id: string): Promise<TEntity[]> {
-    const allCommunities = await this.findAll();
-    const communitiesToRemove = await this.find({ members: [id] });
-
-    const filteredCommunities = allCommunities.filter(community => !communitiesToRemove.includes(community));
-
-    return filteredCommunities;
-    //return allCommunities;
-  }*/
 }
