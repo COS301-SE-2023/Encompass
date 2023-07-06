@@ -38,10 +38,12 @@ export class ProfilePage {
    seeComments=false;
    viewreplies : boolean[] = [];
    replies : number[] = [];
-   deletes: boolean[] = [];
-   deleteComment: boolean[] =[];
    size=0;
 
+   deletePost: boolean[] = [];
+   deleteComment: boolean[] =[];
+   MarkedForCommentDeletion: boolean[] = [];
+   MarkedForPostDeletion: boolean[] = [];
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController) {
@@ -63,8 +65,7 @@ export class ProfilePage {
 
             for(let i =0;i<posts.length;i++){
 
-                  this.deletes.push(false);
-                  this.deleteComment.push(false);
+                  this.deletePost.push(false);
                   if(posts[i].dateAdded!=null&&posts[i].comments!=null
                     &&posts[i].shares!=null){
                     this.datesAdded.push(posts[i].dateAdded);
@@ -88,6 +89,8 @@ export class ProfilePage {
                   this.commentsList = comments;
           
                   for(let i =0;i<comments.length;i++){
+                    this.deleteComment.push(false);
+                    this.MarkedForCommentDeletion.push(false);
                     this.viewreplies.push(false);
                     if(comments[i].replies.length>0){
                       this.replies[i]=comments[i].replies.length;
@@ -140,17 +143,19 @@ export class ProfilePage {
 
     const i = this.posts?.length-n-1;
 
-    if(this.deletes[i]==true){
-      for(let k = 0;k<this.deletes.length;k++){
-        this.deletes[k]=false;
+    if(this.deletePost[i]==true){
+      for(let k = 0;k<this.deletePost.length;k++){
+        this.deletePost[k]=false;
      }
     }
     else{
-      for(let k = 0;k<this.deletes.length;k++){
-        this.deletes[k]=false;
+      for(let k = 0;k<this.deletePost.length;k++){
+        this.deletePost[k]=false;
      }
-     this.deletes[i]=true;
+     this.deletePost[i]=true;
     }
+
+    this.MarkedForPostDeletion[i]=true;
   }
 
   Delete2(n:number){
@@ -169,15 +174,21 @@ export class ProfilePage {
      }
      this.deleteComment[n]=true;
     }
+
+   
+     this.MarkedForCommentDeletion[n]=true;
+    
       
     
   }
 
-  DeletePost(post: PostDto){
+  DeletePost(n:number,post: PostDto){
+    this.MarkedForPostDeletion[n]=false;
     this.store.dispatch(new DeletePost(post._id));
   }
 
-  DeleteComment(comment: CommentDto){
+  DeleteComment(n:number,comment: CommentDto){
+    this.MarkedForCommentDeletion[n]=false;
     this.store.dispatch(new DeleteComment(comment._id));
   }
   

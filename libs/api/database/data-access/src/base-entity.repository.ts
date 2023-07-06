@@ -55,4 +55,8 @@ export abstract class BaseEntityRepository<
   async findSubCommentsByUsername(item: string): Promise<TEntity[]> {
     return await this.find({ replies: {username: item} } as FilterQuery<TSchema>);
   }
+
+  async findByCommunity(item: string): Promise<TEntity[]> {
+    return await this.find({ community: item } as FilterQuery<TSchema>);
+  }
 }
