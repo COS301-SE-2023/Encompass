@@ -35,26 +35,33 @@
   <ion-grid>
     <ion-row class="row-filter">
       <ion-col size="5">
-        <ion-card class="Filter" style="margin-bottom: 50px;">
+        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0EFEF;">
           <ion-grid>
             <ion-row class="row-filter">
-              <ion-col size="3">
-                <ion-button id="recommendedBtn" fill="clear" class="active-button" (click)="recChange()">
-                  <ion-icon name="alert-circle-outline" style="margin-right: 5px;"></ion-icon>
-                  Recommended
-                </ion-button>
-              </ion-col>
-              <ion-col size="2">
-                <ion-button id="newBtn" fill="clear" class="none" (click)="newChange()">
-                  <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
-                  New
-                </ion-button>
+              <ion-col size="5">
+                <div style = "display:flex;justify-content:center">
+                  <ion-button id="recommendedBtn" fill="clear" class="active-button" (click)="recChange()">
+                    <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
+                    Recommended
+                  </ion-button>
+                </div>
+               
               </ion-col>
               <ion-col size="3">
+                <div style = "display:flex;justify-content:center">
+                  <ion-button id="newBtn" fill="clear" class="none" (click)="newChange()">
+                    <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
+                    New
+                  </ion-button>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <div style = "display:flex;justify-content:center">
                 <ion-button id="popularBtn" fill="clear" class="none" (click)="popChange()">
                   <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
                   Popular
                 </ion-button>
+              </div>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -64,71 +71,87 @@
 
         <!-- posts -->
 
-        <div *ngFor="let post of posts;let i = index">
+        <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
           <ion-card class = "PostCard" >
+
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
-                <img src =  {{post.communityImageUrl}}  class = "postImage" >
+                <img src =  {{post.communityImageUrl}}  class = "postImage" (click)="GoToCommunity(post.community)">
               </div>
             <div class = "PostDetails"  >
               <div class = "TitleNameOptions">
-                <div style = "display: flex;">
+                <div style = "display: flex; margin-left: 1.5%;">
                   <div class = "Title">{{post.community}}</div>
                   <div class = "Name" > @{{post.username}}</div>
                 </div>
-                <div style = "display: flex;">
-                  <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
-                  style = "font-size: small; position: relative; right: 10%;"
+                <div style = "display: flex; margin-right: 1.5%; ">
+
+                  <label class = "report" *ngIf="reports[size-i]&&!postReported[size-i]" 
                   (click)="ReportPost(i, post)">Report Post</label>
-                  <label *ngIf="reports[i]&&reportedPosts[i]" 
-                  style = "font-size: small; position: relative; right: 10%; color: red;"
+
+                  <label class = "report" *ngIf="post.reported" 
+                  style = "color: red;"
                   >Post Reported.</label>
+
                   <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
                 </div>
       
                </div>
               
-              <div class = "GenreIcons" >
+                <div class = "GenreIcons" >
+                  <div style = "width: 30%; display: flex; justify-content: space-around;">
+                  <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                  </div>
+                  <div style = "width: 70%; display: flex; justify-content: space-evenly;">
+                    <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+                    <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+               </div>
+               </div>
 
-              <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+               
               
 
-            </div>
           </div> 
             </div>
-            <div class = "PostBody"  (click)="GoToComments(post._id)">
+
+
+
+
+
+            <div class = "PostBody" (click)="GoToComments(post._id)">
 
               <div class = "text">
                   <h5>{{post.title}}</h5>
                   <div style = "display:flex;justify-content: center;">
-                    <img src = {{post.imageUrl}} style="border-radius: 10px;" >
+                    <img src = {{post.imageUrl}} style="border-radius: 15px;" >
                   </div>
                   <br>
                   {{post.text}}
               </div>
             </div>
             <div class = "PostFooter">
-              <div class = "date">{{datesAdded[i]}}</div>
-              <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-              <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+              <div class = "date">{{post.dateAdded}}</div>
+             
               
               <div class = "icons">
                 <div style = "text-align: center;">
                   <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
                   <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
-                  <div *ngIf = "!sharing[i]">{{shares[i]}}</div>
+                  <div *ngIf = "!sharing[i]">{{post.shares}}</div>
                   <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
 
                 </div>
                 <div style = "text-align: center;">
                   <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
-                  <div>{{comments[i]}}</div>
+                  <div>{{post.comments}}</div>
                 </div>
                 <div style = "text-align: center;">
-                  <ion-icon name="heart-circle-outline" *ngIf = "likedComments[i]" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                  <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments[i]" (click)="Like(i, post)"></ion-icon>
-                  <div>{{likes[i]}}</div>
+                  <div *ngIf="profile != null">
+                  <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                  <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                  <div>{{post.likes.length}}</div>
+                  </div>
                 </div>
                 
               </div>
@@ -294,18 +317,43 @@
 
             <ion-grid class="contentrecs">
               <ion-row class="content-row">
-                <ion-col size="3">
-                  <img src = "assets/icon/127Hours.jpg" class = "CommunityIcon">
-                  <ion-title style="margin-top: 20px; font-size: small;">127 Hours (2010)</ion-title>
-                </ion-col>
-                <ion-col size="3">
-                  <img src = "assets/icon/Batman.jpg" class = "CommunityIcon">
-                  <ion-title style="margin-top: 20px; font-size: small;">The Batman (2022)</ion-title>
-                </ion-col>
-                <ion-col size="3">
-                  <img src = "assets/icon/GreatGatsby.jpg" class = "CommunityIcon">
-                  <ion-title style="margin-top: 20px; font-size: small;">The Great Gatsby - F. Scott Fitzgerald</ion-title>
-                </ion-col>
+                  <img src = "assets/icon/127Hours.jpg" class = "MediaImage">
+                  <div class = "Media">
+                    <div class = "MediaTitle">127 Hours</div>
+                    <div class = "MediaDate">2010</div>
+                    <div class = "MediaAuthor">That One Guy</div>
+                    <div class = "MediaGenres">
+                      <img src = "assets/icon/Movies.png" class="imgDiv">
+                      <img src = "assets/icon/Drama.png" class="imgDiv">
+                      <img src = "assets/icon/Adventure.png" class="imgDiv">
+                    </div>  
+                  </div>
+              </ion-row>
+              <ion-row class="content-row">
+                  <img src = "assets/icon/Batman.jpg" class = "MediaImage" >
+                  <div class = "Media">
+                    <div class = "MediaTitle">The Batman</div>
+                    <div class = "MediaDate">2022</div>
+                    <div class = "MediaAuthor">Matt Reeves</div>
+                    <div class = "MediaGenres">
+                      <img src = "assets/icon/Movies.png" class="imgDiv">
+                      <img src = "assets/icon/Mystery.png" class="imgDiv">
+                      <img src = "assets/icon/Action.png" class="imgDiv">
+                    </div>  
+                  </div>
+              </ion-row>
+              <ion-row class="content-row">
+                  <img src = "assets/icon/GreatGatsby.jpg" class = "MediaImage">
+                  <div class = "Media">
+                    <div class = "MediaTitle">The Great Gatsby</div>
+                    <div class = "MediaDate">1913</div>
+                    <div class = "MediaAuthor">F. Scott Fitzgerald</div>  
+                    <div class = "MediaGenres">
+                      <img src = "assets/icon/Books.png" class="imgDiv">
+                      <img src = "assets/icon/Romance.png" class="imgDiv">
+                      <img src = "assets/icon/Drama.png" class="imgDiv">
+                    </div>                
+                  </div>
               </ion-row>
             </ion-grid>
              

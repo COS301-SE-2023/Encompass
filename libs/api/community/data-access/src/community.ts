@@ -11,6 +11,7 @@ export class Community extends AggregateRoot{
         public about: string,
         public rules: string,
         public groupImage: string,
+        public bannerImage: string,
         public categories: string[],
         public events: string[],
         public posts: string[],
@@ -49,6 +50,10 @@ export class Community extends AggregateRoot{
         return this.groupImage;
     }
 
+    getBannerImage(): string {
+        return this.bannerImage;
+    }
+
     getCategories(): string[] {
         return this.categories;
     }
@@ -80,6 +85,7 @@ export class Community extends AggregateRoot{
         this.about = updateCommunityRequest.about;
         this.rules = updateCommunityRequest.rules;
         this.groupImage = updateCommunityRequest.groupImage;
+        this.bannerImage = updateCommunityRequest.bannerImage;
         this.categories = updateCommunityRequest.categories;
         this.events = updateCommunityRequest.events;
         this.posts = updateCommunityRequest.posts;
@@ -89,6 +95,11 @@ export class Community extends AggregateRoot{
 
     addPost(postName: string){
         const arr = [...this.posts, postName]
+        this.posts = arr;
+    }
+
+    removePost(postName: string){
+        const arr = this.posts.filter(post => post !== postName);
         this.posts = arr;
     }
 }

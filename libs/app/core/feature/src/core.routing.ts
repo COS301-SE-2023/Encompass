@@ -88,12 +88,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/themes/feature').then((m) => m.ThemesModule)
   },
-  // {
-  //   path: 'feed',
-  //   pathMatch: 'full',
-  //   loadChildren: () =>
-  //   import('@encompass/app/feed/feature').then((m) => m.FeedModule)
-  // }
+  {
+    path: 'welcome',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
+  },
+  {
+    path: 'community-profile/:name',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule)
+  }
 ];
 
 @NgModule({

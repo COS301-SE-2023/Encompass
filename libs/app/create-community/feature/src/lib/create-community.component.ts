@@ -71,7 +71,7 @@ export class CreateCommunityComponent {
 
   isAgeRestricted(){
     this.ageRestricted = !this.ageRestricted;
-    console.log(this.ageRestricted)
+    // console.log(this.ageRestricted)
   }
 
   setPublic(){
@@ -145,13 +145,14 @@ export class CreateCommunityComponent {
       name: titleData,
       type: this.type,
       admin: this.profile.username,
-      about: "",
+      about: "Group Description",
       rules: "",
       groupImage: imageUrl,
+      bannerImage: "",
       categories: categoryData,
       events: [],
       posts: [],
-      members: [],
+      members: [this.profile.username],
       ageRestricted: this.ageRestricted
     };
 

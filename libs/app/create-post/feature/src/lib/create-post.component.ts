@@ -31,7 +31,7 @@ export class CreatePostComponent {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(CreatePostState.url) url$! : Observable<string | null>;
 
-  profile! : ProfileDto;
+  profile! : ProfileDto | null;
   hasImage = false;
   fileName! : string;
   file! : File;
@@ -146,6 +146,10 @@ export class CreatePostComponent {
 
     else{
       categoryData = this.category?.value;
+    }
+
+    if(this.profile == null || this.profile == undefined){
+      return;
     }
 
     const data = {

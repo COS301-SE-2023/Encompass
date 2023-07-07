@@ -1,3 +1,13 @@
+/*
+FILENAME: account.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 27 May 2023
+
+DESCRIPTION: This file defines the account object.
+*/
+
 import { AggregateRoot } from "@nestjs/cqrs";
 
 export class Account extends AggregateRoot{

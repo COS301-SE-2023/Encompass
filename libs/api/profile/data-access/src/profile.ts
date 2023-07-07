@@ -92,4 +92,14 @@ export class Profile extends AggregateRoot{
     this.profileImage = updateProfileRequest.profileImage;
     this.bio = updateProfileRequest.bio;
   }
+
+  removePost(postId: string){
+    if(this.posts) 
+      this.posts = this.posts.filter(post => post !== postId);
+  }
+
+  removeCommunity(communityName: string){
+    if(this.communities)
+      this.communities = this.communities.filter(community => community !== communityName);
+  }
 }

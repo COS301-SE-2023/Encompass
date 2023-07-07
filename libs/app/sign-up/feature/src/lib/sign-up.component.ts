@@ -41,4 +41,8 @@ export class SignUpPage {
         }
       });
     }
+
+    Back(){
+      this.router.navigate(['welcome']);
+    }
 }

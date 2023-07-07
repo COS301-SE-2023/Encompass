@@ -1,3 +1,13 @@
+
+/*
+FILENAME: account-schema.factory.ts
+
+AUTHOR: Sameet Keshav
+
+CREATION DATE: 27 May 2023
+
+DESCRIPTION: **
+*/
 import { Injectable } from "@nestjs/common";
 import { Account } from "../account";
 import { AccountSchema } from "./account.schema";

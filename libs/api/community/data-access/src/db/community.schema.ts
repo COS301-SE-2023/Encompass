@@ -22,6 +22,9 @@ export class CommunitySchema extends IdentifiableEntitySchema {
     readonly groupImage!: string;
 
     @Prop()
+    readonly bannerImage!: string;
+
+    @Prop()
     readonly categories!: string[];
     
     @Prop()

@@ -62,9 +62,11 @@ export class CommentsComponent {
       if(post){
         console.log(post);
         this.post = post;
-        console.log("Categories: " + post.categories);
+        // console.log("Categories: " + post.categories);
         this.likes = post.likes.length;
-        if(post.likes?.includes(post.username)){
+        if(this.profile==undefined){
+          return;}
+        if(post.likes.includes(this.profile.username)){
           this.likedComments=true;
       }
       }
@@ -73,8 +75,8 @@ export class CommentsComponent {
     this.store.dispatch(new GetComments(postId));
     this.comments$.subscribe((comments) => {
       if(comments){
-        console.log("Comments: ")
-        console.log(comments);
+        // console.log("Comments: ")
+        // console.log(comments);
         this.comments = comments;
         for(let i=0;i<comments.length;i++){
           if(comments[i].replies.length>0){
@@ -116,9 +118,9 @@ export class CommentsComponent {
     }else{
       this.isValid = true;
     }
-    console.log("HELLO");
+    // console.log("HELLO");
 
-    console.log(this.isValid);
+    // console.log(this.isValid);
     
   }
 
@@ -132,9 +134,9 @@ export class CommentsComponent {
     }else{
       this.isValid = true;
     }
-    console.log("HELLO");
+    // console.log("HELLO");
 
-    console.log(this.isValid);
+    // console.log(this.isValid);
     
   }
 
@@ -147,7 +149,7 @@ export class CommentsComponent {
   }
 
   ReportPost(){
-    console.log("reporting post");
+    // console.log("reporting post");
   
     if(this.reportedPosts==false){
       this.reportedPosts=true;
@@ -172,6 +174,10 @@ for(let i=0;i<this.reply.length;i++){
     }
 
     if(this.post == undefined){
+      return;
+    }
+
+    if(this.profile == null){
       return;
     }
 

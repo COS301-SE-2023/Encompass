@@ -7,14 +7,15 @@
     align-items: center;
 }
 
-.login{
+.Canvas{
     background-color: #F0EFEF;
     height: 70%;
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
     border-radius: 15px;
+    // flex-direction: column;
 }
 .backgroundImage{
     width: 100%;
@@ -25,24 +26,20 @@
 .logo{
     width: 120px;
     height: 120px;
-    position: absolute;
-    top:17%;
 }
 
 .SignUpDetails{
     width: 350px;
-    height: 250px;
-    // background-color: aqua;
-    position: absolute;
+    height: 300px;
     z-index: 2;
-    top:47%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
 }
 .input{
-    width: 100%;
-    height: 20%;
+    width: 60%;
+    height: 12%;
     text-align: center;
     align-items: center;
     border: #231942 2px solid;
@@ -55,8 +52,8 @@
     background-color: #CECAE3;
     color:#231942;
     z-index: 3;
-    width: 100%;
-    height: 20%;
+    width: 60%;
+    height: 15%;
     font-family: CustomFont;
     text-transform: none;
   
@@ -73,10 +70,9 @@
   .Title{
     font-family: CustomFont;
     color: #231942;
-    position: absolute;
-    top: 35%;
+   
     width: 100%;
-    height: 120px;
+    height: 50px;
     text-align: center;
     font-size: 30px;
   }
@@ -90,4 +86,24 @@
     border-radius: 15px;
 
 
+}
+
+.Details{
+    position: fixed;
+    z-index: 5;
+    width: 50%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.back{
+    width: 100%;
+}
+
+.backButton:hover{
+    cursor: pointer;
+    color: purple;
 }

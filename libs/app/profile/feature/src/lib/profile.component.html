@@ -31,7 +31,7 @@
     <ion-row class="filter-row">
       <ion-col size="5">
 
-        <!-- <ion-button class="comms active-button" fill="clear" (click) = "openPopup()">Create a Post</ion-button> -->
+        <ion-button style="z-index: 1;"class="comms active-button" id = "comm" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
 
         <!-- Posts -->
 
@@ -45,29 +45,34 @@
                 </div>
               <div class = "PostDetails"  >
                 <div class = "TitleNameOptions">
-                  <div style = "display: flex;">
+                  <div style = "display: flex; margin-left: 1.5%;">
                     <div class = "Title">{{post.community}}</div>
                     <div class = "Name" > @{{post.username}}</div>
                   </div>
-                  <div style = "display: flex;">
-                    <!-- <label *ngIf="reportedPosts[i]"> REPORTED</label> -->
-                    <!-- <label class = "report" *ngIf="reports[i]&&!reportedPosts[i]" 
-                    style = "font-size: small; position: relative; right: 10%;"
-                    (click)="ReportPost(i, post)">Report Post</label>
-                    <label *ngIf="reports[i]&&reportedPosts[i]" 
-                    style = "font-size: small; position: relative; right: 10%; color: red;"
-                    >Post Reported.</label>
-                    <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
+                  <div style = "display: flex; margin-right: 1.5%;">
+
+                    <label class = "report" *ngIf="deletePost[i]&&MarkedForPostDeletion[i]" 
+                    (click)="DeletePost(i,post)">Delete Post</label>
+
+                    <label class = "report" *ngIf="deletePost[i]&&!MarkedForPostDeletion[i]" 
+                    style = "color:red">Post Deleted</label>
+                    
+                    <button class = "Options" (click)="Delete(i)"> 
+                      <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
                   </div>
         
                  </div>
                 
                 <div class = "GenreIcons" >
-  
-                <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
-                
-  
-              </div>
+                  <div style = "width: 30%; display: flex; justify-content: space-around;">
+                    <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                    </div>
+                    <div style = "width: 70%; display: flex; justify-content: space-evenly;">
+                      <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+                      <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                  </div>
+                </div>
+
             </div> 
               </div>
               <div class = "PostBody"  (click)="GoToComments(post._id)">
@@ -83,24 +88,24 @@
               </div>
               <div class = "PostFooter">
                 <div class = "date">{{datesAdded[i]}}</div>
-                <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-                <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
                 <div class = "icons">
                   <div style = "text-align: center;">
                     <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
                     <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
-                    <div *ngIf = "!sharing[i]">{{shares[i]}}</div>
+                    <div *ngIf = "!sharing[i]">{{post.shares}}</div>
                     <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
   
                   </div>
                   <div style = "text-align: center;">
                     <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
-                    <div>{{comments[i]}}</div>
+                    <div>{{post.comments}}</div>
                   </div>
                   <div style = "text-align: center;">
-                    <ion-icon name="heart-circle-outline" *ngIf = "likedComments[i]" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments[i]" (click)="Like(i, post)"></ion-icon>
-                    <div>{{likes[i]}}</div>
+                    <div *ngIf="profile != null">
+                    <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                    <div>{{post.likes.length}}</div>
+                    </div>
                   </div>
                   
                 </div>
@@ -121,11 +126,17 @@
                       </div>
                   </div>
                   <div class = "CommentStats">
-                    <!-- <ion-icon name="arrow-undo-outline" class = "reply" (click)="Reply(i)"></ion-icon> -->
+
+                    <label class = "report" *ngIf="deleteComment[i]&&MarkedForCommentDeletion[i]" 
+                    (click)="DeleteComment(i,comment)">Delete Comment</label>
+
+                    <label class = "report" *ngIf="deleteComment[i]&&!MarkedForCommentDeletion[i]" 
+                    style = "color:red">Comment Deleted</label>
+
+                    <button class = "Options2" (click)="Delete2(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                  
                     <ion-icon name="chatbubble-outline" class = "comment" (click)="viewReplies(i)"></ion-icon>
                     {{replies[i]}}
-                    <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
-                    552 -->
                   </div>
                 </div>
                 <div class = "CommentBody" (click)="ViewPostofComment(comment.postId)">{{comment?.text}}</div>
@@ -171,9 +182,9 @@
 
 
 
-      <ion-col size="3">
+      <ion-col size="4">
         
-        <ion-card>
+        <ion-card class = "curve">
           <div style="position: relative">
           <img class="profilePicture" alt="Silhouette of mountains" src="https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg" />
           <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
@@ -219,27 +230,8 @@
             <ion-card-title color="grey">Top Communities</ion-card-title>
           </ion-card-header>
         
-          <ion-card-content>
-            <ion-grid>
-              <ion-row class="small-square-row">
-                <ion-col size="5">
-                  <div class="small-square">
-                    <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
-                    <div class = "CommunityName">Alien</div>
-                    <div class = "CommunityDesc">Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!</div>
-                  </div>
-                </ion-col>
-                <ion-col size="5">
-                  <div class="small-square">
-                    <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
-                    <div class = "CommunityName">Potterheads</div>
-                    <div class = "CommunityDesc">Join in on all things Potterverse!</div>
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+           
             
-          </ion-card-content>
         </ion-card>
 
       </ion-col>
@@ -247,3 +239,5 @@
   </ion-grid>
 
 </div>
+
+<!-- <ion-icon class = "Rocket1" name="rocket-outline"></ion-icon> -->
