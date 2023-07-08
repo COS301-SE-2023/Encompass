@@ -34,7 +34,7 @@
           (change)="onFileSelected($event)" #fileUpload>
           </div>
 
-          <button *ngIf="!hasBanner">Change Banner</button>
+          <button *ngIf="!hasBanner" (click)="insertBanner()">Change Banner</button>
           <div *ngIf="hasBanner" class = "Image">
             <input type="file" class="file-input"
             [accept]="requiredFileType"

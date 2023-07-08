@@ -11,6 +11,7 @@
   width: 100%;
   height: 130px;
   overflow: hidden;
+  background-color: #231942;
 
 }
 
@@ -676,7 +677,7 @@ justify-content: space-evenly;
 
   .EditButtons{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
   }
 
@@ -694,7 +695,8 @@ justify-content: space-evenly;
   }
 
   .Image{
-    width: 20%
+    width: 15%;
+    padding:2%;
   }
 
   

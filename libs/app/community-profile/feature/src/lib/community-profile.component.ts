@@ -136,6 +136,9 @@ export class CommunityProfileComponent {
   }
   FinishEdit(){
     this.edit=false;
+    this.hasImage = !this.hasImage;
+    this.hasBanner = !this.hasBanner;
+
   }
 
   insertImage() {
