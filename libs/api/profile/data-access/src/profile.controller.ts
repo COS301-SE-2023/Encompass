@@ -36,7 +36,6 @@ export class ProfileController {
 
   @Get('get-all')
   async getAllProfiles(){
-    console.log('get all profiles')
     return await this.queryBus.execute<GetAllProfilesQuery, ProfileDto[]>(
       new GetAllProfilesQuery(),
     );

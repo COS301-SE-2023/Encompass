@@ -38,7 +38,7 @@ export class CommunityEntityRepository extends BaseEntityRepository<
         else 
         3NN cluster algo
         */
-        this.countAllProfiles();
+        //this.countAllProfiles();
         
         //make console.log activate after 3 seconds
         
@@ -46,12 +46,12 @@ export class CommunityEntityRepository extends BaseEntityRepository<
         return filteredCommunities;
     }
 
-    async countAllProfiles(): Promise<number> {
+    /*async countAllProfiles(): Promise<number> {
         //count all profile documents in mongodb and return total
         const allProfiles = await this.findAll();
         setTimeout(() => {
             console.log("Total profiles: ", allProfiles.length);
         }, 3000);
         return allProfiles.length;
-    }
+    }*/
 }
