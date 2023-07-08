@@ -43,7 +43,7 @@ import { RemovePostHandler } from "./commands/remove-post/remove-post.handler";
     AddPostHandler,
     GetByNameHandler,
     GetRecommendedCommunitiesHandler,
-    UploadImage
+    UploadImage,
     DeleteCommunityHandler,
     RemovePostHandler
   ],
