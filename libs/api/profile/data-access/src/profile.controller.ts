@@ -27,7 +27,7 @@ export class ProfileController {
     );
   }
 
-  @Get(':id')
+  @Get('/get/:id')
   async getProfile(@Param('id') userId: string) : Promise<ProfileDto>{
     return await this.queryBus.execute<GetProfileQuery, ProfileDto>(
       new GetProfileQuery(userId),
@@ -36,12 +36,13 @@ export class ProfileController {
 
   @Get('get-all')
   async getAllProfiles(){
+    console.log('get all profiles')
     return await this.queryBus.execute<GetAllProfilesQuery, ProfileDto[]>(
       new GetAllProfilesQuery(),
     );
   }
 
-  @Patch(':id')
+  @Patch('/update/:id')
   async updateProfile(
     @Param('id') userId: string, 
     @Body() profile: UpdateProfileRequest){
