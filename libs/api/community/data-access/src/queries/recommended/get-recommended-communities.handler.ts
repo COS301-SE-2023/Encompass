@@ -27,8 +27,15 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             if(userCount <= 3){
                 finalRecommendedCommunities = coldStart(currentUserCategories, recommendedCommunities); //test this
             } else if (userCount > 3) {
-                //K means clustering profiles where K==3
                 const profiles = setupUserArrays(allProfiles);
+                //K means clustering profiles where K==3
+                //get 3 random profiles
+                const randomProfiles = [];
+                for(let i = 0; i < 3; i++){
+                    const randomIndex = Math.floor(Math.random() * profiles.length);
+                    randomProfiles.push(profiles[randomIndex]);
+                    profiles.splice(randomIndex, 1);
+                }
                 
                 console.log(profiles);
             }
