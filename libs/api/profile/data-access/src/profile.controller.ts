@@ -9,6 +9,7 @@ import { UpdateProfileCommand } from "./commands/update-profile/update-profile.c
 import { GetUsernameQuery } from "./queries/get-username/get-username.query";
 import { RemovePostCommand } from "./commands/remove-post/remove-post.command";
 import { RemoveCommunityCommand } from "./commands/remove-community/remove-community.command";
+import { GetAllProfilesQuery } from "./queries/get-all-profiles/getAllProfiles.query";
 
 @Controller('profile')
 export class ProfileController {
@@ -30,6 +31,13 @@ export class ProfileController {
   async getProfile(@Param('id') userId: string) : Promise<ProfileDto>{
     return await this.queryBus.execute<GetProfileQuery, ProfileDto>(
       new GetProfileQuery(userId),
+    );
+  }
+
+  @Get('get-all')
+  async getAllProfiles(){
+    return await this.queryBus.execute<GetAllProfilesQuery, ProfileDto[]>(
+      new GetAllProfilesQuery(),
     );
   }
 

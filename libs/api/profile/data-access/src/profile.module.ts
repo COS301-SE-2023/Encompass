@@ -10,7 +10,7 @@ import { ProfileSchemaFactory } from "./db/profile-schema.factory";
 import { ProfileFactory } from "./profile.factory";
 import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCommunityHandler } from "./commands";
 import { ProfileCreatedHandler } from "./events";
-import { GetProfileHandler, GetUsernameHandler } from "./queries";
+import { GetAllProfilesHandler, GetProfileHandler, GetUsernameHandler } from "./queries";
 import { HttpModule } from "@nestjs/axios";
 
 @Module({
@@ -34,6 +34,7 @@ import { HttpModule } from "@nestjs/axios";
     CreateProfileHandler,
     ProfileCreatedHandler,
     GetProfileHandler,
+    GetAllProfilesHandler,
     UpdateProfileHandler,
     GetUsernameHandler,
     RemovePostHandler,
