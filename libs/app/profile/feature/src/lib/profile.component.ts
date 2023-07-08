@@ -66,6 +66,7 @@ export class ProfilePage {
             for(let i =0;i<posts.length;i++){
 
                   this.deletePost.push(false);
+                  this.MarkedForPostDeletion.push(false);
                   if(posts[i].dateAdded!=null&&posts[i].comments!=null
                     &&posts[i].shares!=null){
                     this.datesAdded.push(posts[i].dateAdded);
@@ -141,9 +142,8 @@ export class ProfilePage {
       return;
     }
 
-    const i = this.posts?.length-n-1;
 
-    if(this.deletePost[i]==true){
+    if(this.deletePost[n]==true){
       for(let k = 0;k<this.deletePost.length;k++){
         this.deletePost[k]=false;
      }
@@ -152,10 +152,10 @@ export class ProfilePage {
       for(let k = 0;k<this.deletePost.length;k++){
         this.deletePost[k]=false;
      }
-     this.deletePost[i]=true;
+     this.deletePost[n]=true;
     }
 
-    this.MarkedForPostDeletion[i]=true;
+    this.MarkedForPostDeletion[n]=true;
   }
 
   Delete2(n:number){
