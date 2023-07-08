@@ -666,7 +666,16 @@ justify-content: space-evenly;
   justify-content: space-evenly;
   margin: 1%;}
 
-  .EditDetails{
+  .EditDetails {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+  }
+
+  .EditDetails form{
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;

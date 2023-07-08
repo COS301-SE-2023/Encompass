@@ -19,8 +19,8 @@
      </div>
 
      
-
-      <form  [formGroup]="postForm" (ngSubmit)="onSubmit()" class = "EditDetails" *ngIf = "edit" >
+     <div *ngIf = "edit" class = "EditDetails" >
+      <form  [formGroup]="postForm" (ngSubmit)="onSubmit()" style="width: 100%; height: 100%;">
           
         <ion-textarea [maxlength]="80" class = "DescInput"  
         placeholder = "Enter New Description" formControlName="text"></ion-textarea>
@@ -51,6 +51,8 @@
        
 
       </form>
+     </div>
+     
 
 
      <div class = CommunityOptions>
