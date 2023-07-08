@@ -18,7 +18,7 @@
         <div class = "CommunityDescription">{{community?.about}}</div>
      </div>
 
-     <div [hidden]="!edit" style="width: 50%;" >
+     <div [hidden]="!edit" style="width: 50%; height: 100%;" >
       <form   [formGroup]="postForm" (ngSubmit)="onSubmit()" class = "EditDetails"  >
           
         <ion-textarea  [maxlength]="80" class = "DescInput"  

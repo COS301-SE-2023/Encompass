@@ -925,3 +925,63 @@ color: #8231DD;
 
   }
 }
+
+.EditDetails {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.EditButtons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.EditBtn{
+  width: 50%;
+  color: black;
+background-color: #DADADA;
+  border-radius: 30px;
+  font-size: 15px;
+  padding: 2%;
+  margin-bottom: 2%;
+
+}
+.EditBtn:hover{
+  color: white;
+  background-color: #8231DD;
+}
+
+.Image{
+  // width: 15%;
+  padding:2%;
+}
+
+.DescInput{
+  text-align: center;
+  font-size: 15px;
+  border-radius: 25px;
+  width: 45%;
+  border: #D9D9D9 1px solid;
+  color: #000000;
+  font-family: CustomFont;
+  padding: 1%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.DescInput2{
+  text-align: center;
+  font-size: 15px;
+  border-radius: 25px;
+  width: 90%;
+  border: #D9D9D9 1px solid;
+  color: #000000;
+  font-family: CustomFont;
+  padding: 1%;
+  margin-bottom: 2%;
+
+}
