@@ -43,7 +43,8 @@ export class CommunityProfileComponent {
    members=0;
    hasImage=false;
    hasBanner=false;
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
+  constructor(private store: Store, private router: Router, 
+    private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if(communityName == null){
@@ -84,8 +85,11 @@ export class CommunityProfileComponent {
 
       }
     })
+
+    
   }
 
+  
   postForm = this.formBuilder.group({
     text: ['', Validators.maxLength(80)]
   });
@@ -135,9 +139,10 @@ export class CommunityProfileComponent {
     this.edit=true;
   }
   FinishEdit(){
+
     this.edit=false;
-    this.hasImage = !this.hasImage;
-    this.hasBanner = !this.hasBanner;
+    this.hasImage = false;
+    this.hasBanner = false;
 
   }
 
@@ -172,6 +177,7 @@ export class CommunityProfileComponent {
 
   async onSubmit(){
 
+    console.log("OH HELLO THERE!!!!!!");
     if(this.community == null){
       return;
     }
