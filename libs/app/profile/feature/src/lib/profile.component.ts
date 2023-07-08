@@ -15,16 +15,30 @@ import { UpdatePost } from '@encompass/app/home-page/util';
 import { CommentDto } from '@encompass/api/comment/data-access';
 import {DeletePost} from '@encompass/app/profile/util';
 import {DeleteComment} from '@encompass/app/profile/util';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
+import { UpdateProfile } from '@encompass/app/profile/util';
+import { ProfileApi } from '@encompass/app/profile/data-access';
+
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfilePage {
+
+  requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
+
+
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
 
+
+  file!: File;
+  fileBanner!: File;
+  fileName!: string;
+  fileNameBanner!: string;
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
@@ -39,6 +53,9 @@ export class ProfilePage {
    viewreplies : boolean[] = [];
    replies : number[] = [];
    size=0;
+   edit=false;
+   hasImage=false;
+   hasBanner=false;
 
    deletePost: boolean[] = [];
    deleteComment: boolean[] =[];
@@ -46,7 +63,8 @@ export class ProfilePage {
    MarkedForPostDeletion: boolean[] = [];
 
 
-  constructor(private router: Router, private store: Store, private modalController: ModalController) {
+  constructor(private router: Router, private store: Store, private modalController: ModalController
+    ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -108,11 +126,32 @@ export class ProfilePage {
     });
    }
 
-   ViewPostofComment(postId: string){
+   postForm = this.formBuilder.group({
+    FirstName: ['', Validators.maxLength(20)],
+    LastName: ['', Validators.maxLength(20)],
+    Bio: ['', Validators.maxLength(20)],
+
+  });
+
+ 
+
+  get FirstName(){
+    return this.postForm.get('FirstName');
+  }
+
+  get LastName() {
+    return this.postForm.get('LastName');
+  }
+
+  get Bio() {
+    return this.postForm.get('Bio');
+  }
+
+ViewPostofComment(postId: string){
     this.router.navigate(['app-comments-feature/' + postId]);
-   }
+  }
     
-   async openPopup() {
+async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
       cssClass: 'custom-modal', // Replace with the component or template for your popup
@@ -124,17 +163,18 @@ export class ProfilePage {
     return await modal.present();
   }
   
-  viewReplies(n:number){
+viewReplies(n:number){
     for(let i=0;i<this.viewreplies.length;i++){
       if(i!=n){
         this.viewreplies[i]=false;
       }
     }
         this.viewreplies[n] =!this.viewreplies[n];
-        }
-
-   
+  }  
         
+Edit(){
+    this.edit=true;
+  }
        
   Delete(n:number){
 
@@ -192,68 +232,6 @@ export class ProfilePage {
     this.store.dispatch(new DeleteComment(comment._id));
   }
   
-  Like(n:number, post: PostDto){
-    this.likedComments[n]=true;
-    this.likes[n]++;
-  
-    let likesArr;
-  
-    const emptyArray : string[] = [];
-    
-    if(this.profile == null){
-      return
-    }
-
-    if(post.likes == emptyArray){
-      likesArr = [this.profile.username];
-    }
-  
-    else{
-      likesArr = [...post.likes, this.profile.username];
-    }
-  
-    const data : UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported
-    }
-  
-    this.store.dispatch(new UpdatePost(post._id, data));
-  }
-  
-  Dislike(n:number, post: PostDto){
-    this.likedComments[n]=false;
-    this.likes[n]--;
-  
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-  
-    const data : UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported
-    }
-  
-    this.store.dispatch(new UpdatePost(post._id, data));
-  }
-  
-  
   
   async Share(n:number, post: PostDto){
     this.shares[n]++;
@@ -288,8 +266,6 @@ export class ProfilePage {
     await navigator.clipboard.writeText(link)
   }
   
-
-
   postChange(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
@@ -343,5 +319,120 @@ export class ProfilePage {
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
     this.presentingElement2 = document.querySelector('.ion-page');
+  }
+
+  FinishEdit(){
+
+    this.edit=false;
+    this.hasImage = false;
+    this.hasBanner = false;
+
+  }
+
+  insertImage() {
+    this.hasImage = !this.hasImage;
+  }
+
+  insertBanner() {
+    this.hasBanner = !this.hasBanner;
+  }
+
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.file = file;
+        this.fileName = file.name;
+    }
+  }
+
+  onFileBannerSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.fileBanner = file;
+        this.fileNameBanner = file.name;
+    }
+  }
+
+  async onSubmit(){
+
+    console.log("OH HELLO THERE!!!!!!");
+    if(this.profile == null){
+      return;
+    }
+
+    let textData : string;
+
+    let First : string;
+    let Last : string;
+    let bioData : string;
+
+    let imageUrl : string | null;
+    let bannerUrl : string | null;
+
+    if(this.file){
+      imageUrl = await this.uploadImage(this.file, this.fileName);
+
+      if(imageUrl == null){
+        imageUrl = this.profile?.profileImage;
+      }
+    }
+
+    else{
+      imageUrl = this.profile?.profileImage;
+    }
+
+    if(this.FirstName?.value == null || this.FirstName?.value == undefined){
+      First = "";
+    }
+    else{
+      First = this.FirstName?.value;
+    }
+
+    if(this.LastName?.value == null || this.LastName?.value == undefined){
+      Last = "";
+    }
+    else{
+      Last = this.LastName?.value;
+    }
+
+    if(this.Bio?.value == null || this.Bio?.value == undefined){
+      bioData = "";
+    }
+    else{
+      bioData = this.Bio?.value;
+    }
+
+    const data : UpdateProfileRequest = {
+  username: this.profile?.username,
+  name: First,
+  lastName: Last,
+  categories:  this.profile?.categories,
+  communities: this.profile?.communities,
+  awards: this.profile?.awards,
+  events: this.profile?.events,
+  followers: this.profile?.followers,
+  following: this.profile?.following,
+  posts: this.profile?.posts,
+  reviews: this.profile?.reviews,
+  profileImage: imageUrl,
+  bio: bioData,
+    }
+
+    this.store.dispatch(new UpdateProfile(data,this.profile?.username));
+  }
+
+  async uploadImage(file: File, fileName: string) : Promise<string | null>{
+    return new Promise((resolve) => {
+      const formData = new FormData();
+      formData.append('file', file, fileName);
+
+      const uploadFile = this.profileApi.uploadFile(formData)
+      console.log(uploadFile);
+      resolve(uploadFile);
+    })
   }
 }
