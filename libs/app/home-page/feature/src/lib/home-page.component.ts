@@ -104,33 +104,6 @@ export class HomePage {
     this.router.navigate(['app-comments-feature']);
   }
 
-  showSearchPanel = false;
-
-  OpenSearch() {
-
-    const menuItem = document.getElementById('main-content');
-    const search = document.getElementById('search-card');
-    const notifications = document.getElementById('notifications-card');
-
-    if (menuItem && this.showSearchPanel == false && search && notifications) {
-      if (this.showNotificationsPanel == true) {
-        notifications.style.setProperty('display', 'none');
-        this.showNotificationsPanel = false;
-      }
-      // menuItem.classList.remove('menu-pane');
-      // menuItem.classList.add('notifications-menu-pane');
-      search.style.setProperty('display', 'block');
-      this.showSearchPanel = true;
-    } else if (menuItem && this.showSearchPanel == true && search ) {
-      // menuItem.classList.add('menu-pane');
-      // menuItem.classList.remove('notifications-menu-pane');
-      search.style.setProperty('display', 'none');
-      this.showSearchPanel = false;
-    }
-
-
-  }
-
   goToExplore(){
     this.routerClick();
     // this.router.navigate(['/home/explore']);
@@ -160,49 +133,22 @@ export class HomePage {
     this.router.navigate(['/']);
   }
 
-  showNotificationsPanel = false;
+  showNotifications = false;
+  showSearch = false;
 
-  openNotifications() {
+  toggleNotifications() {
+    this.showSearch = false;
+    this.showNotifications = !this.showNotifications;
+  }
 
-    const menuItem = document.getElementById('main-content');
-    const notifications = document.getElementById('notifications-card');
-    const search = document.getElementById('search-card');
-
-    if (menuItem && this.showNotificationsPanel == false && notifications && search) {
-      if (this.showSearchPanel == true) {
-        search.style.setProperty('display', 'none');
-        this.showSearchPanel = false;
-      }
-      // menuItem.classList.remove('menu-pane');
-      // menuItem.classList.add('notifications-menu-pane');
-      notifications.style.setProperty('display', 'block');
-      this.showNotificationsPanel = true;
-    } else if (menuItem && this.showNotificationsPanel == true && notifications) {
-      // menuItem.classList.add('menu-pane');
-      // menuItem.classList.remove('notifications-menu-pane');
-      notifications.style.setProperty('display', 'none');
-      this.showNotificationsPanel = false;
-    }
-
-
+  toggleSearch() {
+    this.showNotifications = false;
+    this.showSearch = !this.showSearch;
   }
 
   routerClick() {
-    const menuItem = document.getElementById('main-content');
-    const notifications = document.getElementById('notifications-card');
-    const search = document.getElementById('search-card');
-
-    if (menuItem && notifications && search) {
-      if (this.showSearchPanel == true) {
-        search.style.setProperty('display', 'none');
-        this.showSearchPanel = false;
-      }
-
-      if (this.showNotificationsPanel == true) {
-        notifications.style.setProperty('display', 'none');
-        this.showNotificationsPanel = false;
-      }
-    }
+    this.showNotifications = false;
+    this.showSearch = false;
   }
 
 

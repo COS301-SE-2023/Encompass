@@ -108,7 +108,7 @@ ion-button {
 .notifications-card {
   left: 72px;
   background-color: #F8F8F8;
-  display: none;
+  // display: none;
   border-radius: 0px 20px 20px 0px;
   width: 25%;
 
@@ -117,7 +117,7 @@ ion-button {
 .search-card {
   left: 72px;
   background-color: #F8F8F8;
-  display: none;
+  // display: none;
   border-radius: 0px 20px 20px 0px;
   width: 25%;
 
@@ -167,7 +167,7 @@ ion-button {
   top: 0;
   height: 100%;
   z-index: 2;
-  overflow-y: auto; 
+  overflow: auto; 
 }
 
 .notification-content,
@@ -245,12 +245,21 @@ ion-searchbar {
 
 .search-footer {
 
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  margin-top: 100%;
+
   .search-toolbar {
 
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 20px;
+    bottom: 0px;
     
     .footer-text {
       display: flex;
@@ -264,21 +273,17 @@ ion-searchbar {
   }
 }
 
-.notifications-card::-webkit-scrollbar,
-.search-card::-webkit-scrollbar {
-  width: 0.0em; /* Set the width of the scrollbar */
-}
-
-.notifications-card::-webkit-scrollbar-thumb,
-.search-card::-webkit-scrollbar-thumb {
-  background-color: #888; /* Customize the scrollbar thumb color */
-}
-
-.notifications-card::-webkit-scrollbar-thumb:hover,
-.search-card::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Customize the scrollbar thumb color on hover */
-}
-
 ion-router-outlet {
   transform: translateX(50px); /* Move the content 72 pixels to the right */
+}
+
+.search-card, .notifications-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-content, .notification-content {
+  position: relative;
+  flex: 1;
 }
