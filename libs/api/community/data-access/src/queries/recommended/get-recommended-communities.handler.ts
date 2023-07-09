@@ -27,23 +27,67 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             if(userCount <= 3){
                 finalRecommendedCommunities = coldStart(currentUserCategories, recommendedCommunities); //test this
             } else if (userCount > 3) {
-                const profiles = setupUserArrays(allProfiles);
+                //K means clustering where K==3
+                const k = 3;
+                const profiles: { profile: number[] }[] = setupUserArrays(allProfiles);
+                const tempProfiles: { profile: number[] }[] = Object.values(profiles);
+                /*console.log("profiles:");
+                console.log(profiles);
+                console.log("tempProfiles:");
+                console.log(tempProfiles);*/
                 //K means clustering profiles where K==3
                 //get 3 random profiles
-                const randomProfiles = [];
-                for(let i = 0; i < 3; i++){
-                    const randomIndex = Math.floor(Math.random() * profiles.length);
-                    randomProfiles.push(profiles[randomIndex]);
-                    profiles.splice(randomIndex, 1);
+                const clusters: { clusterCentroid: number[], clusterProfiles: { profile: number[] }[] }[] = [];
+                for(let i = 0; i < k; i++){
+                    const randomIndex = Math.floor(Math.random() * tempProfiles.length);
+                    clusters.push({clusterCentroid: tempProfiles[randomIndex].profile, clusterProfiles: []});
+                    tempProfiles.splice(randomIndex, 1);
                 }
+                console.log("clusters");
+                console.log(clusters);
+                /*console.log("randomProfiles:");
+                console.log(randomProfiles);
+                console.log("tempProfiles:");
+                console.log(tempProfiles);*/
+                //get distance from each profile to each random profile and then assign each profile to the closest random profile
                 
-                console.log(profiles);
+                for(let i = 0; i < k; i++){
+                    const cluster = [];
+                    console.log("randomProfiles[i]:");
+                    for(let j = 0; j < profiles.length; j++){
+                        console.log("profilesLength: "+profiles.length);
+                        console.log("!!!!!!!!");
+                        console.log("centroid[i]:");
+                        console.log(clusters[i].clusterCentroid);
+                        console.log("profiles[j]:");
+                        console.log(profiles[j]);
+                        const distance = getDistance(clusters[i].clusterCentroid, profiles[j]);
+                        console.log("distance: ", distance);
+                        console.log("---------");
+                        cluster.push({profile: profiles[j], distance: distance});
+                    }
+                    //clusters.push(cluster);
+                }
+                console.log("clusters:");
+                console.log(clusters);
             }
             
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
         console.log(userId);
+
+        function getDistance(centroid: number[], profile: { profile: number[] }) {
+            let distance = 0;
+            console.log("profile2.profile.length: ", profile.profile.length);
+            
+            for(let i = 0; i < centroid.length; i++){
+                //console.log("profile1.profile[i]: ", profile1.profile[i]);
+                //console.log(`profile1.profile[${i}]:` , profile1.profile[`${i}`]);
+                distance += Math.pow(centroid[i] - profile.profile[i], 2);
+            }
+            return Math.sqrt(distance);
+        }
 
         function coldStart(currentUserCategories: string[], recommendedCommunities: {community: CommunityDto, count: number}[]) {
             //recommend just by categories
@@ -69,11 +113,11 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
         }
 
         function setupUserArrays( allProfiles: any) {
-            const profiles = [];
+            const profiles: { profile: number[] }[] = [];
             const categories: string[] = [];
             const following: string[] = [];
             const events: string[] = [];
-            const tempProfile = [];
+            const tempProfile: number[] = [];
 
             //add categories from all profiles to categories array, categories array must have unique values
             for(let i = 0; i < allProfiles?.data.length; i++){
@@ -92,7 +136,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     }
                 }
             }
-            //console.log("following: ", following);
+            ////console.log("following: ", following);
 
             //add events from all profiles to events array, events array must have unique values
             for(let i = 0; i < allProfiles?.data.length; i++){
@@ -102,7 +146,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     }
                 }
             }
-            //console.log("events: ", events);
+            ////console.log("events: ", events);
 
             for(let i = 0; i < allProfiles?.data.length; i++){
                 tempProfile.length = 0;
@@ -130,10 +174,19 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                         tempProfile.push(0);
                     }
                 }
-                //console.log("tempProfile: ", tempProfile);
-                profiles.push({ profile: tempProfile});
+                /*//console.log("tempProfile: ", tempProfile);
+                //profiles.push({ profile: tempProfile});
+                
+                //console.log("profiles: ");
+                //console.log(profiles);*/
+                profiles.push({ profile: { ...tempProfile } });
             }
-            return profiles;
+            const convertedProfiles = profiles.map(obj => {
+                const { profile } = obj;
+                const profileArray = Object.values(profile);
+                return { profile: profileArray };
+            });
+            return convertedProfiles;
         }
         return this.communityEntityRepository.findCommunitiesByUserId(userId);
     }
