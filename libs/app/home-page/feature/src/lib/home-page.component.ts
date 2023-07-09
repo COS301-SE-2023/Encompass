@@ -90,14 +90,17 @@ export class HomePage {
   // }
   
   goToProfile() {
+    this.routerClick();
     this.router.navigate(['/home/profile']);
   }
 
   goHome() {
+    this.routerClick();
     this.router.navigate(['/home/feed']);
   }
 
   GoToComments(){
+    this.routerClick();
     this.router.navigate(['app-comments-feature']);
   }
 
@@ -129,19 +132,32 @@ export class HomePage {
   }
 
   goToExplore(){
+    this.routerClick();
     // this.router.navigate(['/home/explore']);
   }
 
   goToChat(){
+    this.routerClick();
     // this.router.navigate(['/home/chat']);
   }
 
   goToSettings(){
+    this.routerClick();
     this.router.navigate(['/home/settings']);
   }
 
   goToThemes(){
+    this.routerClick();
     this.router.navigate(['/home/themes']);
+  }
+
+  goToEvents(){
+    this.routerClick();
+    // this.router.navigate(['/home/events']);
+  }
+
+  logout(){
+    this.router.navigate(['/']);
   }
 
   showNotificationsPanel = false;
