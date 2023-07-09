@@ -1,12 +1,15 @@
 <div class="overlay">
 <ion-split-pane>
-  <ion-menu side="start" contentId="main-content" class="menu-pane">
-      <div class="logoButton" (click)="goHome()">
-        <ion-button fill="clear" class="centeredButton">
-          <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-        </ion-button>
-      </div>
+  <ion-menu type="overlay" side="start" id="main-content" class="menu-pane" >
+
+    <div class="logoButton" (click)="goHome()">
+      <ion-button fill="clear" class="centeredButton">
+        <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+      </ion-button>
+    </div>
+      
     <ion-content class="ion-padding">
+
       <div class="MenuButton" >
         <ion-button fill="clear" id="popover-button" (click)="OpenSearch()">
           <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
@@ -36,14 +39,6 @@
           <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
         </ion-button>
       </div>
-<!-- 
-      <ion-popover trigger="profile-trigger" triggerAction="hover" side="right" alignment="end" showBackdrop="false">
-        <ng-template>
-          <ion-content class="ion-padding hover-ref">Profile</ion-content>
-        </ng-template>
-      </ion-popover> -->
-
-      
       
       <div class="menuFooter">
         <ion-button id="menu-pop" fill="clear">
@@ -79,5 +74,88 @@
     </ion-content>
   </ion-menu>
 
-  <ion-router-outlet id="main-content" class="router-pane"></ion-router-outlet>
+  <div class="notifications-card" id="notifications-card">
+    <ion-header class="noti-header">
+      <div class="noti-text">
+        Notifications
+         <div class="alert"></div>
+        </div>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <div class="user">
+            <div class="alert"></div>
+            <ion-avatar slot="start">
+              <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+            </ion-avatar>
+          </div>
+          <ion-label>
+            <div class="noti-title">
+              <span class="bold-text">Ipsa Lorem replied to your comment in Your Community</span>
+              <span>  ⋅  </span>
+              <span>2h ago</span>
+            </div>
+            <p>Yeah I think your point is very valid!</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </div>
+
+  <div class="search-card" id="search-card">
+      <div class="search-header search-text">
+        Search
+      </div>
+      <ion-searchbar placeholder="Search"></ion-searchbar>
+
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <div class="search-item">
+            <ion-avatar slot="start">
+              <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+            </ion-avatar>
+          </div>
+          <ion-label>
+            <div class="search-title">
+              <span class="bold-text">Mattew McCartney</span>
+            </div>
+            <p>Just here for the long haul.</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <div class="search-item">
+            <ion-avatar slot="start">
+              <ion-img class="categories" src="assets/icon/Rocket.png"></ion-img>
+            </ion-avatar>
+          </div>
+          <ion-label>
+            <div class="search-title">
+              <span class="bold-text">#Sci-Fi</span>
+            </div>
+            <p>234 Posts</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+
+
+      <ion-footer class="search-footer">
+        <ion-toolbar class="search-toolbar">
+          <div class="footer-text">
+            <ion-icon name="search"></ion-icon>
+          <div>
+            Search for 
+            <a>"term"</a>
+          </div>
+          </div>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-content>
+    
+  </div>
+
+  <ion-router-outlet id="main-content" class="router-pane" (click)="routerClick()">
+  </ion-router-outlet>
 </ion-split-pane>

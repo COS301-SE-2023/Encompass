@@ -25,7 +25,7 @@ import { PopoverController } from '@ionic/angular';
 export class HomePage {
   // @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   // @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
-  
+
   // profile! : ProfileDto | null;
   // posts! : PostDto[] | null;
   // reports : boolean[] =[];
@@ -49,7 +49,7 @@ export class HomePage {
   //         this.posts = posts;
   //         for(let i =0;i<posts.length;i++){
   //               this.reports.push(false);
-  //             } 
+  //             }
   //             console.log(this.reports);
   //       }
   //     })
@@ -64,7 +64,7 @@ export class HomePage {
   //       // Add any input properties or data you want to pass to the popup component
   //     }
   //   });
-  
+
   //   return await modal.present();
   // }
 
@@ -76,7 +76,7 @@ export class HomePage {
   //       // Add any input properties or data you want to pass to the popup component
   //     }
   //   });
-  
+
   //   return await modal.present();
   // }
 
@@ -86,50 +86,123 @@ export class HomePage {
   //   }else if(this.reports[n]==false){
   //     this.reports[n]=true;
   //   }
-   
+
   // }
-  
+
   goToProfile() {
+    this.routerClick();
     this.router.navigate(['/home/profile']);
   }
 
   goHome() {
+    this.routerClick();
     this.router.navigate(['/home/feed']);
   }
 
   GoToComments(){
+    this.routerClick();
     this.router.navigate(['app-comments-feature']);
   }
+
+  showSearchPanel = false;
+
   OpenSearch() {
-    // this.router.navigate(['/home/search']);
+
+    const menuItem = document.getElementById('main-content');
+    const search = document.getElementById('search-card');
+    const notifications = document.getElementById('notifications-card');
+
+    if (menuItem && this.showSearchPanel == false && search && notifications) {
+      if (this.showNotificationsPanel == true) {
+        notifications.style.setProperty('display', 'none');
+        this.showNotificationsPanel = false;
+      }
+      // menuItem.classList.remove('menu-pane');
+      // menuItem.classList.add('notifications-menu-pane');
+      search.style.setProperty('display', 'block');
+      this.showSearchPanel = true;
+    } else if (menuItem && this.showSearchPanel == true && search ) {
+      // menuItem.classList.add('menu-pane');
+      // menuItem.classList.remove('notifications-menu-pane');
+      search.style.setProperty('display', 'none');
+      this.showSearchPanel = false;
+    }
+
+
   }
 
   goToExplore(){
+    this.routerClick();
     // this.router.navigate(['/home/explore']);
   }
 
   goToChat(){
+    this.routerClick();
     // this.router.navigate(['/home/chat']);
   }
 
-  openNotifications(){
-    // this.router.navigate(['/home/notifications']);
-  }
-
   goToSettings(){
+    this.routerClick();
     this.router.navigate(['/home/settings']);
   }
 
   goToThemes(){
+    this.routerClick();
     this.router.navigate(['/home/themes']);
   }
 
   goToEvents(){
+    this.routerClick();
     // this.router.navigate(['/home/events']);
   }
 
-  logout() {
+  logout(){
     this.router.navigate(['/']);
+  }
+
+  showNotificationsPanel = false;
+
+  openNotifications() {
+
+    const menuItem = document.getElementById('main-content');
+    const notifications = document.getElementById('notifications-card');
+    const search = document.getElementById('search-card');
+
+    if (menuItem && this.showNotificationsPanel == false && notifications && search) {
+      if (this.showSearchPanel == true) {
+        search.style.setProperty('display', 'none');
+        this.showSearchPanel = false;
+      }
+      // menuItem.classList.remove('menu-pane');
+      // menuItem.classList.add('notifications-menu-pane');
+      notifications.style.setProperty('display', 'block');
+      this.showNotificationsPanel = true;
+    } else if (menuItem && this.showNotificationsPanel == true && notifications) {
+      // menuItem.classList.add('menu-pane');
+      // menuItem.classList.remove('notifications-menu-pane');
+      notifications.style.setProperty('display', 'none');
+      this.showNotificationsPanel = false;
+    }
+
+
+  }
+
+  routerClick() {
+    const menuItem = document.getElementById('main-content');
+    const notifications = document.getElementById('notifications-card');
+    const search = document.getElementById('search-card');
+
+    if (menuItem && notifications && search) {
+      if (this.showSearchPanel == true) {
+        search.style.setProperty('display', 'none');
+        this.showSearchPanel = false;
+      }
+
+      if (this.showNotificationsPanel == true) {
+        notifications.style.setProperty('display', 'none');
+        this.showNotificationsPanel = false;
+      }
+    }
   }
 
 
