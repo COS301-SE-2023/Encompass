@@ -11,6 +11,7 @@ import { ProfileFactory } from "./profile.factory";
 import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCommunityHandler } from "./commands";
 import { ProfileCreatedHandler } from "./events";
 import { GetProfileHandler, GetUsernameHandler } from "./queries";
+import { UploadImage } from "./upload-image.service";
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { GetProfileHandler, GetUsernameHandler } from "./queries";
     GetUsernameHandler,
     RemovePostHandler,
     RemoveCommunityHandler,
+    UploadImage
   ],
 })
 
