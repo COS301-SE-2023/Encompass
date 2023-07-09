@@ -31,45 +31,25 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 const k = 3;
                 const profiles: { profile: number[] }[] = setupUserArrays(allProfiles);
                 const tempProfiles: { profile: number[] }[] = Object.values(profiles);
-                /*console.log("profiles:");
-                console.log(profiles);
-                console.log("tempProfiles:");
-                console.log(tempProfiles);*/
                 //K means clustering profiles where K==3
                 //get 3 random profiles
                 const clusters: { clusterCentroid: number[], clusterProfiles: { profile: number[] }[] }[] = [];
                 for(let i = 0; i < k; i++){
                     const randomIndex = Math.floor(Math.random() * tempProfiles.length);
-                    clusters.push({clusterCentroid: tempProfiles[randomIndex].profile, clusterProfiles: []});
+                    clusters.push({clusterCentroid: Object.values(tempProfiles[randomIndex].profile) , clusterProfiles: []});
                     tempProfiles.splice(randomIndex, 1);
                 }
-                console.log("clusters");
-                console.log(clusters);
-                /*console.log("randomProfiles:");
-                console.log(randomProfiles);
-                console.log("tempProfiles:");
-                console.log(tempProfiles);*/
+
                 //get distance from each profile to each random profile and then assign each profile to the closest random profile
-                
-                for(let i = 0; i < k; i++){
-                    const cluster = [];
-                    console.log("randomProfiles[i]:");
-                    for(let j = 0; j < profiles.length; j++){
-                        console.log("profilesLength: "+profiles.length);
-                        console.log("!!!!!!!!");
-                        console.log("centroid[i]:");
-                        console.log(clusters[i].clusterCentroid);
-                        console.log("profiles[j]:");
-                        console.log(profiles[j]);
-                        const distance = getDistance(clusters[i].clusterCentroid, profiles[j]);
-                        console.log("distance: ", distance);
-                        console.log("---------");
-                        cluster.push({profile: profiles[j], distance: distance});
-                    }
-                    //clusters.push(cluster);
-                }
-                console.log("clusters:");
-                console.log(clusters);
+                let oldCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+                let newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+                do {
+                    //while the centroids are still changing
+                    oldCentroids = newCentroids;
+                    moveProfilesToClosestCentroid(profiles,clusters,k);
+                    calculateNewCentroids(clusters);
+                    newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+                } while ( !arraysAreEqual(oldCentroids, newCentroids) );
             }
             
         } catch (e) {
@@ -77,9 +57,91 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
         }
         console.log(userId);
 
+        function arraysAreEqual(array1: number[][], array2: number[][]) {
+            if(array1.length != array2.length){
+                return false;
+            }
+            for(let i = 0; i < array1.length; i++){
+                if(array1[i].length != array2[i].length){
+                    return false;
+                }
+                for(let j = 0; j < array1[i].length; j++){
+                    if(array1[i][j] != array2[i][j]){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function moveProfilesToClosestCentroid(profiles: { profile: number[] }[], clusters: { clusterCentroid: number[], clusterProfiles: { profile: number[] }[] }[], k: number) {
+            //if all clusterProfiles in clusters are empty, just add profile to closest clusterCentroid else move profile to new closest clusterCentroid
+            const initialClustersEmpty = allClusterProfilesEmpty(clusters);
+            for(let i = 0; i < profiles.length; i++){
+                const distances = [];
+                for(let j = 0; j < k; j++){
+                    distances.push(getDistance(clusters[j].clusterCentroid, profiles[i]));
+                }
+                //get the index of the smallest distance and insert profile into that cluster
+                let smallestDistance = distances[0];
+                let smallestDistanceIndex = 0;
+                for(let j = 0; j < distances.length; j++){
+                    if(distances[j] < smallestDistance){
+                        smallestDistance = distances[j];
+                        smallestDistanceIndex = j;
+                    }
+                }
+
+                //test this!!!
+                if(initialClustersEmpty){
+                    clusters[smallestDistanceIndex].clusterProfiles.push(profiles[i]);
+                } else {
+                    //find the closest clusterCentroid to the profile
+                    //if the profile is already in closest clusterCentroid then do nothing, else move the profile to the new closest clusterCentroid
+                    if(clusters[smallestDistanceIndex].clusterProfiles.includes(profiles[i])){
+                        continue;
+                    } else {
+                        for(let j = 0; j < k; j++){
+                            if(clusters[j].clusterProfiles.includes(profiles[i])) {
+                                clusters[j].clusterProfiles.splice(clusters[j].clusterProfiles.indexOf(profiles[i]), 1);
+                                clusters[smallestDistanceIndex].clusterProfiles.push(profiles[i]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function allClusterProfilesEmpty(clusters: { clusterCentroid: number[], clusterProfiles: { profile: number[] }[] }[]) {
+            for(let i = 0; i < clusters.length; i++){
+                if(clusters[i].clusterProfiles.length != 0){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function calculateNewCentroids(clusters: { clusterCentroid: number[], clusterProfiles: { profile: number[] }[] }[]) {
+            const newCentroid = [];
+            for(let j = 0; j < clusters.length; j++){
+                if(clusters[j].clusterProfiles.length == 0){
+                    continue;
+                }
+                for(let l = 0; l < clusters[0].clusterCentroid.length; l++){
+                    let sum = 0;
+                    for(let k = 0; k < clusters[j].clusterProfiles.length; k++){
+                        sum += clusters[j].clusterProfiles[k].profile[l];
+                    }
+                    newCentroid.push(sum / clusters[j].clusterProfiles.length);
+                    clusters[j].clusterCentroid[l] = sum / clusters[j].clusterProfiles.length; 
+                }   
+            }
+        }
+
         function getDistance(centroid: number[], profile: { profile: number[] }) {
             let distance = 0;
-            console.log("profile2.profile.length: ", profile.profile.length);
+            //console.log("profile2.profile.length: ", profile.profile.length);
             
             for(let i = 0; i < centroid.length; i++){
                 //console.log("profile1.profile[i]: ", profile1.profile[i]);
