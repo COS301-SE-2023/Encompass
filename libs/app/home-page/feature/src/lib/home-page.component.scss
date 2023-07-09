@@ -278,3 +278,7 @@ ion-searchbar {
 .search-card::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* Customize the scrollbar thumb color on hover */
 }
+
+ion-router-outlet {
+  transform: translateX(50px); /* Move the content 72 pixels to the right */
+}
