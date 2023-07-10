@@ -93,10 +93,18 @@ export class ProfileState{
   }
 
   @Action(UpdateProfile)
-  updateProfile(ctx: StateContext<ProfileStateModel>, {updateProfileRequest, userId}: UpdateProfile){
-    const response = this.profileApi.updateProfile(updateProfileRequest, userId);
+  async updateProfile(ctx: StateContext<ProfileStateModel>, {updateProfileRequest, userId}: UpdateProfile){
+    const response = await this.profileApi.updateProfile(updateProfileRequest, userId);
 
     console.log(response);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.patchState({
+      profile: response
+    })
   }
 
   @Action(GetPosts)

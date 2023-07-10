@@ -436,7 +436,7 @@ Edit(){
 
     }
 
-    this.store.dispatch(new UpdateProfile(data,this.profile?.username));
+    this.store.dispatch(new UpdateProfile(data,this.profile?._id));
   }
 
   async uploadImage(file: File, fileName: string) : Promise<string | null>{
