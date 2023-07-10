@@ -14,6 +14,8 @@ import { HomeModule } from '@encompass/app/home-page/data-access';
 import { CreateCommunityModule } from '@encompass/app/create-community/data-access';
 import { CommentsModule } from '@encompass/app/comments/data-access';
 import { CommunityModule } from '@encompass/app/community-profile/data-access';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -31,7 +33,7 @@ import { CommunityModule } from '@encompass/app/community-profile/data-access';
     CommentsModule,
     CommunityModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],
   bootstrap: [CoreShell],
 })
 
