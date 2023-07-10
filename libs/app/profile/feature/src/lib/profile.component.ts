@@ -129,7 +129,7 @@ export class ProfilePage {
    postForm = this.formBuilder.group({
     FirstName: ['', Validators.maxLength(20)],
     LastName: ['', Validators.maxLength(20)],
-    Bio: ['', Validators.maxLength(20)],
+    Bio: ['', Validators.maxLength(150)],
 
   });
 

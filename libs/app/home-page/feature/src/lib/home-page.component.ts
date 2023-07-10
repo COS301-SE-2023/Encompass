@@ -109,7 +109,7 @@ export class HomePage {
   }
 
   goToChat(){
-    // this.router.navigate(['/home/chat']);
+     this.router.navigate(['/home/messages']);
   }
 
   openNotifications(){
