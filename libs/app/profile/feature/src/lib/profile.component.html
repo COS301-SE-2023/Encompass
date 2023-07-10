@@ -187,7 +187,7 @@
         
         <ion-card class = "curve">
           <div style="position: relative">
-          <img class="profilePicture" alt="Silhouette of mountains" src="https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg" />
+          <img class="profilePicture" src={{profile?.profileImage}} onerror="this.src='assets/icon/profile.jpg';"  />
           <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
           </div>
           <ion-card-header *ngIf = "!edit">
