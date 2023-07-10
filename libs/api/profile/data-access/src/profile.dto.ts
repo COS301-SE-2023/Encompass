@@ -14,5 +14,6 @@ export class ProfileDto {
   readonly posts!: string [];
   readonly reviews!: string [];
   readonly profileImage!: string;
+  readonly profileBanner!: string;
   readonly bio!: string;
 }

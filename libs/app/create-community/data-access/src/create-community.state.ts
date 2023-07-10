@@ -98,6 +98,7 @@ export class CreateCommunityState{
         posts: profile.posts,
         reviews: profile.reviews,
         profileImage: profile.profileImage,
+        profileBanner: profile.profileBanner,
         bio: profile.bio,
       }
 

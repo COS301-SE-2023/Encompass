@@ -70,6 +70,7 @@ export class SignUpInterior1Page {
       posts: this.profile.posts,
       reviews: this.profile.reviews,
       profileImage: this.profile.profileImage,
+      profileBanner: this.profile.profileBanner,
       bio: this.profile.bio,
     }
 

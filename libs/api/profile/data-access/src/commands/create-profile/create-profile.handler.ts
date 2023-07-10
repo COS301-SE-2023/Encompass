@@ -1,6 +1,7 @@
 import { CommandHandler, ICommandHandler, EventPublisher } from "@nestjs/cqrs";
 import { CreateProfileCommand } from "./create-profile.command";
 import { ProfileFactory } from "../../profile.factory";
+import { profile } from "console";
 
 @CommandHandler(CreateProfileCommand)
 export class CreateProfileHandler
@@ -25,6 +26,7 @@ export class CreateProfileHandler
         posts, 
         reviews,
         profileImage,
+        profileBanner,
         bio,
       } = createProfileRequest;
 
@@ -43,6 +45,7 @@ export class CreateProfileHandler
           posts, 
           reviews,
           profileImage,
+          profileBanner,
           bio,
         )
       );

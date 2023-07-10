@@ -407,19 +407,20 @@ Edit(){
     }
 
     const data : UpdateProfileRequest = {
-  username: this.profile?.username,
-  name: First,
-  lastName: Last,
-  categories:  this.profile?.categories,
-  communities: this.profile?.communities,
-  awards: this.profile?.awards,
-  events: this.profile?.events,
-  followers: this.profile?.followers,
-  following: this.profile?.following,
-  posts: this.profile?.posts,
-  reviews: this.profile?.reviews,
-  profileImage: imageUrl,
-  bio: bioData,
+      username: this.profile?.username,
+      name: First,
+      lastName: Last,
+      categories:  this.profile?.categories,
+      communities: this.profile?.communities,
+      awards: this.profile?.awards,
+      events: this.profile?.events,
+      followers: this.profile?.followers,
+      following: this.profile?.following,
+      posts: this.profile?.posts,
+      reviews: this.profile?.reviews,
+      profileImage: imageUrl,
+      profileBanner: this.profile?.profileBanner,
+      bio: bioData,
     }
 
     this.store.dispatch(new UpdateProfile(data,this.profile?.username));
