@@ -1,0 +1,229 @@
+.theme-page {
+    background-color: var(--ion-color-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh; 
+    // height: fit-content;
+    padding-top: 20px;
+}
+
+.top-stuff {
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+}
+
+.theme-options {
+    // background-color: rgb(26, 66, 100);
+    height: 350px;
+    width: 700px;
+}
+
+.display-card {
+    right: 3%;
+    width: 600px;
+    height: 350px;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    pointer-events: none;
+}
+
+.card-content-inner {
+    margin-top: 14%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-sample {
+    margin-top: 20%;
+    margin-left: 83%;
+
+    ion-fab-button{
+        pointer-events: none;
+    }
+    
+    ion-icon {
+        color: white;
+        font-size: 40px;
+    }
+}
+
+.post, .comm {
+    width: 45%;
+    height: 50px;
+    text-align: center;
+    padding-top: 13px;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
+.post {
+    color: white;
+    background-color: var(--ion-color-primary);
+}
+
+.comm {
+    margin-top: 10px;
+    border: 1px solid var(--ion-color-primary);
+}
+
+ion-toolbar {
+
+    --background: var(--ion-color-secondary);
+    height: 70px;
+    display: flex;
+
+    .ion-button-group {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    ion-label {
+        font-size: 20px; /* Adjust the label font size as needed */
+    }
+
+
+}
+
+.active-button {
+    background-color: var(--ion-color-secondary-contrast);
+    font-weight: bold;
+    border-radius: 50px;
+}
+
+.buttonStyle {
+    width: 25%;
+    height: 50px;
+    text-align: center;
+    padding-top: 13px;
+}
+
+.pickings {
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    // margin-top: 20px;
+}
+
+.square {
+    width: 126px;
+    height: 126px;
+    border-radius: 10px;
+    // margin-left: 10px;
+    margin-right: 10px;
+    // background-color: aqua;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.square:hover {
+    transform: translate(-3px, -6px);
+}
+
+.square-selected {
+    border: 3px solid var(--ion-color-warning);
+}
+
+.light-heading, .dark-heading, .image-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.light-default {
+    background-color: var(--ion-color-secondary);
+}
+
+.dark-default {
+    background-color: var(--ion-color-primary)
+}
+
+.light-red {
+    background-color: rgb(255, 0, 0);
+}
+
+.dark-red {
+    background-color: rgb(128, 0, 0);
+}
+
+.light-blue {
+    background-color: rgb(0, 0, 255);
+}
+
+.dark-blue {
+    background-color: rgb(0, 0, 128);
+}
+
+.light-green {
+    background-color: rgb(0, 255, 0);
+}
+
+.dark-green {
+    background-color: rgb(0, 128, 0);
+}
+
+.light-orange {
+    background-color: rgb(255, 165, 0);
+}
+
+.dark-orange {
+    background-color: rgb(128, 82, 0);
+}
+
+.image-stuff {
+    // background-color: aqua;
+    // width: 50%;
+    height: 100%;
+    margin-top: 20px;
+    // margin-right: 500px;
+    // margin-left: 100px;
+}
+
+.images {
+    margin-top: 30px;
+    // display: flex;
+    // // flex-direction: column;
+    // align-items: center;
+    // // margin-top: 20px;
+   
+}
+
+.temp {
+    // background-color: black;
+    width: 800px;
+    height: 250px;
+    // margin-right: 20px;
+}
+
+.images {
+    width: 79.8vw;
+    height: 35vmin;
+    display: flex;
+    gap: 5px;
+}
+
+.images img {
+    height: 100%;
+    flex: 1;
+    object-fit: cover;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.images img:hover {
+    flex: 2;
+}
