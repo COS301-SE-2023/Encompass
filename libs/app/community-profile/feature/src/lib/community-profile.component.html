@@ -10,7 +10,7 @@
      <div class = "CommunityDetails" *ngIf = "!edit">
         <div class = "CommunityName">
           <label >{{community?.name}}</label>
-          <button class = "Edit" (click)="Edit()">
+          <button class = "Edit" (click)="Edit()" *ngIf="community?.admin === profile?.username">
             <ion-icon name="pencil-outline" ></ion-icon>
           </button>
         </div>
@@ -52,8 +52,9 @@
 
 
      <div class = CommunityOptions>
-        <div class = "ListOfOptions">
-          <button class = "Join">Join</button>
+        <div class = "ListOfOptions" *ngIf="profile != null && profile != undefined && community != null && community != undefined">
+          <button class = "Join" (click)="join()" *ngIf="!community.members.includes(profile.username)">Join</button>
+          <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
           <ion-icon name="share-social-outline" style="font-size: 25px;"></ion-icon>
           <ion-icon name="notifications-outline" style="font-size: 25px;"></ion-icon>
         </div>

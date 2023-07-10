@@ -246,6 +246,56 @@ export class CommunityProfileComponent {
     })
   }
 
+  join(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    const newMembers : string[] = [...this.community.members, this.profile.username];
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: this.community?.about,
+      rules: this.community?.rules,
+      groupImage: this.community?.groupImage,
+      bannerImage: this.community?.bannerImage,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: newMembers,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+  }
+
+  leave(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+    const ourProfile: string = this.profile.username;
+
+    const newMembers : string[] = this.community.members.filter(member => member != ourProfile);
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: this.community?.about,
+      rules: this.community?.rules,
+      groupImage: this.community?.groupImage,
+      bannerImage: this.community?.bannerImage,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: newMembers,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+  }
 
   //***********************************UI FUNCTIONS**************************************************** */
   recChange(){
