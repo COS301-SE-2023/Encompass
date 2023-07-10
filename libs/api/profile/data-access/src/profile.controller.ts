@@ -13,6 +13,9 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { UseInterceptors } from "@nestjs/common";
 import { UploadedFile } from "@nestjs/common";
 import { UploadImage } from "./upload-image.service";
+import { Request } from "express";
+import { Multer } from "multer";
+
 
 
 @Controller('profile')
