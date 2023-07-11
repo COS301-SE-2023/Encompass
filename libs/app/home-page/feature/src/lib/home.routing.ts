@@ -20,7 +20,8 @@ const routes: Routes = [
       {
         path: 'profile',
         // pathMatch: 'full',
-        loadChildren: () => import('@encompass/app/profile/feature').then((m) => m.ProfileModule), 
+        loadChildren: () => import('@encompass/app/profile/feature').then((m) => m.ProfileModule),
+        // canActivate: [AuthGuard] 
       },
       {
         path: 'themes',

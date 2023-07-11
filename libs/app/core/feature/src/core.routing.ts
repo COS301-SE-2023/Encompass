@@ -29,7 +29,7 @@ const routes: Routes = [
 
   {
     path: 'home',
-    pathMatch: 'full',
+    // pathMatch: 'full',
     // data: { authGuardPipe: redirectLoggedOut },
     loadChildren: () =>
       import('@encompass/app/home-page/feature').then((m) => m.HomeModule),
