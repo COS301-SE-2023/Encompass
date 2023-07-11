@@ -4,6 +4,7 @@ import { CommunityEntityRepository } from "../../db/community-entity.repository"
 import { HttpService } from "@nestjs/axios";
 import { all } from "axios";
 import { CommunityDto } from "../../community.dto";
+import { get } from "http";
 
 @QueryHandler(GetRecommendedCommunitiesQuery)
 export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecommendedCommunitiesQuery> {
@@ -68,29 +69,8 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
 
                 //if cluster has one profile, make an array of all profiles with closest by distance being first, create a communities array and then for each profile in the array, get the communities of the profile and add them to the communities array
                 if(currentCluster?.clusterProfiles.length == 1){
-                    const orderedProfiles = orderProfilesByDistance(profiles, userId);
-                    const orderedProfilesWithCommunities = addCommunitiesToProfiles(orderedProfiles, allProfiles, userId);
-                    const notInCommunityIds = communitiesUserIsNotIn.map(community => community._id);
-                    console.log("notInCommunityIds: ");
-                    console.log(notInCommunityIds);
-                    const rankedCommunities: string[] = [];
-                    for(let i = 0; i < orderedProfiles.length; i++){
-                        //if profile.communities is not empty
-                        console.log("orderedProfilesWithCommunities: ");
-                        console.log(orderedProfilesWithCommunities);
-                        if(orderedProfilesWithCommunities[i].communities.length > 0){
-                            //for each community in profile.communities
-                            for(let j = 0; j < orderedProfilesWithCommunities[i].communities.length; j++){
-                                //if community is not already in communities and in notInCommunityIds 
-                                if(!rankedCommunities.includes(orderedProfilesWithCommunities[i].communities[j]) && notInCommunityIds.includes(orderedProfilesWithCommunities[i].communities[j])){
-                                    //add community to communities
-                                    rankedCommunities.push(orderedProfilesWithCommunities[i].communities[j]);
-                                }
-                            }
-                        }
-                    }
-                    console.log("rankedCommunities: ");
-                    console.log(rankedCommunities);
+                    const rankedCommunities = getRankedCommunities(profiles, userId, allProfiles);
+                    //return rankedCommunities as communityDto[]
                 }// else if (currentCluster?.clusterProfiles.length > 1) {
 
                 //else if cluster has more profiles, get the communities of the profiles in the same cluster as the current userId then remove communities current userId is already in
@@ -103,6 +83,27 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             console.log(e);
         }
         console.log(userId);
+
+        function getRankedCommunities(profiles: { profile: number[], profileId: string }[], userId: string, allProfiles: any) {
+            const orderedProfiles = orderProfilesByDistance(profiles, userId);
+            const orderedProfilesWithCommunities = addCommunitiesToProfiles(orderedProfiles, allProfiles, userId);
+            const notInCommunityIds = communitiesUserIsNotIn.map(community => community._id);
+            const rankedCommunities: string[] = [];
+            for(let i = 0; i < orderedProfiles.length; i++){
+                //if profile.communities is not empty
+                if(orderedProfilesWithCommunities[i].communities.length > 0){
+                    //for each community in profile.communities
+                    for(let j = 0; j < orderedProfilesWithCommunities[i].communities.length; j++){
+                        //if community is not already in communities and in notInCommunityIds 
+                        if(!rankedCommunities.includes(orderedProfilesWithCommunities[i].communities[j]) && notInCommunityIds.includes(orderedProfilesWithCommunities[i].communities[j])){
+                            //add community to communities
+                            rankedCommunities.push(orderedProfilesWithCommunities[i].communities[j]);
+                        }
+                    }
+                }
+            }
+            return rankedCommunities;
+        }
 
         function addCommunitiesToProfiles(orderedProfiles: { profile: number[], profileId: string }[], allProfiles: any, userId: string) {
             //create a new array of profiles with communities
