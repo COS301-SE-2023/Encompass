@@ -1,1 +1,39 @@
-<p>messages works!</p>
+<div class="container">
+    <div class="chat-list">
+
+        
+      <ul>
+        <li style="font-size: 25px;">
+            <label>Username</label>
+            <ion-icon style="font-size: 50px;" 
+            name="chatbubble-ellipses-outline" ></ion-icon>
+        </li>
+        <li>chats</li>
+        <li>User 3</li>
+        <li>User 4</li>
+        <li>User 5</li>
+      </ul>
+    </div>
+    <div class="chat-area" >
+        <div class = "messages" chatScroll>
+            <div class="message">
+                <span class="sender">User 1:</span>
+                <span class="timestamp">July 10, 2023 10:00 AM</span>
+                <p>Hello!</p>
+              </div>
+              <div class="message your-message">
+                <span class="sender">You:</span>
+                <span class="timestamp">July 10, 2023 10:02 AM</span>
+                <p>Hi there!</p>
+              </div>
+        </div>
+      
+      <div class = "Typer">
+        <form class="message-form">
+          <input type="text" placeholder="Type your message here..." />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+

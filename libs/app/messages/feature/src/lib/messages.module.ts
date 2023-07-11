@@ -6,12 +6,13 @@ import { MessagesRouting } from './messages.routing';
 import { NgxsModule } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChatScrollDirective } from './chat-scroll.directive';
 
 // import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
   imports: [CommonModule, IonicModule, MessagesRouting, FormsModule, ReactiveFormsModule],
-  declarations: [MessagesPage],
+  declarations: [MessagesPage,ChatScrollDirective],
   providers: [],
 })
 export class MessagesModule {}
