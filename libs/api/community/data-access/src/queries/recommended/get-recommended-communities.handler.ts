@@ -14,11 +14,14 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
 
     
     async execute({ userId }: GetRecommendedCommunitiesQuery){
-        const communities = await this.communityEntityRepository.findCommunitiesByUserId(userId);
+        //findCommunitiesByUserId(userId) is buggy!!!!
+        const currentUserCommunities = await this.communityEntityRepository.findCommunitiesByUserId(userId);
         //put an if statement here to check if there is more than one community the user is not in
         const url = process.env["BASE_URL"];
         try{
             const allProfiles = await this.httpService.get(url + "api/profile/get-all").toPromise();  //array of profile objects
+            console.log("allProfiles data: ");
+            console.log(allProfiles?.data);
             const userCount = allProfiles?.data?.length;
             const currentUserProfile = await this.httpService.get(url + "api/profile/get/" + userId).toPromise();
             const currentUserCategories = currentUserProfile?.data?.categories;  //array of categories as strings
@@ -57,16 +60,87 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 //console.log(clusters[1].clusterProfiles);
                 //console.log(clusters[2].clusterProfiles);
 
-                //get the communities of the profiles in the same cluster as the current userId, communities the user is not already in
+                //get the communities of the profiles in the same cluster as the current userId the current userId is not already in
                 const currentCluster = clusters.find(cluster => cluster.clusterProfiles.includes(profiles.find(profile => profile.profileId == userId) as { profile: number[]; profileId: string; } ));
-                //console.log("currentCluster: ");
-                //console.log(currentCluster);
+                console.log("currentCluster: ");
+                console.log(currentCluster);
+
+                //if cluster has one profile, make an array of all profiles with closest by distance being first, create a communities array and then for each profile in the array, get the communities of the profile and add them to the communities array
+                if(currentCluster?.clusterProfiles.length == 1){
+                    const orderedProfiles = orderProfilesByDistance(profiles, userId);
+                    const orderedProfilesWithCommunities = addCommunitiesToProfiles(orderedProfiles, allProfiles, userId);
+                    const currentUserCommunityIds = currentUserCommunities.map(community => community._id);
+                    console.log("currentUserCommunityIds: ");
+                    console.log(currentUserCommunityIds);
+                    const rankedCommunities: string[] = [];
+                    for(let i = 0; i < orderedProfiles.length; i++){
+                        //if profile.communities is not empty
+                        if(orderedProfilesWithCommunities[i].communities.length > 0){
+                            //for each community in profile.communities
+                            for(let j = 0; j < orderedProfilesWithCommunities[i].communities.length; j++){
+                                //if community is not already in communities
+                                if(!rankedCommunities.includes(orderedProfilesWithCommunities[i].communities[j]) && !currentUserCommunityIds.includes(orderedProfilesWithCommunities[i].communities[j])){
+                                    //add community to communities
+                                    rankedCommunities.push(orderedProfilesWithCommunities[i].communities[j]);
+                                }
+                            }
+                        }
+                    }
+                }
+                    
+                //}// else if (currentCluster?.clusterProfiles.length > 1) {
+
+                //else if cluster has more profiles, get the communities of the profiles in the same cluster as the current userId then remove communities current userId is already in
+
+                //if no communities are returned, get the communities of closest profile to current userId and rank them by distance with the closest being first
+                
             }
             
         } catch (e) {
             console.log(e);
         }
         console.log(userId);
+
+        function addCommunitiesToProfiles(orderedProfiles: { profile: number[], profileId: string }[], allProfiles: any, userId: string) {
+            //create a new array of profiles with communities
+            const profilesWithCommunities: { profile: number[], profileId: string, communities: string[] }[] = [];
+            for(let i = 0; i < orderedProfiles.length; i++){
+                const profile = orderedProfiles[i];
+                const profileCommunities = getCommunitiesOfProfile(profile.profileId, allProfiles);
+                profilesWithCommunities.push({profile: profile.profile, profileId: profile.profileId, communities: profileCommunities});
+            }
+            return profilesWithCommunities;
+        }
+
+        function getCommunitiesOfProfile(profileId: string, allProfiles: any) {
+            //get the profile of the profileId
+            const profileCommunities: string[] = [];
+            for(let i = 0; i < allProfiles.data.length; i++) {
+                if(allProfiles.data[i]._id == profileId){
+                    console.log("found profile");
+                    console.log(allProfiles.data[i]);
+                    for(let j = 0; j < allProfiles.data[i].communities?.length; j++) {
+                        profileCommunities.push(allProfiles.data[i].communities[j]);
+                    }
+                }
+            }
+            return profileCommunities;
+        }
+
+        function orderProfilesByDistance(profiles: { profile: number[], profileId: string }[], userId: string){
+            //get the profile of the current userId and then get the distance from the current userId to each profile and then order the profiles in a new array by distance with the closest being first
+            const currentUserProfile = profiles.find(profile => profile.profileId == userId);
+            const distances = [];
+            for(let i = 0; i < profiles.length; i++){
+                distances.push({profile: [...profiles[i].profile],profileId: profiles[i].profileId, distance: getDistance(currentUserProfile?.profile as number[], profiles[i])});
+            }
+            distances.sort((a,b) => a.distance - b.distance);
+            //remove first profile
+            distances.shift();
+            //remove distance field in distances array
+            const sortedDistances = distances.map(({ profile, profileId }) => ({ profile, profileId }));
+            return sortedDistances;
+        }
 
         function arraysAreEqual(array1: number[][], array2: number[][]) {
             if(array1.length != array2.length){
@@ -166,15 +240,15 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             //recommend just by categories
             //loop through all communities and order them by how many categories they have in common with the user
             const result = [];
-            for(let i = 0; i < communities.length; i++){
-                const communityCategories = communities[i].categories;
+            for(let i = 0; i < currentUserCommunities.length; i++){
+                const communityCategories = currentUserCommunities[i].categories;
                 let count = 0;
                 for(let j = 0; j < communityCategories.length; j++){
                     if(currentUserCategories.includes(communityCategories[j])){
                         count++;
                     }
                 }
-                recommendedCommunities.push({community: communities[i], count: count});
+                recommendedCommunities.push({community: currentUserCommunities[i], count: count});
             }
             recommendedCommunities.sort((a, b) => (a.count > b.count) ? -1 : 1);
             
