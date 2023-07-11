@@ -2,9 +2,7 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetRecommendedCommunitiesQuery } from "./get-recommended-communities.query";
 import { CommunityEntityRepository } from "../../db/community-entity.repository"
 import { HttpService } from "@nestjs/axios";
-import { all } from "axios";
 import { CommunityDto } from "../../community.dto";
-import { get } from "http";
 
 @QueryHandler(GetRecommendedCommunitiesQuery)
 export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecommendedCommunitiesQuery> {
@@ -43,7 +41,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 finalRecommendedCommunities = coldStart(currentUserCategories, recommendedCommunities); //test this
             } else if (userCount > 3) {
                 //K means clustering where K==3
-                const k = 2;
+                const k = defineK(userCount);
                 const profiles: profileType = setupUserArrays(allProfiles);
                 const tempProfiles: profileType = Object.values(profiles);
                 //K means clustering profiles where K==3
@@ -95,6 +93,13 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
         } catch (e) {
             console.log(e);
             return [];
+        }
+
+        function defineK(userCount: number) {
+            //define K as the square root of the number of users
+            const k = Math.sqrt(userCount);
+            //round down
+            return Math.floor(k);
         }
 
         function getRankedCommunities(profiles: profileType, userId: string, allProfiles: any, cluster?: singleClusterType) {
