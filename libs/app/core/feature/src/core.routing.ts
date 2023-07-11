@@ -45,6 +45,24 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/comments/feature').then((m) => m.CommentsModule)
   },
+  {
+    path: 'privacy',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/privacy/feature').then((m) => m.PrivacyModule)
+  },
+  {
+    path: 'team',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/team/feature').then((m) => m.TeamModule)
+  },
+  {
+    path: 'tscs',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/tsandcs/feature').then((m) => m.TsandcsModule)
+  },
 
   // {
   //   path: 'profile',
