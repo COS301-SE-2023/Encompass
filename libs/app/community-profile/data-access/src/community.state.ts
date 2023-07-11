@@ -1,6 +1,6 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
+import { GetCommunity, GetCommunityPosts, UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
@@ -83,6 +83,22 @@ export class CommunityState{
     })
   }
 
+  @Action(UpdateCommunity)
+  async updateCommunity(ctx: StateContext<CommunityStateModel>, {communityId, updateCommunityRequest}: UpdateCommunity){
+    const response = await this.communityApi.updateCommunity(communityId, updateCommunityRequest);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunityStateForm: {
+        model: {
+          community: response
+        }
+      }
+    })
+  }
 
   @Selector()
   static community(state: CommunityStateModel){

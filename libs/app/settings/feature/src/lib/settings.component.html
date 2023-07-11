@@ -1,36 +1,191 @@
 <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button color="dark" defaultHref="/home"></ion-back-button>
-    </ion-buttons>
+  <ion-buttons slot="start">
+    <ion-back-button color="dark" defaultHref="/home"></ion-back-button>
+  </ion-buttons>
+
+  <div class="ion-button-group">
+    <ion-button id="accBtn" class="active-button buttonStyle" fill="clear" (click)="eventChange('accBtn')">
+      <ion-icon name="lock-closed" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Account</ion-label>
+    </ion-button>
+
+    <ion-button id="proBtn" class="none buttonStyle" fill="clear" (click)="eventChange('proBtn')">
+      <ion-icon name="person" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-button>
+
+    <ion-button  id="notBtn" class="none buttonStyle" fill="clear" (click)="eventChange('notBtn')">
+      <ion-icon name="notifications" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Notifications</ion-label>
+    </ion-button>
+
+    <ion-button id="messBtn" class="none buttonStyle" fill="clear" (click)="eventChange('messBtn')">
+      <ion-icon name="chatbubble" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Messaging</ion-label>
+    </ion-button>
+
+    <ion-button id="privBtn" class="none buttonStyle" fill="clear" (click)="eventChange('privBtn')">
+      <ion-icon name="eye-off" aria-hidden="true" class="ion-padding-end"></ion-icon>
+      <ion-label>Privacy</ion-label>
+    </ion-button>
+  </div>
+</ion-toolbar>
+
+<ion-content>
+
+  <div class="account-settings settings">
+    <ion-header class="header">Account Settings</ion-header>
+    <div class="content">
+      <ion-list class="custom-list">
+        <ion-item lines="none">
+          <ion-label class="info-label">Name</ion-label>
+          <ion-label class="info">Ronin</ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Surname</ion-label>
+          <ion-label class="info">Brookes</ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Username</ion-label>
+          <ion-label class="info">@roninbrookes</ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Email</ion-label>
+          <ion-label class="info">thisismyverygoodemail@gmail.com</ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Password <br> <a>Passwords must be at least 8 characters long</a></ion-label>
+          <ion-label class="info">*******</ion-label> 
+          <!-- //this does not change -->
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="profile-settings settings">
+    <ion-header class="header">Profile Customization Settings</ion-header>
+    <div class="content">
+      <ion-list class="custom-list">
+        <ion-item lines="none">
+          <ion-label class="info-label">Bio
+            <br>
+            <a>This is my bio</a>
+          </ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label" style="height: 100px;">Profile Picture 
+          <ion-avatar>
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+          </ion-avatar>
+        </ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Banner <br>
+          <img style="margin-top: 10px;" src="https://learn.canva.com/wp-content/uploads/2020/02/removing-background-images_Unsplash.jpeg" alt="Avatar" class="banner"></ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Private Profile
+            <br>
+            <a>Only people you approve can see your profile</a>
+          </ion-label>
+          <ion-toggle labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="notification-settings settings">
+    <ion-header class="header">Notifications Settings</ion-header>
+    <div class="content">
+      <ion-list class="custom-list">
+        <ion-item lines="none">
+          <ion-label class="info-label">DMs <br> <a>Send notifications if you've received a personal message</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Follows <br> <a>Send notifications if someone has followed you</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Post Mentions <br> <a>Send notifications if you were tagged in a post</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Comment Mentions <br> <a>Send notifications if you were tagged in a comment</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Comment Replies <br> <a>Send notifications if there was a reply to a comment</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">recommended Posts <br> <a>Send notifications of new recommended posts</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">recommended Content and Communities <br> <a>Send notifications of new recommended content or communities</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="messaging-settings settings">
+    <ion-header class="header">Messaging Settings</ion-header>
+    <div class="content">
+      <ion-list class="custom-list">
+        <ion-item lines="none">
+          <ion-label class="info-label">Who can send you messages</ion-label>
+          <ion-select placeholder="Everyone">
+            <ion-select-option value="everyone">Everyone</ion-select-option>
+            <ion-select-option value="followers-only">Followers Only</ion-select-option>
+            <ion-select-option value="noone">No One</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Mark all as read</ion-label>
+          <ion-button fill="clear" class="active-button">Mark as Read</ion-button>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="privacy-settings settings">
+    <ion-header class="header">Privacy Settings</ion-header>
+    <div class="content">
+      <ion-list class="custom-list">
+        <ion-item lines="none">
+          <ion-label class="info-label">People Blocked</ion-label>
+          <ion-icon name="chevron-forward" color="dark" class="edit-icons"></ion-icon>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Personalize Posts <br> <a>Give specialized posts on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Personalize Communities <br> <a>Give specialized communities on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">Personalize Content <br> <a>Give specialized content on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons"></ion-toggle><br /><br />
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
   
-    <ion-buttons style="flex: 1; justify-content: space-between;">
-      <ion-button routerLink="account-settings" style="margin-right: auto;">
-        <ion-icon name="cog" aria-hidden="true" class="ion-padding-end"></ion-icon>
-        <ion-label>Account</ion-label>
-      </ion-button>
-  
-      <ion-button routerLink="security-settings">
-        <ion-icon name="finger-print" aria-hidden="true" class="ion-padding-end"></ion-icon>
-        <ion-label>Security</ion-label>
-      </ion-button>
-  
-      <ion-button routerLink="privacy-settings">
-        <ion-icon name="person" aria-hidden="true" class="ion-padding-end"></ion-icon>
-        <ion-label>Privacy</ion-label>
-      </ion-button>
-  
-      <ion-button routerLink="notifications-settings" style="margin-left: auto;">
-        <ion-icon name="notifications" aria-hidden="true" class="ion-padding-end"></ion-icon>
-        <ion-label>Notifications</ion-label>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  
-  <ion-content>
-    <ion-button (mouseover)="toggleLabel(true)" (mouseout)="toggleLabel(false)">Hello</ion-button>
-    <ion-label [hidden]="labelHidden" id="label">This is the settings page</ion-label>
-  </ion-content>
-  
-  
-  
-  
+
+</ion-content>
+

@@ -83,9 +83,9 @@
   .Overlayt {
     position: absolute;
     z-index: 1;
-    top: 20%;
+    top: 24%;
     left: 20%;
-    font-size: 300%;
+    font-size: 330%;
     color: #231942;
     font-family: CustomFont;
     
@@ -95,26 +95,21 @@
   .Overlayt2 {
     position: absolute;
     z-index: 1;
-    top: 28%;
+    top: 30%;
     left: 20.5%;
-    font-size: 100%;
+    font-size: 150%;
     color: #231942;
-    font-family: CustomFont;
-    
-
+    // font-family: CustomFont;
   }
 
   .Overlayt3 {
     position: absolute;
-
     z-index: 2;
     top: 95%;
-    left: 42%;
     font-size: 100%;
     color: white;
     font-family: CustomFont;
-   // 
-
+    left: 20%
   }
 }
 
@@ -133,10 +128,9 @@
   height: 7%;
   font-family: CustomFont2;
   text-transform: none;
-  
-
-
+  font-size: 150%;
 }
+
 .btn2{
   border: 2px solid var(--ion-color-primary-contrast);
   border-radius: 30px;
@@ -150,8 +144,7 @@
   height: 7%; 
   font-family: CustomFont2;
   text-transform: none;
-  
-
+  font-size: 150%;
 }
 
 .btn3{
@@ -236,31 +229,10 @@
 
 }
 
-@keyframes Up {
-  0%       { transform: translatex(0px) translatey(50px) }
-  100%     { transform: translatex(0px) translatey(0px) }
-}
-
-@keyframes Right {
-  0%       { transform: translatex(-50px) translatey(0px) }
-  100%     { transform: translatex(0px) translatey(0px) }
-}
-@keyframes Left {
-  0%       { transform: translatex(100px) translatey(0px); }
-  100%     { transform: translatex(0px) translatey(0px); }
-}
-@keyframes Down {
-  0%       { transform: translatex(0px) translatey(-50px) }
-  100%     { transform: translatex(0px) translatey(0px) }
-}
-
 span {
   font-size: 20px;
 }
 
-#frame_2.right-align {
-  text-align: right;
-}
 
 .left-align {
   text-align: left;
@@ -268,12 +240,99 @@ span {
   margin-bottom: 10%;
 }
 
+.right-align {
+  text-align: right;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
 
 .tagline {
   text-align: center;
+  margin-bottom: 60px;
+  margin-top: 60px;
 }
 
-.footer{
-  height: 100px;
+
+.screenshots {
+ height: 400px;
+ width: 550px;
+}
+
+.temp {
+  border: #20173F 2px solid;
+  height: 400px;
+  width: 600px;
+}
+
+.temp-left {
+  border: #20173F 2px solid;
+  height: 400px;
+  width: 600px;
+  margin-left: 22%;
+}
+
+
+.image-row {
+  margin-left: 10%;
+}
+
+.image-row-left {
+  margin-right: 10%;
+}
+
+.footer {
+  height: 200px;
+}
+
+.footer-row {
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-row-text {
+  text-align: left;
+ 
+}
+
+.footer-text {
   color: white;
+  margin-left: 20%;
+}
+
+.footer-grid {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+a {
+  font-weight: bold;
+}
+
+.icon-block {
+  height: 80px;
+  width: 80px;
+  background-color: #8231DD;
+  border-radius: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.block-icon {
+  color: white;
+  font-size: 48px;
+}
+
+.block-right {
+  margin-LEFT: 89.5%;
 }

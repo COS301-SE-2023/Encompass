@@ -9,6 +9,14 @@ import { UpdateProfileCommand } from "./commands/update-profile/update-profile.c
 import { GetUsernameQuery } from "./queries/get-username/get-username.query";
 import { RemovePostCommand } from "./commands/remove-post/remove-post.command";
 import { RemoveCommunityCommand } from "./commands/remove-community/remove-community.command";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { UseInterceptors } from "@nestjs/common";
+import { UploadedFile } from "@nestjs/common";
+import { UploadImage } from "./upload-image.service";
+import { Request } from "express";
+import { Multer } from "multer";
+
+
 
 @Controller('profile')
 export class ProfileController {
@@ -67,5 +75,16 @@ export class ProfileController {
     return await this.queryBus.execute<GetUsernameQuery, boolean>(
       new GetUsernameQuery(username),
     );
+  }
+
+  @Post('upload-image')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImage(
+    @UploadedFile() file: Express.Multer.File,
+  ){
+    console.log("Here")
+    const uploadImage = new UploadImage();
+    
+    return await uploadImage.uploadImage(file.buffer, file.originalname);
   }
 }

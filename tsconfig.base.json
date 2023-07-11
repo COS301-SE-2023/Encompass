@@ -90,6 +90,9 @@
       ],
       "@encompass/app/login/feature": ["libs/app/login/feature/src/index.ts"],
       "@encompass/app/login/util": ["libs/app/login/util/src/index.ts"],
+      "@encompass/app/messages/feature": [
+        "libs/app/messages/feature/src/index.ts"
+      ],
       "@encompass/app/profile/data-access": [
         "libs/app/profile/data-access/src/index.ts"
       ],

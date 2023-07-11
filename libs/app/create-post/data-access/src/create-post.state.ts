@@ -97,6 +97,7 @@ export class CreatePostState{
       posts: arr,
       reviews: profile.reviews,
       profileImage: profile.profileImage,
+      profileBanner: profile.profileBanner,
       bio: profile.bio,
     }
 

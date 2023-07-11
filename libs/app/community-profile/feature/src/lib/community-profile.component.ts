@@ -5,10 +5,14 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { CommunityState } from '@encompass/app/community-profile/data-access';
+import { CommunityApi, CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
-import { PostDto } from '@encompass/api/post/data-access';
+import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
+import { UpdatePost } from '@encompass/app/home-page/util';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
+import { UpdateCommunity } from '@encompass/app/community-profile/util';
 
 
 @Component({
@@ -18,15 +22,29 @@ import { PostDto } from '@encompass/api/post/data-access';
 })
 export class CommunityProfileComponent {
 
+  requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
+
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
   @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
 
+  file!: File;
+  fileBanner!: File;
+  fileName!: string;
+  fileNameBanner!: string;
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
-
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute) {
+  likes: number[] =[] ;
+   likedComments: boolean[] = [];
+   shares : number[] = [];
+   sharing: boolean[] = [];
+   edit=false;
+   members=0;
+   hasImage=false;
+   hasBanner=false;
+  constructor(private store: Store, private router: Router, 
+    private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if(communityName == null){
@@ -45,6 +63,7 @@ export class CommunityProfileComponent {
       if(community){
         this.community = community;
         console.log(community);
+        this.members = community.members.length;
       }
     })
 
@@ -53,10 +72,232 @@ export class CommunityProfileComponent {
       if(posts){
         this.communityPosts = posts;
         console.log(posts);
+
+        for(let i =0;i<posts.length;i++){
+
+          this.sharing.push(false);
+
+          if(posts[i].dateAdded!=null&&posts[i].comments!=null
+            &&posts[i].shares!=null){
+              this.shares.push(posts[i].shares);
+        }
       }
+
+      }
+    })
+
+    
+  }
+
+  
+  postForm = this.formBuilder.group({
+    text: ['', Validators.maxLength(80)]
+  });
+
+  get text() {
+    return this.postForm.get('text');
+  }
+
+
+  GoToComments(postId : string){
+    this.router.navigate(['app-comments-feature/' + postId]);
+  }
+  async Share(n:number, post: PostDto){
+    this.shares[n]++;
+    for(let i =0;i<this.sharing.length;i++){
+      this.sharing[i]=false;
+    }
+    this.sharing[n]=true;
+  
+    const obj = location.origin
+    if(obj == undefined){
+      return;
+    }
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: post.likes,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares + 1,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  
+    const link : string = obj + '/app-comments-feature/' + post._id;
+  
+    await navigator.clipboard.writeText(link)
+  }
+
+  Edit(){
+    this.edit=true;
+  }
+  FinishEdit(){
+
+    this.edit=false;
+    this.hasImage = false;
+    this.hasBanner = false;
+
+  }
+
+  insertImage() {
+    this.hasImage = !this.hasImage;
+  }
+
+  insertBanner() {
+    this.hasBanner = !this.hasBanner;
+  }
+
+
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.file = file;
+        this.fileName = file.name;
+    }
+  }
+
+  onFileBannerSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.fileBanner = file;
+        this.fileNameBanner = file.name;
+    }
+  }
+
+  async onSubmit(){
+
+    console.log("OH HELLO THERE!!!!!!");
+    if(this.community == null){
+      return;
+    }
+
+    let textData : string;
+    let imageUrl : string | null;
+    let bannerUrl : string | null;
+
+    if(this.file){
+      imageUrl = await this.uploadImage(this.file, this.fileName);
+
+      if(imageUrl == null){
+        imageUrl = this.community?.groupImage;
+      }
+    }
+
+    else{
+      imageUrl = this.community?.groupImage;
+    }
+
+    if(this.fileBanner){
+      bannerUrl = await this.uploadImage(this.fileBanner, this.fileNameBanner);
+
+      if(bannerUrl == null){
+        bannerUrl = this.community?.bannerImage;
+      }
+    }
+
+    else{
+      bannerUrl = this.community?.bannerImage;
+    }
+
+    if(this.text?.value == null || this.text?.value == undefined){
+      textData = "";
+    }
+    else{
+      textData = this.text?.value;
+    }
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: textData,
+      rules: this.community?.rules,
+      groupImage: imageUrl,
+      bannerImage: bannerUrl,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: this.community?.members,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+  }
+
+  async uploadImage(file: File, fileName: string) : Promise<string | null>{
+    return new Promise((resolve) => {
+      const formData = new FormData();
+      formData.append('file', file, fileName);
+
+      const uploadFile = this.communityApi.uploadFile(formData)
+      console.log(uploadFile);
+      resolve(uploadFile);
     })
   }
 
+  join(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    const newMembers : string[] = [...this.community.members, this.profile.username];
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: this.community?.about,
+      rules: this.community?.rules,
+      groupImage: this.community?.groupImage,
+      bannerImage: this.community?.bannerImage,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: newMembers,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+  }
+
+  leave(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+    const ourProfile: string = this.profile.username;
+
+    const newMembers : string[] = this.community.members.filter(member => member != ourProfile);
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: this.community?.about,
+      rules: this.community?.rules,
+      groupImage: this.community?.groupImage,
+      bannerImage: this.community?.bannerImage,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: newMembers,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+  }
+
+  //***********************************UI FUNCTIONS**************************************************** */
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');

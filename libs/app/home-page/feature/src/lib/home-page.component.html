@@ -55,19 +55,19 @@
         <ng-template>
           <ion-content style="margin-bottom: 210px;">
             <ion-list>
-              <ion-item [button]="true" [detail]="false" >
+              <ion-item [button]="true" [detail]="false" (click)="goToEvents()">
                 <ion-icon name="megaphone-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
                 Events
               </ion-item>
-              <ion-item [button]="true" [detail]="false">
+              <ion-item [button]="true" [detail]="false" (click)="goToThemes()">
                 <ion-icon name="color-palette-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
                 Themes
               </ion-item>
-              <ion-item [button]="true" [detail]="false">
+              <ion-item [button]="true" [detail]="false" (click)="goToSettings()">
                 <ion-icon name="settings-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
                 Settings
               </ion-item>
-              <ion-item [button]="true" [detail]="false">
+              <ion-item [button]="true" [detail]="false" (click)="logout()">
                 <ion-icon name="exit-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
                 Logout
               </ion-item>
