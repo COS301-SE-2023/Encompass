@@ -13,9 +13,10 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
     ){}
 
     
-    async execute({ userId }: GetRecommendedCommunitiesQuery){
-        //findCommunitiesByUserId(userId) is buggy!!!!
-        const currentUserCommunities = await this.communityEntityRepository.findCommunitiesByUserId(userId);
+    async execute({ userId }: GetRecommendedCommunitiesQuery) {
+        const communitiesUserIsNotIn = await this.communityEntityRepository.findCommunitiesByUserId(userId);
+        console.log("communitiesUserIsNotIn: ");
+        console.log(communitiesUserIsNotIn);
         //put an if statement here to check if there is more than one community the user is not in
         const url = process.env["BASE_URL"];
         try{
@@ -69,26 +70,28 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 if(currentCluster?.clusterProfiles.length == 1){
                     const orderedProfiles = orderProfilesByDistance(profiles, userId);
                     const orderedProfilesWithCommunities = addCommunitiesToProfiles(orderedProfiles, allProfiles, userId);
-                    const currentUserCommunityIds = currentUserCommunities.map(community => community._id);
-                    console.log("currentUserCommunityIds: ");
-                    console.log(currentUserCommunityIds);
+                    const notInCommunityIds = communitiesUserIsNotIn.map(community => community._id);
+                    console.log("notInCommunityIds: ");
+                    console.log(notInCommunityIds);
                     const rankedCommunities: string[] = [];
                     for(let i = 0; i < orderedProfiles.length; i++){
                         //if profile.communities is not empty
+                        console.log("orderedProfilesWithCommunities: ");
+                        console.log(orderedProfilesWithCommunities);
                         if(orderedProfilesWithCommunities[i].communities.length > 0){
                             //for each community in profile.communities
                             for(let j = 0; j < orderedProfilesWithCommunities[i].communities.length; j++){
-                                //if community is not already in communities
-                                if(!rankedCommunities.includes(orderedProfilesWithCommunities[i].communities[j]) && !currentUserCommunityIds.includes(orderedProfilesWithCommunities[i].communities[j])){
+                                //if community is not already in communities and in notInCommunityIds 
+                                if(!rankedCommunities.includes(orderedProfilesWithCommunities[i].communities[j]) && notInCommunityIds.includes(orderedProfilesWithCommunities[i].communities[j])){
                                     //add community to communities
                                     rankedCommunities.push(orderedProfilesWithCommunities[i].communities[j]);
                                 }
                             }
                         }
                     }
-                }
-                    
-                //}// else if (currentCluster?.clusterProfiles.length > 1) {
+                    console.log("rankedCommunities: ");
+                    console.log(rankedCommunities);
+                }// else if (currentCluster?.clusterProfiles.length > 1) {
 
                 //else if cluster has more profiles, get the communities of the profiles in the same cluster as the current userId then remove communities current userId is already in
 
@@ -240,15 +243,15 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             //recommend just by categories
             //loop through all communities and order them by how many categories they have in common with the user
             const result = [];
-            for(let i = 0; i < currentUserCommunities.length; i++){
-                const communityCategories = currentUserCommunities[i].categories;
+            for(let i = 0; i < communitiesUserIsNotIn.length; i++){
+                const communityCategories = communitiesUserIsNotIn[i].categories;
                 let count = 0;
                 for(let j = 0; j < communityCategories.length; j++){
                     if(currentUserCategories.includes(communityCategories[j])){
                         count++;
                     }
                 }
-                recommendedCommunities.push({community: currentUserCommunities[i], count: count});
+                recommendedCommunities.push({community: communitiesUserIsNotIn[i], count: count});
             }
             recommendedCommunities.sort((a, b) => (a.count > b.count) ? -1 : 1);
             
