@@ -16,14 +16,14 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
     
     async execute({ userId }: GetRecommendedCommunitiesQuery) {
         const communitiesUserIsNotIn = await this.communityEntityRepository.findCommunitiesByUserId(userId);
-        console.log("communitiesUserIsNotIn: ");
-        console.log(communitiesUserIsNotIn);
         //put an if statement here to check if there is more than one community the user is not in
+        if(communitiesUserIsNotIn.length < 2){
+            return communitiesUserIsNotIn;
+        }
+
         const url = process.env["BASE_URL"];
         try{
             const allProfiles = await this.httpService.get(url + "api/profile/get-all").toPromise();  //array of profile objects
-            console.log("allProfiles data: ");
-            console.log(allProfiles?.data);
             const userCount = allProfiles?.data?.length;
             const currentUserProfile = await this.httpService.get(url + "api/profile/get/" + userId).toPromise();
             const currentUserCategories = currentUserProfile?.data?.categories;  //array of categories as strings
@@ -44,8 +44,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     clusters.push({clusterCentroid: Object.values(tempProfiles[randomIndex].profile) , clusterProfiles: []});
                     tempProfiles.splice(randomIndex, 1);
                 }
-                //console.log("clusters: ");
-                //console.log(clusters);
 
                 //get distance from each profile to each random profile and then assign each profile to the closest random profile
                 let oldCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
@@ -56,48 +54,64 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     moveProfilesToClosestCentroid(profiles,clusters,k);
                     calculateNewCentroids(clusters);
                     newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
-                } while ( !arraysAreEqual(oldCentroids, newCentroids) );
-                //console.log("clusters: ");
-                //console.log(clusters[0].clusterProfiles);
-                //console.log(clusters[1].clusterProfiles);
-                //console.log(clusters[2].clusterProfiles);
+                } while ( !arraysAreEqual(oldCentroids, newCentroids) )
 
                 //get the communities of the profiles in the same cluster as the current userId the current userId is not already in
                 const currentCluster = clusters.find(cluster => cluster.clusterProfiles.includes(profiles.find(profile => profile.profileId == userId) as { profile: number[]; profileId: string; } ));
-                console.log("currentCluster: ");
-                console.log(currentCluster);
 
                 //if cluster has one profile, make an array of all profiles with closest by distance being first, create a communities array and then for each profile in the array, get the communities of the profile and add them to the communities array
+                let rankedCommunities: string[] = [];
                 if(currentCluster?.clusterProfiles.length == 1){
-                    const rankedCommunities = getRankedCommunities(profiles, userId, allProfiles);
-                    //return rankedCommunities as communityDto[]
-                }// else if (currentCluster?.clusterProfiles.length > 1) {
-
-                //else if cluster has more profiles, get the communities of the profiles in the same cluster as the current userId then remove communities current userId is already in
-
-                //if no communities are returned, get the communities of closest profile to current userId and rank them by distance with the closest being first
-                
+                    rankedCommunities = getRankedCommunities(profiles, userId, allProfiles);
+                } else if (currentCluster && currentCluster?.clusterProfiles?.length > 1) {
+                    //else if cluster has more profiles, get the communities of the profiles in the same cluster as the current userId then remove communities current userId is already in
+                    rankedCommunities = getRankedCommunities(profiles, userId, allProfiles, currentCluster);
+                    const notInCommunityIds = communitiesUserIsNotIn.map(community => community._id);
+                    if(rankedCommunities.length < notInCommunityIds.length && rankedCommunities.length > 0 ){
+                        //add remaining communities from communitiesUserIsNotIn to rankedCommunities
+                        const remainingCommunities = notInCommunityIds.filter(communityId => !rankedCommunities.includes(communityId));
+                        remainingCommunities.forEach(communityId => rankedCommunities.push(communityId));
+                    }
+                    if(rankedCommunities.length == 0){
+                        rankedCommunities = getRankedCommunities(profiles, userId, allProfiles);
+                    }
+                }
+                //reorder communitiesUserIsNotIn as rankedCommunities, NB: rankedCommunities is an array of communityIds while communitiesUserIsNotIn is an array of communityDto
+                finalRecommendedCommunities = communitiesUserIsNotIn.sort((a, b) => rankedCommunities.indexOf(a._id) - rankedCommunities.indexOf(b._id));
             }
-            
+
+            return finalRecommendedCommunities;
+
         } catch (e) {
             console.log(e);
         }
-        console.log(userId);
 
-        function getRankedCommunities(profiles: { profile: number[], profileId: string }[], userId: string, allProfiles: any) {
-            const orderedProfiles = orderProfilesByDistance(profiles, userId);
-            const orderedProfilesWithCommunities = addCommunitiesToProfiles(orderedProfiles, allProfiles, userId);
-            const notInCommunityIds = communitiesUserIsNotIn.map(community => community._id);
+        function getRankedCommunities(profiles: { profile: number[], profileId: string }[], userId: string, allProfiles: any, cluster?: { clusterCentroid: number[], clusterProfiles: { profile: number[], profileId: string }[] }) {
+            let rankedCommunities: string[] = [];
+            if(cluster){
+                const profilesWithoutCurrentUser = cluster.clusterProfiles.filter(profile => profile.profileId != userId);
+                const profilesWithoutCurrentUserWithCommunities = addCommunitiesToProfiles(profilesWithoutCurrentUser, allProfiles, userId);
+                rankedCommunities = addCommunityIdsTorankedCommunities(profilesWithoutCurrentUserWithCommunities);
+            } else {
+                const orderedProfiles = orderProfilesByDistance(profiles, userId);
+                const orderedProfilesWithCommunities = addCommunitiesToProfiles(orderedProfiles, allProfiles, userId);
+                rankedCommunities = addCommunityIdsTorankedCommunities(orderedProfilesWithCommunities);
+            }
+            return rankedCommunities;
+        }
+
+        function addCommunityIdsTorankedCommunities(profilesWithoutCurrentUserWithCommunities: { profile: number[]; profileId: string; communities: string[]; }[]) {
             const rankedCommunities: string[] = [];
-            for(let i = 0; i < orderedProfiles.length; i++){
+            const notInCommunityIds = communitiesUserIsNotIn.map(community => community._id);
+            for(let i = 0; i < profilesWithoutCurrentUserWithCommunities.length; i++){
                 //if profile.communities is not empty
-                if(orderedProfilesWithCommunities[i].communities.length > 0){
+                if(profilesWithoutCurrentUserWithCommunities[i].communities.length > 0){
                     //for each community in profile.communities
-                    for(let j = 0; j < orderedProfilesWithCommunities[i].communities.length; j++){
-                        //if community is not already in communities and in notInCommunityIds 
-                        if(!rankedCommunities.includes(orderedProfilesWithCommunities[i].communities[j]) && notInCommunityIds.includes(orderedProfilesWithCommunities[i].communities[j])){
+                    for(let j = 0; j < profilesWithoutCurrentUserWithCommunities[i].communities.length; j++){
+                        //if community is not already in communities
+                        if(!rankedCommunities.includes(profilesWithoutCurrentUserWithCommunities[i].communities[j]) && notInCommunityIds.includes(profilesWithoutCurrentUserWithCommunities[i].communities[j]) ){
                             //add community to communities
-                            rankedCommunities.push(orderedProfilesWithCommunities[i].communities[j]);
+                            rankedCommunities.push(profilesWithoutCurrentUserWithCommunities[i].communities[j]);
                         }
                     }
                 }
@@ -121,8 +135,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             const profileCommunities: string[] = [];
             for(let i = 0; i < allProfiles.data.length; i++) {
                 if(allProfiles.data[i]._id == profileId){
-                    console.log("found profile");
-                    console.log(allProfiles.data[i]);
                     for(let j = 0; j < allProfiles.data[i].communities?.length; j++) {
                         profileCommunities.push(allProfiles.data[i].communities[j]);
                     }
@@ -230,11 +242,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
 
         function getDistance(centroid: number[], profile: { profile: number[], profileId: string }) {
             let distance = 0;
-            //console.log("profile2.profile.length: ", profile.profile.length);
-            
             for(let i = 0; i < centroid.length; i++){
-                //console.log("profile1.profile[i]: ", profile1.profile[i]);
-                //console.log(`profile1.profile[${i}]:` , profile1.profile[`${i}`]);
                 distance += Math.pow(centroid[i] - profile.profile[i], 2);
             }
             return Math.sqrt(distance);
@@ -273,7 +281,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
 
             //add profileIds from all profiles to profileIds array
             for(let i = 0; i < allProfiles?.data.length; i++){
-                //console.log("allProfiles?.data[i].id: ", allProfiles?.data[i]._id);
                 profileIds.push(allProfiles?.data[i]._id);
             }
 
@@ -294,7 +301,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     }
                 }
             }
-            ////console.log("following: ", following);
 
             //add events from all profiles to events array, events array must have unique values
             for(let i = 0; i < allProfiles?.data.length; i++){
@@ -304,7 +310,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     }
                 }
             }
-            ////console.log("events: ", events);
 
             for(let i = 0; i < allProfiles?.data.length; i++){
                 tempProfile.length = 0;
@@ -332,16 +337,9 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                         tempProfile.push(0);
                     }
                 }
-                console.log("tempProfile: ", tempProfile);
-                
-                console.log("profiles: ");
-                console.log(profiles);
                 profiles.push({ profile: Object.values(tempProfile), profileId: profileIds[i] });
             }
-            console.log("profiles: ");
-            console.log(profiles);
             return profiles;
         }
-        return this.communityEntityRepository.findCommunitiesByUserId(userId);
     }
 }
