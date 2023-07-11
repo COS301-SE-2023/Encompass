@@ -3,8 +3,10 @@ import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessa
 import { Server } from 'socket.io';
 import { ChatService } from './chat.service';
 import { AddMessageRequest } from './dto';
+import { Socket } from 'socket.io';
+import { GateWayAddMessageRequest } from './dto/gateway-add-message-request.dto';
 
-@WebSocketGateway(4001)
+@WebSocketGateway({ cors: { origin: [ 'http://localhost:3000', 'http://localhost:4200'] } })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit{
   @WebSocketServer()
   server!: Server;
@@ -13,6 +15,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
 
   async handleConnection(client: any, ...args: any[]) {
     console.log('Client connected: ');
+    // this.server.emit('messages', "Here");
   }
 
   async handleDisconnect(client: any) {
@@ -26,13 +29,24 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
   @SubscribeMessage('getMessages')
   async getMessages(client: any, data: string){
     console.log(data);
-    client.emit('messages', this.chatService.getMessages(data));
+    const item = await this.chatService.getMessages(data);
+    console.log(item);
+    this.server.emit('messages', item);
   }
 
   @SubscribeMessage('sendMessage')
-  async sendMessage(client: any, data: AddMessageRequest, chatId: string){
+  async sendMessage(client: any, data: GateWayAddMessageRequest){
+    console.log("This is the data");
     console.log(data);
-    this.chatService.sendMessage(data, chatId);
-    this.server.emit('messages', this.chatService.getMessages(chatId));
+
+    const message: AddMessageRequest = {
+      message: data.message,
+      username: data.username,
+    }
+
+    await this.chatService.sendMessage(message, data.chatId);
+    const item = await this.chatService.getMessages(data.chatId);
+    console.log(item);
+    this.server.emit('messages', item);
   }
 }

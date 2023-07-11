@@ -13,7 +13,7 @@ export class ChatService {
     try{
       const response = await this.httpService.get(url + '/api/chat/get-chat/' + chatId).toPromise();
       if (response && response.data) {
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
       }
     }
@@ -28,7 +28,7 @@ export class ChatService {
       const url = process.env["BASE_URL"];
 
       try{
-        const response = await this.httpService.post(url + '/api/chat/add-message/' + chatId, data).toPromise();
+        const response = await this.httpService.patch(url + '/api/chat/add-message/' + chatId, data).toPromise();
         if (response) {
           console.log(response.data);
           return response.data;

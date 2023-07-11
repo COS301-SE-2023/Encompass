@@ -16,6 +16,13 @@ import { CommentsModule } from '@encompass/app/comments/data-access';
 import { CommunityModule } from '@encompass/app/community-profile/data-access';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { MessagesModule } from '@encompass/app/messages/data-access';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = {
+  url: ':3000',
+  options: {}
+};
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -31,7 +38,9 @@ import { AuthGuard } from './auth.guard';
     CreatePostModule,
     CreateCommunityModule,
     CommentsModule,
-    CommunityModule
+    CommunityModule,
+    MessagesModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],
   bootstrap: [CoreShell],

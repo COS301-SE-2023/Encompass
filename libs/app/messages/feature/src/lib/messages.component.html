@@ -15,7 +15,23 @@
       </ul>
     </div>
     <div class="chat-area" >
-        <div class = "messages" chatScroll>
+
+      <div class = "messages" chatScroll *ngIf="profile !== null && messages !== null && messages !== undefined && profile !== undefined">
+        <div *ngFor="let message of messages.messages">
+          <div class="message" *ngIf="message.username !== profile.username">
+            <span class="sender">{{message.username}}:</span>
+            <span class="timestamp">{{message.dateTime}}</span>
+            <p>{{message.message}}</p>
+          </div>
+
+          <div class="message your-message" *ngIf="message.username === profile.username">
+            <span class="sender">{{message.username}}:</span>
+            <span class="timestamp">{{message.dateTime}}</span>
+            <p>{{message.message}}</p>
+          </div>
+        </div>
+
+        <!-- <div class = "messages" chatScroll>
             <div class="message">
                 <span class="sender">User 1:</span>
                 <span class="timestamp">July 10, 2023 10:00 AM</span>
@@ -26,12 +42,12 @@
                 <span class="timestamp">July 10, 2023 10:02 AM</span>
                 <p>Hi there!</p>
               </div>
-        </div>
+        </div> -->
       
       <div class = "Typer">
         <form class="message-form">
           <input type="text" placeholder="Type your message here..." />
-          <button type="submit">Send</button>
+          <button type="submit" (click)="sendMessage()">Send</button>
         </form>
       </div>
     </div>
