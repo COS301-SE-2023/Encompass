@@ -1,12 +1,12 @@
 <!-- images sourced from: https://wallpapercave.com/abstract-forest-wallpapers -->
 
-<div class="theme-page">
+<div id="theme-page" class="theme-page">
   <div class="top-stuff">
 
     
     <ion-card class="display-card">
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar id="toolbar">
         <div class="ion-button-group">
           <div class="active-button buttonStyle" fill="clear">
             <ion-label>Posts</ion-label>
@@ -56,11 +56,11 @@
         <ion-row>
         <ion-col>
           <div class="pickings">
-            <div class="square light-default square-selected"></div>
-            <div class="square light-red"></div>
-            <div class="square light-blue"></div>
-            <div class="square light-green"></div>
-            <div class="square light-orange"></div>
+            <div id="ld" class="square light-default square-selected" (click)="changeBorder('ld')"></div>
+            <div id="lr" class="square light-red" (click)="changeBorder('lr')"></div>
+            <div id="lb" class="square light-blue" (click)="changeBorder('lb')"></div>
+            <div id="lg" class="square light-green" (click)="changeBorder('lg')"></div>
+            <div id="lo" class="square light-orange" (click)="changeBorder('lo')"></div>
           </div>
         </ion-col>
         </ion-row>
@@ -77,11 +77,11 @@
         <ion-row>
         <ion-col>
           <div class="pickings">
-            <div class="square dark-default"></div>
-            <div class="square dark-red"></div>
-            <div class="square dark-blue"></div>
-            <div class="square dark-green"></div>
-            <div class="square dark-orange"></div>
+            <div id="dd" class="square dark-default" (click)="changeBorder('dd')"></div>
+            <div id="dr" class="square dark-red" (click)="changeBorder('dr')"></div>
+            <div id="db" class="square dark-blue" (click)="changeBorder('db')"></div>
+            <div id="dg" class="square dark-green" (click)="changeBorder('dg')"></div>
+            <div id="do" class="square dark-orange" (click)="changeBorder('do')"></div>
           </div>
         </ion-col>
         </ion-row>
@@ -97,11 +97,18 @@
   <div class="image-stuff">
     <span class="image-heading">Background Images:</span>
     <div class="images">
-      <img src="https://wallpapercave.com/dwp2x/wp10352811.jpg" alt="img-purple" class="temp" >
-      <img src="https://wallpapercave.com/dwp2x/wp7857731.jpg" alt="img-red" class="temp" >
-      <img src="https://wallpapercave.com/dwp2x/wp9339593.jpg" alt="img-blue" class="temp" >
-      <img src="https://wallpapercave.com/dwp2x/wp10352814.jpg" alt="img-green" class="temp" >
-      <img src="https://wallpapercave.com/dwp2x/wp10352821.jpg" alt="img-orange" class="temp" >
+      <img id="img-purple" src="https://wallpapercave.com/dwp2x/wp10352811.jpg" alt="img-purple" class="temp" (click)="changeBorderImage('img-purple', 'https://wallpapercave.com/dwp2x/wp10352811.jpg')">
+      <img id="img-red" src="https://wallpapercave.com/dwp2x/wp7857731.jpg" alt="img-red" class="temp" (click)="changeBorderImage('img-red', 'https://wallpapercave.com/dwp2x/wp7857731.jpg')">
+      <img id="img-blue" src="https://wallpapercave.com/dwp2x/wp9339593.jpg" alt="img-blue" class="temp" (click)="changeBorderImage('img-blue','https://wallpapercave.com/dwp2x/wp9339593.jpg')">
+      <img id="img-green" src="https://wallpapercave.com/dwp2x/wp10352814.jpg" alt="img-green" class="temp" (click)="changeBorderImage('img-green', 'https://wallpapercave.com/dwp2x/wp10352814.jpg')">
+      <img id="img-orange" src="https://wallpapercave.com/dwp2x/wp10352821.jpg" alt="img-orange" class="temp" (click)="changeBorderImage('img-orange', 'https://wallpapercave.com/dwp2x/wp10352821.jpg')">
+      <div id="img-own" class="temp own" (click)="changeBorderImage('img-own', ''); getImg()">
+        <ion-fab class="add-img">
+          <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </div>
     </div>
   </div>
 
