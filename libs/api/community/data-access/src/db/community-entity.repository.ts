@@ -29,29 +29,6 @@ export class CommunityEntityRepository extends BaseEntityRepository<
             const isMember = members.includes(id);
             return !isAdmin && !isMember;
         });
-
-        //put AI here
-        /*if users<3
-        recommend just by categories
-        else if users==3
-        simplified 3NN algo
-        else 
-        3NN cluster algo
-        */
-        //this.countAllProfiles();
-        
-        //make console.log activate after 3 seconds
-        
-      
         return filteredCommunities;
     }
-
-    /*async countAllProfiles(): Promise<number> {
-        //count all profile documents in mongodb and return total
-        const allProfiles = await this.findAll();
-        setTimeout(() => {
-            console.log("Total profiles: ", allProfiles.length);
-        }, 3000);
-        return allProfiles.length;
-    }*/
 }
