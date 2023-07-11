@@ -55,6 +55,7 @@
     "immer": "^10.0.2",
     "ionicons": "^7.1.0",
     "mongoose": "^7.1.1",
+    "ngx-socket-io": "^4.5.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
     "socket.io": "^4.7.1",
