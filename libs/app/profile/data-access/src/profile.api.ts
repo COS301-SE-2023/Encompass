@@ -16,12 +16,12 @@ export class ProfileApi{
   constructor(private httpClient: HttpClient){}
   
   user$(id: string) : Observable<ProfileDto>{
-    return this.httpClient.get<ProfileDto>('/api/profile/' + id)
+    return this.httpClient.get<ProfileDto>('/api/profile/get/' + id)
   }
 
   updateProfile(updateProfileRequest: UpdateProfileRequest, userId: string){
     try{
-      const response = this.httpClient.patch<ProfileDto>('/api/profile/' + userId, updateProfileRequest).toPromise();
+      const response = this.httpClient.patch<ProfileDto>('/api/profile/update/' + userId, updateProfileRequest).toPromise();
 
       return response;
     }

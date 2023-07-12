@@ -18,6 +18,7 @@ import { Multer } from "multer";
 import { GetByUsernameQuery } from "./queries/get-by-username/get-by-username.query";
 
 
+import { GetAllProfilesQuery } from "./queries/get-all-profiles/getAllProfiles.query";
 
 @Controller('profile')
 export class ProfileController {
@@ -35,14 +36,21 @@ export class ProfileController {
     );
   }
 
-  @Get(':id')
+  @Get('/get/:id')
   async getProfile(@Param('id') userId: string) : Promise<ProfileDto>{
     return await this.queryBus.execute<GetProfileQuery, ProfileDto>(
       new GetProfileQuery(userId),
     );
   }
 
-  @Patch(':id')
+  @Get('get-all')
+  async getAllProfiles(){
+    return await this.queryBus.execute<GetAllProfilesQuery, ProfileDto[]>(
+      new GetAllProfilesQuery(),
+    );
+  }
+
+  @Patch('/update/:id')
   async updateProfile(
     @Param('id') userId: string, 
     @Body() profile: UpdateProfileRequest){

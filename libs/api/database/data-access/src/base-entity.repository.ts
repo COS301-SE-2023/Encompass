@@ -5,6 +5,7 @@ import { EntityRepository } from './entity.repository';
 
 import { IdentifiableEntitySchema } from './identifiable-entity.schema';
 
+
 export abstract class BaseEntityRepository<
   TSchema extends IdentifiableEntitySchema,
   TEntity extends AggregateRoot
@@ -35,6 +36,8 @@ export abstract class BaseEntityRepository<
   async findAll(): Promise<TEntity[]> {
     return this.find({});
   }
+
+  
 
   async findAndDelete(id: string): Promise<void> {
     await this.findOneAndDelete({ _id: new ObjectId(id) });
