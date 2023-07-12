@@ -2,25 +2,37 @@ import { Injectable } from "@angular/core";
 import { ChatDto } from "@encompass/api/chat/data-access";
 import { State, Action, StateContext } from "@ngxs/store";
 import { MessagesApi } from "./messages.api";
-import { GetMessages, SendMessage, SetMessages } from "@encompass/app/messages/util";
+import { GetChatList, GetMessages, SendMessage, SetMessages } from "@encompass/app/messages/util";
 import { Selector } from "@ngxs/store";
 import { produce } from "immer";
 import { tap } from "rxjs";
+import { ChatListDto } from "@encompass/api/chat-list/data-access";
 
 export interface MessagesStateModel{
-  MessagesStateForm: {
-    model:{
-      messages: ChatDto | null
+  messages: ChatDto | null
+}
+
+export interface ChatListModel{
+  ChatListForm: {
+    model: {
+      chatList: ChatListDto | null
     }
   }
 }
 
 @State<MessagesStateModel>({
   name: 'messagesModel',
-  defaults: {
-    MessagesStateForm: {
-      model: {
-        messages: null
+  defaults:{
+    messages: null
+  }
+})
+
+@State<ChatListModel>({
+  name: 'chatListModel',
+  defaults:{
+    ChatListForm:{
+      model:{
+        chatList: null
       }
     }
   }
@@ -35,11 +47,19 @@ export class MessagesState{
     return ( this.messagesApi
       .getMessages(chatId))
     .pipe(tap((messages: ChatDto) => ctx.dispatch(new SetMessages(messages))));
+  }
 
-    // console.log("Here")
-    // const response = await this.messagesApi.getMessages(chatId);
-
-    // console.log(response);
+  @Action(SetMessages)
+  setMessages(ctx: StateContext<MessagesStateModel>, {messages}: SetMessages){
+    return ctx.setState(
+      produce((draft) => {
+        draft.messages = messages;
+      })
+    )
+  }
+  @Action(SendMessage)
+  async sendMessage(ctx: StateContext<MessagesStateModel>, {addMessageRequest}: SendMessage){
+    const response = await this.messagesApi.sendMessage(addMessageRequest);
 
     // if(response == null || response == undefined){
     //   return;
@@ -54,26 +74,18 @@ export class MessagesState{
     // })
   }
 
-  @Action(SetMessages)
-  setMessages(ctx: StateContext<MessagesStateModel>, {messages}: SetMessages){
-    return ctx.setState(
-      produce((draft) => {
-        draft.MessagesStateForm.model.messages = messages;
-      })
-    )
-  }
-  @Action(SendMessage)
-  async sendMessage(ctx: StateContext<MessagesStateModel>, {addMessageRequest}: SendMessage){
-    const response = await this.messagesApi.sendMessage(addMessageRequest);
+  @Action(GetChatList)
+  async getChatList(ctx: StateContext<ChatListModel>, {username}: GetChatList){
+    const response = await this.messagesApi.getChatList(username);
 
     if(response == null || response == undefined){
       return;
     }
 
     ctx.setState({
-      MessagesStateForm: {
-        model: {
-          messages: response
+      ChatListForm:{
+        model:{
+          chatList: response
         }
       }
     })
@@ -81,6 +93,11 @@ export class MessagesState{
 
   @Selector()
   static messages(state: MessagesStateModel){
-    return state.MessagesStateForm.model.messages;
+    return state.messages;
+  }
+
+  @Selector()
+  static chatList(state: ChatListModel){
+    return state.ChatListForm.model.chatList;
   }
 }

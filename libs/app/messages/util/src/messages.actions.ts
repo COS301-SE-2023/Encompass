@@ -14,3 +14,8 @@ export class SetMessages {
   static readonly type = '[Messages] Set';
   constructor(public messages: ChatDto) { }
 }
+
+export class GetChatList{
+  static readonly type = '[Messages] Get Chat List'
+  constructor(public username: string){}
+}

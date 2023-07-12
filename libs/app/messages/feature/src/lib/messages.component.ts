@@ -5,10 +5,12 @@ import { Observable } from 'rxjs';
 import { MessagesState } from '@encompass/app/messages/data-access';
 import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-access';
 import { Select } from '@ngxs/store';
-import { GetMessages, SendMessage } from '@encompass/app/messages/util';
+import { GetChatList, GetMessages, SendMessage } from '@encompass/app/messages/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { ChatListDto } from '@encompass/api/chat-list/data-access';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'messages',
@@ -19,49 +21,63 @@ export class MessagesPage {
 
   @Select(MessagesState.messages) messages$!: Observable<ChatDto | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(MessagesState.chatList) chatList$!: Observable<ChatListDto | null>;
 
   messages!: ChatDto | null;
   profile!: ProfileDto | null;
+  chatList!: ChatListDto | null;
+  hasMessages = false;
 
-  constructor(private store: Store, private router: Router){
+  constructor(private store: Store, private router: Router, private formBuilder: FormBuilder){
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
       if(profile){
         this.profile = profile;
+
+        this.store.dispatch(new GetChatList(profile.username))
+        this.chatList$.subscribe((chatList) => {
+          if(chatList){
+            this.chatList = chatList
+          }
+        })
       }
     })
-    if(this.profile?.username == 'sameetK'){
-      this.store.dispatch(new GetMessages('64ae52ca12c02349621bf2c5'));
-      this.messages$.subscribe((messages) => {
-        console.log(messages);
-        if(messages){
-          this.messages = messages;
-        }
-      })
-    }
-
-    else{
-      this.store.dispatch(new GetMessages('64a6a388c8b736d7942f727e'));
-      this.messages$.subscribe((messages) => {
-        console.log(messages);
-        if(messages){
-          this.messages = messages;
-        }
-      })
-    }
   }
 
+  messageForm = this.formBuilder.group({
+    messageInput: ['', Validators.maxLength(150)],
+  });
+
+  get messageInput(){
+    return this.messageForm.get('messageInput');
+  }
   sendMessage(){
-    if(!this.profile){
+
+    if(this.messageInput?.value == null || this.messageInput?.value == undefined){
+      return;
+    }
+    console.log(this.messageInput.value);
+    if(!this.profile || !this.messages){
       return;
     }
 
     const data: GateWayAddMessageRequest = {
-      message: "Hello",
+      message: this.messageInput.value,
       username: this.profile?.username,
-      chatId: '64a6a388c8b736d7942f727e'
+      chatId: this.messages?._id
     }
 
     this.store.dispatch(new SendMessage(data));
+  }
+
+  fetchMessages(chatId: string){
+    this.store.dispatch(new GetMessages(chatId));
+    this.messages$.subscribe((messages) => {
+      console.log(messages);
+      if(messages){
+        this.messages = messages;
+        this.hasMessages = true;
+      }
+    })
   }
 }

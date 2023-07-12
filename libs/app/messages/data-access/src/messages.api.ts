@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Socket } from 'ngx-socket-io';
 import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-access';
 import { Observable } from 'rxjs';
+import { ChatListDto } from '@encompass/api/chat-list/data-access';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,19 @@ export class MessagesApi {
 
       this.socket.emit('sendMessage', message);
       // });
+    }
+
+    async getChatList(username: string){
+      try{
+        const response = this.http.get<ChatListDto>('/api/chat-list/get-chat-list/' + username).toPromise();
+
+        return response;
+      }
+
+      catch(error){
+        console.log(error)
+
+        return null;
+      }
     }
 }
