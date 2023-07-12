@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 import { MessagesState } from '@encompass/app/messages/data-access';
 import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-access';
 import { Select } from '@ngxs/store';
-import { GetChatList, GetMessages, SendMessage } from '@encompass/app/messages/util';
+import { GetChatList, GetMessages, GetUserInformation, SendMessage } from '@encompass/app/messages/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ChatListDto } from '@encompass/api/chat-list/data-access';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessagesDto } from '@encompass/app/messages/data-access';
 
 @Component({
   selector: 'messages',
@@ -22,9 +23,11 @@ export class MessagesPage {
   @Select(MessagesState.messages) messages$!: Observable<ChatDto | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(MessagesState.chatList) chatList$!: Observable<ChatListDto | null>;
+  @Select(MessagesState.messagesDto) chatProfiles$!: Observable<MessagesDto[] | null>;
 
   messages!: ChatDto | null;
   profile!: ProfileDto | null;
+  chatProfiles!: MessagesDto[] | null;
   chatList!: ChatListDto | null;
   hasMessages = false;
 
@@ -38,6 +41,14 @@ export class MessagesPage {
         this.chatList$.subscribe((chatList) => {
           if(chatList){
             this.chatList = chatList
+
+            this.store.dispatch(new GetUserInformation(chatList))
+            this.chatProfiles$.subscribe((chatProfiles) => {
+              if(chatProfiles){
+                console.log(chatProfiles)
+                this.chatProfiles = chatProfiles;
+              }
+            })
           }
         })
       }

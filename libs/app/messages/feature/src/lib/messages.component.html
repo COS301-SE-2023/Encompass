@@ -9,9 +9,11 @@
             name="chatbubble-ellipses-outline" ></ion-icon>
         </li>
         <li>chats</li>
-        <div *ngFor="let chats of chatList?.chatList">
-          <li (click)="fetchMessages(chats.chatRef)">{{chats.otherUser}}</li>
-        </div>
+        <!-- <div *ngIf="chatProfiles != null"> -->
+          <div *ngFor="let chats of chatProfiles">
+            <li (click)="fetchMessages(chats.chatId)">{{chats.name}} {{chats.lastName}}</li>
+          </div>
+        <!-- </div> -->
       </ul>
     </div>
     <div class="chat-area" >

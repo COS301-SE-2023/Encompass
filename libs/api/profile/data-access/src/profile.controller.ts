@@ -15,6 +15,7 @@ import { UploadedFile } from "@nestjs/common";
 import { UploadImage } from "./upload-image.service";
 import { Request } from "express";
 import { Multer } from "multer";
+import { GetByUsernameQuery } from "./queries/get-by-username/get-by-username.query";
 
 
 
@@ -74,6 +75,13 @@ export class ProfileController {
   async getProfileByUsername(@Param('username') username: string){
     return await this.queryBus.execute<GetUsernameQuery, boolean>(
       new GetUsernameQuery(username),
+    );
+  }
+
+  @Get('get-user/:username')
+  async getUser(@Param('username') username: string){
+    return await this.queryBus.execute<GetByUsernameQuery, ProfileDto>(
+      new GetByUsernameQuery(username),
     );
   }
 

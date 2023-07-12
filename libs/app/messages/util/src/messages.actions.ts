@@ -1,3 +1,4 @@
+import { ChatListDto } from "@encompass/api/chat-list/data-access";
 import { ChatDto, GateWayAddMessageRequest } from "@encompass/api/chat/data-access";
 
 export class GetMessages {
@@ -18,4 +19,9 @@ export class SetMessages {
 export class GetChatList{
   static readonly type = '[Messages] Get Chat List'
   constructor(public username: string){}
+}
+
+export class GetUserInformation{
+  static readonly type = '[Messages] Get User Information'
+  constructor(public messageList: ChatListDto){}
 }
