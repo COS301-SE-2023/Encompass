@@ -12,7 +12,7 @@ export class MessagesApi {
     
     getMessages(chatId: string): Observable<ChatDto> {
       return new Observable<ChatDto>(observer => {
-        this.socket.on('messages', (item: ChatDto) => {
+        this.socket.on('messages/' + chatId, (item: ChatDto) => {
           console.log(item);
           observer.next(item);
         });
@@ -22,13 +22,13 @@ export class MessagesApi {
     }
 
     async sendMessage(message: GateWayAddMessageRequest) {
-      return new Promise<ChatDto | null>((resolve, reject) => {
-        this.socket.on('messages', (item: ChatDto) => {
-          console.log(item);
-          resolve(item);
-        });
+      // return new Promise<ChatDto | null>((resolve, reject) => {
+      //   this.socket.on('messages', (item: ChatDto) => {
+      //     console.log(item);
+      //     resolve(item);
+      //   });
 
-        this.socket.emit('sendMessage', message);
-      });
+      this.socket.emit('sendMessage', message);
+      // });
     }
 }

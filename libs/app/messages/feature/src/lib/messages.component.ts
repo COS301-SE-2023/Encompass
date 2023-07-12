@@ -30,14 +30,25 @@ export class MessagesPage {
         this.profile = profile;
       }
     })
+    if(this.profile?.username == 'sameetK'){
+      this.store.dispatch(new GetMessages('64ae52ca12c02349621bf2c5'));
+      this.messages$.subscribe((messages) => {
+        console.log(messages);
+        if(messages){
+          this.messages = messages;
+        }
+      })
+    }
 
-    this.store.dispatch(new GetMessages('64a6a388c8b736d7942f727e'));
-    this.messages$.subscribe((messages) => {
-      console.log(messages);
-      if(messages){
-        this.messages = messages;
-      }
-    })
+    else{
+      this.store.dispatch(new GetMessages('64a6a388c8b736d7942f727e'));
+      this.messages$.subscribe((messages) => {
+        console.log(messages);
+        if(messages){
+          this.messages = messages;
+        }
+      })
+    }
   }
 
   sendMessage(){

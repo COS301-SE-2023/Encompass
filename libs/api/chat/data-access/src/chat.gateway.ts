@@ -31,7 +31,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
     console.log(data);
     const item = await this.chatService.getMessages(data);
     console.log(item);
-    this.server.emit('messages', item);
+    this.server.emit('messages/' + data, item);
   }
 
   @SubscribeMessage('sendMessage')
@@ -47,6 +47,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
     await this.chatService.sendMessage(message, data.chatId);
     const item = await this.chatService.getMessages(data.chatId);
     console.log(item);
-    this.server.emit('messages', item);
+    this.server.emit('messages/' + data.chatId, item);
   }
 }
