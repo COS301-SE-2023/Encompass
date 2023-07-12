@@ -16,6 +16,7 @@ describe('CommunityController', () => {
         about: "Group Description",
         rules: "Group Rules",
         groupImage: "image_url.jpg",
+        bannerImage: "image_url.jpg",
         categories: ["category1", "category2"],
         events: ["event1", "event2"],
         posts: ["post1", "post2"],

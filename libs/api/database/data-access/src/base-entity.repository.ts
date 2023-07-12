@@ -5,6 +5,7 @@ import { EntityRepository } from './entity.repository';
 
 import { IdentifiableEntitySchema } from './identifiable-entity.schema';
 
+
 export abstract class BaseEntityRepository<
   TSchema extends IdentifiableEntitySchema,
   TEntity extends AggregateRoot
@@ -36,6 +37,8 @@ export abstract class BaseEntityRepository<
     return this.find({});
   }
 
+  
+
   async findAndDelete(id: string): Promise<void> {
     await this.findOneAndDelete({ _id: new ObjectId(id) });
   }
@@ -54,5 +57,9 @@ export abstract class BaseEntityRepository<
 
   async findSubCommentsByUsername(item: string): Promise<TEntity[]> {
     return await this.find({ replies: {username: item} } as FilterQuery<TSchema>);
+  }
+
+  async findByCommunity(item: string): Promise<TEntity[]> {
+    return await this.find({ community: item } as FilterQuery<TSchema>);
   }
 }

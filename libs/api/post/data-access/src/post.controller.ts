@@ -15,6 +15,7 @@ import { GetAllPostsQuery } from "./queries/getAllPosts.query";
 import { UpdatePostRequest } from "./dto/update-post-request.dto";
 import { UserIdGetPostQuery } from "./queries/userId-get-post/userId-get-post.query";
 import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
+import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community.query";
 
 @Controller('post')
 export class PostController {
@@ -84,6 +85,15 @@ export class PostController {
   ){
     return await this.queryBus.execute<GetByIdQuery, PostDto>(
       new GetByIdQuery(id),
+    );
+  }
+
+  @Get('get-by-community/:communityName')
+  async getPostsByCommunity(
+    @Param('communityName') communityName: string,
+  ){
+    return await this.queryBus.execute<GetByCommunityQuery, PostDto[]>(
+      new GetByCommunityQuery(communityName),
     );
   }
 }
