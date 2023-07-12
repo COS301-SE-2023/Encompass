@@ -129,6 +129,7 @@ export class HomePage {
   }
 
   logout() {
+    localStorage.removeItem('UserID')
     this.router.navigate(['/']);
   }
 
