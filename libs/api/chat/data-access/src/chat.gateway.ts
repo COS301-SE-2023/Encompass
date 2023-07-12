@@ -28,17 +28,12 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
 
   @SubscribeMessage('getMessages')
   async getMessages(client: any, data: string){
-    console.log(data);
     const item = await this.chatService.getMessages(data);
-    console.log(item);
     this.server.emit('messages/' + data, item);
   }
 
   @SubscribeMessage('sendMessage')
   async sendMessage(client: any, data: GateWayAddMessageRequest){
-    console.log("This is the data");
-    console.log(data);
-
     const message: AddMessageRequest = {
       message: data.message,
       username: data.username,
@@ -46,7 +41,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
 
     await this.chatService.sendMessage(message, data.chatId);
     const item = await this.chatService.getMessages(data.chatId);
-    console.log(item);
     this.server.emit('messages/' + data.chatId, item);
   }
 }

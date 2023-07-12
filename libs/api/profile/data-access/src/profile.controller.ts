@@ -19,6 +19,10 @@ import { GetByUsernameQuery } from "./queries/get-by-username/get-by-username.qu
 
 
 import { GetAllProfilesQuery } from "./queries/get-all-profiles/getAllProfiles.query";
+import { AddFollowerCommand } from "./commands/add-follower/add-follower.command";
+import { AddFollowingCommand } from "./commands/add-following/add-following.command";
+import { RemoveFollowerCommand } from "./commands/remove-follower/remove-follower.command";
+import { RemoveFollowingCommand } from "./commands/remove-following/remove-following.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -79,6 +83,46 @@ export class ProfileController {
     );
   }
 
+  @Patch('add-follower/:username/:followerUsername')
+  async addFollower(
+    @Param('username') userId: string,
+    @Param('followerUsername') followerId: string
+  ){
+    return await this.commandBus.execute<AddFollowerCommand, ProfileDto>(
+      new AddFollowerCommand(userId, followerId)
+    );
+  }
+
+  @Patch('add-following/:username/:followingUsername')
+  async addFollowing(
+    @Param('username') userId: string,
+    @Param('followingUsername') followingId: string
+  ){
+    return await this.commandBus.execute<AddFollowingCommand, ProfileDto>(
+      new AddFollowingCommand(userId, followingId)
+    );
+  }
+
+  @Patch('remove-follower/:username/:followerUsername')
+  async remvoeFollower(
+    @Param('username') userId: string,
+    @Param('followerUsername') followerId: string
+  ){
+    return await this.commandBus.execute<RemoveFollowerCommand, ProfileDto>(
+      new RemoveFollowerCommand(userId, followerId)
+    );
+  }
+
+  @Patch('remove-following/:username/:followingUsername')
+  async removeFollowing(
+    @Param('username') userId: string,
+    @Param('followingUsername') followingId: string
+  ){
+    return await this.commandBus.execute<RemoveFollowingCommand, ProfileDto>(
+      new RemoveFollowingCommand(userId, followingId)
+    );
+  }
+
   @Get('/user/:username')
   async getProfileByUsername(@Param('username') username: string){
     return await this.queryBus.execute<GetUsernameQuery, boolean>(
@@ -98,7 +142,6 @@ export class ProfileController {
   async uploadImage(
     @UploadedFile() file: Express.Multer.File,
   ){
-    console.log("Here")
     const uploadImage = new UploadImage();
     
     return await uploadImage.uploadImage(file.buffer, file.originalname);
