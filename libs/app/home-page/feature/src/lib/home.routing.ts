@@ -43,6 +43,11 @@ const routes: Routes = [
         // pathMatch: 'full',
         loadChildren: () => import('@encompass/app/messages/feature').then((m) => m.MessagesModule), 
       },
+      {
+        path: 'user-profile',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule), 
+      },
       // {
       //   path: 'comments', //comments/:id
       //   // pathMatch: 'full',

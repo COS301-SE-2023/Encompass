@@ -30,6 +30,14 @@ export class MessagesPage {
   chatProfiles!: MessagesDto[] | null;
   chatList!: ChatListDto | null;
   hasMessages = false;
+  firstName!: string;
+  lastName!: string;
+  userImage!: string;
+
+  selectedOption!: string;
+  selectOpen = false;
+
+  chatOptions: string[] = ["Delete Chat", "Block User"];
 
   constructor(private store: Store, private router: Router, private formBuilder: FormBuilder){
     this.store.dispatch(new SubscribeToProfile());
@@ -81,7 +89,10 @@ export class MessagesPage {
     this.store.dispatch(new SendMessage(data));
   }
 
-  fetchMessages(chatId: string){
+  fetchMessages(chatId: string,first: string,last:string,image: string){
+    this.userImage=image;
+    this.firstName=first;
+    this.lastName=last;
     this.store.dispatch(new GetMessages(chatId));
     this.messages$.subscribe((messages) => {
       console.log(messages);
@@ -90,5 +101,14 @@ export class MessagesPage {
         this.hasMessages = true;
       }
     })
+  }
+
+  toggleSelect() {
+    this.selectOpen = !this.selectOpen;
+  }
+
+  onOptionChange() {
+    // Handle option change logic here if needed
+    console.log(this.selectedOption);
   }
 }
