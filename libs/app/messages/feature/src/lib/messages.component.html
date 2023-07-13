@@ -42,7 +42,7 @@
       
         <div *ngFor="let message of messages.messages">
           <div class="message" *ngIf="message.username !== profile.username">
-            <img src="assets/icon/profile.jpg" class = "imgDiv2">
+            <img src={{userImage}} class = "imgDiv2">
             <div class = "msg">{{message.message}}</div>
           </div>
 
