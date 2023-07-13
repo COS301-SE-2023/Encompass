@@ -11,7 +11,7 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ChatListDto } from '@encompass/api/chat-list/data-access';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessagesDto } from '@encompass/app/messages/data-access';
+import { MessagesDto } from '@encompass/api/chat/data-access';
 
 @Component({
   selector: 'messages',

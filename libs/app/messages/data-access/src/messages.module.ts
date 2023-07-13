@@ -5,7 +5,6 @@ import { MessagesApi } from './messages.api';
 import { NgxsModule } from '@ngxs/store';
 import { MessagesState } from './messages.state';
 
-
 @NgModule({
   imports: [CommonModule, HttpClientModule, NgxsModule.forFeature([MessagesState])],
   providers: [MessagesApi],
