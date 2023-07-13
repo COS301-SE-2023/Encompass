@@ -37,7 +37,7 @@ export class MessagesPage {
   selectedOption!: string;
   selectOpen = false;
 
-  chatOptions: string[] = ["Delete Chat", "Block User"];
+  chatOptions: string[] = ["User 1", "User 2"];
 
   constructor(private store: Store, private router: Router, private formBuilder: FormBuilder){
     this.store.dispatch(new SubscribeToProfile());
