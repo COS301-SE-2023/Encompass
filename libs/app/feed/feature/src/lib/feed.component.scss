@@ -599,3 +599,7 @@ ion-card{
     filter: invert(1);
   }
 }
+
+.recomcard ion-button {
+  pointer-events: none;
+}
