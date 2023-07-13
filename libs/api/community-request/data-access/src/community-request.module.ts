@@ -8,7 +8,8 @@ import { CommunityRequestEntityRepository } from "./db/community-request-entity.
 import { CommunityRequestDtoRepository } from "./db/community-request-dto.repository";
 import { CommunityRequestSchemaFactory } from "./db/community-request-schema.factory";
 import { CommunityRequestFactory } from "./community-request.factory";
-import { CreateCommunityRequestHandler } from "./commands";
+import { AddUserHandler, CreateCommunityRequestHandler, RemoveUserHandler } from "./commands";
+import { GetCommunityRequestHandler } from "./queries";
 
 @Module({
   imports: [
@@ -28,7 +29,10 @@ import { CreateCommunityRequestHandler } from "./commands";
     CommunityRequestDtoRepository,
     CommunityRequestSchemaFactory,
     CommunityRequestFactory,
-    CreateCommunityRequestHandler
+    CreateCommunityRequestHandler,
+    GetCommunityRequestHandler,
+    AddUserHandler,
+    RemoveUserHandler
   ],
 })
 

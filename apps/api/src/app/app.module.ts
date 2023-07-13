@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ChatModule } from '@encompass/api/chat/data-access';
 import { ChatListModule } from '@encompass/api/chat-list/data-access';
+import { CommunityRequestModule } from '@encompass/api/community-request/data-access';
 
 const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
 
@@ -26,6 +27,7 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     CommunityModule,
     ChatModule,
     ChatListModule,
+    CommunityRequestModule
     // DatabaseModule
   ],
   controllers: [AppController],
