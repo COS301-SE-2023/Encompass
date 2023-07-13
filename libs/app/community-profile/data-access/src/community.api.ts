@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { PostDto } from '@encompass/api/post/data-access';
 
@@ -68,6 +69,45 @@ export class CommunityApi {
     } 
     catch (error) 
     {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getCommunityRequest(communityId: string){
+    try{
+      const response = await this.httpClient.get<CommunityRequestDto>('/api/community-request/find/' + communityId).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error);
+      return null
+    }
+  }
+
+  async addCommunityRequest(communityId: string, username: string){
+    try{
+      const response = await this.httpClient.patch<CommunityRequestDto>('/api/community-request/add-user/' + communityId + '/' + username, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async removeCommunityRequest(communityId: string, username: string){
+    try{
+      const response = await this.httpClient.patch<CommunityRequestDto>('/api/community-request/remove-user/' + communityId + '/' + username, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
       console.log(error);
       return null;
     }

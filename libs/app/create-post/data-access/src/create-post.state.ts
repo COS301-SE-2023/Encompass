@@ -15,13 +15,13 @@ export interface PostStateModel {
   }
 }
 
-export interface CreateFileModel{
-  CreateFileForm:{
-    model: {
-      url: string | null;
-    }
-  }
-}
+// export interface CreateFileModel{
+//   CreateFileForm:{
+//     model: {
+//       url: string | null;
+//     }
+//   }
+// }
 @State<PostStateModel>({
   name: 'post',
   defaults: {
@@ -33,16 +33,16 @@ export interface CreateFileModel{
   }
 })
 
-@State<CreateFileModel>({
-  name: 'createFile',
-  defaults: {
-    CreateFileForm: {
-      model: {
-        url: null
-      }
-    }
-  }
-})
+// @State<CreateFileModel>({
+//   name: 'createFile',
+//   defaults: {
+//     CreateFileForm: {
+//       model: {
+//         url: null
+//       }
+//     }
+//   }
+// })
 
 @Injectable()
 export class CreatePostState{
@@ -112,32 +112,32 @@ export class CreatePostState{
     await toast.present();
   }
 
-  @Action(UploadFile)
-  async uploadFile(ctx: StateContext<CreateFileModel>, {file}: UploadFile){
-    const response = await this.createPostApi.uploadFile(file);
+  // @Action(UploadFile)
+  // async uploadFile(ctx: StateContext<CreateFileModel>, {file}: UploadFile){
+  //   const response = await this.createPostApi.uploadFile(file);
 
-    console.log(response);
+  //   console.log(response);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.setState({
-      CreateFileForm: {
-        model: {
-          url: response.url
-        }
-      }
-    })
-  }
+  //   ctx.setState({
+  //     CreateFileForm: {
+  //       model: {
+  //         url: response.url
+  //       }
+  //     }
+  //   })
+  // }
 
   @Selector()
   static post(state: PostStateModel){
     return state.PostForm.model.post;
   }
 
-  @Selector()
-  static url(state: CreateFileModel){
-    return state.CreateFileForm.model.url;
-  }
+  // @Selector()
+  // static url(state: CreateFileModel){
+  //   return state.CreateFileForm.model.url;
+  // }
 }

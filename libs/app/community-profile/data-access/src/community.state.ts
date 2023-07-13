@@ -1,11 +1,12 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { GetCommunity, GetCommunityPosts, UpdateCommunity } from '@encompass/app/community-profile/util';
+import { AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunityRequest, UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { PostDto } from '@encompass/api/post/data-access';
+import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 
 
 export interface CommunityStateModel{
@@ -20,6 +21,14 @@ export interface CommunityPostsModel{
   CommunityPostForm: {
     model:{
       posts: PostDto[] | null
+    }
+  }
+}
+
+export interface CommunityRequestModel{
+  CommunityRequestForm:{
+    model:{
+      communityRequest: CommunityRequestDto | null
     }
   }
 }
@@ -41,6 +50,17 @@ export interface CommunityPostsModel{
     CommunityPostForm: {
       model: {
         posts: null
+      }
+    }
+  }
+})
+
+@State<CommunityRequestModel>({
+  name: 'communityRequest',
+  defaults:{
+    CommunityRequestForm:{
+      model:{
+        communityRequest: null
       }
     }
   }
@@ -100,6 +120,57 @@ export class CommunityState{
     })
   }
 
+  @Action(GetCommunityRequest)
+  async getCommunityRequest(ctx: StateContext<CommunityRequestModel>, {communityId}: GetCommunityRequest){
+    const response = await this.communityApi.getCommunityRequest(communityId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunityRequestForm:{
+        model:{
+          communityRequest: response
+        }
+      }
+    })
+  }
+
+  @Action(AddCommunityRequest)
+  async addCommunityRequest(ctx: StateContext<CommunityRequestModel>, {communityId, username}: AddCommunityRequest){
+    const response = await this.communityApi.addCommunityRequest(communityId, username);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunityRequestForm:{
+        model:{
+          communityRequest: response
+        }
+      }
+    })
+  }
+
+  @Action(RemoveCommunityRequest)
+  async removeCommunityRequest(ctx: StateContext<CommunityRequestModel>, {communityId, username}: RemoveCommunityRequest){
+    const response = await this.communityApi.removeCommunityRequest(communityId, username);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunityRequestForm:{
+        model:{
+          communityRequest: response
+        }
+      }
+    })
+  }
+
   @Selector()
   static community(state: CommunityStateModel){
     return state.CommunityStateForm.model.community
@@ -108,5 +179,10 @@ export class CommunityState{
   @Selector()
   static posts(state: CommunityPostsModel){
     return state.CommunityPostForm.model.posts
+  }
+
+  @Selector()
+  static communityRequest(state: CommunityRequestModel){
+    return state.CommunityRequestForm.model.communityRequest
   }
 }

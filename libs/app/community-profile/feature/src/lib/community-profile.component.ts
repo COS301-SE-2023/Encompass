@@ -7,12 +7,13 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { CommunityApi, CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
+import { AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunityRequest } from '@encompass/app/community-profile/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
+import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class CommunityProfileComponent {
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
+  communityRequest!: CommunityRequestDto | null;
   likes: number[] =[] ;
    likedComments: boolean[] = [];
    shares : number[] = [];
@@ -64,6 +66,11 @@ export class CommunityProfileComponent {
         this.community = community;
         console.log(community);
         this.members = community.members.length;
+
+        if(this.profile?.username !== community.admin && community.type !== "Public"){
+          this.store.dispatch(new GetCommunityRequest(community._id))
+
+        }
       }
     })
 
@@ -295,6 +302,22 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+  }
+
+  requestJoin(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    this.store.dispatch(new AddCommunityRequest(this.community?._id, this.profile.username))
+  }
+
+  requestUnjoin(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    this.store.dispatch(new RemoveCommunityRequest(this.community?._id, this.profile.username))
   }
 
   //***********************************UI FUNCTIONS**************************************************** */

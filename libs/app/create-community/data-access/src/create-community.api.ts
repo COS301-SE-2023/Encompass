@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { CommunityRequestDto } from "@encompass/api/community-request/data-access";
 import { CreateCommunityRequest, CommunityDto } from "@encompass/api/community/data-access";
 
 export interface fileReturn{
@@ -69,6 +70,19 @@ export class CreateCommunityApi{
     catch (error) 
     {
       console.log(error);
+      return null;
+    }
+  }
+
+  async createCommunityRequest(id: string){
+    try{
+      const response = await this.httpClient.post<CommunityRequestDto>('/api/community-request/create/' + id, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error)
       return null;
     }
   }
