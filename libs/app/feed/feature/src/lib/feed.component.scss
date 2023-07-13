@@ -374,7 +374,8 @@ ion-card {
 }
 
 .CommunityCard{
-
+  left: 2.5%;
+  width: 100%;
   background-color: #f8f8f8;
 
 }
@@ -482,7 +483,7 @@ object-fit: fill;
 }
 
 .MediaImage {
-  width: 150px;
+  width: 165px;
   height: 240px;
   object-fit: fill;
   border-radius: 10px;
@@ -529,43 +530,72 @@ ion-card{
 
 
 
-.content-row {
+.contentrecs {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 10px;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  // align-items: center;
 }
 
-.Media{
+.MediaImage {
+  width: 165px;
+  height: 240px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+
+.media-item {
+  position: relative;
+  flex: 0 0 auto;
+  width: inherit;
+  height: inherit;  
+  margin: 10px;
+}
+
+.media-info {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 60%;
-  height: 240px;
-  font-family: CustomFont;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.MediaTitle{
-  text-align: center  ;
-  width: 100%;
-  font-size: 30px;
-
-}
-.MediaDate{
-  text-align: center  ;
-  width: 100%;
-  font-size: 20px;
-
-}
-.MediaAuthor{
-  text-align: center  ;
-  width: 100%;
-  font-size: 20px;
-
+.media-item:hover .media-info {
+  opacity: 1;
 }
 
-.MediaGenres{
-  display: flex;
-  justify-content: space-evenly;
-  width: 50%;
+/* Additional styling for the media info */
+.media-info .MediaTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.media-info .MediaDate,
+.media-info .MediaAuthor {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.media-info .MediaGenres img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.media-info {
+  .imgDiv {
+    filter: invert(1);
+  }
 }
