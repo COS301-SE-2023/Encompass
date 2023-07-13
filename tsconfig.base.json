@@ -39,6 +39,9 @@
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
       ],
+      "@encompass/api/notifications/data-access": [
+        "libs/api/notifications/data-access/src/index.ts"
+      ],
       "@encompass/api/post/data-access": [
         "libs/api/post/data-access/src/index.ts"
       ],
