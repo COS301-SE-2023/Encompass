@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { SearchExploreComponent } from './search-explore.component';
-//import { SearchExploreRouting } from './search-explore.routing';
+import { SearchExploreRouting } from './search-explore.routing';
 
 
 @NgModule({
@@ -10,4 +10,7 @@ import { SearchExploreComponent } from './search-explore.component';
   declarations: [SearchExploreComponent],
   providers: [],
 })
-export class SearchExploreModule {}
+export class SearchExploreModule {
+
+    
+}
