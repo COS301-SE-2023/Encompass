@@ -7,8 +7,9 @@ import { NotificationDtoRepository } from "./db/notification-dto.repository";
 import { NotificationSchemaFactory } from "./db/notification-schema.factory";
 import { NotificationFactory } from "./notification.factory";
 import { NotificationSchema } from "./db/notification.schema";
-import { CreateNotificationHandler } from "./commands";
+import { AddNotificationHandler, CreateNotificationHandler, RemoveNotificationHandler } from "./commands";
 import { NotificationCreateHandler } from "./events";
+import { GetNotificationHandler } from "./queries";
 
 @Module({
   imports: [
@@ -27,7 +28,10 @@ import { NotificationCreateHandler } from "./events";
     NotificationSchemaFactory,
     NotificationFactory,
     CreateNotificationHandler,
-    NotificationCreateHandler
+    NotificationCreateHandler,
+    AddNotificationHandler,
+    RemoveNotificationHandler,
+    GetNotificationHandler
   ]
 })
 
