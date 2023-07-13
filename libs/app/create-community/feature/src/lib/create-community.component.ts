@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { CreateCommunityRequest } from '@encompass/api/community/data-access';
-import { CreateCommunityApi, CreateCommunityState, FileUpload } from '@encompass/app/create-community/data-access';
+import { CreateCommunityApi, CreateCommunityState } from '@encompass/app/create-community/data-access';
 
 @Component({
   selector: 'create-community',
@@ -26,7 +26,7 @@ export class CreateCommunityComponent {
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(CreateCommunityState.communityUrl) url$! : Observable<FileUpload | null>;
+  // @Select(CreateCommunityState.communityUrl) url$! : Observable<FileUpload | null>;
 
   profile! : ProfileDto;
   hasImage = false;

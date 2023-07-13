@@ -77,7 +77,7 @@ export class CommunityApi {
   async getCommunityRequest(communityId: string){
     try{
       const response = await this.httpClient.get<CommunityRequestDto>('/api/community-request/find/' + communityId).toPromise();
-
+      console.log(response)
       return response
     }
 

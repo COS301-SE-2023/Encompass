@@ -29,7 +29,7 @@ export class CreatePostComponent {
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(CreatePostState.url) url$! : Observable<string | null>;
+  // @Select(CreatePostState.url) url$! : Observable<string | null>;
 
   profile! : ProfileDto | null;
   hasImage = false;

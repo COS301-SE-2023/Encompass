@@ -28,6 +28,7 @@ export class CommunityProfileComponent {
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
   @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
+  @Select(CommunityState.communityRequest) communityRequest$!: Observable<CommunityRequestDto | null>;
 
   file!: File;
   fileBanner!: File;
@@ -67,9 +68,14 @@ export class CommunityProfileComponent {
         console.log(community);
         this.members = community.members.length;
 
-        if(this.profile?.username !== community.admin && community.type !== "Public"){
+        if(community.type !== "Public"){
           this.store.dispatch(new GetCommunityRequest(community._id))
-
+          this.communityRequest$.subscribe((request) => {
+            if(request){
+              console.log(request);
+              this.communityRequest = request;
+            }
+          })
         }
       }
     })
