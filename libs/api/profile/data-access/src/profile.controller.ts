@@ -76,4 +76,11 @@ export class ProfileController {
       new GetUsernameQuery(username),
     );
   }
+
+  @Get('/media/:id')
+  async getRecommendedMedia(@Param('id') userId: string) {
+    return await this.queryBus.execute<GetRecommendedMediaQuery, string[]>(
+      new this.GetRecommendedMediaQuery(userId),
+    );
+  }
 }
