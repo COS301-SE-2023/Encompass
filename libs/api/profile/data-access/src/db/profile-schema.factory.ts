@@ -22,6 +22,7 @@ export class ProfileSchemaFactory
         posts: profile.getPosts(),
         reviews: profile.getReviews(),
         profileImage: profile.getProfileImage(),
+        profileBanner: profile.getProfileBanner(),
         bio: profile.getBio(),
       };
     }
@@ -41,6 +42,7 @@ export class ProfileSchemaFactory
         entitySchema.posts,
         entitySchema.reviews,
         entitySchema.profileImage,
+        entitySchema.profileBanner,
         entitySchema.bio,
       )
     }

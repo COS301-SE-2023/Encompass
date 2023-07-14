@@ -11,5 +11,6 @@ export class UpdateProfileRequest{
   posts!: string [];
   reviews!: string [];
   profileImage!: string | null;
+  profileBanner!: string | null;
   bio!: string | null;
 }

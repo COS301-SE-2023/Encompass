@@ -12,5 +12,6 @@ export class CreateProfileRequest{
   posts!: string [] | null;
   reviews!: string [] | null;
   profileImage!: string | null;
+  profileBanner!: string | null;
   bio!: string | null;
 }
