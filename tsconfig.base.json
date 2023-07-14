@@ -127,7 +127,13 @@
         "libs/app/welcome/feature/src/index.ts"
       ],
       "@encompass/app/welcome/ui": ["libs/app/welcome/ui/src/index.ts"]
-    }
+    },
+    "outDir": "./out-tsc/spec",
+   // "module": "CommonJs", //duplicate identifier
+    "types": [
+       "jest", 
+      "@testing-library/jest-dom"
+    ]
   },
   "exclude": ["node_modules", "tmp"]
 }
