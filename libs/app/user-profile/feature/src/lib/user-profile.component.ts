@@ -173,4 +173,7 @@ export class UserProfile {
     this.presentingElement = document.querySelector('.ion-page');
     this.presentingElement2 = document.querySelector('.ion-page');
   }
+  Follow(){
+    
+  }
 }
