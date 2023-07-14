@@ -20,9 +20,14 @@
 
      <div [hidden]="!edit" style="width: 50%; height: 100%;" >
       <form   [formGroup]="postForm" (ngSubmit)="onSubmit()" class = "EditDetails"  >
-          
-        <ion-textarea  [maxlength]="80" class = "DescInput"  
-        placeholder = "Enter New Description" formControlName="text" ></ion-textarea>
+          <div class = "textInput">
+            <ion-textarea  [maxlength]="80" class = "DescInput"  
+            placeholder = "Enter New Description" formControlName="text" ></ion-textarea>
+
+            <ion-textarea  [maxlength]="200" class = "DescInput"  
+            placeholder = "Enter New Rules" formControlName="rules" ></ion-textarea>
+          </div>
+       
 
 <div class = "EditButtons">
   <button [hidden]="hasImage" (click)="insertImage()">Change Photo</button>
@@ -54,8 +59,8 @@
      <div class = CommunityOptions>
         <div class = "ListOfOptions" *ngIf="profile != null && profile != undefined && community != null && community != undefined && profile.username !== community.admin">
           <div *ngIf="community.type === 'Public'">
-          <button class = "Join" (click)="join()" *ngIf="!community.members.includes(profile.username)">Join</button>
-          <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
+            <button class = "Join" (click)="join()" *ngIf="!community.members.includes(profile.username)">Join</button>
+            <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
           </div>
 
           <div *ngIf="community.type !== 'Public' && communityRequest !== null && communityRequest !== undefined">
@@ -63,9 +68,13 @@
             <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
             <button class = "Join" (click)="requestUnjoin()" *ngIf="!community.members.includes(profile.username) && communityRequest.requestUsernames.includes(profile.username)">Unrequest</button>
           </div>
+
+          <ion-icon class="icon" name="share-social" ></ion-icon>
+          <ion-icon class="icon" name="notifications" ></ion-icon>
+
         </div>
-          <ion-icon name="share-social-outline" style="font-size: 25px;"></ion-icon>
-          <ion-icon name="notifications-outline" style="font-size: 25px;"></ion-icon>
+
+          
      </div>
    </div>
       <ion-grid >
@@ -226,6 +235,16 @@
                   <div class = "Buttons">
                     <button class="Button2">Community Events</button>
                   </div>
+                </ion-card>
+                <ion-card class = "AdminCard">
+                  <div class="AdminTitle">
+                    <label>Community Administration</label>
+                  </div>
+                    <div class="AdminList">
+                      <label class = "AdminRequest">@Username has requested to join this community</label>
+                      <button><ion-icon class = "accept" name="checkmark-circle"></ion-icon></button>
+                      <button><ion-icon class = "reject" name="close-circle"></ion-icon></button>
+                    </div>
                 </ion-card>
             </ion-col>
         </ion-row>

@@ -104,11 +104,16 @@ export class CommunityProfileComponent {
 
   
   postForm = this.formBuilder.group({
-    text: ['', Validators.maxLength(80)]
+    text: ['', Validators.maxLength(80)],
+    rules: ['', Validators.maxLength(200)]
   });
 
   get text() {
     return this.postForm.get('text');
+  }
+
+  get rules(){
+    return this.postForm.get('rules');
   }
 
 
@@ -196,6 +201,7 @@ export class CommunityProfileComponent {
     }
 
     let textData : string;
+    let rulesData : string;
     let imageUrl : string | null;
     let bannerUrl : string | null;
 
@@ -223,11 +229,18 @@ export class CommunityProfileComponent {
       bannerUrl = this.community?.bannerImage;
     }
 
-    if(this.text?.value == null || this.text?.value == undefined){
-      textData = "";
+    if(this.text?.value == null || this.text?.value == undefined||this.text?.value==""){
+      textData = this.community?.about;
     }
     else{
       textData = this.text?.value;
+    }
+
+    if(this.rules?.value == null || this.rules?.value == undefined||this.rules?.value==""){
+      rulesData = this.community?.rules;
+    }
+    else{
+      rulesData = this.rules?.value;
     }
 
     const data : UpdateCommunityRequest = {
@@ -235,7 +248,7 @@ export class CommunityProfileComponent {
       type: this.community?.type,
       admin: this.community?.admin,
       about: textData,
-      rules: this.community?.rules,
+      rules: rulesData,
       groupImage: imageUrl,
       bannerImage: bannerUrl,
       categories: this.community?.categories,
@@ -246,6 +259,8 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.postForm.reset();
+
   }
 
   async uploadImage(file: File, fileName: string) : Promise<string | null>{
