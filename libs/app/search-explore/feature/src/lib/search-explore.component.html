@@ -4,6 +4,7 @@
     <ion-header>
       <ion-toolbar class="profileToolbar">
         <div class="toolbar-content">
+          <ion-input fill="outline" type=searchBar class="input" [(ngModel)]="user.search" name="search" labelPlacement="floating" label="Search" required>Search</ion-input>
           <ion-grid>
             <ion-row class="row-filter">
               <ion-col size="2">
@@ -22,7 +23,7 @@
                 </ion-button>
               </ion-col>
               <ion-col size="2">
-                <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
+                <ion-button id="peopleBtn" fill="clear" class="none buttonStyle" (click)="peopleChange()">
                   People
                 </ion-button>
               </ion-col>
@@ -37,7 +38,8 @@
       <ion-row class="filter-row">
         <ion-col size="5">
   
-          <ion-button style="z-index: 1;"class="comms active-button" id = "comm" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
+          
+         
   
           <!-- Posts -->
   
