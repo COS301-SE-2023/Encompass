@@ -5,6 +5,7 @@ import { SearchExploreComponent } from './search-explore.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: SearchExploreComponent,
   }
 ];

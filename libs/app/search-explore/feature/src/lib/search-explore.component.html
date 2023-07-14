@@ -1,252 +1,34 @@
-<p>search-explore works!</p>
 <div class="overlay">
 
-    <ion-header>
-      <ion-toolbar class="profileToolbar">
-        <div class="toolbar-content">
-          <ion-input fill="outline" type=searchBar class="input" [(ngModel)]="user.search" name="search" labelPlacement="floating" label="Search" required>Search</ion-input>
-          <ion-grid>
-            <ion-row class="row-filter">
-              <ion-col size="2">
-                <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle" (click)="postChange()">
-                  Posts
-                </ion-button>
-              </ion-col>
-              <ion-col size="2">
-                <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" (click)="commChange()">
-                  Comments
-                </ion-button>
-              </ion-col>
-              <ion-col size="2">
-                <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
-                  Events
-                </ion-button>
-              </ion-col>
-              <ion-col size="2">
-                <ion-button id="peopleBtn" fill="clear" class="none buttonStyle" (click)="peopleChange()">
-                  People
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-toolbar>
-    </ion-header>
-  
-  
-    <ion-grid>
-      <ion-row class="filter-row">
-        <ion-col size="5">
-  
-          
-         
-  
-          <!-- Posts -->
-  
-          <div *ngIf = "seePosts">
-            <div  *ngFor="let post of posts;let i = index">
-  
-              <ion-card class = "PostCard" >
-                <div class = "PostCardHeader">
-                  <div class = "PostImageContainer" >
-                    <img src =  {{post.communityImageUrl}}  class = "postImage" >
-                  </div>
-                <div class = "PostDetails"  >
-                  <div class = "TitleNameOptions">
-                    <div style = "display: flex; margin-left: 1.5%;">
-                      <div class = "Title">{{post.community}}</div>
-                      <div class = "Name" > @{{post.username}}</div>
-                    </div>
-                    <div style = "display: flex; margin-right: 1.5%;">
-  
-                      <label class = "report" *ngIf="deletePost[i]&&MarkedForPostDeletion[i]" 
-                      (click)="DeletePost(i,post)">Delete Post</label>
-  
-                      <label class = "report" *ngIf="deletePost[i]&&!MarkedForPostDeletion[i]" 
-                      style = "color:red">Post Deleted</label>
-                      
-                      <button class = "Options" (click)="Delete(i)"> 
-                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
-                    </div>
-          
-                   </div>
-                  
-                  <div class = "GenreIcons" >
-                    <div style = "width: 30%; display: flex; justify-content: space-around;">
-                      <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
-                      </div>
-                      <div style = "width: 70%; display: flex; justify-content: space-evenly;">
-                        <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-                        <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
-                    </div>
-                  </div>
-  
-              </div> 
-                </div>
-                <div class = "PostBody"  (click)="GoToComments(post._id)">
-    
-                  <div class = "text">
-                      <h5>{{post.title}}</h5>
-                      <div style = "display:flex;justify-content: center;">
-                        <img src = {{post.imageUrl}} style="border-radius: 10px;" >
-                      </div>
-                      <br>
-                      {{post.text}}
-                  </div>
-                </div>
-                <div class = "PostFooter">
-                  <div class = "date">{{datesAdded[i]}}</div>
-                  <div class = "icons">
-                    <div style = "text-align: center;">
-                      <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
-                      <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
-                      <div *ngIf = "!sharing[i]">{{post.shares}}</div>
-                      <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
-    
-                    </div>
-                    <div style = "text-align: center;">
-                      <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
-                      <div>{{post.comments}}</div>
-                    </div>
-                    <div style = "text-align: center;">
-                      <div *ngIf="profile != null">
-                      <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                      <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
-                      <div>{{post.likes.length}}</div>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-               </ion-card>
-              </div>
-          </div>
-          <div *ngIf = "seeComments">
-            <div class = "lineBreakers" *ngFor="let comment of commentsList;let i = index" >
-              <br>
-              <div class = Comment>
-                  <div class = "CommentHead">
-                    <div class = CommentIDs>
-                        <img src = "assets/icon/profile.jpg" style="object-fit: fill;
-                        width: 50px; height: 50px; border-radius: 50%;">
-                        <div class = "UserName">
-                          @{{comment?.username}}
-                        </div>
-                    </div>
-                    <div class = "CommentStats">
-  
-                      <label class = "report" *ngIf="deleteComment[i]&&MarkedForCommentDeletion[i]" 
-                      (click)="DeleteComment(i,comment)">Delete Comment</label>
-  
-                      <label class = "report" *ngIf="deleteComment[i]&&!MarkedForCommentDeletion[i]" 
-                      style = "color:red">Comment Deleted</label>
-  
-                      <button class = "Options2" (click)="Delete2(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
-                    
-                      <ion-icon name="chatbubble-outline" class = "comment" (click)="viewReplies(i)"></ion-icon>
-                      {{replies[i]}}
-                    </div>
-                  </div>
-                  <div class = "CommentBody" (click)="ViewPostofComment(comment.postId)">{{comment?.text}}</div>
-                  
-                  <br>
-                  <div class = "CommentReply" *ngIf = "viewreplies[i]">
-                    <div style="width: 100%;display: flex;justify-content: center; border-radius: 10px;"><button>Replies:</button></div>
-                    <br>
-                    <div class = "lineBreakers2" *ngFor="let reply of comment?.replies" >
-                      <div class = CommentReplies>
-                          <div class = "CommentHead">
-                            <div class = CommentIDs>
-                                <img src = "assets/icon/profile.jpg" style="object-fit: fill;
-                                width: 50px; height: 50px; border-radius: 50%;">
-                              <div class = "UserName">
-                                  @ {{reply?.username}}
-                              </div>
-                            </div>
-                            <div class = "CommentStats">
-                              <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
-                              552 -->
-                            </div>
-                          </div>
-                          <div class = "CommentBody">{{reply?.text}}</div>
-                          <br>
-                      </div>
-          
-  
-                  </div>
-              
-              
-                </div>
-                <br>
-           </div> 
-           <br>
-          </div>
-          <br>
-        </div>
-         
-        </ion-col>
-  
-  
-  
-  
-  
-        <ion-col size="4">
-          
-          <ion-card class = "curve">
-            <div style="position: relative">
-            <img class="profilePicture" alt="Silhouette of mountains" src="https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg" />
-            <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
-            </div>
-            <ion-card-header>
-              <ion-card-title>{{profile?.name}} {{profile?.lastName}}
-                <ion-button
-              fill="clear"
-              size="medium"
-              color="dark"
-              class="edit-button">
-              <ion-icon name="share-social"></ion-icon>
-            </ion-button>
-            <ion-button
-              fill="clear"
-              size="medium"
-              color="dark"
-              class="edit-button">
-              <ion-icon name="pencil"></ion-icon>
-            </ion-button>
-            
-            <ion-card-subtitle style="margin-top: 5px;">@{{profile?.username}}</ion-card-subtitle>
-              </ion-card-title>
-            </ion-card-header>
-          
-            <ion-card-content style="font-size: 15px; margin-bottom: 15px;">
-              {{profile?.bio}}
-            </ion-card-content>
-          </ion-card>
-  
-          <div class="awards">
-            <ion-title class="awards-header">
-              Awards
-            </ion-title>
-            <div class="badges">
-              <img src="assets/icon/Award1.jpg" class="badge">
-              <img src="assets/icon/Award2.JPG" class="badge">
-            </div>
-          </div>
-  
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title color="grey">Top Communities</ion-card-title>
-            </ion-card-header>
-          
-             
-              
-          </ion-card>
-  
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  
-  </div>
-  
-  <!-- <ion-icon class = "Rocket1" name="rocket-outline"></ion-icon> -->
-  
+  <ion-header>
+    <ion-toolbar class="searchExporeToolbar">
+      <ion-searchbar search-icon="search-circle" show-clear-button="always" clear-icon="trash-bin" animated="true" placeholder="Search"></ion-searchbar>
+      <div class="toolbar-content">
+        <ion-grid>
+          <ion-row class="row-filter">
+            <ion-col size="2">
+              <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle">
+                Posts
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" >
+                Comments
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" >
+                Events
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button id="peopleBtn" fill="clear" class="none buttonStyle" >
+                People
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
