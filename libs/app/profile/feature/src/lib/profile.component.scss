@@ -274,7 +274,14 @@ ion-card {
 
       }
 
-
+      .Title:hover{
+        cursor:pointer;
+        color: #8231DD;
+      }
+      .Name:hover{
+        cursor:pointer;
+            color: #8231DD;
+      }
     .DOT{
       // background-color: red;
       font-size: larger;
@@ -322,10 +329,13 @@ ion-card {
       object-fit: fill;
     }
 
+ 
+
     .buttonStyle {
       width: 60%;
       height: 150%;
       font-size: 18px;
+     
     }
 
     .active-button {

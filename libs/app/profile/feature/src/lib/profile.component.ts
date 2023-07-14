@@ -359,12 +359,10 @@ Edit(){
 
   async onSubmit(){
 
-    console.log("OH HELLO THERE!!!!!!");
     if(this.profile == null){
       return;
     }
 
-    let textData : string;
 
     let First : string;
     let Last : string;
@@ -397,22 +395,22 @@ Edit(){
       bannerUrl = this.profile?.profileBanner;
     }
 
-    if(this.FirstName?.value == null || this.FirstName?.value == undefined){
-      First = "";
+    if(this.FirstName?.value == null || this.FirstName?.value == undefined|| this.FirstName?.value == ""){
+      First = this.profile?.name;
     }
     else{
       First = this.FirstName?.value;
     }
 
-    if(this.LastName?.value == null || this.LastName?.value == undefined){
-      Last = "";
+    if(this.LastName?.value == null || this.LastName?.value == undefined|| this.LastName?.value == ""){
+      Last = this.profile?.lastName;
     }
     else{
       Last = this.LastName?.value;
     }
 
     if(this.Bio?.value == null || this.Bio?.value == undefined){
-      bioData = "";
+      bioData = this.profile?.bio;
     }
     else{
       bioData = this.Bio?.value;
@@ -437,6 +435,7 @@ Edit(){
     }
 
     this.store.dispatch(new UpdateProfile(data,this.profile?._id));
+    this.postForm.reset();
   }
 
   async uploadImage(file: File, fileName: string) : Promise<string | null>{
