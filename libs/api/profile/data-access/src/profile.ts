@@ -107,4 +107,34 @@ export class Profile extends AggregateRoot{
     if(this.communities)
       this.communities = this.communities.filter(community => community !== communityName);
   }
+
+  addFollower(followerId: string){
+    if(this.followers){
+      this.followers = [...this.followers, followerId];
+    }
+
+    else{
+      this.followers = [followerId];
+    }
+  }
+
+  addFollowing(followingId: string){
+    if(this.following){
+      this.following = [...this.following, followingId]
+    }
+
+    else{
+      this.following = [followingId]
+    }
+  }
+
+  removeFollower(followerId: string){
+    if(this.followers)
+      this.followers = this.followers.filter(follower => follower !== followerId);
+  }
+
+  removeFollowing(followingId: string){
+    if(this.following)
+      this.following = this.following.filter(follow => follow !== followingId);
+  }
 }

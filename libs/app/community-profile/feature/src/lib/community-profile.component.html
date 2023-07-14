@@ -52,12 +52,20 @@
 
 
      <div class = CommunityOptions>
-        <div class = "ListOfOptions" *ngIf="profile != null && profile != undefined && community != null && community != undefined">
+        <div class = "ListOfOptions" *ngIf="profile != null && profile != undefined && community != null && community != undefined && profile.username !== community.admin">
+          <div *ngIf="community.type === 'Public'">
           <button class = "Join" (click)="join()" *ngIf="!community.members.includes(profile.username)">Join</button>
           <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
+          </div>
+
+          <div *ngIf="community.type !== 'Public' && communityRequest !== null && communityRequest !== undefined">
+            <button class = "Join" (click)="requestJoin()" *ngIf="!community.members.includes(profile.username) && !communityRequest.requestUsernames.includes(profile.username)">Request</button>
+            <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
+            <button class = "Join" (click)="requestUnjoin()" *ngIf="!community.members.includes(profile.username) && communityRequest.requestUsernames.includes(profile.username)">Unrequest</button>
+          </div>
+        </div>
           <ion-icon name="share-social-outline" style="font-size: 25px;"></ion-icon>
           <ion-icon name="notifications-outline" style="font-size: 25px;"></ion-icon>
-        </div>
      </div>
    </div>
       <ion-grid >
@@ -108,6 +116,8 @@
       
         <ion-row class="row-filter">
             <ion-col size = "5" >
+              <div *ngIf="community !== null && community !== undefined && profile !== undefined && profile !== null">
+              <div *ngIf="(community?.type !== 'Private' || community.members.includes(profile.username))">
               <div *ngFor="let post of communityPosts?.slice()?.reverse();let i = index">
 
                 <ion-card class = "PostCard" >
@@ -190,6 +200,8 @@
                   </div>
                  </ion-card>
                 </div>
+              </div>
+            </div>
             </ion-col>
             <ion-col size = "4" >
                 <ion-card class = "CommunityCard" >

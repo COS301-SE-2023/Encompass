@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { CreateCommunityRequest } from '@encompass/api/community/data-access';
-import { CreateCommunityState, FileUpload } from '@encompass/app/create-community/data-access';
+import { CreateCommunityApi, CreateCommunityState } from '@encompass/app/create-community/data-access';
 
 @Component({
   selector: 'create-community',
@@ -26,7 +26,7 @@ export class CreateCommunityComponent {
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(CreateCommunityState.communityUrl) url$! : Observable<FileUpload | null>;
+  // @Select(CreateCommunityState.communityUrl) url$! : Observable<FileUpload | null>;
 
   profile! : ProfileDto;
   hasImage = false;
@@ -39,7 +39,7 @@ export class CreateCommunityComponent {
   isValid!: boolean;
 
 
-  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store) {
+  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createCommunityApi: CreateCommunityApi) {
       if(!this.profile){
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.subscribe((profile) => {
@@ -166,20 +166,13 @@ export class CreateCommunityComponent {
   }
 
   async uploadFile() : Promise<string | null>{
-    
-    return new Promise((resolve) =>{
+    return new Promise((resolve) => {
       const formData = new FormData();
       formData.append('file', this.file, this.fileName);
 
-      this.store.dispatch(new UploadFile(formData));
-      this.url$.subscribe((response) => {
-        if(response){
-          console.log(response);
-          resolve(response.url);
-        }
-      })
-      
+      const uploadFile = this.createCommunityApi.uploadFile(formData)
+      console.log(uploadFile);
+      resolve(uploadFile);
     })
-    
   }
 }

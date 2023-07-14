@@ -27,6 +27,9 @@
       "@encompass/api/comment/data-access": [
         "libs/api/comment/data-access/src/index.ts"
       ],
+      "@encompass/api/community-request/data-access": [
+        "libs/api/community-request/data-access/src/index.ts"
+      ],
       "@encompass/api/community/data-access": [
         "libs/api/community/data-access/src/index.ts"
       ],
@@ -35,6 +38,9 @@
       ],
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
+      ],
+      "@encompass/api/notifications/data-access": [
+        "libs/api/notifications/data-access/src/index.ts"
       ],
       "@encompass/api/post/data-access": [
         "libs/api/post/data-access/src/index.ts"

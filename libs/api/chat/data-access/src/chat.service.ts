@@ -8,12 +8,10 @@ export class ChatService {
 
   async getMessages(chatId: string){
     const url = process.env["BASE_URL"];
-    console.log(chatId);
 
     try{
       const response = await this.httpService.get(url + '/api/chat/get-chat/' + chatId).toPromise();
       if (response && response.data) {
-        // console.log(response.data);
         return response.data;
       }
     }
@@ -30,7 +28,6 @@ export class ChatService {
       try{
         const response = await this.httpService.patch(url + '/api/chat/add-message/' + chatId, data).toPromise();
         if (response) {
-          console.log(response.data);
           return response.data;
         }
       }

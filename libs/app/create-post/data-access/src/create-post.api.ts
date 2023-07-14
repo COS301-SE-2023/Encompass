@@ -23,13 +23,17 @@ export class CreatePostApi{
     }
   }
   
-  async uploadFile(request: FormData) : Promise<fileReturn | null | undefined>{
+  async uploadFile(request: FormData) : Promise<string | null>{
     try {
 
       // console.log("HERE")
       const response = await this.httpClient.post<fileReturn>('/api/post/upload-image', request).toPromise();
 
-      return response;
+      if(response == null){
+        return null
+      }
+
+      return response.url;
     } 
     catch (error) 
     {
