@@ -289,8 +289,8 @@ async Share(n:number, post: PostDto){
   await navigator.clipboard.writeText(link)
 }
 
-GoToProfile(){
-  
+GoToProfile(username: string){
+  this.router.navigate(['user-profile/' + username]);
 }
 
   recChange(){

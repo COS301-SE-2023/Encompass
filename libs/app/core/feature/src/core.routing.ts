@@ -81,7 +81,7 @@ const routes: Routes = [
       import('@encompass/app/sign-up-interior2/feature').then((m) => m.SignUpInterior2Module)
   },
   {
-    path: 'user-profile',
+    path: 'user-profile/:username',
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule),
@@ -121,7 +121,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule),
     canActivate: [AuthGuard]
-  }
+  },
 ];
 
 @NgModule({

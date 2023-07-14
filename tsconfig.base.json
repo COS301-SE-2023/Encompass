@@ -127,8 +127,14 @@
       ],
       "@encompass/app/sign-up/util": ["libs/app/sign-up/util/src/index.ts"],
       "@encompass/app/themes/feature": ["libs/app/themes/feature/src/index.ts"],
+      "@encompass/app/user-profile/data-access": [
+        "libs/app/user-profile/data-access/src/index.ts"
+      ],
       "@encompass/app/user-profile/feature": [
         "libs/app/user-profile/feature/src/index.ts"
+      ],
+      "@encompass/app/user-profile/util": [
+        "libs/app/user-profile/util/src/index.ts"
       ],
       "@encompass/app/welcome/feature": [
         "libs/app/welcome/feature/src/index.ts"
