@@ -1,13 +1,22 @@
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { Injectable } from "@angular/core"
 import { Action, Selector, State, StateContext } from "@ngxs/store"
-import { GetUserProfile } from "@encompass/app/user-profile/util"
+import { GetUserProfile, GetUserProfilePosts } from "@encompass/app/user-profile/util"
 import { UserProfileApi } from "./user-profile.api"
+import { PostDto } from "@encompass/api/post/data-access"
 
 export interface UserProfileStateModel{
   UserProfileStateForm:{
     model:{
       userProfile: ProfileDto | null
+    }
+  }
+}
+
+export interface UserProfilePostModel{
+  UserProfilePostForm:{
+    model:{
+      userProfilePosts: PostDto[] | null
     }
   }
 }
@@ -18,6 +27,17 @@ export interface UserProfileStateModel{
     UserProfileStateForm:{
       model:{
         userProfile: null
+      }
+    }
+  }
+})
+
+@State<UserProfilePostModel>({
+  name: 'userProfilePostModel',
+  defaults:{
+    UserProfilePostForm:{
+      model:{
+        userProfilePosts: null
       }
     }
   }
@@ -44,8 +64,30 @@ export class UserProfileState{
     })
   }
 
+  @Action(GetUserProfilePosts)
+  async getUserProfilePosts(ctx: StateContext<UserProfilePostModel>, {username}: GetUserProfilePosts){
+    const response = await this.userProfileApi.getUserProfilePosts(username)
+
+    if(response == null && response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      UserProfilePostForm:{
+        model:{
+          userProfilePosts: response
+        }
+      }
+    })
+  }
+
   @Selector()
   static userProfile(state: UserProfileStateModel){
     return state.UserProfileStateForm.model.userProfile
+  }
+
+  @Selector()
+  static userProfilePosts(state: UserProfilePostModel){
+    return state.UserProfilePostForm.model.userProfilePosts
   }
 }
