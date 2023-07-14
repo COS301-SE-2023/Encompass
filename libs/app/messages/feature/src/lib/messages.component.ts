@@ -11,7 +11,7 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ChatListDto } from '@encompass/api/chat-list/data-access';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessagesDto } from '@encompass/app/messages/data-access';
+import { MessagesDto } from '@encompass/api/chat/data-access';
 
 @Component({
   selector: 'messages',
@@ -30,6 +30,14 @@ export class MessagesPage {
   chatProfiles!: MessagesDto[] | null;
   chatList!: ChatListDto | null;
   hasMessages = false;
+  firstName!: string;
+  lastName!: string;
+  userImage!: string;
+
+  selectedOption!: string;
+  selectOpen = false;
+
+  chatOptions: string[] = ["User 1", "User 2"];
 
   constructor(private store: Store, private router: Router, private formBuilder: FormBuilder){
     this.store.dispatch(new SubscribeToProfile());
@@ -81,7 +89,10 @@ export class MessagesPage {
     this.store.dispatch(new SendMessage(data));
   }
 
-  fetchMessages(chatId: string){
+  fetchMessages(chatId: string,first: string,last:string,image: string){
+    this.userImage=image;
+    this.firstName=first;
+    this.lastName=last;
     this.store.dispatch(new GetMessages(chatId));
     this.messages$.subscribe((messages) => {
       console.log(messages);
@@ -90,5 +101,14 @@ export class MessagesPage {
         this.hasMessages = true;
       }
     })
+  }
+
+  toggleSelect() {
+    this.selectOpen = !this.selectOpen;
+  }
+
+  onOptionChange() {
+    // Handle option change logic here if needed
+    console.log(this.selectedOption);
   }
 }

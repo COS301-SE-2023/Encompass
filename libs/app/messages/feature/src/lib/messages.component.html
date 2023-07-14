@@ -3,57 +3,65 @@
 
         
       <ul>
-        <li style="font-size: 25px;">
-            <label>{{profile?.username}}</label>
+        <li class ="UserName">
+            @{{profile?.username}}
             <ion-icon style="font-size: 50px;" 
-            name="chatbubble-ellipses-outline" ></ion-icon>
+          name="chatbubble-ellipses-outline"
+          id="icon" (click)="toggleSelect()">
+        </ion-icon> 
+        <ion-select class="select" > 
+          <ion-select-option *ngFor="let c of chatOptions" 
+          [value]="c" class = "option" >
+          {{c}}</ion-select-option>
+      </ion-select>
         </li>
-        <li>chats</li>
-        <!-- <div *ngIf="chatProfiles != null"> -->
+        <li class ="AddChat">
+          <label>Chats</label>
+          
+          </li>
           <div *ngFor="let chats of chatProfiles">
-            <li (click)="fetchMessages(chats.chatId)">{{chats.name}} {{chats.lastName}}</li>
+            <li (click)="fetchMessages(chats.chatId,chats.name,chats.lastName,chats.profilePicture)" class = "chatItem"> 
+            <img src= {{chats.profilePicture}} class = "imgDiv">
+            {{chats.name}} {{chats.lastName}}</li>
           </div>
-        <!-- </div> -->
+          
       </ul>
     </div>
     <div class="chat-area" >
+      <div class = "User" [hidden]="!hasMessages">
+        <div style = "display: flex; align-items: center;height: 100%;">
+          <img src= {{userImage}} class = "imgDiv3">
 
-    <!-- <div *ngIf="hasMessages"> -->
-      <div class = "messages" chatScroll *ngIf="hasMessages && profile !== null && messages !== null && messages !== undefined && profile !== undefined">
+          {{firstName}} {{lastName}}
+        </div>
+        
+      </div>
+      <div class = "messages" chatScroll *ngIf="hasMessages 
+      && profile !== null && messages !== null && messages !== undefined 
+      && profile !== undefined">
+      
         <div *ngFor="let message of messages.messages">
           <div class="message" *ngIf="message.username !== profile.username">
-            <span class="sender">{{message.username}}:</span>
-            <span class="timestamp">{{message.dateTime}}</span>
-            <p>{{message.message}}</p>
+            <img src={{userImage}} class = "imgDiv2">
+            <div class = "msg">{{message.message}}</div>
           </div>
 
-          <div class="message your-message" *ngIf="message.username === profile.username">
-            <span class="sender">{{message.username}}:</span>
-            <span class="timestamp">{{message.dateTime}}</span>
-            <p>{{message.message}}</p>
+          <div class="your-message" *ngIf="message.username === profile.username">
+            <div class = "msg2">{{message.message}}</div>
+            <img src={{profile.profileImage}} class = "imgDiv2">
+
           </div>
         </div>
-
-        <!-- <div class = "messages" chatScroll>
-            <div class="message">
-                <span class="sender">User 1:</span>
-                <span class="timestamp">July 10, 2023 10:00 AM</span>
-                <p>Hello!</p>
-              </div>
-              <div class="message your-message">
-                <span class="sender">You:</span>
-                <span class="timestamp">July 10, 2023 10:02 AM</span>
-                <p>Hi there!</p>
-              </div>
-        </div> -->
-      
-      <div class = "Typer">
-        <form class="message-form" [formGroup]="messageForm">
-          <input type="text" formControlName="messageInput" placeholder="Type your message here..." />
-          <button type="submit" (click)="sendMessage()">Send</button>
+    
+    </div>
+    <div class = "Typer" [hidden]="!hasMessages">
+      <div style = "display: flex; justify-content: center;">
+        <form class="message-form" [formGroup]="messageForm" class = "messageInput">
+          
+          <ion-textarea  class="input" formControlName="messageInput" placeholder="Message..." ></ion-textarea >
+          <button type="submit" (click)="sendMessage()"><ion-icon name="send" class = "icon"></ion-icon></button>
         </form>
       </div>
     </div>
-  <!-- </div> -->
 </div>
 

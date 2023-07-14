@@ -7,7 +7,7 @@ import { Selector } from "@ngxs/store";
 import { produce } from "immer";
 import { tap } from "rxjs";
 import { ChatListDto } from "@encompass/api/chat-list/data-access";
-import { MessagesDto } from "./messages.dto";
+import { MessagesDto } from "@encompass/api/chat/data-access";
 import { ProfileDto } from "@encompass/api/profile/data-access";
 
 export interface MessagesStateModel{

@@ -11,7 +11,7 @@ import { ChatScrollDirective } from './chat-scroll.directive';
 // import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
-  imports: [CommonModule, IonicModule, MessagesRouting, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, IonicModule, MessagesRouting, FormsModule, ReactiveFormsModule, NgxsModule.forFeature([ProfileState])],
   declarations: [MessagesPage,ChatScrollDirective],
   providers: [],
 })
