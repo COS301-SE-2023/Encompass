@@ -11,18 +11,18 @@ export class Book extends AggregateRoot {
         public description: string,
         public language: string,
         public isbn: string,
-        public genres: string[],
-        public characters: string[],
+        public genres: string,
+        public characters: string,
         public bookFormat: string,
         public edition: string,
         public pages: number,
         public publisher: string,
         public publishDate: string,
-        public awards: string[],
+        public awards: string,
         public numRatings: number,
-        public ratingsByStars: string[],
+        public ratingsByStars: string,
         public likedPercent: number,
-        public setting: string[],
+        public setting: string,
         public coverImg: string,
         public bbeScore: number,
         public bbeVotes: number,
@@ -68,11 +68,11 @@ export class Book extends AggregateRoot {
         return this.isbn;
     }
 
-    getGenres(): string[] {
+    getGenres(): string {
         return this.genres;
     }
 
-    getCharacters(): string[] {
+    getCharacters(): string {
         return this.characters;
     }
 
@@ -96,7 +96,7 @@ export class Book extends AggregateRoot {
         return this.publishDate;
     }
 
-    getAwards(): string[] {
+    getAwards(): string {
         return this.awards;
     }
 
@@ -104,7 +104,7 @@ export class Book extends AggregateRoot {
         return this.numRatings;
     }
 
-    getRatingsByStars(): string[] {
+    getRatingsByStars(): string {
         return this.ratingsByStars;
     }
 
@@ -112,7 +112,7 @@ export class Book extends AggregateRoot {
         return this.likedPercent;
     }
 
-    getSetting(): string[] {
+    getSetting(): string {
         return this.setting;
     }
 

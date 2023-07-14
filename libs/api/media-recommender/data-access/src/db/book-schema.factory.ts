@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { BookSchema } from "./book.schema";
 import { Book } from "../book";
 import { EntitySchemaFactory } from "@encompass/api/database/data-access";
+import { ObjectId } from "mongodb";
 
 @Injectable()
 export class BookSchemaFactory implements EntitySchemaFactory<BookSchema, Book> {

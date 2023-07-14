@@ -7,6 +7,7 @@ export class GetAllBooksHandler implements IQueryHandler<GetAllBooksQuery> {
     constructor(private readonly bookDtoRepository: BookDtoRepository) {}
 
     async execute() {
+        console.log('GetAllBooksQuery...');
         return await this.bookDtoRepository.findAll();
     }
 }
