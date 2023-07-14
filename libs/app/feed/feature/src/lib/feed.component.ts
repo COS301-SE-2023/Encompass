@@ -121,6 +121,7 @@ async openPopup2() {
   return await modal.present();
 }
 
+
 Report(n:number){
 
   
@@ -286,6 +287,10 @@ async Share(n:number, post: PostDto){
   const link : string = obj + '/app-comments-feature/' + post._id;
 
   await navigator.clipboard.writeText(link)
+}
+
+GoToProfile(username: string){
+  this.router.navigate(['user-profile/' + username]);
 }
 
   recChange(){

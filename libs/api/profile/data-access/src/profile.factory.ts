@@ -25,6 +25,7 @@ export class ProfileFactory implements EntityFactory<Profile>{
     posts: string[] | null,
     reviews: string[] | null,
     profileImage: string | null,
+    profileBanner: string | null,
     bio: string | null,
   ) : Promise<Profile>{
     const profile = new Profile(
@@ -41,6 +42,7 @@ export class ProfileFactory implements EntityFactory<Profile>{
       posts,
       reviews,
       profileImage,
+      profileBanner,
       bio,
     );
     await this.profileEntityRepository.create(profile);

@@ -109,7 +109,7 @@ export class HomePage {
   }
 
   goToChat(){
-    // this.router.navigate(['/home/chat']);
+     this.router.navigate(['/home/messages']);
   }
 
   openNotifications(){
@@ -122,6 +122,14 @@ export class HomePage {
 
   goToThemes(){
     this.router.navigate(['/home/themes']);
+  }
+
+  goToEvents(){
+    // this.router.navigate(['/home/events']);
+  }
+
+  logout() {
+    this.router.navigate(['/']);
   }
 
 

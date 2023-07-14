@@ -1,280 +1,277 @@
-<ion-split-pane when="sm" contentId="main" id="main-content">
-  
-    <div class = "menu" >
-      
-      <div class = "space"></div>
-      <div class = "Overlayt" >
+<div class="overlay">
+
+  <ion-header>
+    <ion-toolbar class="profileToolbar">
+      <div class="toolbar-content">
+        <ion-grid>
+          <ion-row class="row-filter">
+            <ion-col size="2">
+              <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle" (click)="postChange()">
+                Posts
+              </ion-button>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
+                Events
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-grid>
+    <ion-row class="filter-row">
+      <ion-col size="5">
+        <div *ngIf = "seePosts">
+          <div  *ngFor="let post of userPosts;let i = index">
+
+            <ion-card class = "PostCard" >
+              <div class = "PostCardHeader">
+                <div class = "PostImageContainer" >
+                  <img src =  {{post.communityImageUrl}}  class = "postImage" >
+                </div>
+              <div class = "PostDetails"  >
+                <div class = "TitleNameOptions">
+                  <div style = "display: flex; margin-left: 1.5%;">
+                    <div class = "Title">{{post.community}}</div>
+                    <div class = "Name" > @{{post.username}}</div>
+                  </div>
+                  
         
-        <img src="assets/icon/Logo.png" class = "logo" alt="Encompass Logo" >
-        encompass
-      </div>
-     
+                 </div>
+                
+                <div class = "GenreIcons" >
+                  <div style = "width: 30%; display: flex; justify-content: space-around;">
+                    <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                    </div>
+                    <div style = "width: 70%; display: flex; justify-content: space-evenly;">
+                      <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+                      <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                  </div>
+                </div>
+
+            </div> 
+              </div>
+              <div class = "PostBody"  (click)="GoToComments(post._id)">
   
+                <div class = "text">
+                    <h5>{{post.title}}</h5>
+                    <div style = "display:flex;justify-content: center;">
+                      <img src = {{post.imageUrl}} style="border-radius: 10px;" >
+                    </div>
+                    <br>
+                    {{post.text}}
+                </div>
+              </div>
+              <div class = "PostFooter">
+                <div class = "date">{{datesAdded[i]}}</div>
+                <div class = "icons">
+                  <div style = "text-align: center;">
+                    <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
+                    <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
+                    <div *ngIf = "!sharing[i]">{{post.shares}}</div>
+                    <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
   
-      <div class = "buttons"><ion-button fill = "clear" class = "btn1"  size = "large" >Create a Post</ion-button>
-      <ion-button fill = "clear" class = "btn2"  size = "large" >Create a Community</ion-button></div>
-      
-      <div class = "MenuButton" >
-      <ion-icon name="search-outline" style="font-size: larger; position:relative; right:5%"></ion-icon>Search</div>
-  
-       <div class = "MenuButton" >
-        <ion-icon name="rocket-outline" style="font-size: larger;position:relative; right:5%"></ion-icon>Notifications</div>
-      
-      <div class = "MenuButton" >
-        <ion-icon name="chatbubbles-outline" style="font-size: larger;position:relative; right:5%"></ion-icon>Messages</div>
+                  </div>
+                  <div style = "text-align: center;">
+                    <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
+                    <div>{{post.comments}}</div>
+                  </div>
+                  <div style = "text-align: center;">
+                    <div *ngIf="profile != null">
+                    <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
+                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" ></ion-icon>
+                    <div>{{post.likes.length}}</div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+             </ion-card>
+            </div>
+        </div>
+        
+       
+      </ion-col>
+
+
+
+
+
+      <ion-col size="4">
+        
+        <ion-card class = "curve">
+          <div style="position: relative">
+          <img class="profilePicture" src={{userProfile?.profileImage}} onerror="this.src='assets/icon/profile.jpg';"  />
+          <img class="banner" src={{userProfile?.profileBanner}} onerror="this.src='assets/icon/Banner.png';" />
+          </div>
+          <ion-card-header >
+            <ion-card-title>{{userProfile?.name}} {{userProfile?.lastName}}
+              <ion-button
+            fill="clear"
+            size="medium"
+            color="dark"
+            class="edit-button">
+            <ion-icon name="share-social"></ion-icon>
+          </ion-button>
+          <ion-button
+            fill="clear"
+            size="medium"
+            color="dark"
+            class="edit-button"
+            (click)="Follow()">
+            <ion-icon name="person-add"></ion-icon>          
+          </ion-button>
           
-      <div class = "MenuButton" >
-        <ion-icon name="megaphone-outline" style="font-size: larger;position:relative; right:5%"></ion-icon>Events</div>
-  
-      <div class = "MenuButton" >
-        <ion-icon name="color-palette-outline"  style="font-size: larger;position:relative; right:5%"></ion-icon>Themes</div>
+          <ion-card-subtitle style="margin-top: 5px; ">@{{userProfile?.username}}</ion-card-subtitle>
+            </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content style="font-size: 15px; margin-bottom: 15px; ">
+            <div>{{userProfile?.bio}}</div>
+            <div class="profile-info-container">
+              <div class="profile-info info-post">{{userPosts?.length}} <br> Posts</div>
+              <div id="follow-trigger" class="profile-info"> <br> Followers</div>
+              <div id="following-trigger" class="profile-info"> <br> Following</div>
+            </div>
+          </ion-card-content>
+         
+
+        </ion-card>
+
+        <ion-modal #modal trigger="follow-trigger" [presentingElement]="presentingElement">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Followers</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content>
+              <ion-list>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Connor Smith</h2>
+                    <p>Sales Rep</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Daniel Smith</h2>
+                    <p>Product Designer</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Greg Smith</h2>
+                    <p>Director of Operations</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Zoey Smith</h2>
+                    <p>CEO</p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+
+        <ion-modal #modal trigger="following-trigger" [presentingElement]="presentingElement2">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Following</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content>
+              <ion-list>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Connor Smith</h2>
+                    <p>Sales Rep</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Daniel Smith</h2>
+                    <p>Product Designer</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Greg Smith</h2>
+                    <p>Director of Operations</p>
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>Zoey Smith</h2>
+                    <p>CEO</p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+
+
+
+        <div class="awards">
+          <ion-title class="awards-header">
+            Awards
+          </ion-title>
+          <div class="badges">
+            <img src="assets/icon/Award1.jpg" class="badge">
+            <img src="assets/icon/Award2.JPG" class="badge">
+          </div>
+        </div>
+
+
+
+
+
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title color="grey">Top Communities</ion-card-title>
+          </ion-card-header>
+        
+           
             
-      <div class = "MenuButton" >
-        <ion-icon name="settings-outline" style="font-size: larger;position:relative; right:5%"></ion-icon>Settings</div> 
-     
-        <div class = "menuFooter">
-        <ion-icon style="position: relative; left:5%" name="log-out-outline"></ion-icon>
-        <ion-icon style="position: relative; right:5%" name="person-circle-outline"></ion-icon>
-        </div>
-     
-    </div>
-  
-    <div class="overlay-container" id="main">
-     
-     <div class = "Top">
-      <div class = "ProfileCardsContainer">
-        <div class = "ProfileCards">
-          <div class = "ProfileDetails">
-            <div class = "ProfileImage">
-              <img src = "assets/profile.jpg" class = "pImage">
-            </div>
-            <div class = "ProfileText">
-              <div class = "ProfileTextHeader">
-                <div class = "ProfileName">
-                    <div>Julianna Venter</div>
-                    <div>@Jules123</div>
-                </div>
-                <div class = "ProfileIcons">
-                  <ion-icon name="create-outline"></ion-icon>
-                  <ion-icon name="share-social-outline"></ion-icon>
-                </div>
-              </div>
-              <div class = "ProfileBio">
-                One does not simply deny the power of elven Fasion. 
-                Indeed, Lord of the Rings is my passion. 
-              </div>
-              <div class = "ProfileFooter">
-                  <div class = "ProfileStat">
-                    <div class = "ProfileStatNumber">3</div>
-                    <div class = "ProfileStatText">Posts</div>
-                  </div>
-                  <div class = "ProfileStat">
-                    <div class = "ProfileStatNumber">10</div>
-                    <div class = "ProfileStatText">Followers</div>
-                  </div>
-                  <div class = "ProfileStat">
-                    <div class = "ProfileStatNumber">15</div>
-                    <div class = "ProfileStatText">Following</div>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class = "ProfileMsc">
-            <div class = "Awards">
-              <div class = "AwardsTitle">Awards</div>
-              <div class = "ListofRewards">
-                <img src = "assets/icon/Award1.jpg" class = "AwardImage">
-                <img src = "assets/icon/Award2.JPG" class = "AwardImage">
-              </div>
-            </div>
-            <div class = "TopCommunities">
-              <div class = "CommunityTitle">Top Communities</div>
-            <div class = "ListofCommunities">
-              <div class = "CommunityItem" >
-                <div class = "CommunityHeader">
-                  <img src = "assets/icon/StrangerThings.jpg" class = "CommunityImage">
-                </div>
-                <div class = "CommunityName">
-                  Upside Downers
-                </div>
-                <div class = "CommunityText">
-                  Upside Down addicts unite! We binge, meme, and rock retro fashion. Stranger Things forever!
-                </div>
-              </div>
-              <div class = "CommunityItem" >
-                <div class = "CommunityHeader">
-                  <img src = "assets/icon/tlou.jpg" class = "CommunityImage">
-                </div>
-                <div class = "CommunityName">
-                  The Infected
-                </div>
-                <div class = "CommunityText">
-                  The Infected have never been funnier! Join our Last of Us Fan Club
-                </div>
-              </div>
-              <div class = "CommunityItem" >
-                <div class = "CommunityHeader">
-                  <img src = "assets/icon/pp.png" class = "CommunityImage">
-                </div>
-                <div class = "CommunityName">
-                  Aca-Maniacs Anonymous
-                </div>
-                <div class = "CommunityText">
-                  The hilarious hub for die-hard Pitch Perfect fans who sing, dance, and laugh together!
-                </div>
-              </div>
-             
-            </div>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-  
-      <div class = "ProfileFilterContainer">
-        <div class = "ProfileFilter">
-          <div class = "profileFilterOption" style = "background-color: #AFABC5;">Posts</div>
-          <div class = "profileFilterOption">Reviews</div>
-          <div class = "profileFilterOption">Events</div>
-        </div>
-      </div>
-  
-  
-     </div>
-  
-     <div class = "Bottom">
-      <ion-card class = "PostCard">
-        <div class = "PostCardHeader">
-          <div class = "PostImageContainer">
-            <img src = "assets/icon/Thanos.jpg" class = "postImage">
-          </div>
-        <div class = "PostDetails" >
-          <div class = "TitleNameOptions">
-            <div class = "Title">Thanos' Chin</div>
-            <div class = "DOT">.</div>
-            <div class = "Name">@Jules123</div>
-            <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-            </div>
-  
-           </div>
-          
-          <div class = "GenreIcons">
-          <img src = "assets/icon/action.png" class="imgDiv">
-          <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-          <img src = "assets/icon/Sci-Fi.png"  class="imgDiv"></div>
-      </div> 
-        </div>
-        <div class = "PostBody">
-          <div class = "text">
-            Just realized Iron Man's superpower was being fabulously wealthy. Guess I'll stick to my power of eating snacks while binge-watching Marvel movies. #AvengersLife #SnackAttack
-          </div>
-        </div>
-        <div class = "PostFooter">
-          <div class = "date">4 weeks ago</div>
-          <div class = "icons">
-            <div class = "icons2">
-              <ion-icon name="share-social-outline"></ion-icon>
-              <ion-icon name="chatbubble-outline"></ion-icon>
-              <ion-icon name="heart-outline"></ion-icon>
-            </div>
-            <div class = "stats">
-              <div>66</div>
-              <div>88</div>
-              <div>21</div>
-            </div>
-          </div>
-        </div>
-       </ion-card>
-       <ion-card class = "PostCard">
-        <div class = "PostCardHeader">
-          <div class = "PostImageContainer">
-            <img src = "assets/icon/Hobbit.jpg" class = "postImage">
-          </div>
-        <div class = "PostDetails" >
-          <div class = "TitleNameOptions">
-            <div class = "Title">HobbitsAnon</div>
-            <div class = "DOT">.</div>
-            <div class = "Name">@Jules123</div>
-            <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-            </div>
-  
-           </div>
-          
-          <div class = "GenreIcons">
-          <img src = "assets/icon/action.png" class="imgDiv">
-          <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-          <img src = "assets/icon/Fantasy.png"  class="imgDiv"></div>
-      </div> 
-        </div>
-        <div class = "PostBody">
-          <div class = "text">
-            Turns out my neighbors are actual hobbits! Caught them having second breakfast in their garden. I asked for an invite, but they said I'm too tall for the Shire. Guess I'll stick to elevensies and pretend to be a giant. #HobbitEnvy #HeightDisadvantage
-          </div>
-        </div>
-        <div class = "PostFooter">
-          <div class = "date">5 weeks ago</div>
-          <div class = "icons">
-            <div class = "icons2">
-              <ion-icon name="share-social-outline"></ion-icon>
-              <ion-icon name="chatbubble-outline"></ion-icon>
-              <ion-icon name="heart-outline"></ion-icon>
-            </div>
-            <div class = "stats">
-              <div>23</div>
-              <div>42</div>
-              <div>31</div>
-            </div>
-          </div>
-        </div>
-       </ion-card>
-       <ion-card class = "PostCard">
-        <div class = "PostCardHeader">
-          <div class = "PostImageContainer">
-            <img src = "assets/icon/xmen.jpg" class = "postImage">
-          </div>
-        <div class = "PostDetails" >
-          <div class = "TitleNameOptions">
-            <div class = "Title">X-People</div>
-            <div class = "DOT">.</div>
-            <div class = "Name">@Jules123</div>
-            <div class = "Options"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-            </div>
-  
-           </div>
-          
-          <div class = "GenreIcons">
-          <img src = "assets/icon/action.png" class="imgDiv">
-          <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-          <img src = "assets/icon/Sci-Fi.png"  class="imgDiv"></div>
-      </div> 
-        </div>
-        <div class = "PostBody">
-          <div class = "text">
-            Just discovered my mutant power: being able to binge-watch all X-Men movies without blinking! Professor X, where's my invitation to join the X-Men? I'll be the team's official popcorn supplier and mutant trivia champion! #XMenFanForLife
-          </div>
-        </div>
-        <div class = "PostFooter">
-          <div class = "date">7 weeks ago</div>
-          <div class = "icons">
-            <div class = "icons2">
-              <ion-icon name="share-social-outline"></ion-icon>
-              <ion-icon name="chatbubble-outline"></ion-icon>
-              <ion-icon name="heart-outline"></ion-icon>
-            </div>
-            <div class = "stats">
-              <div>11</div>
-              <div>26</div>
-              <div>36</div>
-            </div>
-          </div>
-        </div>
-       </ion-card>
-     </div>
-    </div>
-  
-   
-  
-  
-  
-  </ion-split-pane>
-  
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</div>
+
+<!-- <ion-icon class = "Rocket1" name="rocket-outline"></ion-icon> -->

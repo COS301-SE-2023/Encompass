@@ -35,7 +35,7 @@
   <ion-grid>
     <ion-row class="row-filter">
       <ion-col size="5">
-        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0EFEF;">
+        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #f8f8f8;">
           <ion-grid>
             <ion-row class="row-filter">
               <ion-col size="5">
@@ -83,7 +83,7 @@
               <div class = "TitleNameOptions">
                 <div style = "display: flex; margin-left: 1.5%;">
                   <div class = "Title">{{post.community}}</div>
-                  <div class = "Name" > @{{post.username}}</div>
+                  <div class = "Name" (click)="GoToProfile(post.username)"> @{{post.username}}</div>
                 </div>
                 <div style = "display: flex; margin-right: 1.5%; ">
 
@@ -148,7 +148,7 @@
                 </div>
                 <div style = "text-align: center;">
                   <div *ngIf="profile != null">
-                  <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                  <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
                   <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
                   <div>{{post.likes.length}}</div>
                   </div>

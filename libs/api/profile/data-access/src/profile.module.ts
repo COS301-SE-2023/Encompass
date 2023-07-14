@@ -12,6 +12,8 @@ import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCo
 import { ProfileCreatedHandler } from "./events";
 import { GetAllProfilesHandler, GetProfileHandler, GetUsernameHandler } from "./queries";
 import { HttpModule } from "@nestjs/axios";
+import { UploadImage } from "./upload-image.service";
+import { GetByUsernameHandler } from "./queries/get-by-username/get-by-username.handler";
 
 @Module({
   imports: [
@@ -39,6 +41,8 @@ import { HttpModule } from "@nestjs/axios";
     GetUsernameHandler,
     RemovePostHandler,
     RemoveCommunityHandler,
+    UploadImage,
+    GetByUsernameHandler
   ],
 })
 

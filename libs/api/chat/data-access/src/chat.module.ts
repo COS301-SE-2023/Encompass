@@ -12,6 +12,8 @@ import { AddMessageHandler, CreateChatHandler } from "./commands";
 import { ChatCreatedEvent } from "./events/create-chat.event";
 import { GetChatHandler } from "./queries";
 import { HttpModule } from "@nestjs/axios";
+import { ChatGateway } from "./chat.gateway";
+import { ChatService } from "./chat.service";
 
 @Module({
   imports: [
@@ -33,7 +35,9 @@ import { HttpModule } from "@nestjs/axios";
     CreateChatHandler,
     ChatCreatedEvent,
     GetChatHandler,
-    AddMessageHandler
+    AddMessageHandler,
+    ChatGateway,
+    ChatService
   ],
 })
 
