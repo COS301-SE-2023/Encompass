@@ -22,6 +22,11 @@ export class Book extends AggregateRoot {
         public numRatings: number,
         public ratingsByStars: string[],
         public likedPercent: number,
+        public setting: string[],
+        public coverImg: string,
+        public bbeScore: number,
+        public bbeVotes: number,
+        public price: number
     ) {
         super();
     }
@@ -106,4 +111,25 @@ export class Book extends AggregateRoot {
     getLikedPercent(): number {
         return this.likedPercent;
     }
+
+    getSetting(): string[] {
+        return this.setting;
+    }
+
+    getCoverImg(): string {
+        return this.coverImg;
+    }
+
+    getBbeScore(): number {
+        return this.bbeScore;
+    }
+
+    getBbeVotes(): number {
+        return this.bbeVotes;
+    }
+
+    getPrice(): number {
+        return this.price;
+    }
+
 }

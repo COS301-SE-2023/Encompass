@@ -1,6 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
 import { BookDto } from "./book.dto";
 import { QueryBus } from "@nestjs/cqrs";
+import { GetAllBooksQuery } from "./queries/get-all-books/getAllBooks.query";
 
 @Controller('media-recommender')
 export class MediaRecommenderController {
