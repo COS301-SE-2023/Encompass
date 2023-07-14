@@ -98,7 +98,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
         function defineK(userCount: number) {
             //define K as the square root of the number of users
             const k = Math.sqrt(userCount);
-            //round down
             return Math.floor(k);
         }
 
@@ -353,6 +352,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                         tempProfile.push(0);
                     }
                 }
+                
                 profiles.push({ profile: Object.values(tempProfile), profileId: profileIds[i] });
             }
             return profiles;
