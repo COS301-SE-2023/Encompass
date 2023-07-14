@@ -14,6 +14,11 @@ export class BookDtoRepository{
         return await this.bookModel.find();
     }
 
+    async findSome(): Promise<BookSchema[]> {
+        //choose random 2000 books 
+        return await this.bookModel.aggregate([{ $sample: { size: 2000 } }]);
+    }
+
     async findById(id: string){
         return await this.bookModel.findById({ _id: id });
     }

@@ -1,7 +1,7 @@
 import { IdentifiableEntitySchema } from "@encompass/api/database/data-access";
 import { Prop, Schema } from "@nestjs/mongoose";
 
-@Schema({ versionKey: false, collection: 'Books' })
+@Schema({ versionKey: false, collection: 'Books-sample' })
 export class BookSchema extends IdentifiableEntitySchema{
     @Prop()
     readonly bookId!: string;
@@ -27,11 +27,11 @@ export class BookSchema extends IdentifiableEntitySchema{
     @Prop()
     readonly isbn!: string;
 
-    @Prop({ type: String })
-    readonly genres!: string;
+    @Prop({ type: [String] })
+    readonly genres!: string[];
 
-    @Prop({ type: String })
-    readonly characters!: string;
+    @Prop({ type: [String] })
+    readonly characters!: string[];
 
     @Prop()
     readonly bookFormat!: string;
@@ -48,20 +48,20 @@ export class BookSchema extends IdentifiableEntitySchema{
     @Prop()
     readonly publishDate!: string;
 
-    @Prop({ type: String })
-    readonly awards!: string;
+    @Prop({ type: [String] })
+    readonly awards!: string[];
 
     @Prop()
     readonly numRatings!: number;
 
-    @Prop({ type: String })
-    readonly ratingsByStars!: string;
+    @Prop({ type: [String] })
+    readonly ratingsByStars!: string[];
 
     @Prop()
     readonly likedPercent!: number;
 
-    @Prop({ type: String })
-    readonly setting!: string;
+    @Prop({ type: [String] })
+    readonly setting!: string[];
 
     @Prop()
     readonly coverImg!: string;

@@ -8,6 +8,10 @@ export class GetAllBooksHandler implements IQueryHandler<GetAllBooksQuery> {
 
     async execute() {
         console.log('GetAllBooksQuery...');
-        return await this.bookDtoRepository.findAll();
+        //make AI recommendation here
+         
+
+
+        return await this.bookDtoRepository.findSome();
     }
 }
