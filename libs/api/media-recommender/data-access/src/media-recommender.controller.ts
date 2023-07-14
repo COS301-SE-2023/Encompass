@@ -1,3 +1,5 @@
+import { BookDto } from "./book.dto";
+
 @Controller('media-recommender')
 export class MediaRecommenderController {
     constructor(private readonly queryBus: QueryBus) {}
