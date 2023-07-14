@@ -4,7 +4,7 @@ export class MediaRecommenderController {
 
     @Get('getAllBooks')
     async getAllBooks() {
-        return await this.queryBus.execute<GetAllBooksQuery, BooksDto[]>{
+        return await this.queryBus.execute<GetAllBooksQuery, BookDto[]>{
             new GetAllBooksQuery(),
         }
     }
