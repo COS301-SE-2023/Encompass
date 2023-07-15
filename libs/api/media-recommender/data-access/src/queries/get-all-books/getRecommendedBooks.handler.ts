@@ -20,7 +20,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             console.log("WTF-2!!!!!");
             const currentUserProfile = await this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
             console.log("WTF-3!!!!!");
-            const allProfiles = await this.httpService.get(url + "api/profile/get-all").toPromise();
+            const allProfiles = await this.httpService.get(url + "/api/profile/get-all").toPromise();
             console.log("WTF-4!!!!!");
             //const [allBooks, currentUserProfile, allProfiles] = await Promise.all([allBooksPromise, currentUserProfilePromise, allProfilesPromise]);
             console.log("WTF-2!!!!!");
