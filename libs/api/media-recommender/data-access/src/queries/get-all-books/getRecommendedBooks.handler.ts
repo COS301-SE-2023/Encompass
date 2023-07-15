@@ -152,6 +152,74 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             return true;
         }
 
+        function setupBookArrays(items: BookDto[]) {
+            const books: { book: number[], bookId: string }[] = [];
+            const bookIds: string[] = [];
+            const series: string[] = [];
+            const author: string[] = [];
+            const genres: string[] = [];
+            const publisher: string[] = [];
+
+            items.forEach((item) => {
+                bookIds.push(item._id);
+                //console.log(item._id);
+                loadCategories(series, item.series);
+                loadCategories(author, item.author,false,true);
+                loadCategories(genres, item.genres, true);
+                loadCategories(publisher, item.publisher);
+            });
+
+            //push 0 or 1 to each book array in books if it has the category, and then add bookId to the end
+            items.forEach((item) => { //test this!!!!
+                const book: { book: number[], bookId: string } = { book: [], bookId: "" };
+
+                series?.forEach((seriesItem) => {
+
+                    if (item.series?.includes(seriesItem)) {
+                        book.book.push(1);
+                    } else {
+                        book.book.push(0);
+                    }
+                });
+
+                author?.forEach((authorItem) => {
+                    if (item.author?.includes(authorItem)) {
+                        book.book.push(1);
+                    } else {
+                        book.book.push(0);
+                    }
+                });
+
+                genres?.forEach((genresItem) => {
+                    if (item.genres?.includes(genresItem)) {
+                        book.book.push(1);
+                    } else {
+                        book.book.push(0);
+                    }
+                });
+
+                publisher?.forEach((publisherItem) => {
+                    if (item.publisher?.includes(publisherItem)) {
+                        book.book.push(1);
+                    } else {
+                        book.book.push(0);
+                    }
+                });
+
+                book.bookId = item._id;
+                books.push(book);
+            });
+
+            /*for (let i = 0; i < 5; i++) {
+                console.log("------------------");
+                console.log(books[i]);
+                console.log("------------------");
+            }*/
+
+            return books;
+
+        }
+
         
 
         return await this.bookEntityRepository.findSome();
