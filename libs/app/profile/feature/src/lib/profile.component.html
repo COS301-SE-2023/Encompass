@@ -185,7 +185,7 @@
 
       <ion-col size="4">
         
-        <ion-card class = "curve">
+        <ion-card class = "curve" *ngIf="profile != null">
           <div style="position: relative">
           <img class="profilePicture" src={{profile?.profileImage}} onerror="this.src='assets/icon/Profile.png';"  />
           <img class="banner" src={{profile?.profileBanner}} onerror="this.src='assets/icon/Banner.png';" />
@@ -216,8 +216,8 @@
             <div>{{profile?.bio}}</div>
             <div class="profile-info-container">
               <div class="profile-info info-post">{{posts?.length}} <br> Posts</div>
-              <div id="follow-trigger" class="profile-info"> <br> Followers</div>
-              <div id="following-trigger" class="profile-info"> <br> Following</div>
+              <div id="follow-trigger" class="profile-info">{{profile.followers.length}} <br> Followers</div>
+              <div id="following-trigger" class="profile-info">{{profile.following.length}} <br> Following</div>
             </div>
           </ion-card-content>
           <div [hidden]="!edit" style="width: 100%;" >

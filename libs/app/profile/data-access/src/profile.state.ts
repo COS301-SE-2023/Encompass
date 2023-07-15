@@ -2,7 +2,7 @@ import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing } from "@encompass/app/profile/util"
 import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
@@ -246,6 +246,32 @@ export class ProfileState{
 
     ctx.setState({
       profile: profile
+    })
+  }
+
+  @Action(AddFollowing)
+  async addFollowing(ctx: StateContext<ProfileStateModel>, {username, followingUsername}: AddFollowing){
+    const response = await this.profileApi.addFollowing(username, followingUsername);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      profile: response
+    })
+  }
+
+  @Action(RemoveFollowing)
+  async removeFollowing(ctx: StateContext<ProfileStateModel>, {username, followingUsername}: RemoveFollowing){
+    const response = await this.profileApi.removeFollowing(username, followingUsername);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      profile: response
     })
   }
 

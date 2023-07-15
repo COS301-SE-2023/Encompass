@@ -47,23 +47,46 @@ export interface UserProfilePostModel{
 export class UserProfileState{
   constructor(private userProfileApi: UserProfileApi){}
 
-  @Action(GetUserProfile)
-  async getUserProfile(ctx: StateContext<UserProfileStateModel>, {username}: GetUserProfile){
+  // @Action(GetUserProfile)
+  async getUserProfile( username: string){
     const response = await this.userProfileApi.getUserProfile(username)
 
     if(response == null && response == undefined){
-      return;
+      return null;
     }
 
-    ctx.setState({
-      UserProfileStateForm:{
-        model:{
-          userProfile: response
-        }
-      }
-    })
+    return response;
+
+    // ctx.setState({
+    //   UserProfileStateForm:{
+    //     model:{
+    //       userProfile: response
+    //     }
+    //   }
+    // })
   }
 
+  async addFollower(username: string, followerUsername: string){
+    const response = await this.userProfileApi.addFollower(username, followerUsername)
+
+    if(response == null && response == undefined){
+      return null;
+    }
+    
+    return response;
+  }
+
+
+  async removeFollower(username: string, followerUsername: string){
+    const response = await this.userProfileApi.removeFollower(username, followerUsername)
+
+    if(response == null && response == undefined){
+      return null;
+    }
+
+    return response;
+  }
+  
   @Action(GetUserProfilePosts)
   async getUserProfilePosts(ctx: StateContext<UserProfilePostModel>, {username}: GetUserProfilePosts){
     const response = await this.userProfileApi.getUserProfilePosts(username)

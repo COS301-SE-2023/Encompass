@@ -103,6 +103,7 @@
 
       <ion-col size="4">
         
+        <div *ngIf="profile != null && userProfile != null">
         <ion-card class = "curve">
           <div style="position: relative">
           <img class="profilePicture" src={{userProfile?.profileImage}} onerror="this.src='assets/icon/Profile.png';"  />
@@ -118,12 +119,22 @@
             <ion-icon name="share-social"></ion-icon>
           </ion-button>
           <ion-button
+            *ngIf="!profile.following.includes(userProfile.username)"
             fill="clear"
             size="medium"
             color="dark"
             class="edit-button"
             (click)="Follow()">
             <ion-icon name="person-add"></ion-icon>          
+          </ion-button>
+          <ion-button
+            *ngIf="profile.following.includes(userProfile.username)"
+            fill="clear"
+            size="medium"
+            color="dark"
+            class="edit-button"
+            (click)="Unfollow()">
+            <ion-icon name="person-remove"></ion-icon>          
           </ion-button>
           
           <ion-card-subtitle style="margin-top: 5px; ">@{{userProfile?.username}}</ion-card-subtitle>
@@ -134,14 +145,14 @@
             <div>{{userProfile?.bio}}</div>
             <div class="profile-info-container">
               <div class="profile-info info-post">{{userPosts?.length}} <br> Posts</div>
-              <div id="follow-trigger" class="profile-info"> <br> Followers</div>
-              <div id="following-trigger" class="profile-info"> <br> Following</div>
+              <div id="follow-trigger" class="profile-info"> {{userProfile.followers.length}}<br> Followers</div>
+              <div id="following-trigger" class="profile-info"> {{userProfile.following.length}} <br> Following</div>
             </div>
           </ion-card-content>
          
 
         </ion-card>
-
+        </div>
         <ion-modal #modal trigger="follow-trigger" [presentingElement]="presentingElement">
           <ng-template>
             <ion-header>

@@ -129,4 +129,30 @@ export class ProfileApi{
       return null;
     }
   }
+
+  async addFollowing(username: string, followingUsername: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-following/' + username + '/' + followingUsername, {}).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+      return null;
+    }
+  }
+
+  async removeFollowing(username: string, followingUsername: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/remove-following/' + username + '/' + followingUsername, {}).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+      return null;
+    }
+  }
 }

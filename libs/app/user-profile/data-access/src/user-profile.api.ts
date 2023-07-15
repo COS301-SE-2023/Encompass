@@ -32,4 +32,30 @@ export class UserProfileApi{
       return null;
     }
   }
+
+  async addFollower(username: string, followerUsername: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-follower/' + username + '/' + followerUsername, {}).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+      return null;
+    }
+  }
+
+  async removeFollower(username: string, followerUsername: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/remove-follower/' + username + '/' + followerUsername, {}).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+      return null;
+    }
+  }
 }
