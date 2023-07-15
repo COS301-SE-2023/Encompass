@@ -18,7 +18,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             console.log("WTF!!!!!");
             const allBooks = await this.bookDtoRepository.findSome();
             console.log("WTF-2!!!!!");
-            const currentUserProfile = await this.httpService.get(url + "api/profile/get/" + userId).toPromise();
+            const currentUserProfile = await this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
             console.log("WTF-3!!!!!");
             const allProfiles = await this.httpService.get(url + "api/profile/get-all").toPromise();
             console.log("WTF-4!!!!!");
