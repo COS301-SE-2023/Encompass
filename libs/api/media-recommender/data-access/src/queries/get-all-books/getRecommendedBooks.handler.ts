@@ -73,6 +73,21 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             return Math.floor(k);
         }
 
+        function calculateNewCentroids(clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[]) {
+            for(let j = 0; j < clusters.length; j++){
+                if(clusters[j].clusterBooks.length == 0){
+                    continue;
+                }
+                for(let l = 0; l < clusters[0].clusterCentroid.length; l++){
+                    let sum = 0;
+                    for(let k = 0; k < clusters[j].clusterBooks.length; k++){
+                        sum += clusters[j].clusterBooks[k].book[l];
+                    }
+                    clusters[j].clusterCentroid[l] = sum / clusters[j].clusterBooks.length; 
+                }   
+            }
+        }
+
         
 
         return await this.bookEntityRepository.findSome();
