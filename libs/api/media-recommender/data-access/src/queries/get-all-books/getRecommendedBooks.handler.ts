@@ -67,6 +67,12 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             return clusters;
         }
 
+        function defineK(elements: number) {
+            //define K as the square root of the number of users
+            const k = Math.sqrt(elements);
+            return Math.floor(k);
+        }
+
         
 
         return await this.bookEntityRepository.findSome();
