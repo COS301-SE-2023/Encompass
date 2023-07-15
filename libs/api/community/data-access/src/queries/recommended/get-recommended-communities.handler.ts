@@ -31,11 +31,13 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
 
         const url = process.env["BASE_URL"];
         try{
-            const allProfiles = await this.httpService.get(url + "api/profile/get-all").toPromise();  //array of profile objects
+            const [allProfiles, currentUserProfile] = await Promise.all([
+                this.httpService.get(url + "api/profile/get-all").toPromise(),  //array of profile objects
+                this.httpService.get(url + "api/profile/get/" + userId).toPromise()
+            ]);
             const userCount = allProfiles?.data?.length;
-            const currentUserProfile = await this.httpService.get(url + "api/profile/get/" + userId).toPromise();
             const currentUserCategories = currentUserProfile?.data?.categories;  //array of categories as strings
-            const recommendedCommunities: {community: CommunityDto, count: number}[] = [];
+            const recommendedCommunities: communityType[] = [];
             let finalRecommendedCommunities: CommunityDto[] = [];
             if(userCount <= 3){
                 finalRecommendedCommunities = coldStart(currentUserCategories, recommendedCommunities); //test this

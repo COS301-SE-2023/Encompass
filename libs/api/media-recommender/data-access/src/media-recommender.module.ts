@@ -7,8 +7,7 @@ import { MediaRecommenderController } from "./media-recommender.controller";
 import { BookEntityRepository } from "./db/book-entity.repository";
 import { BookDtoRepository } from "./db/book-dto.repository";
 import { BookSchemaFactory } from "./db/book-schema.factory";
-import { Book } from "./book";
-import { GetAllBooksHandler } from "./queries/get-all-books/getAllBooks.handler";
+import { GetRecommendedBooksHandler } from "./queries/get-all-books/getRecommendedBooks.handler";
 
 @Module({
     imports: [
@@ -28,7 +27,7 @@ import { GetAllBooksHandler } from "./queries/get-all-books/getAllBooks.handler"
         BookDtoRepository,
         BookSchemaFactory,
         BookSchema,
-        GetAllBooksHandler,
+        GetRecommendedBooksHandler,
     ],
 })
 

@@ -1,16 +1,16 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { BookDto } from "./book.dto";
 import { QueryBus } from "@nestjs/cqrs";
-import { GetAllBooksQuery } from "./queries/get-all-books/getAllBooks.query";
+import { GetRecommendedBooksQuery } from "./queries/get-all-books/getRecommendedBooks.query";
 
 @Controller('media-recommender')
 export class MediaRecommenderController {
     constructor(private readonly queryBus: QueryBus) {}
 
-    @Get('getAllBooks')
-    async getAllBooks() {
-        return this.queryBus.execute<GetAllBooksQuery, BookDto[]>(
-            new GetAllBooksQuery(),
+    @Get('books')
+    async getRecommendedBooks(@Param('id') id: string) {
+        return this.queryBus.execute<GetRecommendedBooksQuery, BookDto[]>(
+            new GetRecommendedBooksQuery(id),
         );
     }
 }
