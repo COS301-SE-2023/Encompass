@@ -220,7 +220,30 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
 
         }
 
-        
+        function loadCategories( categories: string[], category: string, categoryIsArray = false, categyIsAuthor = false ) {
+            if ( categoryIsArray ) {
+                if ( category.length < 1 ) {
+                    return;
+                }
+                const parsableArray = category.replace(/'/g, '"');
+                const array = JSON.parse(parsableArray);
+                array.forEach((item: string) => {
+                    if ( categories.length < 1 || !categories.includes(item) ) {
+                        categories.push(item);
+                    }
+                });
+                return;
+            }
+            if ( categories.length < 1 || !categories.includes(category) ) {
+                if ( categyIsAuthor ) {
+                    //get characters before first comma
+                    const author = category.split(",")[0];
+                    categories.push(author);
+                    return;
+                }
+                categories.push(category);
+            }
+        }
 
         return await this.bookEntityRepository.findSome();
     }
