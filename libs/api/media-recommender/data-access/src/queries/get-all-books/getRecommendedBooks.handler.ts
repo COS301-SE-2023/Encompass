@@ -127,6 +127,14 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             }
         }
 
+        function getDistance(clusterCentroid: number[], book: { book: number[], bookId: string }) {
+            let distance = 0;
+            for(let i = 0; i < clusterCentroid.length; i++){
+                distance += Math.pow(clusterCentroid[i] - book.book[i], 2);
+            }
+            return Math.sqrt(distance);
+        }
+
         
 
         return await this.bookEntityRepository.findSome();
