@@ -88,6 +88,45 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             }
         }
 
+        function moveToClosestCentroid(bookArrays: { book: number[], bookId: string }[], clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[], k: number) {
+            //if all clusterBooks in clusters are empty, just add book to closest clusterCentroid else move book to new closest clusterCentroid
+            const initialClustersEmpty = clusters.every(cluster => cluster.clusterBooks.length == 0);
+            for(let i = 0; i < bookArrays.length; i++){
+                const distances = [];
+                for(let j = 0; j < k; j++){
+                    distances.push(getDistance(clusters[j].clusterCentroid, bookArrays[i]));
+                }
+                //get the index of the smallest distance and insert profile into that cluster
+                let smallestDistance = distances[0];
+                let smallestDistanceIndex = 0;
+                for(let j = 0; j < distances.length; j++){
+                    if(distances[j] < smallestDistance){
+                        smallestDistance = distances[j];
+                        smallestDistanceIndex = j;
+                    }
+                }
+
+                //test this!!!
+                if(initialClustersEmpty){
+                    clusters[smallestDistanceIndex].clusterBooks.push(bookArrays[i]);
+                } else {
+                    //find the closest clusterCentroid to the profile
+                    //if the profile is already in closest clusterCentroid then do nothing, else move the profile to the new closest clusterCentroid
+                    if(clusters[smallestDistanceIndex].clusterBooks.includes(bookArrays[i])){
+                        continue;
+                    } else {
+                        for(let j = 0; j < k; j++){
+                            if(clusters[j].clusterBooks.includes(bookArrays[i])) {
+                                clusters[j].clusterBooks.splice(clusters[j].clusterBooks.indexOf(bookArrays[i]), 1);
+                                clusters[smallestDistanceIndex].clusterBooks.push(bookArrays[i]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         
 
         return await this.bookEntityRepository.findSome();
