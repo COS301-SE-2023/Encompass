@@ -54,3 +54,13 @@ export class RemoveFollowing{
   static readonly type = '[Profile] Remove Following';
   constructor(public readonly username: string, public readonly followingUsername: string){}
 }
+
+export class GetFollowers{
+  static readonly type = '[Profile] Get Followers';
+  constructor(public readonly followerList: string[]){}
+}
+
+export class GetFollowing{
+  static readonly type = '[Profile] Get Following';
+  constructor(public readonly followingList: string[]){}
+}

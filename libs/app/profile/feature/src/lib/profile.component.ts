@@ -7,7 +7,7 @@ import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetComments, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -33,13 +33,14 @@ export class ProfilePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
-
+  @Select(ProfileState.otherUsers) otherUsers$! : Observable<ProfileDto[] | null>;
 
   file!: File;
   fileBanner!: File;
   fileName!: string;
   fileNameBanner!: string;
   profile! : ProfileDto | null;
+  otherUsers! : ProfileDto[] | null;
   posts! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
   datesAdded : string[] = [];
@@ -448,4 +449,36 @@ Edit(){
       resolve(uploadFile);
     })
   }
-}
+
+  loadFollowers(){
+    if(this.profile == null){
+      return;
+    }
+    console.log("here");
+    this.store.dispatch(new GetFollowers(this.profile.followers));
+    this.otherUsers$.subscribe((users) => {
+      if(users){
+        console.log(users);
+        this.otherUsers = users;
+      }
+    })
+  }
+
+  loadFollowing(){
+    if(this.profile == null){
+      return;
+    }
+
+    this.store.dispatch(new GetFollowing(this.profile.following));
+    this.otherUsers$.subscribe((users) => {
+      if(users){
+        this.otherUsers = users;
+      }
+    })
+  }
+
+  async goToProfile(username : string | undefined){
+    await this.modalController.dismiss();
+    this.router.navigate(['user-profile/' + username]);
+  }
+} 

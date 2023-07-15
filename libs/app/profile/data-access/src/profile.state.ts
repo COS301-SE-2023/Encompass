@@ -2,7 +2,7 @@ import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, GetFollowers, GetFollowing } from "@encompass/app/profile/util"
 import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
@@ -22,6 +22,14 @@ export interface ProfilePostModel{
   ProfilePostForm: {
     model:{
       posts: PostDto[] | null
+    }
+  }
+}
+
+export interface OtherUsers{
+  OtherUsersForm: {
+    model:{
+      otherUsers: ProfileDto[] | null
     }
   }
 }
@@ -58,6 +66,17 @@ export interface ProfileCommentModel{
     ProfileCommentForm: {
       model: {
         comments: null
+      }
+    }
+  }
+})
+
+@State<OtherUsers>({
+  name: 'otherUsers',
+  defaults: {
+    OtherUsersForm: {
+      model: {
+        otherUsers: null
       }
     }
   }
@@ -275,6 +294,48 @@ export class ProfileState{
     })
   }
 
+  @Action(GetFollowers)
+  async getFollowers(ctx: StateContext<OtherUsers>, {followerList}: GetFollowers){
+    let followers: ProfileDto[] = [];
+
+    followerList.forEach(async element => {
+      const item = await this.profileApi.getProfile(element)
+
+      if(item != null && item != undefined){
+        followers = [...followers, item];
+
+        ctx.setState({
+          OtherUsersForm: {
+            model: {
+              otherUsers: followers
+            }
+          }
+        })
+      }
+    });
+  }
+
+  @Action(GetFollowing)
+  async getFollowing(ctx: StateContext<OtherUsers>, {followingList}: GetFollowing){
+    let following: ProfileDto[] = [];
+
+    followingList.forEach(async element => {
+      const item = await this.profileApi.getProfile(element)
+
+      if(item != null && item != undefined){
+        following = [...following, item];
+
+        ctx.setState({
+          OtherUsersForm: {
+            model: {
+              otherUsers: following
+            }
+          }
+        })
+      }
+    });
+  }
+
   getExpireLocalStorage(key: string): string | null{
     const item = localStorage.getItem(key);
     
@@ -319,5 +380,10 @@ export class ProfileState{
   @Selector()
   static comments(state: ProfileCommentModel){
     return state.ProfileCommentForm.model.comments;
+  }
+
+  @Selector()
+  static otherUsers(state: OtherUsers){
+    return state.OtherUsersForm.model.otherUsers;
   }
 }
