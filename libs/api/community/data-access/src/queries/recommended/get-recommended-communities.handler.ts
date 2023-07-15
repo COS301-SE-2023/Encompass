@@ -64,7 +64,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     moveProfilesToClosestCentroid(profiles,clusters,k);
                     calculateNewCentroids(clusters);
                     newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
-                } while ( !arraysAreEqual(oldCentroids, newCentroids) )
+                } while ( !arraysAreEqual(oldCentroids, newCentroids) );
 
                 //get the communities of the profiles in the same cluster as the current userId the current userId is not already in
                 const currentCluster = clusters.find(cluster => cluster.clusterProfiles.includes(profiles.find(profile => profile.profileId == userId) as { profile: number[]; profileId: string; } ));

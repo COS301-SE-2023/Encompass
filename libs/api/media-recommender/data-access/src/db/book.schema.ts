@@ -27,8 +27,8 @@ export class BookSchema extends IdentifiableEntitySchema{
     @Prop()
     readonly isbn!: string;
 
-    @Prop({ type: [String] })
-    readonly genres!: string[];
+    @Prop({ type: String })
+    readonly genres!: string;
 
     @Prop({ type: [String] })
     readonly characters!: string[];

@@ -11,7 +11,7 @@ export class Book extends AggregateRoot {
         public description: string,
         public language: string,
         public isbn: string,
-        public genres: string[],
+        public genres: string,
         public characters: string[],
         public bookFormat: string,
         public edition: string,
@@ -68,7 +68,7 @@ export class Book extends AggregateRoot {
         return this.isbn;
     }
 
-    getGenres(): string[] {
+    getGenres(): string {
         return this.genres;
     }
 

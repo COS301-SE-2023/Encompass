@@ -8,7 +8,7 @@ export class BookDto {
     readonly description!: string;
     readonly language!: string;
     readonly isbn!: string;
-    readonly genres!: string[];
+    readonly genres!: string;
     readonly characters!: string[];
     readonly bookFormat!: string;
     readonly edition!: string;
