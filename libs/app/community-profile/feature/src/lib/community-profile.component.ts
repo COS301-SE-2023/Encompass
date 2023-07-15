@@ -341,6 +341,39 @@ export class CommunityProfileComponent {
     this.store.dispatch(new RemoveCommunityRequest(this.community?._id, this.profile.username))
   }
 
+  acceptUser(username: string){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    const newMembers : string[] = [...this.community.members, username];
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: this.community?.about,
+      rules: this.community?.rules,
+      groupImage: this.community?.groupImage,
+      bannerImage: this.community?.bannerImage,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: newMembers,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.store.dispatch(new RemoveCommunityRequest(this.community?._id, username))
+  }
+
+  rejectUser(username: string){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    this.store.dispatch(new RemoveCommunityRequest(this.community?._id, username))
+  }
   //***********************************UI FUNCTIONS**************************************************** */
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');

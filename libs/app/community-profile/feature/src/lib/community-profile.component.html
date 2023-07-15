@@ -236,16 +236,20 @@
                     <button class="Button2">Community Events</button>
                   </div>
                 </ion-card>
-                <ion-card class = "AdminCard">
+                <div *ngIf="community !== null && community !== undefined && profile !== undefined && profile !== null && communityRequest !== null && communityRequest !== undefined && community.type !== 'Public'">
+                <ion-card class = "AdminCard" *ngIf="community.admin === profile.username">
                   <div class="AdminTitle">
                     <label>Community Administration</label>
                   </div>
                     <div class="AdminList">
-                      <label class = "AdminRequest">@Username has requested to join this community</label>
-                      <button><ion-icon class = "accept" name="checkmark-circle"></ion-icon></button>
-                      <button><ion-icon class = "reject" name="close-circle"></ion-icon></button>
+                      <div *ngFor="let user of communityRequest.requestUsernames">
+                      <label class = "AdminRequest">@{{user}} has requested to join this community</label>
+                      <button><ion-icon class = "accept" name="checkmark-circle" (click)="acceptUser(user)"></ion-icon></button>
+                      <button><ion-icon class = "reject" name="close-circle" (click)="rejectUser(user)"></ion-icon></button>
+                      </div>
                     </div>
                 </ion-card>
+                </div>
             </ion-col>
         </ion-row>
       </ion-grid>
