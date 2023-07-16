@@ -48,6 +48,9 @@
       "@encompass/api/profile/data-access": [
         "libs/api/profile/data-access/src/index.ts"
       ],
+      "@encompass/api/settings/data-access": [
+        "libs/api/settings/data-access/src/index.ts"
+      ],
       "@encompass/app/comments/data-access": [
         "libs/app/comments/data-access/src/index.ts"
       ],
