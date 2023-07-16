@@ -22,7 +22,6 @@ export class CommunityEntityRepository extends BaseEntityRepository<
 
     async findCommunitiesByUserId(id: string): Promise<CommunityDto[]> {
         const allCommunities = await this.findAll();
-      
         const filteredCommunities = allCommunities.filter(community => {
             const members = community.members as string[];
             const isAdmin = community.admin === id;

@@ -42,6 +42,9 @@
       "@encompass/api/notifications/data-access": [
         "libs/api/notifications/data-access/src/index.ts"
       ],
+      "@encompass/api/media-recommender/data-access": [
+        "libs/api/media-recommender/data-access/src/index.ts"
+      ],
       "@encompass/api/post/data-access": [
         "libs/api/post/data-access/src/index.ts"
       ],

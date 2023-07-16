@@ -14,6 +14,7 @@ import { ChatModule } from '@encompass/api/chat/data-access';
 import { ChatListModule } from '@encompass/api/chat-list/data-access';
 import { CommunityRequestModule } from '@encompass/api/community-request/data-access';
 import { NotificationModule } from '@encompass/api/notifications/data-access';
+import { MediaRecommenderModule } from '@encompass/api/media-recommender/data-access';
 
 const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
 
@@ -29,7 +30,8 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     ChatModule,
     ChatListModule,
     CommunityRequestModule,
-    NotificationModule
+    NotificationModule,
+    MediaRecommenderModule,
     // DatabaseModule
   ],
   controllers: [AppController],
