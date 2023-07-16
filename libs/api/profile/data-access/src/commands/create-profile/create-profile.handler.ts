@@ -2,7 +2,6 @@ import { CommandHandler, ICommandHandler, EventPublisher } from "@nestjs/cqrs";
 import { CreateProfileCommand } from "./create-profile.command";
 import { ProfileFactory } from "../../profile.factory";
 import { HttpService } from "@nestjs/axios";
-import { profile } from "console";
 
 @CommandHandler(CreateProfileCommand)
 export class CreateProfileHandler
@@ -59,6 +58,7 @@ export class CreateProfileHandler
       
       try{
         this.httpService.post(url + '/api/chat-list/create', {username: profile.username}).toPromise();
+        this.httpService.post(url + '/api/settings/create/' + _id, {} ).toPromise();
       }
 
       catch(error){
