@@ -50,6 +50,30 @@ const routes: Routes = [
       import('@encompass/app/comments/feature').then((m) => m.CommentsModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'privacy',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/privacy/feature').then((m) => m.PrivacyModule)
+  },
+  {
+    path: 'team',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/team/feature').then((m) => m.TeamModule)
+  },
+  {
+    path: 'tscs',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/tsandcs/feature').then((m) => m.TsandcsModule)
+  },
+  {
+    path: 'forgotpassword',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/forgotpassword/feature').then((m) => m.ForgotpasswordModule)
+  },
 
   {
     path: 'profile',

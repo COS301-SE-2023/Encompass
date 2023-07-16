@@ -18,4 +18,16 @@ export class WelcomePage {
     {
       this.router.navigate(['register']);
     }
+
+    openTeam() {
+      this.router.navigate(['team']);
+    }
+
+    openTCs(){
+      this.router.navigate(['tscs']);
+    }
+
+    openPrivacy() {
+      this.router.navigate(['privacy']);
+    }
 }

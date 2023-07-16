@@ -90,6 +90,9 @@
         "libs/app/create-post/util/src/index.ts"
       ],
       "@encompass/app/feed/feature": ["libs/app/feed/feature/src/index.ts"],
+      "@encompass/app/forgotpassword/feature": [
+        "libs/app/forgotpassword/feature/src/index.ts"
+      ],
       "@encompass/app/home-page/data-access": [
         "libs/app/home-page/data-access/src/index.ts"
       ],
@@ -109,6 +112,9 @@
         "libs/app/messages/feature/src/index.ts"
       ],
       "@encompass/app/messages/util": ["libs/app/messages/util/src/index.ts"],
+      "@encompass/app/privacy/feature": [
+        "libs/app/privacy/feature/src/index.ts"
+      ],
       "@encompass/app/profile/data-access": [
         "libs/app/profile/data-access/src/index.ts"
       ],
@@ -138,9 +144,13 @@
         "libs/app/sign-up/feature/src/index.ts"
       ],
       "@encompass/app/sign-up/util": ["libs/app/sign-up/util/src/index.ts"],
+      "@encompass/app/team/feature": ["libs/app/team/feature/src/index.ts"],
       "@encompass/app/themes/feature": ["libs/app/themes/feature/src/index.ts"],
       "@encompass/app/user-profile/data-access": [
         "libs/app/user-profile/data-access/src/index.ts"
+      ],
+      "@encompass/app/tsandcs/feature": [
+        "libs/app/tsandcs/feature/src/index.ts"
       ],
       "@encompass/app/user-profile/feature": [
         "libs/app/user-profile/feature/src/index.ts"
