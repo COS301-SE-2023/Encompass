@@ -9,7 +9,8 @@ import { SettingsDtoRepository } from "./db/settings-dto.repository";
 import { SettingsSchema } from "./db/settings.schema";
 import { SettingsSchemaFactory } from "./db/settings-schema.factory";
 import { SettingsFactory } from "./settings.factory";
-import { CreateSettingsHandler } from "./commands"; 
+import { CreateSettingsHandler, UpdateMessagePermissionsHandler, UpdateNotificationsHandler, UpdatePrivacyHandler, UpdateProfileHandler, UpdateThemesHandler } from "./commands"; 
+import { GetSettingsHandler } from "./queries";
 
 @Module({
   imports: [
@@ -29,6 +30,12 @@ import { CreateSettingsHandler } from "./commands";
     SettingsSchemaFactory,
     SettingsFactory,
     CreateSettingsHandler,
+    UpdateMessagePermissionsHandler,
+    UpdateNotificationsHandler,
+    UpdatePrivacyHandler,
+    UpdateProfileHandler,
+    UpdateThemesHandler,
+    GetSettingsHandler
   ]
 })
 

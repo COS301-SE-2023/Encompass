@@ -37,4 +37,24 @@ export class Settings extends AggregateRoot{
   getThemes(): ThemesSettingsDto {
     return this.themes;
   }
+
+  updateNotifications(notifications: NotificationsSettingsDto){
+    this.notifications = notifications;
+  }
+
+  updateProfile(profile: ProfileSettingsDto){
+    this.profile = profile
+  }
+
+  updatePrivacy(privacy: PrivacySettingsDto){
+    this.privacy = privacy
+  }
+
+  updateMessagePermissions(messagePermissions: string){
+    this.messagePermissions = messagePermissions
+  }
+
+  updateThemes(themes: ThemesSettingsDto){
+    this.themes = themes
+  }
 }
