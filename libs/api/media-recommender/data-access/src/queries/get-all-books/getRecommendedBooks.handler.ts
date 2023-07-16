@@ -1,11 +1,8 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetRecommendedBooksQuery } from "./getRecommendedBooks.query";
-import { BookDtoRepository } from "../../db/book-dto.repository";
 import { HttpService } from "@nestjs/axios";
-import { BookSchema } from "../../db/book.schema";
 import { BookEntityRepository } from "../../db/book-entity.repository";
 import { BookDto } from "../../book.dto";
-import { get } from "http";
 
 @QueryHandler(GetRecommendedBooksQuery)
 export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedBooksQuery> {
@@ -36,6 +33,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
 
         } catch (error) {
             console.log(error);
+            return [];
         }
 
         function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[], userId: string ) {
@@ -74,8 +72,6 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             };
             allBooks.push(tempBook);
         }
-
-        //function getClosestCluster(clustersNgenres: { clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[], genres: string[] }, currentUserProfile: { profile: number[], profileId: string }) {}
 
         function kmeans(items: BookDto[]) {
             const k = defineK(items.length);
