@@ -41,7 +41,9 @@
             <ion-card class = "PostCard" >
               <div class = "PostCardHeader">
                 <div class = "PostImageContainer" >
-                  <img src =  {{post.communityImageUrl}}  class = "postImage" >
+                  <img src =  {{post.communityImageUrl}}  class = "postImage" 
+                  onerror="this.src='assets/icon/Group.png';"
+                  >
                 </div>
               <div class = "PostDetails"  >
                 <div class = "TitleNameOptions">
