@@ -19,6 +19,7 @@ import { AuthGuard } from './auth.guard';
 import { MessagesModule } from '@encompass/app/messages/data-access';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { UserProfileModule } from '@encompass/app/user-profile/data-access';
+import { SettingsModule } from '@encompass/app/settings/data-access';
 
 const config: SocketIoConfig = {
   url: ':3000',
@@ -42,6 +43,7 @@ const config: SocketIoConfig = {
     CommunityModule,
     MessagesModule,
     UserProfileModule,
+    SettingsModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],

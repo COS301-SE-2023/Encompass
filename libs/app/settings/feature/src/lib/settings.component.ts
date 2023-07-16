@@ -1,4 +1,12 @@
 import { Component } from '@angular/core';
+import { ProfileDto } from '@encompass/api/profile/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { ProfileState } from '@encompass/app/profile/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetUserSettings } from '@encompass/app/settings/util';
 
 @Component({
   selector: 'settings',
@@ -6,7 +14,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsPage{
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+
+  profile!: ProfileDto | null;
+  settings!: SettingsDto | null;
   labelHidden = true;
+
+  constructor(private store: Store){
+    this.store.dispatch(new SubscribeToProfile());
+    this.profile$.subscribe((profile) => {
+      if(profile){
+        this.profile = profile;
+
+        this.store.dispatch(new GetUserSettings(profile._id));
+        this.settings$.subscribe((settings) => {
+          if(settings){
+            this.settings = settings;
+          }
+        })
+      }
+    })
+  }
 
   toggleLabel(show: boolean) {
     this.labelHidden = !show;
