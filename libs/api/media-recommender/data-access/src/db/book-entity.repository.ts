@@ -21,7 +21,7 @@ export class BookEntityRepository extends BaseEntityRepository<BookSchema, Book>
     }
 
     async findSome(): Promise<BookDto[]> {
-        //choose random 1024 books 
-        return await this.bookModel.aggregate([{ $sample: { size: 560 } }]);
+        //choose random 200 books 
+        return await this.bookModel.aggregate([{ $sample: { size: 200 } }]);
     }
 } 

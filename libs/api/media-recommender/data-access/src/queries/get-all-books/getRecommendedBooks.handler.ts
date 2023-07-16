@@ -5,6 +5,7 @@ import { HttpService } from "@nestjs/axios";
 import { BookSchema } from "../../db/book.schema";
 import { BookEntityRepository } from "../../db/book-entity.repository";
 import { BookDto } from "../../book.dto";
+import { get } from "http";
 
 @QueryHandler(GetRecommendedBooksQuery)
 export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedBooksQuery> {
@@ -20,24 +21,61 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
         try {
             const allBooksPromise = this.bookEntityRepository.findSome();
             const currentUserProfilePromise = this.httpService.get(url + "api/profile/get/" + userId).toPromise();
-            const allbookArraysPromise = this.httpService.get(url + "api/profile/get-all").toPromise();
-            const [allBooks, currentUserProfile, allbookArrays] = await Promise.all([allBooksPromise, currentUserProfilePromise, allbookArraysPromise]);
+            const [allBooks, currentUserProfile] = await Promise.all([allBooksPromise, currentUserProfilePromise]);
 
-            const userCount = allbookArrays?.data?.length;
-
+            addUserToBook(allBooks, currentUserProfile?.data);
             //K-means clustering for books where K = sqrt(allBooks.length)
-            console.log("K-means clustering for books where K = sqrt(allBooks.length)");
-            kmeans(allBooks);
-            console.log("K-means clustering after");
-
-            if (userCount <= 3) {
-                //
-            }
+            const clusters = kmeans(allBooks);
+            //get closest cluster to current user profile
+            const recommendedCluster = getClusterOfCurrentProfile( clusters, userId );
+            //remove current user profile from cluster
+            const recommendedBooks = recommendedCluster[0].clusterBooks.filter(book => book.bookId !== userId);
+            //get recommended books from allBooks by _id
+            const recommendedBooksFromAllBooks = allBooks.filter(book => recommendedBooks.some(recommendedBook => recommendedBook.bookId === book._id));
+            return recommendedBooksFromAllBooks;
 
         } catch (error) {
-            console.log("WTF-5!!!!!");
             console.log(error);
         }
+
+        function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[], userId: string ) {
+            const userCluster = clusters.filter(cluster => cluster.clusterBooks.some(book => book.bookId === userId));
+            return userCluster;
+        }
+
+        function addUserToBook(allBooks: BookDto[], currentUserProfile: any) {
+            //add user profile as one book
+            const tempBook: BookDto = {
+                _id: currentUserProfile._id,
+                bookId: "",
+                title: "",
+                series: "",
+                author: "",
+                rating: 0,
+                description: "",
+                language: "",
+                isbn: "",
+                genres: currentUserProfile.communities,
+                characters: [],
+                bookFormat: "",
+                edition: "",
+                pages: 0,
+                publisher: "",
+                publishDate: "",
+                awards: [],
+                numRatings: 0,
+                ratingsByStars: [],
+                likedPercent: 0,
+                setting: [],
+                coverImg: "",
+                bbeScore: 0,
+                bbeVotes: 0,
+                price: 0,
+            };
+            allBooks.push(tempBook);
+        }
+
+        //function getClosestCluster(clustersNgenres: { clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[], genres: string[] }, currentUserProfile: { profile: number[], profileId: string }) {}
 
         function kmeans(items: BookDto[]) {
             const k = defineK(items.length);
@@ -55,13 +93,17 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             let newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
             //while centroids are changing
             do{
-                //assign each book to the closest cluster
                 oldCentroids = newCentroids;
+                //assign each book to the closest cluster
                 moveToClosestCentroid(bookArrays, clusters, k);
                 //recalculate the cluster centroids
                 calculateNewCentroids(clusters);
                 newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
-                console.log("--------recalculate centroids--------");
+                /*console.log("--------recalculate centroids--------");
+                //print out the number of books in each cluster
+                for(let i = 0; i < clusters.length; i++){
+                    console.log("cluster " + i + ": " + clusters[i].clusterBooks.length);
+                }*/
             } while ( !arraysAreEqual(oldCentroids, newCentroids) );
             
             return clusters;
@@ -173,6 +215,14 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             items.forEach((item) => { //test this!!!!
                 const book: { book: number[], bookId: string } = { book: [], bookId: "" };
 
+                genres?.forEach((genresItem) => {
+                    if (item.genres?.includes(genresItem)) {
+                        book.book.push(1);
+                    } else {
+                        book.book.push(0);
+                    }
+                });
+
                 series?.forEach((seriesItem) => {
 
                     if (item.series?.includes(seriesItem)) {
@@ -184,14 +234,6 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
 
                 author?.forEach((authorItem) => {
                     if (item.author?.includes(authorItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
-
-                genres?.forEach((genresItem) => {
-                    if (item.genres?.includes(genresItem)) {
                         book.book.push(1);
                     } else {
                         book.book.push(0);
@@ -210,31 +252,30 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
                 books.push(book);
             });
 
-            /*for (let i = 0; i < 5; i++) {
-                console.log("------------------");
-                console.log(books[i]);
-                console.log("------------------");
-            }*/
-
             return books;
 
         }
 
         function loadCategories( categories: string[], category: string, categoryIsArray = false, categyIsAuthor = false ) {
-            if ( categoryIsArray ) {
-                if ( category.length < 1 ) {
+            /*console.log("typeof category: " + typeof category);
+            console.log("category after type:");
+            console.log(category);*/
+            if ( categoryIsArray && typeof category === "string" ) {
+                const parsableArray = category?.replace(/'/g, '"');
+                const array = JSON.parse(parsableArray);
+                if ( array.length < 1 ) {
                     return;
                 }
-                const parsableArray = category.replace(/'/g, '"');
-                const array = JSON.parse(parsableArray);
+                
                 array.forEach((item: string) => {
                     if ( categories.length < 1 || !categories.includes(item) ) {
                         categories.push(item);
                     }
                 });
+
                 return;
             }
-            if ( categories.length < 1 || !categories.includes(category) ) {
+            if ( (categories.length < 1 || !categories.includes(category)) && typeof category === "string" ) {
                 if ( categyIsAuthor ) {
                     //get characters before first comma
                     const author = category.split(",")[0];
@@ -244,7 +285,5 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
                 categories.push(category);
             }
         }
-
-        return await this.bookEntityRepository.findSome();
     }
 }
