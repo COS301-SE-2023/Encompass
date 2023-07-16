@@ -77,7 +77,9 @@
 
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
-                <img src =  {{post.communityImageUrl}}  class = "postImage" (click)="GoToCommunity(post.community)">
+                <img src =  {{post.communityImageUrl}}  class = "postImage" 
+                onerror="this.src='assets/icon/Group.png';"
+                (click)="GoToCommunity(post.community)">
               </div>
             <div class = "PostDetails"  >
               <div class = "TitleNameOptions">
