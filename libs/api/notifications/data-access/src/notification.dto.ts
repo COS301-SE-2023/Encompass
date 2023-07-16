@@ -8,5 +8,5 @@ export class NotificationDto{
     description: string,
     routerUrl: string,
     dateTime: string
-  }
+  }[]
 }
