@@ -1,5 +1,6 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 import { AddNotificationRequest } from "./dto/add-notification-request.dto";
+import { ObjectId } from "mongodb";
 
 export class Notification extends AggregateRoot{
   constructor(
@@ -11,7 +12,7 @@ export class Notification extends AggregateRoot{
       title: string,
       description: string,
       routerUrl: string,
-      dateTime: string
+      dateTime: Date
     }[]
   ){
     super();
@@ -28,13 +29,22 @@ export class Notification extends AggregateRoot{
       title: string,
       description: string,
       routerUrl: string,
-      dateTime: string
+      dateTime: Date
   }[]{
     return this.notifications
   }
 
   addNotification(newNotification: AddNotificationRequest){
-    this.notifications = [...this.notifications, newNotification]
+    const adding = {
+      notificationId: new ObjectId().toHexString(),
+      sentBy: newNotification.sentBy,
+      picture: newNotification.picture,
+      title: newNotification.title,
+      description: newNotification.description,
+      routerUrl: newNotification.routerUrl,
+      dateTime: new Date()
+    }
+    this.notifications = [...this.notifications, adding]
   }
 
   removeNotification(id: string){
