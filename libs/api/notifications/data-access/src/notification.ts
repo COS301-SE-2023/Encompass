@@ -51,4 +51,8 @@ export class Notification extends AggregateRoot{
     if(this.notifications)
       this.notifications = this.notifications.filter(notification => notification.notificationId !== id)
   }
+
+  clearNotifications(){
+    this.notifications = []
+  }
 }
