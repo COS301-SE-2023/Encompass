@@ -32,6 +32,45 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-grid >
+    <ion-row class="row-filter"  >
+      <ion-col size="10">
+        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0EFEF;">
+          <ion-grid>
+            <ion-row class="row-filter">
+              <ion-col size="4">
+                <div style = "display:flex;justify-content:center">
+                  <ion-button id="recommendedBtn" fill="clear" class="active-button" >
+                    <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
+                    Recommended
+                  </ion-button>
+                </div>
+               
+              </ion-col>
+              <ion-col size="4">
+                <div style = "display:flex;justify-content:center">
+                  <ion-button id="newBtn" fill="clear" class="none"  >
+                    <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
+                    New
+                  </ion-button>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <div style = "display:flex;justify-content:center">
+                <ion-button id="popularBtn" fill="clear" class="none" >
+                  <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
+                  Popular
+                </ion-button>
+              </div>
+              </ion-col>
+              
+
+            </ion-row>
+          </ion-grid>
+        </ion-card>    
+      </ion-col>
+    </ion-row>
+
 
   <ion-card>
     <ion-card-header>
@@ -55,5 +94,5 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-</ion-content>
+
 
