@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'settings',
@@ -6,6 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsPage{
+
+  @ViewChild(IonContent, { static: false })
+  content!: IonContent;
+
+  scrollTo(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) {
+      this.content.scrollToPoint(0, element.offsetTop, 500);
+    }
+  }
+
+
   labelHidden = true;
 
   toggleLabel(show: boolean) {
