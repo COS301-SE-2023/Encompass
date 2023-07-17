@@ -106,7 +106,7 @@
 .posts {
   border: 1px solid var(--ion-color-primary-contrast);
   border-radius: 50px;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   color: white;
   background-color: var(--ion-color-primary-contrast);
   font-family: CustomFont;
@@ -116,7 +116,7 @@
 .comms {
   border: 1px solid var(--ion-color-primary-contrast);
   border-radius: 50px;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   font-family: CustomFont;
 }
 
@@ -617,4 +617,8 @@ ion-card{
 
 .recomcard ion-button {
   pointer-events: none;
+}
+
+ion-button:hover {
+  --border-radius: 50px;
 }

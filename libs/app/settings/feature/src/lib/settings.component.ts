@@ -7,6 +7,8 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { GetUserSettings } from '@encompass/app/settings/util';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'settings',
@@ -19,6 +21,18 @@ export class SettingsPage{
 
   profile!: ProfileDto | null;
   settings!: SettingsDto | null;
+
+  @ViewChild(IonContent, { static: false })
+  content!: IonContent;
+
+  scrollTo(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) {
+      this.content.scrollToPoint(0, element.offsetTop, 500);
+    }
+  }
+
+
   labelHidden = true;
 
   constructor(private store: Store){

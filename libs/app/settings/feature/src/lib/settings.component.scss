@@ -107,3 +107,20 @@ ion-item {
   object-fit: cover;
   margin-top: 10px;
 }
+
+ion-button:hover {
+  --border-radius: 50px;
+}
+
+.settings {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .edit-icons {
+    font-size: 25px;
+    --border-radius: 0px;
+  }
+}
