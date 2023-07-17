@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
