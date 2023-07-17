@@ -71,6 +71,106 @@
       </ion-col>
     </ion-row>
 
+  
+  
+  
+        <ion-col>         
+            <!-- posts -->
+  
+          <div >  <!--  *ngFor="let post of posts?.slice()?.reverse();let i = index"-->
+  
+            <ion-card class = "PostCard" >
+  
+              <div class = "PostCardHeader">
+                <div class = "PostImageContainer" >
+                  <img src =  {{post.communityImageUrl}}  class = "postImage" (click)="GoToCommunity(post.community)">
+                </div>
+              <div class = "PostDetails"  >
+                <div class = "TitleNameOptions">
+                  <div style = "display: flex; margin-left: 1.5%;">
+                    <div class = "Title">{{post.community}}</div>
+                    <div class = "Name" (click)="GoToProfile(post.username)"> @{{post.username}}</div>
+                  </div>
+                  <div style = "display: flex; margin-right: 1.5%; ">
+  
+                    <label class = "report" *ngIf="reports[size-i]&&!postReported[size-i]" 
+                    (click)="ReportPost(i, post)">Report Post</label>
+  
+                    <label class = "report" *ngIf="post.reported" 
+                    style = "color: red;"
+                    >Post Reported.</label>
+  
+                    <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                  </div>
+        
+                 </div>
+                
+                  <div class = "GenreIcons" >
+                    <div style = "width: 30%; display: flex; justify-content: space-around;">
+                    <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                    </div>
+                    <div style = "width: 70%; display: flex; justify-content: space-evenly;">
+                      <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+                      <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                 </div>
+                 </div>
+  
+                 
+                
+  
+            </div> 
+              </div>
+  
+  
+  
+  
+  
+              <div class = "PostBody" (click)="GoToComments(post._id)">
+  
+                <div class = "text">
+                    <h5>{{post.title}}</h5>
+                    <div style = "display:flex;justify-content: center;">
+                      <img src = {{post.imageUrl}} style="border-radius: 15px;" >
+                    </div>
+                    <br>
+                    {{post.text}}
+                </div>
+              </div>
+              <div class = "PostFooter">
+                <div class = "date">{{post.dateAdded}}</div>
+               
+                
+                <div class = "icons">
+                  <div style = "text-align: center;">
+                    <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
+                    <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
+                    <div *ngIf = "!sharing[i]">{{post.shares}}</div>
+                    <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
+  
+                  </div>
+                  <div style = "text-align: center;">
+                    <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
+                    <div>{{post.comments}}</div>
+                  </div>
+                  <div style = "text-align: center;">
+                    <div *ngIf="profile != null">
+                    <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                    <div>{{post.likes.length}}</div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+             </ion-card>
+            </div>
+  
+        </ion-col>
+  
+  
+  
+  
+
 
   <ion-card>
     <ion-card-header>
