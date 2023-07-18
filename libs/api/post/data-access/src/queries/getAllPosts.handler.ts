@@ -24,16 +24,15 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
     const url = process.env["BASE_URL"];
     try {
       const postsNotByUserPromise = this.postDtoRepository.getPostsNotByUser(username);
+      const getPostsMadeOrLikedByUserPromise = this.postDtoRepository.getPostsMadeOrLikedByUser(username);
       const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get-user/" + username).toPromise();
-      const [postsNotByUser, currentUserProfile] = await Promise.all([postsNotByUserPromise, currentUserProfilePromise]);
+      const [postsNotByUser, getPostsMadeOrLikedByUser, currentUserProfile] = await Promise.all([postsNotByUserPromise, getPostsMadeOrLikedByUserPromise, currentUserProfilePromise]);
       const userId = currentUserProfile?.data._id;
 
       const postCount = postsNotByUser.length;
-      console.log("postCount: ", postCount);
       if (postCount < 1) {
         const recommendedPosts = orderbyPopularity(postsNotByUser);
         return recommendedPosts;
-        //console.log(recommendedPosts);
       } else {
         addUserToPosts(postsNotByUser, currentUserProfile?.data);
 
@@ -44,16 +43,17 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
         const recommendedCluster = getClusterOfCurrentProfile(clusters, userId);
         //remove current user profile from cluster
         const recommendedPosts = recommendedCluster[0].clusterPosts.filter(post => post.postId !== userId);
-        console.log("recommendedPosts length after removing user: ", recommendedPosts.length)
+        //console.log("recommendedPosts length after removing user: ", recommendedPosts.length)
         //get recommended Posts from allPosts by _id
         const recommendedPostsFromAllPosts = postsNotByUser.filter(post => recommendedPosts.some(recommendedPost => recommendedPost.postId === post._id.toString()));
-        console.log("recommendedPostsFromAllPosts: ", recommendedPostsFromAllPosts.length);
+        //console.log("recommendedPostsFromAllPosts: ", recommendedPostsFromAllPosts.length);
         //order recommended posts by popularity
         const orderedRecommendedPosts = orderbyPopularity(recommendedPostsFromAllPosts);
         //append the rest of the posts at the end
         const postsNotRecommended = postsNotByUser.filter(post => !recommendedPosts.some(recommendedPost => recommendedPost.postId === post._id.toString()));
         //remove current user profile from postsNotRecommended
         postsNotRecommended.splice(postsNotRecommended.findIndex(post => post._id.toString() === userId), 1);
+        const orderedPostsNotRecommended = orderbyPopularity(postsNotRecommended);
 
         /*console.log("postsNotRecommended: ", postsNotRecommended.length, "orderedRecommendedPosts: ", orderedRecommendedPosts.length);
         console.log("orderedRecommendedPosts: ");
@@ -61,9 +61,9 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
         console.log("postsNotRecommended: ");
         console.log(postsNotRecommended);*/
 
-        orderedRecommendedPosts.push(...postsNotRecommended);
-        //console.log("orderedRecommendedPosts after appending: ");
-        //console.log(orderedRecommendedPosts);
+        //add these posts in a more sophisticated manner if time allows
+        orderedRecommendedPosts.push(...orderedPostsNotRecommended);
+        orderedRecommendedPosts.push(...getPostsMadeOrLikedByUser);
         return orderedRecommendedPosts;
       }
 

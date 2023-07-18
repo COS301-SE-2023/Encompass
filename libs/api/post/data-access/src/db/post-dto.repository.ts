@@ -22,6 +22,18 @@ export class PostDtoRepository{
     return await this.postModel.find({ username: userId });
   }
 
+  async getPostsMadeOrLikedByUser(username: string){
+    const allPosts = await this.findAll();
+    const filteredPosts = allPosts.filter(post => {
+      const creator = post.username === username;
+      const likers = post.likes as string[];
+      const isliker = likers.includes(username);
+      return isliker || creator;
+    });
+    return filteredPosts;
+  }
+
+
   async getPostsNotByUser(username: string) {
     const allPosts = await this.findAll();
     const filteredPosts = allPosts.filter(post => {
