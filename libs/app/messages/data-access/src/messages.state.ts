@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { ChatDto } from "@encompass/api/chat/data-access";
 import { State, Action, StateContext } from "@ngxs/store";
 import { MessagesApi } from "./messages.api";
-import { GetChatList, GetMessages, GetUserInformation, SendMessage, SetMessages } from "@encompass/app/messages/util";
+import { GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SetMessages } from "@encompass/app/messages/util";
 import { Selector } from "@ngxs/store";
 import { produce } from "immer";
 import { tap } from "rxjs";
 import { ChatListDto } from "@encompass/api/chat-list/data-access";
 import { MessagesDto } from "@encompass/api/chat/data-access";
 import { ProfileDto } from "@encompass/api/profile/data-access";
+import { SettingsDto } from "@encompass/api/settings/data-access";
 
 export interface MessagesStateModel{
   messages: ChatDto | null
@@ -30,6 +31,14 @@ export interface MessagesDtoModel{
   }
 }
 
+export interface MessagesProfileModel{
+  MessagesProfileForm: {
+    model: {
+      profile: ProfileDto[] | null
+    }
+  }
+}
+
 @State<MessagesStateModel>({
   name: 'messagesModel',
   defaults:{
@@ -43,6 +52,17 @@ export interface MessagesDtoModel{
     ChatListForm:{
       model:{
         chatList: null
+      }
+    }
+  }
+})
+
+@State<MessagesDtoModel>({
+  name: 'messagesDtoModel',
+  defaults:{
+    MessagesStateForm:{
+      model:{
+        messages: null
       }
     }
   }
@@ -119,6 +139,41 @@ export class MessagesState{
     })
   }
 
+  @Action(GetNewChats)
+async getNewChats(ctx: StateContext<MessagesProfileModel>, { followingList }: GetNewChats) {
+  const userList: ProfileDto[] = [];
+
+  // Use map to create an array of promises from the forEach loop
+  const promises = followingList.map(async (element) => {
+    const response: ProfileDto | null | undefined = await this.messagesApi.getProfile(element);
+
+    if (response != null && response != undefined) {
+      const data: SettingsDto | null | undefined = await this.messagesApi.getProfileSettings(response._id);
+
+      if (data?.messagePermissions != "Noone") {
+        userList.push(response);
+      }
+    }
+  });
+  // console.log("promises")
+
+  // Wait for all the promises to complete using Promise.all
+  await Promise.all(promises);
+
+  console.log(userList);
+  // Now the userList is fully populated, and you can update the context state
+  ctx.setState({
+    MessagesProfileForm: {
+      model: {
+        profile: userList,
+      },
+    },
+  });
+
+  // console.log("Here");
+}
+
+
   @Selector()
   static messages(state: MessagesStateModel){
     return state.messages;
@@ -132,5 +187,10 @@ export class MessagesState{
   @Selector()
   static messagesDto(state: MessagesDtoModel){
     return state.MessagesStateForm.model.messages;
+  }
+
+  @Selector()
+  static messagesProfile(state: MessagesProfileModel){
+    return state.MessagesProfileForm.model.profile;
   }
 }

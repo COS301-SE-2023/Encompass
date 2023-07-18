@@ -5,6 +5,7 @@ import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-acce
 import { Observable } from 'rxjs';
 import { ChatListDto } from '@encompass/api/chat-list/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +50,24 @@ export class MessagesApi {
     }
 
     async getProfile(username: string){
+      console.log("TIME")
       try{
         const response = this.http.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
+
+        return response;
+      }
+
+      catch(error){
+        console.log(error)
+
+        return null;
+      }
+    }
+
+    async getProfileSettings(userId: string){
+      try{
+        console.log("HERE")
+        const response = this.http.get<SettingsDto>('/api/settings/get/' + userId).toPromise();
 
         return response;
       }

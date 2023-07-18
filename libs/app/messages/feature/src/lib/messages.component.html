@@ -9,10 +9,10 @@
           name="chatbubble-ellipses-outline"
           id="icon" (click)="toggleSelect()">
         </ion-icon> 
-        <ion-select class="select" > 
-          <ion-select-option *ngFor="let c of chatOptions" 
+        <ion-select class="select" [(ngModel)]="selectedValue" (ionChange)="onSelectChange()" interface="popover" (click)="getUsers()"> 
+          <ion-select-option *ngFor="let c of messagesProfile" 
           [value]="c" class = "option" >
-          {{c}}</ion-select-option>
+          {{c.name}} {{c.lastName}}</ion-select-option>
       </ion-select>
         </li>
         <li class ="AddChat">
