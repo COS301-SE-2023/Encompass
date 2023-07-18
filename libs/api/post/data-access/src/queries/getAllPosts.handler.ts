@@ -107,6 +107,21 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       return true;
     }
 
+    function calculateNewCentroids(clusters: { clusterCentroid: number[], clusterPosts: { post: number[], postId: string }[] }[]) {
+      for(let j = 0; j < clusters.length; j++){
+          if(clusters[j].clusterPosts.length == 0){
+              continue;
+          }
+          for(let l = 0; l < clusters[0].clusterCentroid.length; l++){
+              let sum = 0;
+              for(let k = 0; k < clusters[j].clusterPosts.length; k++){
+                  sum += clusters[j].clusterPosts[k].post[l];
+              }
+              clusters[j].clusterCentroid[l] = sum / clusters[j].clusterPosts.length; 
+          }   
+      }
+    }
+
     
 
     return await this.postDtoRepository.findAll();
