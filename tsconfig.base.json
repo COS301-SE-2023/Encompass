@@ -18,12 +18,6 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
-      "@encompass/api/chat-list/data-access": [
-        "libs/api/chat-list/data-access/src/index.ts"
-      ],
-      "@encompass/api/chat/data-access": [
-        "libs/api/chat/data-access/src/index.ts"
-      ],
       "@encompass/api/comment/data-access": [
         "libs/api/comment/data-access/src/index.ts"
       ],
@@ -49,14 +43,8 @@
         "libs/app/comments/feature/src/index.ts"
       ],
       "@encompass/app/comments/util": ["libs/app/comments/util/src/index.ts"],
-      "@encompass/app/community-profile/data-access": [
-        "libs/app/community-profile/data-access/src/index.ts"
-      ],
       "@encompass/app/community-profile/feature": [
         "libs/app/community-profile/feature/src/index.ts"
-      ],
-      "@encompass/app/community-profile/util": [
-        "libs/app/community-profile/util/src/index.ts"
       ],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
       "@encompass/app/create-community/data-access": [
@@ -78,6 +66,9 @@
         "libs/app/create-post/util/src/index.ts"
       ],
       "@encompass/app/feed/feature": ["libs/app/feed/feature/src/index.ts"],
+      "@encompass/app/forgotpassword/feature": [
+        "libs/app/forgotpassword/feature/src/index.ts"
+      ],
       "@encompass/app/home-page/data-access": [
         "libs/app/home-page/data-access/src/index.ts"
       ],
@@ -90,13 +81,9 @@
       ],
       "@encompass/app/login/feature": ["libs/app/login/feature/src/index.ts"],
       "@encompass/app/login/util": ["libs/app/login/util/src/index.ts"],
-      "@encompass/app/messages/data-access": [
-        "libs/app/messages/data-access/src/index.ts"
+      "@encompass/app/privacy/feature": [
+        "libs/app/privacy/feature/src/index.ts"
       ],
-      "@encompass/app/messages/feature": [
-        "libs/app/messages/feature/src/index.ts"
-      ],
-      "@encompass/app/messages/util": ["libs/app/messages/util/src/index.ts"],
       "@encompass/app/profile/data-access": [
         "libs/app/profile/data-access/src/index.ts"
       ],
@@ -126,27 +113,19 @@
         "libs/app/sign-up/feature/src/index.ts"
       ],
       "@encompass/app/sign-up/util": ["libs/app/sign-up/util/src/index.ts"],
+      "@encompass/app/team/feature": ["libs/app/team/feature/src/index.ts"],
       "@encompass/app/themes/feature": ["libs/app/themes/feature/src/index.ts"],
-      "@encompass/app/user-profile/data-access": [
-        "libs/app/user-profile/data-access/src/index.ts"
+      "@encompass/app/tsandcs/feature": [
+        "libs/app/tsandcs/feature/src/index.ts"
       ],
       "@encompass/app/user-profile/feature": [
         "libs/app/user-profile/feature/src/index.ts"
-      ],
-      "@encompass/app/user-profile/util": [
-        "libs/app/user-profile/util/src/index.ts"
       ],
       "@encompass/app/welcome/feature": [
         "libs/app/welcome/feature/src/index.ts"
       ],
       "@encompass/app/welcome/ui": ["libs/app/welcome/ui/src/index.ts"]
-    },
-    "outDir": "./out-tsc/spec",
-   // "module": "CommonJs", //duplicate identifier
-    "types": [
-       "jest", 
-      "@testing-library/jest-dom"
-    ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
