@@ -22,6 +22,7 @@ describe('ProfileController', () => {
         posts: ['test'],
         reviews: ['test'],
         profileImage: '',
+        profileBanner: '',
         bio: 'test',
     };
     beforeAll(async () => {

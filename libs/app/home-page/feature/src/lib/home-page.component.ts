@@ -25,7 +25,7 @@ import { PopoverController } from '@ionic/angular';
 export class HomePage {
   // @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   // @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
-  
+
   // profile! : ProfileDto | null;
   // posts! : PostDto[] | null;
   // reports : boolean[] =[];
@@ -49,7 +49,7 @@ export class HomePage {
   //         this.posts = posts;
   //         for(let i =0;i<posts.length;i++){
   //               this.reports.push(false);
-  //             } 
+  //             }
   //             console.log(this.reports);
   //       }
   //     })
@@ -64,7 +64,7 @@ export class HomePage {
   //       // Add any input properties or data you want to pass to the popup component
   //     }
   //   });
-  
+
   //   return await modal.present();
   // }
 
@@ -76,7 +76,7 @@ export class HomePage {
   //       // Add any input properties or data you want to pass to the popup component
   //     }
   //   });
-  
+
   //   return await modal.present();
   // }
 
@@ -86,42 +86,71 @@ export class HomePage {
   //   }else if(this.reports[n]==false){
   //     this.reports[n]=true;
   //   }
-   
+
   // }
-  
+
   goToProfile() {
+    this.routerClick();
     this.router.navigate(['/home/profile']);
   }
 
   goHome() {
+    this.routerClick();
     this.router.navigate(['/home/feed']);
   }
 
   GoToComments(){
+    this.routerClick();
     this.router.navigate(['app-comments-feature']);
-  }
-  OpenSearch() {
-    // this.router.navigate(['/home/search']);
   }
 
   goToExplore(){
-    // this.router.navigate(['/home/explore']);
+
+    this.routerClick();
+    this.router.navigate(['/home/search-explore']);
+
   }
 
   goToChat(){
+    this.routerClick();
     // this.router.navigate(['/home/chat']);
   }
 
-  openNotifications(){
-    // this.router.navigate(['/home/notifications']);
-  }
-
   goToSettings(){
+    this.routerClick();
     this.router.navigate(['/home/settings']);
   }
 
   goToThemes(){
+    this.routerClick();
     this.router.navigate(['/home/themes']);
+  }
+
+  goToEvents(){
+    this.routerClick();
+    // this.router.navigate(['/home/events']);
+  }
+
+  logout(){
+    this.router.navigate(['/']);
+  }
+
+  showNotifications = false;
+  showSearch = false;
+
+  toggleNotifications() {
+    this.showSearch = false;
+    this.showNotifications = !this.showNotifications;
+  }
+
+  toggleSearch() {
+    this.showNotifications = false;
+    this.showSearch = !this.showSearch;
+  }
+
+  routerClick() {
+    this.showNotifications = false;
+    this.showSearch = false;
   }
 
 

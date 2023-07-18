@@ -30,6 +30,7 @@ export class CreateProfileHandler
         posts, 
         reviews,
         profileImage,
+        profileBanner,
         bio,
       } = createProfileRequest;
 
@@ -48,6 +49,7 @@ export class CreateProfileHandler
           posts, 
           reviews,
           profileImage,
+          profileBanner,
           bio,
         )
       );
@@ -56,6 +58,8 @@ export class CreateProfileHandler
       
       try{
         this.httpService.post(url + '/api/chat-list/create', {username: profile.username}).toPromise();
+        this.httpService.post(url + '/api/notification/create/' + _id, {} ).toPromise();
+        this.httpService.post(url + '/api/settings/create/' + _id, {} ).toPromise();
       }
 
       catch(error){

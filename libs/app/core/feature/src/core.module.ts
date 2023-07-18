@@ -14,6 +14,17 @@ import { HomeModule } from '@encompass/app/home-page/data-access';
 import { CreateCommunityModule } from '@encompass/app/create-community/data-access';
 import { CommentsModule } from '@encompass/app/comments/data-access';
 import { CommunityModule } from '@encompass/app/community-profile/data-access';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+import { MessagesModule } from '@encompass/app/messages/data-access';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { UserProfileModule } from '@encompass/app/user-profile/data-access';
+import { SettingsModule } from '@encompass/app/settings/data-access';
+
+const config: SocketIoConfig = {
+  url: ':3000',
+  options: {}
+};
 @NgModule({
   declarations: [CoreShell],
   imports: [
@@ -29,9 +40,13 @@ import { CommunityModule } from '@encompass/app/community-profile/data-access';
     CreatePostModule,
     CreateCommunityModule,
     CommentsModule,
-    CommunityModule
+    CommunityModule,
+    MessagesModule,
+    UserProfileModule,
+    SettingsModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],
   bootstrap: [CoreShell],
 })
 

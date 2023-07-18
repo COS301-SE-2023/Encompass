@@ -9,7 +9,20 @@ import { UpdateProfileCommand } from "./commands/update-profile/update-profile.c
 import { GetUsernameQuery } from "./queries/get-username/get-username.query";
 import { RemovePostCommand } from "./commands/remove-post/remove-post.command";
 import { RemoveCommunityCommand } from "./commands/remove-community/remove-community.command";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { UseInterceptors } from "@nestjs/common";
+import { UploadedFile } from "@nestjs/common";
+import { UploadImage } from "./upload-image.service";
+import { Request } from "express";
+import { Multer } from "multer";
+import { GetByUsernameQuery } from "./queries/get-by-username/get-by-username.query";
+
+
 import { GetAllProfilesQuery } from "./queries/get-all-profiles/getAllProfiles.query";
+import { AddFollowerCommand } from "./commands/add-follower/add-follower.command";
+import { AddFollowingCommand } from "./commands/add-following/add-following.command";
+import { RemoveFollowerCommand } from "./commands/remove-follower/remove-follower.command";
+import { RemoveFollowingCommand } from "./commands/remove-following/remove-following.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -70,10 +83,67 @@ export class ProfileController {
     );
   }
 
+  @Patch('add-follower/:username/:followerUsername')
+  async addFollower(
+    @Param('username') userId: string,
+    @Param('followerUsername') followerId: string
+  ){
+    return await this.commandBus.execute<AddFollowerCommand, ProfileDto>(
+      new AddFollowerCommand(userId, followerId)
+    );
+  }
+
+  @Patch('add-following/:username/:followingUsername')
+  async addFollowing(
+    @Param('username') userId: string,
+    @Param('followingUsername') followingId: string
+  ){
+    return await this.commandBus.execute<AddFollowingCommand, ProfileDto>(
+      new AddFollowingCommand(userId, followingId)
+    );
+  }
+
+  @Patch('remove-follower/:username/:followerUsername')
+  async remvoeFollower(
+    @Param('username') userId: string,
+    @Param('followerUsername') followerId: string
+  ){
+    return await this.commandBus.execute<RemoveFollowerCommand, ProfileDto>(
+      new RemoveFollowerCommand(userId, followerId)
+    );
+  }
+
+  @Patch('remove-following/:username/:followingUsername')
+  async removeFollowing(
+    @Param('username') userId: string,
+    @Param('followingUsername') followingId: string
+  ){
+    return await this.commandBus.execute<RemoveFollowingCommand, ProfileDto>(
+      new RemoveFollowingCommand(userId, followingId)
+    );
+  }
+
   @Get('/user/:username')
   async getProfileByUsername(@Param('username') username: string){
     return await this.queryBus.execute<GetUsernameQuery, boolean>(
       new GetUsernameQuery(username),
     );
+  }
+
+  @Get('get-user/:username')
+  async getUser(@Param('username') username: string){
+    return await this.queryBus.execute<GetByUsernameQuery, ProfileDto>(
+      new GetByUsernameQuery(username),
+    );
+  }
+
+  @Post('upload-image')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImage(
+    @UploadedFile() file: Express.Multer.File,
+  ){
+    const uploadImage = new UploadImage();
+    
+    return await uploadImage.uploadImage(file.buffer, file.originalname);
   }
 }

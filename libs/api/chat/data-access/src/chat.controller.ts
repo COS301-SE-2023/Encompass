@@ -38,7 +38,7 @@ export class ChatController {
     @Body() addMessageRequest: AddMessageRequest,
   ){
     return await this.commandBus.execute<AddMessageCommand, ChatDto>(
-      new AddMessageCommand(chatId, addMessageRequest.username, addMessageRequest.message, addMessageRequest.dateTime),
+      new AddMessageCommand(chatId, addMessageRequest.username, addMessageRequest.message),
     );
   }
 }

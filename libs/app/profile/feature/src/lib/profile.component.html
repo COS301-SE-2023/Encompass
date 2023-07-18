@@ -41,7 +41,9 @@
             <ion-card class = "PostCard" >
               <div class = "PostCardHeader">
                 <div class = "PostImageContainer" >
-                  <img src =  {{post.communityImageUrl}}  class = "postImage" >
+                  <img src =  {{post.communityImageUrl}}  class = "postImage" 
+                  onerror="this.src='assets/icon/Group.png';"
+                  >
                 </div>
               <div class = "PostDetails"  >
                 <div class = "TitleNameOptions">
@@ -102,8 +104,8 @@
                   </div>
                   <div style = "text-align: center;">
                     <div *ngIf="profile != null">
-                    <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                    <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
+                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" ></ion-icon>
                     <div>{{post.likes.length}}</div>
                     </div>
                   </div>
@@ -137,6 +139,7 @@
                   
                     <ion-icon name="chatbubble-outline" class = "comment" (click)="viewReplies(i)"></ion-icon>
                     {{replies[i]}}
+
                   </div>
                 </div>
                 <div class = "CommentBody" (click)="ViewPostofComment(comment.postId)">{{comment?.text}}</div>
@@ -184,12 +187,12 @@
 
       <ion-col size="4">
         
-        <ion-card class = "curve">
+        <ion-card class = "curve" *ngIf="profile != null">
           <div style="position: relative">
-          <img class="profilePicture" alt="Silhouette of mountains" src="https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg" />
-          <img class="banner" alt="Silhouette of mountains" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg" />
+          <img class="profilePicture" src={{profile?.profileImage}} onerror="this.src='assets/icon/Profile.png';"  />
+          <img class="banner" src={{profile?.profileBanner}} onerror="this.src='assets/icon/Banner.png';" />
           </div>
-          <ion-card-header>
+          <ion-card-header *ngIf = "!edit" >
             <ion-card-title>{{profile?.name}} {{profile?.lastName}}
               <ion-button
             fill="clear"
@@ -202,18 +205,110 @@
             fill="clear"
             size="medium"
             color="dark"
-            class="edit-button">
+            class="edit-button"
+            (click)="Edit()">
             <ion-icon name="pencil"></ion-icon>
           </ion-button>
           
-          <ion-card-subtitle style="margin-top: 5px;">@{{profile?.username}}</ion-card-subtitle>
+          <ion-card-subtitle style="margin-top: 5px; ">@{{profile?.username}}</ion-card-subtitle>
             </ion-card-title>
           </ion-card-header>
         
-          <ion-card-content style="font-size: 15px; margin-bottom: 15px;">
-            {{profile?.bio}}
+          <ion-card-content *ngIf = "!edit" style="font-size: 15px; margin-bottom: 15px; ">
+            <div>{{profile?.bio}}</div>
+            <div class="profile-info-container">
+              <div class="profile-info info-post">{{posts?.length}} <br> Posts</div>
+              <div id="follow-trigger" class="profile-info" (click)="loadFollowers()">{{profile.followers.length}} <br> Followers</div>
+              <div id="following-trigger" class="profile-info" (click)="loadFollowing()">{{profile.following.length}} <br> Following</div>
+            </div>
           </ion-card-content>
+          <div [hidden]="!edit" style="width: 100%;" >
+            <form   [formGroup]="postForm" (ngSubmit)="onSubmit()" class = "EditDetails"  >
+
+              <div style="display:flex;justify-content: space-evenly;">
+                <ion-textarea  [maxlength]="20" class = "DescInput"  
+                placeholder = "First Name" formControlName="FirstName" ></ion-textarea>
+  
+                <ion-textarea  [maxlength]="20" class = "DescInput"  
+                placeholder = "Last Name" formControlName="LastName" ></ion-textarea>
+              </div>
+              <ion-textarea  [maxlength]="150" class = "DescInput2"  
+              placeholder = "Bio" formControlName="Bio" ></ion-textarea>
+              
+        <button [hidden]="hasImage" (click)="insertImage()" class="EditBtn">Change Photo</button>
+        <div [hidden]="!hasImage" class = "Image">
+        <input type="file" class="file-input"
+        [accept]="requiredFileType"
+        (change)="onFileSelected($event)" #fileUpload>
+        </div>
+      
+        <button [hidden]="hasBanner" (click)="insertBanner()" class="EditBtn">Change Banner</button>
+        <div [hidden]="!hasBanner" class = "Image">
+          <input type="file" class="file-input"
+          [accept]="requiredFileType"
+          (change)="onFileBannerSelected($event)" #fileUpload>
+          </div>
+      
+      
+      <button  type = "submit" class="EditBtn" (click)="FinishEdit()">
+        <ion-icon name="checkmark"  ></ion-icon>
+      </button>
+            </form>
+            </div>
+
         </ion-card>
+
+        <ion-modal #modal trigger="follow-trigger" [presentingElement]="presentingElement">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Followers</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content>
+              <ion-list>
+                <div *ngFor="let user of otherUsers">
+                  <ion-item>
+                    <ion-avatar slot="start">
+                      <ion-img src={{user?.profileImage}}></ion-img>
+                    </ion-avatar>
+                    <ion-label>
+                      <h2>{{user?.name}} {{user?.lastName}}</h2>
+                      <p>@{{user?.username}}</p>
+                    </ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+
+        <ion-modal #modal trigger="following-trigger" [presentingElement]="presentingElement2">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Following</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content>
+              <ion-list>
+                <div *ngFor="let user of otherUsers">
+                  <ion-item (click)="goToProfile(user?.username)">
+                    <ion-avatar slot="start">
+                      <ion-img src={{user?.profileImage}}></ion-img>
+                    </ion-avatar>
+                    <ion-label>
+                      <h2>{{user?.name}} {{user?.lastName}}</h2>
+                      <p>@{{user?.username}}</p>
+                    </ion-label>
+                  </ion-item>
+                </div>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+
+
 
         <div class="awards">
           <ion-title class="awards-header">
@@ -224,6 +319,11 @@
             <img src="assets/icon/Award2.JPG" class="badge">
           </div>
         </div>
+
+
+
+
+
 
         <ion-card>
           <ion-card-header>

@@ -1,0 +1,99 @@
+.overlay-container {
+background-color: var(--ion-color-background);
+width: 100vw;
+height: fit-content;
+object-fit: cover;
+z-index: 1;
+}
+
+
+.lnk {
+position: absolute;
+top: 90%;
+left: 52%;
+z-index: 4;
+color: white;
+font-size: 300%;
+transform: translate(-50%, -50%);
+}
+
+.git {
+position: absolute;
+top: 90%;
+left: 48%;
+z-index: 4;
+color: white;
+font-size: 300%;
+transform: translate(-50%, -50%);
+}
+
+.footer {
+    
+height: 200px;
+}
+
+.footer-row {
+margin-bottom: 2%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.footer-text {
+color: white;
+margin-left: 20%;
+}
+
+.footer-grid {
+display: flex;
+flex-direction: column;
+}
+
+
+.custom-title {
+font-family: CustomFont;
+font-size: 300%;
+font-weight: bold;
+position: absolute;
+left: 2%;
+top: 7%;
+color: var(--ion-color-primary-contrast);
+display: flex;
+flex-direction: column;
+
+
+}
+
+.image-container {
+width: 100%;
+height: 250px;
+overflow: hidden;
+position: relative;
+
+}
+
+.cropped-image {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center 59%; /* Adjust the position here */
+}
+
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+    margin-top: 80px;
+}
+
+.whole-text {
+    width: 80%;
+    font-size: 25px;
+}
+
+a {
+font-weight: bold;
+}

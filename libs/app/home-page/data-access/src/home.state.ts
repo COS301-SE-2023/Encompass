@@ -1,17 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { GetAllPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { GetAllPosts, GetNotifications, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
-
-export interface HomeStateModel{
-  HomeForm: {
-    model: {
-      home: HomeDto | null
-    }
-  }
-}
+import { NotificationDto } from "@encompass/api/notifications/data-access";
 
 export interface HomePostsModel{
   HomePostsForm: {
@@ -21,22 +14,56 @@ export interface HomePostsModel{
   }
 }
 
-@State<HomeStateModel>({
-  name: 'home',
+export interface HomeNotificationsModel{
+  HomeNotificationsForm: {
+    model: {
+      homeNotifications: NotificationDto | null
+    }
+  }
+}
+
+@State<HomePostsModel>({
+  name: 'homePosts',
   defaults: {
-    HomeForm: {
+    HomePostsForm: {
       model: {
-        home: null
+        homePosts: null
       }
     }
   }
 })
 
-
+@State<HomeNotificationsModel>({
+  name: 'homeNotifications',
+  defaults: {
+    HomeNotificationsForm: {
+      model: {
+        homeNotifications: null
+      }
+    }
+  }
+})
 
 @Injectable()
 export class HomeState{
   constructor(private homeApi: HomeApi){}
+
+  @Action(GetNotifications)
+  async getNotifications(ctx: StateContext<HomeNotificationsModel>, {userId}: GetNotifications){
+    const response = await this.homeApi.getNotifications(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      HomeNotificationsForm: {
+        model: {
+          homeNotifications: response
+        }
+      }
+    })
+  }
 
   @Action(GetAllPosts)
   async getAllPosts(ctx: StateContext<HomePostsModel>){
@@ -84,14 +111,12 @@ export class HomeState{
   }
 
   @Selector()
-  static home(state: HomeStateModel)
-  {
-    console.log(state.HomeForm.model.home)
-    return state.HomeForm.model.home;
+  static homePosts(state: HomePostsModel){
+    return state.HomePostsForm.model.homePosts;
   }
 
   @Selector()
-  static homePosts(state: HomePostsModel){
-    return state.HomePostsForm.model.homePosts;
+  static notifications(state: HomeNotificationsModel){
+    return state.HomeNotificationsForm.model.homeNotifications;
   }
 }

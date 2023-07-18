@@ -15,7 +15,7 @@ export class AddMessageHandler implements ICommandHandler<AddMessageCommand>{
       await this.chatEntityRepository.findOneById(command.chatId)
     )  
 
-    chat.addMessage(command.username, command.message, command.dateTime);
+    chat.addMessage(command.username, command.message);
     await this.chatEntityRepository.findOneAndReplaceById(chat._id, chat);
     chat.commit();
 

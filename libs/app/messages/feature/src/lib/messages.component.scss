@@ -1,0 +1,173 @@
+
+  
+  .container {
+    display: flex;
+    height: 100vh;
+    font-family: CustomFont;
+    margin-left: 20px;
+  }
+  
+  .chat-list {
+    flex: 1;
+    background-color: #F8F8F8;
+    padding: 10px;
+    overflow-y: auto;
+    border-right: #D9D9D9 3px solid;
+  }
+  
+  .chat-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .chat-list li {
+    
+   
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .chat-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .chat-area {
+    background-color: #F8F8F8;
+    flex: 3;
+  }
+   
+  .message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+  }
+  
+  .msg{
+    background-color: #634783;
+    color: white;
+    border-radius: 15px;
+    padding: 1%;
+    max-width: 40%;
+
+  }
+
+  .msg2{
+    background-color: #D8D8D8;
+    color: black;
+    border-radius: 15px;
+    padding: 1%;
+    max-width: 40%;
+
+  }
+  
+  
+  .your-message {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+
+  .messages{
+    overflow-y: auto;
+    height: 70%;
+    width: 100%;
+
+  }
+  
+
+  .imgDiv{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px ;
+    border : 1px solid #231942;
+  }
+
+  .imgDiv2{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-right: 10px ;
+    margin-left: 10px ;
+    border : 1px solid #231942;
+    margin-right: 5%;
+
+  }
+
+  .imgDiv3{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    margin-right: 10px ;
+    margin-left: 10px ;
+    border : 1px solid #231942;
+  }
+
+  .chatItem:hover{
+    background-color: #D9D9D9;
+    cursor: pointer;
+
+  }
+
+  .chatItem{
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+  }
+
+  .UserName{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size:30px;
+  }
+
+.select{
+
+  width: 10%;
+  color: transparent;
+}
+  .Typer{
+    height: 15%;
+  }
+  .messageInput{
+    margin-top: 10px;
+    width: 90%;
+    border: 1px solid #231942;
+    padding: 1%;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .icon{
+    font-size: 25px;
+  }
+
+  .icon:hover{
+    cursor: pointer;
+    color: #634783;
+  }
+
+  .input{
+    font-family: CustomFont;
+    width: 95%;
+    outline: none;
+    border: none;
+    background-color: #F8F8F8;
+  }
+
+  .User{
+  
+    height: 15%;
+    font-size: 20px;
+    border-bottom: 1px solid #D9D9D9;
+    }
+
+   

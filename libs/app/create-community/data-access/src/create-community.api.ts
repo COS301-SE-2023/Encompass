@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { CommunityRequestDto } from "@encompass/api/community-request/data-access";
 import { CreateCommunityRequest, CommunityDto } from "@encompass/api/community/data-access";
 
 export interface fileReturn{
@@ -54,17 +55,34 @@ export class CreateCommunityApi{
     }
   }
 
-  async uploadFile(request: FormData) : Promise<fileReturn | null | undefined>{
+  async uploadFile(request: FormData) : Promise<string | null>{
     try {
 
       // console.log("HERE")
       const response = await this.httpClient.post<fileReturn>('/api/community/upload-image', request).toPromise();
 
-      return response;
+      if(response == null){
+        return null;
+      }
+
+      return response.url;
     } 
     catch (error) 
     {
       console.log(error);
+      return null;
+    }
+  }
+
+  async createCommunityRequest(id: string){
+    try{
+      const response = await this.httpClient.post<CommunityRequestDto>('/api/community-request/create/' + id, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error)
       return null;
     }
   }

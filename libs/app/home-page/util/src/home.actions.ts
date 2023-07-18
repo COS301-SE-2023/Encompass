@@ -12,3 +12,8 @@ export class UpdatePost{
   static readonly type = '[Home] Update Post';
   constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
 }
+
+export class GetNotifications{
+  static readonly type = '[Home] Get Notifications';
+  constructor(public readonly userId: string){}
+}
