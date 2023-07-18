@@ -53,6 +53,11 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       console.log(error);
     }
 
+    function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterPosts: { post: number[], postId: string }[] }[], userId: string ) {
+      const userCluster = clusters.filter(cluster => cluster.clusterPosts.some(post => post.postId === userId));
+      return userCluster;
+    }
+
     
 
     return await this.postDtoRepository.findAll();
