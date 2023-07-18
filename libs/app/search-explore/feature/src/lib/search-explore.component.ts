@@ -456,11 +456,13 @@ Edit(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn) {
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.add('active-button');
       CommentsBtn.classList.remove('active-button');
       eventBtn.classList.remove('active-button');
+      PeopleBtn.classList.remove('active-button');
     }
 
     this.seePosts=true;
@@ -472,11 +474,13 @@ Edit(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn) {
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.remove('active-button');
       CommentsBtn.classList.add('active-button');
       eventBtn.classList.remove('active-button');
+      PeopleBtn.classList.remove('active-button');
     }
 
     this.seePosts=false;
@@ -487,11 +491,13 @@ Edit(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn) {
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.remove('active-button');
       CommentsBtn.classList.remove('active-button');
       eventBtn.classList.add('active-button');
+      PeopleBtn.classList.remove('active-button');
     }
   }
 
@@ -499,11 +505,13 @@ Edit(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn) {
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.remove('active-button');
       CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.add('active-button');
+      eventBtn.classList.remove('active-button');
+      PeopleBtn.classList.add('active-button');
     }
   }
 

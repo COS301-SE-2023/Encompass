@@ -2,7 +2,7 @@
 
   <ion-header>
     <ion-toolbar class="searchExporeToolbar">
-      <ion-searchbar search-icon="search-circle" show-clear-button="always" clear-icon="trash-bin" animated="true" placeholder="Search"></ion-searchbar>
+      <ion-searchbar class = "searchBar" show-clear-button="always" clear-icon="trash-bin" animated="true" placeholder="Search..."></ion-searchbar>
       <div class="toolbar-content">
         <ion-grid>
           <ion-row class="row-filter">
@@ -22,7 +22,7 @@
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button id="peopleBtn" fill="clear" class="none buttonStyle" (click)="peopleChange()" >
+              <ion-button id="PeopleBtn" fill="clear" class="buttonStyle" (click)="peopleChange()" >
                 People
               </ion-button>
             </ion-col>
@@ -31,10 +31,12 @@
       </div>
     </ion-toolbar>
   </ion-header>
+
+
   <ion-grid>
     <ion-row class="row-filter">
       <ion-col size="6">
-        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #f8f8f8;">
+        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0eeee;">
           <ion-grid>
             <ion-row class="row-filter">
               <ion-col size="5">
@@ -107,17 +109,8 @@
                     <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
                </div>
                </div>
-
-               
-              
-
           </div> 
             </div>
-
-
-
-
-
             <div class = "PostBody" (click)="GoToComments(post._id)">
 
               <div class = "text">
