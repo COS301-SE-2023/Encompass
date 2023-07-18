@@ -78,4 +78,18 @@ export class MessagesApi {
         return null;
       }
     }
+
+    async createChat(usernames: string[]){
+      try{
+        const response = this.http.post<ChatDto>('/api/chat/create', usernames).toPromise();
+
+        return response;
+      }
+
+      catch(error){
+        console.log(error)
+
+        return null;
+      }
+    }
 }

@@ -5,7 +5,7 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { MessagesState } from '@encompass/app/messages/data-access';
 import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-access';
 import { Select } from '@ngxs/store';
-import { GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage } from '@encompass/app/messages/util';
+import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage } from '@encompass/app/messages/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -128,15 +128,13 @@ export class MessagesPage implements OnDestroy {
     this.selectOpen = !this.selectOpen;
   }
 
-  onOptionChange() {
-    // Handle option change logic here if needed
-    console.log(this.selectedOption);
-  }
-
   onSelectChange() {
-    // The selected value is already stored in this.selectedValue due to ngModel binding.
     console.log('Selected value:', this.selectedValue);
-    // You can perform any additional actions based on the selected value.
+    if(this.profile == null){
+      return;
+    }
+
+    this.store.dispatch(new CreateChat([this.profile.username, this.selectedValue.username]))
   }
 
   getUsers() {
