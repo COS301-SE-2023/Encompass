@@ -31,14 +31,13 @@
       </div>
     </ion-toolbar>
   </ion-header>
-
-  <ion-grid >
-    <ion-row class="row-filter"  >
-      <ion-col size="10">
-        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0EFEF;">
+  <ion-grid>
+    <ion-row class="row-filter">
+      <ion-col size="6">
+        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #f8f8f8;">
           <ion-grid>
             <ion-row class="row-filter">
-              <ion-col size="3">
+              <ion-col size="5">
                 <div style = "display:flex;justify-content:center">
                   <ion-button id="recommendedBtn" fill="clear" class="active-button" (click)="recChange()">
                     <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
@@ -49,129 +48,247 @@
               </ion-col>
               <ion-col size="3">
                 <div style = "display:flex;justify-content:center">
-                  <ion-button id="newBtn" fill="clear" class="none" (click)="newChange()" >
+                  <ion-button id="newBtn" fill="clear" class="none" (click)="newChange()">
                     <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
                     New
                   </ion-button>
                 </div>
               </ion-col>
-              <ion-col size="3">
+              <ion-col size="4">
                 <div style = "display:flex;justify-content:center">
-                <ion-button id="popularBtn" fill="clear" class="none" (click)="popChange()" >
+                <ion-button id="popularBtn" fill="clear" class="none" (click)="popChange()">
                   <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
                   Popular
                 </ion-button>
+              </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+
+
+
+        <!-- posts -->
+
+        <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
+
+          <ion-card class = "PostCard" >
+
+            <div class = "PostCardHeader">
+              <div class = "PostImageContainer" >
+                <img src =  {{post.communityImageUrl}}  class = "postImage" (click)="GoToCommunity(post.community)">
+              </div>
+            <div class = "PostDetails"  >
+              <div class = "TitleNameOptions">
+                <div style = "display: flex; margin-left: 1.5%;">
+                  <div class = "Title">{{post.community}}</div>
+                  <div class = "Name" (click)="GoToProfile(post.username)"> @{{post.username}}</div>
                 </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card>    
+                <div style = "display: flex; margin-right: 1.5%; ">
+
+                  <label class = "report" *ngIf="reports[size-i]&&!postReported[size-i]" 
+                  (click)="ReportPost(i, post)">Report Post</label>
+
+                  <label class = "report" *ngIf="post.reported" 
+                  style = "color: red;"
+                  >Post Reported.</label>
+
+                  <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                </div>
+      
+               </div>
+              
+                <div class = "GenreIcons" >
+                  <div style = "width: 30%; display: flex; justify-content: space-around;">
+                  <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                  </div>
+                  <div style = "width: 70%; display: flex; justify-content: space-evenly;">
+                    <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
+                    <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+               </div>
+               </div>
+
+               
+              
+
+          </div> 
+            </div>
+
+
+
+
+
+            <div class = "PostBody" (click)="GoToComments(post._id)">
+
+              <div class = "text">
+                  <h5>{{post.title}}</h5>
+                  <div style = "display:flex;justify-content: center;">
+                    <img src = {{post.imageUrl}} style="border-radius: 15px;" >
+                  </div>
+                  <br>
+                  {{post.text}}
+              </div>
+            </div>
+            <div class = "PostFooter">
+              <div class = "date">{{post.dateAdded}}</div>
+             
+              
+              <div class = "icons">
+                <div style = "text-align: center;">
+                  <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
+                  <ion-icon name="share-social-outline" id = "icons2" style="color: purple;" *ngIf="sharing[i]" ></ion-icon>
+                  <div *ngIf = "!sharing[i]">{{post.shares}}</div>
+                  <div *ngIf = "sharing[i]" style = "font-family: CustomFont;">Link Copied!</div>
+
+                </div>
+                <div style = "text-align: center;">
+                  <ion-icon name="chatbubble-outline" id = "icons2" (click)="GoToComments(post._id)"></ion-icon>
+                  <div>{{post.comments}}</div>
+                </div>
+                <div style = "text-align: center;">
+                  <div *ngIf="profile != null">
+                  <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                  <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                  <div>{{post.likes.length}}</div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+           </ion-card>
+          </div>
+
       </ion-col>
-    </ion-row>
 
+      <!-- related recommendations -->
 
-      <div *ngIf = "collapse1" >
-        <div class = "RecomCommunities">
-        <div class = "RecomHeader">
+      <ion-col size="6">
+        <ion-card class="recomcard">
+          <div class = "RecomCommunities" *ngIf = "!collapse1">
+            <div class = "RecomHeader">
+              <ion-grid>
+                <ion-row class="recomRow">
+                  <ion-col size="10">
+                    <div class="headtext" style="font-size: 18px; margin-top: 10px; margin-left: 10px;">Related Communities</div>
+                  </ion-col>
+                  <ion-col size="1">
+                    <ion-button fill="clear" (click)="Collapse1()" style="width:80px; margin-top: 3px;">
+                      <ion-icon name="arrow-down-circle-outline" size = "large" ></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+
+          
+          <div *ngIf = "collapse1" >
+            <div class = "RecomCommunities">
+            <div class = "RecomHeader">
+              <ion-grid>
+                <ion-row class="recomRow">
+                  <ion-col size="10">
+                    <div style="font-size: 18px; margin-top: 10px;">Related Communities:</div>
+                  </ion-col>
+                  
+                </ion-row>
+              </ion-grid>
+            </div>
+            </div>
+          </div>
+          
+          <!-- communities -->
+
           <ion-grid>
-            <ion-row class="recomRow">
-              <ion-col size="10">
-                <div style="font-size: 18px; margin-top: 10px;">Related Communities:</div>
+            <ion-row class="content-row">
+              <ion-col size="11">
+                <ion-card class = "CommunityCard">
+                  <div class = "CommunityHeader"> 
+                    <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                     <div class = "CommunityDetails" >
+                       <div class = "CommunityName">XenoMorffs</div>
+                       <div class = "CommunityMembers">92 Members</div>
+                       <div class = "CommunityGenres">
+                       <img src = "assets/icon/Science-Fiction.png" class="imgDiv">
+                       <img src = "assets/icon/Adventure.png"  class="imgDiv" >
+                       <img src = "assets/icon/Horror.png"  class="imgDiv"></div>
+                   </div>
+                   <div class = "CommunityAdd">
+                     <ion-icon name="add-circle-outline" style="
+                     font-size: 50px;
+                     color: #231942;
+                     "></ion-icon>
+                   </div>
+                   </div>
+                   <div class = "CommunityBody">
+                       <div class = "CommunityDesc">
+                        Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       </div>
+                      </div>
+                 </ion-card>
               </ion-col>
-              <ion-col size="1">
-                <ion-button fill="clear" (click)="Collapse1()" style="width:80px; margin-top: 3px;">
-                  <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
-                </ion-button>
+            </ion-row>
+
+            <ion-row class="content-row">
+              <ion-col size="11">
+                <ion-card class = "CommunityCard">
+                  <div class = "CommunityHeader"> 
+                    <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
+                     <div class = "CommunityDetails" >
+                       <div class = "CommunityName">Potterheads</div>
+                       <div class = "CommunityMembers">105 Members</div>
+                       <div class = "CommunityGenres">
+                       <img src = "assets/icon/Fantasy.png" class="imgDiv">
+                       <img src = "assets/icon/Adventure.png"  class="imgDiv">
+                       <img src = "assets/icon/Movies.png"  class="imgDiv">
+                      </div>
+                   </div>
+                   <div class = "CommunityAdd">
+                     <ion-icon name="add-circle-outline" style="
+                     font-size: 50px;
+                     color: #231942;
+                     "></ion-icon>
+                   </div>
+                   </div>
+                   <div class = "CommunityBody">
+                       <div class = "CommunityDesc">
+                        Join in on all things Potterverse!
+                      </div>
+                      </div>
+                 </ion-card>
               </ion-col>
             </ion-row>
           </ion-grid>
-        </div>
-      </div>
+        </ion-card>
+        
 
+        <ion-card class="recomcard">
+         
+          
+          <div *ngIf = "collapse2" >
+            <div class = "RecomCommunities">
+            <div class = "RecomHeader">
+              <ion-grid>
+                <ion-row class="recomRow">
+                  <ion-col size="10">
+                    <div style="font-size: 18px; margin-top: 10px;">Your search relates to:</div>
+                  </ion-col>
+                  <ion-col size="1">
+                    <ion-button fill="clear" (click)="Collapse2()" style="width:80px; margin-top: 3px;">
+                      <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+          
+          <!-- communities -->
+            
+            </div>
+        </ion-card>   
+    </ion-col>
+    </ion-row>
+  </ion-grid>
 
-      <ion-grid>
-        <ion-row class="content-row">
-          <ion-col size="11">
-            <ion-card class = "CommunityCard">
-              <div class = "CommunityHeader"> 
-                <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
-                 <div class = "CommunityDetails" >
-                   <div class = "CommunityName">XenoMorffs</div>
-                   <div class = "CommunityMembers">92 Members</div>
-                   <div class = "CommunityGenres">
-                   <img src = "assets/icon/Science-Fiction.png" class="imgDiv">
-                   <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-                   <img src = "assets/icon/Horror.png"  class="imgDiv"></div>
-               </div>
-               <div class = "CommunityAdd">
-                 <ion-icon name="add-circle-outline" style="
-                 font-size: 50px;
-                 color: #231942;
-                 "></ion-icon>
-               </div>
-               </div>
-               <div class = "CommunityBody">
-                   <div class = "CommunityDesc">
-                    Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       </div>
-                  </div>
-             </ion-card>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="content-row">
-          <ion-col size="11">
-            <ion-card class = "CommunityCard">
-              <div class = "CommunityHeader"> 
-                <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
-                 <div class = "CommunityDetails" >
-                   <div class = "CommunityName">Potterheads</div>
-                   <div class = "CommunityMembers">105 Members</div>
-                   <div class = "CommunityGenres">
-                   <img src = "assets/icon/Fantasy.png" class="imgDiv">
-                   <img src = "assets/icon/Adventure.png"  class="imgDiv">
-                   <img src = "assets/icon/Movies.png"  class="imgDiv">
-                  </div>
-               </div>
-               <div class = "CommunityAdd">
-                 <ion-icon name="add-circle-outline" style="
-                 font-size: 50px;
-                 color: #231942;
-                 "></ion-icon>
-               </div>
-               </div>
-               <div class = "CommunityBody">
-                   <div class = "CommunityDesc">
-                    Join in on all things Potterverse!
-                  </div>
-                  </div>
-             </ion-card>
-          </ion-col>
-        </ion-row>
-    </ion-grid>
-  
-    
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Explore Communities</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <!-- Include dynamic list of available communities -->
-        <ion-item>
-          <ion-label>Movies</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Music</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Books</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Series</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
 <!--</div-->
 

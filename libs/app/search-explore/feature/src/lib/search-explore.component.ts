@@ -21,6 +21,7 @@ import { UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileApi } from '@encompass/app/profile/data-access';
 
 
+
 @Component({
   selector: 'search-explore',
   templateUrl: './search-explore.component.html',
@@ -63,6 +64,8 @@ export class SearchExploreComponent {
    deleteComment: boolean[] =[];
    MarkedForCommentDeletion: boolean[] = [];
    MarkedForPostDeletion: boolean[] = [];
+   postReported : boolean[] = [];
+   reports : boolean[] =[];
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController
@@ -135,6 +138,130 @@ export class SearchExploreComponent {
 
   });
 
+  Dislike(n:number, post: PostDto){
+    this.likedComments[n]=false;
+    this.likes[n]--;
+  
+    let likesArr = [...post.likes];
+    likesArr = likesArr.filter((like) => like !== this.profile?.username);
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
+
+
+  Report(n:number){
+
+  
+    if(this.posts?.length==null){
+      return;
+    }
+    const i = this.posts?.length-n-1;
+  
+    // console.log("n: " + n);
+    // console.log("i: " + i);
+  
+    
+    if(this.posts[i].reported==true){
+      return;
+    }
+  
+    if(this.reports[i]==true){
+      for(let k = 0;k<this.reports.length;k++){
+        this.reports[k]=false;
+     }
+    }
+    else{
+      for(let k = 0;k<this.reports.length;k++){
+        this.reports[k]=false;
+     }
+     this.reports[i]=true;
+    }
+  
+  }
+  
+  Like(n:number, post: PostDto){
+    this.likedComments[n]=true;
+    this.likes[n]++;
+  
+    let likesArr : string[];
+  
+    const emptyArray : string[] = [];
+  
+    if(this.profile?.username == null){
+      return;
+    }
+    
+    if(post.likes == emptyArray){
+      likesArr = [this.profile?.username];
+    }
+  
+    else{
+      likesArr = [...post.likes, this.profile?.username];
+    }
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
+
+  ReportPost(n:number, post: PostDto){
+    // console.log("reporting post");
+  
+    if(this.posts?.length==null){
+      return;
+    }
+    
+    const i = this.posts?.length-n-1;
+  
+  
+  for(let k = 0;k<this.postReported.length;k++){
+        this.postReported[k]=false;
+     }
+     this.postReported[i]=true;  
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: post.likes,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: true
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
+  
  
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');
@@ -152,7 +279,13 @@ export class SearchExploreComponent {
     }
   }
 
- 
+  GoToCommunity(communityName:string){
+    this.router.navigate(['community-profile/' + communityName]);
+  }
+
+  GoToProfile(username: string){
+    this.router.navigate(['user-profile/' + username]);
+  }
 
   newChange(){
     const recBtn = document.getElementById('recommendedBtn');
