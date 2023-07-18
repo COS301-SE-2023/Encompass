@@ -264,7 +264,29 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       return Math.floor(k);
     }
 
+    function orderbyPopularity(postsNotByUser: PostSchema[]) {
+
+      interface PostSchemaWithPopularity extends PostSchema {
+        popularity: number;
+      }
+
+      const postsWithPopularity: PostSchemaWithPopularity[] = postsNotByUser.map(post => {
+        const { shares, comments, likes } = post;
+        const shareWeight = 1;
+        const commentWeight = 1.2;
+        const likeWeight = 0.8;
+        const popularity = shares * shareWeight + comments * commentWeight + likes.length * likeWeight;
     
+        return { ...post, popularity };
+      });
+    
+      postsWithPopularity.sort((a, b) => b.popularity - a.popularity);
+    
+      return postsWithPopularity.map(post => {
+        const { popularity, ...rest } = post;
+        return rest; // Remove the temporary 'popularity' property from the post objects
+      });
+    }
 
     return await this.postDtoRepository.findAll();
   }
