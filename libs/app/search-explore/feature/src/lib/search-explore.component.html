@@ -70,8 +70,85 @@
     </ion-row>
 
 
+      <div *ngIf = "collapse1" >
+        <div class = "RecomCommunities">
+        <div class = "RecomHeader">
+          <ion-grid>
+            <ion-row class="recomRow">
+              <ion-col size="10">
+                <div style="font-size: 18px; margin-top: 10px;">Related Communities:</div>
+              </ion-col>
+              <ion-col size="1">
+                <ion-button fill="clear" (click)="Collapse1()" style="width:80px; margin-top: 3px;">
+                  <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
 
+
+      <ion-grid>
+        <ion-row class="content-row">
+          <ion-col size="11">
+            <ion-card class = "CommunityCard">
+              <div class = "CommunityHeader"> 
+                <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                 <div class = "CommunityDetails" >
+                   <div class = "CommunityName">XenoMorffs</div>
+                   <div class = "CommunityMembers">92 Members</div>
+                   <div class = "CommunityGenres">
+                   <img src = "assets/icon/Science-Fiction.png" class="imgDiv">
+                   <img src = "assets/icon/Adventure.png"  class="imgDiv" >
+                   <img src = "assets/icon/Horror.png"  class="imgDiv"></div>
+               </div>
+               <div class = "CommunityAdd">
+                 <ion-icon name="add-circle-outline" style="
+                 font-size: 50px;
+                 color: #231942;
+                 "></ion-icon>
+               </div>
+               </div>
+               <div class = "CommunityBody">
+                   <div class = "CommunityDesc">
+                    Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       </div>
+                  </div>
+             </ion-card>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="content-row">
+          <ion-col size="11">
+            <ion-card class = "CommunityCard">
+              <div class = "CommunityHeader"> 
+                <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
+                 <div class = "CommunityDetails" >
+                   <div class = "CommunityName">Potterheads</div>
+                   <div class = "CommunityMembers">105 Members</div>
+                   <div class = "CommunityGenres">
+                   <img src = "assets/icon/Fantasy.png" class="imgDiv">
+                   <img src = "assets/icon/Adventure.png"  class="imgDiv">
+                   <img src = "assets/icon/Movies.png"  class="imgDiv">
+                  </div>
+               </div>
+               <div class = "CommunityAdd">
+                 <ion-icon name="add-circle-outline" style="
+                 font-size: 50px;
+                 color: #231942;
+                 "></ion-icon>
+               </div>
+               </div>
+               <div class = "CommunityBody">
+                   <div class = "CommunityDesc">
+                    Join in on all things Potterverse!
+                  </div>
+                  </div>
+             </ion-card>
+          </ion-col>
+        </ion-row>
     </ion-grid>
+  
     
 
   <ion-card>

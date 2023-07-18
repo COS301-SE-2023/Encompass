@@ -152,6 +152,8 @@ export class SearchExploreComponent {
     }
   }
 
+ 
+
   newChange(){
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
@@ -167,6 +169,8 @@ export class SearchExploreComponent {
 
     }
   }
+
+
 
   popChange(){
     const recBtn = document.getElementById('recommendedBtn');
