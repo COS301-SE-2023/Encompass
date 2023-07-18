@@ -63,10 +63,10 @@ export class PostController {
     return await uploadImage.uploadImage(file.buffer, file.originalname);
   }
 
-  @Get('get-all')
-  async getAllPosts(){
+  @Get('get-all/:username')
+  async getAllPosts(@Param('username') username: string){
     return await this.queryBus.execute<GetAllPostsQuery, PostDto[]>(
-      new GetAllPostsQuery(),
+      new GetAllPostsQuery(username),
     );
   }
 
