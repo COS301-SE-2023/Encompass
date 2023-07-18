@@ -161,6 +161,14 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       }
     }
 
+    function getDistance(clusterCentroid: number[], post: { post: number[], postId: string }) {
+      let distance = 0;
+      for(let i = 0; i < clusterCentroid.length; i++){
+          distance += Math.pow(clusterCentroid[i] - post.post[i], 2);
+      }
+      return Math.sqrt(distance);
+    }
+
     
 
     return await this.postDtoRepository.findAll();
