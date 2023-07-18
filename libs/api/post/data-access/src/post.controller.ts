@@ -16,6 +16,7 @@ import { UpdatePostRequest } from "./dto/update-post-request.dto";
 import { UserIdGetPostQuery } from "./queries/userId-get-post/userId-get-post.query";
 import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
 import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community.query";
+import { GetPopularPostsQuery } from "./queries/get-popular/getPopularPosts.query";
 
 @Controller('post')
 export class PostController {
@@ -70,10 +71,10 @@ export class PostController {
     );
   }
 
-  @Get('get-popular/:username')
-  async getPopularPosts(@Param('username') username: string){
-    return await this.queryBus.execute<GetAllPostsQuery, PostDto[]>(
-      new GetAllPostsQuery(username),
+  @Get('get-popular')
+  async getPopularPosts(){
+    return await this.queryBus.execute<GetPopularPostsQuery, PostDto[]>(
+      new GetPopularPostsQuery(),
     );
   }
 
