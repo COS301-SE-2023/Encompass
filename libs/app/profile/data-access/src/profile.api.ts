@@ -6,6 +6,11 @@ import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { CommentDto } from "@encompass/api/comment/data-access";
 import { response } from "express";
 
+export interface fileReturn{
+  key: string,
+  url: string;
+}
+
 @Injectable()
 export class ProfileApi{
   constructor(private httpClient: HttpClient){}
@@ -102,6 +107,64 @@ export class ProfileApi{
     catch(error){
       console.log(error);
 
+      return null;
+    }
+  }
+
+  async uploadFile(request: FormData) : Promise<string | null>{
+    try {
+
+      // console.log("HERE")
+      const response = await this.httpClient.post<fileReturn>('/api/profile/upload-image', request).toPromise();
+
+      if(response == null){
+        return null;
+      }
+      
+      return response.url;
+    } 
+    catch (error) 
+    {
+      console.log(error);
+      return null;
+    }
+  }
+
+  async addFollowing(username: string, followingUsername: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-following/' + username + '/' + followingUsername, {}).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+      return null;
+    }
+  }
+
+  async removeFollowing(username: string, followingUsername: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/remove-following/' + username + '/' + followingUsername, {}).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+      return null;
+    }
+  }
+
+  async getProfile(username: string){
+    try{
+      const response = await this.httpClient.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
       return null;
     }
   }

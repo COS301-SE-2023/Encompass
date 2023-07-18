@@ -1,5 +1,5 @@
 ion-card {
-  background-color: #fdfdfd;
+  background-color: #f8f8f8;
   border-radius: 15px;
 }
 
@@ -13,7 +13,7 @@ ion-card {
      object-fit: fill;
      z-index: 1;
    }
- 
+
    .custom-header ion-title {
      font-size: 50px; /* Increase the font size to make the header larger */
      padding: 16px; /* Increase the padding for more space around the title */
@@ -29,7 +29,7 @@ ion-card {
      height: 60%;
      font-family: CustomFont;
      text-transform: none;
-   
+
    }
    .btn2{
      border: 1px solid var(--ion-color-primary-contrast);
@@ -40,19 +40,19 @@ ion-card {
      z-index: 3;
      width:80%;
      height: 60%;
- 
+
      font-family: CustomFont;
      text-transform: none;
    }
- 
+
    .buttons{
      display: flex;
      flex-direction: column;
      align-items: center;
      height: 14%;
-     
+
    }
-   
+
    .MenuButton{
      font-size: larger;
      position: relative;
@@ -61,11 +61,11 @@ ion-card {
       display: flex;
       align-items: center;
       left: 15%;
-      
- 
+
+
    }
- 
- 
+
+
    .menuFooter{
      width: 100%;
        height: 7%;
@@ -75,30 +75,30 @@ ion-card {
        color: #231942;
        display: flex;
        justify-content: space-between;
-       
+
    }
-   
- 
+
+
    .menu {
      background-color: #F0EFEF;
-     border-right: 2px solid #D1D0D0; 
+     border-right: 2px solid #D1D0D0;
      width: 350px;
      height: 100%;
      display: flex;
      flex-direction: column;
- 
-     
+
+
    }
- 
+
    .logo {
    position: relative;
    right: 5%;
      z-index: 3;
      width: 60px;
      height: 60px;
-     
+
    }
- 
+
    .space{
      width: 100%;
      height: 5%;
@@ -115,15 +115,15 @@ ion-card {
      height: 10%;
      color: #231942;
      font-family: CustomFont;
-     
+
    }
-  
+
    .PostCard{
-    background-color: #F0EFEF;
+    background-color: #f8f8f8;
     z-index: 2;
 
   }
-   
+
    .PostCardHeader{
     display: flex;
     justify-content: center;
@@ -132,7 +132,7 @@ ion-card {
     margin-top: 10px;
     margin-bottom: 10px;
     }
-    
+
     .PostImageContainer{
       width: 15%;
       height: 100%;
@@ -152,7 +152,7 @@ ion-card {
     .PostBody:hover{
       cursor: pointer;
     }
-    
+
     .PostFooter{
       display: flex;
           justify-content: space-between;
@@ -175,14 +175,14 @@ ion-card {
         #icons2{
           font-size: 25px;
           color:#231942;
-      
+
           }
-    
+
         #icons2:hover{
           color: purple;
           cursor: pointer;
         }
-      
+
       // .icons2{
       // // background-color: wheat;
       // font-size: 30px;
@@ -198,7 +198,7 @@ ion-card {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    
+
     }
 
     .date{
@@ -239,15 +239,15 @@ ion-card {
         object-fit: fill;
         border-radius: 15px;
       }
-    
+
   .PostDetails{
     display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 82%;
   }
-    
-    
+
+
   .TitleNameOptions{
     display: flex;
     justify-content: space-between;
@@ -257,11 +257,11 @@ ion-card {
     font-family: CustomFont;
     font-size: 20px;
 }
-    
+
     .Title{
       display: inline-block;
       width: auto;
-  
+
       }
 
       .Name{
@@ -271,10 +271,17 @@ ion-card {
   position: relative;
   font-family: CustomFont2;
   left: 5%;
-  
+
       }
-    
-    
+
+      .Title:hover{
+        cursor:pointer;
+        color: #8231DD;
+      }
+      .Name:hover{
+        cursor:pointer;
+            color: #8231DD;
+      }
     .DOT{
       // background-color: red;
       font-size: larger;
@@ -289,7 +296,7 @@ ion-card {
       position: relative;
       right:5%;
       }
-  
+
       .Options:hover{
         color: #8231DD;
       }
@@ -299,10 +306,10 @@ ion-card {
      font-size: larger;
      position: relative;
      padding-right: 30px;
- 
+
      }
-    
-    
+
+
      .GenreIcons{
       display: flex;
       justify-content: center;
@@ -312,7 +319,7 @@ ion-card {
       color: black;
       font-family: CustomFont;
       margin-left: 1.5%;
-  
+
       }
 
 
@@ -322,20 +329,23 @@ ion-card {
       object-fit: fill;
     }
 
+ 
+
     .buttonStyle {
       width: 60%;
       height: 150%;
       font-size: 18px;
+     
     }
 
     .active-button {
-      background-color: #AFABC5;
+      background-color: var(--ion-color-secondary-contrast);
       font-weight: bold;
-      border-radius: 50px ;
+      border-radius: 50px;
     }
 
 ion-card {
-  background-color: #fdfdfd;
+  background-color: #f8f8f8;
 }
 
  .Bottom{
@@ -369,7 +379,7 @@ ion-card {
       justify-content: space-around;
       align-items: center;
       border-radius: 0px 0px 15px 15px;
-      
+
  }
 
  .profileFilterOption{
@@ -382,7 +392,7 @@ ion-card {
   height: 80%;
   font-size: 30px;
   font-family: CustomFont;
- 
+
  }
 
  .ProfileCardsContainer{
@@ -392,7 +402,7 @@ ion-card {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      
+
  }
 
  .ProfileCards{
@@ -405,11 +415,11 @@ ion-card {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
+
  }
 
  .ProfileDetails{
-  background-color: #ECECEC;
+  background-color: #f8f8f8;
   width: 50%;
   height: 85%;
   border-radius: 15px;
@@ -434,7 +444,7 @@ ion-card {
  display: flex;
   flex-direction: column;
   justify-content: end;
-  
+
  }
 
  .pImage{
@@ -450,7 +460,7 @@ ion-card {
  .ProfileText{
   width: 100%;
   height: 50%;
- background-color: #ECECEC;
+ background-color: #f8f8f8;
  border-radius: 0px 0px 15px 15px;
 
  }
@@ -505,13 +515,13 @@ ion-card {
   width: 100%;
   height: 48%;
   border-radius: 15px;
-  background-color: #F0EFEF;
+  background-color: #f8f8f8;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  
+
  }
- 
+
  .AwardsTitle{
     width: 100%;
     height: 10%;
@@ -532,7 +542,7 @@ ion-card {
   background-color: #CECAE3;
   border-radius: 10px;
   margin-left: 2%;
-  
+
  }
 
  .AwardImage{
@@ -543,7 +553,7 @@ ion-card {
   border-radius: 10px;
   height: auto;
   margin-left: 2%;
-  
+
  }
 
  .TopCommunities{
@@ -551,18 +561,18 @@ ion-card {
   width: 100%;
   height: 48%;
   border-radius: 15px;
-  background-color: #F0EFEF;
+  background-color: #f8f8f8;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  
+
  }
  .CommunityTitle{
   width: 100%;
     height: 15%;
     position: relative;
     left: 3%;
-    
+
  }
  .ListofCommunities{
   height: 85%;
@@ -574,7 +584,7 @@ ion-card {
 
  }
  .CommunityItem{
-  
+
     width: 120px;
     height: 95%;
     background-color: white;
@@ -582,7 +592,7 @@ ion-card {
     justify-content: center;
     flex-direction: column;
     border-radius: 10px;
-    
+
  }
 
  .CommunityHeader{
@@ -603,7 +613,7 @@ ion-card {
   object-fit: fill;
   border-radius: 5px;
  }
- 
+
 
  .CommunityText{
   font-size: 9px;
@@ -661,13 +671,13 @@ ion-card {
 }
 
 .banner {
-  width: 100%; 
-  height: 220px; 
+  width: 100%;
+  height: 220px;
   object-fit: cover;
 }
 
 .profileToolbar {
-  --background: #CECAE3;
+  --background: var(--ion-color-secondary);
   height: 70px;
   display: flex;
 }
@@ -711,7 +721,7 @@ ion-card {
   object-fit: cover;
   width: 80px;
   height: 80px;
-  
+
   // object-fit: fill;
   // position: relative;
   margin-top: 10px;
@@ -807,8 +817,8 @@ align-items: center;
 
 
 .reply{
-  font-size: larger; 
-  position: relative; 
+  font-size: larger;
+  position: relative;
   right: 15%;
 }
 
@@ -828,7 +838,7 @@ align-items: center;
   width: 75%;
   color: #000000;
   font-family: CustomFont;
-  background-color: #ECECEC;
+  background-color: #f8f8f8;
   border-radius: 10px;
 
 }
@@ -840,8 +850,58 @@ align-items: center;
 
 .CommentBody:hover{
   cursor: pointer;
-  
+
 }
+ion-card {
+  border-radius: 15px;
+}
+
+.PostCard {
+  padding-bottom: 10px;
+}
+.profile-info {
+  flex: 1;
+  margin: 0 5px;
+  margin-top: 20px;
+  background-color: var(--ion-color-secondary);
+  border-radius: 50px;
+  width: 120px;
+  height: 50px;
+  // padding-left: 15px;
+  // padding-right: 15px;
+  padding-top: 3px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.info-post {
+  // padding-left: 35px;
+  // padding-right: 35px;
+}
+
+.profile-info-row {
+  justify-content: space-evenly;
+  margin-left: 15px;
+}
+
+.profile-info-container {
+  display: flex;
+}
+
+.popover-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // height: 100vh;
+  margin-top: 400px;
+  margin-right: 700px;
+}
+
+
+
+
+
 
 .report{
   font-size: small; position: relative; right: 10%;
@@ -853,7 +913,7 @@ color: #8231DD;
 }
 
 .curve{
-  border-radius: 50px;
+  border-radius: 25px;
 }
 
 .Rocket1{
@@ -874,4 +934,68 @@ color: #8231DD;
     z-index: 1;
 
   }
+}
+
+.EditDetails {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.EditButtons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.EditBtn{
+  width: 50%;
+  color: black;
+background-color: #DADADA;
+  border-radius: 30px;
+  font-size: 15px;
+  padding: 2%;
+  margin-bottom: 2%;
+
+}
+.EditBtn:hover{
+  color: white;
+  background-color: #8231DD;
+}
+
+.Image{
+  // width: 15%;
+  padding:2%;
+}
+
+.DescInput{
+  text-align: center;
+  font-size: 15px;
+  border-radius: 25px;
+  width: 45%;
+  border: #D9D9D9 1px solid;
+  color: #000000;
+  font-family: CustomFont;
+  padding: 1%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.DescInput2{
+  text-align: center;
+  font-size: 15px;
+  border-radius: 25px;
+  width: 90%;
+  border: #D9D9D9 1px solid;
+  color: #000000;
+  font-family: CustomFont;
+  padding: 1%;
+  margin-bottom: 2%;
+}
+
+
+ion-button:hover {
+  --border-radius: 50px;
 }
