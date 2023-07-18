@@ -1,4 +1,5 @@
 import { appLoginFeature } from './app-login-feature';
+import '@angular/core';
 import { render, fireEvent } from '@testing-library/angular';
 import { LoginPage } from './login.component';
 import '@testing-library/jest-dom';
@@ -12,12 +13,13 @@ describe('LoginPage', () => {
   it('should render username and password inputs correctly', async () => {
     const { getByLabelText } = await render(LoginPage);
 
-    const usernameInput = getByLabelText('Username');
+    const usernameInput = getByLabelText('Email');
     const passwordInput = getByLabelText('Password');
 
     expect(usernameInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
   });
+
 
   it('should trigger login function when login button is clicked', async () => {
     const { getByLabelText, getByText } = await render(LoginPage);
