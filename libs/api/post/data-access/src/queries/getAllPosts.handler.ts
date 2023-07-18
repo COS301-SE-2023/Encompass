@@ -306,7 +306,5 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
         return rest; // Remove the temporary 'popularity' property from the post objects
       });
     }
-
-    return await this.postDtoRepository.findAll();
   }
 }
