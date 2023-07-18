@@ -22,8 +22,6 @@ export class SettingsPage{
   profile!: ProfileDto | null;
   settings!: SettingsDto | null;
 
-  constructor(private animationCtrl: AnimationController) {}
-
   @ViewChild(IonContent, { static: false })
   content!: IonContent;
 
@@ -37,7 +35,7 @@ export class SettingsPage{
 
   labelHidden = true;
 
-  constructor(private store: Store){
+  constructor(private store: Store, private animationCtrl: AnimationController){
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
       if(profile){
