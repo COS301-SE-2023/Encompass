@@ -18,9 +18,9 @@ import { AccountEntityRepository } from "./db/account-entity.repository";
 import { AccountDtoRepository } from "./db/account-dto.repository";
 import { AccountSchemaFactory } from "./db/account-schema.factory";
 import { AccountFactory } from "./account.factory";
-import { CreateAccountHandler } from "./commands";
+import { CreateAccountHandler, UpdateEmailHandler, UpdatePasswordHandler } from "./commands";
 import { AccountCreatedHandler } from "./events";
-import { DoesExistHandler, GetAccountHandler } from "./queries";
+import { DoesExistHandler, GetAccountHandler, GetByIdHandler } from "./queries";
 
 @Module({
   imports: [
@@ -42,7 +42,10 @@ import { DoesExistHandler, GetAccountHandler } from "./queries";
     CreateAccountHandler,
     AccountCreatedHandler,
     GetAccountHandler,
-    DoesExistHandler
+    DoesExistHandler,
+    UpdateEmailHandler,
+    UpdatePasswordHandler,
+    GetByIdHandler
   ],
 })
 

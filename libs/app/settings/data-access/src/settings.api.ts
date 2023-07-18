@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { SettingsDto } from "@encompass/api/settings/data-access";
+import { AccountDto } from "@encompass/api/account/data-access";
+import { NotificationsSettingsDto, ProfileSettingsDto, SettingsDto } from "@encompass/api/settings/data-access";
 
 @Injectable()
 export class SettingsApi {
@@ -14,6 +15,90 @@ export class SettingsApi {
 
     } 
     catch (error) {
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async updateProfile(userId: string, settings: ProfileSettingsDto) {
+    try {
+      const response = await this.httpClient.patch<SettingsDto>("/api/settings/update-profile/" + userId, settings).toPromise();
+
+      return response;
+
+    } 
+    catch (error) {
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async updateNotification(userId: string, settings: NotificationsSettingsDto){
+    try{
+      const response = await this.httpClient.patch<SettingsDto>("/api/settings/update-notifications/" + userId, settings).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async updateMessage(userId: string, settings: string){
+    try{
+      const response = await this.httpClient.patch<SettingsDto>("/api/settings/update-message/" + userId, {messagePermissions: settings}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async getAccount(userId: string){
+    try{
+      const response = await this.httpClient.get<AccountDto>("/api/account/get/" + userId).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async updateEmail(userId: string, email: string){
+    try{
+      const response = await this.httpClient.patch<AccountDto>("/api/account/update-email/" + userId, {email: email}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async updatePassword(userId: string, password: string){
+    try{
+      const response = await this.httpClient.patch<AccountDto>("/api/account/update-password/" + userId, {password: password}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
       console.log(error);
 
       return null;

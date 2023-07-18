@@ -36,7 +36,7 @@ export class CreateSettingsHandler implements ICommandHandler<CreateSettingsComm
         userId,
         profile,
         notifications,
-        'Everyone',
+        'Followers',
         themes
       )
     );

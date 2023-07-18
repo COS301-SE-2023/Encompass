@@ -1,14 +1,16 @@
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { SettingsDto } from '@encompass/api/settings/data-access';
+import { NotificationsSettingsDto, ProfileSettingsDto, SettingsDto } from '@encompass/api/settings/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { GetUserSettings } from '@encompass/app/settings/util';
+import { GetUserSettings, UpdateNotificationSettings, UpdateProfileSettings } from '@encompass/app/settings/util';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
+import { AccountDto } from '@encompass/api/account/data-access';
+import { LoginState } from '@encompass/app/login/data-access';
 
 @Component({
   selector: 'settings',
@@ -18,9 +20,12 @@ import { AnimationController } from '@ionic/angular';
 export class SettingsPage{
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(LoginState.loginModel) loginModel$!: Observable<AccountDto>;
 
+  loginModel!: AccountDto | null;
   profile!: ProfileDto | null;
   settings!: SettingsDto | null;
+  placeHolderText!: string;
 
   @ViewChild(IonContent, { static: false })
   content!: IonContent;
@@ -45,8 +50,22 @@ export class SettingsPage{
         this.settings$.subscribe((settings) => {
           if(settings){
             this.settings = settings;
+            if(this.settings.messagePermissions == 'followers'){
+              this.placeHolderText = 'Followers Only';
+            }
+
+            else{
+              this.placeHolderText = 'No One';
+            }
           }
         })
+      }
+    })
+
+    this.loginModel$.subscribe((loginModel) => {
+      if(loginModel){
+        console.log(loginModel);
+        this.loginModel = loginModel;
       }
     })
   }
@@ -164,6 +183,11 @@ export class SettingsPage{
     } else if (editBtn == null){
       console.log('editBtn is null');
     }
+
+    console.log(account)
+    console.log(editAccount)
+    console.log(saveBtn)
+    console.log(editBtn)
   }
 
   profilePictureUrl = '';
@@ -196,10 +220,67 @@ export class SettingsPage{
     }
   }
 
-  toggleChanged(event: any, toggleName: string) {
+  toggleChangedNotifications(event: any, toggleName: string) {
     console.log(toggleName + ': ' + event.detail.checked);
+
+    if(this.settings == null || this.profile == null){
+      return
+    }
+
+    let dms = this.settings.notifications.dms;
+    let follows = this.settings.notifications.follows;
+    let commentReplies = this.settings.notifications.commentReplies;
+    let recomPosts = this.settings.notifications.recomPosts;
+    let recomCC = this.settings.notifications.recomCC;
+
+    if(toggleName == 'dms'){
+      dms = event.detail.checked;
+    }else if(toggleName == 'follows'){
+      follows = event.detail.checked;
+    }else if(toggleName == 'commentReplies'){
+      commentReplies = event.detail.checked;
+    }else if(toggleName == 'recomPosts'){
+      recomPosts = event.detail.checked;
+    }else if(toggleName == 'recomCC'){
+      recomCC = event.detail.checked;
+    }
+
+    const data: NotificationsSettingsDto = {
+      dms: dms,
+      follows: follows,
+      commentReplies: commentReplies,
+      recomPosts: recomPosts,
+      recomCC: recomCC,
+    }
+
+    this.store.dispatch(new UpdateNotificationSettings(this.profile._id, data))
   }
   
+  toggleChangedProfile(event: any, toggleName: string) {
+    console.log(toggleName + ': ' + event.detail.checked);
+
+    if(this.settings == null || this.profile == null){
+      return
+    }
+
+    let nsfw = this.settings.profile.nsfw;
+    let followPermission = this.settings.profile.followPermission;
+
+    if(toggleName == 'nsfw'){
+      nsfw = event.detail.checked;
+    }else if(toggleName == 'followPermission'){
+      followPermission = event.detail.checked;
+    }
+
+    const data: ProfileSettingsDto = {
+      nsfw: nsfw,
+      followPermission: followPermission,
+      blocked: this.settings.profile.blocked,
+    }
+
+    this.store.dispatch(new UpdateProfileSettings(this.profile._id, data))
+  }
+
   presentingElement: Element | null | undefined;
 
   ngOnInit() {
