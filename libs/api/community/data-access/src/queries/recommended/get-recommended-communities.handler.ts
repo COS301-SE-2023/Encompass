@@ -31,11 +31,13 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
 
         const url = process.env["BASE_URL"];
         try{
-            const allProfiles = await this.httpService.get(url + "api/profile/get-all").toPromise();  //array of profile objects
+            const [allProfiles, currentUserProfile] = await Promise.all([
+                this.httpService.get(url + "api/profile/get-all").toPromise(),  //array of profile objects
+                this.httpService.get(url + "api/profile/get/" + userId).toPromise()
+            ]);
             const userCount = allProfiles?.data?.length;
-            const currentUserProfile = await this.httpService.get(url + "api/profile/get/" + userId).toPromise();
             const currentUserCategories = currentUserProfile?.data?.categories;  //array of categories as strings
-            const recommendedCommunities: {community: CommunityDto, count: number}[] = [];
+            const recommendedCommunities: communityType[] = [];
             let finalRecommendedCommunities: CommunityDto[] = [];
             if(userCount <= 3){
                 finalRecommendedCommunities = coldStart(currentUserCategories, recommendedCommunities); //test this
@@ -62,7 +64,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     moveProfilesToClosestCentroid(profiles,clusters,k);
                     calculateNewCentroids(clusters);
                     newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
-                } while ( !arraysAreEqual(oldCentroids, newCentroids) )
+                } while ( !arraysAreEqual(oldCentroids, newCentroids) );
 
                 //get the communities of the profiles in the same cluster as the current userId the current userId is not already in
                 const currentCluster = clusters.find(cluster => cluster.clusterProfiles.includes(profiles.find(profile => profile.profileId == userId) as { profile: number[]; profileId: string; } ));
@@ -98,7 +100,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
         function defineK(userCount: number) {
             //define K as the square root of the number of users
             const k = Math.sqrt(userCount);
-            //round down
             return Math.floor(k);
         }
 
@@ -353,6 +354,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                         tempProfile.push(0);
                     }
                 }
+                
                 profiles.push({ profile: Object.values(tempProfile), profileId: profileIds[i] });
             }
             return profiles;

@@ -14,3 +14,18 @@ export class UpdateCommunity{
     static readonly type = '[Community] Update Community';
     constructor(public communityId: string, public updateCommunityRequest: UpdateCommunityRequest){}
 }
+
+export class GetCommunityRequest{
+    static readonly type = '[Community] Get Community Request';
+    constructor(public communityId: string){}
+}
+
+export class AddCommunityRequest{
+    static readonly type = '[Community] Add Community Request'
+    constructor(public communityId: string, public username: string){}
+}
+
+export class RemoveCommunityRequest{
+    static readonly type = '[Community] Remove Community Request';
+    constructor(public communityId: string, public username: string){}
+}

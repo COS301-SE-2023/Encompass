@@ -7,12 +7,13 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { CommunityApi, CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { GetCommunity, GetCommunityPosts } from '@encompass/app/community-profile/util';
+import { AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunityRequest } from '@encompass/app/community-profile/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
+import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class CommunityProfileComponent {
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
   @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
+  @Select(CommunityState.communityRequest) communityRequest$!: Observable<CommunityRequestDto | null>;
 
   file!: File;
   fileBanner!: File;
@@ -35,6 +37,7 @@ export class CommunityProfileComponent {
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
+  communityRequest!: CommunityRequestDto | null;
   likes: number[] =[] ;
    likedComments: boolean[] = [];
    shares : number[] = [];
@@ -64,6 +67,16 @@ export class CommunityProfileComponent {
         this.community = community;
         console.log(community);
         this.members = community.members.length;
+
+        if(community.type !== "Public"){
+          this.store.dispatch(new GetCommunityRequest(community._id))
+          this.communityRequest$.subscribe((request) => {
+            if(request){
+              console.log(request);
+              this.communityRequest = request;
+            }
+          })
+        }
       }
     })
 
@@ -91,11 +104,16 @@ export class CommunityProfileComponent {
 
   
   postForm = this.formBuilder.group({
-    text: ['', Validators.maxLength(80)]
+    text: ['', Validators.maxLength(80)],
+    rules: ['', Validators.maxLength(200)]
   });
 
   get text() {
     return this.postForm.get('text');
+  }
+
+  get rules(){
+    return this.postForm.get('rules');
   }
 
 
@@ -183,6 +201,7 @@ export class CommunityProfileComponent {
     }
 
     let textData : string;
+    let rulesData : string;
     let imageUrl : string | null;
     let bannerUrl : string | null;
 
@@ -210,11 +229,18 @@ export class CommunityProfileComponent {
       bannerUrl = this.community?.bannerImage;
     }
 
-    if(this.text?.value == null || this.text?.value == undefined){
-      textData = "";
+    if(this.text?.value == null || this.text?.value == undefined||this.text?.value==""){
+      textData = this.community?.about;
     }
     else{
       textData = this.text?.value;
+    }
+
+    if(this.rules?.value == null || this.rules?.value == undefined||this.rules?.value==""){
+      rulesData = this.community?.rules;
+    }
+    else{
+      rulesData = this.rules?.value;
     }
 
     const data : UpdateCommunityRequest = {
@@ -222,7 +248,7 @@ export class CommunityProfileComponent {
       type: this.community?.type,
       admin: this.community?.admin,
       about: textData,
-      rules: this.community?.rules,
+      rules: rulesData,
       groupImage: imageUrl,
       bannerImage: bannerUrl,
       categories: this.community?.categories,
@@ -233,6 +259,8 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.postForm.reset();
+
   }
 
   async uploadImage(file: File, fileName: string) : Promise<string | null>{
@@ -297,6 +325,55 @@ export class CommunityProfileComponent {
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
   }
 
+  requestJoin(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    this.store.dispatch(new AddCommunityRequest(this.community?._id, this.profile.username))
+  }
+
+  requestUnjoin(){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    this.store.dispatch(new RemoveCommunityRequest(this.community?._id, this.profile.username))
+  }
+
+  acceptUser(username: string){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    const newMembers : string[] = [...this.community.members, username];
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: this.community?.about,
+      rules: this.community?.rules,
+      groupImage: this.community?.groupImage,
+      bannerImage: this.community?.bannerImage,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: newMembers,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.store.dispatch(new RemoveCommunityRequest(this.community?._id, username))
+  }
+
+  rejectUser(username: string){
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    this.store.dispatch(new RemoveCommunityRequest(this.community?._id, username))
+  }
   //***********************************UI FUNCTIONS**************************************************** */
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');

@@ -1,3 +1,11 @@
+import { ProfileDto } from '@encompass/api/profile/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { ProfileState } from '@encompass/app/profile/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetUserSettings } from '@encompass/app/settings/util';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
@@ -8,8 +16,11 @@ import { AnimationController } from '@ionic/angular';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsPage{
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
 
-  constructor(private animationCtrl: AnimationController) {}
+  profile!: ProfileDto | null;
+  settings!: SettingsDto | null;
 
   @ViewChild(IonContent, { static: false })
   content!: IonContent;
@@ -23,6 +34,22 @@ export class SettingsPage{
 
 
   labelHidden = true;
+
+  constructor(private store: Store, private animationCtrl: AnimationController){
+    this.store.dispatch(new SubscribeToProfile());
+    this.profile$.subscribe((profile) => {
+      if(profile){
+        this.profile = profile;
+
+        this.store.dispatch(new GetUserSettings(profile._id));
+        this.settings$.subscribe((settings) => {
+          if(settings){
+            this.settings = settings;
+          }
+        })
+      }
+    })
+  }
 
   toggleLabel(show: boolean) {
     this.labelHidden = !show;

@@ -1,7 +1,6 @@
-<div class="container">
-    <div class="chat-list">
 
-        
+<div class="container">
+    <div class="chat-list">       
       <ul>
         <li class ="UserName">
             @{{profile?.username}}
@@ -9,10 +8,10 @@
           name="chatbubble-ellipses-outline"
           id="icon" (click)="toggleSelect()">
         </ion-icon> 
-        <ion-select class="select" > 
-          <ion-select-option *ngFor="let c of chatOptions" 
+        <ion-select class="select" [(ngModel)]="selectedValue" (ionChange)="onSelectChange()" interface="popover" (click)="getUsers()"> 
+          <ion-select-option *ngFor="let c of messagesProfile" 
           [value]="c" class = "option" >
-          {{c}}</ion-select-option>
+          {{c.name}} {{c.lastName}}</ion-select-option>
       </ion-select>
         </li>
         <li class ="AddChat">
@@ -21,7 +20,7 @@
           </li>
           <div *ngFor="let chats of chatProfiles">
             <li (click)="fetchMessages(chats.chatId,chats.name,chats.lastName,chats.profilePicture)" class = "chatItem"> 
-            <img src= {{chats.profilePicture}} class = "imgDiv">
+            <img src= {{chats.profilePicture}} onerror="this.src='assets/icon/Profile.png';" class = "imgDiv">
             {{chats.name}} {{chats.lastName}}</li>
           </div>
           
@@ -30,7 +29,7 @@
     <div class="chat-area" >
       <div class = "User" [hidden]="!hasMessages">
         <div style = "display: flex; align-items: center;height: 100%;">
-          <img src= {{userImage}} class = "imgDiv3">
+          <img src= {{userImage}} onerror="this.src='assets/icon/Profile.png';" class = "imgDiv3">
 
           {{firstName}} {{lastName}}
         </div>
@@ -42,7 +41,7 @@
       
         <div *ngFor="let message of messages.messages">
           <div class="message" *ngIf="message.username !== profile.username">
-            <img src={{userImage}} class = "imgDiv2">
+            <img src={{userImage}} onerror="this.src='assets/icon/Profile.png';" class = "imgDiv2">
             <div class = "msg">{{message.message}}</div>
           </div>
 

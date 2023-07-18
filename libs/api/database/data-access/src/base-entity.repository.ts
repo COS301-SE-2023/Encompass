@@ -37,8 +37,6 @@ export abstract class BaseEntityRepository<
     return this.find({});
   }
 
-  
-
   async findAndDelete(id: string): Promise<void> {
     await this.findOneAndDelete({ _id: new ObjectId(id) });
   }

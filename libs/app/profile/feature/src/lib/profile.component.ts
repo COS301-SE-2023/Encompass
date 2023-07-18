@@ -7,7 +7,7 @@ import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetComments, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -33,13 +33,14 @@ export class ProfilePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
-
+  @Select(ProfileState.otherUsers) otherUsers$! : Observable<ProfileDto[] | null>;
 
   file!: File;
   fileBanner!: File;
   fileName!: string;
   fileNameBanner!: string;
   profile! : ProfileDto | null;
+  otherUsers! : ProfileDto[] | null;
   posts! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
   datesAdded : string[] = [];
@@ -359,12 +360,10 @@ Edit(){
 
   async onSubmit(){
 
-    console.log("OH HELLO THERE!!!!!!");
     if(this.profile == null){
       return;
     }
 
-    let textData : string;
 
     let First : string;
     let Last : string;
@@ -397,22 +396,22 @@ Edit(){
       bannerUrl = this.profile?.profileBanner;
     }
 
-    if(this.FirstName?.value == null || this.FirstName?.value == undefined){
-      First = "";
+    if(this.FirstName?.value == null || this.FirstName?.value == undefined|| this.FirstName?.value == ""){
+      First = this.profile?.name;
     }
     else{
       First = this.FirstName?.value;
     }
 
-    if(this.LastName?.value == null || this.LastName?.value == undefined){
-      Last = "";
+    if(this.LastName?.value == null || this.LastName?.value == undefined|| this.LastName?.value == ""){
+      Last = this.profile?.lastName;
     }
     else{
       Last = this.LastName?.value;
     }
 
     if(this.Bio?.value == null || this.Bio?.value == undefined){
-      bioData = "";
+      bioData = this.profile?.bio;
     }
     else{
       bioData = this.Bio?.value;
@@ -437,6 +436,7 @@ Edit(){
     }
 
     this.store.dispatch(new UpdateProfile(data,this.profile?._id));
+    this.postForm.reset();
   }
 
   async uploadImage(file: File, fileName: string) : Promise<string | null>{
@@ -449,4 +449,36 @@ Edit(){
       resolve(uploadFile);
     })
   }
-}
+
+  loadFollowers(){
+    if(this.profile == null){
+      return;
+    }
+    console.log("here");
+    this.store.dispatch(new GetFollowers(this.profile.followers));
+    this.otherUsers$.subscribe((users) => {
+      if(users){
+        console.log(users);
+        this.otherUsers = users;
+      }
+    })
+  }
+
+  loadFollowing(){
+    if(this.profile == null){
+      return;
+    }
+
+    this.store.dispatch(new GetFollowing(this.profile.following));
+    this.otherUsers$.subscribe((users) => {
+      if(users){
+        this.otherUsers = users;
+      }
+    })
+  }
+
+  async goToProfile(username : string | undefined){
+    await this.modalController.dismiss();
+    this.router.navigate(['user-profile/' + username]);
+  }
+} 

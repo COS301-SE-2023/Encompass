@@ -192,6 +192,8 @@
     width: auto;
 
     }
+
+    
     .Name{
       display: flex;
 align-items: center;
@@ -202,6 +204,14 @@ left: 5%;
 
     }
 
+    .Title:hover{
+      cursor:pointer;
+      color: #8231DD;
+    }
+    .Name:hover{
+      cursor:pointer;
+          color: #8231DD;
+    }
 
     .report{
       font-size: small; position: relative; right: 10%;
@@ -212,6 +222,7 @@ left: 5%;
 
 }
     .Options{
+      background-color: #F8F8F8;
     font-size: larger;
     position: relative;
     right:5%;

@@ -36,14 +36,19 @@
       <ion-list class="custom-list">
         <ion-item lines="none">
           <ion-label class="info-label">Name</ion-label>
-          <ion-label class="info-text">Ronin</ion-label>
-          
+          <ion-label class="info">{{profile?.name}}</ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Surname</ion-label>
-          <ion-label class="info-text">Brookes</ion-label>
-          
+          <ion-label class="info">{{profile?.lastName}}</ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
+        <!-- <ion-item lines="none">
+          <ion-label class="info-label">Username</ion-label>
+          <ion-label class="info">@{{profile?.username}}</ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+        </ion-item> -->
         <ion-item lines="none">
           <ion-label class="info-label">Email</ion-label>
           <ion-label class="info-text">thisismyverygoodemail@gmail.com</ion-label>
@@ -51,7 +56,7 @@
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Username</ion-label>
-          <ion-label class="info-text">@roninbrookes</ion-label>
+          <ion-label class="info-text">@{{profile?.username}}</ion-label>
           
         </ion-item>
         
@@ -196,22 +201,22 @@
         <ion-item lines="none">
           <ion-label class="info-label">Bio
             <br>
-            <a>This is my bio</a>
+            <a>{{profile?.bio}}</a>
           </ion-label>
           
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label" style="height: 100px;">Profile Picture 
           <ion-avatar>
-            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+            <img src=profile?.profileImage alt="Avatar" class="avatar">
           </ion-avatar>
         </ion-label>
           
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Banner <br>
-          <img style="margin-top: 10px;" src="https://learn.canva.com/wp-content/uploads/2020/02/removing-background-images_Unsplash.jpeg" alt="Avatar" class="banner"></ion-label>
-          
+          <img style="margin-top: 10px;" src=profile?.bannerImage alt="Avatar" class="banner"></ion-label>
+          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>

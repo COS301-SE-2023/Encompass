@@ -5,6 +5,7 @@ import { CreateCommunityApi } from "./create-community.api";
 import { CreateCommunity, CheckCommunity, AddPost, UploadFile } from "@encompass/app/create-community/util";
 import { UpdateProfile } from "@encompass/app/profile/util";
 import { ToastController } from "@ionic/angular";
+import { CommunityRequestDto } from "@encompass/api/community-request/data-access";
 
 export interface CommunityStateModel {
   CommunityForm:{
@@ -13,16 +14,17 @@ export interface CommunityStateModel {
     }
   }
 }
-export interface FileUpload{
-  url: string | null;
-}
-export interface CommunityFileModel{
-  CommunityFileForm:{
-    model: {
-        communityUrl: FileUpload | null,
-      }
-    }
-  }
+
+// export interface FileUpload{
+//   url: string | null;
+// }
+// export interface CommunityFileModel{
+//   CommunityFileForm:{
+//     model: {
+//         communityUrl: FileUpload | null,
+//       }
+//     }
+//   }
 
 @State<CommunityStateModel>({
   name: 'community',
@@ -35,16 +37,16 @@ export interface CommunityFileModel{
   }
 })
 
-@State<CommunityFileModel>({
-  name: 'communityFile',
-  defaults: {
-    CommunityFileForm: {
-      model: {
-        communityUrl: null
-      }
-    }
-  }
-})
+// @State<CommunityFileModel>({
+//   name: 'communityFile',
+//   defaults: {
+//     CommunityFileForm: {
+//       model: {
+//         communityUrl: null
+//       }
+//     }
+//   }
+// })
 
 @Injectable()
 export class CreateCommunityState{
@@ -72,6 +74,10 @@ export class CreateCommunityState{
           }
         }
       })
+      
+      if(community.type !== 'Public'){
+        await this.createCommunityApi.createCommunityRequest(community._id)
+      }
 
       let arr1;
 
@@ -149,27 +155,27 @@ export class CreateCommunityState{
     })
   }
 
-  @Action(UploadFile)
-  async uploadFile(ctx: StateContext<CommunityFileModel>, {file}: UploadFile){
-    const response = await this.createCommunityApi.uploadFile(file);
+  // @Action(UploadFile)
+  // async uploadFile(ctx: StateContext<CommunityFileModel>, {file}: UploadFile){
+  //   const response = await this.createCommunityApi.uploadFile(file);
 
-    console.log(response);
+  //   console.log(response);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.setState({
-      CommunityFileForm: {
-        model: {
-          communityUrl: {url: response.url}
-        }
-      }
-    })
-  }
+  //   ctx.setState({
+  //     CommunityFileForm: {
+  //       model: {
+  //         communityUrl: {url: response.url}
+  //       }
+  //     }
+  //   })
+  // }
 
-  @Selector()
-  static communityUrl(state: CommunityFileModel){
-    return state.CommunityFileForm.model.communityUrl;
-  } 
+  // @Selector()
+  // static communityUrl(state: CommunityFileModel){
+  //   return state.CommunityFileForm.model.communityUrl;
+  // } 
 }

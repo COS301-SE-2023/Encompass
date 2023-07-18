@@ -18,8 +18,17 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/chat-list/data-access": [
+        "libs/api/chat-list/data-access/src/index.ts"
+      ],
+      "@encompass/api/chat/data-access": [
+        "libs/api/chat/data-access/src/index.ts"
+      ],
       "@encompass/api/comment/data-access": [
         "libs/api/comment/data-access/src/index.ts"
+      ],
+      "@encompass/api/community-request/data-access": [
+        "libs/api/community-request/data-access/src/index.ts"
       ],
       "@encompass/api/community/data-access": [
         "libs/api/community/data-access/src/index.ts"
@@ -30,11 +39,20 @@
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
       ],
+      "@encompass/api/media-recommender/data-access": [
+        "libs/api/media-recommender/data-access/src/index.ts"
+      ],
+      "@encompass/api/notifications/data-access": [
+        "libs/api/notifications/data-access/src/index.ts"
+      ],
       "@encompass/api/post/data-access": [
         "libs/api/post/data-access/src/index.ts"
       ],
       "@encompass/api/profile/data-access": [
         "libs/api/profile/data-access/src/index.ts"
+      ],
+      "@encompass/api/settings/data-access": [
+        "libs/api/settings/data-access/src/index.ts"
       ],
       "@encompass/app/comments/data-access": [
         "libs/app/comments/data-access/src/index.ts"
@@ -43,8 +61,14 @@
         "libs/app/comments/feature/src/index.ts"
       ],
       "@encompass/app/comments/util": ["libs/app/comments/util/src/index.ts"],
+      "@encompass/app/community-profile/data-access": [
+        "libs/app/community-profile/data-access/src/index.ts"
+      ],
       "@encompass/app/community-profile/feature": [
         "libs/app/community-profile/feature/src/index.ts"
+      ],
+      "@encompass/app/community-profile/util": [
+        "libs/app/community-profile/util/src/index.ts"
       ],
       "@encompass/app/core/feature": ["libs/app/core/feature/src/index.ts"],
       "@encompass/app/create-community/data-access": [
@@ -81,6 +105,13 @@
       ],
       "@encompass/app/login/feature": ["libs/app/login/feature/src/index.ts"],
       "@encompass/app/login/util": ["libs/app/login/util/src/index.ts"],
+      "@encompass/app/messages/data-access": [
+        "libs/app/messages/data-access/src/index.ts"
+      ],
+      "@encompass/app/messages/feature": [
+        "libs/app/messages/feature/src/index.ts"
+      ],
+      "@encompass/app/messages/util": ["libs/app/messages/util/src/index.ts"],
       "@encompass/app/privacy/feature": [
         "libs/app/privacy/feature/src/index.ts"
       ],
@@ -91,12 +122,13 @@
         "libs/app/profile/feature/src/index.ts"
       ],
       "@encompass/app/profile/util": ["libs/app/profile/util/src/index.ts"],
-      "@encompass/app/search-explore/feature": [
-        "libs/app/search-explore/feature/src/index.ts"
+      "@encompass/app/settings/data-access": [
+        "libs/app/settings/data-access/src/index.ts"
       ],
       "@encompass/app/settings/feature": [
         "libs/app/settings/feature/src/index.ts"
       ],
+      "@encompass/app/settings/util": ["libs/app/settings/util/src/index.ts"],
       "@encompass/app/sign-up-interior1/data-access": [
         "libs/app/sign-up-interior1/data-access/src/index.ts"
       ],
@@ -121,8 +153,14 @@
       "@encompass/app/tsandcs/feature": [
         "libs/app/tsandcs/feature/src/index.ts"
       ],
+      "@encompass/app/user-profile/data-access": [
+        "libs/app/user-profile/data-access/src/index.ts"
+      ],
       "@encompass/app/user-profile/feature": [
         "libs/app/user-profile/feature/src/index.ts"
+      ],
+      "@encompass/app/user-profile/util": [
+        "libs/app/user-profile/util/src/index.ts"
       ],
       "@encompass/app/welcome/feature": [
         "libs/app/welcome/feature/src/index.ts"

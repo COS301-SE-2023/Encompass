@@ -1,34 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { MessagesState } from '@encompass/app/messages/data-access';
 import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-access';
 import { Select } from '@ngxs/store';
-import { GetChatList, GetMessages, GetUserInformation, SendMessage } from '@encompass/app/messages/util';
+import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage } from '@encompass/app/messages/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ChatListDto } from '@encompass/api/chat-list/data-access';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessagesDto } from '@encompass/api/chat/data-access';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
-export class MessagesPage {
+export class MessagesPage implements OnDestroy {
 
   @Select(MessagesState.messages) messages$!: Observable<ChatDto | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(MessagesState.chatList) chatList$!: Observable<ChatListDto | null>;
   @Select(MessagesState.messagesDto) chatProfiles$!: Observable<MessagesDto[] | null>;
+  @Select(MessagesState.messagesProfile) messagesProfile$!: Observable<ProfileDto[] | null>;
 
+  private unsubscribe$: Subject<void> = new Subject<void>();
+  
+  isGetNewChatsDispatched = false;
+  isGetUserInformationDispatched = false;
+  selectedValue!: ProfileDto;
   messages!: ChatDto | null;
   profile!: ProfileDto | null;
   chatProfiles!: MessagesDto[] | null;
   chatList!: ChatListDto | null;
+  messagesProfile!: ProfileDto[] | null;
   hasMessages = false;
   firstName!: string;
   lastName!: string;
@@ -36,8 +44,6 @@ export class MessagesPage {
 
   selectedOption!: string;
   selectOpen = false;
-
-  chatOptions: string[] = ["User 1", "User 2"];
 
   constructor(private store: Store, private router: Router, private formBuilder: FormBuilder){
     this.store.dispatch(new SubscribeToProfile());
@@ -50,22 +56,37 @@ export class MessagesPage {
           if(chatList){
             this.chatList = chatList
 
-            this.store.dispatch(new GetUserInformation(chatList))
-            this.chatProfiles$.subscribe((chatProfiles) => {
-              if(chatProfiles){
-                console.log(chatProfiles)
-                this.chatProfiles = chatProfiles;
-              }
-            })
+            if(!this.isGetUserInformationDispatched){
+              this.isGetUserInformationDispatched = true;
+              this.store.dispatch(new GetUserInformation(chatList)).subscribe(() => {
+                this.chatProfiles$
+                .pipe(takeUntil(this.unsubscribe$))
+                .subscribe((chatProfiles) => {
+                  if(chatProfiles){
+                    console.log(chatProfiles)
+                    this.chatProfiles = chatProfiles;
+                  }
+                })
+              })
+            }
           }
         })
+        
       }
     })
+
+    
   }
 
   messageForm = this.formBuilder.group({
     messageInput: ['', Validators.maxLength(150)],
   });
+
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   get messageInput(){
     return this.messageForm.get('messageInput');
@@ -107,8 +128,41 @@ export class MessagesPage {
     this.selectOpen = !this.selectOpen;
   }
 
-  onOptionChange() {
-    // Handle option change logic here if needed
-    console.log(this.selectedOption);
+  onSelectChange() {
+    console.log('Selected value:', this.selectedValue);
+    if(this.profile == null){
+      return;
+    }
+
+    this.store.dispatch(new CreateChat([this.profile.username, this.selectedValue.username]))
+  }
+
+  getUsers() {
+    if (!this.profile) {
+      console.log("Profile is null");
+      return;
+    }
+
+    if(this.isGetNewChatsDispatched){
+      console.log("Get new chats already dispatched");
+      return;
+    }
+
+    // Dispatch the action only once
+    this.isGetNewChatsDispatched = true;
+    const searchList = this.profile.following.filter((x) => !this.chatProfiles?.some((y) => y.username === x));
+
+    
+    this.store.dispatch(new GetNewChats(searchList)).subscribe(() => {
+      // Subscribe to messagesProfile$ to update messagesProfile and chatOptions
+      this.messagesProfile$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((messagesProfile) => {
+          if (messagesProfile) {
+            console.log(messagesProfile);
+            this.messagesProfile = messagesProfile;
+          }
+        });
+    });
   }
 }

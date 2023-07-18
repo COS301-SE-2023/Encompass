@@ -83,22 +83,24 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item>
-          <div class="user">
-            <div class="alert"></div>
-            <ion-avatar slot="start">
-              <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-            </ion-avatar>
-          </div>
-          <ion-label>
-            <div class="noti-title">
-              <span class="bold-text">Ipsa Lorem replied to your comment in Your Community</span>
-              <span>  ⋅  </span>
-              <span>2h ago</span>
+        <div *ngFor="let notify of notifications?.notifications">
+          <ion-item>
+            <div class="user">
+              <div class="alert"></div>
+              <ion-avatar slot="start">
+                <ion-img src=notify.picture></ion-img>
+              </ion-avatar>
             </div>
-            <p>Yeah I think your point is very valid!</p>
-          </ion-label>
-        </ion-item>
+            <ion-label>
+              <div class="noti-title">
+                <span class="bold-text">{{notify.sentBy}} {{notify.title}}</span>
+                <span>  ⋅  </span>
+                <span>{{notify.dateTime}}</span>
+              </div>
+              <p>{{notify.description}}</p>
+            </ion-label>
+          </ion-item>
+        </div>
       </ion-list>
     </ion-content>
   </div>
