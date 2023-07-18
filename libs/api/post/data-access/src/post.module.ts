@@ -9,7 +9,7 @@ import { PostDtoRepository } from "./db/post-dto.repository";
 import { PostSchemaFactory } from "./db/post-schema.factory";
 import { PostFactory } from "./post.factory";
 import { CreatePostHandler, UpdatePostHandler, DeletePostHandler } from "./commands";
-import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, UserIdGetPostHandler } from "./queries";
+import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, GetPopularPostsHandler, UserIdGetPostHandler } from "./queries";
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
 
@@ -34,6 +34,7 @@ import { HttpModule } from "@nestjs/axios";
     UpdatePostHandler,
     DeletePostHandler,
     GetAllPostsHandler,
+    GetPopularPostsHandler,
     UserIdGetPostHandler,
     UploadImage,
     GetByIdHandler,
