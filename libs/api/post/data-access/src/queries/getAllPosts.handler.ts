@@ -169,6 +169,74 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       return Math.sqrt(distance);
     }
 
+    function setupPostArrays(items: postType[]) {
+      const posts: { post: number[], postId: string }[] = [];
+      const postIds: string[] = [];
+      const categories: string[] = [];
+      const communities: string[] = [];
+      const likers: string[] = [];
+
+      //get all categories, communities, and likers
+      items.forEach(item => {
+        postIds.push(item._id.toString());
+        item.categories.forEach(category => {
+            if(!categories.includes(category)){
+                categories.push(category);
+            }
+        });
+        if(!communities.includes(item.community) && item.community != ''){
+            communities.push(item.community);
+        }
+        item.likes.forEach(liker => {
+            if(!likers.includes(liker)){
+                likers.push(liker);
+            }
+        });
+      });
+
+      /*console.log("------------");
+      console.log("categories:");
+      console.log(categories);
+      console.log("communities:");
+      console.log(communities);
+      console.log("likers:");
+      console.log(likers);
+      console.log("------------");*/
+
+      //push 0 or 1 to each post array if it has the category, community, or liker and then add the postId
+      items.forEach(item => {
+        const post: number[] = [];
+        categories.forEach(category => {
+            if(item.categories.includes(category)){
+                post.push(1);
+            } else {
+                post.push(0);
+            }
+        });
+        communities.forEach(community => {
+            if(item.community === community){
+                post.push(1);
+            } else {
+                post.push(0);
+            }
+        });
+        likers.forEach(liker => {
+            if(item.likes.includes(liker)){
+                post.push(1);
+            } else {
+                post.push(0);
+            }
+        });
+        posts.push({ post: post, postId: item._id.toString() });
+      });
+      
+      /*console.log("*******");
+      console.log("posts:");
+      console.log(posts);*/
+
+      return posts;
+    }
+
     
 
     return await this.postDtoRepository.findAll();
