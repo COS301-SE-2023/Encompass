@@ -237,6 +237,33 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       return posts;
     }
 
+    function addUserToPosts(postsNotByUser: PostSchema[], currentUserProfile: any) {
+      //add currentUserProfile as postNotByUser
+      const currentUserProfilePost: PostSchema = {
+        _id: currentUserProfile._id,
+        community: "",
+        title: "",
+        text: "",
+        username: currentUserProfile.username,
+        imageUrl: "",
+        communityImageUrl: null,
+        categories: [],
+        likes: [],
+        dateAdded: "",
+        spoiler: false,
+        ageRestricted: false,
+        shares: 0,
+        comments: 0,
+        reported: false
+      };
+      postsNotByUser.push(currentUserProfilePost);
+    }
+
+    function defineK(postCount: number) {
+      const k = Math.sqrt(postCount);
+      return Math.floor(k);
+    }
+
     
 
     return await this.postDtoRepository.findAll();
