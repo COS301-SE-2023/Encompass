@@ -1,41 +1,42 @@
-<div class="overlay-container">
+<div class="overlay">
+
+  <ion-header>
+    <ion-toolbar class="searchExporeToolbar">
+      <ion-searchbar class = "searchBar" show-clear-button="always" clear-icon="trash-bin" animated="true" placeholder="Search..."></ion-searchbar>
+      <div class="toolbar-content">
+        <ion-grid>
+          <ion-row class="row-filter">
+            <ion-col size="3">
+              <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle" (click)="postChange()">
+                Posts
+              </ion-button>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" (click)="commChange()" >
+                Comments
+              </ion-button>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
+                Events
+              </ion-button>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button id="PeopleBtn" fill="clear" class="buttonStyle" (click)="peopleChange()" >
+                People
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
 
   <ion-grid>
     <ion-row class="row-filter">
-      <ion-col size="10">
-        <ion-card class="header">
-          <!-- <ion-card-header class="header-header"> -->
-            <div class="image-container">
-              <div color="dark" class="custom-title">Welcome Home</div>
-              <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
-              <img class="rocket" src="assets/icon/rocket-planet.png" alt="Rocket">
-            </div>
-          <!-- </ion-card-header> -->
-         
-          <ion-card-content>
-            <div class="container">
-              <div class="content-container">
-                <div class="home-text">
-                  This is your home page, where you check in with your favorite communities, see your daily recommendations, and see what your friends are up to.
-                </div>
-              </div>
-              <div class="buttons-container">
-                <ion-button class="posts" fill="clear" (click) = "openPopup()" >Create a Post</ion-button>
-                <ion-button class="comms" fill="clear" (click) = "openPopup2()">Create a Community</ion-button>
-              </div>
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-
-  
-  <ion-grid>
-    <ion-row class="row-filter">
-      <ion-col size="5">
-        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #f8f8f8;">
+      <ion-col size="6">
+        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0eeee;">
           <ion-grid>
             <ion-row class="row-filter">
               <ion-col size="5">
@@ -108,17 +109,8 @@
                     <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
                </div>
                </div>
-
-               
-              
-
           </div> 
             </div>
-
-
-
-
-
             <div class = "PostBody" (click)="GoToComments(post._id)">
 
               <div class = "text">
@@ -161,51 +153,21 @@
 
       </ion-col>
 
+      <!-- related recommendations -->
 
-
-
-
-
-
-
-
-      <!-- recommendations -->
-
-      <ion-col size="4">
+      <ion-col size="6">
         <ion-card class="recomcard">
-          <div class = "RecomCommunities" *ngIf = "!collapse1" (click)="Collapse1()">
+          <div >
+            <div class = "RecomCommunities">
             <div class = "RecomHeader">
               <ion-grid>
                 <ion-row class="recomRow">
                   <ion-col size="10">
-                    <div class="headtext" style="font-size: 18px; margin-top: 10px; margin-left: 10px;">Recommended Communities</div>
-                  </ion-col>
-                  <ion-col size="1">
-                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
-                      <ion-icon name="arrow-down-circle-outline" size = "large" ></ion-icon>
-                    </ion-button>
+                    <div style="font-size: 18px; margin-top: 10px;">Related Communities:</div>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </div>
-          </div>
-
-          
-          <div *ngIf = "collapse1" >
-            <div class = "RecomCommunities" (click)="Collapse1()">
-            <div class = "RecomHeader">
-              <ion-grid>
-                <ion-row class="recomRow">
-                  <ion-col size="10">
-                    <div style="font-size: 18px; margin-top: 10px;">Top Recommended Communities:</div>
-                  </ion-col>
-                  <ion-col size="1">
-                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
-                      <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
             </div>
           </div>
           
@@ -270,33 +232,14 @@
               </ion-col>
             </ion-row>
           </ion-grid>
- 
-            </div>
-            <!-- <br> -->
         </ion-card>
         
 
         <ion-card class="recomcard">
-          <div class = "RecomCommunities" *ngIf = "!collapse2" (click)="Collapse2()">
-            <div class = "RecomHeader">
-              <ion-grid>
-                <ion-row class="recomRow">
-                  <ion-col size="10">
-                    <div class="headtext" style="font-size: 18px; margin-top: 10px; margin-left: 10px;">Recommended Content</div>
-                  </ion-col>
-                  <ion-col size="1">
-                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
-                      <ion-icon name="arrow-down-circle-outline" size = "large" ></ion-icon>
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </div>
-          </div>
-
+         
           
           <div *ngIf = "collapse2" >
-            <div class = "RecomCommunities" (click)="Collapse2()">
+            <div class = "RecomCommunities">
             <div class = "RecomHeader">
               <ion-grid>
                 <ion-row class="recomRow">
@@ -304,7 +247,7 @@
                     <div style="font-size: 18px; margin-top: 10px;">Your search relates to:</div>
                   </ion-col>
                   <ion-col size="1">
-                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
+                    <ion-button fill="clear" (click)="Collapse2()" style="width:80px; margin-top: 3px;">
                       <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
@@ -313,64 +256,13 @@
             </div>
           </div>
           
-          <!-- content -->
-
-          <div class="contentrecs">
-            <div class="media-item">
-              <div class="imges">
-                <img src="assets/icon/127Hours.jpg" class="MediaImage">
-              </div>
-              <div class="media-info">
-                <div class="MediaTitle">127 Hours</div>
-                <div class="MediaDate">2010</div>
-                <div class="MediaAuthor">That One Guy</div>
-                <div class="MediaGenres">
-                  <img src="assets/icon/Movies.png" class="imgDiv">
-                  <img src="assets/icon/Drama.png" class="imgDiv">
-                  <img src="assets/icon/Adventure.png" class="imgDiv">
-                </div>
-              </div>
-            </div>
-            <div class="media-item">
-              <div class="imges">
-                <img src = "assets/icon/Batman.jpg" class = "MediaImage" >
-              </div>
-              
-              <div class="media-info">
-                <div class = "MediaTitle">The Batman</div>
-                    <div class = "MediaDate">2022</div>
-                    <div class = "MediaAuthor">Matt Reeves</div>
-                <div class="MediaGenres">
-                  <img src = "assets/icon/Movies.png" class="imgDiv">
-                  <img src = "assets/icon/Mystery.png" class="imgDiv">
-                  <img src = "assets/icon/Action.png" class="imgDiv">
-                </div>
-              </div>
-            </div>
-            <div class="media-item">
-              <div class="imges">
-                <img src = "assets/icon/GreatGatsby.jpg" class = "MediaImage">
-              </div>
-              <div class="media-info">
-                <div class = "MediaTitle">The Great Gatsby</div>
-                <div class = "MediaDate">1913</div>
-                <div class = "MediaAuthor">F. Scott Fitzgerald</div> 
-                <div class = "MediaGenres">
-                  <img src = "assets/icon/Books.png" class="imgDiv">
-                  <img src = "assets/icon/Romance.png" class="imgDiv">
-                  <img src = "assets/icon/Drama.png" class="imgDiv">
-                </div> 
-              </div>
-            </div>
-          </div>
+          <!-- communities -->
             
             </div>
-        </ion-card>
-      
-
-        
+        </ion-card>   
     </ion-col>
     </ion-row>
   </ion-grid>
 
-</div>
+<!--</div-->
+

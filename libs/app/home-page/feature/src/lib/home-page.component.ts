@@ -105,8 +105,10 @@ export class HomePage {
   }
 
   goToExplore(){
+
     this.routerClick();
-    // this.router.navigate(['/home/explore']);
+    this.router.navigate(['/home/search-explore']);
+
   }
 
   goToChat(){
