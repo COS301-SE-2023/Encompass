@@ -8,6 +8,7 @@ import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'settings',
@@ -20,6 +21,8 @@ export class SettingsPage{
 
   profile!: ProfileDto | null;
   settings!: SettingsDto | null;
+
+  constructor(private animationCtrl: AnimationController) {}
 
   @ViewChild(IonContent, { static: false })
   content!: IonContent;
@@ -119,4 +122,105 @@ export class SettingsPage{
     }
   }
 
+  edit(fieldName: string){
+    const field = fieldName;
+    const account = document.getElementById(field + '-default');
+    const editAccount = document.getElementById(field + '-click');
+    const saveBtn = document.getElementById(field + '-saveButton');
+    const editBtn = document.getElementById(field + '-editButton');
+
+    if (account && editAccount && saveBtn && editBtn) {
+      account.classList.add('onClick');
+      editAccount.classList.remove('onClick');
+      saveBtn.classList.remove('onClick');
+      editBtn.classList.add('onClick');
+    }else if (account == null){
+      console.log('account is null');
+    }else if (editAccount == null){
+      console.log('editAccount is null');
+    } else if (saveBtn == null){  
+      console.log('saveBtn is null');
+    } else if (editBtn == null){
+      console.log('editBtn is null');
+    }
+  }
+
+  save(fieldName: string){
+    const field = fieldName;
+    const account = document.getElementById(field + '-default');
+    const editAccount = document.getElementById(field + '-click');
+    const saveBtn = document.getElementById(field + '-saveButton');
+    const editBtn = document.getElementById(field + '-editButton');
+
+    if (account && editAccount && saveBtn && editBtn) {
+      account.classList.remove('onClick');
+      editAccount.classList.add('onClick');
+      saveBtn.classList.add('onClick');
+      editBtn.classList.remove('onClick');
+    }else if (account == null){
+      console.log('account is null');
+    }else if (editAccount == null){
+      console.log('editAccount is null');
+    }else if (saveBtn == null){  
+      console.log('saveBtn is null');
+    } else if (editBtn == null){
+      console.log('editBtn is null');
+    }
+  }
+
+  profilePictureUrl = '';
+
+  onProfilePictureSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const file = inputElement.files?.[0];
+    
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.profilePictureUrl = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+      console.log('file: ', file);
+    }
+  }
+
+  onBannerPictureSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const file = inputElement.files?.[0];
+    
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.profilePictureUrl = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+      console.log('file: ', file);
+    }
+  }
+
+  toggleChanged(event: any, toggleName: string) {
+    console.log(toggleName + ': ' + event.detail.checked);
+  }
+  
+  presentingElement: Element | null | undefined;
+
+  ngOnInit() {
+    this.presentingElement = document.querySelector('.ion-page');
+  }
+
+  public alertButtons = ['Cancel', 'Save'];
+  public alertInputs = [
+    {
+      type: 'password',
+      placeholder: 'New Password',
+      min: 8,
+      max: 100,
+    },
+    {
+      type: 'password',
+      placeholder: 'Confirm New Password',
+      min: 8,
+      max: 100,
+    },
+  ];
 }
