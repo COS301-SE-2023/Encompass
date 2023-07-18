@@ -1,9 +1,9 @@
 export class AddNotificationRequest{
-  notificationId!: string;
+  // notificationId!: string;
   sentBy!: string;
   picture!: string;
   title!: string;
   description!: string;
   routerUrl!: string;
-  dateTime!: string;
+  // dateTime!: string;
 }

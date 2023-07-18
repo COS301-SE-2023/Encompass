@@ -175,7 +175,7 @@
 
       <ion-col size="4">
         <ion-card class="recomcard">
-          <div class = "RecomCommunities" *ngIf = "!collapse1">
+          <div class = "RecomCommunities" *ngIf = "!collapse1" (click)="Collapse1()">
             <div class = "RecomHeader">
               <ion-grid>
                 <ion-row class="recomRow">
@@ -183,7 +183,7 @@
                     <div class="headtext" style="font-size: 18px; margin-top: 10px; margin-left: 10px;">Recommended Communities</div>
                   </ion-col>
                   <ion-col size="1">
-                    <ion-button fill="clear" (click)="Collapse1()" style="width:80px; margin-top: 3px;">
+                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
                       <ion-icon name="arrow-down-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
@@ -194,7 +194,7 @@
 
           
           <div *ngIf = "collapse1" >
-            <div class = "RecomCommunities">
+            <div class = "RecomCommunities" (click)="Collapse1()">
             <div class = "RecomHeader">
               <ion-grid>
                 <ion-row class="recomRow">
@@ -202,7 +202,7 @@
                     <div style="font-size: 18px; margin-top: 10px;">Top Recommended Communities:</div>
                   </ion-col>
                   <ion-col size="1">
-                    <ion-button fill="clear" (click)="Collapse1()" style="width:80px; margin-top: 3px;">
+                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
                       <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
@@ -279,7 +279,7 @@
         
 
         <ion-card class="recomcard">
-          <div class = "RecomCommunities" *ngIf = "!collapse2">
+          <div class = "RecomCommunities" *ngIf = "!collapse2" (click)="Collapse2()">
             <div class = "RecomHeader">
               <ion-grid>
                 <ion-row class="recomRow">
@@ -287,7 +287,7 @@
                     <div class="headtext" style="font-size: 18px; margin-top: 10px; margin-left: 10px;">Recommended Content</div>
                   </ion-col>
                   <ion-col size="1">
-                    <ion-button fill="clear" (click)="Collapse2()" style="width:80px; margin-top: 3px;">
+                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
                       <ion-icon name="arrow-down-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
@@ -298,7 +298,7 @@
 
           
           <div *ngIf = "collapse2" >
-            <div class = "RecomCommunities">
+            <div class = "RecomCommunities" (click)="Collapse2()">
             <div class = "RecomHeader">
               <ion-grid>
                 <ion-row class="recomRow">
@@ -306,7 +306,7 @@
                     <div style="font-size: 18px; margin-top: 10px;">We think you'd like:</div>
                   </ion-col>
                   <ion-col size="1">
-                    <ion-button fill="clear" (click)="Collapse2()" style="width:80px; margin-top: 3px;">
+                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
                       <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
@@ -315,50 +315,56 @@
             </div>
           </div>
           
-          <!-- communities -->
+          <!-- content -->
 
-            <ion-grid class="contentrecs">
-              <ion-row class="content-row">
-                  <img src = "assets/icon/127Hours.jpg" class = "MediaImage">
-                  <div class = "Media">
-                    <div class = "MediaTitle">127 Hours</div>
-                    <div class = "MediaDate">2010</div>
-                    <div class = "MediaAuthor">That One Guy</div>
-                    <div class = "MediaGenres">
-                      <img src = "assets/icon/Movies.png" class="imgDiv">
-                      <img src = "assets/icon/Drama.png" class="imgDiv">
-                      <img src = "assets/icon/Adventure.png" class="imgDiv">
-                    </div>  
-                  </div>
-              </ion-row>
-              <ion-row class="content-row">
-                  <img src = "assets/icon/Batman.jpg" class = "MediaImage" >
-                  <div class = "Media">
-                    <div class = "MediaTitle">The Batman</div>
+          <div class="contentrecs">
+            <div class="media-item">
+              <div class="imges">
+                <img src="assets/icon/127Hours.jpg" class="MediaImage">
+              </div>
+              <div class="media-info">
+                <div class="MediaTitle">127 Hours</div>
+                <div class="MediaDate">2010</div>
+                <div class="MediaAuthor">That One Guy</div>
+                <div class="MediaGenres">
+                  <img src="assets/icon/Movies.png" class="imgDiv">
+                  <img src="assets/icon/Drama.png" class="imgDiv">
+                  <img src="assets/icon/Adventure.png" class="imgDiv">
+                </div>
+              </div>
+            </div>
+            <div class="media-item">
+              <div class="imges">
+                <img src = "assets/icon/Batman.jpg" class = "MediaImage" >
+              </div>
+              
+              <div class="media-info">
+                <div class = "MediaTitle">The Batman</div>
                     <div class = "MediaDate">2022</div>
                     <div class = "MediaAuthor">Matt Reeves</div>
-                    <div class = "MediaGenres">
-                      <img src = "assets/icon/Movies.png" class="imgDiv">
-                      <img src = "assets/icon/Mystery.png" class="imgDiv">
-                      <img src = "assets/icon/Action.png" class="imgDiv">
-                    </div>  
-                  </div>
-              </ion-row>
-              <ion-row class="content-row">
-                  <img src = "assets/icon/GreatGatsby.jpg" class = "MediaImage">
-                  <div class = "Media">
-                    <div class = "MediaTitle">The Great Gatsby</div>
-                    <div class = "MediaDate">1913</div>
-                    <div class = "MediaAuthor">F. Scott Fitzgerald</div>  
-                    <div class = "MediaGenres">
-                      <img src = "assets/icon/Books.png" class="imgDiv">
-                      <img src = "assets/icon/Romance.png" class="imgDiv">
-                      <img src = "assets/icon/Drama.png" class="imgDiv">
-                    </div>                
-                  </div>
-              </ion-row>
-            </ion-grid>
-             
+                <div class="MediaGenres">
+                  <img src = "assets/icon/Movies.png" class="imgDiv">
+                  <img src = "assets/icon/Mystery.png" class="imgDiv">
+                  <img src = "assets/icon/Action.png" class="imgDiv">
+                </div>
+              </div>
+            </div>
+            <div class="media-item">
+              <div class="imges">
+                <img src = "assets/icon/GreatGatsby.jpg" class = "MediaImage">
+              </div>
+              <div class="media-info">
+                <div class = "MediaTitle">The Great Gatsby</div>
+                <div class = "MediaDate">1913</div>
+                <div class = "MediaAuthor">F. Scott Fitzgerald</div> 
+                <div class = "MediaGenres">
+                  <img src = "assets/icon/Books.png" class="imgDiv">
+                  <img src = "assets/icon/Romance.png" class="imgDiv">
+                  <img src = "assets/icon/Drama.png" class="imgDiv">
+                </div> 
+              </div>
+            </div>
+          </div>
             
             </div>
         </ion-card>

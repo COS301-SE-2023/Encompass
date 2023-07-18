@@ -6,6 +6,7 @@ import { GetNotificationQuery } from "./queries/get-notification/get-notificatio
 import { AddNotificationRequest } from "./dto/add-notification-request.dto";
 import { AddNotificationCommand } from "./commands/add-notification/add-notification.command";
 import { RemoveNotificationCommand } from "./commands/remove-notification/remove-notification.command";
+import { ClearNotificationsCommand } from "./commands/clear-notifications/clear-notifications.command";
 
 @Controller('notification')
 export class NotificationController{
@@ -52,4 +53,12 @@ export class NotificationController{
     )
   }
 
+  @Patch('clear-all/:id')
+  async clearAllNotifications(
+    @Param('id') id:string
+  ){
+    return await this.commandBus.execute<ClearNotificationsCommand, NotificationDto>(
+      new ClearNotificationsCommand(id)
+    )
+  }
 }

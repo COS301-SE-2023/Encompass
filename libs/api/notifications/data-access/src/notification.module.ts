@@ -7,7 +7,7 @@ import { NotificationDtoRepository } from "./db/notification-dto.repository";
 import { NotificationSchemaFactory } from "./db/notification-schema.factory";
 import { NotificationFactory } from "./notification.factory";
 import { NotificationSchema } from "./db/notification.schema";
-import { AddNotificationHandler, CreateNotificationHandler, RemoveNotificationHandler } from "./commands";
+import { AddNotificationHandler, ClearNotificationsHandler, CreateNotificationHandler, RemoveNotificationHandler } from "./commands";
 import { NotificationCreateHandler } from "./events";
 import { GetNotificationHandler } from "./queries";
 
@@ -31,7 +31,8 @@ import { GetNotificationHandler } from "./queries";
     NotificationCreateHandler,
     AddNotificationHandler,
     RemoveNotificationHandler,
-    GetNotificationHandler
+    GetNotificationHandler,
+    ClearNotificationsHandler
   ]
 })
 

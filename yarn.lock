@@ -8781,7 +8781,7 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-ngx-socket-io@^4.5.1:
+ngx-socket-io@^4.1.0:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/ngx-socket-io/-/ngx-socket-io-4.5.1.tgz#18c8a41b11676d34c31db58c4ffad0af66ebc741"
   integrity sha512-PNIXmL2NpBwytJLlsyERrf7bUni6ZYtir2LacHMXHFseUDOEnNE7G53kXR+6IKLsVGJlG5RbnplQujRcfMOVxA==

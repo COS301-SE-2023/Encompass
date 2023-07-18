@@ -77,6 +77,16 @@ ion-toolbar {
   font-size: 20px;
   font-family: customFont;
   margin-bottom: 10px;
+  // margin-right: 50%;
+  white-space: normal;
+
+}
+
+.label-box {
+  width: 80%;
+  
+  // display: flex;
+  // align-items: flex-start;
 }
 
 .custom-list {
@@ -86,6 +96,7 @@ ion-toolbar {
 a {
   color: var(--ion-color-medium);
   font-size: 16px;
+  width: fit-content;
 }
 
 ion-item {
@@ -93,8 +104,8 @@ ion-item {
 }
 
 .banner {
-  height: 110%;
-  width: 15%;
+  height: 100px;
+  width: 160px;
   border-radius: 5px;
   border: solid 1px var(--ion-color-medium);
   overflow: hidden;
@@ -107,3 +118,136 @@ ion-item {
   object-fit: cover;
   margin-top: 10px;
 }
+
+ion-button:hover {
+  --border-radius: 50px;
+}
+
+.settings {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .edit-icons {
+    font-size: 35px;
+    margin-right: 10px;
+
+    &:hover {
+      color: var(--ion-color-warning);
+    }
+  }
+}
+
+.onClick {
+  display: none;
+}
+
+
+.info {
+  --background: var(--ion-color-secondary);
+  border-radius: 50px;
+  --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --padding-top: 10px;
+  text-align: left;
+}
+
+.input-info {
+  width: 400px;
+}
+
+.pass {
+  margin-left: 8%;
+}
+
+.pass {
+  text-align: right;
+}
+
+.info-text {
+  text-align: right;
+  color: var(--ion-color-medium);
+  font-size: 16px;
+}
+
+.avatar {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+.overlay-image, .overlay-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  width: inherit;
+}
+
+.overlay-image {
+  height: 64px;
+  width: 64px;
+  border-radius: 50px;
+  margin-top: 45px;
+}
+
+.overlay-banner {
+  height: 100px;
+  width: 160px;
+  border-radius: 5px;
+  margin-top: 45px;
+}
+
+.profile-image-container:hover .overlay-image,
+.profile-banner-container:hover .overlay-banner {
+  opacity: 1;
+}
+
+.edit-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+.file-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.edit-icon {
+  color: white;
+  font-size: 24px;
+}
+
+
