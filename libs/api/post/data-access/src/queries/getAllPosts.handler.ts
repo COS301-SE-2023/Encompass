@@ -122,6 +122,45 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       }
     }
 
+    function moveToClosestCentroid(postArrays: { post: number[], postId: string }[], clusters: { clusterCentroid: number[], clusterPosts: { post: number[], postId: string }[] }[], k: number) {
+      //if all clusterPosts in clusters are empty, just add post to closest clusterCentroid else move post to new closest clusterCentroid
+      const initialClustersEmpty = clusters.every(cluster => cluster.clusterPosts.length == 0);
+      for(let i = 0; i < postArrays.length; i++){
+          const distances = [];
+          for(let j = 0; j < k; j++){
+              distances.push(getDistance(clusters[j].clusterCentroid, postArrays[i]));
+          }
+          //get the index of the smallest distance and insert profile into that cluster
+          let smallestDistance = distances[0];
+          let smallestDistanceIndex = 0;
+          for(let j = 0; j < distances.length; j++){
+              if(distances[j] < smallestDistance){
+                  smallestDistance = distances[j];
+                  smallestDistanceIndex = j;
+              }
+          }
+
+          //test this!!!
+          if(initialClustersEmpty){
+              clusters[smallestDistanceIndex].clusterPosts.push(postArrays[i]);
+          } else {
+              //find the closest clusterCentroid to the profile
+              //if the profile is already in closest clusterCentroid then do nothing, else move the profile to the new closest clusterCentroid
+              if(clusters[smallestDistanceIndex].clusterPosts.includes(postArrays[i])){
+                  continue;
+              } else {
+                  for(let j = 0; j < k; j++){
+                      if(clusters[j].clusterPosts.includes(postArrays[i])) {
+                          clusters[j].clusterPosts.splice(clusters[j].clusterPosts.indexOf(postArrays[i]), 1);
+                          clusters[smallestDistanceIndex].clusterPosts.push(postArrays[i]);
+                          break;
+                      }
+                  }
+              }
+          }
+      }
+    }
+
     
 
     return await this.postDtoRepository.findAll();
