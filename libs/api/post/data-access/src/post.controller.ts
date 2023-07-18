@@ -17,6 +17,7 @@ import { UserIdGetPostQuery } from "./queries/userId-get-post/userId-get-post.qu
 import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
 import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community.query";
 import { GetPopularPostsQuery } from "./queries/get-popular/getPopularPosts.query";
+import { GetLatestPostsQuery } from "./queries/get-latest/getLatestPosts.query";
 
 @Controller('post')
 export class PostController {
