@@ -78,6 +78,14 @@ export class PostController {
     );
   }
 
+  @Get('get-latest')
+  async getLatestPosts(){
+    return await this.queryBus.execute<GetLatestPostsQuery, PostDto[]>(
+      new GetLatestPostsQuery(),
+    );
+  }
+
+
   @Get('get-by-user/:username')
   async getPostsByUserId(
     @Param('username') username: string,
