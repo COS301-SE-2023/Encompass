@@ -17,6 +17,8 @@ export class SignUpInterior1Page {
   profile! : ProfileDto | null;
   categories : string[] = [];
 
+  selectedButtonId: string | undefined;
+
   constructor(private router: Router, private store: Store){
     this.store.dispatch(new SubscribeToProfile())
 
@@ -28,7 +30,8 @@ export class SignUpInterior1Page {
     });
   }
   
-  buttonPressed(event: any){
+  buttonPressed(event: any, buttonId: string){
+    this.selectedButtonId = buttonId;
     const name: string = (event.target as Element).id;
 
     if(this.categories.includes(name)){
@@ -42,6 +45,11 @@ export class SignUpInterior1Page {
     // this.categories.push(event.target.srcElements.attributes.id);
 
     console.log(this.categories)
+
+    const activate = document.getElementById(this.selectedButtonId);
+    if (activate) {
+      activate.classList.add('topic-active');
+    }
   }
 
   next(){
@@ -62,6 +70,7 @@ export class SignUpInterior1Page {
       posts: this.profile.posts,
       reviews: this.profile.reviews,
       profileImage: this.profile.profileImage,
+      profileBanner: this.profile.profileBanner,
       bio: this.profile.bio,
     }
 

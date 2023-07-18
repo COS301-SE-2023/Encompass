@@ -40,5 +40,8 @@ export class ProfileSchema extends IdentifiableEntitySchema{
   readonly profileImage!: string | null;
 
   @Prop()
+  readonly profileBanner!: string | null;
+  
+  @Prop()
   readonly bio!: string | null;
 }

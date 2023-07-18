@@ -1,22 +1,80 @@
 <div class="overlay-container">
 
    <div class = "Banner">
-      <img src = "assets/icon/banner.jpg" class="BannerImage">
-      <img src = "assets/icon/profile.jpg" class="CommunityImage">
+      <img src = {{community?.bannerImage}} onerror="this.src='assets/icon/Banner.png';" class="BannerImage">
+      <img src = {{community?.groupImage}} onerror="this.src='assets/icon/Group.png';" class="CommunityImage">
       
    </div>
    <div class = "Community">
-     <div class = "CommunityDetails">
-        <div class = "CommunityName"><label >Community Name</label><ion-icon name="pencil-outline"></ion-icon></div>
-        <div class = "Admin">Created by </div>
-        <div class = "CommunityDescription">Community Description that describes the community</div>
-     </div>
-     <div class = CommunityOptions>
-        <div class = "ListOfOptions">
-          <button class = "Join">Join</button>
-          <ion-icon name="share-social-outline" style="font-size: 25px;"></ion-icon>
-          <ion-icon name="notifications-outline" style="font-size: 25px;"></ion-icon>
+
+     <div class = "CommunityDetails" *ngIf = "!edit">
+        <div class = "CommunityName">
+          <label >{{community?.name}}</label>
+          <button class = "Edit" (click)="Edit()" *ngIf="community?.admin === profile?.username">
+            <ion-icon name="pencil-outline" ></ion-icon>
+          </button>
         </div>
+        <div class = "Admin">Created by {{community?.admin}} </div>
+        <div class = "CommunityDescription">{{community?.about}}</div>
+     </div>
+
+     <div [hidden]="!edit" style="width: 50%; height: 100%;" >
+      <form   [formGroup]="postForm" (ngSubmit)="onSubmit()" class = "EditDetails"  >
+          <div class = "textInput">
+            <ion-textarea  [maxlength]="80" class = "DescInput"  
+            placeholder = "Enter New Description" formControlName="text" ></ion-textarea>
+
+            <ion-textarea  [maxlength]="200" class = "DescInput"  
+            placeholder = "Enter New Rules" formControlName="rules" ></ion-textarea>
+          </div>
+       
+
+<div class = "EditButtons">
+  <button [hidden]="hasImage" (click)="insertImage()">Change Photo</button>
+  <div [hidden]="!hasImage" class = "Image">
+  <input type="file" class="file-input"
+  [accept]="requiredFileType"
+  (change)="onFileSelected($event)" #fileUpload>
+  </div>
+
+  <button [hidden]="hasBanner" (click)="insertBanner()">Change Banner</button>
+  <div [hidden]="!hasBanner" class = "Image">
+    <input type="file" class="file-input"
+    [accept]="requiredFileType"
+    (change)="onFileBannerSelected($event)" #fileUpload>
+    </div>
+
+  <button  type = "submit" class="FinishEdit" (click)="FinishEdit()">
+    <ion-icon name="checkmark"  ></ion-icon>
+  </button>
+</div>
+          
+      
+      </form>
+     </div>
+      
+     
+
+
+     <div class = CommunityOptions>
+        <div class = "ListOfOptions" *ngIf="profile != null && profile != undefined && community != null && community != undefined && profile.username !== community.admin">
+          <div *ngIf="community.type === 'Public'">
+            <button class = "Join" (click)="join()" *ngIf="!community.members.includes(profile.username)">Join</button>
+            <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
+          </div>
+
+          <div *ngIf="community.type !== 'Public' && communityRequest !== null && communityRequest !== undefined">
+            <button class = "Join" (click)="requestJoin()" *ngIf="!community.members.includes(profile.username) && !communityRequest.requestUsernames.includes(profile.username)">Request</button>
+            <button class = "Join" (click)="leave()" *ngIf="community.members.includes(profile.username)">Leave</button>
+            <button class = "Join" (click)="requestUnjoin()" *ngIf="!community.members.includes(profile.username) && communityRequest.requestUsernames.includes(profile.username)">Unrequest</button>
+          </div>
+
+          <ion-icon class="icon" name="share-social" ></ion-icon>
+          <ion-icon class="icon" name="notifications" ></ion-icon>
+
+        </div>
+
+          
      </div>
    </div>
       <ion-grid >
@@ -67,7 +125,9 @@
       
         <ion-row class="row-filter">
             <ion-col size = "5" >
-              <!-- <div *ngFor="let post of community?.posts.slice().reverse();let i = index">
+              <div *ngIf="community !== null && community !== undefined && profile !== undefined && profile !== null">
+              <div *ngIf="(community?.type !== 'Private' || community.members.includes(profile.username))">
+              <div *ngFor="let post of communityPosts?.slice()?.reverse();let i = index">
 
                 <ion-card class = "PostCard" >
       
@@ -85,7 +145,7 @@
       
                        
       
-                        <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                        <!-- <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
                       </div>
             
                      </div>
@@ -139,8 +199,8 @@
                       </div>
                       <div style = "text-align: center;">
                         <div *ngIf="profile != null">
-                        <ion-icon name="heart-circle-outline" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
-                        <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
+                        <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
+                        <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" ></ion-icon>
                         <div>{{post.likes.length}}</div>
                         </div>
                       </div>
@@ -148,7 +208,9 @@
                     </div>
                   </div>
                  </ion-card>
-                </div> -->
+                </div>
+              </div>
+            </div>
             </ion-col>
             <ion-col size = "4" >
                 <ion-card class = "CommunityCard" >
@@ -159,22 +221,35 @@
                     About this Community
                   </div>
                   <div class = "DateCreated">
-                    Created 8th July 2023
+                    Date Created: {{community?.createdAt}}
                   </div>
                   <div class = "Rules">
                     <div class = "RulesTitle">Community Rules:</div>
-                    <div class = "RulesDescr"> No Discrimination. <br> No Spoilers.</div>
+                    <div class = "RulesDescr"> {{community?.rules}}</div>
                   </div>
                   <div class = "Statistics">
-                    <div>#2 Rank</div>
-                    <div>10 Members</div>
+                    <div>#2<br> Rank</div>
+                    <div>{{members}}<br> Members</div>
 
                   </div>
                   <div class = "Buttons">
-                    <button class="Button1">Create a Post</button>
                     <button class="Button2">Community Events</button>
                   </div>
                 </ion-card>
+                <div *ngIf="community !== null && community !== undefined && profile !== undefined && profile !== null && communityRequest !== null && communityRequest !== undefined && community.type !== 'Public'">
+                <ion-card class = "AdminCard" *ngIf="community.admin === profile.username">
+                  <div class="AdminTitle">
+                    <label>Community Administration</label>
+                  </div>
+                    <div class="AdminList">
+                      <div *ngFor="let user of communityRequest.requestUsernames">
+                      <label class = "AdminRequest">@{{user}} has requested to join this community</label>
+                      <button><ion-icon class = "accept" name="checkmark-circle" (click)="acceptUser(user)"></ion-icon></button>
+                      <button><ion-icon class = "reject" name="close-circle" (click)="rejectUser(user)"></ion-icon></button>
+                      </div>
+                    </div>
+                </ion-card>
+                </div>
             </ion-col>
         </ion-row>
       </ion-grid>

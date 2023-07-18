@@ -11,6 +11,7 @@
   width: 100%;
   height: 130px;
   overflow: hidden;
+  background-color: #231942;
 
 }
 
@@ -269,10 +270,10 @@ left: 5%;
 
     }
 
-    #icons2:hover{
-      color: #8231DD;
-      cursor: pointer;
-    }
+    // #icons2:hover{
+    //   color: #8231DD;
+    //   cursor: pointer;
+    // }
 
     .stats{
 
@@ -526,13 +527,15 @@ display: flex;
 justify-content: space-evenly;
 }
 .Join{
-  padding-top: 2%;
-  padding-bottom: 2%;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding:25%;
   border-radius: 15px;
   background-color: #66617F;
   font-size: large;
+  color:white;
+}
+
+.Join:hover{
+  background-color: #8231DD;
 }
 
 .CommunityCard{
@@ -590,10 +593,11 @@ justify-content: space-evenly;
   margin: 5%;
   border: #D9D9D9 1px solid;
   border-radius: 10px;
-  width: 50%;
+  width: 150px;
   text-align: center;
   font-size: 20px;
   color: #000000;
+  padding: 1%;
 }
 
 .Buttons{
@@ -603,23 +607,149 @@ justify-content: space-evenly;
   width: 100%;
 }
 
-.Button1{
-  border-radius: 15px;
+
+.Button2{
+  border-radius: 30px;
   font-size: 20px;
-  margin:1%;
+  margin-bottom:2%;
   width:60%;
   padding: 2%;
   color: white;
   background-color: #231942;
 
 }
-.Button2{
-  border-radius: 15px;
+
+.DescInput{
+  font-size: 15px;
+  border-radius: 10px;
+  width: 50%;
+  border: #D9D9D9 1px solid;
+  color: #000000;
+  font-family: CustomFont;
+  padding: 1%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+
+
+.Edit{
+  border-radius: 30px;
   font-size: 20px;
-  margin:1%;
-  width:60%;
+  width:30%;
   padding: 2%;
   color: black;
   background-color: #DADADA;
-
 }
+
+.Edit:hover{
+  color: white;
+  background-color: #8231DD;
+}
+
+
+
+.ready{
+  
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1%;}
+
+  .EditDetails {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+ 
+  .EditButtons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .EditButtons Button{
+    width: 20%;
+    color: black;
+  background-color: #DADADA;
+    border-radius: 30px;
+    font-size: 15px;
+    padding: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+
+  }
+  .EditButtons Button:hover{
+    color: white;
+    background-color: #8231DD;
+  }
+
+  .Image{
+    width: 15%;
+    padding:2%;
+  }
+
+  .textInput{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+   
+  }
+
+  .icon{
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 25px;
+  }
+
+  .AdminCard{
+    background-color: #F8F8F8;
+    font-family: CustomFont;
+    color: #000000;
+  }
+
+  .AdminTitle{
+    font-size: 25px;
+    display: flex;
+    justify-content: space-evenly;
+
+  }
+
+  .AdminList{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2%;
+
+  }
+
+  
+  .AdminRequest{
+    font-size: 15px;
+    width: 50%;
+  }
+
+
+  .accept{
+    font-size: 30px;
+    color: #231942;
+  }
+
+  .reject{
+    font-size: 30px;
+    color: #231942;
+  }
+
+  .accept:hover{
+    color: green;
+    cursor: pointer;
+  }
+
+  .reject:hover{
+    color: red;
+    cursor: pointer;
+  }

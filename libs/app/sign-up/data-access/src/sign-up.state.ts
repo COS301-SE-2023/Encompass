@@ -80,6 +80,7 @@ export class SignUpState{
             posts: null,
             reviews: null,
             profileImage: null,
+            profileBanner: null,
             bio: null,
           }
 

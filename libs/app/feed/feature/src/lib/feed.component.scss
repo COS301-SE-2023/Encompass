@@ -42,13 +42,13 @@
 
 @media (max-width: 1622px) {
   .custom-title {
-    font-size: 250%; 
+    font-size: 250%;
   }
 }
 
 @media (max-width: 1300px) {
   .custom-title {
-    font-size: 200%; 
+    font-size: 200%;
   }
 }
 
@@ -68,13 +68,13 @@
 
 @media (max-width: 1622px) {
   .custom-title {
-    font-size: 250%; 
+    font-size: 250%;
   }
 }
 
 @media (max-width: 1300px) {
   .custom-title {
-    font-size: 200%; 
+    font-size: 200%;
   }
 }
 
@@ -86,13 +86,13 @@
 
 @media (max-width: 1622px) {
   .home-text {
-    font-size: 18px; 
+    font-size: 18px;
   }
 }
 
 @media (max-width: 1300px) {
   .home-text {
-    font-size: 14px; 
+    font-size: 14px;
   }
 }
 
@@ -106,7 +106,7 @@
 .posts {
   border: 1px solid var(--ion-color-primary-contrast);
   border-radius: 50px;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   color: white;
   background-color: var(--ion-color-primary-contrast);
   font-family: CustomFont;
@@ -116,7 +116,7 @@
 .comms {
   border: 1px solid var(--ion-color-primary-contrast);
   border-radius: 50px;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   font-family: CustomFont;
 }
 
@@ -164,6 +164,10 @@
       border-radius: 15px;
     }
 
+    .postImage:hover{
+      cursor: pointer;
+    }
+    
     .PostDetails{
       display: flex;
     flex-direction: column;
@@ -188,6 +192,8 @@
     width: auto;
 
     }
+
+    
     .Name{
       display: flex;
 align-items: center;
@@ -198,6 +204,14 @@ left: 5%;
 
     }
 
+    .Title:hover{
+      cursor:pointer;
+      color: #8231DD;
+    }
+    .Name:hover{
+      cursor:pointer;
+          color: #8231DD;
+    }
 
     .report{
       font-size: small; position: relative; right: 10%;
@@ -208,6 +222,7 @@ left: 5%;
 
 }
     .Options{
+      background-color: #F8F8F8;
     font-size: larger;
     position: relative;
     right:5%;
@@ -288,7 +303,7 @@ left: 5%;
     }
 
     .PostCard{
-      background-color: #F0EFEF;
+      background-color: #f8f8f8;
 
     }
     .PostCardHeader{
@@ -340,7 +355,7 @@ left: 5%;
     }
 
 ion-card {
-  background-color: #fdfdfd;
+  background-color: #f8f8f8;
 }
 
 
@@ -361,7 +376,12 @@ ion-card {
   justify-content: space-evenly;
   position: relative;
   width: 60%;
-  font-family: CustomFont;
+  // left: 30%;
+  // height: auto;
+  // z-index: 3;
+  // background-color: white;
+  // font-family: CustomFont;
+  font-weight: 550;
 }
 
 .headtext {
@@ -369,7 +389,8 @@ ion-card {
 }
 
 .CommunityCard{
-
+  left: 2.5%;
+  width: 100%;
   background-color: #f8f8f8;
 
 }
@@ -477,7 +498,7 @@ object-fit: fill;
 }
 
 .MediaImage {
-  width: 150px;
+  width: 165px;
   height: 240px;
   object-fit: fill;
   border-radius: 10px;
@@ -524,45 +545,80 @@ ion-card{
 
 
 
-.content-row {
+.contentrecs {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 10px;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  // align-items: center;
 }
 
-.Media{
+.MediaImage {
+  width: 165px;
+  height: 240px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+
+.media-item {
+  position: relative;
+  flex: 0 0 auto;
+  width: inherit;
+  height: inherit;  
+  margin: 10px;
+}
+
+.media-info {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 60%;
-  height: 240px;
-  font-family: CustomFont;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.MediaTitle{
-  text-align: center  ;
-  width: 100%;
-  font-size: 30px;
-
-}
-.MediaDate{
-  text-align: center  ;
-  width: 100%;
-  font-size: 20px;
-
-}
-.MediaAuthor{
-  text-align: center  ;
-  width: 100%;
-  font-size: 20px;
-
+.media-item:hover .media-info {
+  opacity: 1;
 }
 
-.MediaGenres{
-  display: flex;
-  justify-content: space-evenly;
-  width: 50%;
+/* Additional styling for the media info */
+.media-info .MediaTitle {
+  font-size: 18px;
+  font-weight: bold;
 }
 
+.media-info .MediaDate,
+.media-info .MediaAuthor {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
 
+.media-info .MediaGenres img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.media-info {
+  .imgDiv {
+    filter: invert(1);
+  }
+}
+
+.recomcard ion-button {
+  pointer-events: none;
+}
+
+ion-button:hover {
+  --border-radius: 50px;
+}
