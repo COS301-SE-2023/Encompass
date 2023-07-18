@@ -12,17 +12,17 @@
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" >
+              <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" (click)="commChange()" >
                 Comments
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" >
+              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
                 Events
               </ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button id="peopleBtn" fill="clear" class="none buttonStyle" >
+              <ion-button id="peopleBtn" fill="clear" class="none buttonStyle" (click)="peopleChange()" >
                 People
               </ion-button>
             </ion-col>
@@ -164,25 +164,7 @@
 
       <ion-col size="6">
         <ion-card class="recomcard">
-          <div class = "RecomCommunities" *ngIf = "!collapse1">
-            <div class = "RecomHeader">
-              <ion-grid>
-                <ion-row class="recomRow">
-                  <ion-col size="10">
-                    <div class="headtext" style="font-size: 18px; margin-top: 10px; margin-left: 10px;">Related Communities</div>
-                  </ion-col>
-                  <ion-col size="1">
-                    <ion-button fill="clear" (click)="Collapse1()" style="width:80px; margin-top: 3px;">
-                      <ion-icon name="arrow-down-circle-outline" size = "large" ></ion-icon>
-                    </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </div>
-          </div>
-
-          
-          <div *ngIf = "collapse1" >
+          <div >
             <div class = "RecomCommunities">
             <div class = "RecomHeader">
               <ion-grid>
@@ -190,7 +172,6 @@
                   <ion-col size="10">
                     <div style="font-size: 18px; margin-top: 10px;">Related Communities:</div>
                   </ion-col>
-                  
                 </ion-row>
               </ion-grid>
             </div>

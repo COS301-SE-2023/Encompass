@@ -192,7 +192,7 @@ export class SearchExploreComponent {
     }
   
   }
-  
+
   Like(n:number, post: PostDto){
     this.likedComments[n]=true;
     this.likes[n]++;
@@ -484,6 +484,18 @@ Edit(){
   }
 
   eventChange(){
+    const PostBtn = document.getElementById('PostBtn');
+    const CommentsBtn = document.getElementById('CommentsBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+    if (PostBtn && CommentsBtn && eventBtn) {
+      PostBtn.classList.remove('active-button');
+      CommentsBtn.classList.remove('active-button');
+      eventBtn.classList.add('active-button');
+    }
+  }
+
+  peopleChange(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
