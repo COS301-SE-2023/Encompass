@@ -58,8 +58,39 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       return userCluster;
     }
 
-    
+    function kmeans(items: postType[]) {
+      const k = defineK(items.length);
+      const postArrays = setupPostArrays(items);
+      const tempPostArrays = Object.values(postArrays);
+      const clusters: { clusterCentroid: number[], clusterPosts: { post: number[], postId: string }[] }[] = [];
+      //choose k random tempPostArrays to be cluster centroids
+      for (let i = 0; i < k; i++) {
+          const randomIndex = Math.floor(Math.random() * tempPostArrays.length);
+          clusters.push({ clusterCentroid: Object.values(tempPostArrays[randomIndex].post) , clusterPosts: [] });
+          tempPostArrays.splice(randomIndex, 1);
+      }
 
+      let oldCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+      let newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+      //while centroids are changing
+      do{
+          oldCentroids = newCentroids;
+          //assign each post to the closest cluster
+          moveToClosestCentroid(postArrays, clusters, k);
+          //recalculate the cluster centroids
+          calculateNewCentroids(clusters);
+          newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+          //console.log("--------recalculate centroids--------");
+          //print out the number of posts in each cluster
+          /*for(let i = 0; i < clusters.length; i++){
+              console.log("cluster " + i + ": " + clusters[i].clusterPosts.length);
+          }*/
+      } while ( !arraysAreEqual(oldCentroids, newCentroids) );
+      
+      return clusters;
+    }
+
+    
     return await this.postDtoRepository.findAll();
   }
 }
