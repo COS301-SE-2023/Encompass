@@ -29,22 +29,41 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       const userId = currentUserProfile?.data._id;
 
       const postCount = postsNotByUser.length;
+      console.log("postCount: ", postCount);
       if (postCount < 1) {
         const recommendedPosts = orderbyPopularity(postsNotByUser);
         return recommendedPosts;
         //console.log(recommendedPosts);
       } else {
         addUserToPosts(postsNotByUser, currentUserProfile?.data);
+
         //K-means clustering
         const clusters = kmeans(postsNotByUser);
+  
         //get closest cluster to current user profile
         const recommendedCluster = getClusterOfCurrentProfile(clusters, userId);
         //remove current user profile from cluster
         const recommendedPosts = recommendedCluster[0].clusterPosts.filter(post => post.postId !== userId);
+        console.log("recommendedPosts length after removing user: ", recommendedPosts.length)
         //get recommended Posts from allPosts by _id
         const recommendedPostsFromAllPosts = postsNotByUser.filter(post => recommendedPosts.some(recommendedPost => recommendedPost.postId === post._id.toString()));
+        console.log("recommendedPostsFromAllPosts: ", recommendedPostsFromAllPosts.length);
         //order recommended posts by popularity
         const orderedRecommendedPosts = orderbyPopularity(recommendedPostsFromAllPosts);
+        //append the rest of the posts at the end
+        const postsNotRecommended = postsNotByUser.filter(post => !recommendedPosts.some(recommendedPost => recommendedPost.postId === post._id.toString()));
+        //remove current user profile from postsNotRecommended
+        postsNotRecommended.splice(postsNotRecommended.findIndex(post => post._id.toString() === userId), 1);
+
+        /*console.log("postsNotRecommended: ", postsNotRecommended.length, "orderedRecommendedPosts: ", orderedRecommendedPosts.length);
+        console.log("orderedRecommendedPosts: ");
+        console.log(orderedRecommendedPosts);
+        console.log("postsNotRecommended: ");
+        console.log(postsNotRecommended);*/
+
+        orderedRecommendedPosts.push(...postsNotRecommended);
+        //console.log("orderedRecommendedPosts after appending: ");
+        //console.log(orderedRecommendedPosts);
         return orderedRecommendedPosts;
       }
 
