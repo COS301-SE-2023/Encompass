@@ -36,17 +36,17 @@
       <ion-list class="custom-list">
         <ion-item lines="none">
           <ion-label class="info-label">Name</ion-label>
-          <ion-label class="info">{{profile?.name}}</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-text">{{profile?.name}}</ion-label>
+          <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Surname</ion-label>
-          <ion-label class="info">{{profile?.lastName}}</ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
+          <ion-label class="info-text">{{profile?.lastName}}</ion-label>
+          <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Email</ion-label>
-          <ion-label class="info-text">thisismyverygoodemail@gmail.com</ion-label>
+          <ion-label class="info-text">{{loginModel?.email}}</ion-label>
           
         </ion-item>
         <ion-item lines="none">
@@ -131,25 +131,25 @@
           <div class="label-box">
           <ion-label class="info-label">Name</ion-label>
         </div>
-          <ion-input class="info" value="Ronin"></ion-input>
+          <ion-input value={{profile?.name}} [(ngModel)]="nameEdit" class="info"></ion-input>
         </ion-item>
         <ion-item lines="none">
           <div class="label-box">
           <ion-label class="info-label">Surname</ion-label>
         </div>
-          <ion-input class="info" value="Brookes"></ion-input>
+          <ion-input [(ngModel)]="lastNameEdit" class="info" value={{profile?.lastName}}A></ion-input>
         </ion-item>
         <ion-item lines="none">
           <div class="label-box">
           <ion-label class="info-label">Email</ion-label>
         </div>
-          <ion-input class="info" value="thisismyverygoodemail@gmail.com"></ion-input>
+          <ion-input [(ngModel)]="emailEdit" class="info" value="{{loginModel?.email}}"></ion-input>
         </ion-item>
         <ion-item lines="none">
           <div class="label-box">
           <ion-label class="info-label">Username</ion-label>
         </div>
-          <ion-label class="info-text">@roninbrookes</ion-label>
+          <ion-label class="info-text">@{{profile?.username}}</ion-label>
         </ion-item>
         <ion-item class="info-box" lines="none">
           <div class="label-box">
@@ -159,8 +159,9 @@
             </label>
           </div>
           <ion-label class="pass">*******</ion-label> 
-          <ion-icon id="present-alert" name="pencil" class="edit-icons"></ion-icon>
-          <ion-alert
+          <ion-icon id="present-alert" name="pencil" class="edit-icons" (click)="presentAlert()"></ion-icon>
+          <ion-alert 
+            (ionAlertDidDismiss)="handleDismiss($event)"
             trigger="present-alert"
             header="Enter new Password"
             [buttons]="alertButtons"
@@ -203,19 +204,19 @@
         <ion-item lines="none">
           <ion-label class="info-label" style="height: 100px;">Profile Picture 
           <ion-avatar>
-            <img src=profile?.profileImage alt="Avatar" class="avatar">
+            <img src={{profile?.profileImage}} alt="Avatar" class="avatar">
           </ion-avatar>
         </ion-label>
           
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Banner <br>
-          <img style="margin-top: 10px;" src=profile?.bannerImage alt="Avatar" class="banner"></ion-label>
+          <img style="margin-top: 10px;" src={{profile?.profileBanner}} alt="Avatar" class="banner"></ion-label>
           <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
-          <ion-toggle [checked]=settings.profile.nsfw labelPlacement="start" class="edit--toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
+          <ion-toggle [checked]=settings.profile.followPermission labelPlacement="start" class="edit--toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
         </ion-item>
       </ion-list>
     </div>
@@ -226,13 +227,13 @@
         <ion-item lines="none">
           <ion-label class="info-label">Bio
             <br>
-            <ion-input class="info" value="This is my bio"></ion-input>
+            <ion-input ([ngModel])="bioEdit" class="info" value={{profile?.bio}}></ion-input>
           </ion-label>
         </ion-item>
         <ion-item class="profile-image-container" lines="none">
           <ion-label class="info-label" style="height: 100px;">Profile Picture 
             <ion-avatar>
-              <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+              <img src={{profile?.profileImage}} alt="Avatar" class="avatar">
               <div class="overlay-image">
                 <input id="file-input" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" class="file-input">
                 <label for="file-input" class="file-label">
@@ -245,7 +246,7 @@
         
         <ion-item class="profile-banner-container" lines="none">
           <ion-label class="info-label">Banner <br>
-            <img style="margin-top: 10px;" src="https://learn.canva.com/wp-content/uploads/2020/02/removing-background-images_Unsplash.jpeg" alt="Avatar" class="banner">
+            <img style="margin-top: 10px;" src={{profile?.profileBanner}} alt="Avatar" class="banner">
             <div class="overlay-banner">
               <input id="file-input" type="file" accept="image/*" (change)="onBannerPictureSelected($event)" class="file-input">
               <label for="file-input" class="file-label">
@@ -300,7 +301,7 @@
       <ion-list class="custom-list">
         <ion-item lines="none">
           <ion-label class="info-label">Who can send you messages</ion-label>
-          <ion-select placeholder=placeHolderText>
+          <ion-select [(ngModel)]="selectedValue" placeholder={{placeHolderText}} interface="popover" (ionChange)="onSelectChange()">
             <ion-select-option value="followers">Followers Only</ion-select-option>
             <ion-select-option value="noone">No One</ion-select-option>
           </ion-select>
@@ -309,7 +310,5 @@
     </div>
 
   </div>
-  
-
 </ion-content>
 

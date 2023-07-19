@@ -1,16 +1,15 @@
-import { ProfileDto } from '@encompass/api/profile/data-access';
+import { ProfileDto, UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { NotificationsSettingsDto, ProfileSettingsDto, SettingsDto } from '@encompass/api/settings/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { SettingsState } from '@encompass/app/settings/data-access';
+import { SettingsApi, SettingsState } from '@encompass/app/settings/data-access';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { GetUserSettings, UpdateNotificationSettings, UpdateProfileSettings } from '@encompass/app/settings/util';
+import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
+import { GetAccount, GetUserSettings, UpdateEmail, UpdateMessageSettings, UpdateNotificationSettings, UpdateProfileSettings } from '@encompass/app/settings/util';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { IonContent } from '@ionic/angular';
+import { AlertController, AlertInput, IonContent } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { AccountDto } from '@encompass/api/account/data-access';
-import { LoginState } from '@encompass/app/login/data-access';
 
 @Component({
   selector: 'settings',
@@ -20,12 +19,23 @@ import { LoginState } from '@encompass/app/login/data-access';
 export class SettingsPage{
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
-  @Select(LoginState.loginModel) loginModel$!: Observable<AccountDto>;
+  @Select(SettingsState.account) loginModel$!: Observable<AccountDto>;
 
+  profileFile!: File;
+  bannerFile!: File;
+  profileName!: string;
+  bannerName!: string;
+  nameEdit!: string
+  lastNameEdit!: string
+  emailEdit!: string
+  bioEdit!: string
+  selectedValue!: string
   loginModel!: AccountDto | null;
   profile!: ProfileDto | null;
   settings!: SettingsDto | null;
   placeHolderText!: string;
+  newPassword!: string;
+  confirmNewPassword!: string;
 
   @ViewChild(IonContent, { static: false })
   content!: IonContent;
@@ -40,11 +50,24 @@ export class SettingsPage{
 
   labelHidden = true;
 
-  constructor(private store: Store, private animationCtrl: AnimationController){
+  constructor(private store: Store, private animationCtrl: AnimationController, private settingsApi: SettingsApi, private alertController: AlertController){
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
       if(profile){
         this.profile = profile;
+        
+        this.nameEdit = profile.name;
+        this.lastNameEdit = profile.lastName;
+        this.bioEdit = profile.bio;
+
+        this.store.dispatch(new GetAccount(profile._id));
+        this.loginModel$.subscribe((loginModel) => {
+          if(loginModel){
+            console.log(loginModel);
+            this.loginModel = loginModel;
+            this.emailEdit = loginModel.email;
+          }
+        })
 
         this.store.dispatch(new GetUserSettings(profile._id));
         this.settings$.subscribe((settings) => {
@@ -59,13 +82,6 @@ export class SettingsPage{
             }
           }
         })
-      }
-    })
-
-    this.loginModel$.subscribe((loginModel) => {
-      if(loginModel){
-        console.log(loginModel);
-        this.loginModel = loginModel;
       }
     })
   }
@@ -162,7 +178,7 @@ export class SettingsPage{
     }
   }
 
-  save(fieldName: string){
+  async save(fieldName: string){
     const field = fieldName;
     const account = document.getElementById(field + '-default');
     const editAccount = document.getElementById(field + '-click');
@@ -184,39 +200,132 @@ export class SettingsPage{
       console.log('editBtn is null');
     }
 
-    console.log(account)
-    console.log(editAccount)
-    console.log(saveBtn)
-    console.log(editBtn)
+    if(this.profile === null || this.loginModel === null){
+      return;
+    }
+
+    if(fieldName === 'account'){
+      const data: UpdateProfileRequest ={
+        username: this.profile.username,
+        name: this.nameEdit,
+        lastName: this.lastNameEdit,
+        categories: this.profile.categories,
+        communities: this.profile.communities,
+        awards: this.profile.awards,
+        events: this.profile.events,
+        followers: this.profile.followers,
+        following: this.profile.following,
+        posts: this.profile.posts,
+        reviews: this.profile.reviews,
+        profileImage: this.profile.profileImage,
+        profileBanner: this.profile.profileBanner,
+        bio: this.profile.bio,
+      }
+
+      this.store.dispatch(new UpdateProfile(data, this.profile._id))
+
+      if(this.loginModel.email !== this.emailEdit){
+        this.store.dispatch(new UpdateEmail(this.profile._id, this.emailEdit))
+      }
+    }
+    
+    else{
+      if(this.profile === null){
+        return;
+      }
+
+      let imageUrl: string | null;
+      let bannerUrl: string | null;
+
+      if(this.profileFile){
+        imageUrl = await this.uploadImage(this.profileFile, this.profileName);
+
+        if(imageUrl === null){
+          imageUrl = this.profile.profileImage;
+        }
+      }
+
+      else{
+        imageUrl = this.profile.profileImage;
+      }
+
+      if(this.bannerFile){
+        bannerUrl = await this.uploadImage(this.bannerFile, this.bannerName);
+
+        if(bannerUrl === null){
+          bannerUrl = this.profile.profileBanner;
+        }
+      }
+
+      else{
+        bannerUrl = this.profile.profileBanner;
+      }
+
+
+      const data: UpdateProfileRequest ={
+        username: this.profile.username,
+        name: this.profile.name,
+        lastName: this.profile.lastName,
+        categories: this.profile.categories,
+        communities: this.profile.communities,
+        awards: this.profile.awards,
+        events: this.profile.events,
+        followers: this.profile.followers,
+        following: this.profile.following,
+        posts: this.profile.posts,
+        reviews: this.profile.reviews,
+        profileImage: imageUrl,
+        profileBanner: bannerUrl,
+        bio: this.bioEdit,
+      }
+
+      this.store.dispatch(new UpdateProfile(data, this.profile._id))
+    }
   }
 
   profilePictureUrl = '';
 
-  onProfilePictureSelected(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const file = inputElement.files?.[0];
+  onProfilePictureSelected(event: any): void {
+    // const inputElement = event.target as HTMLInputElement;
+    // const file = inputElement.files?.[0];
+    
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onload = (e) => {
+    //     this.profilePictureUrl = e.target?.result as string;
+    //   };
+    //   reader.readAsDataURL(file);
+    //   console.log('file: ', file);
+    // }
+    const file = event.target.files[0];
     
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.profilePictureUrl = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-      console.log('file: ', file);
+      // const reader = new FileReader();
+      // reader.onload = (e) => {
+      //   this.profilePictureUrl = e.target?.result as string;
+      // };
+      // reader.readAsDataURL(file);
+      // console.log('file: ', file);
+
+      this.bannerFile = file;
+      this.bannerName = file.name;
     }
   }
 
-  onBannerPictureSelected(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const file = inputElement.files?.[0];
+  onBannerPictureSelected(event: any): void {
+    // const inputElement = event.target as HTMLInputElement;
+    const file = event.target.files[0];
     
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.profilePictureUrl = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-      console.log('file: ', file);
+      // const reader = new FileReader();
+      // reader.onload = (e) => {
+      //   this.profilePictureUrl = e.target?.result as string;
+      // };
+      // reader.readAsDataURL(file);
+      // console.log('file: ', file);
+
+      this.bannerFile = file;
+      this.bannerName = file.name;
     }
   }
 
@@ -287,15 +396,61 @@ export class SettingsPage{
     this.presentingElement = document.querySelector('.ion-page');
   }
 
+  onSelectChange(){
+    if(this.profile == null){
+      return
+    }
+
+    console.log(this.selectedValue)
+
+    this.store.dispatch(new UpdateMessageSettings(this.profile._id, this.selectedValue))
+  }
+
+  async uploadImage(file: File, fileName: string) : Promise<string | null>{
+    return new Promise((resolve) => {
+      const formData = new FormData();
+      formData.append('file', file, fileName);
+
+      const uploadFile = this.settingsApi.uploadFile(formData)
+      console.log(uploadFile);
+      resolve(uploadFile);
+    })
+  }
+
+  handleDismiss(data: any) {
+    // The 'data' parameter will contain the 'values' property with the entered input values.
+    const enteredData = data?.data?.values;
+    if (enteredData) {
+      this.newPassword = enteredData['New Password'];
+      this.confirmNewPassword = enteredData['Confirm New Password'];
+      console.log('New Password:', this.newPassword);
+      console.log('Confirm New Password:', this.confirmNewPassword);
+
+      // You can use the captured values 'this.newPassword' and 'this.confirmNewPassword' as needed.
+    }
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Enter new Password',
+      buttons: this.alertButtons,
+      inputs: this.alertInputs,
+    });
+
+    await alert.present();
+  }
+
   public alertButtons = ['Cancel', 'Save'];
-  public alertInputs = [
+  public alertInputs: AlertInput[] = [
     {
+      name: "pass",
       type: 'password',
       placeholder: 'New Password',
       min: 8,
       max: 100,
     },
     {
+      name: "confirmPass",
       type: 'password',
       placeholder: 'Confirm New Password',
       min: 8,

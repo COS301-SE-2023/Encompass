@@ -1,7 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AccountDto } from "@encompass/api/account/data-access";
+import { ProfileDto, UpdateProfileRequest } from "@encompass/api/profile/data-access";
 import { NotificationsSettingsDto, ProfileSettingsDto, SettingsDto } from "@encompass/api/settings/data-access";
+
+export interface fileReturn{
+  key: string,
+  url: string;
+}
 
 @Injectable()
 export class SettingsApi {
@@ -17,6 +23,23 @@ export class SettingsApi {
     catch (error) {
       console.log(error);
 
+      return null;
+    }
+  }
+
+  async uploadFile(request: FormData) : Promise<string | null>{
+    try {
+      const response = await this.httpClient.post<fileReturn>('/api/profile/upload-image', request).toPromise();
+
+      if(response == null){
+        return null;
+      }
+      
+      return response.url;
+    } 
+    catch (error) 
+    {
+      console.log(error);
       return null;
     }
   }
@@ -67,6 +90,7 @@ export class SettingsApi {
     try{
       const response = await this.httpClient.get<AccountDto>("/api/account/get/" + userId).toPromise();
 
+      console.log(response);
       return response;
     }
 

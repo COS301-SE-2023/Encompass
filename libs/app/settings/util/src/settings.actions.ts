@@ -1,3 +1,4 @@
+import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { NotificationsSettingsDto, ProfileSettingsDto } from '@encompass/api/settings/data-access';
 
 export class GetUserSettings{
