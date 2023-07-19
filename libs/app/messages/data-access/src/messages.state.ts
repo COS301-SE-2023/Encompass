@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ChatDto } from "@encompass/api/chat/data-access";
 import { State, Action, StateContext } from "@ngxs/store";
 import { MessagesApi } from "./messages.api";
-import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SetMessages } from "@encompass/app/messages/util";
+import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SendNotification, SetMessages } from "@encompass/app/messages/util";
 import { Selector } from "@ngxs/store";
 import { produce } from "immer";
 import { tap } from "rxjs";
@@ -10,6 +10,7 @@ import { ChatListDto } from "@encompass/api/chat-list/data-access";
 import { MessagesDto } from "@encompass/api/chat/data-access";
 import { ProfileDto } from "@encompass/api/profile/data-access";
 import { SettingsDto } from "@encompass/api/settings/data-access";
+import { SendNotification as HomeSendNotification } from "@encompass/app/home-page/util";
 
 export interface MessagesStateModel{
   messages: ChatDto | null
@@ -107,6 +108,25 @@ export class MessagesState{
         }
       }
     })
+  }
+
+  @Action(SendNotification)
+  async sendNotification(ctx: StateContext<MessagesStateModel>, {username, notification}: SendNotification){
+    const user = await this.messagesApi.getProfile(username);
+
+    if(user == null || user == undefined){
+      return;
+    }
+
+    const settings = await this.messagesApi.getProfileSettings(user._id)
+
+    if(settings == null || settings == undefined){
+      return;
+    }
+
+    if(settings.notifications.dms !== false){
+      ctx.dispatch(new HomeSendNotification(user._id, notification));
+    }
   }
 
   @Action(GetUserInformation)

@@ -5,11 +5,13 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { AddFollowing, RemoveFollowing, SubscribeToProfile } from '@encompass/app/profile/util';
 import { UserProfileState } from '@encompass/app/user-profile/data-access';
-import { GetUserProfile, GetUserProfilePosts } from '@encompass/app/user-profile/util';
+import { GetUserProfile, GetUserProfilePosts, GetUserSettings } from '@encompass/app/user-profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { UpdatePostRequest } from '@encompass/api/post/data-access';
-import { UpdatePost } from '@encompass/app/home-page/util';
+import { SendNotification, UpdatePost } from '@encompass/app/home-page/util';
+import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
 
 
 @Component({
@@ -21,10 +23,12 @@ export class UserProfile {
   @Select(UserProfileState.userProfile) userProfile$!: Observable<ProfileDto | null>
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null> 
   @Select(UserProfileState.userProfilePosts) userPosts$!: Observable<PostDto[] | null>
+  @Select(UserProfileState.userProfileSettings) profileSettings$!: Observable<SettingsDto | null>
 
   userProfile!: ProfileDto | null;
   profile!: ProfileDto | null;
   userPosts!: PostDto[] | null;
+  userProfileSettings! : SettingsDto | null
   seePosts=true;
    seeComments=false;
    shares : number[] = [];
@@ -74,6 +78,14 @@ export class UserProfile {
               }
             }
             }
+          }
+        })
+
+        this.store.dispatch(new GetUserSettings(this.userProfile._id))
+        this.profileSettings$.subscribe((profileSettings) => {
+          if(profileSettings){
+            this.userProfileSettings = profileSettings
+            console.log(this.userProfileSettings)
           }
         })
       }
@@ -187,6 +199,17 @@ export class UserProfile {
     });
 
     this.store.dispatch(new AddFollowing(this.profile.username, this.userProfile.username))
+
+    const notification: AddNotificationRequest = {
+      sentBy: this.profile.name + " " + this.profile.lastName,
+      picture: this.profile.profileImage,
+      title: "Started Following You",
+      description: ""
+    }
+
+    if(this.userProfileSettings?.notifications.follows !== false){
+      this.store.dispatch(new SendNotification(this.userProfile._id, notification))
+    }
   }
 
   Unfollow(){

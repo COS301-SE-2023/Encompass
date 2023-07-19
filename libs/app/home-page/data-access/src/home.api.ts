@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { HomeDto } from "@encompass/api/home/data-access";
-import { NotificationDto } from "@encompass/api/notifications/data-access";
+import { AddNotificationRequest, NotificationDto } from "@encompass/api/notifications/data-access";
 import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 
 @Injectable()
@@ -28,6 +28,20 @@ export class HomeApi{
       console.log(error);
 
       return null;
+    }
+  }
+
+  async sendNotification(userId: string, notification: AddNotificationRequest){
+    try{
+      const response = await this.httpClient.patch<NotificationDto>('/api/notification/add/' + userId, notification).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+
+      return null
     }
   }
 

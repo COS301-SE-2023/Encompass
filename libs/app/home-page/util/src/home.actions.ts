@@ -1,3 +1,4 @@
+import { AddNotificationRequest } from "@encompass/api/notifications/data-access";
 import { UpdatePostRequest } from "@encompass/api/post/data-access";
 
 export class getHome{
@@ -16,4 +17,9 @@ export class UpdatePost{
 export class GetNotifications{
   static readonly type = '[Home] Get Notifications';
   constructor(public readonly userId: string){}
+}
+
+export class SendNotification{
+  static readonly type = '[Home] Send Notifications'
+  constructor(public readonly userId: string, public readonly notification: AddNotificationRequest){}
 }

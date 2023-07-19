@@ -5,7 +5,7 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { MessagesState } from '@encompass/app/messages/data-access';
 import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-access';
 import { Select } from '@ngxs/store';
-import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage } from '@encompass/app/messages/util';
+import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SendNotification } from '@encompass/app/messages/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -13,6 +13,7 @@ import { ChatListDto } from '@encompass/api/chat-list/data-access';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessagesDto } from '@encompass/api/chat/data-access';
 import { take } from 'rxjs/operators';
+import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 
 @Component({
   selector: 'messages',
@@ -41,6 +42,7 @@ export class MessagesPage implements OnDestroy {
   firstName!: string;
   lastName!: string;
   userImage!: string;
+  username!: string;
 
   selectedOption!: string;
   selectOpen = false;
@@ -107,10 +109,19 @@ export class MessagesPage implements OnDestroy {
       chatId: this.messages?._id
     }
 
+    const notification: AddNotificationRequest = {
+      sentBy: this.profile.name + " " + this.profile.lastName,
+      picture: this.profile.profileImage,
+      title: "Has sent you a message",
+      description: this.messageInput.value.substring(0, 20) + "...",
+    }
+
     this.store.dispatch(new SendMessage(data));
+    this.store.dispatch(new SendNotification(this.username, notification));
   }
 
-  fetchMessages(chatId: string,first: string,last:string,image: string){
+  fetchMessages(chatId: string,first: string,last:string,image: string, username: string){
+    this.username = username;
     this.userImage=image;
     this.firstName=first;
     this.lastName=last;

@@ -6,7 +6,6 @@ export class NotificationDto{
     picture: string,
     title: string,
     description: string,
-    routerUrl: string,
     dateTime: Date
   }[]
 }

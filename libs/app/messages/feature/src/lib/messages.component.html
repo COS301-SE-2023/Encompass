@@ -19,7 +19,7 @@
           
           </li>
           <div *ngFor="let chats of chatProfiles">
-            <li (click)="fetchMessages(chats.chatId,chats.name,chats.lastName,chats.profilePicture)" class = "chatItem"> 
+            <li (click)="fetchMessages(chats.chatId,chats.name,chats.lastName,chats.profilePicture, chats.username)" class = "chatItem"> 
             <img src= {{chats.profilePicture}} onerror="this.src='assets/icon/Profile.png';" class = "imgDiv">
             {{chats.name}} {{chats.lastName}}</li>
           </div>

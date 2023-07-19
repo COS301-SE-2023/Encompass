@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { GetAllPosts, GetNotifications, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
@@ -110,6 +110,10 @@ export class HomeState{
     })
   }
 
+  @Action(SendNotification)
+  async sendNotification(ctx: StateContext<HomeNotificationsModel>, {userId, notification}: SendNotification){
+    await this.homeApi.sendNotification(userId, notification);
+  }
   @Selector()
   static homePosts(state: HomePostsModel){
     return state.HomePostsForm.model.homePosts;

@@ -1,5 +1,6 @@
 import { ChatListDto } from "@encompass/api/chat-list/data-access";
 import { ChatDto, GateWayAddMessageRequest } from "@encompass/api/chat/data-access";
+import { AddNotificationRequest } from "@encompass/api/notifications/data-access";
 
 export class GetMessages {
   static readonly type = '[Messages] Get';
@@ -34,4 +35,9 @@ export class GetNewChats{
 export class CreateChat{
   static readonly type = '[Messages] Create Chat'
   constructor(public usernames: string[]){}
+}
+
+export class SendNotification{
+  static readonly type = '[Messages] Send Notification'
+  constructor(public username: string, public notification: AddNotificationRequest){}
 }
