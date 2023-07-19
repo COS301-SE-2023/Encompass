@@ -35,6 +35,7 @@ export class ThemesPage {
     const page = document.getElementById('theme-page');
 
     if (btn && this.activeImage !== imgName && page){
+
       if (activeImg){
       activeImg.style.border = 'none';
       }
@@ -51,11 +52,34 @@ export class ThemesPage {
 
   active = false;
   getImg() {
+    const fileInput = document.getElementById('backgroundFile');
     this.active = !this.active;
     if (this.active){
       console.log('active');
+      if (fileInput){
+        fileInput.style.display = 'none';
+      }
     }else{
       console.log('inactive');
+      if (fileInput){
+        fileInput.style.display = 'block';
+      }
+    }
+  }
+
+  profilePictureUrl = '';
+
+  onProfilePictureSelected(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const file = inputElement.files?.[0];
+    
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.profilePictureUrl = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+      console.log('file: ', file);
     }
   }
 }

@@ -140,6 +140,7 @@ export class SettingsPage{
   }
 
   profilePictureUrl = '';
+  bannerPictureUrl = '';
 
   onProfilePictureSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -162,7 +163,7 @@ export class SettingsPage{
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.profilePictureUrl = e.target?.result as string;
+        this.bannerPictureUrl = e.target?.result as string;
       };
       reader.readAsDataURL(file);
       console.log('file: ', file);

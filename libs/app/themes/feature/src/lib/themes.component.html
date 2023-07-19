@@ -103,12 +103,19 @@
       <img id="img-green" src="https://wallpapercave.com/dwp2x/wp10352814.jpg" alt="img-green" class="temp" (click)="changeBorderImage('img-green', 'https://wallpapercave.com/dwp2x/wp10352814.jpg')">
       <img id="img-orange" src="https://wallpapercave.com/dwp2x/wp10352821.jpg" alt="img-orange" class="temp" (click)="changeBorderImage('img-orange', 'https://wallpapercave.com/dwp2x/wp10352821.jpg')">
       <div id="img-own" class="temp own" (click)="changeBorderImage('img-own', ''); getImg()">
-        <ion-fab class="add-img">
-          <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+        <label for="file-input" class="file-label">
+          <input id="backgroundFile" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" class="file-input">
+          <div class="fab-container">
+            <ion-fab class="add-img">
+              <ion-fab-button>
+                <ion-icon name="add"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+          </div>
+        </label>
       </div>
+      
+      
     </div>
   </div>
 
