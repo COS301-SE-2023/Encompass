@@ -31,7 +31,7 @@
     height: 350px;
     border-radius: 20px;
     pointer-events: none;
-    
+    border: 0.5px solid var(--ion-color-warning);
 }
 
 .card-content {
@@ -40,7 +40,7 @@
     align-items: center;
     height: 100%;
     pointer-events: none;
-    --background: var(--ion-color-background);
+    --background: var(--ion-color-background-contrast);
 }
 
 .card-content-inner {
@@ -163,11 +163,11 @@ ion-toolbar {
 }
 
 .light-blue {
-    background-color: #809FBC;
+    background-color: #afc0e6;
 }
 
 .dark-blue {
-    background-color: #1C2936;
+    background-color: #2E4A61;
 }
 
 .light-green {
@@ -175,15 +175,15 @@ ion-toolbar {
 }
 
 .dark-green {
-    background-color: #1C361E;
+    background-color: #313d31;
 }
 
 .light-orange {
-    background-color: #A8725B;
+    background-color: #e7ab7b;
 }
 
 .dark-orange {
-    background-color: #5B3530;
+    background-color: #523327;
 }
 
 .square-selected {
