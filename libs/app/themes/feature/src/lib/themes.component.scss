@@ -7,6 +7,10 @@
     height: 100vh; 
     // height: fit-content;
     padding-top: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--ion-color-text);
 }
 
 .top-stuff {
@@ -27,6 +31,7 @@
     height: 350px;
     border-radius: 20px;
     pointer-events: none;
+    
 }
 
 .card-content {
@@ -35,6 +40,7 @@
     align-items: center;
     height: 100%;
     pointer-events: none;
+    --background: var(--ion-color-background);
 }
 
 .card-content-inner {
@@ -75,10 +81,12 @@
 .comm {
     margin-top: 10px;
     border: 1px solid var(--ion-color-primary);
+    color: var(--ion-color-text);
 }
 
 ion-toolbar {
 
+    color: var(--ion-color-medium-shade);
     --background: var(--ion-color-secondary);
     height: 70px;
     display: flex;
@@ -139,11 +147,11 @@ ion-toolbar {
 }
 
 .light-default {
-    background-color: var(--ion-color-secondary);
+    background-color: #CECAE3;
 }
 
 .dark-default {
-    background-color: var(--ion-color-primary)
+    background-color: #20173F;
 }
 
 .light-red {
@@ -297,7 +305,7 @@ ion-toolbar {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1; 
+    z-index: 0; 
   }
 
 .unselect {

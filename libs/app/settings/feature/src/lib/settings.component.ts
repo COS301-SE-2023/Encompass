@@ -195,4 +195,6 @@ export class SettingsPage{
       max: 100,
     },
   ];
+
+
 }

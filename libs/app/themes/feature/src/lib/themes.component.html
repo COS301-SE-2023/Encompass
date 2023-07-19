@@ -56,7 +56,7 @@
         <ion-row>
         <ion-col>
           <div class="pickings">
-            <div id="ld" class="square light-default square-selected" (click)="changeBorder('ld')"></div>
+            <div id="ld" class="square light-default square-selected" (click)="changeBorder('ld'); enableLight()"></div>
             <div id="lr" class="square light-red" (click)="changeBorder('lr')"></div>
             <div id="lb" class="square light-blue" (click)="changeBorder('lb')"></div>
             <div id="lg" class="square light-green" (click)="changeBorder('lg')"></div>
@@ -77,7 +77,7 @@
         <ion-row>
         <ion-col>
           <div class="pickings">
-            <div id="dd" class="square dark-default" (click)="changeBorder('dd')"></div>
+            <div id="dd" class="square dark-default" (click)="changeBorder('dd'); enableDark()"></div>
             <div id="dr" class="square dark-red" (click)="changeBorder('dr')"></div>
             <div id="db" class="square dark-blue" (click)="changeBorder('db')"></div>
             <div id="dg" class="square dark-green" (click)="changeBorder('dg')"></div>
