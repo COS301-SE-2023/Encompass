@@ -114,6 +114,45 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             return true;
         }
 
+        function moveToClosestCentroid(MovieArrays: { Movie: number[], MovieId: string }[], clusters: { clusterCentroid: number[], clusterMovies: { Movie: number[], MovieId: string }[] }[], k: number) {
+            //if all clusterMovies in clusters are empty, just add Movie to closest clusterCentroid else move Movie to new closest clusterCentroid
+            const initialClustersEmpty = clusters.every(cluster => cluster.clusterMovies.length == 0);
+            for(let i = 0; i < MovieArrays.length; i++){
+                const distances = [];
+                for(let j = 0; j < k; j++){
+                    distances.push(getDistance(clusters[j].clusterCentroid, MovieArrays[i]));
+                }
+                //get the index of the smallest distance and insert profile into that cluster
+                let smallestDistance = distances[0];
+                let smallestDistanceIndex = 0;
+                for(let j = 0; j < distances.length; j++){
+                    if(distances[j] < smallestDistance){
+                        smallestDistance = distances[j];
+                        smallestDistanceIndex = j;
+                    }
+                }
+
+                //test this!!!
+                if(initialClustersEmpty){
+                    clusters[smallestDistanceIndex].clusterMovies.push(MovieArrays[i]);
+                } else {
+                    //find the closest clusterCentroid to the profile
+                    //if the profile is already in closest clusterCentroid then do nothing, else move the profile to the new closest clusterCentroid
+                    if(clusters[smallestDistanceIndex].clusterMovies.includes(MovieArrays[i])){
+                        continue;
+                    } else {
+                        for(let j = 0; j < k; j++){
+                            if(clusters[j].clusterMovies.includes(MovieArrays[i])) {
+                                clusters[j].clusterMovies.splice(clusters[j].clusterMovies.indexOf(MovieArrays[i]), 1);
+                                clusters[smallestDistanceIndex].clusterMovies.push(MovieArrays[i]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         
     }
 }
