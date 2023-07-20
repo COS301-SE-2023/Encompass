@@ -19,6 +19,7 @@ export class HomeApi{
   //     return null;
   //   }
   // }
+
   async getNotifications(userId: string){
     try{
       const response = await this.httpClient.get<NotificationDto>('/api/notification/get/' + userId).toPromise();
@@ -31,7 +32,27 @@ export class HomeApi{
     }
   }
 
-  async getAllPosts(){
+  async getLatestPosts() {
+    try {
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-latest').toPromise();
+        return response;
+    } catch (error) {
+        console.log(error);
+        return null;   
+    }
+  }
+
+  async getPopularPosts() {
+    try {
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-popular').toPromise();
+        return response;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+  }
+
+  async getAllPosts(){ //recommended posts
     try{
       const response = await this.httpClient.get<PostDto[]>('/api/post/get-all').toPromise();
       return response;

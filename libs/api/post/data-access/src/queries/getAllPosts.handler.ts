@@ -70,6 +70,7 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       //append liked posts at the end
     } catch (error) {
       console.log(error);
+      return [];
     }
 
     function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterPosts: { post: number[], postId: string }[] }[], userId: string ) {
