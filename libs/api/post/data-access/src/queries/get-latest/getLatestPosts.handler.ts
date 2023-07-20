@@ -14,16 +14,12 @@ export class GetLatestPostHandler implements IQueryHandler<GetLatestPostsQuery> 
         try {
             const allPosts = await this.postDtoRepository.findAll();
             const latestPosts = orderbyLatest(allPosts);
-            
             return latestPosts;
         } catch (error) {
             return [];
         }
 
         async function orderbyLatest(allPosts: PostSchema[]) {
-            
-            //order by dateAdded which is the string YYY-MM-DD, HH:MM:SS
-            //i.e dateAdded: "2023-06-30, 8:16:55 PM" may be a property of a post
             const latestPosts = allPosts.sort((a, b) => {
                 return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
             });
