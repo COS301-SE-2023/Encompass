@@ -5,7 +5,7 @@ import { SettingsApi, SettingsState } from '@encompass/app/settings/data-access'
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
-import { GetAccount, GetUserSettings, UpdateEmail, UpdateMessageSettings, UpdateNotificationSettings, UpdateProfileSettings } from '@encompass/app/settings/util';
+import { GetAccount, GetUserSettings, UpdateEmail, UpdateMessageSettings, UpdateNotificationSettings, UpdatePassword, UpdateProfileSettings } from '@encompass/app/settings/util';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { AlertController, AlertInput, IonContent } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
@@ -227,6 +227,12 @@ export class SettingsPage{
       if(this.loginModel.email !== this.emailEdit){
         this.store.dispatch(new UpdateEmail(this.profile._id, this.emailEdit))
       }
+
+      if(this.newPassword){
+        if(this.newPassword === this.confirmNewPassword){
+          this.store.dispatch(new UpdatePassword(this.profile._id, this.newPassword))
+        }
+      }
     }
     
     else{
@@ -417,30 +423,44 @@ export class SettingsPage{
     })
   }
 
-  handleDismiss(data: any) {
-    // The 'data' parameter will contain the 'values' property with the entered input values.
-    const enteredData = data?.data?.values;
-    if (enteredData) {
-      this.newPassword = enteredData['New Password'];
-      this.confirmNewPassword = enteredData['Confirm New Password'];
-      console.log('New Password:', this.newPassword);
-      console.log('Confirm New Password:', this.confirmNewPassword);
-
-      // You can use the captured values 'this.newPassword' and 'this.confirmNewPassword' as needed.
-    }
-  }
-
   async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Enter new Password',
-      buttons: this.alertButtons,
-      inputs: this.alertInputs,
-    });
+    return new Promise<void>(async (resolve) => {
+      const alert = await this.alertController.create({
+        header: 'Enter new Password',
+        buttons: this.alertButtons,
+        inputs: this.alertInputs,
+      });
 
-    await alert.present();
+      await alert.present();
+
+      alert.onDidDismiss().then((data) => {
+        if (data && data.role === 'save') {
+          const enteredData = data.data.values;
+          if (enteredData) {
+            this.newPassword = enteredData.pass;
+            this.confirmNewPassword = enteredData.confirmPass;
+            console.log('New Password:', this.newPassword);
+            console.log('Confirm New Password:', this.confirmNewPassword);
+
+            // You can use the captured values 'this.newPassword' and 'this.confirmNewPassword' as needed.
+          }
+        }
+
+        resolve();
+      });
+    });
   }
 
-  public alertButtons = ['Cancel', 'Save'];
+  alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+    },
+    {
+      text: 'Save',
+      role: 'save',
+    },
+  ];
   public alertInputs: AlertInput[] = [
     {
       name: "pass",
