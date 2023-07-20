@@ -23,7 +23,7 @@ export class ThemesPage {
   profile!: ProfileDto | null;
   settings!: SettingsDto | null;
 
-  activeButton = 'ld';
+  activeButton!: string;
 
   changeBorder(btnName:string){
     const btn = document.getElementById(btnName);
@@ -33,7 +33,7 @@ export class ThemesPage {
       if (activeBtn){
         activeBtn.style.border = 'none';
       }
-      if (btnName.startsWith('d')){
+      if (btnName.startsWith('dark')){
         btn.style.border = '4px solid var(--ion-color-warning-contrast)';
       }else{
         btn.style.border = '4px solid var(--ion-color-warning)';
@@ -172,6 +172,23 @@ export class ThemesPage {
           if(settings){
             console.log(settings)
             this.settings = settings;
+
+            const page = document.getElementById('theme-page');
+            if (page) {
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              this.activeButton = this.settings.themes.themeColor
+
+              const btn = document.getElementById(this.activeButton);
+
+              if(btn !== null){
+                if (this.activeButton.startsWith('dark')){
+                  btn.style.border = '4px solid var(--ion-color-warning-contrast)';
+                }else{
+                  btn.style.border = '4px solid var(--ion-color-warning)';
+                }
+              }
+            }
           }
         })
 
