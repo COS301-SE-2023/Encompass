@@ -20,16 +20,13 @@ export class GetLatestPostHandler implements IQueryHandler<GetLatestPostsQuery> 
             return [];
         }
 
-        function orderbyLatest(allPosts: PostSchema[]) {
-            //order by dateAdded which is the string YYY-MM-DD
-            //i.e dateAdded: "2023-06-30" may be a property of a post
+        async function orderbyLatest(allPosts: PostSchema[]) {
+            
+            //order by dateAdded which is the string YYY-MM-DD, HH:MM:SS
+            //i.e dateAdded: "2023-06-30, 8:16:55 PM" may be a property of a post
             const latestPosts = allPosts.sort((a, b) => {
-                const dateA = a.dateAdded;
-                const dateB = b.dateAdded;
-                return dateA > dateB ? -1 : 1;
-            }
-            );
-            console.log(latestPosts);
+                return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
+            });
             return latestPosts;
         }
     }
