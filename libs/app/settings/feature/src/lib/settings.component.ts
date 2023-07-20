@@ -37,6 +37,8 @@ export class SettingsPage{
   newPassword!: string;
   confirmNewPassword!: string;
 
+  requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
+
   @ViewChild(IonContent, { static: false })
   content!: IonContent;
 
@@ -267,6 +269,7 @@ export class SettingsPage{
         bannerUrl = this.profile.profileBanner;
       }
 
+      console.log(this.bioEdit)
 
       const data: UpdateProfileRequest ={
         username: this.profile.username,
@@ -292,35 +295,27 @@ export class SettingsPage{
   profilePictureUrl = '';
 
   onProfilePictureSelected(event: any): void {
-    // const inputElement = event.target as HTMLInputElement;
-    // const file = inputElement.files?.[0];
-    
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onload = (e) => {
-    //     this.profilePictureUrl = e.target?.result as string;
-    //   };
-    //   reader.readAsDataURL(file);
-    //   console.log('file: ', file);
-    // }
-    const file = event.target.files[0];
-    
-    if (file) {
-      // const reader = new FileReader();
-      // reader.onload = (e) => {
-      //   this.profilePictureUrl = e.target?.result as string;
-      // };
-      // reader.readAsDataURL(file);
-      // console.log('file: ', file);
 
-      this.bannerFile = file;
-      this.bannerName = file.name;
-    }
+    console.log('Profile')
+  const file : File = event.target.files[0];
+  
+  if (file) {
+    // const reader = new FileReader();
+    // reader.onload = (e) => {
+    //   this.profilePictureUrl = e.target?.result as string;
+    // };
+    // reader.readAsDataURL(file);
+    // console.log('file: ', file);
+
+    this.profileFile = file;
+    this.profileName = file.name;
   }
+}
 
   onBannerPictureSelected(event: any): void {
     // const inputElement = event.target as HTMLInputElement;
-    const file = event.target.files[0];
+    console.log('Banner')
+    const file:File = event.target.files[0];
     
     if (file) {
       // const reader = new FileReader();

@@ -137,7 +137,7 @@
           <div class="label-box">
           <ion-label class="info-label">Surname</ion-label>
         </div>
-          <ion-input [(ngModel)]="lastNameEdit" class="info" value={{profile?.lastName}}A></ion-input>
+          <ion-input [(ngModel)]="lastNameEdit" class="info" value={{profile?.lastName}}></ion-input>
         </ion-item>
         <ion-item lines="none">
           <div class="label-box">
@@ -227,15 +227,15 @@
         <ion-item lines="none">
           <ion-label class="info-label">Bio
             <br>
-            <ion-input ([ngModel])="bioEdit" class="info" value={{profile?.bio}}></ion-input>
+            <ion-input [(ngModel)]="bioEdit" class="info" value={{profile?.bio}}></ion-input>
           </ion-label>
         </ion-item>
         <ion-item class="profile-image-container" lines="none">
           <ion-label class="info-label" style="height: 100px;">Profile Picture 
             <ion-avatar>
-              <img src={{profile?.profileImage}} alt="Avatar" class="avatar">
+              <!-- <img src={{profile?.profileImage}} alt="Avatar" class="avatar"> -->
               <div class="overlay-image">
-                <input id="file-input" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" class="file-input">
+                <input id="file-input" type="file" [accept]=requiredFileType (change)="onProfilePictureSelected($event)" class="file-input">
                 <label for="file-input" class="file-label">
                   <ion-icon name="create-outline" class="edit-icon"></ion-icon>
                 </label>
@@ -248,8 +248,8 @@
           <ion-label class="info-label">Banner <br>
             <img style="margin-top: 10px;" src={{profile?.profileBanner}} alt="Avatar" class="banner">
             <div class="overlay-banner">
-              <input id="file-input" type="file" accept="image/*" (change)="onBannerPictureSelected($event)" class="file-input">
-              <label for="file-input" class="file-label">
+              <input id="banner-input" type="file" [accept]=requiredFileType (change)="onBannerPictureSelected($event)" class="file-input">
+              <label for="banner-input" class="file-label">
                 <ion-icon name="create-outline" class="edit-icon"></ion-icon>
               </label>
             </div>
