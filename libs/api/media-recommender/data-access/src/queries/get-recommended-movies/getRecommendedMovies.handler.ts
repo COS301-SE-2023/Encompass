@@ -22,28 +22,29 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             const [allMovies, currentUserProfile] = await Promise.all([allMoviesPromise, currentUserProfilePromise]);
             
             addUserToMovie(allMovies, currentUserProfile?.data);
+            //K-means clustering for Movies where K = sqrt(allMovies.length)
+            const clusters = kmeans(allMovies);
+            //get closest cluster to current user profile
+            const recommendedCluster = getClusterOfCurrentProfile( clusters, userId );
+            console.log("recommendedClusterLength: ");
+            console.log(recommendedCluster[0].clusterMovies.length);
+            //remove current user profile from cluster
+            const recommendedMovies = recommendedCluster[0].clusterMovies.filter(Movie => Movie.MovieId !== userId);
+            console.log("recommendedMoviesLength: ");
+            console.log(recommendedMovies.length);
+            //get recommended Movies from allMovies by _id
+            const recommendedMoviesFromAllMovies = allMovies.filter(Movie => recommendedMovies.some(recommendedMovie => recommendedMovie.MovieId === Movie._id));
+            //limit to 5 max
+            if (recommendedMoviesFromAllMovies.length > 5) {
+                recommendedMoviesFromAllMovies.length = 5;
+            }
 
-            return allMovies;
+            return recommendedMoviesFromAllMovies;
+
         } catch (error) {
             return [];
         }
 
-        function addUserToMovie(allMovies: MovieSchema[], currentUserProfile: any) {
-            //add user profile as one Movie
-            const tempMovie: MovieSchema = {
-                _id: currentUserProfile._id,
-                Release_Date: "", // Assuming the original value is a string in ISO 8601 format
-                Title: currentUserProfile.name,
-                Overview: "",
-                Popularity: 0,
-                Vote_Count: 0,
-                Vote_Average: 0,
-                Original_Language: "en",
-                Genre: currentUserProfile.categories,
-                Poster_Url: "",
-            };
-
-            allMovies.push(tempMovie);
-        }
+        
     }
 }

@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { MovieSchema } from "./movie.schema";
 import { Model } from "mongoose";
+import { MovieDto } from "../../movie.dto";
 
 @Injectable()
 export class MovieDtoRepository{
@@ -14,7 +15,7 @@ export class MovieDtoRepository{
         return await this.movieModel.find();
     }
 
-    async findSome(): Promise<MovieSchema[]> {
+    async findSome(): Promise<MovieDto[]> {
         //choose random 200 movies 
         return await this.movieModel.aggregate([{ $sample: { size: 200 } }]);
     }
