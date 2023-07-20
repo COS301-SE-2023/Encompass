@@ -209,6 +209,22 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
 
         }
 
-        
+        function addUserToMovie(allMovies: MovieDto[], currentUserProfile: any) {
+            //add user profile as one Movie 
+            const tempMovie: MovieDto = {
+                _id: currentUserProfile._id,
+                Release_Date: "", // Assuming the original value is a string in ISO 8601 format
+                Title: currentUserProfile.name,
+                Overview: "",
+                Popularity: 0,
+                Vote_Count: 0,
+                Vote_Average: 0,
+                Original_Language: "en",
+                Genre: currentUserProfile.categories.join(","),
+                Poster_Url: "",
+            };
+
+            allMovies.push(tempMovie);
+        }
     }
 }
