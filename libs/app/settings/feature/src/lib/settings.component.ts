@@ -293,6 +293,7 @@ export class SettingsPage{
   }
 
   profilePictureUrl = '';
+  bannerPictureUrl = '';
 
   onProfilePictureSelected(event: any): void {
 
@@ -472,4 +473,6 @@ export class SettingsPage{
       max: 100,
     },
   ];
+
+
 }
