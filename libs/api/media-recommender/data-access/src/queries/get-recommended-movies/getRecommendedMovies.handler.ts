@@ -82,5 +82,38 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             return clusters;
         }
 
+        function calculateNewCentroids(clusters: { clusterCentroid: number[], clusterMovies: { Movie: number[], MovieId: string }[] }[]) {
+            for(let j = 0; j < clusters.length; j++){
+                if(clusters[j].clusterMovies.length == 0){
+                    continue;
+                }
+                for(let l = 0; l < clusters[0].clusterCentroid.length; l++){
+                    let sum = 0;
+                    for(let k = 0; k < clusters[j].clusterMovies.length; k++){
+                        sum += clusters[j].clusterMovies[k].Movie[l];
+                    }
+                    clusters[j].clusterCentroid[l] = sum / clusters[j].clusterMovies.length; 
+                }   
+            }
+        }
+
+        function arraysAreEqual(array1: number[][], array2: number[][]) {
+            if(array1.length != array2.length){
+                return false;
+            }
+            for(let i = 0; i < array1.length; i++){
+                if(array1[i].length != array2[i].length){
+                    return false;
+                }
+                for(let j = 0; j < array1[i].length; j++){
+                    if(array1[i][j] != array2[i][j]){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        
     }
 }
