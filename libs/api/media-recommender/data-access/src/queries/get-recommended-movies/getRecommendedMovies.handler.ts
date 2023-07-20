@@ -45,6 +45,42 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             return [];
         }
 
-        
+        function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterMovies: { Movie: number[], MovieId: string }[] }[], userId: string ) {
+            const userCluster = clusters.filter(cluster => cluster.clusterMovies.some(Movie => Movie.MovieId === userId));
+            return userCluster;
+        }
+
+        function kmeans(items: MovieDto[]) {
+            const k = defineK(items.length);
+            const MovieArrays = setupMovieArrays(items);
+            const tempMovieArrays = Object.values(MovieArrays);
+            const clusters: { clusterCentroid: number[], clusterMovies: { Movie: number[], MovieId: string }[] }[] = [];
+            //choose k random tempMovieArrays to be cluster centroids
+            for (let i = 0; i < k; i++) {
+                const randomIndex = Math.floor(Math.random() * tempMovieArrays.length);
+                clusters.push({ clusterCentroid: Object.values(tempMovieArrays[randomIndex].Movie) , clusterMovies: [] });
+                tempMovieArrays.splice(randomIndex, 1);
+            }
+
+            let oldCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+            let newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+            //while centroids are changing
+            do{
+                oldCentroids = newCentroids;
+                //assign each Movie to the closest cluster
+                moveToClosestCentroid(MovieArrays, clusters, k);
+                //recalculate the cluster centroids
+                calculateNewCentroids(clusters);
+                newCentroids = clusters.map(cluster => Object.values( cluster.clusterCentroid ));
+                console.log("--------recalculate centroids--------");
+                //print out the number of Movies in each cluster
+                for(let i = 0; i < clusters.length; i++){
+                    console.log("cluster " + i + ": " + clusters[i].clusterMovies.length);
+                }
+            } while ( !arraysAreEqual(oldCentroids, newCentroids) );
+            
+            return clusters;
+        }
+
     }
 }
