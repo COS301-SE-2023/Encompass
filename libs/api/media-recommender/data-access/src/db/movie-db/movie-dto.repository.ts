@@ -15,8 +15,8 @@ export class MovieDtoRepository{
     }
 
     async findSome(): Promise<MovieSchema[]> {
-        //choose random 1024 movies 
-        return await this.movieModel.aggregate([{ $sample: { size: 1024 } }]);
+        //choose random 200 movies 
+        return await this.movieModel.aggregate([{ $sample: { size: 200 } }]);
     }
 
     async findById(id: string){
