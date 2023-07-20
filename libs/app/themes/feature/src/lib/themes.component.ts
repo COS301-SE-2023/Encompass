@@ -1,5 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, RendererFactory2, Injectable, Renderer2 } from '@angular/core';
+import { ProfileDto } from '@encompass/api/profile/data-access';
+import { ProfileState } from '@encompass/app/profile/data-access';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'themes',
@@ -7,6 +12,10 @@ import { Component, Inject, RendererFactory2, Injectable, Renderer2 } from '@ang
   styleUrls: ['./themes.component.scss']
 })
 export class ThemesPage {
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+
+
+  profile!: ProfileDto | null;
 
   activeButton = 'ld';
 
@@ -92,9 +101,15 @@ export class ThemesPage {
 
   renderer: Renderer2;
 
-  constructor(private rendererFactory: RendererFactory2, @Inject(DOCUMENT) private document: Document) { 
+  constructor(private rendererFactory: RendererFactory2, @Inject(DOCUMENT) private document: Document, private store: Store) { 
     this.renderer = this.rendererFactory.createRenderer(null, null);
 
+    this.store.dispatch(new SubscribeToProfile())
+    this.profile$.subscribe(profile => {
+      if(profile){
+        this.profile = profile;
+      }
+    })
   }
 
 
@@ -102,59 +117,72 @@ export class ThemesPage {
     const color = "dark-purple";
 
     this.document.body.setAttribute('color-theme', 'dark');
+    this.updateThemeColour(color)
   }
 
   enableLight() {
     const color = "light-purple";
     this.document.body.setAttribute('color-theme', 'light');
+    this.updateThemeColour(color)
   }
 
   enableDarkRed() {
     const color = "dark-red";
 
     this.document.body.setAttribute('color-theme', 'dark-red');
+    this.updateThemeColour(color)
   }
 
   enableLightRed() {
     const color = "light-red";
 
     this.document.body.setAttribute('color-theme', 'light-red');
+    this.updateThemeColour(color)
   }
 
   enableDarkBlue() {
     const color = "dark-blue";
-
+    console.log('here')
     this.document.body.setAttribute('color-theme', 'dark-blue');
+    this.updateThemeColour(color)
   }
 
   enableLightBlue() {
     const color = "light-blue";
 
     this.document.body.setAttribute('color-theme', 'light-blue');
+    this.updateThemeColour(color)
   }
 
   enableDarkGreen() {
     const color = "dark-green";
 
     this.document.body.setAttribute('color-theme', 'dark-green');
+    this.updateThemeColour(color)
   }
 
   enableLightGreen() {
     const color = "light-green";
 
     this.document.body.setAttribute('color-theme', 'light-green');
+    this.updateThemeColour(color)
   }
 
   enableDarkOrange() {
     const color = "dark-orange";
 
     this.document.body.setAttribute('color-theme', 'dark-orange');
+    this.updateThemeColour(color)
   }
 
   enableLightOrange() {
     const color = "light-orange";
 
     this.document.body.setAttribute('color-theme', 'light-orange');
+    this.updateThemeColour(color)
   }
   
+  updateThemeColour(colour: string){
+
+  }
 }

@@ -149,7 +149,11 @@
       ],
       "@encompass/app/sign-up/util": ["libs/app/sign-up/util/src/index.ts"],
       "@encompass/app/team/feature": ["libs/app/team/feature/src/index.ts"],
+      "@encompass/app/themes/data-access": [
+        "libs/app/themes/data-access/src/index.ts"
+      ],
       "@encompass/app/themes/feature": ["libs/app/themes/feature/src/index.ts"],
+      "@encompass/app/themes/util": ["libs/app/themes/util/src/index.ts"],
       "@encompass/app/tsandcs/feature": [
         "libs/app/tsandcs/feature/src/index.ts"
       ],
