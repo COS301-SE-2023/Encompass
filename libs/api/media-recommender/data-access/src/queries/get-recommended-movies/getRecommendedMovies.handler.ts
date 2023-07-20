@@ -153,6 +153,62 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             }
         }
 
+        function getDistance(clusterCentroid: number[], Movie: { Movie: number[], MovieId: string }) {
+            let distance = 0;
+            for(let i = 0; i < clusterCentroid.length; i++){
+                distance += Math.pow(clusterCentroid[i] - Movie.Movie[i], 2);
+            }
+            return Math.sqrt(distance);
+        }
+
+        function defineK(elements: number) {
+            //define K as the square root of the number of users
+            const k = Math.sqrt(elements);
+            return Math.floor(k);
+        }
+
+        function setupMovieArrays(items: MovieDto[]) {
+            const Movies: { Movie: number[], MovieId: string }[] = [];
+            const MovieIds: string[] = [];
+            const genres: string[] = [];
+
+            items.forEach((item) => {   //test this!!!!
+                MovieIds.push(item._id);
+                //console.log(item._id);
+                //add Genres to genres array, first split the string into an array on ","
+                const genresArray = item.Genre?.split(",");
+                //remove any whitespace from each genre
+                genresArray?.forEach((genre, index) => {
+                    genresArray[index] = genre.trim();
+                });
+                //then add each genre to the genres array if it doesn't already exist
+                genresArray?.forEach((genre) => {
+                    if (!genres.includes(genre)) {
+                        genres.push(genre);
+                    }
+                });
+            });
+
+            //push 0 or 1 to each Movie array in Movies if it has the category, and then add MovieId to the end
+            items.forEach((item) => { //test this!!!!
+                const Movie: { Movie: number[], MovieId: string } = { Movie: [], MovieId: "" };
+
+                genres?.forEach((genresItem) => {
+                    if (item.Genre?.includes(genresItem)) {
+                        Movie.Movie.push(1);
+                    } else {
+                        Movie.Movie.push(0);
+                    }
+                });
+
+                Movie.MovieId = item._id;
+                Movies.push(Movie);
+            });
+
+            return Movies;
+
+        }
+
         
     }
 }
