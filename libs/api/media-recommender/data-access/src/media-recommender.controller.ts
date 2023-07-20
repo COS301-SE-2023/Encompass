@@ -14,12 +14,12 @@ export class MediaRecommenderController {
         );
     }
 
-    /*@Get('movies/:id')
+    @Get('movies/:id')
     async getRecommendedMovies(@Param('id') id: string) {
         return this.queryBus.execute<GetRecommendedBooksQuery, BookDto[]>(
             new GetRecommendedBooksQuery(id),
         );
-    }*/
+    }
 
 }
 
