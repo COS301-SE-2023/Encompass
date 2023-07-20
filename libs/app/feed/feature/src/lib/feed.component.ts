@@ -44,54 +44,52 @@ export class FeedPage {
       if(profile){
         console.log(profile);
         this.profile = profile;
-      }
-    });
 
-
-    this.store.dispatch(new GetAllPosts());
-    this.homePosts$.subscribe((posts) => {
-      if(posts){
-        this.posts = posts;
-        this.size=posts.length-1;
-        // console.log("SIZE: " + this.size)
-        for(let i =0;i<posts.length;i++){
-          this.likedComments.push(false);
-          this.sharing.push(false);
-        }
-
-        for(let i =0;i<posts.length;i++){
-
-              this.reports.push(false);
-              this.postReported.push(false);
-
-              if(posts[i].dateAdded!=null&&posts[i].comments!=null
-                &&posts[i].shares!=null){
-                this.datesAdded.push(posts[i].dateAdded);
-                  this.comments.push(posts[i].comments);
-                  this.shares.push(posts[i].shares);
+        this.store.dispatch(new GetAllPosts(profile._id));
+        this.homePosts$.subscribe((posts) => {
+          if(posts){
+            this.posts = posts;
+            this.size=posts.length-1;
+            // console.log("SIZE: " + this.size)
+            for(let i =0;i<posts.length;i++){
+              this.likedComments.push(false);
+              this.sharing.push(false);
             }
-
-            if(posts!=null&&posts[i].likes!=null){
-                this.likes.push(posts[i].likes?.length);
-                // console.log("OLAH"); 
-                // console.log(posts[i].likes);
-
-                if(this.profile==undefined){
-                  return;}
-                if(posts[i].likes.includes(this.profile.username)){
-                  this.likedComments[i]=true;
+    
+            for(let i =0;i<posts.length;i++){
+    
+                  this.reports.push(false);
+                  this.postReported.push(false);
+    
+                  if(posts[i].dateAdded!=null&&posts[i].comments!=null
+                    &&posts[i].shares!=null){
+                    this.datesAdded.push(posts[i].dateAdded);
+                      this.comments.push(posts[i].comments);
+                      this.shares.push(posts[i].shares);
+                }
+    
+                if(posts!=null&&posts[i].likes!=null){
+                    this.likes.push(posts[i].likes?.length);
+                    // console.log("OLAH"); 
+                    // console.log(posts[i].likes);
+    
+                    if(this.profile==undefined){
+                      return;}
+                    if(posts[i].likes.includes(this.profile.username)){
+                      this.likedComments[i]=true;
+                  }
+                  
+                }
               }
               
-            }
+              // console.log("OLAH AGAIN"); 
+              // console.log(posts);
+    
+    
           }
-          
-          // console.log("OLAH AGAIN"); 
-          // console.log(posts);
-
-
+        })
       }
-    })
-
+    });
 }
 
 

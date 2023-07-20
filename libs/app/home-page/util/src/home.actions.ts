@@ -7,6 +7,7 @@ export class getHome{
 
 export class GetAllPosts{
   static readonly type = '[Home] Get All Posts';
+  constructor(public readonly userId: string){}
 }
 
 export class UpdatePost{

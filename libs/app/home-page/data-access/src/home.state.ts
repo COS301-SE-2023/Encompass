@@ -66,8 +66,8 @@ export class HomeState{
   }
 
   @Action(GetAllPosts)
-  async getAllPosts(ctx: StateContext<HomePostsModel>){
-    const response = await this.homeApi.getAllPosts();
+  async getAllPosts(ctx: StateContext<HomePostsModel>, {userId}: GetAllPosts){
+    const response = await this.homeApi.getAllPosts(userId);
     console.log(response);
 
     if(response == null || response == undefined){

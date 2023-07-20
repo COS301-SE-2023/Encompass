@@ -45,9 +45,9 @@ export class HomeApi{
     }
   }
 
-  async getAllPosts(){
+  async getAllPosts(userId: string){
     try{
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-all').toPromise();
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/' + userId).toPromise();
       return response;
     }
 
