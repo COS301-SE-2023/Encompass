@@ -112,6 +112,7 @@ export class MessagesState{
 
   @Action(SendNotification)
   async sendNotification(ctx: StateContext<MessagesStateModel>, {username, notification}: SendNotification){
+    // console.log("here")
     const user = await this.messagesApi.getProfile(username);
 
     if(user == null || user == undefined){
@@ -125,7 +126,9 @@ export class MessagesState{
     }
 
     if(settings.notifications.dms !== false){
-      ctx.dispatch(new HomeSendNotification(user._id, notification));
+      // console.log("here")
+      // ctx.dispatch(new HomeSendNotification(user._id, notification));
+      this.messagesApi.sendNotification(user._id, notification);
     }
   }
 

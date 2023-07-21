@@ -27,7 +27,7 @@ export class CreateSettingsHandler implements ICommandHandler<CreateSettingsComm
     }
 
     const themes: ThemesSettingsDto ={
-      themeImage: '',
+      themeImage: 'light',
       themeColor: '',
     }
 

@@ -112,6 +112,7 @@ export class HomeState{
 
   @Action(SendNotification)
   async sendNotification(ctx: StateContext<HomeNotificationsModel>, {userId, notification}: SendNotification){
+    // console.log("state")
     await this.homeApi.sendNotification(userId, notification);
   }
   @Selector()
