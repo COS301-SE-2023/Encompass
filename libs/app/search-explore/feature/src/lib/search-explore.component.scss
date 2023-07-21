@@ -3,62 +3,51 @@ ion-card {
   border-radius: 15px;
 }
 
-.overlay-container {
-
-   position: relative;
-     overflow:auto;
-     background-color: #f8f8f8;
-     width: 100%;
-     height: 100%;
-     object-fit: fill;
-     z-index: 1;
-   }
-
-   .custom-header ion-title {
-     font-size: 50px; /* Increase the font size to make the header larger */
-     padding: 16px; /* Increase the padding for more space around the title */
-   }
-
-.searchExporeToolbar {
-  --background: var(--ion-color-secondary);
-  height: 100px;
-  display: flex;
-
-  .active-button {
-    font-weight: bold;
-    background-color: #9b9aa1;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 50px ;
-    
-  }
-}
-
-.toolbar-content {
-  flex: 1;
-  display: flex;
-  align-items: center;
- // margin-bottom: 20px;
-}
-
-ion-searchbar{
-  --border-radius: 50px;
-  --background: var(--ion-color-secondary);
-  --border:2px solid grey;
-  --placeholder-font-style: CustomFont;
-  --icon-colour: #8231DD;
-}
-
 .overlay {
   overflow:auto;
   background-color: #f8f8f8;
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+
+.profileToolbar {
+  --background: var(--ion-color-secondary);
+  height: 140px;
+  display: flex;
+}
+
+.toolbar-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.row-filter {
+  justify-content: space-evenly;
+}
+
+.active-button {
+  background-color: var(--ion-color-secondary-contrast);
+  font-weight: bold;
+  border-radius: 50px;
+}
+
+.buttonStyle {
+  width: 60%;
+  height: 150%;
+  font-size: 18px;
  
 }
 
-//Copied here
+.searchbar {
+  width: 90%;
+  --border-radius: 25px;
+  --background: var(--ion-color-secondary-tint);
+  margin-bottom: 10px;
+}
+
 .overlay-container {
   overflow:auto;
   background-color: #F8F8F8;
@@ -66,6 +55,7 @@ ion-searchbar{
   height: 100%;
   object-fit: fill;
   z-index: 1;
+  margin-top: 10px;
 }
 
 .image-container {
@@ -167,7 +157,7 @@ margin-bottom: 0.5%;
 .posts {
 border: 1px solid var(--ion-color-primary-contrast);
 border-radius: 50px;
-padding: 10px 20px;
+// padding: 10px 20px;
 color: white;
 background-color: var(--ion-color-primary-contrast);
 font-family: CustomFont;
@@ -177,7 +167,7 @@ font-family: CustomFont;
 .comms {
 border: 1px solid var(--ion-color-primary-contrast);
 border-radius: 50px;
-padding: 10px 20px;
+// padding: 10px 20px;
 font-family: CustomFont;
 }
 
@@ -187,16 +177,6 @@ top: 10%
 
 .row-filter {
 justify-content: space-evenly;
-}
-
-.Filter{
-  .active-button {
-    color: #8231DD;
-    font-weight: bold;
-    border-radius: 50px ;
-    border: 1px solid #8231DD;
-  }
-  
 }
 
 
@@ -263,6 +243,8 @@ justify-content: space-evenly;
   width: auto;
 
   }
+
+  
   .Name{
     display: flex;
 align-items: center;
@@ -273,6 +255,14 @@ left: 5%;
 
   }
 
+  .Title:hover{
+    cursor:pointer;
+    color: #8231DD;
+  }
+  .Name:hover{
+    cursor:pointer;
+        color: #8231DD;
+  }
 
   .report{
     font-size: small; position: relative; right: 10%;
@@ -283,6 +273,7 @@ color: #8231DD;
 
 }
   .Options{
+    background-color: #F8F8F8;
   font-size: larger;
   position: relative;
   right:5%;
@@ -407,11 +398,12 @@ color: #8231DD;
 
 
 
-
-  .buttonStyle {
-    width: 60%;
-    height: 100%;
-    font-size: 18px;
+  .active-button-recom {
+    // margin-top: 10px;
+    color: #8231DD;
+    font-weight: bold;
+    border-radius: 50px ;
+    border: 1px solid #8231DD;
   }
 
 ion-card {
@@ -449,9 +441,9 @@ color: black;
 }
 
 .CommunityCard{
-
-background-color: #f0eeee;
-
+left: 2.5%;
+width: 100%;
+background-color: #f8f8f8;
 
 }
 
@@ -558,7 +550,7 @@ justify-content: space-between;
 }
 
 .MediaImage {
-width: 150px;
+width: 165px;
 height: 240px;
 object-fit: fill;
 border-radius: 10px;
@@ -605,45 +597,80 @@ background-color: #F8F8F8;
 
 
 
-.content-row {
+.contentrecs {
 display: flex;
-justify-content: space-around;
-margin-bottom: 10px;
+flex-wrap: wrap;
+// justify-content: space-between;
+margin-left: 20px;
+margin-right: 20px;
+margin-bottom: 20px;
+// align-items: center;
 }
 
-.Media{
+.MediaImage {
+width: 165px;
+height: 240px;
+object-fit: fill;
+border-radius: 10px;
+}
+
+.media-item {
+position: relative;
+flex: 0 0 auto;
+width: inherit;
+height: inherit;  
+margin: 10px;
+}
+
+.media-info {
+border-radius: 10px;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.8);
+color: white;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-width: 60%;
-height: 240px;
-font-family: CustomFont;
+opacity: 0;
+transition: opacity 0.3s ease;
 }
 
-.MediaTitle{
-text-align: center  ;
-width: 100%;
-font-size: 30px;
-
-}
-.MediaDate{
-text-align: center  ;
-width: 100%;
-font-size: 20px;
-
-}
-.MediaAuthor{
-text-align: center  ;
-width: 100%;
-font-size: 20px;
-
+.media-item:hover .media-info {
+opacity: 1;
 }
 
-.MediaGenres{
-display: flex;
-justify-content: space-evenly;
-width: 50%;
+/* Additional styling for the media info */
+.media-info .MediaTitle {
+font-size: 18px;
+font-weight: bold;
 }
 
+.media-info .MediaDate,
+.media-info .MediaAuthor {
+font-size: 14px;
+margin-bottom: 5px;
+}
 
+.media-info .MediaGenres img {
+width: 20px;
+height: 20px;
+margin-right: 5px;
+}
+
+.media-info {
+.imgDiv {
+  filter: invert(1);
+}
+}
+
+.recomcard ion-button {
+pointer-events: none;
+}
+
+ion-button:hover {
+--border-radius: 50px;
+}
