@@ -70,6 +70,7 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
       //append liked posts at the end
     } catch (error) {
       console.log(error);
+      return [];
     }
 
     function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterPosts: { post: number[], postId: string }[] }[], userId: string ) {
@@ -306,7 +307,5 @@ export class GetAllPostsHandler implements IQueryHandler<GetAllPostsQuery> {
         return rest; // Remove the temporary 'popularity' property from the post objects
       });
     }
-
-    return await this.postDtoRepository.findAll();
   }
 }
