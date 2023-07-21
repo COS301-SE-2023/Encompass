@@ -1,8 +1,25 @@
-.overlay {
-  position: relative;
-  height: 100vh; /* Set the height to occupy the full viewport height */
+.theme-page {
+  background-color: var(--ion-color-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh; 
+  // height: fit-content;
+  padding-top: 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--ion-color-text);
   overflow: hidden;
+  position: relative;
 }
+
+// .overlay {
+//   position: relative;
+//   height: 100vh; /* Set the height to occupy the full viewport height */
+//   overflow: hidden;
+// }
 
 .menu-pane {
   position: absolute;

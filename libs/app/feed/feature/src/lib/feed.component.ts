@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
@@ -14,7 +14,10 @@ import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
 import { UpdatePost } from '@encompass/app/home-page/util';
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
@@ -24,7 +27,9 @@ export class FeedPage {
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
+  settings!: SettingsDto | null;
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
@@ -38,7 +43,9 @@ export class FeedPage {
   size=0;
 
 
-  constructor(private router: Router, private store: Store, private modalController: ModalController){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController){
+    const page = document.getElementById('home-page');
+
     this.store.dispatch(new SubscribeToProfile())
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
@@ -46,12 +53,22 @@ export class FeedPage {
         console.log(profile); 
         this.profile = profile;
         this.addPosts("recommended");
+
+        this.store.dispatch(new GetUserSettings(this.profile._id))
+        this.settings$.subscribe(settings => {
+          if(settings){
+            this.settings = settings;
+
+            this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+
+            if(page){
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              // page.style.backgroundImage = "blue";
+            }
+          }
+        })
       }
     });
-
-    
-    
-
 }
 
 async addPosts(type: string){
