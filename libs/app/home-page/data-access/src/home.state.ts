@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
@@ -115,6 +115,24 @@ export class HomeState{
     // console.log("state")
     await this.homeApi.sendNotification(userId, notification);
   }
+
+  @Action(ClearNotification)
+  async clearNotification(ctx: StateContext<HomeNotificationsModel>, {userId, id}: ClearNotification){
+    const response = await this.homeApi.clearNotification(userId, id);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      HomeNotificationsForm: {
+        model: {
+          homeNotifications: response
+        }
+      }
+    })
+  }
+
   @Selector()
   static homePosts(state: HomePostsModel){
     return state.HomePostsForm.model.homePosts;
