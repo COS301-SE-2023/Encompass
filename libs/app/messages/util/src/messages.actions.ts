@@ -37,7 +37,7 @@ export class CreateChat{
   constructor(public usernames: string[]){}
 }
 
-export class SendNotification{
-  static readonly type = '[Messages] Send Notification'
+export class SendingNotification{
+  static readonly type = '[Messages] Sending Notification'
   constructor(public username: string, public notification: AddNotificationRequest){}
 }

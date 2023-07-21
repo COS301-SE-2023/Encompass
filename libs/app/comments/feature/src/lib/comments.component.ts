@@ -273,7 +273,7 @@ for(let i=0;i<this.reply.length;i++){
       }
 
       this.store.dispatch(new UpdatePost(this.post._id, postData));
-      this.store.dispatch(new SendNotification(this.post.username, notification));
+      this.store.dispatch(new SendNotification(comment.username, notification));
     }
 
 

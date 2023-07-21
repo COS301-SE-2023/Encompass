@@ -5,7 +5,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
+import { ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -16,6 +16,7 @@ import { PostDto } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
 import { PopoverController } from '@ionic/angular';
 import { NotificationDto } from '@encompass/api/notifications/data-access';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class HomePage {
   profile! : ProfileDto | null;
   notifications! : NotificationDto | null;
 
-  constructor(private router: Router, private store: Store){
+  constructor(private router: Router, private store: Store, private datePipe: DatePipe){
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -79,6 +80,15 @@ export class HomePage {
   goToEvents(){
     this.routerClick();
     // this.router.navigate(['/home/events']);
+  }
+
+
+  clearNotification(id: string){
+    if(this.profile == null){
+      return;
+    }
+    
+    this.store.dispatch(new ClearNotification(this.profile._id, id));
   }
 
   logout() {

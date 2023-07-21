@@ -65,4 +65,18 @@ export class HomeApi{
       return null;
     }
   }
+
+  async clearNotification(userId: string, id: string){
+    try{
+      const response = await this.httpClient.patch<NotificationDto>('/api/notification/remove/' + userId + '/' + id, null).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+
+      return null
+    }
+  }
 }

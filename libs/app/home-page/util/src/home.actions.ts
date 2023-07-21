@@ -24,3 +24,8 @@ export class SendNotification{
   static readonly type = '[Home] Send Notifications'
   constructor(public readonly userId: string, public readonly notification: AddNotificationRequest){}
 }
+
+export class ClearNotification{
+  static readonly type = '[Home] Clear Notifications'
+  constructor(public readonly userId: string, public readonly id : string){}
+}

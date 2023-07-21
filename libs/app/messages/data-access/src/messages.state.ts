@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ChatDto } from "@encompass/api/chat/data-access";
 import { State, Action, StateContext } from "@ngxs/store";
 import { MessagesApi } from "./messages.api";
-import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SendNotification, SetMessages } from "@encompass/app/messages/util";
+import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SendingNotification, SetMessages } from "@encompass/app/messages/util";
 import { Selector } from "@ngxs/store";
 import { produce } from "immer";
 import { tap } from "rxjs";
@@ -110,8 +110,9 @@ export class MessagesState{
     })
   }
 
-  @Action(SendNotification)
-  async sendNotification(ctx: StateContext<MessagesStateModel>, {username, notification}: SendNotification){
+  @Action(SendingNotification)
+  async sendNotification(ctx: StateContext<MessagesStateModel>, {username, notification}: SendingNotification){
+    // console.log("here")
     const user = await this.messagesApi.getProfile(username);
 
     if(user == null || user == undefined){
@@ -125,7 +126,9 @@ export class MessagesState{
     }
 
     if(settings.notifications.dms !== false){
-      ctx.dispatch(new HomeSendNotification(user._id, notification));
+      console.log("here")
+      // ctx.dispatch(new HomeSendNotification(user._id, notification));
+      this.messagesApi.sendNotification(user._id, notification);
     }
   }
 
