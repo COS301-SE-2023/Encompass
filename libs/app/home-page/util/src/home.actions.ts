@@ -15,7 +15,7 @@ export class GetPopularPosts{
 
 export class GetAllPosts{
   static readonly type = '[Home] Get All Posts';
-  constructor(public readonly userId: string){}
+  constructor(public readonly username: string){}
 }
 
 export class UpdatePost{

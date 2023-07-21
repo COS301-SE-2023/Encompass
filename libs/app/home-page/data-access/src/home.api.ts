@@ -52,7 +52,7 @@ export class HomeApi{
     }
   }
 
-  async sendNotification(userId: string, notification: AddNotificationRequest){ //recommended posts
+  async sendNotification(userId: string, notification: AddNotificationRequest){ 
     try{
       const response = await this.httpClient.patch<NotificationDto>('/api/notification/add/' + userId, notification).toPromise();
 
@@ -66,9 +66,9 @@ export class HomeApi{
     }
   }
 
-  async getAllPosts(){
+  async getAllPosts(username : string){
     try{
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/').toPromise();
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/' + username).toPromise();
       return response;
     }
 

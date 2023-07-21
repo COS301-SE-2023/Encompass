@@ -45,17 +45,22 @@ export class FeedPage {
       if(profile){
         console.log(profile); 
         this.profile = profile;
+        this.addPosts("recommended");
       }
     });
 
     
-    this.addPosts("recommended");
+    
 
 }
 
 async addPosts(type: string){
+  if(this.profile == null){
+    return;
+  }
+
   if (type === "recommended") {
-    this.store.dispatch(new GetAllPosts());
+    this.store.dispatch(new GetAllPosts(this.profile?.username));
   } else if (type === "latest") {
     this.store.dispatch(new GetLatestPosts());
   } else {
