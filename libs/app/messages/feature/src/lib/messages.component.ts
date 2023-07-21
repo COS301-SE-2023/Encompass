@@ -5,7 +5,7 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { MessagesState } from '@encompass/app/messages/data-access';
 import { GateWayAddMessageRequest, ChatDto } from '@encompass/api/chat/data-access';
 import { Select } from '@ngxs/store';
-import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SendNotification } from '@encompass/app/messages/util';
+import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SendingNotification } from '@encompass/app/messages/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -117,7 +117,7 @@ export class MessagesPage implements OnDestroy {
     }
 
     this.store.dispatch(new SendMessage(data));
-    this.store.dispatch(new SendNotification(this.username, notification));
+    this.store.dispatch(new SendingNotification(this.username, notification));
   }
 
   fetchMessages(chatId: string,first: string,last:string,image: string, username: string){

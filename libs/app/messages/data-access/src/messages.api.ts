@@ -96,6 +96,7 @@ export class MessagesApi {
 
     async sendNotification(userId: string, notification: AddNotificationRequest){
       try{
+        console.log("twice")
         const response = await this.http.patch<NotificationDto>('/api/notification/add/' + userId, notification).toPromise();
   
         return response
