@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
@@ -17,6 +18,9 @@ import {CreateCommunityComponent} from '@encompass/app/create-community/feature'
 import { PopoverController } from '@ionic/angular';
 import { NotificationDto } from '@encompass/api/notifications/data-access';
 import { DatePipe } from '@angular/common';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
 
 
 @Component({
@@ -27,17 +31,34 @@ import { DatePipe } from '@angular/common';
 export class HomePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.notifications) notifications$! : Observable<NotificationDto | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
   // @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
 
+  settings!: SettingsDto | null;
   profile! : ProfileDto | null;
   notifications! : NotificationDto | null;
 
-  constructor(private router: Router, private store: Store, private datePipe: DatePipe){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe){
+    const page = document.getElementById('home-page');
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
         console.log(profile);
         this.profile = profile;
+
+        this.store.dispatch(new GetUserSettings(this.profile._id))
+        this.settings$.subscribe(settings => {
+          if(settings){
+            this.settings = settings;
+
+            this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+
+            if(page){
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              // page.style.backgroundImage = "blue";
+            }
+          }
+        })
       }
     })
   }

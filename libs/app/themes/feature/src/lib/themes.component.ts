@@ -127,23 +127,11 @@ export class ThemesPage {
 
     this.store.dispatch(new UpdateThemes(this.profile?._id, data));
     this.profilePictureUrl = imageUrl;
-    // const inputElement = event.target as HTMLInputElement;
-    // const file = inputElement.files?.[0];
-    
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onload = (e) => {
-    //     this.profilePictureUrl = e.target?.result as string;
-  
-    //     // Set the background image directly here
-        const page = document.getElementById('theme-page');
-        if (page) {
-          page.style.backgroundImage = `url(${this.profilePictureUrl})`;
-        }
-    //   };
-    //   reader.readAsDataURL(file);
-    //   console.log('file: ', file);
-    // } 
+   
+    const page = document.getElementById('theme-page');
+    if (page) {
+      page.style.backgroundImage = `url(${this.profilePictureUrl})`;
+    }
   }
 
   async uploadFile() : Promise<string | null>{
@@ -188,6 +176,42 @@ export class ThemesPage {
                   btn.style.border = '4px solid var(--ion-color-warning)';
                 }
               }
+
+
+              const activeBackground = this.settings.themes.themeImage;
+              let background;
+
+              if(activeBackground == 'https://wallpapercave.com/dwp2x/wp10352811.jpg'){
+                background = 'img-purple'
+              }
+
+              else if(activeBackground == 'https://wallpapercave.com/dwp2x/wp7857731.jpg'){
+                background = 'img-red'
+              }
+
+              else if(activeBackground == 'https://wallpapercave.com/dwp2x/wp9339593.jpg'){
+                background = 'img-blue'
+              }
+
+              else if(activeBackground == 'https://wallpapercave.com/dwp2x/wp10352814.jpg'){
+                background = 'img-green'
+              }
+
+              else if(activeBackground == 'https://wallpapercave.com/dwp2x/wp10352821.jpg'){
+                background = 'img-orange'
+              }
+
+              else{
+                background = 'img-own'
+              }
+
+              const button = document.getElementById(background);
+
+              if(button){
+              button.style.border = '4px solid var(--ion-color-warning)';
+              }
+              this.activeImage = this.settings.themes.themeImage;
+
             }
           }
         })

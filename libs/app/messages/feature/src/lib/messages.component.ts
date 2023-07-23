@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -14,6 +14,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessagesDto } from '@encompass/api/chat/data-access';
 import { take } from 'rxjs/operators';
 import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'messages',
@@ -27,9 +31,11 @@ export class MessagesPage implements OnDestroy {
   @Select(MessagesState.chatList) chatList$!: Observable<ChatListDto | null>;
   @Select(MessagesState.messagesDto) chatProfiles$!: Observable<MessagesDto[] | null>;
   @Select(MessagesState.messagesProfile) messagesProfile$!: Observable<ProfileDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   
+  settings!: SettingsDto | null;
   isGetNewChatsDispatched = false;
   isGetUserInformationDispatched = false;
   selectedValue!: ProfileDto;
@@ -47,7 +53,9 @@ export class MessagesPage implements OnDestroy {
   selectedOption!: string;
   selectOpen = false;
 
-  constructor(private store: Store, private router: Router, private formBuilder: FormBuilder){
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, private formBuilder: FormBuilder){
+    const page = document.getElementById('home-page');
+    
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -74,6 +82,19 @@ export class MessagesPage implements OnDestroy {
           }
         })
         
+        this.store.dispatch(new GetUserSettings(profile._id));
+        this.settings$.subscribe((settings) => {
+          if(settings){
+            this.settings = settings;
+
+            this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+
+            if(page){
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              // page.style.backgroundImage = "blue";
+            }
+          }
+        })
       }
     })
 

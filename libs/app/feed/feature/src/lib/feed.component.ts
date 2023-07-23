@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetAllPosts, getHome } from '@encompass/app/home-page/util';
+import { GetAllPosts, GetLatestPosts, GetPopularPosts, getHome } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -14,7 +14,10 @@ import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
 import { UpdatePost } from '@encompass/app/home-page/util';
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
@@ -24,7 +27,9 @@ export class FeedPage {
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
+  settings!: SettingsDto | null;
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
   reports : boolean[] =[];
@@ -32,68 +37,93 @@ export class FeedPage {
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   likes: number[] =[] ;
-   likedComments: boolean[] = [];
-   sharing: boolean[] = [];
-   size=0;
+  likes: number[] =[] ;
+  likedComments: boolean[] = [];
+  sharing: boolean[] = [];
+  size=0;
 
 
-  constructor(private router: Router, private store: Store, private modalController: ModalController){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController){
+    const page = document.getElementById('home-page');
+
+    this.store.dispatch(new SubscribeToProfile())
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
-        console.log(profile);
+        console.log(profile); 
         this.profile = profile;
+        this.addPosts("recommended");
 
-        this.store.dispatch(new GetAllPosts(profile._id));
-        this.homePosts$.subscribe((posts) => {
-          if(posts){
-            this.posts = posts;
-            this.size=posts.length-1;
-            // console.log("SIZE: " + this.size)
-            for(let i =0;i<posts.length;i++){
-              this.likedComments.push(false);
-              this.sharing.push(false);
+        this.store.dispatch(new GetUserSettings(this.profile._id))
+        this.settings$.subscribe(settings => {
+          if(settings){
+            this.settings = settings;
+
+            this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+
+            if(page){
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              // page.style.backgroundImage = "blue";
             }
-    
-            for(let i =0;i<posts.length;i++){
-    
-                  this.reports.push(false);
-                  this.postReported.push(false);
-    
-                  if(posts[i].dateAdded!=null&&posts[i].comments!=null
-                    &&posts[i].shares!=null){
-                    this.datesAdded.push(posts[i].dateAdded);
-                      this.comments.push(posts[i].comments);
-                      this.shares.push(posts[i].shares);
-                }
-    
-                if(posts!=null&&posts[i].likes!=null){
-                    this.likes.push(posts[i].likes?.length);
-                    // console.log("OLAH"); 
-                    // console.log(posts[i].likes);
-    
-                    if(this.profile==undefined){
-                      return;}
-                    if(posts[i].likes.includes(this.profile.username)){
-                      this.likedComments[i]=true;
-                  }
-                  
-                }
-              }
-              
-              // console.log("OLAH AGAIN"); 
-              // console.log(posts);
-    
-    
           }
         })
       }
     });
 }
 
+async addPosts(type: string){
+  if(this.profile == null){
+    return;
+  }
 
+  if (type === "recommended") {
+    this.store.dispatch(new GetAllPosts(this.profile?.username));
+  } else if (type === "latest") {
+    this.store.dispatch(new GetLatestPosts());
+  } else {
+    this.store.dispatch(new GetPopularPosts());
+  }
+  
+  this.homePosts$.subscribe((posts) => {
+    if(posts){
+      this.posts = posts;
+      this.size=posts.length-1;
+      // console.log("SIZE: " + this.size)
+      for(let i =0;i<posts.length;i++){
+        this.likedComments.push(false);
+        this.sharing.push(false);
+      }
 
+      for(let i =0;i<posts.length;i++){
+
+        this.reports.push(false);
+        this.postReported.push(false);
+
+        if(posts[i].dateAdded!=null&&posts[i].comments!=null
+          &&posts[i].shares!=null){
+          this.datesAdded.push(posts[i].dateAdded);
+          this.comments.push(posts[i].comments);
+          this.shares.push(posts[i].shares);
+        }
+
+        if(posts!=null&&posts[i].likes!=null){
+          this.likes.push(posts[i].likes?.length);
+          // console.log("OLAH"); 
+          // console.log(posts[i].likes);
+
+          if(this.profile==undefined){
+            return;
+          }
+          if(posts[i].likes.includes(this.profile.username)){
+            this.likedComments[i]=true;
+          } 
+        }
+      }
+      // console.log("OLAH AGAIN"); 
+      // console.log(posts);
+    }
+  })
+}
 
 async openPopup() {
   const modal = await this.modalController.create({
@@ -288,10 +318,17 @@ async Share(n:number, post: PostDto){
 }
 
 GoToProfile(username: string){
-  this.router.navigate(['user-profile/' + username]);
+  if(this.profile?.username !== username){
+    this.router.navigate(['user-profile/' + username]);
+  }
+
+  else{
+    this.router.navigate(['profile']);
+  }
 }
 
   recChange(){
+    this.addPosts("recommended");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
@@ -306,6 +343,7 @@ GoToProfile(username: string){
   }
 
   newChange(){
+    this.addPosts("latest");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
@@ -318,6 +356,7 @@ GoToProfile(username: string){
   }
 
   popChange(){
+    this.addPosts("popular");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');

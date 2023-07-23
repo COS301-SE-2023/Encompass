@@ -86,7 +86,7 @@ const routes: Routes = [
   {
     path: 'register',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () =>
       import('@encompass/app/sign-up/feature').then((m) => m.SignUpModule)
   },

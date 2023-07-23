@@ -5,9 +5,17 @@ export class getHome{
   static readonly type = '[Home] Get Home';
 }
 
+export class GetLatestPosts{
+  static readonly type = '[Home] Get Latest Posts';
+}
+
+export class GetPopularPosts{
+  static readonly type = '[Home] Get Popular Posts';
+}
+
 export class GetAllPosts{
   static readonly type = '[Home] Get All Posts';
-  constructor(public readonly userId: string){}
+  constructor(public readonly username: string){}
 }
 
 export class UpdatePost{
