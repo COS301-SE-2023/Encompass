@@ -73,7 +73,7 @@
 
         <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
-          <ion-card class = "PostCard">
+          <ion-card class = "PostCard" *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)">
 
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
