@@ -30,3 +30,8 @@ export class GetNewChats{
   static readonly type = '[Messages] Get New Chats'
   constructor(public followingList: string[]){}
 }
+
+export class CreateChat{
+  static readonly type = '[Messages] Create Chat'
+  constructor(public usernames: string[]){}
+}

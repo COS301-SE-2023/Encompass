@@ -4,6 +4,7 @@
     display: flex;
     height: 100vh;
     font-family: CustomFont;
+    margin-left: 20px;
   }
   
   .chat-list {
@@ -39,7 +40,8 @@
   .message {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 
   }
   
@@ -66,7 +68,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
   }
 
   .messages{
@@ -92,6 +95,8 @@
     margin-right: 10px ;
     margin-left: 10px ;
     border : 1px solid #231942;
+    margin-right: 5%;
+
   }
 
   .imgDiv3{

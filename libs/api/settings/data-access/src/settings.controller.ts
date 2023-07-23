@@ -3,11 +3,10 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { CreateSettingsCommand } from "./commands/create-settings/create-settings.command";
 import { GetSettingsQuery } from "./queries/get-settings/get-settings.query";
 import { SettingsDto } from "./settings.dto";
-import { NotificationsSettingsDto, PrivacySettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "./dto";
+import { NotificationsSettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "./dto";
 import { UpdateProfileCommand } from "./commands/update-profile/update-profile.command";
 import { UpdateMessagePermissionsCommand } from "./commands/update-message-permissions/update-message-permissions.command";
 import { UpdateNotificationsCommand } from "./commands/update-notifications/update-notifications.command";
-import { UpdatePrivacyCommand } from "./commands/update-privacy/update-privacy.command";
 import { UpdateThemesCommand } from "./commands/update-themes/update-themes.command";
 
 @Controller('settings')
@@ -62,16 +61,6 @@ export class SettingsController{
   ){
     return await this.commandBus.execute<UpdateNotificationsCommand, SettingsDto>(
       new UpdateNotificationsCommand(userId, notifications)
-    )
-  }
-
-  @Patch('/update-privacy/:userId')
-  async updatePrivacy(
-    @Param('userId') userId: string,
-    @Body() privacy: PrivacySettingsDto
-  ){
-    return await this.commandBus.execute<UpdatePrivacyCommand, SettingsDto>(
-      new UpdatePrivacyCommand(userId, privacy)
     )
   }
 

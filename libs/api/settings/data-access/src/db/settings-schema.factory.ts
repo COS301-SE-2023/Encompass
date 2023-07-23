@@ -13,7 +13,6 @@ export class SettingsSchemaFactory
         profile: settings.getProfile(),
         notifications: settings.getNotifications(),
         messagePermissions: settings.getMessagePermissions(),
-        privacy: settings.getPrivacy(),
         themes: settings.getThemes(),
       }
     }
@@ -24,7 +23,6 @@ export class SettingsSchemaFactory
         entitySchema.profile,
         entitySchema.notifications,
         entitySchema.messagePermissions,
-        entitySchema.privacy,
         entitySchema.themes,
       )
     }

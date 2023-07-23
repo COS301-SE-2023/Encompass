@@ -20,11 +20,6 @@
       <ion-icon name="chatbubble" aria-hidden="true" class="ion-padding-end"></ion-icon>
       <ion-label>Messaging</ion-label>
     </ion-button>
-
-    <ion-button id="privBtn" class="none buttonStyle" fill="clear" (click)="eventChange('privBtn'); scrollTo('privacy-settings')">
-      <ion-icon name="eye-off" aria-hidden="true" class="ion-padding-end"></ion-icon>
-      <ion-label>Privacy</ion-label>
-    </ion-button>
   </div>
 </ion-toolbar>
 
@@ -32,13 +27,12 @@
 
   <div id="account-settings" class="account-settings settings">
     <ion-header class="header">Account Settings
-      <ion-buttons>
-        <ion-button class="edit-icons">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+        <div class="edit-icons">
+          <ion-icon id="account-editButton" class="default" name="create-outline" (click)="edit('account')"></ion-icon>
+          <ion-button id="account-saveButton" fill="clear" class="active-button saveBtn onClick" (click)="save('account')">Save</ion-button>
+        </div>
     </ion-header>
-    <div class="content">
+    <div id="account-default" class="content">
       <ion-list class="custom-list">
         <ion-item lines="none">
           <ion-label class="info-label">Name</ion-label>
@@ -50,35 +44,159 @@
           <ion-label class="info">{{profile?.lastName}}</ion-label>
           <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
-        <ion-item lines="none">
+        <!-- <ion-item lines="none">
           <ion-label class="info-label">Username</ion-label>
           <ion-label class="info">@{{profile?.username}}</ion-label>
           <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
-        </ion-item>
+        </ion-item> -->
         <ion-item lines="none">
           <ion-label class="info-label">Email</ion-label>
-          <ion-label class="info">thisismyverygoodemail@gmail.com</ion-label>
+          <ion-label class="info-text">thisismyverygoodemail@gmail.com</ion-label>
           
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">Password <br> <a>Passwords must be at least 8 characters long</a></ion-label>
-          <ion-label class="info">*******</ion-label> 
+          <ion-label class="info-label">Username</ion-label>
+          <ion-label class="info-text">@{{profile?.username}}</ion-label>
+          
+        </ion-item>
+        
+        <ion-item lines="none">
+          <label class="info-label">Password <br> <a>Passwords must be at least 8 characters long</a></label>
+          <ion-label class="info-text">*******</ion-label> 
           <!-- //this does not change -->
           
         </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">NSFW <br> <a>Allow Not Safe For Work contet to show on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChanged($event, 'age-restricted')"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">People Blocked</ion-label>
+          <ion-icon id="open-modal" name="chevron-forward" color="dark" class="edit-icons blocked-arrow"></ion-icon>
+        </ion-item>
       </ion-list>
     </div>
+
+    <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Modal</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="modal.dismiss()">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>Connor Smith</h2>
+                <p>Sales Rep</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>Daniel Smith</h2>
+                <p>Product Designer</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>Greg Smith</h2>
+                <p>Director of Operations</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>Zoey Smith</h2>
+                <p>CEO</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <div id="account-click" class="content onClick">
+      <ion-list class="custom-list">
+        <ion-item lines="none">
+          <div class="label-box">
+          <ion-label class="info-label">Name</ion-label>
+        </div>
+          <ion-input class="info" value="Ronin"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="label-box">
+          <ion-label class="info-label">Surname</ion-label>
+        </div>
+          <ion-input class="info" value="Brookes"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="label-box">
+          <ion-label class="info-label">Email</ion-label>
+        </div>
+          <ion-input class="info" value="thisismyverygoodemail@gmail.com"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <div class="label-box">
+          <ion-label class="info-label">Username</ion-label>
+        </div>
+          <ion-label class="info-text">@roninbrookes</ion-label>
+        </ion-item>
+        <ion-item class="info-box" lines="none">
+          <div class="label-box">
+            <label class="info-label">
+              Password <br>
+              <a>Passwords must be at least 8 characters long</a>
+            </label>
+          </div>
+          <ion-label class="pass">*******</ion-label> 
+          <ion-icon id="present-alert" name="pencil" class="edit-icons"></ion-icon>
+          <ion-alert
+            trigger="present-alert"
+            header="Enter new Password"
+            [buttons]="alertButtons"
+            [inputs]="alertInputs"
+          ></ion-alert>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">NSFW <br> <a>Allow Not Safe For Work contet to show on your feed</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChanged($event, 'age-restricted')"></ion-toggle><br /><br />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="info-label">People Blocked</ion-label>
+          <ion-icon id="open-modal" name="chevron-forward" color="dark" class="edit-icons blocked-arrow"></ion-icon>
+        </ion-item>
+        
+      </ion-list>
+    </div>
+    
   </div>
+
+  
 
   <div id="profile-settings" class="profile-settings settings">
     <ion-header class="header">Profile Customization Settings
-      <ion-buttons>
-        <ion-button class="edit-icons">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <div class="edit-icons">
+        <ion-icon id="profile-editButton" name="create-outline" (click)="edit('profile')"></ion-icon>
+        <ion-button id="profile-saveButton" fill="clear" class="active-button saveBtn onClick" (click)="save('profile')">Save</ion-button>
+      </div>
     </ion-header>
-    <div class="content">
+    
+    <div id="profile-default" class="content">
       <ion-list class="custom-list">
         <ion-item lines="none">
           <ion-label class="info-label">Bio
@@ -101,19 +219,57 @@
           <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">Private Profile
-            <br>
-            <a>Only people you approve can see your profile</a>
-          </ion-label>
-          <ion-toggle labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none">
           <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit--toggle"></ion-toggle><br /><br />
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit--toggle" (ionChange)="toggleChanged($event, 'follow-permissions')"></ion-toggle><br /><br />
         </ion-item>
       </ion-list>
     </div>
-  </div>
+  
+
+    <div id="profile-click" class="content onClick">
+      <ion-list class="custom-list">
+        <ion-item lines="none">
+          <ion-label class="info-label">Bio
+            <br>
+            <ion-input class="info" value="This is my bio"></ion-input>
+          </ion-label>
+        </ion-item>
+        <ion-item class="profile-image-container" lines="none">
+          <ion-label class="info-label" style="height: 100px;">Profile Picture 
+            <ion-avatar>
+              <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+              <div class="overlay-image">
+                <input id="file-input" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" class="file-input">
+                <label for="file-input" class="file-label">
+                  <ion-icon name="create-outline" class="edit-icon"></ion-icon>
+                </label>
+              </div>
+            </ion-avatar>
+          </ion-label>
+        </ion-item>
+        
+        <ion-item class="profile-banner-container" lines="none">
+          <ion-label class="info-label">Banner <br>
+            <img style="margin-top: 10px;" src="https://learn.canva.com/wp-content/uploads/2020/02/removing-background-images_Unsplash.jpeg" alt="Avatar" class="banner">
+            <div class="overlay-banner">
+              <input id="file-input" type="file" accept="image/*" (change)="onBannerPictureSelected($event)" class="file-input">
+              <label for="file-input" class="file-label">
+                <ion-icon name="create-outline" class="edit-icon"></ion-icon>
+              </label>
+            </div>
+          </ion-label>
+        </ion-item>
+        
+        <ion-item lines="none">
+          <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-toggle" (ionChange)="toggleChanged($event, 'follow-permissions')"></ion-toggle><br /><br />
+        </ion-item>
+      </ion-list>
+    </div>
+
+</div>
+
+
 
   <div id="notifications-settings" class="notification-settings settings">
     <ion-header class="header">Notifications Settings</ion-header>
@@ -121,31 +277,23 @@
       <ion-list class="custom-list">
         <ion-item lines="none">
           <ion-label class="info-label">DMs <br> <a>Send notifications if you've received a personal message</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChanged($event, 'DMs')"></ion-toggle><br /><br />
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Follows <br> <a>Send notifications if someone has followed you</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Post Mentions <br> <a>Send notifications if you were tagged in a post</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Comment Mentions <br> <a>Send notifications if you were tagged in a comment</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChanged($event, 'Follows')"></ion-toggle><br /><br />
         </ion-item>
         <ion-item lines="none">
           <ion-label class="info-label">Comment Replies <br> <a>Send notifications if there was a reply to a comment</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChanged($event, 'Comm-replies')"></ion-toggle><br /><br />
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">recommended Posts <br> <a>Send notifications of new recommended posts</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
+          <ion-label class="info-label">Recommended Posts <br> <a>Send notifications of new Recommended posts</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChanged($event, 'rec-posts')"></ion-toggle><br /><br />
         </ion-item>
         <ion-item lines="none">
-          <ion-label class="info-label">recommended Content and Communities <br> <a>Send notifications of new recommended content or communities</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
+          <ion-label class="info-label">Recommended Content and Communities <br> <a>Send notifications of new recommended content or communities</a></ion-label>
+          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChanged($event, 'rec-cc')"></ion-toggle><br /><br />
         </ion-item>
       </ion-list>
     </div>
@@ -157,42 +305,14 @@
       <ion-list class="custom-list">
         <ion-item lines="none">
           <ion-label class="info-label">Who can send you messages</ion-label>
-          <ion-select placeholder="Everyone">
-            <ion-select-option value="everyone">Everyone</ion-select-option>
+          <ion-select placeholder="Followers Only">
             <ion-select-option value="followers-only">Followers Only</ion-select-option>
             <ion-select-option value="noone">No One</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Mark all as read</ion-label>
-          <ion-button fill="clear" class="active-button">Mark as Read</ion-button>
-        </ion-item>
       </ion-list>
     </div>
-  </div>
 
-  <div id="privacy-settings" class="privacy-settings settings">
-    <ion-header class="header">Privacy Settings</ion-header>
-    <div class="content">
-      <ion-list class="custom-list">
-        <ion-item lines="none">
-          <ion-label class="info-label">People Blocked</ion-label>
-          <ion-icon name="chevron-forward" color="dark" class="edit-icons"></ion-icon>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Personalize Posts <br> <a>Give specialized posts on your feed</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Personalize Communities <br> <a>Give specialized communities on your feed</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="info-label">Personalize Content <br> <a>Give specialized content on your feed</a></ion-label>
-          <ion-toggle [checked]="true" labelPlacement="start" class="edit-icons-toggle"></ion-toggle><br /><br />
-        </ion-item>
-      </ion-list>
-    </div>
   </div>
   
 

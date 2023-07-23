@@ -1,5 +1,5 @@
 import { AggregateRoot } from "@nestjs/cqrs";
-import { NotificationsSettingsDto, PrivacySettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "./dto";
+import { NotificationsSettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "./dto";
 
 
 export class Settings extends AggregateRoot{
@@ -8,7 +8,6 @@ export class Settings extends AggregateRoot{
     public profile: ProfileSettingsDto,
     public notifications: NotificationsSettingsDto,
     public messagePermissions: string,
-    public privacy: PrivacySettingsDto,
     public themes: ThemesSettingsDto,
   ){
     super();
@@ -30,10 +29,6 @@ export class Settings extends AggregateRoot{
     return this.messagePermissions;
   }
 
-  getPrivacy(): PrivacySettingsDto {
-    return this.privacy;
-  }
-
   getThemes(): ThemesSettingsDto {
     return this.themes;
   }
@@ -44,10 +39,6 @@ export class Settings extends AggregateRoot{
 
   updateProfile(profile: ProfileSettingsDto){
     this.profile = profile
-  }
-
-  updatePrivacy(privacy: PrivacySettingsDto){
-    this.privacy = privacy
   }
 
   updateMessagePermissions(messagePermissions: string){
