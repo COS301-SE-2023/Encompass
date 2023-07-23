@@ -103,7 +103,7 @@
 
       <ion-col size="4">
         
-        <div *ngIf="profile != null && userProfile != null">
+        <div *ngIf="profile != null && userProfile != null && userProfileSettings != null">
         <ion-card class = "curve">
           <div style="position: relative">
           <img class="profilePicture" src={{userProfile?.profileImage}} onerror="this.src='assets/icon/Profile.png';"  />
@@ -119,7 +119,7 @@
             <ion-icon name="share-social"></ion-icon>
           </ion-button>
           <ion-button
-            *ngIf="!profile.following.includes(userProfile.username)"
+            *ngIf="!profile.following.includes(userProfile.username) && userProfileSettings.profile.followPermission == true"
             fill="clear"
             size="medium"
             color="dark"

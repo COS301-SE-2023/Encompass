@@ -318,7 +318,13 @@ async Share(n:number, post: PostDto){
 }
 
 GoToProfile(username: string){
-  this.router.navigate(['user-profile/' + username]);
+  if(this.profile?.username !== username){
+    this.router.navigate(['user-profile/' + username]);
+  }
+
+  else{
+    this.router.navigate(['profile']);
+  }
 }
 
   recChange(){
