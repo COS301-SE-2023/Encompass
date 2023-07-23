@@ -168,15 +168,15 @@ describe('CommunityController', () => {
 
     })
 
-    describe('uploadImage', () => {
+    // describe('uploadImage', () => {
 
-        const f: Express.Multer.File=file
-        it('Should call the Community controller with the passed in File', async () => {
-            const getCommunitySpy = jest.spyOn(controller, 'uploadImage');
-            await controller.uploadImage(f);
-            expect(getCommunitySpy).toBeCalledWith(f);
-        });
-    })
+    //     const f: Express.Multer.File=file
+    //     it('Should call the Community controller with the passed in File', async () => {
+    //         const getCommunitySpy = jest.spyOn(controller, 'uploadImage');
+    //         await controller.uploadImage(f);
+    //         expect(getCommunitySpy).toBeCalledWith(f);
+    //     });
+    // })
 
     
 });

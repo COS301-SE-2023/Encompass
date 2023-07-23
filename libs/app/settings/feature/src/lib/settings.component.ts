@@ -419,30 +419,59 @@ export class SettingsPage{
     })
   }
 
-  async presentAlert() {
-    return new Promise<void>(async (resolve) => {
-      const alert = await this.alertController.create({
+  // async presentAlert() {
+  //   return new Promise<void>(async (resolve) => {
+  //     const alert = await this.alertController.create({
+  //       header: 'Enter new Password',
+  //       buttons: this.alertButtons,
+  //       inputs: this.alertInputs,
+  //     });
+
+  //     await alert.present();
+
+  //     alert.onDidDismiss().then((data) => {
+  //       if (data && data.role === 'save') {
+  //         const enteredData = data.data.values;
+  //         if (enteredData) {
+  //           this.newPassword = enteredData.pass;
+  //           this.confirmNewPassword = enteredData.confirmPass;
+  //           console.log('New Password:', this.newPassword);
+  //           console.log('Confirm New Password:', this.confirmNewPassword);
+
+  //           // You can use the captured values 'this.newPassword' and 'this.confirmNewPassword' as needed.
+  //         }
+  //       }
+
+  //       resolve();
+  //     });
+  //   });
+  // }
+
+  presentAlert(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      const alert = this.alertController.create({
         header: 'Enter new Password',
         buttons: this.alertButtons,
         inputs: this.alertInputs,
       });
-
-      await alert.present();
-
-      alert.onDidDismiss().then((data) => {
-        if (data && data.role === 'save') {
-          const enteredData = data.data.values;
-          if (enteredData) {
-            this.newPassword = enteredData.pass;
-            this.confirmNewPassword = enteredData.confirmPass;
-            console.log('New Password:', this.newPassword);
-            console.log('Confirm New Password:', this.confirmNewPassword);
-
-            // You can use the captured values 'this.newPassword' and 'this.confirmNewPassword' as needed.
+  
+      alert.then((alertEl) => {
+        alertEl.present();
+        alertEl.onDidDismiss().then((data) => {
+          if (data && data.role === 'save') {
+            const enteredData = data.data.values;
+            if (enteredData) {
+              this.newPassword = enteredData.pass;
+              this.confirmNewPassword = enteredData.confirmPass;
+              console.log('New Password:', this.newPassword);
+              console.log('Confirm New Password:', this.confirmNewPassword);
+  
+              // You can use the captured values 'this.newPassword' and 'this.confirmNewPassword' as needed.
+            }
           }
-        }
-
-        resolve();
+  
+          resolve();
+        });
       });
     });
   }
