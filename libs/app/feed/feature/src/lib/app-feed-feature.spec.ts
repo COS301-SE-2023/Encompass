@@ -1,5 +1,5 @@
 import { appFeedFeature } from './app-feed-feature';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FeedPage } from './feed.component';
 
