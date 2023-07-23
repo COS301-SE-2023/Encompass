@@ -229,10 +229,9 @@
                        <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
                    </div>
                    <div class = "CommunityAdd">
-                     <ion-icon name="add-circle-outline" style="
-                     font-size: 50px;
-                     color: #231942;
-                     "></ion-icon>
+                    <button id="toggleButton1" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton1'] }" (click)="handleButtonClick('toggleButton1')">
+                      <i id="icon1" class="icon fas" [ngClass]="buttonStates['toggleButton1'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                    </button>
                    </div>
                    </div>
                    <div class = "CommunityBody">
@@ -261,10 +260,9 @@
                       </div>
                    </div>
                    <div class = "CommunityAdd">
-                     <ion-icon name="add-circle-outline" style="
-                     font-size: 50px;
-                     color: #231942;
-                     "></ion-icon>
+                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2')">
+                      <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                    </button>
                    </div>
                    </div>
                    <div class = "CommunityBody">

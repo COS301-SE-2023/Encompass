@@ -389,5 +389,13 @@ GoToProfile(username: string){
     this.collapse2 = !this.collapse2;
   }
 
+  buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
+
+  handleButtonClick(buttonId: string) {
+    this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+  }
+
+
+
 
 }

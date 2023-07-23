@@ -554,6 +554,41 @@ display: flex;
   padding-bottom: 15px;
 }
 
+// Import FontAwesome styles
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+// Button styles
+.cta {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.icon {
+  
+  transition: all 0.3s ease;
+}
+
+.fa-plus-circle {
+  font-size: 30px;
+  color: var(--ion-color-primary); // Blue color for the "add" icon
+}
+
+.fa-check {
+  font-size: 26px;
+  color: var(--ion-color-warning); // Green color for the "check" icon
+}
+
+// Button animation on click
+.cta.clicked {
+  transform: scale(1.1);
+}
+
+.icon.clicked {
+  transform: rotate(45deg);
+}
 
 
 //content
