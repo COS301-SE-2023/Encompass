@@ -1,635 +1,505 @@
+//Page
 ion-card {
-  background-color: #f8f8f8;
+  background-color: var(--card-color);
   border-radius: 15px;
 }
 
-.overlay-container {
+//Posts
 
-  // position: relative;
-     overflow:auto;
-     background-color: #f8f8f8;
-     width: 100%;
-     height: 100%;
-     object-fit: fill;
-     z-index: 1;
-   }
+.PostCard{
+// background-color: #f8f8f8;
+z-index: 2;
 
-   .custom-header ion-title {
-     font-size: 50px; /* Increase the font size to make the header larger */
-     padding: 16px; /* Increase the padding for more space around the title */
-   }
-   .btn1{
-     border: 1px solid var(--ion-color-primary-contrast);
-     border-radius: 30px;
-     background-color: #CECAE3;
-     color:#231942;
-     position: relative;
-     z-index: 3;
-     width: 80%;
-     height: 60%;
-     font-family: CustomFont;
-     text-transform: none;
-
-   }
-   .btn2{
-     border: 1px solid var(--ion-color-primary-contrast);
-     border-radius: 30px;
-     background-color: #F0EFEF;
-     color:#231942;
-     position: relative;
-     z-index: 3;
-     width:80%;
-     height: 60%;
-
-     font-family: CustomFont;
-     text-transform: none;
-   }
-
-   .buttons{
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     height: 14%;
-
-   }
-
-   .MenuButton{
-     font-size: larger;
-     position: relative;
-     font-family: CustomFont;
-      height: 7% ;
-      display: flex;
-      align-items: center;
-      left: 15%;
-
-
-   }
-
-
-   .menuFooter{
-     width: 100%;
-       height: 7%;
-       position: absolute;
-       top:93%;
-       font-size: 50px;
-       color: #231942;
-       display: flex;
-       justify-content: space-between;
-
-   }
-
-
-   .menu {
-     background-color: #F0EFEF;
-     border-right: 2px solid #D1D0D0;
-     width: 350px;
-     height: 100%;
-     display: flex;
-     flex-direction: column;
-
-
-   }
-
-   .logo {
-   position: relative;
-   right: 5%;
-     z-index: 3;
-     width: 60px;
-     height: 60px;
-
-   }
-
-   .space{
-     width: 100%;
-     height: 5%;
-   }
-   .Overlayt {
-     display: flex;
-     justify-content: center;
-     align-items: end ;
-     position: relative;
-     bottom:2%;
-     z-index: 1;
-      width: 100%;
-     font-size: 200%;
-     height: 10%;
-     color: #231942;
-     font-family: CustomFont;
-
-   }
-
-   .PostCard{
-    background-color: #f8f8f8;
-    z-index: 2;
-
-  }
-
-   .PostCardHeader{
-    display: flex;
-    justify-content: center;
-    height: 35%;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    }
-
-    .PostImageContainer{
-      width: 15%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      }
-    .PostBody{
-    display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50%;
-        width: 100%;
-        // background-color: #F0EFEF;
-    }
-
-    .PostBody:hover{
-      cursor: pointer;
-    }
-
-    .PostFooter{
-      display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 97%;
-      }
-
-
-      .icons{
-        height: 50%;
-        width: 30%;
-        color:#231942;
-        display: flex;
-        justify-content: space-around;
-        position: relative;
-         padding-bottom: 2%;
-         padding-top:1%;
-        }
-
-        #icons2{
-          font-size: 25px;
-          color:#231942;
-
-          }
-
-        #icons2:hover{
-          color: purple;
-          cursor: pointer;
-        }
-
-      // .icons2{
-      // // background-color: wheat;
-      // font-size: 30px;
-      // color:#231942;
-      // display: flex;
-      // flex-direction: row;
-      // justify-content: space-around;
-      // }
-
-  .stats{
-
-    font-size: 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-
-    }
-
-    .date{
-      font-family: CustomFont;
-      font-size: 15px;
-        width: 20%;
-      height: 25%;
-      position: relative;
-      // background-color: #231942;
-      display: flex;
-      // justify-content: center;
-      // top: 25%;
-      margin-left: 3%;
-    }
-
-
-    .text{
-      width: 97%;
-      height: 90%;
-      // background-color: #231942;
-      font-family: CustomFont;
-      font-size: medium;
-      color: #000000;
-      margin-left: 3%;
-      margin-right: 3%;
-      display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    }
-
-
-
-    .postImage{
-      width:70px;
-        height: 70px;
-        object-fit: fill;
-        border-radius: 15px;
-      }
-
-  .PostDetails{
-    display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 82%;
-  }
-
-
-  .TitleNameOptions{
-    display: flex;
-    justify-content: space-between;
-    height: 30%;
-    width: 100%;
-    color: black;
-    font-family: CustomFont;
-    font-size: 20px;
 }
 
-    .Title{
-      display: inline-block;
-      width: auto;
-
-      }
-
-      .Name{
-        display: flex;
-  align-items: center;
-  font-size: 15px;
-  position: relative;
-  font-family: CustomFont2;
-  left: 5%;
-
-      }
-
-      .Title:hover{
-        cursor:pointer;
-        color: #8231DD;
-      }
-      .Name:hover{
-        cursor:pointer;
-            color: #8231DD;
-      }
-    .DOT{
-      // background-color: red;
-      font-size: larger;
-      display: flex;
-      position: relative;
-      right: 15%;
-      margin-bottom: 8px;
-    }
-
-    .Options{
-      font-size: larger;
-      position: relative;
-      right:5%;
-      background-color: #f8f8f8;
-      }
-
-      .Options:hover{
-        color: #8231DD;
-      }
-
-     .Options2{
-      background-color: #ECECEC;
-     font-size: larger;
-     position: relative;
-     padding-right: 30px;
-
-     }
-
-
-     .GenreIcons{
-      display: flex;
-      justify-content: center;
-      justify-content: space-between;
-      align-items: center;
-      height: 30%;
-      color: black;
-      font-family: CustomFont;
-      margin-left: 1.5%;
-
-      }
-
-
-    .imgDiv{
-      width: 25px;
-      height: 25px;
-      object-fit: fill;
-    }
-
- 
-
-    .buttonStyle {
-      width: 60%;
-      height: 150%;
-      font-size: 18px;
-     
-    }
-
-    .active-button {
-      background-color: var(--ion-color-secondary-contrast);
-      font-weight: bold;
-      border-radius: 50px;
-    }
-
-ion-card {
-  background-color: #f8f8f8;
+.PostCardHeader{
+display: flex;
+justify-content: center;
+height: 35%;
+width: 100%;
+margin-top: 10px;
+margin-bottom: 10px;
 }
 
- .Bottom{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      position: relative;
-      top:2%;
- }
+.PostImageContainer{
+width: 15%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.PostBody{
+display: flex;
+justify-content: center;
+align-items: center;
+height: 50%;
+width: 100%;
+// background-color: #F0EFEF;
+}
 
- .Top{
-  width: 100%;
-  height:60%;
-  display: flex;
-  flex-direction: column;
- }
+.PostBody:hover{
+cursor: pointer;
+}
 
- .ProfileFilterContainer{
-  width: 100%;
-  height : 20%;
-  position: relative;
-  display: flex;
-  justify-content: center;
- }
-
- .ProfileFilter{
-      width:97%;
-      background-color: #CECAE3;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-radius: 0px 0px 15px 15px;
-
- }
-
- .profileFilterOption{
-  text-align: center;
-  display: flex;
+.PostFooter{
+display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  width: 20%;
-  height: 80%;
-  font-size: 30px;
-  font-family: CustomFont;
-
- }
-
- .ProfileCardsContainer{
-      width: 100%;
-      height: 80%;
-      position: relative;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-
- }
-
- .ProfileCards{
-  background-color:white ;
   width: 97%;
-  height: 97%;
-  position: relative;
-  top: 3%;
-  border-radius: 15px 15px 0px 0px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+}
 
- }
 
- .ProfileDetails{
-  background-color: #f8f8f8;
-  width: 50%;
-  height: 85%;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
- }
+.icons{
+height: 50%;
+width: 30%;
+color:#231942;
+display: flex;
+justify-content: space-around;
+position: relative;
+  padding-bottom: 2%;
+  padding-top:1%;
+}
 
- .ProfileMsc{
-  background-color: white;
-  width: 40%;
-  height: 85%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
- }
+#icons2{
+  font-size: 25px;
+  color:#231942;
 
- .ProfileImage{
-  width: 100%;
-  height: 50%;
- background-color: #231942;
- border-radius: 15px 15px 0px 0px;
- display: flex;
-  flex-direction: column;
-  justify-content: end;
+  }
 
- }
+#icons2:hover{
+  color: var(--hover-color);
+  cursor: pointer;
+}
 
- .pImage{
-  width:120px;
-  height: 120px;
-  border-radius: 50%;
-  position: relative;
-  object-fit: fill;
-  bottom:4%;
-  left: 2%;
- }
+// .icons2{
+// // background-color: wheat;
+// font-size: 30px;
+// color:#231942;
+// display: flex;
+// flex-direction: row;
+// justify-content: space-around;
+// }
 
- .ProfileText{
-  width: 100%;
-  height: 50%;
- background-color: #f8f8f8;
- border-radius: 0px 0px 15px 15px;
+.stats{
 
- }
+font-size: 15px;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
 
- .ProfileTextHeader{
-  font-family: CustomFont;
-  height: 30%;
+}
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
- }
+.date{
+font-family: CustomFont;
+font-size: 15px;
+width: 20%;
+height: 25%;
+position: relative;
+// background-color: #231942;
+display: flex;
+// justify-content: center;
+// top: 25%;
+margin-left: 3%;
+}
 
- .ProfileName{
-  font-size: 15px;
-  position: relative;
-  left:3%;
- }
- .ProfileIcons{
-  font-size: 30px;
-  position: relative;
-  right:3%;
- }
- .ProfileBio{
-  font-family: CustomFont2;
 
-  height: 25%;
-  position: relative;
-  left: 3%;
+.text{
+width: 97%;
+height: 90%;
+// background-color: #231942;
+font-family: CustomFont;
+font-size: medium;
+color: #000000;
+margin-left: 3%;
+margin-right: 3%;
+display: -webkit-box;
+-webkit-line-clamp: 5;
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+
+
+.postImage{
+width:70px;
+height: 70px;
+object-fit: fill;
+border-radius: 15px;
+}
+
+.PostDetails{
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+width: 82%;
+}
+
+
+.TitleNameOptions{
+display: flex;
+justify-content: space-between;
+height: 30%;
+width: 100%;
+color: black;
+font-family: CustomFont;
+font-size: 20px;
+}
+
+.Title{
+display: inline-block;
+width: auto;
+
+}
+
+.Name{
+display: flex;
+align-items: center;
+font-size: 15px;
+position: relative;
+font-family: CustomFont2;
+left: 5%;
+
+}
+
+.Title:hover{
+cursor:pointer;
+color: var(--hover-color);
+}
+.Name:hover{
+cursor:pointer;
+    color: var(--hover-color);
+}
+.DOT{
+// background-color: red;
+font-size: larger;
+display: flex;
+position: relative;
+right: 15%;
+margin-bottom: 8px;
+}
+
+.Options{
+font-size: larger;
+position: relative;
+right:5%;
+background-color: var(--card-color);
+}
+
+.Options:hover{
+color: var(--hover-color);
+}
+
+.Options2{
+background-color: var(--card-color);
+font-size: larger;
+position: relative;
+padding-right: 30px;
+
+}
+
+
+.GenreIcons{
+display: flex;
+justify-content: center;
+justify-content: space-between;
+align-items: center;
+height: 30%;
+color: black;
+font-family: CustomFont;
+margin-left: 1.5%;
+
+}
+
+
+.imgDiv{
+width: 25px;
+height: 25px;
+object-fit: fill;
+}
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////
+
+.buttonStyle {
   width: 60%;
-  font-size: 12px;
- }
- .ProfileFooter{
-  height: 45%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  height: 150%;
+  font-size: 18px;
 
- }
- .ProfileStat{
-  font-family: CustomFont;
-  text-align: center;
-  font-size: 12px;
-  width: 20%;
-  height: 50%;
-  background-color: #CECAE3;
-  border-radius: 15px;
- }
+  span {
+    color: var(--ion-color-text);
+  }
+}
 
- .Awards{
-  font-family: CustomFont;
-  width: 100%;
-  height: 48%;
-  border-radius: 15px;
-  background-color: #f8f8f8;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
- }
-
- .AwardsTitle{
-    width: 100%;
-    height: 10%;
-    position: relative;
-    left: 3%;
- }
- .ListofRewards{
-  height: 70%;
-  width: 100%;
-  display: flex;
- }
- .AwardItem{
-  height: 100%;
-  width: 15%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #CECAE3;
-  border-radius: 10px;
-  margin-left: 2%;
-
- }
-
- .AwardImage{
-
-  width: 70px;
-  height: auto;
-  object-fit: fill;
-  border-radius: 10px;
-  height: auto;
-  margin-left: 2%;
-
- }
-
- .TopCommunities{
-  font-family: CustomFont;
-  width: 100%;
-  height: 48%;
-  border-radius: 15px;
-  background-color: #f8f8f8;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
- }
- .CommunityTitle{
-  width: 100%;
-    height: 15%;
-    position: relative;
-    left: 3%;
-
- }
- .ListofCommunities{
-  height: 85%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-
- }
- .CommunityItem{
-
-    width: 120px;
-    height: 95%;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 10px;
-
- }
-
- .CommunityHeader{
-
-  width: 100%;
-  height: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #CECAE3;
-  border-radius: 10px 10px 0px 0px;
-
- }
-
- .CommunityImage{
-  width: 40px;
-  height: 40px;
-  object-fit: fill;
-  border-radius: 5px;
- }
+.active-button {
+  background-color: var(--ion-color-secondary-contrast);
+  font-weight: bold;
+  border-radius: 50px;
+}
 
 
- .CommunityText{
-  font-size: 9px;
-  text-align: center;
-  font-family: CustomFont2;
-  height: 40%;
 
- }
+//  .ProfileFilter{
+//       width:97%;
+//       background-color: #CECAE3;
+//       display: flex;
+//       justify-content: space-around;
+//       align-items: center;
+//       border-radius: 0px 0px 15px 15px;
 
- .CommunityName{
-  text-align: center;
-  font-size: 10px;
-  width: 100%;
-  height: 10%;
- }
+//  }
+
+//  .profileFilterOption{
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 25px;
+//   width: 20%;
+//   height: 80%;
+//   font-size: 30px;
+//   font-family: CustomFont;
+
+//  }
+
+//  .ProfileCardsContainer{
+//       width: 100%;
+//       height: 80%;
+//       position: relative;
+//       display: flex;
+//       justify-content: space-around;
+//       align-items: center;
+
+//  }
+
+//  .ProfileCards{
+//   background-color:white ;
+//   width: 97%;
+//   height: 97%;
+//   position: relative;
+//   top: 3%;
+//   border-radius: 15px 15px 0px 0px;
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+
+//  }
+
+//  .ProfileDetails{
+//   background-color: #f8f8f8;
+//   width: 50%;
+//   height: 85%;
+//   border-radius: 15px;
+//   display: flex;
+//   flex-direction: column;
+//  }
+
+//  .ProfileMsc{
+//   background-color: white;
+//   width: 40%;
+//   height: 85%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//  }
+
+//  .ProfileImage{
+//   width: 100%;
+//   height: 50%;
+//  background-color: #231942;
+//  border-radius: 15px 15px 0px 0px;
+//  display: flex;
+//   flex-direction: column;
+//   justify-content: end;
+
+//  }
+
+//  .pImage{
+//   width:120px;
+//   height: 120px;
+//   border-radius: 50%;
+//   position: relative;
+//   object-fit: fill;
+//   bottom:4%;
+//   left: 2%;
+//  }
+
+//  .ProfileText{
+//   width: 100%;
+//   height: 50%;
+//  background-color: #f8f8f8;
+//  border-radius: 0px 0px 15px 15px;
+
+//  }
+
+//  .ProfileTextHeader{
+//   font-family: CustomFont;
+//   height: 30%;
+
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//  }
+
+//  .ProfileName{
+//   font-size: 15px;
+//   position: relative;
+//   left:3%;
+//  }
+//  .ProfileIcons{
+//   font-size: 30px;
+//   position: relative;
+//   right:3%;
+//  }
+//  .ProfileBio{
+//   font-family: CustomFont2;
+
+//   height: 25%;
+//   position: relative;
+//   left: 3%;
+//   width: 60%;
+//   font-size: 12px;
+//  }
+//  .ProfileFooter{
+//   height: 45%;
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+
+//  }
+//  .ProfileStat{
+//   font-family: CustomFont;
+//   text-align: center;
+//   font-size: 12px;
+//   width: 20%;
+//   height: 50%;
+//   background-color: #CECAE3;
+//   border-radius: 15px;
+//  }
+
+//  .Awards{
+//   font-family: CustomFont;
+//   width: 100%;
+//   height: 48%;
+//   border-radius: 15px;
+//   background-color: #f8f8f8;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
+
+//  }
+
+//  .AwardsTitle{
+//     width: 100%;
+//     height: 10%;
+//     position: relative;
+//     left: 3%;
+//  }
+//  .ListofRewards{
+//   height: 70%;
+//   width: 100%;
+//   display: flex;
+//  }
+//  .AwardItem{
+//   height: 100%;
+//   width: 15%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #CECAE3;
+//   border-radius: 10px;
+//   margin-left: 2%;
+
+//  }
+
+//  .AwardImage{
+
+//   width: 70px;
+//   height: auto;
+//   object-fit: fill;
+//   border-radius: 10px;
+//   height: auto;
+//   margin-left: 2%;
+
+//  }
+
+//  .TopCommunities{
+//   font-family: CustomFont;
+//   width: 100%;
+//   height: 48%;
+//   border-radius: 15px;
+//   background-color: #f8f8f8;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
+
+//  }
+//  .CommunityTitle{
+//   width: 100%;
+//     height: 15%;
+//     position: relative;
+//     left: 3%;
+
+//  }
+//  .ListofCommunities{
+//   height: 85%;
+//   width: 100%;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   align-items: center;
+
+//  }
+//  .CommunityItem{
+
+//     width: 120px;
+//     height: 95%;
+//     background-color: white;
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     border-radius: 10px;
+
+//  }
+
+//  .CommunityHeader{
+
+//   width: 100%;
+//   height: 50%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #CECAE3;
+//   border-radius: 10px 10px 0px 0px;
+
+//  }
+
+//  .CommunityImage{
+//   width: 40px;
+//   height: 40px;
+//   object-fit: fill;
+//   border-radius: 5px;
+//  }
+
+
+//  .CommunityText{
+//   font-size: 9px;
+//   text-align: center;
+//   font-family: CustomFont2;
+//   height: 40%;
+
+//  }
+
+//  .CommunityName{
+//   text-align: center;
+//   font-size: 10px;
+//   width: 100%;
+//   height: 10%;
+//  }
 
 
 .row-filter {
@@ -645,6 +515,10 @@ ion-card {
   width: 99%;
   height: 50px;
   margin-bottom: 10px;
+  // color: var(--ion-color-text);
+  background-color: var(--ion-color-success);
+  font-weight: bold;
+  border-radius: 50px;
 }
 
 .profilePicture {
@@ -681,6 +555,7 @@ ion-card {
   --background: var(--ion-color-secondary);
   height: 70px;
   display: flex;
+  
 }
 
 .toolbar-content {
@@ -688,11 +563,12 @@ ion-card {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  
 }
 
 .overlay {
   overflow:auto;
-  background-color: #f8f8f8;
+  background-color: var(--ion-color-background);
   width: 100%;
   height: 100%;
   object-fit: fill;
@@ -703,19 +579,6 @@ ion-card {
   width: 50px;
   border-radius: 50%;
   margin-left: 20px ;
-}
-
-.small-square {
-  background-color: #f2f2f2;
-  width: 160px;
-  height: 160px;
-  border-radius: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .CommunityIcon{
@@ -756,15 +619,14 @@ ion-card {
 }
 
 .specialBtn{
-  background-color: #66617F;
-  color: white;
+  background-color: var(--ion-color-primary-tint);
+  color: var(--ion-color-text);
   border-radius: 50px;
-  border: 1px solid #66617F;
+  border: 1px solid var(--ion-color-primary-tint);
   font-size: 15px;
   font-family: CustomFont;
   padding: 2%;
 }
-
 
 
 .lineBreakers{
@@ -780,7 +642,7 @@ align-items: center;}
   display: flex;
   flex-direction: column;
 align-items: center;
-background-color: #ECECEC;
+// background-color: #ECECEC;
 
 }
 .lineBreakers2{
@@ -831,7 +693,7 @@ align-items: center;
 }
 
 .CommentReply>div>button{
-  border: 1px solid #231942;
+  border: 1px solid var(--ion-color-primary);
   border-radius: 50px;
   padding: 1%;
   position: relative;
@@ -841,14 +703,14 @@ align-items: center;
   width: 75%;
   color: #000000;
   font-family: CustomFont;
-  background-color: #f8f8f8;
+  background-color: var(--card-color);
   border-radius: 10px;
 
 }
 
 .comment:hover{
   cursor: pointer;
-  color: purple;
+  color: var(--hover-color);
 }
 
 .CommentBody:hover{
@@ -866,7 +728,7 @@ ion-card {
   flex: 1;
   margin: 0 5px;
   margin-top: 20px;
-  background-color: var(--ion-color-secondary);
+  background-color: var(--ion-color-secondary-contrast);
   border-radius: 50px;
   width: 120px;
   height: 50px;
@@ -876,6 +738,7 @@ ion-card {
   text-align: center;
   font-size: 16px;
   font-weight: bold;
+  color: var(--ion-color-medium);
 }
 
 .info-post {
@@ -911,7 +774,7 @@ ion-card {
 }
 .report:hover{
 cursor:pointer;
-color: #8231DD;
+color: var(--hover-color);
 
 }
 
@@ -956,7 +819,7 @@ color: #8231DD;
 .EditBtn{
   width: 50%;
   color: black;
-background-color: #DADADA;
+// background-color: #DADADA;
   border-radius: 30px;
   font-size: 15px;
   padding: 2%;
@@ -965,7 +828,7 @@ background-color: #DADADA;
 }
 .EditBtn:hover{
   color: white;
-  background-color: #8231DD;
+  background-color: var(--hover-color);
 }
 
 .Image{
@@ -979,7 +842,8 @@ background-color: #DADADA;
   border-radius: 25px;
   width: 45%;
   border: #D9D9D9 1px solid;
-  color: #000000;
+  color: var(--ion-color-text);
+  background-color: var(--ion-color-secondary-contrast);
   font-family: CustomFont;
   padding: 1%;
   margin-top: 1%;
@@ -991,8 +855,8 @@ background-color: #DADADA;
   font-size: 15px;
   border-radius: 25px;
   width: 90%;
-  border: #D9D9D9 1px solid;
-  color: #000000;
+  color: var(--ion-color-text);
+  background-color: var(--ion-color-secondary-contrast);
   font-family: CustomFont;
   padding: 1%;
   margin-bottom: 2%;
