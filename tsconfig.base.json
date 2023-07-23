@@ -125,6 +125,9 @@
       "@encompass/app/settings/data-access": [
         "libs/app/settings/data-access/src/index.ts"
       ],
+      "@encompass/app/search-explore/feature": [
+        "libs/app/search-explore/feature/src/index.ts"
+      ],
       "@encompass/app/settings/feature": [
         "libs/app/settings/feature/src/index.ts"
       ],

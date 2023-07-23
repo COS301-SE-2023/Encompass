@@ -7,7 +7,7 @@ import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetComments, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -20,12 +20,15 @@ import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileApi } from '@encompass/app/profile/data-access';
 
+
+
 @Component({
-  selector: 'profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'search-explore',
+  templateUrl: './search-explore.component.html',
+  styleUrls: ['./search-explore.component.scss']
 })
-export class ProfilePage {
+export class SearchExploreComponent {
+
 
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
@@ -33,14 +36,13 @@ export class ProfilePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
-  @Select(ProfileState.otherUsers) otherUsers$! : Observable<ProfileDto[] | null>;
+
 
   file!: File;
   fileBanner!: File;
   fileName!: string;
   fileNameBanner!: string;
   profile! : ProfileDto | null;
-  otherUsers! : ProfileDto[] | null;
   posts! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
   datesAdded : string[] = [];
@@ -62,6 +64,8 @@ export class ProfilePage {
    deleteComment: boolean[] =[];
    MarkedForCommentDeletion: boolean[] = [];
    MarkedForPostDeletion: boolean[] = [];
+   postReported : boolean[] = [];
+   reports : boolean[] =[];
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController
@@ -134,7 +138,188 @@ export class ProfilePage {
 
   });
 
+  Dislike(n:number, post: PostDto){
+    this.likedComments[n]=false;
+    this.likes[n]--;
+  
+    let likesArr = [...post.likes];
+    likesArr = likesArr.filter((like) => like !== this.profile?.username);
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
+
+
+  Report(n:number){
+
+  
+    if(this.posts?.length==null){
+      return;
+    }
+    const i = this.posts?.length-n-1;
+  
+    // console.log("n: " + n);
+    // console.log("i: " + i);
+  
+    
+    if(this.posts[i].reported==true){
+      return;
+    }
+  
+    if(this.reports[i]==true){
+      for(let k = 0;k<this.reports.length;k++){
+        this.reports[k]=false;
+     }
+    }
+    else{
+      for(let k = 0;k<this.reports.length;k++){
+        this.reports[k]=false;
+     }
+     this.reports[i]=true;
+    }
+  
+  }
+
+  Like(n:number, post: PostDto){
+    this.likedComments[n]=true;
+    this.likes[n]++;
+  
+    let likesArr : string[];
+  
+    const emptyArray : string[] = [];
+  
+    if(this.profile?.username == null){
+      return;
+    }
+    
+    if(post.likes == emptyArray){
+      likesArr = [this.profile?.username];
+    }
+  
+    else{
+      likesArr = [...post.likes, this.profile?.username];
+    }
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
+
+  ReportPost(n:number, post: PostDto){
+    // console.log("reporting post");
+  
+    if(this.posts?.length==null){
+      return;
+    }
+    
+    const i = this.posts?.length-n-1;
+  
+  
+  for(let k = 0;k<this.postReported.length;k++){
+        this.postReported[k]=false;
+     }
+     this.postReported[i]=true;  
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: post.likes,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: true
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
+  
  
+  recChange(){
+    const recBtn = document.getElementById('recommendedBtn');
+    const newBtn = document.getElementById('newBtn');
+    const popBtn = document.getElementById('popularBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+
+    if (recBtn && newBtn && popBtn&&eventBtn) {
+      recBtn.classList.add('active-button');
+      newBtn.classList.remove('active-button');
+      popBtn.classList.remove('active-button');
+      eventBtn.classList.remove('active-button');
+
+    }
+  }
+
+  GoToCommunity(communityName:string){
+    this.router.navigate(['community-profile/' + communityName]);
+  }
+
+  GoToProfile(username: string){
+    this.router.navigate(['user-profile/' + username]);
+  }
+
+  newChange(){
+    const recBtn = document.getElementById('recommendedBtn');
+    const newBtn = document.getElementById('newBtn');
+    const popBtn = document.getElementById('popularBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+
+    if (recBtn && newBtn && popBtn&&eventBtn) {
+      recBtn.classList.remove('active-button');
+      newBtn.classList.add('active-button');
+      popBtn.classList.remove('active-button');
+      eventBtn.classList.remove('active-button');
+
+    }
+  }
+
+
+
+  popChange(){
+    const recBtn = document.getElementById('recommendedBtn');
+    const newBtn = document.getElementById('newBtn');
+    const popBtn = document.getElementById('popularBtn');
+    const eventBtn = document.getElementById('eventBtn');
+
+
+    if (recBtn && newBtn && popBtn&&eventBtn) {
+      recBtn.classList.remove('active-button');
+      newBtn.classList.remove('active-button');
+      popBtn.classList.add('active-button');
+      eventBtn.classList.remove('active-button');
+
+    }
+  }
 
   get FirstName(){
     return this.postForm.get('FirstName');
@@ -162,10 +347,6 @@ async openPopup() {
     });
   
     return await modal.present();
-  }
-
-  GoToCommunity(communityName:string){
-    this.router.navigate(['community-profile/' + communityName]);
   }
   
 viewReplies(n:number){
@@ -275,11 +456,13 @@ Edit(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn) {
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.add('active-button');
       CommentsBtn.classList.remove('active-button');
       eventBtn.classList.remove('active-button');
+      PeopleBtn.classList.remove('active-button');
     }
 
     this.seePosts=true;
@@ -291,11 +474,13 @@ Edit(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn) {
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.remove('active-button');
       CommentsBtn.classList.add('active-button');
       eventBtn.classList.remove('active-button');
+      PeopleBtn.classList.remove('active-button');
     }
 
     this.seePosts=false;
@@ -306,11 +491,27 @@ Edit(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn) {
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.remove('active-button');
       CommentsBtn.classList.remove('active-button');
       eventBtn.classList.add('active-button');
+      PeopleBtn.classList.remove('active-button');
+    }
+  }
+
+  peopleChange(){
+    const PostBtn = document.getElementById('PostBtn');
+    const CommentsBtn = document.getElementById('CommentsBtn');
+    const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
+
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
+      PostBtn.classList.remove('active-button');
+      CommentsBtn.classList.remove('active-button');
+      eventBtn.classList.remove('active-button');
+      PeopleBtn.classList.add('active-button');
     }
   }
 
@@ -364,10 +565,12 @@ Edit(){
 
   async onSubmit(){
 
+    console.log("OH HELLO THERE!!!!!!");
     if(this.profile == null){
       return;
     }
 
+    let textData : string;
 
     let First : string;
     let Last : string;
@@ -400,47 +603,46 @@ Edit(){
       bannerUrl = this.profile?.profileBanner;
     }
 
-    if(this.FirstName?.value == null || this.FirstName?.value == undefined|| this.FirstName?.value == ""){
-      First = this.profile?.name;
+    if(this.FirstName?.value == null || this.FirstName?.value == undefined){
+      First = "";
     }
     else{
       First = this.FirstName?.value;
     }
 
-    if(this.LastName?.value == null || this.LastName?.value == undefined|| this.LastName?.value == ""){
-      Last = this.profile?.lastName;
+    if(this.LastName?.value == null || this.LastName?.value == undefined){
+      Last = "";
     }
     else{
       Last = this.LastName?.value;
     }
 
-    if(this.Bio?.value == null || this.Bio?.value == undefined || this.Bio?.value == ""){
-      bioData = this.profile?.bio;
+    if(this.Bio?.value == null || this.Bio?.value == undefined){
+      bioData = "";
     }
     else{
       bioData = this.Bio?.value;
     }
 
     const data : UpdateProfileRequest = {
-      username: this.profile?.username,
-      name: First,
-      lastName: Last,
-      categories:  this.profile?.categories,
-      communities: this.profile?.communities,
-      awards: this.profile?.awards,
-      events: this.profile?.events,
-      followers: this.profile?.followers,
-      following: this.profile?.following,
-      posts: this.profile?.posts,
-      reviews: this.profile?.reviews,
-      profileImage: imageUrl,
-      profileBanner: bannerUrl,
-      bio: bioData,
+  username: this.profile?.username,
+  name: First,
+  lastName: Last,
+  categories:  this.profile?.categories,
+  communities: this.profile?.communities,
+  awards: this.profile?.awards,
+  events: this.profile?.events,
+  followers: this.profile?.followers,
+  following: this.profile?.following,
+  posts: this.profile?.posts,
+  reviews: this.profile?.reviews,
+  profileImage: imageUrl,
+  profileBanner: bannerUrl,
+  bio: bioData,
 
     }
 
     this.store.dispatch(new UpdateProfile(data,this.profile?._id));
-    this.postForm.reset();
   }
 
   async uploadImage(file: File, fileName: string) : Promise<string | null>{
@@ -454,35 +656,15 @@ Edit(){
     })
   }
 
-  loadFollowers(){
-    if(this.profile == null){
-      return;
-    }
-    console.log("here");
-    this.store.dispatch(new GetFollowers(this.profile.followers));
-    this.otherUsers$.subscribe((users) => {
-      if(users){
-        console.log(users);
-        this.otherUsers = users;
-      }
-    })
+  collapse1 = false;
+  collapse2 = false;
+
+  Collapse1(){
+    this.collapse1 = !this.collapse1;
+  }
+  Collapse2(){
+    this.collapse2 = !this.collapse2;
   }
 
-  loadFollowing(){
-    if(this.profile == null){
-      return;
-    }
 
-    this.store.dispatch(new GetFollowing(this.profile.following));
-    this.otherUsers$.subscribe((users) => {
-      if(users){
-        this.otherUsers = users;
-      }
-    })
-  }
-
-  async goToProfile(username : string | undefined){
-    await this.modalController.dismiss();
-    this.router.navigate(['user-profile/' + username]);
-  }
-} 
+}

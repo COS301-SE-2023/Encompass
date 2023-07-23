@@ -146,6 +146,13 @@ const routes: Routes = [
       import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule),
     canActivate: [AuthGuard]
   },
+  // {
+  //   path: 'search-explore',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/search-explore/feature').then((m) => m.SearchExploreModule),
+  //   canActivate: [AuthGuard]
+  // },
 ];
 
 @NgModule({

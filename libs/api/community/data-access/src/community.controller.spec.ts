@@ -8,6 +8,7 @@ describe('CommunityController', () => {
     let controller: CommunityController;
     let mockQueryBus: { execute: jest.Mock };
     let mockCommandBus: { execute: jest.Mock };
+    let file :Express.Multer.File;
     const genericCommunity = {
         _id: "example_id",
         name: "Group Name",
@@ -28,6 +29,7 @@ describe('CommunityController', () => {
     beforeAll(async () => {
         mockCommandBus = { execute: jest.fn() };
         mockQueryBus = { execute: jest.fn() };
+        
         const module = await Test.createTestingModule({
             controllers: [CommunityController],
             providers: [ { provide: QueryBus, useValue: mockQueryBus }, { provide: CommandBus, useValue: mockCommandBus }],
@@ -54,6 +56,19 @@ describe('CommunityController', () => {
         });
     });
 
+    describe('getRecommendedCommunities', () => {
+        it('Should call the Community controller with the given User id', async () => {	
+            const getCommunitySpy = jest.spyOn(controller, 'getRecommendedCommunities');	
+            await controller.getRecommendedCommunities('testID');	
+            expect(getCommunitySpy).toBeCalledWith('testID');	
+        });
+        it('Should return the list of recommended communities when name is passed in', async () => {
+            mockQueryBus.execute.mockReturnValue([genericCommunity]);
+            const CommunityExists = await controller.getRecommendedCommunities('testID');
+            expect(CommunityExists).toEqual([genericCommunity]);
+        });
+    })
+
     describe('getCommunityByName', () => {
         it('should call Community controller with name', async () => {
             const createCommunitySpy = jest.spyOn(controller, 'getCommunityByName');
@@ -62,7 +77,7 @@ describe('CommunityController', () => {
         });
 
         it('should return the a community when given a name parameter', async () => {
-            mockCommandBus.execute.mockReturnValue(genericCommunity);
+            mockQueryBus.execute.mockReturnValue(genericCommunity);
             const returnedCommunity = await controller.getCommunityByName('get-community/testname');
             expect(returnedCommunity).toEqual(genericCommunity);
         });
@@ -76,7 +91,7 @@ describe('CommunityController', () => {
         });
 
         it('should return a string representing a boolean value when given a community as a parameter', async () => {
-            mockQueryBus.execute.mockReturnValue(genericCommunity);
+            mockCommandBus.execute.mockReturnValue(genericCommunity);
             const CommunityExists = await controller.createCommunity(genericCommunity);
             expect(CommunityExists).toEqual(genericCommunity);
         });
@@ -124,4 +139,44 @@ describe('CommunityController', () => {
             expect(CommunityExists).toEqual(genericCommunity);
         });
     })
-})
+
+    describe('removePost', () => {
+        it('should call the Community controller with the passed in name and post', async () => {
+            const getCommunitySpy = jest.spyOn(controller, 'removePost');
+            await controller.removePost('remove-post/testname/testing123','test-message');
+            expect(getCommunitySpy).toBeCalledWith('remove-post/testname/testing123','test-message');
+        });
+
+        it('should return the Community when name and post string it passed in', async () => {
+            mockCommandBus.execute.mockReturnValue(genericCommunity);
+            const CommunityExists = await controller.removePost('remove-post/testname/testing123','test-message');
+            expect(CommunityExists).toEqual(genericCommunity);
+        });
+    })
+
+    describe('deleteCommunity', () => {
+        it('Should call the Community controller with the passed in name', async () => {
+            const getCommunitySpy = jest.spyOn(controller, 'deleteCommunity');
+            await controller.deleteCommunity('delete-community/testname');
+            expect(getCommunitySpy).toBeCalledWith('delete-community/testname');
+        }); 
+        it('Should return the Community when name is passed in', async () => {
+            mockCommandBus.execute.mockReturnValue(genericCommunity);
+            const CommunityExists = await controller.deleteCommunity('delete-community/testname');
+            expect(CommunityExists).toEqual(genericCommunity);
+        });
+
+    })
+
+    describe('uploadImage', () => {
+
+        const f: Express.Multer.File=file
+        it('Should call the Community controller with the passed in File', async () => {
+            const getCommunitySpy = jest.spyOn(controller, 'uploadImage');
+            await controller.uploadImage(f);
+            expect(getCommunitySpy).toBeCalledWith(f);
+        });
+    })
+
+    
+});

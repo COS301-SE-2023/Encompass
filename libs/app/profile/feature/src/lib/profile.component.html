@@ -43,12 +43,13 @@
                 <div class = "PostImageContainer" >
                   <img src =  {{post.communityImageUrl}}  class = "postImage" 
                   onerror="this.src='assets/icon/Group.png';"
+                  (click)="GoToCommunity(post.community)"
                   >
                 </div>
               <div class = "PostDetails"  >
                 <div class = "TitleNameOptions">
                   <div style = "display: flex; margin-left: 1.5%;">
-                    <div class = "Title">{{post.community}}</div>
+                    <div class = "Title" (click)="GoToCommunity(post.community)">{{post.community}}</div>
                     <div class = "Name" > @{{post.username}}</div>
                   </div>
                   <div style = "display: flex; margin-right: 1.5%;">
