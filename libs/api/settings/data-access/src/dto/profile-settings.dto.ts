@@ -1,4 +1,5 @@
 export class ProfileSettingsDto{
-  readonly private!: boolean;
+  readonly nsfw!: boolean;
   readonly followPermission!: boolean;
+  readonly blocked!: string[];
 }

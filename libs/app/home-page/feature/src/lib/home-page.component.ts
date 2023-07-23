@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
+import { ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -16,6 +17,10 @@ import { PostDto } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
 import { PopoverController } from '@ionic/angular';
 import { NotificationDto } from '@encompass/api/notifications/data-access';
+import { DatePipe } from '@angular/common';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
 
 
 @Component({
@@ -26,17 +31,34 @@ import { NotificationDto } from '@encompass/api/notifications/data-access';
 export class HomePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.notifications) notifications$! : Observable<NotificationDto | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
   // @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
 
+  settings!: SettingsDto | null;
   profile! : ProfileDto | null;
   notifications! : NotificationDto | null;
 
-  constructor(private router: Router, private store: Store){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe){
+    const page = document.getElementById('home-page');
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
         console.log(profile);
         this.profile = profile;
+
+        this.store.dispatch(new GetUserSettings(this.profile._id))
+        this.settings$.subscribe(settings => {
+          if(settings){
+            this.settings = settings;
+
+            this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+
+            if(page){
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              // page.style.backgroundImage = "blue";
+            }
+          }
+        })
       }
     })
   }
@@ -59,6 +81,7 @@ export class HomePage {
   goToExplore(){
     this.routerClick();
     // this.router.navigate(['/home/explore']);
+     this.router.navigate(['/home/search-explore']);
   }
 
   goToChat(){
@@ -78,6 +101,15 @@ export class HomePage {
   goToEvents(){
     this.routerClick();
     // this.router.navigate(['/home/events']);
+  }
+
+
+  clearNotification(id: string){
+    if(this.profile == null){
+      return;
+    }
+    
+    this.store.dispatch(new ClearNotification(this.profile._id, id));
   }
 
   logout() {

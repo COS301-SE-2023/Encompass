@@ -73,11 +73,13 @@
 
         <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
-          <ion-card class = "PostCard" >
+          <ion-card class = "PostCard" *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)">
 
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
-                <img src =  {{post.communityImageUrl}}  class = "postImage" (click)="GoToCommunity(post.community)">
+                <img src =  {{post.communityImageUrl}}  class = "postImage" 
+                onerror="this.src='assets/icon/Group.png';"
+                (click)="GoToCommunity(post.community)">
               </div>
             <div class = "PostDetails"  >
               <div class = "TitleNameOptions">
@@ -105,7 +107,7 @@
                   </div>
                   <div style = "width: 70%; display: flex; justify-content: space-evenly;">
                     <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-                    <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                    <button *ngIf="post.ageRestricted" class = "specialBtn">NSFW</button>
                </div>
                </div>
 
@@ -301,7 +303,7 @@
               <ion-grid>
                 <ion-row class="recomRow">
                   <ion-col size="10">
-                    <div style="font-size: 18px; margin-top: 10px;">We think you'd like:</div>
+                    <div style="font-size: 18px; margin-top: 10px;">Your search relates to:</div>
                   </ion-col>
                   <ion-col size="1">
                     <ion-button fill="clear"  style="width:80px; margin-top: 3px;">

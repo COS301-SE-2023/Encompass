@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { GetAllPosts, GetNotifications, UpdatePost, getHome } from "@encompass/app/home-page/util";
+// import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
@@ -65,9 +66,45 @@ export class HomeState{
     })
   }
 
+  @Action(GetLatestPosts)
+  async getLatestPosts(ctx: StateContext<HomePostsModel>){
+    const response = await this.homeApi.getLatestPosts();
+    console.log(response);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      HomePostsForm: {
+        model: {
+          homePosts: response
+        }
+      }
+    })
+  }
+
+  @Action(GetPopularPosts)
+  async getPopularPosts(ctx: StateContext<HomePostsModel>){
+    const response = await this.homeApi.getPopularPosts();
+    console.log(response);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      HomePostsForm: {
+        model: {
+          homePosts: response
+        }
+      }
+    })
+  }
+
   @Action(GetAllPosts)
-  async getAllPosts(ctx: StateContext<HomePostsModel>){
-    const response = await this.homeApi.getAllPosts();
+  async getAllPosts(ctx: StateContext<HomePostsModel>, {username}: GetAllPosts){
+    const response = await this.homeApi.getAllPosts(username);
     console.log(response);
 
     if(response == null || response == undefined){
@@ -105,6 +142,29 @@ export class HomeState{
       HomePostsForm: {
         model: {
           homePosts: posts
+        }
+      }
+    })
+  }
+
+  @Action(SendNotification)
+  async sendNotification(ctx: StateContext<HomeNotificationsModel>, {userId, notification}: SendNotification){
+    // console.log("state")
+    await this.homeApi.sendNotification(userId, notification);
+  }
+
+  @Action(ClearNotification)
+  async clearNotification(ctx: StateContext<HomeNotificationsModel>, {userId, id}: ClearNotification){
+    const response = await this.homeApi.clearNotification(userId, id);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      HomeNotificationsForm: {
+        model: {
+          homeNotifications: response
         }
       }
     })

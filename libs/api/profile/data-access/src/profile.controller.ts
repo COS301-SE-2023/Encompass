@@ -104,7 +104,7 @@ export class ProfileController {
   }
 
   @Patch('remove-follower/:username/:followerUsername')
-  async remvoeFollower(
+  async removeFollower(
     @Param('username') userId: string,
     @Param('followerUsername') followerId: string
   ){

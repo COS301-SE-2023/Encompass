@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ChatDto } from "@encompass/api/chat/data-access";
 import { State, Action, StateContext } from "@ngxs/store";
 import { MessagesApi } from "./messages.api";
-import { GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SetMessages } from "@encompass/app/messages/util";
+import { CreateChat, GetChatList, GetMessages, GetNewChats, GetUserInformation, SendMessage, SendingNotification, SetMessages } from "@encompass/app/messages/util";
 import { Selector } from "@ngxs/store";
 import { produce } from "immer";
 import { tap } from "rxjs";
@@ -10,6 +10,7 @@ import { ChatListDto } from "@encompass/api/chat-list/data-access";
 import { MessagesDto } from "@encompass/api/chat/data-access";
 import { ProfileDto } from "@encompass/api/profile/data-access";
 import { SettingsDto } from "@encompass/api/settings/data-access";
+import { SendNotification as HomeSendNotification } from "@encompass/app/home-page/util";
 
 export interface MessagesStateModel{
   messages: ChatDto | null
@@ -109,6 +110,28 @@ export class MessagesState{
     })
   }
 
+  @Action(SendingNotification)
+  async sendNotification(ctx: StateContext<MessagesStateModel>, {username, notification}: SendingNotification){
+    // console.log("here")
+    const user = await this.messagesApi.getProfile(username);
+
+    if(user == null || user == undefined){
+      return;
+    }
+
+    const settings = await this.messagesApi.getProfileSettings(user._id)
+
+    if(settings == null || settings == undefined){
+      return;
+    }
+
+    if(settings.notifications.dms !== false){
+      console.log("here")
+      // ctx.dispatch(new HomeSendNotification(user._id, notification));
+      this.messagesApi.sendNotification(user._id, notification);
+    }
+  }
+
   @Action(GetUserInformation)
   async getUserInformation(ctx: StateContext<MessagesDtoModel>, {messageList}: GetUserInformation){
     let currentList: MessagesDto[] = []
@@ -139,40 +162,44 @@ export class MessagesState{
     })
   }
 
-  @Action(GetNewChats)
-async getNewChats(ctx: StateContext<MessagesProfileModel>, { followingList }: GetNewChats) {
-  const userList: ProfileDto[] = [];
+    @Action(GetNewChats)
+    async getNewChats(ctx: StateContext<MessagesProfileModel>, { followingList }: GetNewChats) {
+    const userList: ProfileDto[] = [];
 
-  // Use map to create an array of promises from the forEach loop
-  const promises = followingList.map(async (element) => {
-    const response: ProfileDto | null | undefined = await this.messagesApi.getProfile(element);
+    // Use map to create an array of promises from the forEach loop
+    const promises = followingList.map(async (element) => {
+      const response: ProfileDto | null | undefined = await this.messagesApi.getProfile(element);
 
-    if (response != null && response != undefined) {
-      const data: SettingsDto | null | undefined = await this.messagesApi.getProfileSettings(response._id);
+      if (response != null && response != undefined) {
+        const data: SettingsDto | null | undefined = await this.messagesApi.getProfileSettings(response._id);
 
-      if (data?.messagePermissions != "Noone") {
-        userList.push(response);
+        if (data?.messagePermissions != "Noone") {
+          userList.push(response);
+        }
       }
-    }
-  });
-  // console.log("promises")
+    });
+    // console.log("promises")
 
-  // Wait for all the promises to complete using Promise.all
-  await Promise.all(promises);
+    // Wait for all the promises to complete using Promise.all
+    await Promise.all(promises);
 
-  console.log(userList);
-  // Now the userList is fully populated, and you can update the context state
-  ctx.setState({
-    MessagesProfileForm: {
-      model: {
-        profile: userList,
+    console.log(userList);
+    // Now the userList is fully populated, and you can update the context state
+    ctx.setState({
+      MessagesProfileForm: {
+        model: {
+          profile: userList,
+        },
       },
-    },
-  });
+    });
 
-  // console.log("Here");
-}
+    // console.log("Here");
+  }
 
+  @Action(CreateChat)
+  async createChat(ctx: StateContext<MessagesStateModel>, {usernames}: CreateChat){
+    await this.messagesApi.createChat(usernames);
+  }
 
   @Selector()
   static messages(state: MessagesStateModel){

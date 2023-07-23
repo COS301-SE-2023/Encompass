@@ -1,4 +1,4 @@
-<div class="overlay">
+<div id='home-page' class="theme-page">
 <ion-split-pane>
   <ion-menu type="overlay" side="start" id="main-content" class="menu-pane" >
 
@@ -84,18 +84,18 @@
     <ion-content>
       <ion-list>
         <div *ngFor="let notify of notifications?.notifications">
-          <ion-item>
+          <ion-item (click)="clearNotification(notify.notificationId)">
             <div class="user">
               <div class="alert"></div>
               <ion-avatar slot="start">
-                <ion-img src=notify.picture></ion-img>
+                <ion-img src={{notify.picture}}></ion-img>
               </ion-avatar>
             </div>
             <ion-label>
               <div class="noti-title">
                 <span class="bold-text">{{notify.sentBy}} {{notify.title}}</span>
                 <span>  ⋅  </span>
-                <span>{{notify.dateTime}}</span>
+                <span>{{notify.dateTime | date: 'medium'}}</span>
               </div>
               <p>{{notify.description}}</p>
             </ion-label>

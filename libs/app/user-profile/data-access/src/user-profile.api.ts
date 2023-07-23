@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { ProfileDto } from "@encompass/api/profile/data-access";
 import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access";
+import { SettingsDto } from "@encompass/api/settings/data-access";
 
 @Injectable()
 export class UserProfileApi{
@@ -49,6 +50,19 @@ export class UserProfileApi{
   async removeFollower(username: string, followerUsername: string){
     try{
       const response = await this.httpClient.patch<ProfileDto>('/api/profile/remove-follower/' + username + '/' + followerUsername, {}).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+      return null;
+    }
+  }
+
+  async getUserSettings(userId:string){
+    try{
+      const response = await this.httpClient.get<SettingsDto>('/api/settings/get/' + userId).toPromise();
 
       return response
     }

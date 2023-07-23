@@ -14,6 +14,7 @@ ion-card {
      z-index: 1;
    }
 
+  
    .custom-header ion-title {
      font-size: 50px; /* Increase the font size to make the header larger */
      padding: 16px; /* Increase the padding for more space around the title */
@@ -240,6 +241,9 @@ ion-card {
         border-radius: 15px;
       }
 
+      .postImage:hover{
+        cursor: pointer;
+      }
   .PostDetails{
     display: flex;
   flex-direction: column;
@@ -295,6 +299,7 @@ ion-card {
       font-size: larger;
       position: relative;
       right:5%;
+      background-color: #f8f8f8;
       }
 
       .Options:hover{
@@ -763,6 +768,8 @@ ion-card {
   font-family: CustomFont;
   padding: 2%;
 }
+
+
 
 .lineBreakers{
   width: 100%;

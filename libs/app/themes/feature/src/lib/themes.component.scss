@@ -7,6 +7,10 @@
     height: 100vh; 
     // height: fit-content;
     padding-top: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--ion-color-text);
 }
 
 .top-stuff {
@@ -27,6 +31,7 @@
     height: 350px;
     border-radius: 20px;
     pointer-events: none;
+    border: 0.5px solid var(--ion-color-warning);
 }
 
 .card-content {
@@ -35,6 +40,7 @@
     align-items: center;
     height: 100%;
     pointer-events: none;
+    --background: var(--ion-color-background-contrast);
 }
 
 .card-content-inner {
@@ -75,10 +81,12 @@
 .comm {
     margin-top: 10px;
     border: 1px solid var(--ion-color-primary);
+    color: var(--ion-color-text);
 }
 
 ion-toolbar {
 
+    color: var(--ion-color-medium-shade);
     --background: var(--ion-color-secondary);
     height: 70px;
     display: flex;
@@ -139,11 +147,11 @@ ion-toolbar {
 }
 
 .light-default {
-    background-color: var(--ion-color-secondary);
+    background-color: #CECAE3;
 }
 
 .dark-default {
-    background-color: var(--ion-color-primary)
+    background-color: #20173F;
 }
 
 .light-red {
@@ -155,11 +163,11 @@ ion-toolbar {
 }
 
 .light-blue {
-    background-color: #809FBC;
+    background-color: #afc0e6;
 }
 
 .dark-blue {
-    background-color: #1C2936;
+    background-color: #2E4A61;
 }
 
 .light-green {
@@ -167,15 +175,15 @@ ion-toolbar {
 }
 
 .dark-green {
-    background-color: #1C361E;
+    background-color: #313d31;
 }
 
 .light-orange {
-    background-color: #A8725B;
+    background-color: #e7ab7b;
 }
 
 .dark-orange {
-    background-color: #5B3530;
+    background-color: #523327;
 }
 
 .square-selected {
@@ -240,6 +248,7 @@ ion-toolbar {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .own:hover {
@@ -260,4 +269,45 @@ ion-toolbar {
         font-size: 40px;
         
     }
+}
+
+.file-input {
+    // position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-label {
+    // position: absolute;
+    top: 0;
+    right: 20%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.fab-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100%;
+  }
+  
+  .add-img {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0; 
+  }
+
+.unselect {
+    display: none;
 }

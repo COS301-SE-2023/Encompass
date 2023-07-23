@@ -17,6 +17,7 @@ export class LoginPage {
   @Select(LoginState.loginModel) loginModel$!: Observable<AccountDto>;
 
   account!: AccountDto;
+  isValid = false;
 
   constructor(
     private router: Router, private store: Store, private toastController: ToastController){}
@@ -47,6 +48,27 @@ export class LoginPage {
 
       
     }
+
+    checkInput(){
+      if(this.user.email != "" && this.user.password != ""){
+        if(this.isValidEmail(this.user.email)){
+          this.isValid = true;
+        }else{
+          this.isValid = false;
+        }
+    }else{
+      this.isValid = false;
+    }
+  }
+
+   isValidEmail(email: string): boolean {
+    // Regular expression to validate email addresses
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  
+    // Test the email against the regex and return the result
+    return emailRegex.test(email);
+  }
+  
 
     Back(){
       this.router.navigate(['welcome']);

@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler, EventPublisher } from "@nestjs/cqrs";
 import { CreateSettingsCommand } from "./create-settings.command";
 import { SettingsFactory } from "../../settings.factory";
-import { NotificationsSettingsDto, PrivacySettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "../../dto";
+import { NotificationsSettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "../../dto";
 
 @CommandHandler(CreateSettingsCommand)
 export class CreateSettingsHandler implements ICommandHandler<CreateSettingsCommand>{
@@ -13,29 +13,21 @@ export class CreateSettingsHandler implements ICommandHandler<CreateSettingsComm
 
   async execute({ userId }: CreateSettingsCommand){
     const profile: ProfileSettingsDto = {
-      private: false,
+      nsfw: false,
       followPermission: true,
+      blocked: []
     }
 
     const notifications: NotificationsSettingsDto = {
-      messages: true,
+      dms: true,
       follows: true,
-      mentionsPosts: true,
-      mentionsComments: true,
       commentReplies: true,
       recomPosts: true,
       recomCC: true,
     }
 
-    const privacy: PrivacySettingsDto = {
-      blocked: [],
-      postPermission: true,
-      commPermission: true,
-      contentPermissions: true
-    }
-
     const themes: ThemesSettingsDto ={
-      themeImage: '',
+      themeImage: 'light',
       themeColor: '',
     }
 
@@ -44,8 +36,7 @@ export class CreateSettingsHandler implements ICommandHandler<CreateSettingsComm
         userId,
         profile,
         notifications,
-        'Everyone',
-        privacy,
+        'followers',
         themes
       )
     );

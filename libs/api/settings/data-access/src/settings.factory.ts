@@ -2,7 +2,7 @@ import { EntityFactory } from "@encompass/api/database/data-access";
 import { Injectable } from "@nestjs/common";
 import { Settings } from "./settings";
 import { SettingsEntityRepository } from "./db/settings-entity.repository";
-import { NotificationsSettingsDto, PrivacySettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "./dto";
+import { NotificationsSettingsDto, ProfileSettingsDto, ThemesSettingsDto } from "./dto";
 import { ObjectId } from "mongodb";
 
 @Injectable()
@@ -16,7 +16,6 @@ export class SettingsFactory implements EntityFactory<Settings>{
     profile: ProfileSettingsDto,
     notifications: NotificationsSettingsDto,
     messagePermissions: string,
-    privacy: PrivacySettingsDto,
     themes: ThemesSettingsDto,
   ): Promise<Settings>{
     const settings = new Settings(
@@ -24,7 +23,6 @@ export class SettingsFactory implements EntityFactory<Settings>{
       profile,
       notifications,
       messagePermissions,
-      privacy,
       themes,
     );
     await this.settingsEntityRepository.create(settings);

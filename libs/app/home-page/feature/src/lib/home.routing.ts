@@ -48,6 +48,11 @@ const routes: Routes = [
         // pathMatch: 'full',
         loadChildren: () => import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule), 
       },
+      {
+        path: 'search-explore',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/search-explore/feature').then((m) => m.SearchExploreModule), 
+      },
       // {
       //   path: 'comments', //comments/:id
       //   // pathMatch: 'full',

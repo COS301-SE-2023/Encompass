@@ -7,10 +7,11 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddComment, AddReply, GetComments, GetPost, UpdatePost } from '@encompass/app/comments/util';
+import { AddComment, AddReply, GetComments, GetPost, SendNotification, UpdatePost } from '@encompass/app/comments/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 @Component({
   selector: 'comments',
   templateUrl: './comments.component.html',
@@ -264,7 +265,15 @@ for(let i=0;i<this.reply.length;i++){
         reported: this.post.reported,
       }
       
+      const notification: AddNotificationRequest = {
+        sentBy: this.profile.name + " " + this.profile.lastName,
+        picture: this.profile.profileImage,
+        title: "Replied to your comment",
+        description: reply.substring(0, 20) + "...",
+      }
+
       this.store.dispatch(new UpdatePost(this.post._id, postData));
+      this.store.dispatch(new SendNotification(comment.username, notification));
     }
 
 

@@ -4,6 +4,5 @@ export class AddNotificationRequest{
   picture!: string;
   title!: string;
   description!: string;
-  routerUrl!: string;
   // dateTime!: string;
 }
