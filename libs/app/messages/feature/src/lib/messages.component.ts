@@ -43,6 +43,8 @@ export class MessagesPage implements OnDestroy {
   lastName!: string;
   userImage!: string;
   username!: string;
+  isValid = false;
+  inputValue! : string;
 
   selectedOption!: string;
   selectOpen = false;
@@ -118,6 +120,7 @@ export class MessagesPage implements OnDestroy {
 
     this.store.dispatch(new SendMessage(data));
     this.store.dispatch(new SendingNotification(this.username, notification));
+    this.messageForm.reset();
   }
 
   fetchMessages(chatId: string,first: string,last:string,image: string, username: string){
@@ -138,6 +141,8 @@ export class MessagesPage implements OnDestroy {
   toggleSelect() {
     this.selectOpen = !this.selectOpen;
   }
+
+
 
   onSelectChange() {
     console.log('Selected value:', this.selectedValue);
@@ -175,5 +180,17 @@ export class MessagesPage implements OnDestroy {
           }
         });
     });
+  }
+
+  checkInput(){
+
+    if(this.messageInput?.value == null 
+      || this.messageInput?.value == undefined 
+      || this.messageInput?.value =="" ){
+    this.isValid = false;
+    }else{
+    this.isValid = true;
+    }
+
   }
 }
