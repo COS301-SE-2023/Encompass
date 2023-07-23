@@ -163,6 +163,10 @@ async openPopup() {
   
     return await modal.present();
   }
+
+  GoToCommunity(communityName:string){
+    this.router.navigate(['community-profile/' + communityName]);
+  }
   
 viewReplies(n:number){
     for(let i=0;i<this.viewreplies.length;i++){
@@ -410,7 +414,7 @@ Edit(){
       Last = this.LastName?.value;
     }
 
-    if(this.Bio?.value == null || this.Bio?.value == undefined){
+    if(this.Bio?.value == null || this.Bio?.value == undefined || this.Bio?.value == ""){
       bioData = this.profile?.bio;
     }
     else{
