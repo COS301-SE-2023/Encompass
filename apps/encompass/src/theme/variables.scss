@@ -5,6 +5,7 @@
 :root {
   --ion-color-background: #f8f8f8;
   --ion-color-text: #000000;
+  --border-color: #dbdbdb;
 
   --ion-color-primary: #20173F;
   --ion-color-primary-rgb: 32, 38, 95;
@@ -77,12 +78,15 @@
   body[color-theme="dark"] {
 
     --ion-color-background: #181327;
+    --ion-color-background-menu: #1b162c;
     --ion-color-background-contrast: #120b24;
     --ion-color-text: #ffffff;
+    --border-color: #3b3444;
+    --card-color: #3b3444;
 
     --ion-color-primary: #5e22a3;
     --ion-color-primary-rgb: 32, 38, 95;
-    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast: #1c2154;
     --ion-color-primary-contrast-rgb: 255, 255, 255;
     --ion-color-primary-shade: #1c2154;
     --ion-color-primary-tint: #363c6f;

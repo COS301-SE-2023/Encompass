@@ -101,6 +101,7 @@ export class HomePage {
 
   toggleNotifications() {
     if(this.profile == null){
+      console.log('you are not logged in?');
       return;
     }
 
