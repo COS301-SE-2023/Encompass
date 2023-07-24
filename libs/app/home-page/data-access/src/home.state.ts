@@ -49,6 +49,28 @@ export interface BooksModel{
   }
 }
 
+@State<BooksModel>({
+  name: 'recommended-books',
+  defaults: {
+    BooksForm: {
+      model: {
+        books: null
+      }
+    }
+  }
+})
+
+@State<MoviesModel>({
+  name: 'recommended-movies',
+  defaults: {
+    MoviesForm: {
+      model: {
+        movies: null
+      }
+    }
+  }
+})
+
 @State<CommunitiesModel>({
   name: 'recommended-comunities',
   defaults: {
