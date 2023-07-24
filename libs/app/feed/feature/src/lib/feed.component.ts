@@ -330,7 +330,7 @@ GoToProfile(username: string){
   }
 
   else{
-    this.router.navigate(['profile']);
+    this.router.navigate(['home/profile']);
   }
 }
 
