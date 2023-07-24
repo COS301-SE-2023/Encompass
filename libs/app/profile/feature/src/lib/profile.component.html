@@ -7,17 +7,17 @@
           <ion-row class="row-filter">
             <ion-col size="2">
               <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle" (click)="postChange()">
-                Posts
+                <span>Posts</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
               <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" (click)="commChange()">
-                Comments
+                <span>Comments</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
               <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
-                Events
+                <span>Events</span>
               </ion-button>
             </ion-col>
           </ion-row>
@@ -25,13 +25,13 @@
       </div>
     </ion-toolbar>
   </ion-header>
-
+ 
 
   <ion-grid>
     <ion-row class="filter-row">
       <ion-col size="5">
 
-        <ion-button style="z-index: 1;"class="comms active-button" id = "comm" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
+        <ion-button style="z-index: 1;"class="comms" id = "comm" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
 
         <!-- Posts -->
 
@@ -328,7 +328,7 @@
 
         <ion-card>
           <ion-card-header>
-            <ion-card-title color="grey">Top Communities</ion-card-title>
+            <ion-card-title class="topComms" color="grey">Top Communities</ion-card-title>
           </ion-card-header>
         
            

@@ -40,7 +40,7 @@
     align-items: center;
     height: 100%;
     pointer-events: none;
-    --background: var(--ion-color-background-contrast);
+    --background: var(--card-color);
 }
 
 .card-content-inner {
@@ -81,7 +81,7 @@
 .comm {
     margin-top: 10px;
     border: 1px solid var(--ion-color-primary);
-    color: var(--ion-color-text);
+    color: black;
 }
 
 ion-toolbar {
