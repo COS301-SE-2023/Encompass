@@ -25,3 +25,8 @@ export class GetNotifications{
   static readonly type = '[Home] Get Notifications';
   constructor(public readonly userId: string){}
 }
+
+export class GetRecommendedCommunities{
+  static readonly type = '[Home] Get Recommended Communities';
+  constructor(public readonly userId: string){}
+}

@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { CommunityDto } from "@encompass/api/community/data-access";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
 import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
@@ -19,6 +20,16 @@ export class HomeApi{
   //     return null;
   //   }
   // }
+
+  async getRecommendedCommunites(userId: string){
+    try{
+      const response = await this.httpClient.get<CommunityDto[]>('/api/community/get-recommended-communities/' + userId).toPromise();
+      return response;
+    }
+    catch(error){
+      return null;
+    }
+  }
 
   async getNotifications(userId: string){
     try{

@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedCommunities, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
+import { CommunityDto } from "@encompass/api/community/data-access";
 
 export interface HomePostsModel{
   HomePostsForm: {
@@ -21,6 +22,25 @@ export interface HomeNotificationsModel{
     }
   }
 }
+
+export interface CommunitiesModel{
+  CommunitiesForm: {
+    model: {
+      communities: CommunityDto[] | null
+    }
+  }
+}
+
+@State<CommunitiesModel>({
+  name: 'recommended-comunities',
+  defaults: {
+    CommunitiesForm: {
+      model: {
+        communities: null
+      }
+    }
+  }
+})
 
 @State<HomePostsModel>({
   name: 'homePosts',
@@ -47,6 +67,24 @@ export interface HomeNotificationsModel{
 @Injectable()
 export class HomeState{
   constructor(private homeApi: HomeApi){}
+
+  @Action(GetRecommendedCommunities)
+  async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId}: GetRecommendedCommunities){
+    const response = await this.homeApi.getRecommendedCommunites(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunitiesForm: {
+        model: {
+          communities: response
+        }
+      }
+    })
+  }
+
 
   @Action(GetNotifications)
   async getNotifications(ctx: StateContext<HomeNotificationsModel>, {userId}: GetNotifications){

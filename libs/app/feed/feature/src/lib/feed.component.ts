@@ -5,7 +5,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetAllPosts, GetLatestPosts, GetPopularPosts, getHome } from '@encompass/app/home-page/util';
+import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -39,11 +39,13 @@ export class FeedPage {
 
 
   constructor(private router: Router, private store: Store, private modalController: ModalController){
-    this.store.dispatch(new SubscribeToProfile())
+    this.store.dispatch(new SubscribeToProfile());
+    
     this.profile$.subscribe((profile) => {
       if(profile){
         console.log(profile); 
         this.profile = profile;
+        this.store.dispatch(new GetRecommendedCommunities(this.profile._id));
       }
     });
 
