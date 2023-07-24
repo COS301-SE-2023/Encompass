@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedCommunities, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
@@ -107,6 +107,40 @@ export interface BooksModel{
 @Injectable()
 export class HomeState{
   constructor(private homeApi: HomeApi){}
+
+  @Action(GetRecommendedMovies)
+  async getRecommendedMovies(ctx: StateContext<MoviesModel>, {userId}: GetRecommendedMovies){
+    const response = await this.homeApi.getRecommendedMovies(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      MoviesForm: {
+        model: {
+          movies: response
+        }
+      }
+    })
+  }
+
+  @Action(GetRecommendedBooks)
+  async getRecommendedBooks(ctx: StateContext<BooksModel>, {userId}: GetRecommendedBooks){
+    const response = await this.homeApi.getRecommendedBooks(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      BooksForm: {
+        model: {
+          books: response
+        }
+      }
+    })
+  }
 
   @Action(GetRecommendedCommunities)
   async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId}: GetRecommendedCommunities){
