@@ -6,6 +6,8 @@ import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
 import { CommunityDto } from "@encompass/api/community/data-access";
+import { MovieDto } from "libs/api/media-recommender/data-access/src/movie.dto";
+import { BookDto } from "@encompass/api/media-recommender/data-access";
 
 export interface HomePostsModel{
   HomePostsForm: {
@@ -27,6 +29,22 @@ export interface CommunitiesModel{
   CommunitiesForm: {
     model: {
       communities: CommunityDto[] | null
+    }
+  }
+}
+
+export interface MoviesModel{
+  MoviesForm: {
+    model: {
+      movies: MovieDto[] | null
+    }
+  }
+}
+
+export interface BooksModel{
+  BooksForm: {
+    model: {
+      books: BookDto[] | null
     }
   }
 }
