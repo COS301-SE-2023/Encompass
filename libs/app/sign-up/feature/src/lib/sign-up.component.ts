@@ -19,16 +19,7 @@ export class SignUpPage {
 
     user : SignUpModel = new SignUpModel();
 
-    isValid()
-    {
-      if(this.user.email != null && this.user.password != null && this.user.name != null)
-      {
-        return true
-      }
-
-      else
-        return false;
-    }
+   isValid =false;
 
     SignUp()
     {
@@ -44,5 +35,27 @@ export class SignUpPage {
 
     Back(){
       this.router.navigate(['welcome']);
+    }
+
+    isValidEmail(email: string): boolean {
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    
+      return emailRegex.test(email);
+    }
+
+    checkInput(){
+
+      if(this.user.email != "" && this.user.password != ""
+      && this.user.username != "" && this.user.firstName != ""
+      && this.user.lastName != ""){
+        if(this.isValidEmail(this.user.email)){
+          this.isValid = true;
+        }else{
+          this.isValid = false;
+        }
+    }else{
+      this.isValid = false;
+    }
+
     }
 }
