@@ -43,6 +43,7 @@ export class FeedPage {
     
     this.profile$.subscribe((profile) => {
       if(profile){
+        
         console.log(profile); 
         this.profile = profile;
         this.store.dispatch(new GetRecommendedCommunities(this.profile._id));

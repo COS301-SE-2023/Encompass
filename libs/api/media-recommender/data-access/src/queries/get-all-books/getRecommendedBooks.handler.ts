@@ -3,6 +3,7 @@ import { GetRecommendedBooksQuery } from "./getRecommendedBooks.query";
 import { HttpService } from "@nestjs/axios";
 import { BookEntityRepository } from "../../db/book-entity.repository";
 import { BookDto } from "../../book.dto";
+import { categoryMappings } from '../categoryMappings';
 
 @QueryHandler(GetRecommendedBooksQuery)
 export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedBooksQuery> {
@@ -19,6 +20,8 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             const allBooksPromise = this.bookEntityRepository.findSome();
             const currentUserProfilePromise = this.httpService.get(url + "api/profile/get/" + userId).toPromise();
             const [allBooks, currentUserProfile] = await Promise.all([allBooksPromise, currentUserProfilePromise]);
+
+            convertUserCategories( currentUserProfile?.data );
 
             addUserToBook(allBooks, currentUserProfile?.data);
             //K-means clustering for books where K = sqrt(allBooks.length)
@@ -39,6 +42,18 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
         } catch (error) {
             console.log(error);
             return [];
+        }
+
+        function convertUserCategories( currentUserProfile: any ) {
+            const updatedProfile: string[] = [];
+            currentUserProfile.categories.forEach((category: any) => {
+                if (categoryMappings[category]) {
+                    updatedProfile.push(categoryMappings[category].novels);
+                } else {
+                    updatedProfile.push(category);
+                }
+            });
+            currentUserProfile.categories = updatedProfile;
         }
 
         function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[], userId: string ) {
