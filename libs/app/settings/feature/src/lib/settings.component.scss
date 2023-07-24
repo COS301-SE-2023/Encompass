@@ -1,3 +1,17 @@
+.settings-page {
+  overflow:auto;
+  background-color: var(--ion-color-background);
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: 1;
+  background-color: var(--ion-color-background);
+  color: var(--ion-color-text);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .labelhover{
     display: none;
 }
@@ -7,6 +21,7 @@ ion-toolbar {
     --background: var(--ion-color-secondary);
     height: 70px;
     display: flex;
+    
 
     .ion-button-group {
       display: flex;
@@ -18,13 +33,19 @@ ion-toolbar {
   
     ion-icon {
       font-size: 24px; /* Adjust the icon size as needed */
+      color: var(--ion-color-text);
     }
   
     ion-label {
       font-size: 14px; /* Adjust the label font size as needed */
+      color: var(--ion-color-text);
     }
 
     
+  }
+
+  ion-input {
+    --border-style: none;
   }
   
   .active-button {
@@ -73,13 +94,13 @@ ion-toolbar {
   margin-left: 30px;
 }
 
-.info-label {
+.info-label{
   font-size: 20px;
   font-family: customFont;
   margin-bottom: 10px;
   // margin-right: 50%;
   white-space: normal;
-
+  color: var(--ion-color-text);
 }
 
 .label-box {
@@ -89,8 +110,23 @@ ion-toolbar {
   // align-items: flex-start;
 }
 
+
+
+.item-native {
+  padding-left: -16px;
+}
+
+.edit-icons-toggle, .edit-toggle {
+  margin-right: 5px;
+  --handle-background: var(--ion-color-primary-shade);
+  --handle-background-checked: var(--ion-color-primary);
+  --track-background: var(--ion-color-primary-tint);
+  --track-background-checked: var(--ion-color-secondary);
+}
+
 .custom-list {
   margin-top: 40px;
+  background-color: var(--ion-color-background);
 }
 
 a {
@@ -124,6 +160,9 @@ ion-button:hover {
 }
 
 .settings {
+
+  background-color: var(--ion-color-background);
+  color: var(--ion-color-text);
   .header {
     display: flex;
     justify-content: space-between;
@@ -161,9 +200,6 @@ ion-button:hover {
 
 .pass {
   margin-left: 8%;
-}
-
-.pass {
   text-align: right;
 }
 
