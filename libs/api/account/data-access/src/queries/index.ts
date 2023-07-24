@@ -10,3 +10,4 @@ DESCRIPTION: **
 
 export * from './account.handler'
 export * from './does-exist/does-exist.handler'
+export * from './get-by-id/get-by-id.handler'

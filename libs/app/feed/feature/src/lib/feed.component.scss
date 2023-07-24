@@ -1,11 +1,36 @@
+//page
+
 .overlay-container {
-    overflow:auto;
-    background-color: #f8f8f8;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    z-index: 1;
-  }
+overflow:auto;
+background-color: var(--ion-color-background);
+width: 100%;
+height: 100%;
+object-fit: fill;
+z-index: 1;
+background-color: var(--ion-color-background);
+color: var(--ion-color-text);
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+}
+
+.card-styles {
+  background-color: var(--card-color);
+  border-radius: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//header
 
 .image-container {
   width: 100%;
@@ -42,13 +67,13 @@
 
 @media (max-width: 1622px) {
   .custom-title {
-    font-size: 250%; 
+    font-size: 250%;
   }
 }
 
 @media (max-width: 1300px) {
   .custom-title {
-    font-size: 200%; 
+    font-size: 200%;
   }
 }
 
@@ -68,30 +93,31 @@
 
 @media (max-width: 1622px) {
   .custom-title {
-    font-size: 250%; 
+    font-size: 250%;
   }
 }
 
 @media (max-width: 1300px) {
   .custom-title {
-    font-size: 200%; 
+    font-size: 200%;
   }
 }
 
 .home-text {
   font-size: 22px;
   font-family: CustomFont2;
+  color: #000;
 }
 
 @media (max-width: 1622px) {
   .home-text {
-    font-size: 18px; 
+    font-size: 18px;
   }
 }
 
 @media (max-width: 1300px) {
   .home-text {
-    font-size: 14px; 
+    font-size: 14px;
   }
 }
 
@@ -103,20 +129,19 @@
 }
 
 .posts {
-  border: 1px solid var(--ion-color-primary-contrast);
+  border: 1px solid var(--ion-color-primary);
   border-radius: 50px;
-  padding: 10px 20px;
-  // background-color: #8231DD;
+  // padding: 10px 20px;
   color: white;
-  background-color: var(--ion-color-primary-contrast);
+  background-color: var(--ion-color-primary);
   font-family: CustomFont;
 
 }
 
 .comms {
-  border: 1px solid var(--ion-color-primary-contrast);
+  border: 1px solid var(--ion-color-primary);
   border-radius: 50px;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   font-family: CustomFont;
 }
 
@@ -129,218 +154,229 @@
 }
 
 
-  .content-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .post-content {
-    display: flex;
-    align-items: center;
-  }
-
-  .post-content ion-label {
-    margin-right: auto;
-  }
-
-  .post-content ion-button {
-    margin-left: 10px;
-  }
 
 
 
 
-  .imgDiv{
-    width: 25px;
-    height: 25px;
-    object-fit: fill;
-    }
-
-    .postImage{
-    width:70px;
-      height: 70px;
-      object-fit: fill;
-      position: relative;
-      border-radius: 10px;
-      position: relative;
-      margin-top: 10px;
-    }
-
-    .PostDetails{
-    //  background-color: #231942;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 85%;
-    }
 
 
 
-    .TitleNameOptions{
-    //  background-color: aqua;
-        display: flex;
-        justify-content: space-between;
-        height: 30%;
-        width: 100%;
-        color: black;
-        font-family: CustomFont;
-        font-size: 20px;
-        margin-top: 10px;
-    }
 
-    .Title{
-    display: inline-block;
-    width: auto;
 
-    }
-    .Name{
-      display: flex;
-align-items: center;
-font-size: 15px;
-position: relative;
-font-family: CustomFont2;
-left: 5%;
 
-    }
+
+
+//posts
+.imgDiv{
+width: 25px;
+height: 25px;
+object-fit: fill;
+}
+
+.postImage{
+  width:70px;
+  height: 70px;
+  object-fit: fill;
+  border-radius: 15px;
+}
+
+.postImage:hover{
+  cursor: pointer;
+}
+
+.PostDetails{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 82%;
+}
+
+.TitleNameOptions{
+  display: flex;
+  justify-content: space-between;
+  height: 30%;
+  width: 100%;
+  color: var(--ion-color-text);
+  font-family: CustomFont;
+  font-size: 20px;
+}
+
+.Title{
+  display: inline-block;
+  width: auto;
+}
+
+.Name{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  position: relative;
+  font-family: CustomFont2;
+  left: 5%;
+}
+
+.Title:hover{
+  cursor:pointer;
+  color: var(--hover-color);
+}
+.Name:hover{
+  cursor:pointer;
+  color: var(--hover-color);
+}
+
+.report{
+  font-size: small; position: relative; right: 10%;
+}
 
 .report:hover{
   cursor:pointer;
-}
-    .Options{
-     background-color: white;
-    font-size: larger;
-    position: relative;
-    padding-right: 30px;
-
-    }
-
-
-    .GenreIcons{
-    // background-color: aqua;
-    display: flex;
-    justify-content: center;
-    justify-content: space-between;
-    align-items: center;
-    height: 30%;
-    width: 20%;
-    color: black;
-    font-family: CustomFont;
-    position: relative;
-    margin-top: 5px;
-
-    }
-
-
-
-    .text{
-    width: 97%;
-    height: 90%;
-    font-family: CustomFont;
-    font-size: medium;
-    color: #000000;
-    margin-left: 3%;
-      margin-right: 3%;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    }
-
-    .date{
-    font-family: CustomFont;
-    font-size: 15px;
-    width: 20%;
-    height: 25%;
-    position: relative;
-    display: flex;
-    // justify-content: center;
-    margin-left: 3%;
-    }
-    .icons{
-    height: 50%;
-    width: 30%;
-    color:#231942;
-    display: flex;
-    justify-content: space-around;
-    position: relative;
-     padding-bottom: 2%;
-     padding-top:1%;
-    }
-
-    #icons2{
-    font-size: 25px;
-    color:#231942;
-
-    }
-
-    #icons2:hover{
-      color: purple;
-      cursor: pointer;
-    }
-
-    .stats{
-
-    font-size: 15px;
-    display: flex;
-    justify-content: space-evenly;
-
-    }
-
-    .PostCardHeader{
-    display: flex;
-    height: 35%;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    }
-
-
-
-
-    .PostImageContainer{
-    width: 15%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
-
-    .PostBody{
-    display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50%;
-        width: 100%;
-        // background-color: #F0EFEF;
-    }
-
-    .PostBody:hover{
-      cursor: pointer;
-    }
-
-    .PostFooter{
-    display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 97%;
-    }
-
-
-
-    .active-button {
-      color: purple;
-      font-weight: bold;
-      border-radius: 50px ;
-      border: 1px solid purple;
-    }
-
-ion-card {
-  background-color: #fdfdfd;
+  color: var(--hover-color);
 }
 
+.Options{
+  background-color: var(--ion-color-background);
+  font-size: larger;
+  position: relative;
+  right:5%;
+}
+
+.Options:hover{
+  color: var(--hover-color);
+}
+
+.GenreIcons{
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 30%;
+  color: var(--ion-color-dark);
+  font-family: CustomFont;
+  margin-left: 1.5%;
+}
+
+.text{
+  width: 97%;
+  height: 90%;
+  font-family: CustomFont;
+  font-size: medium;
+  color: var(--ion-color-dark);
+  margin-left: 3%;
+  margin-right: 3%;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date{
+  font-family: CustomFont;
+  font-size: 15px;
+  width: 20%;
+  height: 25%;
+  position: relative;
+  display: flex;
+  // justify-content: center;
+  margin-left: 3%;
+}
+
+.icons{
+  height: 50%;
+  width: 30%;
+  color:var(--ion-color-primary-contrast);
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding-bottom: 2%;
+  padding-top:1%;
+}
+
+#icons2{
+  font-size: 25px;
+  color:var(--ion-color-primary-contrast);
+}
+
+#icons2:hover{
+  color: var(--hover-color);
+  cursor: pointer;
+}
+
+.stats{
+  font-size: 15px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.PostCardHeader{
+  display: flex;
+  justify-content: center;
+  height: 35%;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.PostImageContainer{
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.PostBody{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+}
+
+.PostBody:hover{
+  cursor: pointer;
+}
+
+.PostFooter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 97%;
+}
+
+.specialBtn{
+  background-color: var(--ion-color-primary-tint);
+  color: var(--ion-color-text);
+  border-radius: 50px;
+  border: 1px solid var(--ion-color-primary-tint);
+  font-size: 15px;
+  font-family: CustomFont;
+  padding: 2%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//filter
+
+.Filter {
+  margin-bottom: 50px; 
+}
+
+.active-button {
+  color: var(--ion-color-warning);
+  font-weight: bold;
+  border-radius: 50px ;
+  border: 1px solid var(--ion-color-warning);
+}
 
 .ContentCard{
   width:95% ;
@@ -351,46 +387,97 @@ ion-card {
   justify-content: space-evenly;
 }
 
-
-
 .RecomCommunities{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   position: relative;
-  // align-items: center;
   width: 60%;
   // left: 30%;
   // height: auto;
   // z-index: 3;
   // background-color: white;
-  font-family: CustomFont;
+  // font-family: CustomFont;
+  font-weight: 550;
 }
 
+#recommendedBtn{
+  font-family: CustomFont;
+  font-size: larger;
+
+}
+#newBtn{
+  font-family: CustomFont;
+  font-size: larger;
+
+
+}
+
+#popularBtn{
+  font-family: CustomFont;
+  font-size: larger;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+//recommeneded cards
+
 .headtext {
-  color: black;
+  color: #000;
 }
 
 .CommunityCard{
-
-  background-color: #f8f8f8;
-
+  left: 2.5%;
+  width: 100%;
+  border-radius: 15px;
 }
+
+.RecomHeader{
+  width: 150%;
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+}
+
+.recomcard ion-button {
+  pointer-events: none;
+}
+
+ion-button:hover {
+  --border-radius: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+//community
 
 .CommunityHeader{
   display: flex;
-justify-content: space-evenly;
-height: 50%;
-width: 100%;
-// background-color: #231942;
+  justify-content: space-evenly;
+  height: 50%;
+  width: 100%;
 }
 
 .CommunityIcon{
   object-fit: cover;
   width: 80px;
   height: 80px;
-  // object-fit: fill;
-  // position: relative;
   margin-top: 10px;
   border-radius: 5px;
 }
@@ -401,6 +488,7 @@ width: 100%;
  width: 50%;
  flex-direction: column;
  margin-top: 10px;
+ 
 }
 
 .CommunityName{
@@ -409,110 +497,182 @@ display: flex;
     // align-items: center;
     height: 50%;
     width: 100%;
-    color: black;
+    color: #000;
     font-family: CustomFont;
     font-size: 20px;
 }
 
 .CommunityMembers{
-
-display: flex;
-// justify-content: center;
-// align-items: center;
-height: 50%;
-width: 100%;
-color: black;
-font-family: CustomFont;
+  display: flex;
+  height: 50%;
+  width: 100%;
+  color: #000;
+  font-family: CustomFont;
 }
 
 .CommunityGenres{
-display: flex;
-// justify-content: center;
-// align-items: center;
-justify-content: space-between;
-height: 50%;
-width: 50%;
-color: black;
-font-family: CustomFont;
-margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  height: 50%;
+  width: 50%;
+  color: #000;
+  font-family: CustomFont;
+  margin-top: 10px;
 }
 
 .CommunityAdd{
-display: flex;
-// justify-content: center;
-// align-items: center;
-margin-top: 10px;
- height: 70%;
- width: 8%;
+  display: flex;
+  margin-top: 10px;
+  height: 70%;
+  width: 8%;
 }
 
 .CommunityBody{
-display: flex;
-justify-content: center;
-align-items: center;
- font-family: CustomFont2;
- color: black;
- margin-top: 15px;
- margin-left: 20px;
- margin-bottom: 15px;
- height: 50%;
- width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: CustomFont2;
+  color: #000;
+  margin-top: 15px;
+  margin-left: 20px;
+  // margin-bottom: 15px;
+  height: 50%;
+  width: 80%;
 }
 
 .CommunityDesc{
-display: flex;
-
+  display: flex;
    font-family: CustomFont2;
-   color: black;
+  //  color: var(--ion-color-dark);
    height: 90%;
    width: 95%;
-
 }
+
+.card-color {
+  background-color: var(--card-color-contrast);
+  height: 100%;
+  padding-bottom: 15px;
+}
+
+// Import FontAwesome styles
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+// Button styles
+.cta {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.icon {
+  
+  transition: all 0.3s ease;
+}
+
+.fa-plus-circle {
+  font-size: 30px;
+  color: var(--ion-color-primary); // Blue color for the "add" icon
+}
+
+.fa-check {
+  font-size: 26px;
+  color: var(--ion-color-warning); // Green color for the "check" icon
+}
+
+// Button animation on click
+.cta.clicked {
+  transform: scale(1.1);
+}
+
+.icon.clicked {
+  transform: rotate(45deg);
+}
+
+
+//content
 
 .imgDiv{
-width: 25px;
-height: 25px;
-object-fit: fill;
+  width: 25px;
+  height: 25px;
+  object-fit: fill;
 }
 
-.RecomHeader{
-  width: 150%;
-  display: flex;
-  justify-content: space-between;
-  // align-items: center;
-}
-
-.contentrecs img {
-  width: 100%;
-  height: 80%;
-  object-fit: cover;
+.MediaImage {
+  width: 165px;
+  height: 240px;
+  object-fit: fill;
   border-radius: 10px;
 }
 
-.content-row {
-  justify-content: space-evenly;
+.contentrecs {
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  // align-items: center;
 }
 
+.MediaImage {
+  width: 165px;
+  height: 240px;
+  object-fit: fill;
+  border-radius: 10px;
+}
 
-.specialBtn{
-  background-color: #66617F;
+.media-item {
+  position: relative;
+  flex: 0 0 auto;
+  width: inherit;
+  height: inherit;
+  margin: 10px;
+}
+
+.media-info {
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000c7;
   color: white;
-  border-radius: 50px;
-  border: 1px solid #66617F;
-  font-size: 15px;
-  font-family: CustomFont;
-  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-#recommendedBtn{
-  font-family: CustomFont;
-}
-#newBtn{
-  font-family: CustomFont;
-
+.media-item:hover .media-info {
+  opacity: 1;
 }
 
-#popularBtn{
-  font-family: CustomFont;
+/* Additional styling for the media info */
+.media-info .MediaTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.media-info .MediaDate,
+.media-info .MediaAuthor {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.media-info .MediaGenres img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.media-info {
+  .imgDiv {
+    filter: invert(1);
+  }
 }
 

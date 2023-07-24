@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home-page.component';
@@ -10,6 +10,6 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 @NgModule({
   imports: [CommonModule, IonicModule, HomeRouting, NgxsModule.forFeature([HomeState])],
   declarations: [HomePage],
-  providers: [],
+  providers: [DatePipe],
 })
 export class HomeModule {}

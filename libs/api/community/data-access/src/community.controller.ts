@@ -1,9 +1,10 @@
-import { Body , Controller, Get, Param, Post, Patch } from '@nestjs/common';
+import { Body , Controller, Get, Param, Post, Patch, Delete } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateCommunityRequest, UpdateCommunityRequest } from './dto';
 import { CreateCommunityCommand } from './commands/create-community.command';
 import { Community } from './community';
 import { GetCommunityQuery } from './queries/get-community.query';
+import { GetRecommendedCommunitiesQuery } from './queries/recommended/get-recommended-communities.query'
 import { CommunityDto } from './community.dto';
 import { UpdateCommunityCommand } from './commands/update-community/update-community.command';
 import { DoesExistQuery } from './queries/does-exist/does-exist.query';
@@ -15,6 +16,8 @@ import { Request } from 'express';
 import { Multer } from 'multer';
 import { UploadedFile } from '@nestjs/common';
 import { UploadImage } from './upload-image.service';
+import { DeleteCommunityCommand } from './commands/delete-community/delete-community.command';
+import { RemovePostCommand } from './commands/remove-post/remove-post.command';
 
 
 
@@ -29,6 +32,13 @@ export class CommunityController {
     async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
         return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
             new GetCommunityQuery(id),
+        );
+    }
+
+    @Get('get-recommended-communities/:userid')
+    async getRecommendedCommunities(@Param('userid') userId: string): Promise<CommunityDto[]> {
+        return await this.queryBus.execute<GetRecommendedCommunitiesQuery, CommunityDto[]>(
+            new GetRecommendedCommunitiesQuery(userId),
         );
     }
 
@@ -76,6 +86,25 @@ export class CommunityController {
         )
     }
 
+    @Patch('remove-post/:name/:post')
+    async removePost(
+        @Param('name') communityName: string,
+        @Param('post') post: string
+    ){
+        return await this.commandBus.execute<RemovePostCommand, CommunityDto>(
+            new RemovePostCommand(communityName, post)
+        )
+    }
+
+    @Delete('delete/:name')
+    async deleteCommunity(
+        @Param('name') communityName: string
+    ){
+        return await this.commandBus.execute<DeleteCommunityCommand, string>(
+            new DeleteCommunityCommand(communityName)
+        )
+    }
+
     @Post('upload-image')
     @UseInterceptors(FileInterceptor('file'))
     async uploadImage(
@@ -83,7 +112,6 @@ export class CommunityController {
     ){
         console.log("Here")
         const uploadImage = new UploadImage();
-    
         return await uploadImage.uploadImage(file.buffer, file.originalname);
     }
 }

@@ -7,12 +7,18 @@ import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetComments, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { UpdatePost } from '@encompass/app/home-page/util';
 import { CommentDto } from '@encompass/api/comment/data-access';
+import {DeletePost} from '@encompass/app/profile/util';
+import {DeleteComment} from '@encompass/app/profile/util';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
+import { UpdateProfile } from '@encompass/app/profile/util';
+import { ProfileApi } from '@encompass/app/profile/data-access';
 
 @Component({
   selector: 'profile',
@@ -20,15 +26,23 @@ import { CommentDto } from '@encompass/api/comment/data-access';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfilePage {
+
+  requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
+
+
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
+  @Select(ProfileState.otherUsers) otherUsers$! : Observable<ProfileDto[] | null>;
 
+  file!: File;
+  fileBanner!: File;
+  fileName!: string;
+  fileNameBanner!: string;
   profile! : ProfileDto | null;
+  otherUsers! : ProfileDto[] | null;
   posts! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
-  reports : boolean[] =[];
-  reportedPosts : boolean[]=[];
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
@@ -39,10 +53,19 @@ export class ProfilePage {
    seeComments=false;
    viewreplies : boolean[] = [];
    replies : number[] = [];
+   size=0;
+   edit=false;
+   hasImage=false;
+   hasBanner=false;
+
+   deletePost: boolean[] = [];
+   deleteComment: boolean[] =[];
+   MarkedForCommentDeletion: boolean[] = [];
+   MarkedForPostDeletion: boolean[] = [];
 
 
-
-  constructor(private router: Router, private store: Store, private modalController: ModalController) {
+  constructor(private router: Router, private store: Store, private modalController: ModalController
+    ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -53,7 +76,7 @@ export class ProfilePage {
         this.posts$.subscribe((posts) => {
           if(posts){
             this.posts = posts;
-
+            this.size=posts.length-1;
             for(let i =0;i<posts.length;i++){
               this.likedComments.push(false);
               this.sharing.push(false);
@@ -61,8 +84,8 @@ export class ProfilePage {
 
             for(let i =0;i<posts.length;i++){
 
-                  this.reports.push(false);
-                  this.reportedPosts.push(false);
+                  this.deletePost.push(false);
+                  this.MarkedForPostDeletion.push(false);
                   if(posts[i].dateAdded!=null&&posts[i].comments!=null
                     &&posts[i].shares!=null){
                     this.datesAdded.push(posts[i].dateAdded);
@@ -82,10 +105,12 @@ export class ProfilePage {
               this.store.dispatch(new GetComments(profile.username));
               this.commentsList$.subscribe((comments) => {
                 if(comments){
-                  console.log(comments);
+                  // console.log(comments);
                   this.commentsList = comments;
           
                   for(let i =0;i<comments.length;i++){
+                    this.deleteComment.push(false);
+                    this.MarkedForCommentDeletion.push(false);
                     this.viewreplies.push(false);
                     if(comments[i].replies.length>0){
                       this.replies[i]=comments[i].replies.length;
@@ -102,11 +127,32 @@ export class ProfilePage {
     });
    }
 
-   ViewPostofComment(postId: string){
+   postForm = this.formBuilder.group({
+    FirstName: ['', Validators.maxLength(20)],
+    LastName: ['', Validators.maxLength(20)],
+    Bio: ['', Validators.maxLength(150)],
+
+  });
+
+ 
+
+  get FirstName(){
+    return this.postForm.get('FirstName');
+  }
+
+  get LastName() {
+    return this.postForm.get('LastName');
+  }
+
+  get Bio() {
+    return this.postForm.get('Bio');
+  }
+
+ViewPostofComment(postId: string){
     this.router.navigate(['app-comments-feature/' + postId]);
-   }
+  }
     
-   async openPopup() {
+async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
       cssClass: 'custom-modal', // Replace with the component or template for your popup
@@ -117,110 +163,80 @@ export class ProfilePage {
   
     return await modal.present();
   }
+
+  GoToCommunity(communityName:string){
+    this.router.navigate(['community-profile/' + communityName]);
+  }
   
-  viewReplies(n:number){
+viewReplies(n:number){
     for(let i=0;i<this.viewreplies.length;i++){
       if(i!=n){
         this.viewreplies[i]=false;
       }
     }
         this.viewreplies[n] =!this.viewreplies[n];
-        }
-
+  }  
         
-  Report(n:number){
-    if(this.reports[n]==true){
-      this.reports[n]=false;
-    }else if(this.reports[n]==false){
-      this.reports[n]=true;
-    }
-  
+Edit(){
+    this.edit=true;
   }
-  
-  Like(n:number, post: PostDto){
-    this.likedComments[n]=true;
-    this.likes[n]++;
-  
-    let likesArr;
-  
-    const emptyArray : string[] = [];
-    
-    if(this.profile == null){
-      return
+       
+  Delete(n:number){
+
+    if(this.posts?.length==null){
+      return;
     }
 
-    if(post.likes == emptyArray){
-      likesArr = [this.profile.username];
+
+    if(this.deletePost[n]==true){
+      for(let k = 0;k<this.deletePost.length;k++){
+        this.deletePost[k]=false;
+     }
     }
-  
     else{
-      likesArr = [...post.likes, this.profile.username];
+      for(let k = 0;k<this.deletePost.length;k++){
+        this.deletePost[k]=false;
+     }
+     this.deletePost[n]=true;
     }
-  
-    const data : UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported
+
+    this.MarkedForPostDeletion[n]=true;
+  }
+
+  Delete2(n:number){
+
+    if(this.comments?.length==null){
+      return;
     }
-  
-    this.store.dispatch(new UpdatePost(post._id, data));
+
+    if(this.deleteComment[n]==true){
+      for(let k = 0;k<this.deleteComment.length;k++){
+        this.deleteComment[k]=false;
+     }
+    }else{
+      for(let k = 0;k<this.deleteComment.length;k++){
+        this.deleteComment[k]=false;
+     }
+     this.deleteComment[n]=true;
+    }
+
+   
+     this.MarkedForCommentDeletion[n]=true;
+    
+      
+    
+  }
+
+  DeletePost(n:number,post: PostDto){
+    this.MarkedForPostDeletion[n]=false;
+    this.store.dispatch(new DeletePost(post._id));
+  }
+
+  DeleteComment(n:number,comment: CommentDto){
+    this.MarkedForCommentDeletion[n]=false;
+    this.store.dispatch(new DeleteComment(comment._id));
   }
   
-  Dislike(n:number, post: PostDto){
-    this.likedComments[n]=false;
-    this.likes[n]--;
-  
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-  
-    const data : UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported
-    }
-  
-    this.store.dispatch(new UpdatePost(post._id, data));
-  }
-  
-  ReportPost(n:number, post: PostDto){
-    console.log("reporting post");
-  
-    if(this.reportedPosts[n]==false){
-      this.reportedPosts[n]=true;
-    }
-  
-    const data : UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: post.likes,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: true
-    }
-  
-    this.store.dispatch(new UpdatePost(post._id, data));
-  }
   
   async Share(n:number, post: PostDto){
     this.shares[n]++;
@@ -255,8 +271,6 @@ export class ProfilePage {
     await navigator.clipboard.writeText(link)
   }
   
-
-
   postChange(){
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
@@ -304,5 +318,171 @@ export class ProfilePage {
     this.router.navigate(['app-comments-feature/' + postId]);
   }
 
+  presentingElement: any;
+  presentingElement2: any;
 
-}
+  ngOnInit() {
+    this.presentingElement = document.querySelector('.ion-page');
+    this.presentingElement2 = document.querySelector('.ion-page');
+  }
+
+  FinishEdit(){
+
+    this.edit=false;
+    this.hasImage = false;
+    this.hasBanner = false;
+
+  }
+
+  insertImage() {
+    this.hasImage = !this.hasImage;
+  }
+
+  insertBanner() {
+    this.hasBanner = !this.hasBanner;
+  }
+
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.file = file;
+        this.fileName = file.name;
+    }
+  }
+
+  onFileBannerSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+        this.fileBanner = file;
+        this.fileNameBanner = file.name;
+    }
+  }
+
+  async onSubmit(){
+
+    if(this.profile == null){
+      return;
+    }
+
+
+    let First : string;
+    let Last : string;
+    let bioData : string;
+
+    let imageUrl : string | null;
+    let bannerUrl : string | null;
+
+    if(this.file){
+      imageUrl = await this.uploadImage(this.file, this.fileName);
+
+      if(imageUrl == null){
+        imageUrl = this.profile?.profileImage;
+      }
+    }
+
+    else{
+      imageUrl = this.profile?.profileImage;
+    }
+
+    if(this.fileBanner){
+      bannerUrl = await this.uploadImage(this.fileBanner, this.fileNameBanner);
+
+      if(bannerUrl == null){
+        bannerUrl = this.profile?.profileBanner;
+      }
+    }
+
+    else{
+      bannerUrl = this.profile?.profileBanner;
+    }
+
+    if(this.FirstName?.value == null || this.FirstName?.value == undefined|| this.FirstName?.value == ""){
+      First = this.profile?.name;
+    }
+    else{
+      First = this.FirstName?.value;
+    }
+
+    if(this.LastName?.value == null || this.LastName?.value == undefined|| this.LastName?.value == ""){
+      Last = this.profile?.lastName;
+    }
+    else{
+      Last = this.LastName?.value;
+    }
+
+    if(this.Bio?.value == null || this.Bio?.value == undefined || this.Bio?.value == ""){
+      bioData = this.profile?.bio;
+    }
+    else{
+      bioData = this.Bio?.value;
+    }
+
+    const data : UpdateProfileRequest = {
+      username: this.profile?.username,
+      name: First,
+      lastName: Last,
+      categories:  this.profile?.categories,
+      communities: this.profile?.communities,
+      awards: this.profile?.awards,
+      events: this.profile?.events,
+      followers: this.profile?.followers,
+      following: this.profile?.following,
+      posts: this.profile?.posts,
+      reviews: this.profile?.reviews,
+      profileImage: imageUrl,
+      profileBanner: bannerUrl,
+      bio: bioData,
+
+    }
+
+    this.store.dispatch(new UpdateProfile(data,this.profile?._id));
+    this.postForm.reset();
+  }
+
+  async uploadImage(file: File, fileName: string) : Promise<string | null>{
+    return new Promise((resolve) => {
+      const formData = new FormData();
+      formData.append('file', file, fileName);
+
+      const uploadFile = this.profileApi.uploadFile(formData)
+      console.log(uploadFile);
+      resolve(uploadFile);
+    })
+  }
+
+  loadFollowers(){
+    if(this.profile == null){
+      return;
+    }
+    console.log("here");
+    this.store.dispatch(new GetFollowers(this.profile.followers));
+    this.otherUsers$.subscribe((users) => {
+      if(users){
+        console.log(users);
+        this.otherUsers = users;
+      }
+    })
+  }
+
+  loadFollowing(){
+    if(this.profile == null){
+      return;
+    }
+
+    this.store.dispatch(new GetFollowing(this.profile.following));
+    this.otherUsers$.subscribe((users) => {
+      if(users){
+        this.otherUsers = users;
+      }
+    })
+  }
+
+  async goToProfile(username : string | undefined){
+    await this.modalController.dismiss();
+    this.router.navigate(['user-profile/' + username]);
+  }
+} 

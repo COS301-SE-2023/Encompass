@@ -1,47 +1,122 @@
-<ion-header>
-    <ion-toolbar>
-      <ion-title>
-        Ionic Page
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <div style="display: flex; align-items: flex-start;">
-      <ion-card style="margin-right: 10px;">
-        <ion-card-content>
-          <ion-button expand="full" style="color: white;">Create a Post</ion-button>
-          <ion-button expand="full" style="color: white;">Create a Community</ion-button>
-        </ion-card-content>
-      </ion-card>
-  
-      <div style="display: flex; flex-direction: column;">
-        <div style="display: flex;">
-          <ion-label>Light Themes</ion-label>
-          <div style="width: 20px; height: 20px; background-color: red; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: blue; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: green; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: yellow; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: orange; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: purple; margin: 5px;"></div>
+<!-- images sourced from: https://wallpapercave.com/abstract-forest-wallpapers -->
+
+<div id="theme-page" class="theme-page">
+  <div class="top-stuff">
+
+    
+    <ion-card class="display-card">
+      <ion-header>
+        <ion-toolbar id="toolbar">
+        <div class="ion-button-group">
+          <div class="active-button buttonStyle" fill="clear">
+            <ion-label>Posts</ion-label>
+          </div>
+      
+          <div class="none buttonStyle" fill="clear" >
+            <ion-label>Events</ion-label>
+          </div>
+      
+          <div class="none buttonStyle" fill="clear">
+            <ion-label>Comments</ion-label>
+          </div>
         </div>
-        <div style="display: flex;">
-            <ion-label>Dark Themes</ion-label>
-          <div style="width: 20px; height: 20px; background-color: pink; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: gray; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: brown; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: teal; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: cyan; margin: 5px;"></div>
-          <div style="width: 20px; height: 20px; background-color: magenta; margin: 5px;"></div>
+      </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="card-content">
+        <div class="card-content-inner">
+          <div class="post">
+            Create a Post
+          </div>
+          <div class="comm">
+            Create a Community
+          </div>
+    
+          <ion-fab class="add-sample">
+            <ion-fab-button>
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
         </div>
+      </ion-content>
+      
+    </ion-card>
+
+
+
+
+   <div class="theme-options">
+    <div class="light-theme">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <span class="light-heading">Light Themes:</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col>
+          <div class="pickings">
+            <div id="light" class="square light-default " (click)="changeBorder('light'); enableLight()"></div>
+            <div id="light-red" class="square light-red" (click)="changeBorder('light-red'); enableLightRed()"></div>
+            <div id="light-blue" class="square light-blue" (click)="changeBorder('light-blue'); enableLightBlue()"></div>
+            <div id="light-green" class="square light-green" (click)="changeBorder('light-green'); enableLightGreen()"></div>
+            <div id="light-orange" class="square light-orange" (click)="changeBorder('light-orange'); enableLightOrange()"></div>
+          </div>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="dark-theme">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <span class="dark-heading">Dark Themes:</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+        <ion-col>
+          <div class="pickings">
+            <div id="dark" class="square dark-default" (click)="changeBorder('dark'); enableDark()"></div>
+            <div id="dark-red" class="square dark-red" (click)="changeBorder('dark-red'); enableDarkRed()"></div>
+            <div id="dark-blue" class="square dark-blue" (click)="changeBorder('dark-blue'); enableDarkBlue()"></div>
+            <div id="dark-green" class="square dark-green" (click)="changeBorder('dark-green'); enableDarkGreen()"></div>
+            <div id="dark-orange" class="square dark-orange" (click)="changeBorder('dark-orange'); enableDarkOrange()"></div>
+          </div>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  
+
+  </div>
+
+
+  <div class="image-stuff">
+    <span class="image-heading">Background Images:</span>
+    <div class="images">
+      <img id="img-purple" src="https://wallpapercave.com/dwp2x/wp10352811.jpg" alt="img-purple" class="temp" (click)="changeBorderImage('img-purple', 'https://wallpapercave.com/dwp2x/wp10352811.jpg')">
+      <img id="img-red" src="https://wallpapercave.com/dwp2x/wp7857731.jpg" alt="img-red" class="temp" (click)="changeBorderImage('img-red', 'https://wallpapercave.com/dwp2x/wp7857731.jpg')">
+      <img id="img-blue" src="https://wallpapercave.com/dwp2x/wp9339593.jpg" alt="img-blue" class="temp" (click)="changeBorderImage('img-blue','https://wallpapercave.com/dwp2x/wp9339593.jpg')">
+      <img id="img-green" src="https://wallpapercave.com/dwp2x/wp10352814.jpg" alt="img-green" class="temp" (click)="changeBorderImage('img-green', 'https://wallpapercave.com/dwp2x/wp10352814.jpg')">
+      <img id="img-orange" src="https://wallpapercave.com/dwp2x/wp10352821.jpg" alt="img-orange" class="temp" (click)="changeBorderImage('img-orange', 'https://wallpapercave.com/dwp2x/wp10352821.jpg')">
+      <div id="img-own" class="temp own" (click)="changeBorderImage('img-own', ''); getImg()">
+        <label for="backgroundFile" class="file-label">
+          <input id="backgroundFile" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" class="file-input">
+          <div class="fab-container">
+            <ion-fab class="add-img">
+              <ion-fab-button>
+                <ion-icon name="add"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+          </div>
+        </label>
       </div>
+      
+      
     </div>
-  
-    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-        <ion-label>Backgrounds</ion-label>
-      <div style="width: 100px; height: 50px; background-color: lightblue;"></div>
-      <div style="width: 100px; height: 50px; background-color: lightgreen;"></div>
-      <div style="width: 100px; height: 50px; background-color: lightpink;"></div>
-    </div>
-  </ion-content>
-  
+  </div>
+
+</div>

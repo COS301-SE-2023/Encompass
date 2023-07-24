@@ -20,7 +20,8 @@ const routes: Routes = [
       {
         path: 'profile',
         // pathMatch: 'full',
-        loadChildren: () => import('@encompass/app/profile/feature').then((m) => m.ProfileModule), 
+        loadChildren: () => import('@encompass/app/profile/feature').then((m) => m.ProfileModule),
+        // canActivate: [AuthGuard] 
       },
       {
         path: 'themes',
@@ -31,6 +32,26 @@ const routes: Routes = [
         path: 'settings',
         // pathMatch: 'full',
         loadChildren: () => import('@encompass/app/settings/feature').then((m) => m.SettingsModule), 
+      },
+      {
+        path: 'community-profile',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule), 
+      },
+      {
+        path: 'messages',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/messages/feature').then((m) => m.MessagesModule), 
+      },
+      {
+        path: 'user-profile',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule), 
+      },
+      {
+        path: 'search-explore',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/search-explore/feature').then((m) => m.SearchExploreModule), 
       },
       // {
       //   path: 'comments', //comments/:id

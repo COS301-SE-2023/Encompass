@@ -1,0 +1,130 @@
+<ion-content>
+    <div class="overlay-container">
+
+    <div class="image-container">
+        <div color="dark" class="custom-title">
+            <a class="head">Our Team</a>
+            <a class="sub">Get to know the team behind the project.</a>
+        </div>
+    <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
+    </div>
+
+    <div class="team-container">
+        <div class="team">
+            <div class="full-descr">
+                <h1 class="name">Julianna Venter</h1>
+                <sub class="descr">Julianna is overseeing the UI/UX design, as well as the creative direction of the project. She also takes the role of project manager.</sub>
+            </div>
+            <img class="right-img" src="https://avatars.githubusercontent.com/u/104779369?v=4" class="jules-img" alt="Julianna Venter">
+        </div>
+
+        <div class="team">
+            <img class="left-img" src="https://user-images.githubusercontent.com/89075980/236036745-e26dcf3e-c8bf-45a6-92b2-69d7ee0f197d.jpg" class="kea-img" alt="Keabetswe Mothapo">
+            <div class="full-descr right-align">
+                <h1 class="name">Keabetswe Mothapo</h1>
+                <sub class="descr">Kea is lead in business management and documentation. Additionally she works in front end development, as well as testing.</sub>
+            </div>
+            
+        </div>
+
+        <div class="team">
+            
+            
+            <div class="full-descr">
+                <h1 class="name">Morgan Bentley</h1>
+                <sub class="descr">Morgan is apt in back-end development, taking lead in primarily integration and testing, as well as our consultant on our recommendation algorithm.</sub>
+            </div>
+            <div class="morgan-img">
+                <img class="right-img" src="https://user-images.githubusercontent.com/126817281/236040993-d213e57b-6ae3-4b3e-9c6a-72b8dc3f8d2b.jpg" class="morgan-img" alt="Morgan Bentley">
+            </div>
+        </div>
+
+        <div class="team">
+            <img class="left-img" src="https://user-images.githubusercontent.com/89075980/239496127-9cf0de27-e5cd-4828-b9e8-39df0b4a41c3.jpeg" class="ronin-img" alt="Ronin Brookes">
+            <div class="full-descr right-align">
+                <h1 class="name">Ronin Brookes</h1>
+                <sub class="descr">Ronin is the lead of our Ui development section, taking the responsibility in the functionality of the app and user satisfaction. He also participates in a part of our integration team.</sub>
+            </div>
+            
+        </div>
+
+        <div class="team">
+            
+            <div class="full-descr">
+                <h1 class="name">Sameet Keshav</h1>
+                <sub class="descr">Sameet is lead of our back-end services and DevOps, specializing in technical aspects and app functionality.</sub>
+            </div>
+            <img class="right-img" src="https://user-images.githubusercontent.com/105606137/236011909-a6deb24d-d46b-4ae1-8157-3dd9484e1b3c.jpeg" class="sameet-img" alt="Sameet Keshav">
+        </div>
+    </div>
+
+
+
+
+    <ion-footer>
+        <ion-toolbar class="footer" color="tertiary">
+          <ion-grid class="footer footer-grid">
+            <ion-row class="footer-row">
+              <ion-col size="1">
+                <ion-button fill="clear" class="footer-text" (click)="home()">
+                  Home
+                </ion-button>
+              </ion-col>
+              <ion-col size="1">
+                <ion-button fill="clear" class="footer-text" (click)="openTCs()">
+                  T&amp;Cs
+                </ion-button>
+              </ion-col>
+              <ion-col size="1">
+                <ion-button fill="clear" class="footer-text" (click)="openPrivacy()">
+                  Privacy
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="footer-row">
+              <ion-col size="1">
+                <ion-icon id="click-trigger" name="logo-linkedin" class="lnk"></ion-icon>
+              </ion-col>
+              <ion-col size="1">
+                  <a href="https://github.com/COS301-SE-2023/Encompass/" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" class="git"></ion-icon></a>
+              </ion-col>
+            </ion-row>
+            <ion-row class="footer-row footer-row-text">
+              <ion-col size="3">
+                <div class="Overlayt3">PerfectStrangers Capstone 2023</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-toolbar>
+      </ion-footer>
+    
+      <ion-popover trigger="click-trigger" triggerAction="click" side="top" alignment="center">
+        <ng-template >
+          <ion-content style="margin-bottom: 280px;">
+          <ion-list >
+            <ion-item>
+              <a href="https://www.linkedin.com/in/julianna-venter-3b4841232/" target="_blank" rel="noopener noreferrer">Julianna Venter</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/keabetswe-mothapo/" target="_blank" rel="noopener noreferrer">Keabetswe Mothapo</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/morgan-bentley-0bb21a149/" target="_blank" rel="noopener noreferrer">Morgan Bentley</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/ronin-brookes/" target="_blank" rel="noopener noreferrer">Ronin Brookes</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/sameetkeshav/" target="_blank" rel="noopener noreferrer">Sameet Keshav</a>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+        </ng-template>
+      </ion-popover>
+    </div>
+    
+   
+  
+    
+    
+  </ion-content>

@@ -9,3 +9,5 @@ DESCRIPTION: **
 */
 
 export * from './create-account.handler'
+export * from './update-email/update-email.handler'
+export * from './update-password/update-password.handler'

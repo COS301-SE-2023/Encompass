@@ -7,6 +7,7 @@ export class CommunityDto {
     readonly about!: string;
     readonly rules!: string;
     readonly groupImage!: string;
+    readonly bannerImage!: string;
     readonly categories!: string[];
     readonly events!: string[];
     readonly posts!: string[];

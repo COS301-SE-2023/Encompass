@@ -5,37 +5,40 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .login{
     background-color: #F0EFEF;
-    height: 70%;
+    height: 80%;
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 15px;
+    
 }
+
 .backgroundImage{
     width: 100%;
-    height: 100%;
-    border-radius: 15px;
+    height: 80%;
+    object-fit: cover;
+    position: absolute;
+    margin-top: 20%;
+    border-radius: 0 0 15px 15px;
 }
 
 .logo{
-    width: 120px;
+    width: 130px;
     height: 120px;
-    position: absolute;
-    top:17%;
 }
-
 .SignUpDetails{
     width: 350px;
-    height: 250px;
+    height: 300px;
     // background-color: aqua;
     position: absolute;
     z-index: 2;
-    top:47%;
+    top:38%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -45,49 +48,93 @@
     height: 20%;
     text-align: center;
     align-items: center;
-    border: #231942 2px solid;
+    // border: #231942 2px solid;
     border-radius: 15px;
+    background-color: #f8f8f8;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    
+}
+
+.input {
+    --border-radius: 15px; 
+}
+
+.input::part(textarea) {
+    border-radius: var(--border-radius);
+}
+
+.input::part(input) {
+    border-radius: var(--border-radius);
 }
 
 .btn1{
     border: 1px solid var(--ion-color-primary-contrast);
-    border-radius: 15px;
+    border-radius: 25px;
     background-color: #CECAE3;
     color:#231942;
     z-index: 3;
     width: 100%;
-    height: 20%;
+    height: 50%;
     font-family: CustomFont;
     text-transform: none;
   
   }
 
   .ForgotPassword{
-    width: 100%;
+    width: 90%;
     text-align: center;
-    text-decoration: underline;
     color: white;
     font-size: small;
+    z-index: 3;
+    position: relative;
+    height: 70px;
+    --checkbox-background-checked: #6815ec;
+    --size: 28px;
   }
 
   .Title{
     font-family: CustomFont;
     color: #231942;
-    position: absolute;
-    top: 35%;
     width: 100%;
     height: 120px;
     text-align: center;
     font-size: 30px;
   }
 
-  input{
-    width: 100%;
-    height: 20%;
-    text-align: center;
+  .title-info {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    border: #231942 2px solid;
-    border-radius: 15px;
+    margin-bottom: 340px;
+  }
 
-
+.options {
+    // margin-top: 30px;
+    text-align: center;
 }
+
+.login {
+    position: relative;
+  }
+
+  .back-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    font-size: 300%;
+  }
+
+  .input-container {
+    display: flex;
+  }
+  
+  .input-container ion-input {
+    flex: 1;
+    // margin-right: 10px;
+  }
+  
+  .first-input {
+    margin-right: 10px;
+  }

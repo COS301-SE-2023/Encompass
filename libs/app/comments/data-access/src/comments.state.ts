@@ -2,8 +2,9 @@ import { CommentDto } from '@encompass/api/comment/data-access';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { CommentsApi } from './comments.api';
-import { GetComments, AddReply, AddComment, GetPost, UpdatePost } from '@encompass/app/comments/util';
+import { GetComments, AddReply, AddComment, GetPost, UpdatePost, SendNotification } from '@encompass/app/comments/util';
 import { PostDto } from '@encompass/api/post/data-access';
+import { SendNotification as HomeSendNotification } from '@encompass/app/home-page/util';
 
 export interface CommentStateModel {
   CommentForm:{
@@ -169,5 +170,25 @@ export class CommentsState{
   @Selector()
   static post(state: CommentPostModel){
     return state.CommentPostForm.model.post;
+  }
+
+  @Action(SendNotification)
+  async sendNotification(ctx: StateContext<CommentPostModel>, {username, notification}: SendNotification){
+    const user = await this.commentsApi.getProfile(username);
+
+    console.log(user);
+    if(user == null || user == undefined){
+      return;
+    }
+
+    const settings = await this.commentsApi.getProfileSettings(user._id)
+
+    if(settings == null || settings == undefined){
+      return;
+    }
+
+    if(settings.notifications.dms !== false){
+      ctx.dispatch(new HomeSendNotification(user._id, notification));
+    }
   }
 }

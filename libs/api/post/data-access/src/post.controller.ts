@@ -15,6 +15,9 @@ import { GetAllPostsQuery } from "./queries/getAllPosts.query";
 import { UpdatePostRequest } from "./dto/update-post-request.dto";
 import { UserIdGetPostQuery } from "./queries/userId-get-post/userId-get-post.query";
 import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
+import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community.query";
+import { GetPopularPostsQuery } from "./queries/get-popular/getPopularPosts.query";
+import { GetLatestPostsQuery } from "./queries/get-latest/getLatestPosts.query";
 
 @Controller('post')
 export class PostController {
@@ -62,12 +65,27 @@ export class PostController {
     return await uploadImage.uploadImage(file.buffer, file.originalname);
   }
 
-  @Get('get-all')
-  async getAllPosts(){
+  @Get('get-all/:username') //recommended feed
+  async getAllPosts(@Param('username') username: string){
     return await this.queryBus.execute<GetAllPostsQuery, PostDto[]>(
-      new GetAllPostsQuery(),
+      new GetAllPostsQuery(username),
     );
   }
+
+  @Get('get-popular')
+  async getPopularPosts(){
+    return await this.queryBus.execute<GetPopularPostsQuery, PostDto[]>(
+      new GetPopularPostsQuery(),
+    );
+  }
+
+  @Get('get-latest')
+  async getLatestPosts(){
+    return await this.queryBus.execute<GetLatestPostsQuery, PostDto[]>(
+      new GetLatestPostsQuery(),
+    );
+  }
+
 
   @Get('get-by-user/:username')
   async getPostsByUserId(
@@ -84,6 +102,15 @@ export class PostController {
   ){
     return await this.queryBus.execute<GetByIdQuery, PostDto>(
       new GetByIdQuery(id),
+    );
+  }
+
+  @Get('get-by-community/:communityName')
+  async getPostsByCommunity(
+    @Param('communityName') communityName: string,
+  ){
+    return await this.queryBus.execute<GetByCommunityQuery, PostDto[]>(
+      new GetByCommunityQuery(communityName),
     );
   }
 }

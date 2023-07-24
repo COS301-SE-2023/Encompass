@@ -16,6 +16,7 @@ export class Profile extends AggregateRoot{
     public posts: string [] | null,
     public reviews: string [] | null,
     public profileImage: string | null,
+    public profileBanner: string | null,
     public bio: string | null,
   ){
     super();
@@ -73,6 +74,9 @@ export class Profile extends AggregateRoot{
     return this.profileImage;
   }
 
+  getProfileBanner(): string | null{
+    return this.profileBanner;
+  }
   getBio(): string | null{
     return this.bio;
   }
@@ -90,6 +94,47 @@ export class Profile extends AggregateRoot{
     this.posts = updateProfileRequest.posts;
     this.reviews = updateProfileRequest.reviews;
     this.profileImage = updateProfileRequest.profileImage;
+    this.profileBanner = updateProfileRequest.profileBanner;
     this.bio = updateProfileRequest.bio;
+  }
+
+  removePost(postId: string){
+    if(this.posts) 
+      this.posts = this.posts.filter(post => post !== postId);
+  }
+
+  removeCommunity(communityName: string){
+    if(this.communities)
+      this.communities = this.communities.filter(community => community !== communityName);
+  }
+
+  addFollower(followerId: string){
+    if(this.followers){
+      this.followers = [...this.followers, followerId];
+    }
+
+    else{
+      this.followers = [followerId];
+    }
+  }
+
+  addFollowing(followingId: string){
+    if(this.following){
+      this.following = [...this.following, followingId]
+    }
+
+    else{
+      this.following = [followingId]
+    }
+  }
+
+  removeFollower(followerId: string){
+    if(this.followers)
+      this.followers = this.followers.filter(follower => follower !== followerId);
+  }
+
+  removeFollowing(followingId: string){
+    if(this.following)
+      this.following = this.following.filter(follow => follow !== followingId);
   }
 }

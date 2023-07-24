@@ -8,7 +8,7 @@ import { CommentEntityRepository } from "./db/comment-entity.repository";
 import { CommentDtoRepository } from "./db/comment-dto.repository";
 import { CommentSchemaFactory } from "./db/comment-schema.factory";
 import { CommentFactory } from "./comment.factory";
-import { CreateCommentHandler } from "./commands";
+import { CreateCommentHandler, DeleteByPostIdHandler } from "./commands";
 import { DeleteCommandHandler } from "./commands/delete-comment/delete-comment.handler";
 import { AddReplyHandler } from "./commands/add-reply/add-reply.handler";
 import { DeleteReplyHandler } from "./commands/delete-reply/delete-reply.handler";
@@ -35,7 +35,8 @@ import { GetCommentsByUsernameHandler, PostIdGetCommentsHandler } from "./querie
     AddReplyHandler,
     DeleteReplyHandler,
     PostIdGetCommentsHandler,
-    GetCommentsByUsernameHandler
+    GetCommentsByUsernameHandler,
+    DeleteByPostIdHandler
   ],
 })
 

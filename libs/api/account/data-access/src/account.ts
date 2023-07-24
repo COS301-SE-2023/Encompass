@@ -13,8 +13,8 @@ import { AggregateRoot } from "@nestjs/cqrs";
 export class Account extends AggregateRoot{
   constructor(
     public readonly _id: string ,
-    public readonly email: string,
-    public readonly password: string,
+    public email: string,
+    public password: string,
   ){
     super();
   }
@@ -29,5 +29,13 @@ export class Account extends AggregateRoot{
 
   getPassword(): string{
     return this.password;
+  }
+
+  updateEmail(email: string){
+    this.email = email;
+  }
+
+  updatePassword(password: string){
+    this.password = password;
   }
 }

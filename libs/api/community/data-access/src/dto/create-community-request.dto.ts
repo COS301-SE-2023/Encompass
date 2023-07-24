@@ -5,6 +5,7 @@ export class CreateCommunityRequest {
     about!: string;
     rules!: string;
     groupImage!: string;
+    bannerImage!: string;
     categories!: string[];
     events!: string[];
     posts!: string[];

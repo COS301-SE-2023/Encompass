@@ -8,10 +8,11 @@
     <div class="text">Home</div>
   </ion-button>
 
-    <ion-card class = "PostCard" style="margin-top: 15%;">
+    <ion-card class = "PostCard">
       <div class = "PostCardHeader">
         <div class = "PostImageContainer" >
-          <img src = {{post?.communityImageUrl}}  class = "postImage" >
+          <img src = {{post?.communityImageUrl}}  class = "postImage" 
+          onerror="this.src='assets/icon/Group.png';">
         </div>
         <div class = "PostDetails" >
           <div class = "TitleNameOptions">
@@ -19,24 +20,20 @@
               <div class = "Title">{{post?.community}}</div>
               <div class = "Name">@{{post?.username}}</div>
             </div>
-            <div style = "display: flex;">
-              <label class = "report" *ngIf="reports&&!reportedPosts" 
-              style = "font-size: small; position: relative; right: 10%;"
-              (click)="ReportPost()">Report Post</label>
-              <label *ngIf="reports&&reportedPosts" 
-              style = "font-size: small; position: relative; right: 10%; color: red;"
-              >Post Reported.</label>
-              <button class = "Options" (click)="Report()"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
-            </div>
+           
   
            </div>
           
-          <div class = "GenreIcons">
+           <div class = "GenreIcons" >
+            <div style = "width: 30%; display: flex; justify-content: space-around;">
+            <img *ngFor="let category of post?.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+            </div>
+            <div style = "width: 70%; display: flex; justify-content: space-evenly;">
+              <button *ngIf="post?.spoiler" class = "specialBtn">Spoiler</button>
+              <button *ngIf="post?.ageRestricted" class = "specialBtn">NSFW</button>
+         </div>
+         </div>
 
-            <img *ngFor="let category of post?.categories; let k=index" 
-            src = "assets/icon/{{category}}.png" class="imgDiv">
-
-        </div>
       </div> 
         </div>
         <div class = "PostBody" >
@@ -51,8 +48,7 @@
         </div>
         <div class = "PostFooter">
           <div class = "date">{{post?.dateAdded}}</div>
-          <button *ngIf="post?.spoiler" class = "specialBtn">Spoiler</button>
-          <button *ngIf="post?.ageRestricted" class = "specialBtn">Age Restricted</button> 
+         
             <div class = "icons">
               <div style = "text-align: center;">
                 <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing"></ion-icon>
@@ -63,7 +59,7 @@
                 <div>{{post?.comments}}</div>
               </div>
               <div style = "text-align: center;">
-                <ion-icon name="heart-circle-outline" id = "icons2" *ngIf = "likedComments" style = "color:red"></ion-icon>
+                <ion-icon name="heart" id = "icons2" *ngIf = "likedComments" style = "color:red"></ion-icon>
                 <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments"> </ion-icon>
                 <div>{{likes}}</div>
               </div>
@@ -81,12 +77,12 @@
             (click)="CancelComment()">Cancel</button>
            
             <button class="AddCommentBtn" *ngIf = "!isValid" 
-            type = "submit" style = "background-color:#66617F" 
+            type = "submit" style = "background-color:#AFABC5;color:black" 
             disabled = true
             (click)="AddComment()">Post Comment</button>
 
             <button class="AddCommentBtn" *ngIf = "isValid" 
-            type = "submit" style = "background-color:#231942" 
+            type = "submit" style = "background-color:#8231DD" 
             (click)="AddComment()">Post Comment</button>
           
           </div>
@@ -132,12 +128,12 @@
                       (click)="CancelReply(i)">Cancel</button>
 
                       <button class="AddCommentBtn" *ngIf = "!isValid" 
-                      type = "submit" style = "background-color:#66617F" 
+                      type = "submit" style = "background-color:#AFABC5;color:black" 
                       disabled = true
                       (click)="PostReply(comment,i)">Post Reply</button>
 
                       <button class="AddCommentBtn" *ngIf = "isValid"  
-                      type = "submit" style = "background-color:#231942" 
+                      type = "submit" style = "background-color:#8231DD" 
                       (click)="PostReply(comment,i)">Post Reply</button>
 
                     </div>
