@@ -1,3 +1,6 @@
+<div class="settings-page">
+
+
 <ion-toolbar>
 
   <div class="ion-button-group">
@@ -34,38 +37,38 @@
     </ion-header>
     <div id="account-default" class="content" *ngIf="settings != null">
       <ion-list class="custom-list">
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Name</ion-label>
           <ion-label class="info-text">{{profile?.name}}</ion-label>
           <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Surname</ion-label>
           <ion-label class="info-text">{{profile?.lastName}}</ion-label>
           <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Email</ion-label>
           <ion-label class="info-text">{{loginModel?.email}}</ion-label>
           
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Username</ion-label>
           <ion-label class="info-text">@{{profile?.username}}</ion-label>
           
         </ion-item>
         
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <label class="info-label">Password <br> <a>Passwords must be at least 8 characters long</a></label>
           <ion-label class="info-text">*******</ion-label> 
           <!-- //this does not change -->
           
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">NSFW <br> <a>Allow Not Safe For Work contet to show on your feed</a></ion-label>
           <ion-toggle [checked]=settings.profile.nsfw labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'nsfw')"></ion-toggle><br /><br />
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">People Blocked</ion-label>
           <ion-icon id="open-modal" name="chevron-forward" color="dark" class="edit-icons blocked-arrow"></ion-icon>
         </ion-item>
@@ -84,7 +87,7 @@
         </ion-header>
         <ion-content>
           <ion-list>
-            <ion-item>
+            <ion-item color="var(--ion-color-background)">
               <ion-avatar slot="start">
                 <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
               </ion-avatar>
@@ -93,7 +96,7 @@
                 <p>Sales Rep</p>
               </ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item color="var(--ion-color-background)">
               <ion-avatar slot="start">
                 <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
               </ion-avatar>
@@ -102,7 +105,7 @@
                 <p>Product Designer</p>
               </ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item color="var(--ion-color-background)">
               <ion-avatar slot="start">
                 <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
               </ion-avatar>
@@ -111,7 +114,7 @@
                 <p>Director of Operations</p>
               </ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item color="var(--ion-color-background)">
               <ion-avatar slot="start">
                 <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
               </ion-avatar>
@@ -127,39 +130,39 @@
 
     <div id="account-click" class="content onClick" *ngIf="settings != null">
       <ion-list class="custom-list">
-        <ion-item lines="none">
+            <ion-item lines="none" color="var(--ion-color-background)">
           <div class="label-box">
           <ion-label class="info-label">Name</ion-label>
         </div>
           <ion-input value={{profile?.name}} [(ngModel)]="nameEdit" class="info"></ion-input>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <div class="label-box">
           <ion-label class="info-label">Surname</ion-label>
         </div>
           <ion-input [(ngModel)]="lastNameEdit" class="info" value={{profile?.lastName}}></ion-input>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <div class="label-box">
           <ion-label class="info-label">Email</ion-label>
         </div>
           <ion-input [(ngModel)]="emailEdit" class="info" value="{{loginModel?.email}}"></ion-input>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <div class="label-box">
           <ion-label class="info-label">Username</ion-label>
         </div>
           <ion-label class="info-text">@{{profile?.username}}</ion-label>
         </ion-item>
-        <ion-item class="info-box" lines="none">
+        <ion-item class="info-box" lines="none" color="var(--ion-color-background)">
           <div class="label-box">
             <label class="info-label">
               Password <br>
               <a>Passwords must be at least 8 characters long</a>
             </label>
           </div>
-          <ion-label class="pass">*******</ion-label> 
-          <ion-icon id="present-alert" name="pencil" class="edit-icons" (click)="presentAlert()"></ion-icon>
+          <ion-label class="info-text pass">*******</ion-label> 
+          <ion-icon id="present-alert" name="pencil" class="info-text edit-icons" (click)="presentAlert()"></ion-icon>
           <!-- <ion-alert 
             (ionAlertDidDismiss)="handleDismiss($event)"
             trigger="present-alert"
@@ -168,11 +171,11 @@
             [inputs]="alertInputs"
           ></ion-alert> -->
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">NSFW <br> <a>Allow Not Safe For Work contet to show on your feed</a></ion-label>
           <ion-toggle [checked]=settings.profile.nsfw labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'nsfw')"></ion-toggle><br /><br />
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">People Blocked</ion-label>
           <ion-icon id="open-modal" name="chevron-forward" color="dark" class="edit-icons blocked-arrow"></ion-icon>
         </ion-item>
@@ -194,14 +197,14 @@
     
     <div id="profile-default" class="content" *ngIf="settings != null">
       <ion-list class="custom-list">
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Bio
             <br>
             <a>{{profile?.bio}}</a>
           </ion-label>
           
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label" style="height: 100px;">Profile Picture 
           <ion-avatar>
             <img src={{profile?.profileImage}} alt="Avatar" class="avatar">
@@ -209,14 +212,13 @@
         </ion-label>
           
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Banner <br>
           <img style="margin-top: 10px;" src={{profile?.profileBanner}} alt="Avatar" class="banner"></ion-label>
-          <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
-          <ion-toggle [checked]=settings.profile.followPermission labelPlacement="start" class="edit--toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
+          <ion-toggle [checked]=settings.profile.followPermission labelPlacement="start" class="edit--toggle edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
         </ion-item>
       </ion-list>
     </div>
@@ -224,13 +226,13 @@
 
     <div id="profile-click" class="content onClick" *ngIf="settings != null">
       <ion-list class="custom-list">
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Bio
             <br>
             <ion-input [(ngModel)]="bioEdit" class="info" value={{profile?.bio}}></ion-input>
           </ion-label>
         </ion-item>
-        <ion-item class="profile-image-container" lines="none">
+        <ion-item class="profile-image-container" lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label" style="height: 100px;">Profile Picture 
             <ion-avatar>
               <!-- <img src={{profile?.profileImage}} alt="Avatar" class="avatar"> -->
@@ -244,7 +246,7 @@
           </ion-label>
         </ion-item>
         
-        <ion-item class="profile-banner-container" lines="none">
+        <ion-item class="profile-banner-container" lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Banner <br>
             <img style="margin-top: 10px;" src={{profile?.profileBanner}} alt="Avatar" class="banner">
             <div class="overlay-banner">
@@ -256,9 +258,9 @@
           </ion-label>
         </ion-item>
         
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
-          <ion-toggle [checked]=settings.profile.followPermission labelPlacement="start" class="edit-toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
+          <ion-toggle [checked]=settings.profile.followPermission labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
         </ion-item>
       </ion-list>
     </div>
@@ -271,23 +273,23 @@
     <ion-header class="header">Notifications Settings</ion-header>
     <div class="content">
       <ion-list class="custom-list">
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">DMs <br> <a>Send notifications if you've received a personal message</a></ion-label>
           <ion-toggle [checked]=settings.notifications.dms labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'dms')"></ion-toggle><br /><br />
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Follows <br> <a>Send notifications if someone has followed you</a></ion-label>
           <ion-toggle [checked]=settings.notifications.follows labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'follows')"></ion-toggle><br /><br />
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Comment Replies <br> <a>Send notifications if there was a reply to a comment</a></ion-label>
           <ion-toggle [checked]=settings.notifications.commentReplies labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'commentReplies')"></ion-toggle><br /><br />
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Recommended Posts <br> <a>Send notifications of new Recommended posts</a></ion-label>
           <ion-toggle [checked]=settings.notifications.recomPosts labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'recomPosts')"></ion-toggle><br /><br />
         </ion-item>
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Recommended Content and Communities <br> <a>Send notifications of new recommended content or communities</a></ion-label>
           <ion-toggle [checked]=settings.notifications.recomCC labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'recomCC')"></ion-toggle><br /><br />
         </ion-item>
@@ -299,7 +301,7 @@
     <ion-header class="header">Messaging Settings</ion-header>
     <div class="content">
       <ion-list class="custom-list">
-        <ion-item lines="none">
+        <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Who can send you messages</ion-label>
           <ion-select [(ngModel)]="selectedValue" placeholder={{placeHolderText}} interface="popover" (ionChange)="onSelectChange()">
             <ion-select-option value="followers">Followers Only</ion-select-option>
@@ -312,3 +314,4 @@
   </div>
 </ion-content>
 
+</div>
