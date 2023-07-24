@@ -1,6 +1,7 @@
 <div id='home-page' class="theme-page">
 <ion-split-pane>
   <ion-menu type="overlay" side="start" id="main-content" class="menu-pane" >
+    <div class="menu-container">
 
     <div class="logoButton" (click)="goHome()">
       <ion-button fill="clear" class="centeredButton">
@@ -8,8 +9,8 @@
       </ion-button>
     </div>
       
-    <ion-content class="ion-padding">
-
+    <ion-content class="ion-padding buttons-menu-container">
+      
       <div class="MenuButton" >
         <ion-button fill="clear" id="popover-button" (click)="toggleSearch()">
           <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
@@ -72,6 +73,7 @@
       </ion-popover>
 
     </ion-content>
+  </div>
   </ion-menu>
 
   <div class="notifications-card" *ngIf="showNotifications" id="notifications-card">

@@ -60,6 +60,13 @@ export class FeedPage {
             this.settings = settings;
 
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+            if (this.settings.themes.themeColor.startsWith('dark')) {
+              const icons = document.getElementById('genreicons');
+
+              if (icons) {
+                icons.style.filter = 'invert(1)';
+              }
+            }
 
             if(page){
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
@@ -381,6 +388,14 @@ GoToProfile(username: string){
   Collapse2(){
     this.collapse2 = !this.collapse2;
   }
+
+  buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
+
+  handleButtonClick(buttonId: string) {
+    this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+  }
+
+
 
 
 }
