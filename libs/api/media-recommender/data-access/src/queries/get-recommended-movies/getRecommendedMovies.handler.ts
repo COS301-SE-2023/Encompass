@@ -3,6 +3,7 @@ import { GetRecommendedMoviesQuery } from "./getRecommendedMovies.query";
 import { MovieDtoRepository } from "../../db/movie-db/movie-dto.repository";
 import { HttpService } from "@nestjs/axios";
 import { MovieDto } from "../../movie.dto";
+import { categoryMappings } from '../categoryMappings';
 
 @QueryHandler(GetRecommendedMoviesQuery)
 export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommendedMoviesQuery> {
@@ -19,6 +20,8 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
             const [allMovies, currentUserProfile] = await Promise.all([allMoviesPromise, currentUserProfilePromise]);
             
+            convertUserCategories(currentUserProfile?.data);
+
             addUserToMovie(allMovies, currentUserProfile?.data);
             //K-means clustering for Movies where K = sqrt(allMovies.length)
             const clusters = kmeans(allMovies);
@@ -29,14 +32,26 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             //get recommended Movies from allMovies by _id
             const recommendedMoviesFromAllMovies = allMovies.filter(Movie => recommendedMovies.some(recommendedMovie => recommendedMovie.MovieId === Movie._id));
             //limit to 5 max
-            if (recommendedMoviesFromAllMovies.length > 5) {
-                recommendedMoviesFromAllMovies.length = 5;
+            if (recommendedMoviesFromAllMovies.length > 2) {
+                recommendedMoviesFromAllMovies.length = 2;
             }
 
             return recommendedMoviesFromAllMovies;
 
         } catch (error) {
             return [];
+        }
+
+        function convertUserCategories( currentUserProfile: any ) {
+            const updatedProfile: string[] = [];
+            currentUserProfile.categories.forEach((category: any) => {
+                if (categoryMappings[category]) {
+                    updatedProfile.push(categoryMappings[category].movies);
+                } else {
+                    updatedProfile.push(category);
+                }
+            });
+            currentUserProfile.categories = updatedProfile;
         }
 
         function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterMovies: { Movie: number[], MovieId: string }[] }[], userId: string ) {

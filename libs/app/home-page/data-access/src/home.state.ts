@@ -2,10 +2,14 @@ import { Injectable } from "@angular/core";
 import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 // import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
-import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
+// import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
+import { CommunityDto } from "@encompass/api/community/data-access";
+import { MovieDto } from "@encompass/api/media-recommender/data-access";
+import { BookDto } from "@encompass/api/media-recommender/data-access";
 
 export interface HomePostsModel{
   HomePostsForm: {
@@ -22,6 +26,63 @@ export interface HomeNotificationsModel{
     }
   }
 }
+
+export interface CommunitiesModel{
+  CommunitiesForm: {
+    model: {
+      communities: CommunityDto[] | null
+    }
+  }
+}
+
+export interface MoviesModel{
+  MoviesForm: {
+    model: {
+      movies: MovieDto[] | null
+    }
+  }
+}
+
+export interface BooksModel{
+  BooksForm: {
+    model: {
+      books: BookDto[] | null
+    }
+  }
+}
+
+@State<BooksModel>({
+  name: 'recommended-books',
+  defaults: {
+    BooksForm: {
+      model: {
+        books: null
+      }
+    }
+  }
+})
+
+@State<MoviesModel>({
+  name: 'recommended-movies',
+  defaults: {
+    MoviesForm: {
+      model: {
+        movies: null
+      }
+    }
+  }
+})
+
+@State<CommunitiesModel>({
+  name: 'recommended-comunities',
+  defaults: {
+    CommunitiesForm: {
+      model: {
+        communities: null
+      }
+    }
+  }
+})
 
 @State<HomePostsModel>({
   name: 'homePosts',
@@ -48,6 +109,58 @@ export interface HomeNotificationsModel{
 @Injectable()
 export class HomeState{
   constructor(private homeApi: HomeApi){}
+
+  @Action(GetRecommendedMovies)
+  async getRecommendedMovies(ctx: StateContext<MoviesModel>, {userId}: GetRecommendedMovies){
+    const response = await this.homeApi.getRecommendedMovies(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      MoviesForm: {
+        model: {
+          movies: response
+        }
+      }
+    })
+  }
+
+  @Action(GetRecommendedBooks)
+  async getRecommendedBooks(ctx: StateContext<BooksModel>, {userId}: GetRecommendedBooks){
+    const response = await this.homeApi.getRecommendedBooks(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      BooksForm: {
+        model: {
+          books: response
+        }
+      }
+    })
+  }
+
+  @Action(GetRecommendedCommunities)
+  async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId}: GetRecommendedCommunities){
+    const response = await this.homeApi.getRecommendedCommunites(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunitiesForm: {
+        model: {
+          communities: response
+        }
+      }
+    })
+  }
+
 
   @Action(GetNotifications)
   async getNotifications(ctx: StateContext<HomeNotificationsModel>, {userId}: GetNotifications){
