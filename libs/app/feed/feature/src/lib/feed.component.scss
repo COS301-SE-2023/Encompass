@@ -355,16 +355,6 @@ object-fit: fill;
 }
 
 
-
-
-
-
-
-
-
-
-
-
 //filter
 
 .Filter {
@@ -393,11 +383,6 @@ object-fit: fill;
   justify-content: space-evenly;
   position: relative;
   width: 60%;
-  // left: 30%;
-  // height: auto;
-  // z-index: 3;
-  // background-color: white;
-  // font-family: CustomFont;
   font-weight: 550;
 }
 
@@ -419,16 +404,6 @@ object-fit: fill;
 
 }
 
-
-
-
-
-
-
-
-
-
-
 //recommeneded cards
 
 .headtext {
@@ -445,7 +420,6 @@ object-fit: fill;
   width: 150%;
   display: flex;
   justify-content: space-between;
-  // align-items: center;
 }
 
 .recomcard ion-button {
@@ -455,15 +429,6 @@ object-fit: fill;
 ion-button:hover {
   --border-radius: 50px;
 }
-
-
-
-
-
-
-
-
-
 
 //community
 
@@ -479,7 +444,7 @@ ion-button:hover {
   width: 80px;
   height: 80px;
   margin-top: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .CommunityDetails{
@@ -492,9 +457,7 @@ ion-button:hover {
 }
 
 .CommunityName{
-display: flex;
-    // justify-content: center;
-    // align-items: center;
+    display: flex;
     height: 50%;
     width: 100%;
     color: #000;
@@ -535,7 +498,6 @@ display: flex;
   color: #000;
   margin-top: 15px;
   margin-left: 20px;
-  // margin-bottom: 15px;
   height: 50%;
   width: 80%;
 }
@@ -543,7 +505,6 @@ display: flex;
 .CommunityDesc{
   display: flex;
    font-family: CustomFont2;
-  //  color: var(--ion-color-dark);
    height: 90%;
    width: 95%;
 }

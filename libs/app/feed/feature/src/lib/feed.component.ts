@@ -395,7 +395,4 @@ GoToProfile(username: string){
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
   }
 
-
-
-
 }
