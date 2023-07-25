@@ -385,7 +385,9 @@ object-fit: fill;
   width: 60%;
   font-weight: 550;
 }
-
+.RecomCommunities:hover{
+  cursor: pointer;
+}
 #recommendedBtn{
   font-family: CustomFont;
   font-size: larger;
