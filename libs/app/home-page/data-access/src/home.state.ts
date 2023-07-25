@@ -52,7 +52,7 @@ export interface BooksModel{
 }
 
 @State<BooksModel>({
-  name: 'recommended-books',
+  name: 'recommendedBooks',
   defaults: {
     BooksForm: {
       model: {
@@ -63,7 +63,7 @@ export interface BooksModel{
 })
 
 @State<MoviesModel>({
-  name: 'recommended-movies',
+  name: 'recommendedMovies',
   defaults: {
     MoviesForm: {
       model: {
@@ -74,7 +74,7 @@ export interface BooksModel{
 })
 
 @State<CommunitiesModel>({
-  name: 'recommended-comunities',
+  name: 'recommendedComunities',
   defaults: {
     CommunitiesForm: {
       model: {
