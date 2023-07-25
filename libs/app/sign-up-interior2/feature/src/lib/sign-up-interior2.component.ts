@@ -20,7 +20,7 @@ export class SignUpInterior2Page{
 
   profile!: ProfileDto | null;
   communities!: CommunityDto[] | null;
-
+  myComunities! : CommunityDto[] | null;
   constructor(private router: Router, private store: Store){
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
@@ -30,8 +30,10 @@ export class SignUpInterior2Page{
         this.store.dispatch(new GetCommunities(this.profile._id));
         this.communities$.subscribe((communities) => {
           if(communities){
-            console.log(communities)
+            console.log("communities:");
+            console.log(communities);
             this.communities = communities;
+            this.myComunities = communities.slice(0, 3);
           }
         })
       }

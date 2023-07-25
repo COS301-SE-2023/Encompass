@@ -5,14 +5,14 @@
           </div>
         
         <ion-grid>
-          <ion-row class="content-row">
+          <ion-row *ngFor="let community of myComunities" class="content-row">
             <ion-col size="11">
               <ion-card class = "CommunityCard">
                 <div class = "CommunityHeader"> 
-                  <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                  <img src = {{community.groupImage}} class = "CommunityIcon" >
                   <div class = "CommunityDetails" >
-                     <div class = "CommunityName">XenoMorffs</div>
-                     <div class = "CommunityMembers">92 Members</div>
+                     <div class = "CommunityName">{{community.name}}</div>
+                     <div class = "CommunityMembers">{{community.members.length}}</div>
                      <div class = "CommunityGenres">
                      <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
                      <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
@@ -33,7 +33,7 @@
             </ion-col>
           </ion-row>
 
-          <ion-row class="content-row">
+          <!-- <ion-row class="content-row">
             <ion-col size="11">
               <ion-card class = "CommunityCard">
                 <div class="card-color">
@@ -92,7 +92,7 @@
                   </div>
                </ion-card>
             </ion-col>
-          </ion-row>
+          </ion-row> -->
         </ion-grid>
 
       </ion-card>
