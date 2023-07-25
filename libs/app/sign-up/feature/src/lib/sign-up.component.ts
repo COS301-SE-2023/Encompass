@@ -23,10 +23,10 @@ export class SignUpPage {
 
     SignUp()
     {
-      this.store.dispatch(new SignUp({email: this.user.email, password: this.user.password, username: this.user.name}));
+      this.store.dispatch(new SignUp({email: this.user.email, password: this.user.password, username: this.user.username, name: this.user.firstName, lastName: this.user.lastName}));
       this.signup$.subscribe((data) => {
         console.log(data);
-        if(data?._id != null)
+        if(data !== null)
         {
            this.router.navigate(['sign-up-categories']);
         }

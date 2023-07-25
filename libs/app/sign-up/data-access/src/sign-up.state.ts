@@ -66,11 +66,13 @@ export class SignUpState{
 
         if(response != null){
           
+          this.setExpireLocalStorage('UserID', response._id, 3600000);
+
           const profileData : CreateProfileRequest = {
-            _id: response,
+            _id: response._id,
             username: request.username,
-            name: null,
-            lastName: null,
+            name: request.name,
+            lastName: request.lastName,
             categories: [],
             communities: [],
             awards: [],
@@ -92,7 +94,7 @@ export class SignUpState{
             SignUpForm: {
               model: {
                 signup: {
-                  _id: response,
+                  _id: response._id,
                   email: request.email,
                   password: request.password
                 }
@@ -146,9 +148,9 @@ export class SignUpState{
   async createProfile(ctx: StateContext<ProfileStateModel>, {request}: CreateProfile){
     const response = await this.signupApi.createProfile(request);
 
-    if(response != null && response != undefined){
-      this.setExpireLocalStorage('profile', response, 3600000);
-    }
+    // if(response != null && response != undefined){
+    //   this.setExpireLocalStorage('UserID', response, 3600000);
+    // }
   }
 
   setExpireLocalStorage(key: string, value: string, expirationTime: number){

@@ -95,12 +95,12 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/sign-up-interior1/feature').then((m) => m.SignUpInterior1Module),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'sign-up-communities',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () =>
       import('@encompass/app/sign-up-interior2/feature').then((m) => m.SignUpInterior2Module)
   },
