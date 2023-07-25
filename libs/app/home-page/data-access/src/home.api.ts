@@ -4,7 +4,6 @@ import { CommunityDto } from "@encompass/api/community/data-access";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { AddNotificationRequest, NotificationDto } from "@encompass/api/notifications/data-access";
 import { BookDto } from "@encompass/api/media-recommender/data-access";
-import { NotificationDto } from "@encompass/api/notifications/data-access";
 import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { MovieDto } from "@encompass/api/media-recommender/data-access";
 
