@@ -32,8 +32,8 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             //get recommended Movies from allMovies by _id
             const recommendedMoviesFromAllMovies = allMovies.filter(Movie => recommendedMovies.some(recommendedMovie => recommendedMovie.MovieId === Movie._id));
             //limit to 5 max
-            if (recommendedMoviesFromAllMovies.length > 5) {
-                recommendedMoviesFromAllMovies.length = 5;
+            if (recommendedMoviesFromAllMovies.length > 2) {
+                recommendedMoviesFromAllMovies.length = 2;
             }
 
             return recommendedMoviesFromAllMovies;

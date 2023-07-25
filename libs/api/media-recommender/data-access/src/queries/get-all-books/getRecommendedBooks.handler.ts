@@ -33,8 +33,8 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             //get recommended books from allBooks by _id
             const recommendedBooksFromAllBooks = allBooks.filter(book => recommendedBooks.some(recommendedBook => recommendedBook.bookId === book._id));
             //limit max to 5 books
-            if (recommendedBooksFromAllBooks.length > 5) {
-                recommendedBooksFromAllBooks.length = 5;
+            if (recommendedBooksFromAllBooks.length > 2) {
+                recommendedBooksFromAllBooks.length = 2;
             }
 
             return recommendedBooksFromAllBooks;
