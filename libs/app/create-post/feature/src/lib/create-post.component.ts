@@ -21,10 +21,10 @@ import { fileReturn } from '@encompass/app/create-post/data-access';
 export class CreatePostComponent {
   // postForm: FormGroup | undefined;
   communities: string[] =["Hobbits and all thatsdadwadawda","Community2222"]; // Replace with the actual type of the communities array
-  categories: string[]=["Movies","Mathematics","Action","Science-Fiction"
-  ,"Drama","Romance","Anime","Books","Hospitality","Animation","Documentary"
-  ,"Physics","Geography","Series","Western","Mystery","Fantasy","Life-Science"
-  ,"War","IT","Arts","Business","Musical","Horror","Adventure","History","Comedy"];   
+  categories: string[]=["Action", "Adventure", "Animation", "Anime", "Arts", "Business",
+   "Comedy", "Documentary", "Drama", "Fantasy", "Geography", "History", "Horror", 
+   "Hospitality", "Life-Science", "Mathematics", "Musical", "Mystery", "Physics", 
+   "Romance", "Science-Fiction", "War", "Western"]  
 
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
