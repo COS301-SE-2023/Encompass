@@ -23,10 +23,12 @@
     // background-color: rgb(26, 66, 100);
     height: 350px;
     width: 700px;
+    margin-right: 2%;
 }
 
 .display-card {
-    right: 3%;
+    // position: relative;
+    // right: 3%;
     width: 600px;
     height: 350px;
     border-radius: 20px;
@@ -194,7 +196,7 @@ ion-toolbar {
     // background-color: aqua;
     // width: 50%;
     height: 100%;
-    margin-top: 20px;
+    // margin-top: 20px;
     // margin-right: 500px;
     // margin-left: 100px;
 }
