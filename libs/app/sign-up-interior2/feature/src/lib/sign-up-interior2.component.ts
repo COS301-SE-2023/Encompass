@@ -9,6 +9,14 @@ export class SignUpInterior2Page{
   constructor(
     private router: Router){}
 
+
+    buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
+
+    handleButtonClick(buttonId: string) {
+      this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+    }
+
+
   done()
   {
     this.router.navigate(['/home']);
