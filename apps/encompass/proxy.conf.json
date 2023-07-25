@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://https://encompass-hosting.onrender.com",
+    "target": "https://encompass-hosting.onrender.com",
     "secure": false
   }
 }
