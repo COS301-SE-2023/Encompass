@@ -26,7 +26,7 @@ export class SignUpInterior2Page{
     this.profile$.subscribe((profile) => {
       if(profile){
         this.profile = profile;
-
+        
         this.store.dispatch(new GetCommunities(this.profile._id));
         this.communities$.subscribe((communities) => {
           if(communities){
