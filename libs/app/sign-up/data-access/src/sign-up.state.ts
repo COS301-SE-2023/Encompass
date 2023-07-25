@@ -66,7 +66,7 @@ export class SignUpState{
 
         if(response != null){
           
-          this.setExpireLocalStorage('UserID', response._id, 3600000);
+          await this.setExpireLocalStorage('UserID', response._id, 3600000);
 
           const profileData : CreateProfileRequest = {
             _id: response._id,
@@ -153,7 +153,7 @@ export class SignUpState{
     // }
   }
 
-  setExpireLocalStorage(key: string, value: string, expirationTime: number){
+  async setExpireLocalStorage(key: string, value: string, expirationTime: number){
     const item = {
       value: value,
       expirationTime: Date.now() + expirationTime
