@@ -25,7 +25,7 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'encompass'),
-      exclude: ['/api*'],
+      // exclude: ['/api*'],
     }),
 
     MongooseModule.forRoot(NX_MONGO_DB_URL),
