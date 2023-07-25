@@ -1,87 +1,102 @@
 <div class = main>
-    <div class = "Signin1">
-     <div class = "Rocket"><img src = "assets/icon/Rocket.png" width = "80px" height = "80px"></div>
-     <div class = "Header">Start your journey...</div>
-     <div class = "Subtitle">Pick 5 or more categories you'd like to explore</div>
-     <div class = "RecomCommunities">
-      <ion-card class = "CommunityCard">
-       <div class = "CommunityHeader"> 
-         <img src = "assets/icon/tlou.jpg" class = "CommunityIcon" >
-          <div class = "CommunityDetails" >
-            <div class = "CommunityName"> The Infected</div>
-            <div class = "CommunityMembers">202 members</div>
-            <div class = "CommunityGenres">
-            <img src = "assets/icon/Horror.png" class="imgDiv">
-            <img src = "assets/icon/Drama.png"  class="imgDiv" >
-            <img src = "assets/icon/Action.png"  class="imgDiv"></div>
-        </div>
-        <div class = "CommunityAdd">
-          <ion-icon name="add-circle-outline" style="
-          font-size: 50px;
-          color: #231942;
-          "></ion-icon>
-        </div>
-        </div>
-        <div class = "CommunityBody">
-            <div class = "CommunityDesc">
-              The Infected have never been funnier! Join our Last of Us Fan Club
-            </div>
-           </div>
+      <ion-card class="RecomCommunities">       
+          <div class = "RecomHeader">
+              <div style="font-size: 18px; margin-top: 10px;">Top Recommended Communities:</div>
+          </div>
+        
+        <ion-grid>
+          <ion-row class="content-row">
+            <ion-col size="11">
+              <ion-card class = "CommunityCard">
+                <div class = "CommunityHeader"> 
+                  <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                  <div class = "CommunityDetails" >
+                     <div class = "CommunityName">XenoMorffs</div>
+                     <div class = "CommunityMembers">92 Members</div>
+                     <div class = "CommunityGenres">
+                     <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
+                     <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
+                     <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
+                  </div>
+                  <div class = "CommunityAdd">
+                  <button id="toggleButton1" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton1'] }" (click)="handleButtonClick('toggleButton1')">
+                    <i id="icon1" class="icon fas" [ngClass]="buttonStates['toggleButton1'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                  </button>
+                  </div>
+                </div>
+                 <div class = "CommunityBody">
+                     <div class = "CommunityDesc">
+                      Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       
+                    </div>
+                    </div>
+               </ion-card>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="content-row">
+            <ion-col size="11">
+              <ion-card class = "CommunityCard">
+                <div class="card-color">
+                <div class = "CommunityHeader"> 
+                  <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
+                   <div class = "CommunityDetails" >
+                     <div class = "CommunityName">Potterheads</div>
+                     <div class = "CommunityMembers">105 Members</div>
+                     <div class = "CommunityGenres">
+                     <img src = "assets/icon/Fantasy.png" class="imgDiv">
+                     <img src = "assets/icon/Adventure.png"  class="imgDiv">
+                     <img src = "assets/icon/Movies.png"  class="imgDiv">
+                    </div>
+                 </div>
+                 <div class = "CommunityAdd">
+                  <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2')">
+                    <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                  </button>
+                 </div>
+                 </div>
+                 <div class = "CommunityBody">
+                     <div class = "CommunityDesc">
+                      Join in on all things Potterverse!
+                    </div>
+                    </div>
+                  </div>
+               </ion-card>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="content-row">
+            <ion-col size="11">
+              <ion-card class = "CommunityCard">
+                <div class="card-color">
+                <div class = "CommunityHeader"> 
+                  <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                   <div class = "CommunityDetails" >
+                     <div class = "CommunityName">XenoMorffs</div>
+                     <div class = "CommunityMembers">92 Members</div>
+                     <div class = "CommunityGenres">
+                     <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
+                     <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
+                     <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
+                 </div>
+                 <div class = "CommunityAdd">
+                  <button id="toggleButton3" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton3'] }" (click)="handleButtonClick('toggleButton3')">
+                    <i id="icon3" class="icon fas" [ngClass]="buttonStates['toggleButton3'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                  </button>
+                 </div>
+                 </div>
+                 <div class = "CommunityBody">
+                     <div class = "CommunityDesc">
+                      Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       
+                    </div>
+                    </div>
+                  </div>
+               </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
       </ion-card>
-      <ion-card class = "CommunityCard">
-        <div class = "CommunityHeader"> 
-          <img src = "assets/icon/HP.png" class = "CommunityIcon" >
-           <div class = "CommunityDetails" >
-             <div class = "CommunityName">Potter Heads</div>
-             <div class = "CommunityMembers">157 members</div>
-             <div class = "CommunityGenres">
-             <img src = "assets/icon/Action.png" class="imgDiv">
-             <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-             <img src = "assets/icon/Fantasy.png"  class="imgDiv"></div>
-         </div>
-         <div class = "CommunityAdd">
-           <ion-icon name="add-circle-outline" style="
-           font-size: 50px;
-           color: #231942;
-           "></ion-icon>
-         </div>
-         </div>
-         <div class = "CommunityBody">
-             <div class = "CommunityDesc">
-                For those who feel in their heart of hearts that they too belong in the wizarding world.
-             </div>
-            </div>
-       </ion-card>
-       <ion-card class = "CommunityCard">
-        <div class = "CommunityHeader"> 
-          <img src = "assets/icon/pp.png" class = "CommunityIcon" >
-           <div class = "CommunityDetails" >
-             <div class = "CommunityName">  Aca-Maniacs </div>
-             <div class = "CommunityMembers">101 members</div>
-             <div class = "CommunityGenres">
-             <img src = "assets/icon/Musical.png" class="imgDiv">
-             <img src = "assets/icon/Movies.png"  class="imgDiv" >
-             <img src = "assets/icon/Comedy.png"  class="imgDiv"></div>
-         </div>
-         <div class = "CommunityAdd">
-           <ion-icon name="add-circle-outline" style="
-           font-size: 50px;
-           color: #231942;
-           "></ion-icon>
-         </div>
-         </div>
-         <div class = "CommunityBody">
-             <div class = "CommunityDesc">
-              The hilarious hub for die-hard Pitch Perfect fans who sing, dance, and laugh together!
-             </div>
-            </div>
-       </ion-card>
-      </div>
-      <div class = "nextList">
-     <button class = "next" (click)="done()">
-      <span class="next-text">Done</span>
-      <ion-icon name="chevron-forward-outline" class="back-icon" color="primary"></ion-icon>
-     </button>
-    </div>
+</div>
+
   
       
