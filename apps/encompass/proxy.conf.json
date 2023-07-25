@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://encompass-hosting.onrender.com:3000",
+    "target": "http://localhost:3000",
     "secure": false
   }
 }
