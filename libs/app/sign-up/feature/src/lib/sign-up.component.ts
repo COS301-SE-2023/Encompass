@@ -20,7 +20,7 @@ export class SignUpPage {
     user : SignUpModel = new SignUpModel();
 
    isValid =false;
-
+    checked = false;
     SignUp()
     {
       this.store.dispatch(new SignUp({email: this.user.email, password: this.user.password, username: this.user.username, name: this.user.firstName, lastName: this.user.lastName}));
@@ -47,7 +47,25 @@ export class SignUpPage {
 
       if(this.user.email != "" && this.user.password != ""
       && this.user.username != "" && this.user.firstName != ""
-      && this.user.lastName != ""){
+      && this.user.lastName != ""&&this.checked == true){
+        if(this.isValidEmail(this.user.email)){
+          this.isValid = true;
+        }else{
+          this.isValid = false;
+        }
+    }else{
+      this.isValid = false;
+    }
+
+    }
+
+    checkedTOS(){
+
+      this.checked = !this.checked;
+      
+      if(this.user.email != "" && this.user.password != ""
+      && this.user.username != "" && this.user.firstName != ""
+      && this.user.lastName != ""&&this.checked == true){
         if(this.isValidEmail(this.user.email)){
           this.isValid = true;
         }else{
