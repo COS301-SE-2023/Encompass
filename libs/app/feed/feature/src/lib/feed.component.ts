@@ -195,7 +195,7 @@ Report(n:number){
 }
 
 GoToCommunity(communityName:string){
-  this.router.navigate(['community-profile/' + communityName]);
+  this.router.navigate(['home/community-profile/' + communityName]);
 }
 
 Like(n:number, post: PostDto){
@@ -326,7 +326,7 @@ async Share(n:number, post: PostDto){
 
 GoToProfile(username: string){
   if(this.profile?.username !== username){
-    this.router.navigate(['user-profile/' + username]);
+    this.router.navigate(['home/user-profile/' + username]);
   }
 
   else{
@@ -376,7 +376,7 @@ GoToProfile(username: string){
   }
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
 
   collapse1 = false;

@@ -104,21 +104,20 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/sign-up-interior2/feature').then((m) => m.SignUpInterior2Module)
   },
-  {
-    path: 'user-profile/:username',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule),
-    canActivate: [AuthGuard]
-  }
-  ,
-  {
-    path: 'app-comments-feature/:id',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/comments/feature').then((m) => m.CommentsModule),
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'user-profile/:username',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule),
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'app-comments-feature/:id',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/comments/feature').then((m) => m.CommentsModule),
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'settings',
     pathMatch: 'full',
@@ -139,13 +138,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
   },
-  {
-    path: 'community-profile/:name',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule),
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'community-profile/:name',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule),
+  //   canActivate: [AuthGuard]
+  // },
   // {
   //   path: 'search-explore',
   //   pathMatch: 'full',
