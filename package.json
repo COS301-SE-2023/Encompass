@@ -34,6 +34,7 @@
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^9.1.1",
     "@nestjs/platform-socket.io": "^10.0.5",
+    "@nestjs/serve-static": "^4.0.0",
     "@nestjs/websockets": "^10.0.5",
     "@ngxs-labs/actions-executing": "^1.0.6",
     "@ngxs/devtools-plugin": "^3.8.1",
@@ -109,21 +110,19 @@
     "ts-node": "10.9.1",
     "typescript": "~5.0.2"
   },
-
   "engines": {
     "node": ">16"
   },
-
   "budgets": [
     {
-       "type": "initial",
-       "maximumWarning": "4mb",
-       "maximumError": "5mb"
+      "type": "initial",
+      "maximumWarning": "4mb",
+      "maximumError": "5mb"
     },
     {
-       "type": "anyComponentStyle",
-       "maximumWarning": "150kb",
-       "maximumError": "150kb"
+      "type": "anyComponentStyle",
+      "maximumWarning": "150kb",
+      "maximumError": "150kb"
     }
- ]
+  ]
 }

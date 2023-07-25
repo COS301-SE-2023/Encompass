@@ -16,11 +16,18 @@ import { CommunityRequestModule } from '@encompass/api/community-request/data-ac
 import { NotificationModule } from '@encompass/api/notifications/data-access';
 import { MediaRecommenderModule } from '@encompass/api/media-recommender/data-access';
 import { SettingsModule } from '@encompass/api/settings/data-access';
+import {ServeStaticModule} from '@nestjs/serve-static';
+import { join } from 'path';
 
 const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'encompass'),
+      exclude: ['/api*'],
+    }),
+
     MongooseModule.forRoot(NX_MONGO_DB_URL),
     HomeModule,
     AccountModule,
