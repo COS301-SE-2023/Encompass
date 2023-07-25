@@ -18,7 +18,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
         const url = process.env["BASE_URL"];
         try {
             const allBooksPromise = this.bookEntityRepository.findSome();
-            const currentUserProfilePromise = this.httpService.get(url + "api/profile/get/" + userId).toPromise();
+            const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
             const [allBooks, currentUserProfile] = await Promise.all([allBooksPromise, currentUserProfilePromise]);
 
             convertUserCategories( currentUserProfile?.data );

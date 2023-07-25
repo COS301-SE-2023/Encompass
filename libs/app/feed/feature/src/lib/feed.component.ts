@@ -18,6 +18,8 @@ import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
@@ -43,7 +45,7 @@ export class FeedPage {
   size=0;
 
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
     const page = document.getElementById('home-page');
 
     this.store.dispatch(new SubscribeToProfile())

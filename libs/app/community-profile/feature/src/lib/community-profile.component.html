@@ -182,7 +182,8 @@
                     </div>
                   </div>
                   <div class = "PostFooter">
-                    <div class = "date">{{post.dateAdded}}</div>
+                    <div class = "date" *ngIf="post.dateAdded.length == 21">{{post.dateAdded.slice(0, 9)}}</div>
+                    <div class = "date" *ngIf="post.dateAdded.length != 21">{{post.dateAdded.slice(0, 10)}}</div>
                    
                     
                     <div class = "icons">
