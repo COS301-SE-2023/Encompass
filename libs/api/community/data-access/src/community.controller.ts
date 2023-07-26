@@ -35,6 +35,13 @@ export class CommunityController {
         );
     }
 
+    @Get('communities-by-keyword/:keyword')
+    async getCommunitiesByKeyword(@Param('keyword') keyword: string){
+        return await this.queryBus.execute<GetCommunitiesByKeywordQuery, CommunityDto[]>(
+            new GetCommunitiesByKeywordQuery(keyword),
+        );
+    }
+
     @Get('get-recommended-communities/:userid')
     async getRecommendedCommunities(@Param('userid') userId: string): Promise<CommunityDto[]> {
         return await this.queryBus.execute<GetRecommendedCommunitiesQuery, CommunityDto[]>(
