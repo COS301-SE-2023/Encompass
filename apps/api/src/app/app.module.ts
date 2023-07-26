@@ -35,7 +35,7 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     NotificationModule,
     MediaRecommenderModule,
     SettingsModule,
-    SearchModule
+    //SearchModule
     // DatabaseModule
   ],
   controllers: [AppController],
