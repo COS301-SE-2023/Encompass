@@ -18,7 +18,7 @@
         <div class = "CommunityDescription">{{community?.about}}</div>
      </div>
 
-     <div [hidden]="!edit" style="width: 50%; height: 100%;" >
+     <div [hidden]="!edit" class ="editCommunityDetails" >
       <form   [formGroup]="postForm" (ngSubmit)="onSubmit()" class = "EditDetails"  >
           <div class = "textInput">
             <ion-textarea  [maxlength]="80" class = "DescInput"  
@@ -77,8 +77,8 @@
           
      </div>
    </div>
-      <ion-grid >
-        <ion-row class="row-filter"  >
+      <ion-grid style="margin-right:20px;"  >
+        <ion-row class="row-filter" >
           <ion-col size="10">
             <ion-card class="Filter" style="margin-bottom: 50px; background-color: #F0EFEF;">
               <ion-grid>
