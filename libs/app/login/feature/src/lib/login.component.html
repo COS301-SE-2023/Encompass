@@ -11,9 +11,16 @@
     
     <form class = "LoginDetails">
 
-      <ion-input fill="outline" type=email class="input" [(ngModel)]="user.email" name="email" labelPlacement="floating" label="Email" required></ion-input>
-      <ion-input fill="outline" type=password class="input" [(ngModel)]="user.password" name="password" labelPlacement="floating" label="Password" required></ion-input>
-      <ion-button fill="clear" class="btn1"  size="large" (click)="LogIn()">Log in</ion-button>
+      <ion-input fill="outline" type=email class="input" [(ngModel)]="user.email" 
+      name="email" labelPlacement="floating" label="Email" required
+      (input)="checkInput()"></ion-input>
+      <ion-input fill="outline" type=password class="input" [(ngModel)]="user.password" 
+      name="password" labelPlacement="floating" label="Password" required
+      (input)="checkInput()"></ion-input>
+
+      <ion-button *ngIf = "isValid" fill="clear" class="btn1"  size="large" (click)="LogIn()">Log in</ion-button>
+      <ion-button *ngIf = "!isValid" fill="clear" class="btn2" disabled = true size="large" (click)="LogIn()">Log in</ion-button>
+
       <div class="options">
         <a href="/forgotpassword">
           <label class = "ForgotPassword">Forgot Password?</label>

@@ -15,6 +15,7 @@ export class CommentFactory implements EntityFactory<Comment>{
     postId: string,
     username: string,
     text: string,
+    profileImage: string,
   ) : Promise<Comment>{
     const comment = new Comment(
       new ObjectId().toHexString(),
@@ -23,6 +24,7 @@ export class CommentFactory implements EntityFactory<Comment>{
       text,
       [],
       new Date(),
+      profileImage,
     );
     await this.commentEntityRepository.create(comment);
     comment.apply(new CommentCreatedEvent(comment.getId()))

@@ -112,7 +112,6 @@ export class CommunityController {
     ){
         console.log("Here")
         const uploadImage = new UploadImage();
-    
         return await uploadImage.uploadImage(file.buffer, file.originalname);
     }
 }

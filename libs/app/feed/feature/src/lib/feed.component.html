@@ -71,9 +71,9 @@
 
         <!-- posts -->
 
-        <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
+        <div *ngFor="let post of posts?.slice();let i = index">
 
-          <ion-card class = "PostCard card-styles">
+          <ion-card class = "PostCard card-styles" *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)">
 
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
@@ -133,7 +133,8 @@
               </div>
             </div>
             <div class = "PostFooter">
-              <div class = "date">{{post.dateAdded}}</div>
+              <div class = "date" *ngIf="post.dateAdded.length == 21">{{post.dateAdded.slice(0, 9)}}</div>
+              <div class = "date" *ngIf="post.dateAdded.length != 21">{{post.dateAdded.slice(0, 10)}}</div>
              
               
               <div class = "icons">
@@ -162,13 +163,6 @@
           </div>
 
       </ion-col>
-
-
-
-
-
-
-
 
 
       <!-- recommendations -->

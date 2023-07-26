@@ -5,7 +5,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetAllPosts, GetLatestPosts, GetPopularPosts, getHome } from '@encompass/app/home-page/util';
+import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome, GetRecommendedBooks, GetRecommendedMovies } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -18,6 +18,8 @@ import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
@@ -43,13 +45,14 @@ export class FeedPage {
   size=0;
 
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
     const page = document.getElementById('home-page');
 
     this.store.dispatch(new SubscribeToProfile())
-    this.store.dispatch(new SubscribeToProfile())
+    // this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
+        
         console.log(profile); 
         this.profile = profile;
         this.addPosts("recommended");
@@ -74,6 +77,9 @@ export class FeedPage {
             }
           }
         })
+        this.store.dispatch(new GetRecommendedCommunities(this.profile._id));
+        this.store.dispatch(new GetRecommendedBooks(this.profile._id));
+        this.store.dispatch(new GetRecommendedMovies(this.profile._id));
       }
     });
 }
@@ -195,7 +201,7 @@ Report(n:number){
 }
 
 GoToCommunity(communityName:string){
-  this.router.navigate(['community-profile/' + communityName]);
+  this.router.navigate(['home/community-profile/' + communityName]);
 }
 
 Like(n:number, post: PostDto){
@@ -326,11 +332,11 @@ async Share(n:number, post: PostDto){
 
 GoToProfile(username: string){
   if(this.profile?.username !== username){
-    this.router.navigate(['user-profile/' + username]);
+    this.router.navigate(['home/user-profile/' + username]);
   }
 
   else{
-    this.router.navigate(['profile']);
+    this.router.navigate(['home/profile']);
   }
 }
 
@@ -376,7 +382,7 @@ GoToProfile(username: string){
   }
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
 
   collapse1 = false;
@@ -394,8 +400,5 @@ GoToProfile(username: string){
   handleButtonClick(buttonId: string) {
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
   }
-
-
-
 
 }

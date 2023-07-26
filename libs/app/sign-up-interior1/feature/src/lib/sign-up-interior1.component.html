@@ -4,55 +4,53 @@
    <div class = "Header">Start your journey...</div>
    <div class = "Subtitle">Pick 5 or more categories you'd like to explore</div>
     <div class = "TopicList">
-      <button class = "Topic" id="Movies" (click)="buttonPressed($event, 'Movies')"><img src = "assets/icon/Movies.png"><span>Movies</span></button>
-      <button class = "Topic" id="Mathematics" (click)="buttonPressed($event, 'Mathematics')"><img src = "assets/icon/Mathematics.png"><span>Mathematics</span></button>
-      <button class = "Topic" id="Action" (click)="buttonPressed($event, 'Action')"><img src = "assets/icon/Action.png"><span>Action</span></button>
+      <button class = "Topic" id="Mathematics" (click)="buttonPressed('Mathematics')"><img src = "assets/icon/Mathematics.png"><span>Mathematics</span></button>
+      <button class = "Topic" id="Action" (click)="buttonPressed('Action')"><img src = "assets/icon/Action.png"><span>Action</span></button>
+      <button class = "Topic" id="Science-Fiction" (click)="buttonPressed('Science-Fiction')"><img src = "assets/icon/Science-Fiction.png"><span>Science-Fiction</span></button>
     </div>
     <div class = "TopicList">
-      <button class = "Topic" id="Science-Fiction" (click)="buttonPressed($event, 'Science-Fiction')"><img src = "assets/icon/Science-Fiction.png"><span>Science-Fiction</span></button>
-      <button class = "Topic" id="Drama" (click)="buttonPressed($event, 'Drama')"><img src = "assets/icon/Drama.png"><span>Drama</span></button>
-      <button class = "Topic" id="Romance" (click)="buttonPressed($event, 'Romance')"><img src = "assets/icon/Romance.png"><span>Romance</span></button>
+      <button class = "Topic" id="Drama" (click)="buttonPressed('Drama')"><img src = "assets/icon/Drama.png"><span>Drama</span></button>
+      <button class = "Topic" id="Romance" (click)="buttonPressed('Romance')"><img src = "assets/icon/Romance.png"><span>Romance</span></button>
+      <button class = "Topic" id="Anime" (click)="buttonPressed( 'Anime')"><img src = "assets/icon/Anime.png"><span>Anime</span> </button>
     </div>
     <div class = "TopicList">
-      <button class = "Topic" id="Anime" (click)="buttonPressed($event, 'Anime')"><img src = "assets/icon/Anime.png"><span>Anime</span> </button>
-      <button class = "Topic" id="Books" (click)="buttonPressed($event, 'Books')"><img src = "assets/icon/Books.png"><span>Books</span> </button>
-      <button class = "Topic" id="Hospitality" (click)="buttonPressed($event, 'Hospitality')"><img src = "assets/icon/Hospitality.png"><span>Hospitality</span></button>
+      <button class = "Topic" id="Physics" (click)="buttonPressed( 'Physics')"><img src = "assets/icon/Physics.png"><span>Physics</span></button>
+      <button class = "Topic" id="Hospitality" (click)="buttonPressed( 'Hospitality')"><img src = "assets/icon/Hospitality.png"><span>Hospitality</span></button>
+      <button class = "Topic" id="Western" (click)="buttonPressed( 'Western')"><img src = "assets/icon/Western.png"><span>Western</span></button>
     </div>
     <div class = "TopicList">
-      <button class = "Topic" id="Animation" (click)="buttonPressed($event, 'Animation')"><img src = "assets/icon/Animation.png"><span>Animation</span></button>
-      <button class = "Topic" id="Documentary" (click)="buttonPressed($event, 'Documentary')"><img src = "assets/icon/Documentary.png"><span>Documentary</span></button>
-      <button class = "Topic" id="Physics" (click)="buttonPressed($event, 'Physics')"><img src = "assets/icon/Physics.png"><span>Physics</span></button>
+      <button class = "Topic" id="Animation" (click)="buttonPressed( 'Animation')"><img src = "assets/icon/Animation.png"><span>Animation</span></button>
+      <button class = "Topic" id="Documentary" (click)="buttonPressed( 'Documentary')"><img src = "assets/icon/Documentary.png"><span>Documentary</span></button>
+      <button class = "Topic" id="Fantasy" (click)="buttonPressed( 'Fantasy')"><img src = "assets/icon/Fantasy.png"><span>Fantasy</span></button>
     </div>
     <div class = "TopicList">
-      <button class = "Topic" id="Geography" (click)="buttonPressed($event, 'Geography')"><img src = "assets/icon/Geography.png"><span>Geography</span></button>
-      <button class = "Topic" id="Series" (click)="buttonPressed($event, 'Series')"><img src = "assets/icon/Series.png"><span>Series</span></button>
-      <button class = "Topic" id="Western" (click)="buttonPressed($event, 'Western')"><img src = "assets/icon/Western.png"><span>Western</span></button>
+      <button class = "Topic" id="Geography" (click)="buttonPressed( 'Geography')"><img src = "assets/icon/Geography.png"><span>Geography</span></button>
+      <button class = "Topic" id="Mystery" (click)="buttonPressed( 'Mystery')"><img src = "assets/icon/Mystery.png"><span>Mystery</span></button>
+      <button class = "Topic" id="Life Science" (click)="buttonPressed( 'Life Science')"><img src = "assets/icon/Life-Science.png"><span>Life Science</span></button>
     </div>
     <div class = "TopicList">
-      <button class = "Topic" id="Mystery" (click)="buttonPressed($event, 'Mystery')"><img src = "assets/icon/Mystery.png"><span>Mystery</span></button>
-      <button class = "Topic" id="Fantasy" (click)="buttonPressed($event, 'Fantasy')"><img src = "assets/icon/Fantasy.png"><span>Fantasy</span></button>
-      <button class = "Topic" id="Life Science" (click)="buttonPressed($event, 'Life Science')"><img src = "assets/icon/Life-Science.png"><span>Life Science</span></button>
+      <button class = "Topic" id="War" (click)="buttonPressed( 'War')"><img src = "assets/icon/War.png"><span>War</span></button>
+      <button class = "Topic" id="Arts" (click)="buttonPressed( 'Arts')"><img src = "assets/icon/Arts.png"><span>Arts</span></button>
+      <button class = "Topic" id="Business" (click)="buttonPressed( 'Business')"><img src = "assets/icon/Business.png"><span>Business</span></button>
     </div>
     <div class = "TopicList">
-      <button class = "Topic" id="War" (click)="buttonPressed($event, 'War')"><img src = "assets/icon/War.png"><span>War</span></button>
-      <button class = "Topic" id="Information-Technology" (click)="buttonPressed($event, 'Information-Technology')"><img src = "assets/icon/IT.png"><span>Information-Technology</span></button>
-      <button class = "Topic" id="Arts" (click)="buttonPressed($event, 'Arts')"><img src = "assets/icon/Arts.png"><span>Arts</span></button>
+      <button class = "Topic" id="Musical" (click)="buttonPressed( 'Musical')"><img src = "assets/icon/Musical.png"><span>Musical</span></button>
+      <button class = "Topic" id="Horror" (click)="buttonPressed( 'Horror')"><img src = "assets/icon/Horror.png"><span>Horror</span></button>
+      <button class = "Topic" id="Adventure" (click)="buttonPressed( 'Adventure')"><img src = "assets/icon/Adventure.png"><span>Adventure</span></button>
     </div>
     <div class = "TopicList">
-      <button class = "Topic" id="Business" (click)="buttonPressed($event, 'Business')"><img src = "assets/icon/Business.png"><span>Business</span></button>
-      <button class = "Topic" id="Musical" (click)="buttonPressed($event, 'Musical')"><img src = "assets/icon/Musical.png"><span>Musical</span></button>
-      <button class = "Topic" id="Horror" (click)="buttonPressed($event, 'Horror')"><img src = "assets/icon/Horror.png"><span>Horror</span></button>
-    </div>
-    <div class = "TopicList">
-      <button class = "Topic" id="Adventure" (click)="buttonPressed($event, 'Adventure')"><img src = "assets/icon/Adventure.png"><span>Adventure</span></button>
-      <button class = "Topic" id="History" (click)="buttonPressed($event, 'History')"><img src = "assets/icon/History.png"><span>History</span></button>
-      <button class = "Topic" id="Comedy" (click)="buttonPressed($event, 'Comedy')"><img src = "assets/icon/Comedy.png"><span>Comedy</span></button>
+      <button class = "Topic" id="History" (click)="buttonPressed( 'History')"><img src = "assets/icon/History.png"><span>History</span></button>
+      <button class = "Topic" id="Comedy" (click)="buttonPressed( 'Comedy')"><img src = "assets/icon/Comedy.png"><span>Comedy</span></button>
     </div>
 
     <div class = "nextList">
-     <button class = "next" (click)="next()">
+     <button *ngIf = "isValid" class = "btn1" (click)="next()">
       <span class="next-text">Next</span>
       <ion-icon name="chevron-forward-outline" class="back-icon" color="primary"></ion-icon>
+     </button>
+     <button *ngIf = "!isValid" class = "btn2" (click)="next()" disabled = true>
+      <span class="next-text">Next</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="back-icon" color="primary"></ion-icon> -->
      </button>
     </div>
    

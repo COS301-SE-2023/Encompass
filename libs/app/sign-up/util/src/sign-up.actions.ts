@@ -2,7 +2,7 @@ import { CreateProfileRequest } from "@encompass/api/profile/data-access";
 
 export class SignUp{
   static readonly type = '[signUp] Sign Up';
-  constructor(public request: { email: string, password: string, username: string }){}
+  constructor(public request: { email: string, password: string, username: string, name: string, lastName: string }){}
 }
 
 export class CheckAccount{

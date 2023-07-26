@@ -149,7 +149,7 @@ export class ProfilePage {
   }
 
 ViewPostofComment(postId: string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
     
 async openPopup() {
@@ -162,6 +162,10 @@ async openPopup() {
     });
   
     return await modal.present();
+  }
+
+  GoToCommunity(communityName:string){
+    this.router.navigate(['home/community-profile/' + communityName]);
   }
   
 viewReplies(n:number){
@@ -311,7 +315,7 @@ Edit(){
   }
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
 
   presentingElement: any;
@@ -410,7 +414,7 @@ Edit(){
       Last = this.LastName?.value;
     }
 
-    if(this.Bio?.value == null || this.Bio?.value == undefined){
+    if(this.Bio?.value == null || this.Bio?.value == undefined || this.Bio?.value == ""){
       bioData = this.profile?.bio;
     }
     else{
