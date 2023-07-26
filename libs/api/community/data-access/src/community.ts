@@ -102,4 +102,9 @@ export class Community extends AggregateRoot{
         const arr = this.posts.filter(post => post !== postName);
         this.posts = arr;
     }
+
+    removeUser(username: string){
+        const arr = this.members.filter(member => member !== username);
+        this.members = arr;
+    }
 }
