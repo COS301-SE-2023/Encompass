@@ -18,6 +18,7 @@ import { UploadedFile } from '@nestjs/common';
 import { UploadImage } from './upload-image.service';
 import { DeleteCommunityCommand } from './commands/delete-community/delete-community.command';
 import { RemovePostCommand } from './commands/remove-post/remove-post.command';
+import { GetCommunitiesByKeyWordQuery } from './queries/community-search/get-community-by-keyword.query';
 
 
 
@@ -37,8 +38,8 @@ export class CommunityController {
 
     @Get('communities-by-keyword/:keyword')
     async getCommunitiesByKeyword(@Param('keyword') keyword: string){
-        return await this.queryBus.execute<GetCommunitiesByKeywordQuery, CommunityDto[]>(
-            new GetCommunitiesByKeywordQuery(keyword),
+        return await this.queryBus.execute<GetCommunitiesByKeyWordQuery, CommunityDto[]>(
+            new GetCommunitiesByKeyWordQuery(keyword),
         );
     }
 
