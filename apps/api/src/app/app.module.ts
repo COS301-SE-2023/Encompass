@@ -16,6 +16,7 @@ import { CommunityRequestModule } from '@encompass/api/community-request/data-ac
 import { NotificationModule } from '@encompass/api/notifications/data-access';
 import { MediaRecommenderModule } from '@encompass/api/media-recommender/data-access';
 import { SettingsModule } from '@encompass/api/settings/data-access';
+import { SearchModule } from '../../../../libs/api/search/data-access/src/search.module';
 
 const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
 
@@ -33,7 +34,8 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     CommunityRequestModule,
     NotificationModule,
     MediaRecommenderModule,
-    SettingsModule
+    SettingsModule,
+    SearchModule
     // DatabaseModule
   ],
   controllers: [AppController],
