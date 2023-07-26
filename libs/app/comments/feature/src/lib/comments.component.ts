@@ -210,7 +210,8 @@ this.commentForm.reset();
     const data: CreateCommentRequest ={
       postId: this.post._id,
       username: this.profile.username,
-      text: this.comment?.value
+      text: this.comment?.value,
+      profileImage: this.profile.profileImage,
     }
 
     this.store.dispatch(new AddComment(data)); 
@@ -271,7 +272,8 @@ this.commentForm.reset();
       
       const data: AddReplyRequest ={
         username: this.profile.username,
-        text: reply
+        text: reply,
+        profileImage: this.profile.profileImage,
       }
 
       this.store.dispatch(new AddReply(data, comment._id));

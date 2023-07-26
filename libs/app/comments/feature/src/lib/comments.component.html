@@ -104,7 +104,7 @@
             <div class = Comment>
                 <div class = "CommentHead">
                   <div class = CommentIDs>
-                      <img src = "assets/icon/profile.jpg" style="object-fit: fill;
+                      <img src = "{{comment.profileImage}}" onerror="this.src='assets/icon/Profile.png'" style="object-fit: fill;
                       width: 50px; height: 50px; border-radius: 50%;">
                       <div class = "UserName">
                         @{{comment?.username}}
@@ -157,7 +157,7 @@
                     <div class = CommentReplies>
                         <div class = "CommentHead">
                           <div class = CommentIDs>
-                              <img src = "assets/icon/profile.jpg" style="object-fit: fill;
+                              <img src = "{{reply.profileImage}}" onerror="this.src='assets/icon/Profile.png'" style="object-fit: fill;
                               width: 50px; height: 50px; border-radius: 50%;">
                             <div class = "UserName">
                                 @ {{reply?.username}}
