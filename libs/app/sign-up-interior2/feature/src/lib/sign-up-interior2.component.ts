@@ -8,11 +8,13 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { SignUpCommunitiesState } from '@encompass/app/sign-up-interior2/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { GetCommunities } from '@encompass/app/sign-up-interior2/util';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'sign-up-interior2',
   templateUrl: './sign-up-interior2.component.html',
-  styleUrls: ['./sign-up-interior2.component.scss']
+  styleUrls: ['./sign-up-interior2.component.scss'],
+  
 })
 export class SignUpInterior2Page{
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
@@ -20,7 +22,9 @@ export class SignUpInterior2Page{
 
   profile!: ProfileDto | null;
   communities!: CommunityDto[] | null;
-  myComunities! : CommunityDto[] | null;
+  myCommunities! : CommunityDto[] | null;
+  selectedCommunities : string[]=[];
+  selectedCommunity: string | undefined;
   constructor(private router: Router, private store: Store){
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
@@ -33,7 +37,7 @@ export class SignUpInterior2Page{
             console.log("communities:");
             console.log(communities);
             this.communities = communities;
-            this.myComunities = communities.slice(0, 3);
+            this.myCommunities = communities.slice(0, 3);
           }
         })
       }
@@ -43,10 +47,26 @@ export class SignUpInterior2Page{
 
     buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
 
-    handleButtonClick(buttonId: string) {
+    handleButtonClick(buttonId: string, CommunityName: string) {
+      this.selectedCommunity = CommunityName;
+
       this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+      if(!this.selectedCommunities.includes(CommunityName))
+      {
+
+        this.selectedCommunities.push(this.selectedCommunity);
+
+      }else{
+        this.selectedCommunities=this.selectedCommunities.filter((community) => community !== this.selectedCommunity);
+
+      }
+
+      console.log(this.selectedCommunities);
     }
 
+
+  
 
   done()
   {
