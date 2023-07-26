@@ -9,7 +9,9 @@
             <ion-col size="11">
               <ion-card class = "CommunityCard">
                 <div class = "CommunityHeader"> 
-                  <img src = {{community.groupImage}} class = "CommunityIcon" >
+                  <img src = {{community.groupImage}} 
+                  onerror="this.src='assets/icon/Group.png';"
+                  class = "CommunityIcon" >
                   <div class = "CommunityDetails" >
                      <div class = "CommunityName">{{community.name}}</div>
                      <div class = "CommunityMembers">{{community.members.length}}</div>
