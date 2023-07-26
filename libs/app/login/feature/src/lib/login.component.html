@@ -10,7 +10,7 @@
       <label class = "Title">Encompass</label>
     </div>
 
-    <form class = "LoginDetails">
+    <form #loginForm class = "LoginDetails" (keyup)="handleEnterKey($event)">
 
       <ion-input fill="outline" type=email class="input" [(ngModel)]="user.email" 
       name="email" labelPlacement="floating" label="Email" required
@@ -20,7 +20,7 @@
       (input)="checkInput()"></ion-input>
 
       <ion-button *ngIf = "isValid" fill="clear" class="btn1"  size="large" (click)="LogIn()">Log in</ion-button>
-      <ion-button *ngIf = "!isValid" fill="clear" class="btn2" disabled = true size="large" (click)="LogIn()">Log in</ion-button>
+      <ion-button id="loginBtn" *ngIf = "!isValid" fill="clear" class="btn2" disabled = true size="large" (click)="LogIn()">Log in</ion-button>
 
       <div class="options">
         <a href="/forgotpassword">

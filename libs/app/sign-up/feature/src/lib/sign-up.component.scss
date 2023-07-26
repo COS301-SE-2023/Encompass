@@ -104,16 +104,18 @@ btn1:hover{
 
 }
 
+
   .ForgotPassword{
     width: 90%;
     text-align: center;
     color: white;
     font-size: small;
-    z-index: 3;
+    
     position: relative;
     height: 70px;
     --checkbox-background-checked: #6815ec;
     --size: 28px;
+    --padding-end: 0;
   }
 
   .Title{

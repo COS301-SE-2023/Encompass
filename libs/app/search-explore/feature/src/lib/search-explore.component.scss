@@ -1,13 +1,13 @@
 ion-card {
-  background-color: #f8f8f8;
+  background-color: var(--card-color);
   border-radius: 15px;
 }
 
 .overlay {
   overflow:auto;
-  background-color: #f8f8f8;
+  background-color: var(--ion-color-background);
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: fill;
 }
 
@@ -28,6 +28,13 @@ ion-card {
   justify-content: space-evenly;
 }
 
+.active-button-filter {
+  color: var(--ion-color-warning);
+  font-weight: bold;
+  border-radius: 50px ;
+  border: 1px solid var(--ion-color-warning);
+}
+
 .active-button {
   background-color: var(--ion-color-secondary-contrast);
   font-weight: bold;
@@ -35,10 +42,13 @@ ion-card {
 }
 
 .buttonStyle {
-  width: 60%;
+  width: fit-content;
   height: 150%;
   font-size: 18px;
- 
+
+  span {
+    color: var(--ion-color-text);
+  }
 }
 
 .searchbar {
@@ -46,11 +56,15 @@ ion-card {
   --border-radius: 25px;
   --background: var(--ion-color-secondary-tint);
   margin-bottom: 10px;
+  color: var(--ion-color-text);
+  --icon-color: var(--ion-color-text);
 }
+
+
 
 .overlay-container {
   overflow:auto;
-  background-color: #F8F8F8;
+  // background-color: #F8F8F8;
   width: 100%;
   height: 100%;
   object-fit: fill;
@@ -154,22 +168,6 @@ margin-left: 10%;
 margin-bottom: 0.5%;
 }
 
-.posts {
-border: 1px solid var(--ion-color-primary-contrast);
-border-radius: 50px;
-// padding: 10px 20px;
-color: white;
-background-color: var(--ion-color-primary-contrast);
-font-family: CustomFont;
-
-}
-
-.comms {
-border: 1px solid var(--ion-color-primary-contrast);
-border-radius: 50px;
-// padding: 10px 20px;
-font-family: CustomFont;
-}
 
 .image-container ion-card-title {
 top: 10%
@@ -179,6 +177,10 @@ top: 10%
 justify-content: space-evenly;
 }
 
+.Filter {
+  margin-bottom: 50px; 
+  background-color: car(--card-color);
+}
 
 .content-card {
   display: flex;
@@ -257,11 +259,11 @@ left: 5%;
 
   .Title:hover{
     cursor:pointer;
-    color: #8231DD;
+    color: var(--hover-color);
   }
   .Name:hover{
     cursor:pointer;
-        color: #8231DD;
+        color: var(--hover-color);
   }
 
   .report{
@@ -269,7 +271,7 @@ left: 5%;
   }
 .report:hover{
 cursor:pointer;
-color: #8231DD;
+color: var(--hover-color);
 
 }
   .Options{
@@ -280,7 +282,7 @@ color: #8231DD;
   }
 
   .Options:hover{
-    color: #8231DD;
+    color: var(--hover-color);
   }
 
 
@@ -326,7 +328,7 @@ color: #8231DD;
   .icons{
   height: 50%;
   width: 30%;
-  color:#231942;
+  color:var(--ion-color-primary-contrast);
   display: flex;
   justify-content: space-around;
   position: relative;
@@ -336,12 +338,12 @@ color: #8231DD;
 
   #icons2{
   font-size: 25px;
-  color:#231942;
+  color:var(--ion-color-primary-contrast);
 
   }
 
   #icons2:hover{
-    color: #8231DD;
+    color: var(--hover-color);
     cursor: pointer;
   }
 
@@ -354,7 +356,7 @@ color: #8231DD;
   }
 
   .PostCard{
-    background-color: #f8f8f8;
+    background-color: var(--card-color);
 
   }
   .PostCardHeader{
@@ -396,18 +398,8 @@ color: #8231DD;
       width: 97%;
   }
 
-
-
-  .active-button-recom {
-    // margin-top: 10px;
-    color: #8231DD;
-    font-weight: bold;
-    border-radius: 50px ;
-    border: 1px solid #8231DD;
-  }
-
 ion-card {
-background-color: #f8f8f8;
+background-color: var(--card-color);
 }
 
 
@@ -443,7 +435,7 @@ color: black;
 .CommunityCard{
 left: 2.5%;
 width: 100%;
-background-color: #f8f8f8;
+background-color: var(--card-color);
 
 }
 
@@ -589,11 +581,6 @@ font-size: larger;
 ion-card{
 border-radius: 15px;
 }
-
-.header{
-background-color: #F8F8F8;
-}
-
 
 
 

@@ -49,7 +49,7 @@
 
       <ion-popover trigger="menu-pop" [dismissOnSelect]="true" side="right" alignment="end" showBackdrop="false">
         <ng-template>
-          <ion-content style="margin-bottom: 210px;">
+          <ion-content class="popover-content" style="margin-bottom: 210px;">
             <ion-list>
               <ion-item [button]="true" [detail]="false" (click)="goToEvents()">
                 <ion-icon name="megaphone-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
@@ -84,9 +84,10 @@
         </div>
     </ion-header>
     <ion-content>
-      <ion-list>
+      <ion-list class="custom-list">
         <div *ngFor="let notify of notifications?.notifications">
-          <ion-item (click)="clearNotification(notify.notificationId)">
+          <ion-item color="var(--ion-color-background)" (click)="clearNotification(notify.notificationId)">
+            <div class="noti-background">
             <div class="user">
               <div class="alert"></div>
               <ion-avatar slot="start">
@@ -101,21 +102,22 @@
               </div>
               <p>{{notify.description}}</p>
             </ion-label>
+          </div>
           </ion-item>
         </div>
       </ion-list>
     </ion-content>
   </div>
 
-  <div class="search-card" *ngIf="showSearch" id="search-card">
+  <div class="search-card custom-list" *ngIf="showSearch" id="search-card">
       <div class="search-header search-text">
         Search
       </div>
       <ion-searchbar placeholder="Search"></ion-searchbar>
 
-    <ion-content>
-      <ion-list>
-        <ion-item>
+    <ion-content class="custom-list">
+      <ion-list class="custom-list">
+        <ion-item color="var(--ion-color-background)">
           <div class="search-item" id="search-person">
             <ion-avatar slot="start">
               <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
@@ -128,7 +130,7 @@
             <p>Just here for the long haul.</p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item color="var(--ion-color-background)">
           <div class="search-item" id="search-category">
             <ion-avatar slot="start">
               <ion-img class="categories" src="assets/icon/Rocket.png"></ion-img>

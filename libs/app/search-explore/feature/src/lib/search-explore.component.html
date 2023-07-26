@@ -10,22 +10,22 @@
           <ion-row class="row-filter">
             <ion-col size="2">
               <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle" (click)="postChange()">
-                Posts
+                <span>Posts</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
               <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" (click)="commChange()">
-                Communities
+                <span>Communities</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
               <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
-                Events
+                <span>People</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
               <ion-button id="PeopleBtn" fill="clear" class="none buttonStyle" (click)="peopleChange()">
-                People
+                <span>Events</span>
               </ion-button>
             </ion-col>
           </ion-row>
@@ -38,12 +38,12 @@
     <ion-grid>
       <ion-row class="row-filter">
         <ion-col size="5">
-          <ion-card class="Filter" style="margin-bottom: 50px; background-color: #f8f8f8;">
+          <ion-card class="Filter">
             <ion-grid>
               <ion-row class="row-filter">
                 <ion-col size="5">
                   <div style = "display:flex;justify-content:center">
-                    <ion-button id="recommendedBtn" fill="clear" class="active-button-recom" (click)="recChange()">
+                    <ion-button id="recommendedBtn" fill="clear" class="active-button-filter" (click)="recChange()">
                       <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
                       Recommended
                     </ion-button>
