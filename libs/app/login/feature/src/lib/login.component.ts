@@ -70,7 +70,7 @@ export class LoginPage {
   }
   
 
-    Back(){
+    back(){
       this.router.navigate(['welcome']);
     }
 
