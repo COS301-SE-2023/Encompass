@@ -19,7 +19,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             return [];
         } else if(communitiesUserIsNotIn.length <= 1){
             return communitiesUserIsNotIn;
-        } 
+        }
 
         //define types for the following variables
         type singleProfileType = { profile: number[], profileId: string };
@@ -31,6 +31,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
 
         const url = process.env["BASE_URL"];
         try{
+           
             const [allProfiles, currentUserProfile] = await Promise.all([
                 this.httpService.get(url + "api/profile/get-all").toPromise(),  //array of profile objects
                 this.httpService.get(url + "api/profile/get/" + userId).toPromise()
