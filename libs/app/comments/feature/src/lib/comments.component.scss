@@ -163,9 +163,7 @@ display: flex;
     background-color: var(--card-color);
 }
 
-.PostBody:hover{
-  cursor: pointer;
-}
+
 
 .PostFooter{
 display: flex;
@@ -192,10 +190,7 @@ border-radius: 50%;
   color: purple;
 }
 
-.heart:hover{
-  cursor: pointer;
-  color: purple;
-}
+
 
 .content{
   width: 40%;
