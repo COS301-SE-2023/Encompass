@@ -196,7 +196,7 @@ object-fit: fill;
   justify-content: space-between;
   height: 30%;
   width: 100%;
-  color: var(--ion-color-text);
+  // color: var(--ion-color-text);
   font-family: CustomFont;
   font-size: 20px;
 }
@@ -234,7 +234,7 @@ object-fit: fill;
 }
 
 .Options{
-  background-color: var(--ion-color-background);
+  background-color: var(--card-color);
   font-size: larger;
   position: relative;
   right:5%;
@@ -250,7 +250,7 @@ object-fit: fill;
   justify-content: space-between;
   align-items: center;
   height: 30%;
-  color: var(--ion-color-dark);
+  // color: var(--ion-color-dark);
   font-family: CustomFont;
   margin-left: 1.5%;
 }
