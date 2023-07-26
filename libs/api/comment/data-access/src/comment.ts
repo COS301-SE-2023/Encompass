@@ -13,8 +13,10 @@ export class Comment extends AggregateRoot{
       username: string;
       text: string;
       dateAdded: Date;
+      profileImage: string;
     }[],
     public dateAdded: Date,
+    public profileImage: string,
   ){
     super();
   }
@@ -38,12 +40,17 @@ export class Comment extends AggregateRoot{
   getDateAdded(): Date {
     return this.dateAdded;
   }
+
+  getProfileImage(): string {
+    return this.profileImage;
+  }
   
   getReplies(): {
     id: string;
     username: string;
     text: string;
     dateAdded: Date;
+    profileImage: string;
   }[] {
     return this.replies;
   }
@@ -54,6 +61,7 @@ export class Comment extends AggregateRoot{
       username: reply.username,
       text: reply.text,
       dateAdded: new Date(),
+      profileImage: reply.profileImage
     })
   }
 

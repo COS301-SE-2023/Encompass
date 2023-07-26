@@ -15,6 +15,7 @@ export class CommentSchemaFactory
           text: comment.getText(),
           replies: comment.getReplies(),
           dateAdded: comment.getDateAdded(),
+          profileImage: comment.getProfileImage(),
         }
     }
 
@@ -26,6 +27,7 @@ export class CommentSchemaFactory
         entitySchema.text,
         entitySchema.replies,
         entitySchema.dateAdded,
+        entitySchema.profileImage,
       )
     }
   }

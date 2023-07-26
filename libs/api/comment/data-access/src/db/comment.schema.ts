@@ -18,8 +18,12 @@ export class CommentSchema extends IdentifiableEntitySchema{
     username: string;
     text: string;
     dateAdded: Date;
+    profileImage: string;
   }[];
 
   @Prop()
   readonly dateAdded!: Date;
+
+  @Prop()
+  readonly profileImage!: string;
 }
