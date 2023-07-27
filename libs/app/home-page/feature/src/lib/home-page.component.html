@@ -116,6 +116,7 @@
       <ion-searchbar placeholder="Search"></ion-searchbar>
 
     <ion-content class="custom-list">
+      <div class="custom-background">
       <ion-list class="custom-list">
         <ion-item color="var(--ion-color-background)">
           <div class="search-item" id="search-person">
@@ -144,17 +145,16 @@
           </ion-label>
         </ion-item>
       </ion-list>
-
+    </div>
 
 
       <ion-footer class="search-footer">
         <ion-toolbar class="search-toolbar">
           <div class="footer-text">
             <ion-icon name="search"></ion-icon>
-          <div>
-            Search for 
-            <a>"term"</a>
-          </div>
+            <div>
+              <span>Search for <a>"term"</a></span>
+            </div>
           </div>
         </ion-toolbar>
       </ion-footer>

@@ -141,6 +141,11 @@ ion-button {
   color: var(--ion-color-text)
 }
 
+.custom-background {
+  height: 100%;
+  background-color: var(--ion-color-background);
+}
+
 
 .notifications-card {
   left: 72px;
@@ -148,6 +153,7 @@ ion-button {
   // display: none;
   border-radius: 0px 20px 20px 0px;
   width: 25%;
+  border: 2px solid var(--border-color);
 
   ion-content {
     --background: var(--ion-color-background);
@@ -157,6 +163,23 @@ ion-button {
     --background: var(--ion-color-background);
   }
 
+  span {
+    color: var(--ion-color-text);
+  }
+
+  p {
+    color: var(--ion-color-text);
+  }
+
+  
+
+}
+
+ion-searchbar {
+  --border-radius: 25px;
+  --background: var(--ion-color-secondary-tint);
+  color: var(--ion-color-text);
+  --icon-color: var(--ion-color-text);
 }
 
 .noti-background {
@@ -170,7 +193,7 @@ ion-button {
   // display: none;
   border-radius: 0px 20px 20px 0px;
   width: 25%;
-
+  border: 2px solid var(--border-color);
 }
 
 
@@ -301,7 +324,7 @@ ion-searchbar {
   left: 0;
   width: 100%;
   z-index: 1;
-  margin-top: 100%;
+  background-color: var(--ion-color-background);
 
   .search-toolbar {
 
@@ -310,14 +333,29 @@ ion-searchbar {
     justify-content: center;
     font-size: 20px;
     bottom: 0px;
+    --background: var(--ion-color-background);
 
     .footer-text {
       display: flex;
       align-items: center;
+      background-color: var(--ion-color-background);
 
       ion-icon {
         margin-right: 10px;
         margin-left: 10px;
+        color: var(--ion-color-text);
+      }
+
+      span {
+        color: var(--ion-color-text);
+      }
+
+      ion-icon {
+        color: var(--ion-color-text);
+      }
+
+      a {
+        color: var(--ion-color-primary);
       }
     }
   }
@@ -336,8 +374,18 @@ ion-router-outlet {
 .search-content, .notification-content {
   position: relative;
   flex: 1;
+  background-color: var(--ion-color-background);
 }
 
+.search-card {
+  span {
+    color: var(--ion-color-text);
+  }
+
+  p {
+    color: var(--ion-color-text);
+  }
+}
 // .popover-content {
 //   background-color: var(--card-color);
 //   ion-list {
@@ -347,3 +395,34 @@ ion-router-outlet {
 //     }
 //   }
 // }
+
+::-webkit-scrollbar {
+  width: 8px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1c2154; 
+  border-radius: 4px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8231DD;
+}
+
+::-webkit-scrollbar-button:start {
+  display: block;
+  height: 8px; 
+}
+
+::-webkit-scrollbar-button:end {
+  display: block;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button:start:decrement:hover {
+  background-color: #aaa; 
+}
+
+::-webkit-scrollbar-button:end:increment:hover {
+  background-color: #aaa; 
+}

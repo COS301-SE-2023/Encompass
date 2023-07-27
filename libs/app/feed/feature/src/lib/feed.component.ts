@@ -58,10 +58,11 @@ export class FeedPage {
         this.addPosts("recommended");
 
         this.store.dispatch(new GetUserSettings(this.profile._id))
+        
         this.settings$.subscribe(settings => {
           if(settings){
             this.settings = settings;
-
+            
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
             if (this.settings.themes.themeColor.startsWith('dark')) {
               const icons = document.getElementById('genreicons');
@@ -70,10 +71,13 @@ export class FeedPage {
                 icons.style.filter = 'invert(1)';
               }
             }
-
+            
             if(page){
+              console.log("testing the feed page")
+              console.log("hello " + this.settings.themes.themeImage);
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              // page.style.backgroundImage = "blue";
+            }else {
+              console.log("page is null")
             }
           }
         })

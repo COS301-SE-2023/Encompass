@@ -21,12 +21,23 @@ import { DatePipe } from '@angular/common';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  animations: [
+    trigger('slideIn', [
+      state('in', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('300ms ease-in-out')
+      ]),
+      transition(':leave', animate('300ms ease-in-out', style({ transform: 'translateX(-100%)' })))
+    ])
+  ]
 })
 export class HomePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
