@@ -55,7 +55,66 @@ export class FeedPage {
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
-    const page = document.getElementById('home-page');
+    // const page = document.getElementById('home-page');
+
+    // this.store.dispatch(new SubscribeToProfile())
+    // // this.store.dispatch(new SubscribeToProfile())
+    // this.profile$.subscribe((profile) => {
+    //   if(profile){
+        
+    //     console.log(profile); 
+    //     this.profile = profile;
+    //     // this.addPosts("recommended");
+    //     this.newChange();
+
+    //     this.store.dispatch(new GetUserSettings(this.profile._id))
+    //     this.settings$.subscribe(settings => {
+    //       if(settings){
+    //         this.settings = settings;
+
+    //         this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+    //         if (this.settings.themes.themeColor.startsWith('dark')) {
+    //           const icons = document.getElementById('genreicons');
+
+    //           if (icons) {
+    //             icons.style.filter = 'invert(1)';
+    //           }
+    //         }
+
+    //         if(page){
+    //           page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+    //           // page.style.backgroundImage = "blue";
+    //         }
+    //       }
+    //     })
+    //     this.store.dispatch(new GetRecommendedCommunities(this.profile._id));
+
+    //     this.communities$.subscribe((communities) => {
+    //       if(communities){
+    //         this.myCommunities = communities.slice(0, 3);
+    //         console.log("COMMUNITIES: ");
+    //         for(let k =0; k<this.myCommunities.length;k++){  
+    //           console.log(this.myCommunities[k].name);
+    //         }
+    //         console.log("END OF COMMUNITIES: ")
+
+    //       }
+    //     })
+
+       
+    //     this.store.dispatch(new GetRecommendedBooks(this.profile._id));
+    //     this.store.dispatch(new GetRecommendedMovies(this.profile._id));
+    //   }
+    // });
+}
+
+ionViewWillEnter() {
+  // console.log("ION VIEW WILL ENTER")
+  this.load();
+}
+
+load(){
+  const page = document.getElementById('home-page');
 
     this.store.dispatch(new SubscribeToProfile())
     // this.store.dispatch(new SubscribeToProfile())
@@ -92,11 +151,11 @@ export class FeedPage {
         this.communities$.subscribe((communities) => {
           if(communities){
             this.myCommunities = communities.slice(0, 3);
-            console.log("COMMUNITIES: ");
+            // console.log("COMMUNITIES: ");
             for(let k =0; k<this.myCommunities.length;k++){  
               console.log(this.myCommunities[k].name);
             }
-            console.log("END OF COMMUNITIES: ")
+            // console.log("END OF COMMUNITIES: ")
 
           }
         })
