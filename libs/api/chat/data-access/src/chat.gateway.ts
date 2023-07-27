@@ -7,7 +7,8 @@ import { Socket } from 'socket.io';
 import { GateWayAddMessageRequest } from './dto/gateway-add-message-request.dto';
 
 // @WebSocketGateway({ cors: { origin: [ 'http://localhost:3000', 'http://localhost:4200'] } })
-@WebSocketGateway({ cors: { origin: [4200] } })
+// @WebSocketGateway({cors: {origin: [process.env['BASE_URL'], 'http://localhost:4200']}})
+@WebSocketGateway({cors: {origin: '*'}})
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit{
   @WebSocketServer()
   server!: Server;
