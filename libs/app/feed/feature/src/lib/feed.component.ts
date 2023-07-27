@@ -19,6 +19,8 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
+import { ViewChild } from '@angular/core';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'feed',
@@ -26,6 +28,15 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedPage {
+
+  @ViewChild(IonContent) content: IonContent | undefined;
+
+  scrollToTop() {
+    if (this.content){
+      this.content.scrollToTop();
+    }
+    
+  }
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
@@ -405,4 +416,7 @@ GoToProfile(username: string){
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
   }
 
+ 
+
 }
+

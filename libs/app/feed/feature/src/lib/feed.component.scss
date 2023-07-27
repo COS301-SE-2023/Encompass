@@ -21,7 +21,12 @@
   border-radius: 15px;
 }
 
-
+.backtotop {
+  position: fixed;
+  bottom: 2%;
+  right: 23%;
+  --border-radius: 50px;
+}
 
 
 //header

@@ -244,7 +244,12 @@ object-fit: fill;
 }
 
 
-
+.backtotop {
+  position: fixed;
+  bottom: 2%;
+  right: 23%;
+  --border-radius: 50px;
+}
 //  .ProfileFilter{
 //       width:97%;
 //       background-color: #CECAE3;

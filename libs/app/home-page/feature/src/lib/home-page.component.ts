@@ -51,6 +51,12 @@ export class HomePage {
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe){
     const page = document.getElementById('home-page');
+    const defaultLogo = document.getElementById('logo-default');
+    const redLogo = document.getElementById('logo-red');
+    const blueLogo = document.getElementById('logo-blue');
+    const greenLogo = document.getElementById('logo-green');
+    const orangeLogo = document.getElementById('logo-orange');
+
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -63,6 +69,10 @@ export class HomePage {
             this.settings = settings;
 
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+            console.log(this.settings.themes.themeColor);
+            if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo) {
+              console.log('changing logo');
+            }
 
             if(page){
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
@@ -73,6 +83,8 @@ export class HomePage {
       }
     })
   }
+
+  
 
   goToProfile() {
     this.routerClick();
