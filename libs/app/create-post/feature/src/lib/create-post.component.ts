@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +12,8 @@ import { CreatePostApi, CreatePostState } from '@encompass/app/create-post/data-
 import { PostDto } from '@encompass/api/post/data-access';
 import { HttpClient } from '@angular/common/http';
 import { fileReturn } from '@encompass/app/create-post/data-access';
+import { IonSelect } from '@ionic/angular';
+
 
 @Component({
   selector: 'create-post',
@@ -58,7 +60,7 @@ export class CreatePostComponent {
     title: ['', [ Validators.required, Validators.maxLength(100)]],
     text: ['', Validators.maxLength(1000)],
     community: ['', Validators.required],
-    category: [[]]
+    category: [[] as string[], Validators.required]
   });
 
   get title() {
@@ -76,6 +78,25 @@ export class CreatePostComponent {
   get category() {
     return this.postForm.get('category');
   }
+
+  
+
+  selections!: string[];
+
+  limitSelection() {
+    if(this.category?.value){
+      this.selections=this.category?.value;
+    }
+    if(this.selections.length > 3){
+      this.selections=this.selections.slice(0,3);
+    }
+
+    const newCategoryValues = this.selections;
+    const categoryControl = this.postForm.get('category');
+    if (categoryControl) { 
+      categoryControl.patchValue(newCategoryValues);
+    }
+}
 
   Spoilers(){
     this.spoilers = !this.spoilers;
@@ -145,6 +166,7 @@ export class CreatePostComponent {
     }
 
     else{
+
       categoryData = this.category?.value;
     }
 

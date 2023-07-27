@@ -22,7 +22,7 @@
             <div  class = "SelectCategory">
                 <div class = "title">Categories:</div>
                  <div class = "select">
-                    <ion-select multiple formControlName="category" placeholder="Add categories">
+                    <ion-select  multiple formControlName="category" placeholder="Add categories" (ionChange)="limitSelection()">
                         <ion-select-option *ngFor="let category of categories" [value]="category" >
                          {{ category }}</ion-select-option>
                     </ion-select>
