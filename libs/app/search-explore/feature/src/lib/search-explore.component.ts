@@ -356,7 +356,9 @@ viewReplies(n:number){
       }
     }
         this.viewreplies[n] =!this.viewreplies[n];
-  }  
+  } 
+  
+  
         
 Edit(){
     this.edit=true;
