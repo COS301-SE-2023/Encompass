@@ -292,4 +292,10 @@ export class HomeState{
   static notifications(state: HomeNotificationsModel){
     return state.HomeNotificationsForm.model.homeNotifications;
   }
+
+  @Selector()
+    static getCommunities(state: CommunitiesModel){
+      return state.CommunitiesForm.model.communities;
+    }
+  
 }

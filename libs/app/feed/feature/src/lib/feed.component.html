@@ -71,7 +71,7 @@
 
         <!-- posts -->
 
-        <div *ngFor="let post of posts?.slice();let i = index">
+        <div *ngFor="let post of posts;let i = index">
 
           <ion-card class = "PostCard card-styles" *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)">
 
@@ -207,31 +207,30 @@
           
           <!-- communities -->
 
-          <ion-grid>
+          <ion-grid *ngIf="myCommunities">
             <ion-row class="content-row">
               <ion-col size="11">
                 <ion-card class = "CommunityCard">
                   <div class="card-color">
                   <div class = "CommunityHeader"> 
-                    <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
-                     <div class = "CommunityDetails" >
-                       <div class = "CommunityName">XenoMorffs</div>
-                       <div class = "CommunityMembers">92 Members</div>
-                       <div class = "CommunityGenres">
-                       <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
-                       <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
-                       <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
+                    <img src = {{myCommunities[0].groupImage}} 
+                    onerror="this.src='assets/icon/Group.png';"
+                    class = "CommunityIcon" >                     
+                    <div class = "CommunityDetails" >
+                      <div class = "CommunityName">{{myCommunities[0].name}}</div>
+                     <div class = "CommunityMembers">Members: {{myCommunities[0].members.length}}</div>
+                     <div class = "CommunityGenres">
+                      <img *ngFor="let category of myCommunities[0].categories;" src = "assets/icon/{{category}}.png" class="imgDiv">
+                    </div>
                    </div>
                    <div class = "CommunityAdd">
-                    <button id="toggleButton1" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton1'] }" (click)="handleButtonClick('toggleButton1')">
+                    <button id="toggleButton1" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton1'] }" (click)="handleButtonClick('toggleButton1',myCommunities[0].name)">
                       <i id="icon1" class="icon fas" [ngClass]="buttonStates['toggleButton1'] ? 'fa-check' : 'fa-plus-circle'"></i>
                     </button>
                    </div>
                    </div>
                    <div class = "CommunityBody">
-                       <div class = "CommunityDesc">
-                        Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       
-                      </div>
+                    <div class = "CommunityDesc">{{myCommunities[0].about}}</div>
                       </div>
                     </div>
                  </ion-card>
@@ -243,31 +242,33 @@
                 <ion-card class = "CommunityCard">
                   <div class="card-color">
                   <div class = "CommunityHeader"> 
-                    <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
-                     <div class = "CommunityDetails" >
-                       <div class = "CommunityName">Potterheads</div>
-                       <div class = "CommunityMembers">105 Members</div>
-                       <div class = "CommunityGenres">
-                       <img src = "assets/icon/Fantasy.png" class="imgDiv">
-                       <img src = "assets/icon/Adventure.png"  class="imgDiv">
-                       <img src = "assets/icon/Movies.png"  class="imgDiv">
-                      </div>
+                    <img src = {{myCommunities[1].groupImage}} 
+                    onerror="this.src='assets/icon/Group.png';"
+                    class = "CommunityIcon" >                     
+                    <div class = "CommunityDetails" >
+                      <div class = "CommunityName">{{myCommunities[1].name}}</div>
+                     <div class = "CommunityMembers">Members: {{myCommunities[1].members.length}}</div>
+                     <div class = "CommunityGenres">
+                      <img *ngFor="let category of myCommunities[1].categories;" src = "assets/icon/{{category}}.png" class="imgDiv">
+                    </div>
                    </div>
                    <div class = "CommunityAdd">
-                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2')">
+                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',myCommunities[1].name)">
                       <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
                     </button>
                    </div>
                    </div>
                    <div class = "CommunityBody">
-                       <div class = "CommunityDesc">
-                        Join in on all things Potterverse!
-                      </div>
+                    <div class = "CommunityDesc">{{myCommunities[1].about}}</div>
                       </div>
                     </div>
                  </ion-card>
               </ion-col>
             </ion-row>
+
+           
+
+            
           </ion-grid>
  
             </div>

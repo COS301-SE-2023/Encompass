@@ -204,6 +204,10 @@ object-fit: fill;
 .Title{
   display: inline-block;
   width: auto;
+  white-space: nowrap; 
+  // overflow: hidden; 
+  text-overflow: ellipsis;
+
 }
 
 .Name{

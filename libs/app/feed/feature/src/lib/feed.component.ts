@@ -19,6 +19,7 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
+import { CommunityDto } from '@encompass/api/community/data-access';
 
 @Component({
   selector: 'feed',
@@ -30,12 +31,19 @@ export class FeedPage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
+  @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
 
   settings!: SettingsDto | null;
   profile! : ProfileDto | null;
   posts! : PostDto[] | null;
+  myCommunities! : CommunityDto[] | null;
+
+  selectedCommunity: string | undefined;
+  selectedCommunities : string[]=[];
+
   reports : boolean[] =[];
   postReported : boolean[] = [];
+  
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
@@ -43,6 +51,7 @@ export class FeedPage {
   likedComments: boolean[] = [];
   sharing: boolean[] = [];
   size=0;
+  // type = "recommended";
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
@@ -55,7 +64,8 @@ export class FeedPage {
         
         console.log(profile); 
         this.profile = profile;
-        this.addPosts("recommended");
+        // this.addPosts("recommended");
+        this.recChange();
 
         this.store.dispatch(new GetUserSettings(this.profile._id))
         this.settings$.subscribe(settings => {
@@ -78,6 +88,20 @@ export class FeedPage {
           }
         })
         this.store.dispatch(new GetRecommendedCommunities(this.profile._id));
+
+        this.communities$.subscribe((communities) => {
+          if(communities){
+            this.myCommunities = communities.slice(0, 3);
+            console.log("COMMUNITIES: ");
+            for(let k =0; k<this.myCommunities.length;k++){  
+              console.log(this.myCommunities[k].name);
+            }
+            console.log("END OF COMMUNITIES: ")
+
+          }
+        })
+
+       
         this.store.dispatch(new GetRecommendedBooks(this.profile._id));
         this.store.dispatch(new GetRecommendedMovies(this.profile._id));
       }
@@ -105,9 +129,6 @@ async addPosts(type: string){
       for(let i =0;i<posts.length;i++){
         this.likedComments.push(false);
         this.sharing.push(false);
-      }
-
-      for(let i =0;i<posts.length;i++){
 
         this.reports.push(false);
         this.postReported.push(false);
@@ -121,8 +142,7 @@ async addPosts(type: string){
 
         if(posts!=null&&posts[i].likes!=null){
           this.likes.push(posts[i].likes?.length);
-          // console.log("OLAH"); 
-          // console.log(posts[i].likes);
+          
 
           if(this.profile==undefined){
             return;
@@ -131,9 +151,9 @@ async addPosts(type: string){
             this.likedComments[i]=true;
           } 
         }
+
       }
-      // console.log("OLAH AGAIN"); 
-      // console.log(posts);
+
     }
   })
 }
@@ -205,11 +225,10 @@ GoToCommunity(communityName:string){
 }
 
 Like(n:number, post: PostDto){
-  this.likedComments[n]=true;
-  this.likes[n]++;
-
+ 
   let likesArr : string[];
 
+  console.log(this.profile?.username + " LIKED POST");
   const emptyArray : string[] = [];
 
   if(this.profile?.username == null){
@@ -397,8 +416,22 @@ GoToProfile(username: string){
 
   buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
 
-  handleButtonClick(buttonId: string) {
+  handleButtonClick(buttonId: string, CommunityName: string) {
+    this.selectedCommunity = CommunityName;
+
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+    if(!this.selectedCommunities.includes(CommunityName))
+    {
+
+      this.selectedCommunities.push(this.selectedCommunity);
+
+    }else{
+      this.selectedCommunities=this.selectedCommunities.filter((community) => community !== this.selectedCommunity);
+
+    }
+
+    console.log(this.selectedCommunities);
   }
 
 }
