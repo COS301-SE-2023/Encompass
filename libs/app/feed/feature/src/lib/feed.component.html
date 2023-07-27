@@ -89,14 +89,16 @@
                 </div>
                 <div style = "display: flex; margin-right: 1.5%; ">
 
-                  <label class = "report" *ngIf="reports[size-i]&&!postReported[size-i]" 
+                  <label class = "report" *ngIf="reports[i]" 
                   (click)="ReportPost(i, post)">Report Post</label>
 
                   <label class = "report" *ngIf="post.reported" 
                   style = "color: red;"
                   >Post Reported.</label>
 
-                  <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                  <button class = "Options" *ngIf="!post.reported" (click)="Report(i)"> 
+                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+
                 </div>
       
                </div>

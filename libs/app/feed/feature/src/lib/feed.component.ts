@@ -43,7 +43,7 @@ export class FeedPage {
 
   reports : boolean[] =[];
   postReported : boolean[] = [];
-  
+
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
@@ -184,39 +184,22 @@ async openPopup2() {
 
 
 Report(n:number){
-
-  
   if(this.posts?.length==null){
     return;
   }
-  const i = this.posts?.length-n-1;
-
-  // console.log("n: " + n);
-  // console.log("i: " + i);
-
   
-  if(this.posts[i].reported==true){
+  if(this.reports[n]==true){
+    this.reports[n]=false;
     return;
-  }
-
-  if(this.reports[i]==true){
+  }else{
     for(let k = 0;k<this.reports.length;k++){
       this.reports[k]=false;
-   }
+   }   
+    this.reports[n]=true;
+    
   }
-  else{
-    for(let k = 0;k<this.reports.length;k++){
-      this.reports[k]=false;
-   }
-   this.reports[i]=true;
-  }
- 
 
-
-
-
-  // console.log("Values Are:");
-  // console.log(this.reports[i]);
+    
 
 }
 
@@ -285,19 +268,12 @@ Dislike(n:number, post: PostDto){
 }
 
 ReportPost(n:number, post: PostDto){
-  // console.log("reporting post");
 
   if(this.posts?.length==null){
     return;
   }
   
-  const i = this.posts?.length-n-1;
-
-
-for(let k = 0;k<this.postReported.length;k++){
-      this.postReported[k]=false;
-   }
-   this.postReported[i]=true;  
+  this.reports[n]=false;  
 
   const data : UpdatePostRequest = {
     title: post.title,
