@@ -3,7 +3,7 @@
   <ion-grid>
     <ion-row class="row-filter">
       <ion-col size="10">
-        <ion-card class="header">
+        <ion-card class="header card-styles">
           <!-- <ion-card-header class="header-header"> -->
             <div class="image-container">
               <div color="dark" class="custom-title">Welcome Home</div>
@@ -35,7 +35,7 @@
   <ion-grid>
     <ion-row class="row-filter">
       <ion-col size="5">
-        <ion-card class="Filter" style="margin-bottom: 50px; background-color: #f8f8f8;">
+        <ion-card class="Filter card-styles">
           <ion-grid>
             <ion-row class="row-filter">
               <ion-col size="5">
@@ -71,9 +71,9 @@
 
         <!-- posts -->
 
-        <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
+        <div *ngFor="let post of posts?.slice();let i = index">
 
-          <ion-card class = "PostCard" >
+          <ion-card class = "PostCard card-styles" *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)">
 
             <div class = "PostCardHeader">
               <div class = "PostImageContainer" >
@@ -107,7 +107,7 @@
                   </div>
                   <div style = "width: 70%; display: flex; justify-content: space-evenly;">
                     <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-                    <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                    <button *ngIf="post.ageRestricted" class = "specialBtn">NSFW</button>
                </div>
                </div>
 
@@ -133,7 +133,8 @@
               </div>
             </div>
             <div class = "PostFooter">
-              <div class = "date">{{post.dateAdded}}</div>
+              <div class = "date" *ngIf="post.dateAdded.length == 21">{{post.dateAdded.slice(0, 9)}}</div>
+              <div class = "date" *ngIf="post.dateAdded.length != 21">{{post.dateAdded.slice(0, 10)}}</div>
              
               
               <div class = "icons">
@@ -164,17 +165,10 @@
       </ion-col>
 
 
-
-
-
-
-
-
-
       <!-- recommendations -->
 
       <ion-col size="4">
-        <ion-card class="recomcard">
+        <ion-card class="recomcard card-styles">
           <div class = "RecomCommunities" *ngIf = "!collapse1" (click)="Collapse1()">
             <div class = "RecomHeader">
               <ion-grid>
@@ -217,27 +211,29 @@
             <ion-row class="content-row">
               <ion-col size="11">
                 <ion-card class = "CommunityCard">
+                  <div class="card-color">
                   <div class = "CommunityHeader"> 
                     <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
                      <div class = "CommunityDetails" >
                        <div class = "CommunityName">XenoMorffs</div>
                        <div class = "CommunityMembers">92 Members</div>
                        <div class = "CommunityGenres">
-                       <img src = "assets/icon/Science-Fiction.png" class="imgDiv">
-                       <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-                       <img src = "assets/icon/Horror.png"  class="imgDiv"></div>
+                       <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
+                       <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
+                       <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
                    </div>
                    <div class = "CommunityAdd">
-                     <ion-icon name="add-circle-outline" style="
-                     font-size: 50px;
-                     color: #231942;
-                     "></ion-icon>
+                    <button id="toggleButton1" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton1'] }" (click)="handleButtonClick('toggleButton1')">
+                      <i id="icon1" class="icon fas" [ngClass]="buttonStates['toggleButton1'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                    </button>
                    </div>
                    </div>
                    <div class = "CommunityBody">
                        <div class = "CommunityDesc">
-                        Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       </div>
+                        Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       
                       </div>
+                      </div>
+                    </div>
                  </ion-card>
               </ion-col>
             </ion-row>
@@ -245,6 +241,7 @@
             <ion-row class="content-row">
               <ion-col size="11">
                 <ion-card class = "CommunityCard">
+                  <div class="card-color">
                   <div class = "CommunityHeader"> 
                     <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
                      <div class = "CommunityDetails" >
@@ -257,10 +254,9 @@
                       </div>
                    </div>
                    <div class = "CommunityAdd">
-                     <ion-icon name="add-circle-outline" style="
-                     font-size: 50px;
-                     color: #231942;
-                     "></ion-icon>
+                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2')">
+                      <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                    </button>
                    </div>
                    </div>
                    <div class = "CommunityBody">
@@ -268,6 +264,7 @@
                         Join in on all things Potterverse!
                       </div>
                       </div>
+                    </div>
                  </ion-card>
               </ion-col>
             </ion-row>
@@ -278,7 +275,7 @@
         </ion-card>
         
 
-        <ion-card class="recomcard">
+        <ion-card class="recomcard card-styles">
           <div class = "RecomCommunities" *ngIf = "!collapse2" (click)="Collapse2()">
             <div class = "RecomHeader">
               <ion-grid>
@@ -303,7 +300,7 @@
               <ion-grid>
                 <ion-row class="recomRow">
                   <ion-col size="10">
-                    <div style="font-size: 18px; margin-top: 10px;">Your search relates to:</div>
+                    <div style="font-size: 18px; margin-top: 10px;">We think you'd like:</div>
                   </ion-col>
                   <ion-col size="1">
                     <ion-button fill="clear"  style="width:80px; margin-top: 3px;">

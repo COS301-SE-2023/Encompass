@@ -37,8 +37,21 @@ jobs:
 
           echo "cat .env.prod"
           
-    - name: Install Dependencies
-      run: yarn install --frozen-lockfile
+    #Install node.js
+    - name: Use Node.js 18
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+        
+      #Install yarn
+    - name: Install yarn
+      run: npm install yarn -g
+        
+    - name: Install packages
+      run: yarn install
+        
+#     - name: Install Dependencies
+#       run: yarn install --frozen-lockfile
     
     # - name: Build Project
     #   run: yarn build:app:prod && yarn build:api:prod

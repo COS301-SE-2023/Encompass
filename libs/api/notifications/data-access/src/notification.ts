@@ -11,7 +11,6 @@ export class Notification extends AggregateRoot{
       picture: string,
       title: string,
       description: string,
-      routerUrl: string,
       dateTime: Date
     }[]
   ){
@@ -28,7 +27,6 @@ export class Notification extends AggregateRoot{
       picture: string,
       title: string,
       description: string,
-      routerUrl: string,
       dateTime: Date
   }[]{
     return this.notifications
@@ -41,7 +39,6 @@ export class Notification extends AggregateRoot{
       picture: newNotification.picture,
       title: newNotification.title,
       description: newNotification.description,
-      routerUrl: newNotification.routerUrl,
       dateTime: new Date()
     }
     this.notifications = [...this.notifications, adding]

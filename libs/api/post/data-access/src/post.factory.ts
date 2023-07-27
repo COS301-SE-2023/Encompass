@@ -33,7 +33,7 @@ export class PostFactory implements EntityFactory<Post>{
       communityImageUrl,
       categories,
       likes,
-      this.createDateAsString(),
+      this.createDateTimeAsString(),
       spoiler,
       ageRestricted,
       0,
@@ -45,14 +45,10 @@ export class PostFactory implements EntityFactory<Post>{
     return post;
   }
 
-  createDateAsString(): string {
+  createDateTimeAsString(): string {
     const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const dateString = `${year}-${month}-${day}`;
-
-    return dateString;
+    const dateStringWithTime = currentDate.toLocaleString();
+    return dateStringWithTime;
   }
   
 }

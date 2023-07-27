@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CreateAccountRequest } from "@encompass/api/account/data-access";
+import { AccountDto, CreateAccountRequest } from "@encompass/api/account/data-access";
 import { CreateProfileRequest } from "@encompass/api/profile/data-access";
 
 
@@ -10,7 +10,7 @@ export class SignUpApi{
 
   async signUp(request: CreateAccountRequest){
     try {
-      const response = await this.httpClient.post('/api/account', request, {responseType: 'text'}).toPromise();
+      const response = await this.httpClient.post<AccountDto>('/api/account', request).toPromise();
 
       console.log(response);
       return response;

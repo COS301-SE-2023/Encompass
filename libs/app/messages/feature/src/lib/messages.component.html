@@ -1,4 +1,4 @@
-
+<div class="messsages-page">
 <div class="container">
     <div class="chat-list">       
       <ul>
@@ -19,7 +19,7 @@
           
           </li>
           <div *ngFor="let chats of chatProfiles">
-            <li (click)="fetchMessages(chats.chatId,chats.name,chats.lastName,chats.profilePicture)" class = "chatItem"> 
+            <li (click)="fetchMessages(chats.chatId,chats.name,chats.lastName,chats.profilePicture, chats.username)" class = "chatItem"> 
             <img src= {{chats.profilePicture}} onerror="this.src='assets/icon/Profile.png';" class = "imgDiv">
             {{chats.name}} {{chats.lastName}}</li>
           </div>
@@ -30,7 +30,6 @@
       <div class = "User" [hidden]="!hasMessages">
         <div style = "display: flex; align-items: center;height: 100%;">
           <img src= {{userImage}} onerror="this.src='assets/icon/Profile.png';" class = "imgDiv3">
-
           {{firstName}} {{lastName}}
         </div>
         
@@ -52,15 +51,19 @@
           </div>
         </div>
     
-    </div>
-    <div class = "Typer" [hidden]="!hasMessages">
+      </div>
+      <div class = "Typer" [hidden]="!hasMessages">
       <div style = "display: flex; justify-content: center;">
         <form class="message-form" [formGroup]="messageForm" class = "messageInput">
           
-          <ion-textarea  class="input" formControlName="messageInput" placeholder="Message..." ></ion-textarea >
-          <button type="submit" (click)="sendMessage()"><ion-icon name="send" class = "icon"></ion-icon></button>
+          <ion-textarea  class="input" formControlName="messageInput" 
+          [(ngModel)]="inputValue" (input)="checkInput()"
+          placeholder="Message..." ></ion-textarea >
+          <button *ngIf = "isValid"  type="submit" (click)="sendMessage()"><ion-icon name="send" class = "icon1"></ion-icon></button>
+          <button *ngIf = "!isValid" disabled = true type="submit" 
+          (click)="sendMessage()"><ion-icon name="send" class = "icon2"></ion-icon></button>
         </form>
       </div>
-    </div>
+      </div>
 </div>
-
+</div>

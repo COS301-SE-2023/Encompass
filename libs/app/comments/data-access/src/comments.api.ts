@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { CommentDto, AddReplyRequest, CreateCommentRequest } from "@encompass/api/comment/data-access";
 import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
+import { SettingsDto } from "@encompass/api/settings/data-access";
+import { ProfileDto } from "@encompass/api/profile/data-access";
 
 @Injectable()
 export class CommentsApi{
@@ -69,6 +71,36 @@ export class CommentsApi{
 
     catch(error){
       console.log(error);
+
+      return null;
+    }
+  }
+
+  async getProfile(username: string){
+    console.log("TIME")
+    try{
+      const response = this.httpClient.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error)
+
+      return null;
+    }
+  }
+
+  async getProfileSettings(userId: string){
+    try{
+      console.log("HERE")
+      const response = this.httpClient.get<SettingsDto>('/api/settings/get/' + userId).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error)
 
       return null;
     }

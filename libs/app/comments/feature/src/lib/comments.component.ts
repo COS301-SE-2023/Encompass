@@ -7,10 +7,11 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddComment, AddReply, GetComments, GetPost, UpdatePost } from '@encompass/app/comments/util';
+import { AddComment, AddReply, GetComments, GetPost, SendNotification, UpdatePost } from '@encompass/app/comments/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 @Component({
   selector: 'comments',
   templateUrl: './comments.component.html',
@@ -146,14 +147,37 @@ export class CommentsComponent {
     }else if(this.reports==false){
       this.reports=true;
     }
+
+   
   }
 
-  ReportPost(){
+  GoToCommunity(communityName:string){
+    this.router.navigate(['community-profile/' + communityName]);
+  }
+
+  ReportPost(post: PostDto){
     // console.log("reporting post");
   
     if(this.reportedPosts==false){
       this.reportedPosts=true;
     }
+
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: post.likes,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: true
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+
   }
 
   CancelComment(){
@@ -161,6 +185,8 @@ export class CommentsComponent {
 for(let i=0;i<this.reply.length;i++){
   this.reply[i]=false;
 }
+
+this.commentForm.reset();
   }
 
   
@@ -184,10 +210,11 @@ for(let i=0;i<this.reply.length;i++){
     const data: CreateCommentRequest ={
       postId: this.post._id,
       username: this.profile.username,
-      text: this.comment?.value
+      text: this.comment?.value,
+      profileImage: this.profile.profileImage,
     }
 
-    this.store.dispatch(new AddComment(data));
+    this.store.dispatch(new AddComment(data)); 
     this.commentForm.reset();
 
     const postData: UpdatePostRequest ={
@@ -221,6 +248,7 @@ for(let i=0;i<this.reply.length;i++){
     CancelReply(n:number){
       this.reply[n] = !this.reply[n];
       this.replyField?.reset();
+    
     }
 
     PostReply(comment: CommentDto,n:number){
@@ -244,7 +272,8 @@ for(let i=0;i<this.reply.length;i++){
       
       const data: AddReplyRequest ={
         username: this.profile.username,
-        text: reply
+        text: reply,
+        profileImage: this.profile.profileImage,
       }
 
       this.store.dispatch(new AddReply(data, comment._id));
@@ -264,7 +293,15 @@ for(let i=0;i<this.reply.length;i++){
         reported: this.post.reported,
       }
       
+      const notification: AddNotificationRequest = {
+        sentBy: this.profile.name + " " + this.profile.lastName,
+        picture: this.profile.profileImage,
+        title: "Replied to your comment",
+        description: reply.substring(0, 20) + "...",
+      }
+
       this.store.dispatch(new UpdatePost(this.post._id, postData));
+      this.store.dispatch(new SendNotification(comment.username, notification));
     }
 
 

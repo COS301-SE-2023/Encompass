@@ -53,6 +53,27 @@ const routes: Routes = [
         // pathMatch: 'full',
         loadChildren: () => import('@encompass/app/search-explore/feature').then((m) => m.SearchExploreModule), 
       },
+      {
+        path: 'app-comments-feature/:id',
+        pathMatch: 'full',
+        loadChildren: () =>
+          import('@encompass/app/comments/feature').then((m) => m.CommentsModule),
+        // canActivate: [AuthGuard]
+      },
+      {
+        path: 'user-profile/:username',
+        pathMatch: 'full',
+        loadChildren: () =>
+          import('@encompass/app/user-profile/feature').then((m) => m.UserProfileModule),
+        // canActivate: [AuthGuard]
+      },
+      {
+        path: 'community-profile/:name',
+        pathMatch: 'full',
+        loadChildren: () =>
+          import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule),
+        // canActivate: [AuthGuard]
+      }
       // {
       //   path: 'comments', //comments/:id
       //   // pathMatch: 'full',

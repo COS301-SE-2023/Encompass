@@ -8,6 +8,8 @@ export class CommentDto{
     username: string;
     text: string;
     dateAdded: Date;
+    profileImage: string;
   }[];
   readonly dateAdded!: Date;
+  readonly profileImage!: string;
 }

@@ -20,9 +20,11 @@ import { MessagesModule } from '@encompass/app/messages/data-access';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { UserProfileModule } from '@encompass/app/user-profile/data-access';
 import { SettingsModule } from '@encompass/app/settings/data-access';
+import { ThemesModule } from '@encompass/app/themes/data-access';
+import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-access';
 
 const config: SocketIoConfig = {
-  url: ':3000',
+  url: process.env['BASE_URL'] || 'http://localhost:3000',
   options: {}
 };
 @NgModule({
@@ -44,6 +46,8 @@ const config: SocketIoConfig = {
     MessagesModule,
     UserProfileModule,
     SettingsModule,
+    ThemesModule,
+    SignUpCommunitiesModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],

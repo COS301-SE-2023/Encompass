@@ -7,17 +7,17 @@
           <ion-row class="row-filter">
             <ion-col size="2">
               <ion-button id="PostBtn" fill="clear" class="active-button buttonStyle" (click)="postChange()">
-                Posts
+                <span>Posts</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
               <ion-button id="CommentsBtn" fill="clear" class="none buttonStyle" (click)="commChange()">
-                Comments
+                <span>Comments</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
               <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
-                Events
+                <span>Events</span>
               </ion-button>
             </ion-col>
           </ion-row>
@@ -25,13 +25,13 @@
       </div>
     </ion-toolbar>
   </ion-header>
-
+ 
 
   <ion-grid>
     <ion-row class="filter-row">
       <ion-col size="5">
 
-        <ion-button style="z-index: 1;"class="comms active-button" id = "comm" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
+        <ion-button style="z-index: 1;"class="comms" id = "comm" fill="clear" (click) = "openPopup()">Create a Post</ion-button>
 
         <!-- Posts -->
 
@@ -43,12 +43,13 @@
                 <div class = "PostImageContainer" >
                   <img src =  {{post.communityImageUrl}}  class = "postImage" 
                   onerror="this.src='assets/icon/Group.png';"
+                  (click)="GoToCommunity(post.community)"
                   >
                 </div>
               <div class = "PostDetails"  >
                 <div class = "TitleNameOptions">
                   <div style = "display: flex; margin-left: 1.5%;">
-                    <div class = "Title">{{post.community}}</div>
+                    <div class = "Title" (click)="GoToCommunity(post.community)">{{post.community}}</div>
                     <div class = "Name" > @{{post.username}}</div>
                   </div>
                   <div style = "display: flex; margin-right: 1.5%;">
@@ -71,7 +72,7 @@
                     </div>
                     <div style = "width: 70%; display: flex; justify-content: space-evenly;">
                       <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-                      <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                      <button *ngIf="post.ageRestricted" class = "specialBtn">NSFW</button>
                   </div>
                 </div>
 
@@ -89,7 +90,9 @@
                 </div>
               </div>
               <div class = "PostFooter">
-                <div class = "date">{{datesAdded[i]}}</div>
+                <!-- <div class = "date">{{datesAdded[i]}}</div> -->
+                <div class = "date" *ngIf="datesAdded[i].length == 21">{{datesAdded[i].slice(0, 9)}}</div>
+                <div class = "date" *ngIf="datesAdded[i].length != 21">{{datesAdded[i].slice(0, 10)}}</div>
                 <div class = "icons">
                   <div style = "text-align: center;">
                     <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
@@ -327,7 +330,7 @@
 
         <ion-card>
           <ion-card-header>
-            <ion-card-title color="grey">Top Communities</ion-card-title>
+            <ion-card-title class="topComms" color="grey">Top Communities</ion-card-title>
           </ion-card-header>
         
            
