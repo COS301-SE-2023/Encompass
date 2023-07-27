@@ -254,6 +254,11 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
                 moveProfilesToClosestCentroid(profilesData, clusters, k);
                 calculateNewCentroids(clusters);
                 newCentroids = clusters.map(cluster => Object.values(cluster.clusterCentroid));
+                /*console.log(`--------recalculate centroids for k=${k}--------`);
+                //print out the number of Movies in each cluster
+                for(let i = 0; i < clusters.length; i++){
+                    console.log("cluster " + i + ": " + clusters[i].clusterProfiles.length);
+                }*/
             } while (!arraysAreEqual(oldCentroids, newCentroids));
     
             const distortion = calculateDistortion(clusters);
