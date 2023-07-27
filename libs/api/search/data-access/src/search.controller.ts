@@ -9,7 +9,7 @@ export class SearchController {
         private readonly queryBus: QueryBus,
     ){}
 
-    @Get('all-items-by-keyword/:keyword')
+    @Get('get-all-items-by-keyword/:keyword')
     async getAllItemsByKeyword(@Param('keyword') keyword: string){
         return await this.queryBus.execute<GetAllItemsByKeywordQuery, PostDto[]>(
             new GetAllItemsByKeywordQuery(keyword),

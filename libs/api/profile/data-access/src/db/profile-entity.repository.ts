@@ -24,9 +24,11 @@ Profile
     const filteredUsers = allUsers.filter(user => {
       const firstName = user.username.toLowerCase();
       const lastName = user?.lastName?.toLowerCase();
+      const name = user?.name?.toLowerCase();
+      const isNameMatch = name?.includes(keyword);
       const isFirstNameMatch = firstName.includes(keyword);
       const isLastNameMatch = lastName?.includes(keyword);
-      return isFirstNameMatch || isLastNameMatch;
+      return isFirstNameMatch || isLastNameMatch || isNameMatch;
     });
     return filteredUsers;
   }

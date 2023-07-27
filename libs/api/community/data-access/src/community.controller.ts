@@ -36,7 +36,7 @@ export class CommunityController {
         );
     }
 
-    @Get('communities-by-keyword/:keyword')
+    @Get('get-communities-by-keyword/:keyword')
     async getCommunitiesByKeyword(@Param('keyword') keyword: string){
         return await this.queryBus.execute<GetCommunitiesByKeyWordQuery, CommunityDto[]>(
             new GetCommunitiesByKeyWordQuery(keyword),

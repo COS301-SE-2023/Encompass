@@ -9,9 +9,10 @@ import { PostDtoRepository } from "./db/post-dto.repository";
 import { PostSchemaFactory } from "./db/post-schema.factory";
 import { PostFactory } from "./post.factory";
 import { CreatePostHandler, UpdatePostHandler, DeletePostHandler } from "./commands";
-import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, GetLatestPostHandler, GetPopularPostsHandler, UserIdGetPostHandler } from "./queries";
+import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, GetLatestPostHandler, GetPopularPostsHandler, GetPostsByKeywordHandler, UserIdGetPostHandler } from "./queries";
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
+import { GetPosts } from "@encompass/app/profile/util";
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { HttpModule } from "@nestjs/axios";
     UserIdGetPostHandler,
     UploadImage,
     GetByIdHandler,
-    GetByCommunityHandler
+    GetByCommunityHandler,
+    GetPostsByKeywordHandler
   ],
 })
 
