@@ -433,3 +433,7 @@ a {
     font-size: 100%;
   }
 }
+
+ion-button:hover {
+  --border-radius: 50px;
+}

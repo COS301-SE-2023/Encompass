@@ -187,10 +187,13 @@ border-radius: 50%;
 
 .comment:hover{
   cursor: pointer;
-  color: purple;
+  color: var(--hover-color);
 }
 
-
+.heart:hover{
+  cursor: pointer;
+  color: var(--hover-color);
+}
 
 .content{
   width: 40%;
@@ -237,7 +240,7 @@ ion-textarea.custom {
 }
 
 .AddCommentBtn{
-  background-color: #231942;
+  background-color: var(--ion-color-primary);
   color: white;
   border-radius: 50px;
   font-size: 15px;
@@ -288,11 +291,11 @@ align-items: center;}
 
 .reply:hover{
   cursor: pointer;
-  color:purple;
+  color:var(--hover-color);
 }
 
 .CommentReply>div>button{
-  border: 1px solid #231942;
+  border: 1px solid var(--border-color);
   border-radius: 50px;
   padding: 1%;
   position: relative;
@@ -315,7 +318,7 @@ align-items: center;}
   width: 190px;
   height: 70px;
   border-radius: 50px;
-  border: 1px solid #231942;
+  border: 1px solid var(--border-color);
   padding: 0.5%;
   position: fixed;
 }
@@ -336,21 +339,12 @@ align-items: center;}
   cursor: pointer;
 }
 
-.specialBtn{
-  background-color: #66617F;
-  color: white;
-  border-radius: 50px;
-  border: 1px solid #66617F;
-  font-size: 15px;
-  font-family: CustomFont;
-  padding: 1%;
-}
 
 
 .icons{
   height: 50%;
   width: 30%;
-  color:#231942;
+  color:var(--ion-color-primary);
   display: flex;
   justify-content: space-around;
   position: relative;
@@ -359,7 +353,7 @@ align-items: center;}
   
   #icons2{
   font-size: 25px;
-  color:#231942;
+  color:var(--ion-color-primary);
   
   }
   
@@ -375,5 +369,5 @@ align-items: center;}
 
   .header{
     width: 25%;
-    background-color: #231942;
+    background-color: var(--ion-color-primary);
   }

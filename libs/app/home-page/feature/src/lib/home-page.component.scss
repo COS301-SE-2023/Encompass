@@ -136,6 +136,12 @@ ion-button {
 
 }
 
+.custom-list {
+  background-color: var(--ion-color-background);
+  color: var(--ion-color-text)
+}
+
+
 .notifications-card {
   left: 72px;
   background-color: var(--ion-color-background);
@@ -143,6 +149,19 @@ ion-button {
   border-radius: 0px 20px 20px 0px;
   width: 25%;
 
+  ion-content {
+    --background: var(--ion-color-background);
+  }
+
+  ion-list {
+    --background: var(--ion-color-background);
+  }
+
+}
+
+.noti-background {
+  --background: var(--ion-color-background);
+  z-index: 1;
 }
 
 .search-card {
@@ -318,3 +337,13 @@ ion-router-outlet {
   position: relative;
   flex: 1;
 }
+
+// .popover-content {
+//   background-color: var(--card-color);
+//   ion-list {
+//     background-color: var(--card-color);
+//     ion-item {
+//       background-color: var(--card-color);
+//     }
+//   }
+// }
