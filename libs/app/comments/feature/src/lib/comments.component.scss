@@ -1,23 +1,29 @@
 .overlay-container {
   overflow:auto;
-  background-color: #F0EFEF;
+  background-color: var(--ion-color-background);
   width: 100%;
   height: 100%;
   object-fit: fill;
 }
 
+.report{
+  font-size: small; 
+  position: relative; 
+  right: 10%;
+}
 
 
 .PostCard{
  
-  background-color: #F0EFEF;
+  background-color: var(--card-color);
   width: 40%;
   position: relative;
   bottom: 22%;
   left: 30%;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   border-radius: 10px;
+  margin-top: 15%;
 }
 
 
@@ -29,15 +35,11 @@ object-fit: fill;
 }
 
 .postImage{
-width:70px;
-  height: 70px;
-  object-fit: fill;
-  position: relative;
-  border-radius: 10px;
-  position: relative;
- 
-}
-
+  width:70px;
+    height: 70px;
+    object-fit: fill;
+    border-radius: 15px;
+  }
 .PostDetails{
 //  background-color: #231942;
 display: flex;
@@ -85,19 +87,16 @@ right: 5%;
 
 
 .GenreIcons{
-// background-color: aqua;
-display: flex;
-justify-content: center;
-justify-content: space-between;
-align-items: center;
-height: 30%;
-width: 20%;
-color: black;
-font-family: CustomFont;
-position: relative;
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 30%;
+  color: black;
+  font-family: CustomFont;
+  margin-left: 1.5%;
 
-
-}
+  }
 
 
 
@@ -136,21 +135,24 @@ justify-content: space-around;
 }
 
 .PostCardHeader{
-display: flex;
-height: 35%;
-width: 100%;
-background-color: #F0EFEF;
-}
+  display: flex;
+  justify-content: center;
+  height: 35%;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  }
 
 
 
-.PostImageContainer{
-width: 15%;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-}
+  .PostImageContainer{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
 
 .PostBody{
 display: flex;
@@ -158,12 +160,10 @@ display: flex;
     align-items: center;
     height: 50%;
     width: 100%;
-    background-color: #F0EFEF;
+    background-color: var(--card-color);
 }
 
-.PostBody:hover{
-  cursor: pointer;
-}
+
 
 .PostFooter{
 display: flex;
@@ -171,7 +171,7 @@ display: flex;
     align-items: center;
     height: 15%;
     width: 100%;
-    background-color: #F0EFEF;
+    background-color: var(--card-color);
 }
 
 
@@ -190,10 +190,7 @@ border-radius: 50%;
   color: purple;
 }
 
-.heart:hover{
-  cursor: pointer;
-  color: purple;
-}
+
 
 .content{
   width: 40%;

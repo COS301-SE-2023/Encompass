@@ -67,7 +67,8 @@
                 </div>
               </div>
               <div class = "PostFooter">
-                <div class = "date">{{datesAdded[i]}}</div>
+                <div class = "date" *ngIf="datesAdded[i].length == 21">{{datesAdded[i].slice(0, 9)}}</div>
+                <div class = "date" *ngIf="datesAdded[i].length != 21">{{datesAdded[i].slice(0, 10)}}</div>
                 <div class = "icons">
                   <div style = "text-align: center;">
                     <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
@@ -103,7 +104,7 @@
 
       <ion-col size="4">
         
-        <div *ngIf="profile != null && userProfile != null">
+        <div *ngIf="profile != null && userProfile != null && userProfileSettings != null">
         <ion-card class = "curve">
           <div style="position: relative">
           <img class="profilePicture" src={{userProfile?.profileImage}} onerror="this.src='assets/icon/Profile.png';"  />
@@ -119,7 +120,7 @@
             <ion-icon name="share-social"></ion-icon>
           </ion-button>
           <ion-button
-            *ngIf="!profile.following.includes(userProfile.username)"
+            *ngIf="!profile.following.includes(userProfile.username) && userProfileSettings.profile.followPermission == true"
             fill="clear"
             size="medium"
             color="dark"

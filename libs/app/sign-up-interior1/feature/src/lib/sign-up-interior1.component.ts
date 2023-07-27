@@ -16,7 +16,7 @@ export class SignUpInterior1Page {
 
   profile! : ProfileDto | null;
   categories : string[] = [];
-
+  isValid = false;
   selectedButtonId: string | undefined;
 
   constructor(private router: Router, private store: Store){
@@ -30,26 +30,30 @@ export class SignUpInterior1Page {
     });
   }
   
-  buttonPressed(event: any, buttonId: string){
+  buttonPressed(buttonId: string){
     this.selectedButtonId = buttonId;
-    const name: string = (event.target as Element).id;
 
-    if(this.categories.includes(name)){
-      this.categories = this.categories.filter(obj => {return obj !== name});
-    }
-
-    else{
-      this.categories.push(name);
+    if(!this.categories.includes(buttonId)){
+      this.categories.push(this.selectedButtonId);
+      const activate = document.getElementById(this.selectedButtonId);
+      if (activate) {
+      activate.classList.add('topic-active');
+      }
+    }else{
+      this.categories = this.categories.filter((category) => category !== this.selectedButtonId);
+      const activate = document.getElementById(this.selectedButtonId);
+      if (activate) {
+      activate.classList.remove('topic-active');
+      }
     }
     
-    // this.categories.push(event.target.srcElements.attributes.id);
-
+    if(this.categories.length >= 5){
+      this.isValid=true;
+    }else{
+      this.isValid=false;
+    }
     console.log(this.categories)
 
-    const activate = document.getElementById(this.selectedButtonId);
-    if (activate) {
-      activate.classList.add('topic-active');
-    }
   }
 
   next(){

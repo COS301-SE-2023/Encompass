@@ -56,11 +56,11 @@
         <ion-row>
         <ion-col>
           <div class="pickings">
-            <div id="ld" class="square light-default square-selected" (click)="changeBorder('ld')"></div>
-            <div id="lr" class="square light-red" (click)="changeBorder('lr')"></div>
-            <div id="lb" class="square light-blue" (click)="changeBorder('lb')"></div>
-            <div id="lg" class="square light-green" (click)="changeBorder('lg')"></div>
-            <div id="lo" class="square light-orange" (click)="changeBorder('lo')"></div>
+            <div id="light" class="square light-default " (click)="changeBorder('light'); enableLight()"></div>
+            <div id="light-red" class="square light-red" (click)="changeBorder('light-red'); enableLightRed()"></div>
+            <div id="light-blue" class="square light-blue" (click)="changeBorder('light-blue'); enableLightBlue()"></div>
+            <div id="light-green" class="square light-green" (click)="changeBorder('light-green'); enableLightGreen()"></div>
+            <div id="light-orange" class="square light-orange" (click)="changeBorder('light-orange'); enableLightOrange()"></div>
           </div>
         </ion-col>
         </ion-row>
@@ -77,11 +77,11 @@
         <ion-row>
         <ion-col>
           <div class="pickings">
-            <div id="dd" class="square dark-default" (click)="changeBorder('dd')"></div>
-            <div id="dr" class="square dark-red" (click)="changeBorder('dr')"></div>
-            <div id="db" class="square dark-blue" (click)="changeBorder('db')"></div>
-            <div id="dg" class="square dark-green" (click)="changeBorder('dg')"></div>
-            <div id="do" class="square dark-orange" (click)="changeBorder('do')"></div>
+            <div id="dark" class="square dark-default" (click)="changeBorder('dark'); enableDark()"></div>
+            <div id="dark-red" class="square dark-red" (click)="changeBorder('dark-red'); enableDarkRed()"></div>
+            <div id="dark-blue" class="square dark-blue" (click)="changeBorder('dark-blue'); enableDarkBlue()"></div>
+            <div id="dark-green" class="square dark-green" (click)="changeBorder('dark-green'); enableDarkGreen()"></div>
+            <div id="dark-orange" class="square dark-orange" (click)="changeBorder('dark-orange'); enableDarkOrange()"></div>
           </div>
         </ion-col>
         </ion-row>
@@ -103,12 +103,19 @@
       <img id="img-green" src="https://wallpapercave.com/dwp2x/wp10352814.jpg" alt="img-green" class="temp" (click)="changeBorderImage('img-green', 'https://wallpapercave.com/dwp2x/wp10352814.jpg')">
       <img id="img-orange" src="https://wallpapercave.com/dwp2x/wp10352821.jpg" alt="img-orange" class="temp" (click)="changeBorderImage('img-orange', 'https://wallpapercave.com/dwp2x/wp10352821.jpg')">
       <div id="img-own" class="temp own" (click)="changeBorderImage('img-own', ''); getImg()">
-        <ion-fab class="add-img">
-          <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+        <label for="backgroundFile" class="file-label">
+          <input id="backgroundFile" type="file" accept="image/*" (change)="onProfilePictureSelected($event)" class="file-input">
+          <div class="fab-container">
+            <ion-fab class="add-img">
+              <ion-fab-button>
+                <ion-icon name="add"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+          </div>
+        </label>
       </div>
+      
+      
     </div>
   </div>
 

@@ -10,7 +10,6 @@ export class NotificationSchema extends IdentifiableEntitySchema{
     picture: string,
     title: string,
     description: string,
-    routerUrl: string,
     dateTime: Date
   }[]
 }

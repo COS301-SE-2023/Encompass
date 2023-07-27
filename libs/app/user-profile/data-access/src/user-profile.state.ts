@@ -1,9 +1,10 @@
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { Injectable } from "@angular/core"
 import { Action, Selector, State, StateContext } from "@ngxs/store"
-import { GetUserProfile, GetUserProfilePosts } from "@encompass/app/user-profile/util"
+import { GetUserProfile, GetUserProfilePosts, GetUserSettings } from "@encompass/app/user-profile/util"
 import { UserProfileApi } from "./user-profile.api"
 import { PostDto } from "@encompass/api/post/data-access"
+import { SettingsDto } from "@encompass/api/settings/data-access"
 
 export interface UserProfileStateModel{
   UserProfileStateForm:{
@@ -17,6 +18,14 @@ export interface UserProfilePostModel{
   UserProfilePostForm:{
     model:{
       userProfilePosts: PostDto[] | null
+    }
+  }
+}
+
+export interface UserProfileSettingsModel{
+  UserProfileSettingsForm:{
+    model:{
+      userProfileSettings: SettingsDto | null
     }
   }
 }
@@ -38,6 +47,17 @@ export interface UserProfilePostModel{
     UserProfilePostForm:{
       model:{
         userProfilePosts: null
+      }
+    }
+  }
+})
+
+@State<UserProfileSettingsModel>({
+  name: 'userProfileSettingsModel',
+  defaults:{
+    UserProfileSettingsForm:{
+      model:{
+        userProfileSettings: null
       }
     }
   }
@@ -104,6 +124,23 @@ export class UserProfileState{
     })
   }
 
+  @Action(GetUserSettings)
+  async getUserSettings(ctx: StateContext<UserProfileSettingsModel>, {userId}: GetUserSettings){
+    const response = await this.userProfileApi.getUserSettings(userId)
+
+    if(response == null && response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      UserProfileSettingsForm:{
+        model:{
+          userProfileSettings: response
+        }
+      }
+    })
+  }
+
   @Selector()
   static userProfile(state: UserProfileStateModel){
     return state.UserProfileStateForm.model.userProfile
@@ -112,5 +149,10 @@ export class UserProfileState{
   @Selector()
   static userProfilePosts(state: UserProfilePostModel){
     return state.UserProfilePostForm.model.userProfilePosts
+  }
+
+  @Selector()
+  static userProfileSettings(state: UserProfileSettingsModel){
+    return state.UserProfileSettingsForm.model.userProfileSettings
   }
 }

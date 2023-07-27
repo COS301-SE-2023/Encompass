@@ -47,7 +47,7 @@ export class SettingsController{
   @Patch('/update-message/:userId')
   async updateMessage(
     @Param('userId') userId: string,
-    @Body() message: string
+    @Body('messagePermissions') message: string
   ){
     return await this.commandBus.execute<UpdateMessagePermissionsCommand, SettingsDto>(
       new UpdateMessagePermissionsCommand(userId, message)

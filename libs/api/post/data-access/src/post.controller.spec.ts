@@ -119,4 +119,30 @@ describe('PostController', () => {
             expect(returnedPost).toEqual(genericPost);
         });
     });
+
+    describe('getPostById', () => {
+        it('should call the Post controller with the given id', async () => {
+            const getPostSpy = jest.spyOn(controller, 'getPostById');
+            await controller.getPostById('id123');
+            expect(getPostSpy).toBeCalledWith('id123');
+    });
+        it('should return a postDto if an id is passed', async () => {
+        mockQueryBus.execute.mockReturnValue(genericPost);
+        const returnedPost = await controller.getPostById('id123');
+        expect(returnedPost).toEqual(genericPost);
+    });
+});
+
+describe('getPostsByCommunity', () => {
+    it('should call the Post controller with the given community name', async () => {
+        const getPostSpy = jest.spyOn(controller, 'getPostsByCommunity');
+        await controller.getPostsByCommunity('id123');
+        expect(getPostSpy).toBeCalledWith('id123');
+    });
+    it('should return a postDto if a community name is passed', async () => {
+        mockQueryBus.execute.mockReturnValue(genericPost);
+        const returnedPost = await controller.getPostsByCommunity('id123');
+        expect(returnedPost).toEqual(genericPost);
+    });
+});
 })

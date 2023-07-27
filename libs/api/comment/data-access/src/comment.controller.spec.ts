@@ -10,7 +10,8 @@ describe('CommentController', () => {
     const genericComment = {
         postId: 'test12345',
         username: 'tester',
-        text: 'testComment'
+        text: 'testComment',
+        profileImage: 'testPicture',
     }
     const genericCommentDto = {
         id: 'testid123',
@@ -107,4 +108,34 @@ describe('CommentController', () => {
             expect(deleteResult).toEqual([genericCommentDto]);
         });
     });
+
+    describe('getCommentsByUsername', () => {
+        it('should call Comment controller with given reply details', async () => {
+            const getCommentsByUsernameSpy = jest.spyOn(controller, 'getCommentsByUsername');
+            await controller.getCommentsByUsername('test1233');
+            expect(getCommentsByUsernameSpy).toBeCalledWith('test1233');
+        });
+
+        it('should return commentDto array when called with id of comment and reply', async () => {
+            mockQueryBus.execute.mockReturnValue([genericCommentDto]);
+            const deleteResult = await controller.getCommentsByUsername('testing123');
+            expect(deleteResult).toEqual([genericCommentDto]);
+        });
+    });
+
+    describe('get-post-comments', () => {
+        it('should call Comment controller with given post id', async () => {
+            const getPostCommentsSpy = jest.spyOn(controller, 'getPostComments');
+            await controller.getPostComments('test1233');
+            expect(getPostCommentsSpy).toBeCalledWith('test1233');
+        });
+
+        it('should return commentDto array when called with id of comment and reply', async () => {
+            mockQueryBus.execute.mockReturnValue([genericCommentDto]);
+            const deleteResult = await controller.getPostComments('testing123');
+            expect(deleteResult).toEqual([genericCommentDto]);
+
+        });
+    });
+
 });

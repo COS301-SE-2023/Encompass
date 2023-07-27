@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ChatListDto } from '@encompass/api/chat-list/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
+import { AddNotificationRequest, NotificationDto } from '@encompass/api/notifications/data-access';
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +82,7 @@ export class MessagesApi {
 
     async createChat(usernames: string[]){
       try{
-        const response = this.http.post<ChatDto>('/api/chat/create', usernames).toPromise();
+        const response = this.http.post<ChatDto>('/api/chat/create', {users: usernames}).toPromise();
 
         return response;
       }
@@ -90,6 +91,21 @@ export class MessagesApi {
         console.log(error)
 
         return null;
+      }
+    }
+
+    async sendNotification(userId: string, notification: AddNotificationRequest){
+      try{
+        console.log("twice")
+        const response = await this.http.patch<NotificationDto>('/api/notification/add/' + userId, notification).toPromise();
+  
+        return response
+      }
+  
+      catch(error){
+        console.log(error)
+  
+        return null
       }
     }
 }

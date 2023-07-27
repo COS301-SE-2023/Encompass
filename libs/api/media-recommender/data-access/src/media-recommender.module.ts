@@ -7,7 +7,12 @@ import { MediaRecommenderController } from "./media-recommender.controller";
 import { BookEntityRepository } from "./db/book-entity.repository";
 import { BookDtoRepository } from "./db/book-dto.repository";
 import { BookSchemaFactory } from "./db/book-schema.factory";
-import { GetRecommendedBooksHandler } from "./queries/get-all-books/getRecommendedBooks.handler";
+import { GetRecommendedBooksHandler } from "./queries";
+import { GetRecommendedMoviesHandler } from "./queries";
+import { MovieSchema } from "./db/movie-db/movie.schema";
+import { MovieSchemaFactory } from "./db/movie-db/movie-schema.factory";
+import { MovieDtoRepository } from "./db/movie-db/movie-dto.repository";
+import { MovieEntityRepository } from "./db/movie-db/movie-entity.repository";
 
 @Module({
     imports: [
@@ -17,6 +22,10 @@ import { GetRecommendedBooksHandler } from "./queries/get-all-books/getRecommend
                 name: BookSchema.name, 
                 schema: SchemaFactory.createForClass(BookSchema),
             },
+            {
+                name: MovieSchema.name,
+                schema: SchemaFactory.createForClass(MovieSchema),
+            }
         ]),
         HttpModule
     ],
@@ -28,6 +37,11 @@ import { GetRecommendedBooksHandler } from "./queries/get-all-books/getRecommend
         BookSchemaFactory,
         BookSchema,
         GetRecommendedBooksHandler,
+        MovieSchema,
+        MovieSchemaFactory,
+        MovieDtoRepository,
+        MovieEntityRepository,
+        GetRecommendedMoviesHandler
     ],
 })
 
