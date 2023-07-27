@@ -7,7 +7,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/encompass",
@@ -32,7 +32,10 @@
           "apps/encompass/src/styles.scss",
           "apps/encompass/src/theme/variables.scss"
       ],
-        "scripts": []
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/encompass/webpack.config.js"
+        }
       },
       "configurations": {
         "production": {
@@ -62,7 +65,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:webpack-dev-server",
       "configurations": {
         "production": {
           "browserTarget": "encompass:build:production"
