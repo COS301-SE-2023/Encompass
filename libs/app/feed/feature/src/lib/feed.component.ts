@@ -65,7 +65,7 @@ export class FeedPage {
         console.log(profile); 
         this.profile = profile;
         // this.addPosts("recommended");
-        this.recChange();
+        this.newChange();
 
         this.store.dispatch(new GetUserSettings(this.profile._id))
         this.settings$.subscribe(settings => {
@@ -196,7 +196,7 @@ Report(n:number){
       this.reports[k]=false;
    }   
     this.reports[n]=true;
-    
+
   }
 
     
@@ -336,6 +336,9 @@ GoToProfile(username: string){
 }
 
   recChange(){
+    for(let k = 0;k<this.reports.length;k++){
+      this.reports[k]=false;
+   }   
     this.addPosts("recommended");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
@@ -351,6 +354,9 @@ GoToProfile(username: string){
   }
 
   newChange(){
+    for(let k = 0;k<this.reports.length;k++){
+      this.reports[k]=false;
+   }   
     this.addPosts("latest");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
@@ -364,6 +370,9 @@ GoToProfile(username: string){
   }
 
   popChange(){
+    for(let k = 0;k<this.reports.length;k++){
+      this.reports[k]=false;
+   }   
     this.addPosts("popular");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
