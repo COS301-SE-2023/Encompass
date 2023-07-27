@@ -19,6 +19,7 @@ import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community
 import { GetPopularPostsQuery } from "./queries/get-popular/getPopularPosts.query";
 import { GetLatestPostsQuery } from "./queries/get-latest/getLatestPosts.query";
 import { GetPostsByKeywordQuery } from "./queries/search-posts/get-posts-by-keyword.query";
+import { GetRecommendedPostsQuery } from "./queries/get-recommended-posts/getRecommendedPosts.query";
 
 @Controller('post')
 export class PostController {
