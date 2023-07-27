@@ -265,8 +265,21 @@ export class HomeState{
 
     catch(error){
       console.log("here")
-      ctx.dispatch(new GetLatestPosts());
-    }
+      // ctx.dispatch(new GetLatestPosts());
+      const res = await this.homeApi.getLatestPosts();
+
+      if(res == null || res == undefined){
+        return
+      }
+
+        ctx.setState({
+          HomePostsForm: {
+            model: {
+              homePosts: res
+            }
+          }
+        })
+      }
   }
 
   @Action(SendNotification)
