@@ -32,8 +32,8 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
         const url = process.env["BASE_URL"];
         try{
             const [allProfiles, currentUserProfile] = await Promise.all([
-                this.httpService.get(url + "api/profile/get-all").toPromise(),  //array of profile objects
-                this.httpService.get(url + "api/profile/get/" + userId).toPromise()
+                this.httpService.get(url + "/api/profile/get-all").toPromise(),  //array of profile objects
+                this.httpService.get(url + "/api/profile/get/" + userId).toPromise()
             ]);
             const userCount = allProfiles?.data?.length;
             const currentUserCategories = currentUserProfile?.data?.categories;  //array of categories as strings

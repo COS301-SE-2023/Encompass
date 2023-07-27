@@ -3,6 +3,7 @@ import { AccountDto, GetAccountRequest } from "@encompass/api/account/data-acces
 import { Selector, State, StateContext, Action } from "@ngxs/store"
 import { LoginApi } from "./login.api"
 import { login } from '@encompass/app/login/util'
+import { ToastController } from "@ionic/angular"
 
 
 export interface LoginStateModel{
@@ -25,7 +26,7 @@ export interface LoginStateModel{
 
 @Injectable()
 export class LoginState{
-  constructor(private loginApi: LoginApi){}
+  constructor(private loginApi: LoginApi, private toastController: ToastController){}
 
   @Action(login)
   async login(ctx: StateContext<LoginStateModel>, {request}: login){
@@ -49,6 +50,18 @@ export class LoginState{
           }
         }
       });
+    }
+
+    else{
+      console.log("Error");
+
+      const toast = await this.toastController.create({
+        message: 'Incorrect Email or Password',
+        duration: 2000,
+        color: 'danger'
+      })
+
+      await toast.present();
     }
     
   }

@@ -37,3 +37,18 @@ export class ClearNotification{
   static readonly type = '[Home] Clear Notifications'
   constructor(public readonly userId: string, public readonly id : string){}
 }
+
+export class GetRecommendedCommunities{
+  static readonly type = '[Home] Get Recommended Communities';
+  constructor(public readonly userId: string){}
+}
+
+export class GetRecommendedMovies{
+  static readonly type = '[Home] Get Recommended Movies';
+  constructor(public readonly userId: string){}
+}
+
+export class GetRecommendedBooks{
+  static readonly type = '[Home] Get Recommended Books';
+  constructor(public readonly userId: string){}
+}

@@ -10,7 +10,8 @@ describe('CommentController', () => {
     const genericComment = {
         postId: 'test12345',
         username: 'tester',
-        text: 'testComment'
+        text: 'testComment',
+        profileImage: 'testPicture',
     }
     const genericCommentDto = {
         id: 'testid123',

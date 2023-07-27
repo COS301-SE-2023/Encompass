@@ -96,12 +96,13 @@ export class MessagesState{
   @Action(GetChatList)
   async getChatList(ctx: StateContext<ChatListModel>, {username}: GetChatList){
     const response = await this.messagesApi.getChatList(username);
+    // console.log(response);
 
     if(response == null || response == undefined){
       return;
     }
 
-    ctx.setState({
+    ctx.patchState({
       ChatListForm:{
         model:{
           chatList: response
@@ -197,8 +198,27 @@ export class MessagesState{
   }
 
   @Action(CreateChat)
-  async createChat(ctx: StateContext<MessagesStateModel>, {usernames}: CreateChat){
-    await this.messagesApi.createChat(usernames);
+  async createChat(ctx: StateContext<ChatListModel>, {usernames, ourUser}: CreateChat){
+    // console.log("here")
+    const response = await this.messagesApi.createChat(usernames);
+    // console.log(response);
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const resp = await this.messagesApi.getChatList(ourUser);
+
+    if(resp == null || resp == undefined){
+      return;
+    }
+
+    ctx.patchState({
+      ChatListForm:{
+        model:{
+          chatList: resp
+        }
+      }
+    })
   }
 
   @Selector()

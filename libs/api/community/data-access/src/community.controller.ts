@@ -18,6 +18,7 @@ import { UploadedFile } from '@nestjs/common';
 import { UploadImage } from './upload-image.service';
 import { DeleteCommunityCommand } from './commands/delete-community/delete-community.command';
 import { RemovePostCommand } from './commands/remove-post/remove-post.command';
+import { RemoveUserCommand } from './commands/remove-user/remove-user.command';
 
 
 
@@ -93,6 +94,16 @@ export class CommunityController {
     ){
         return await this.commandBus.execute<RemovePostCommand, CommunityDto>(
             new RemovePostCommand(communityName, post)
+        )
+    }
+
+    @Patch('remove-user/:name/:user')
+    async removeUser(
+        @Param('name') communityName: string,
+        @Param('user') username: string
+    ){
+        return await this.commandBus.execute<RemoveUserCommand, CommunityDto>(
+            new RemoveUserCommand(username, communityName)
         )
     }
 

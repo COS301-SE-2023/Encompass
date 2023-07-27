@@ -28,6 +28,6 @@ export class CreateAccountHandler
     account.commit();
     
     // console.log(account._id)
-    return account._id;
+    return account;
   }
 }
