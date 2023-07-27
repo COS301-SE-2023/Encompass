@@ -18,6 +18,7 @@ import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
 import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community.query";
 import { GetPopularPostsQuery } from "./queries/get-popular/getPopularPosts.query";
 import { GetLatestPostsQuery } from "./queries/get-latest/getLatestPosts.query";
+import { GetPostsByKeywordQuery } from "./queries/search-posts/get-posts-by-keyword.query";
 
 @Controller('post')
 export class PostController {
@@ -33,6 +34,13 @@ export class PostController {
     return await this.commandBus.execute<CreatePostCommand, PostDto>(
       new CreatePostCommand(createPostRequest),
     );
+  }
+
+  @Get('get-posts-by-keyword/:keyword')
+  async getPostsByKeyword(@Param('keyword') keyword: string){
+      return await this.queryBus.execute<GetPostsByKeywordQuery, PostDto[]>(
+          new GetPostsByKeywordQuery(keyword),
+      );
   }
 
   @Patch(':id')
