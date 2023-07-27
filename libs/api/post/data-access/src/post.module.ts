@@ -9,7 +9,7 @@ import { PostDtoRepository } from "./db/post-dto.repository";
 import { PostSchemaFactory } from "./db/post-schema.factory";
 import { PostFactory } from "./post.factory";
 import { CreatePostHandler, UpdatePostHandler, DeletePostHandler } from "./commands";
-import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, GetLatestPostHandler, GetPopularPostsHandler, GetPostsByKeywordHandler, UserIdGetPostHandler } from "./queries";
+import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, GetLatestPostHandler, GetPopularPostsHandler, GetPostsByKeywordHandler, GetRecommendedPostsHandler, UserIdGetPostHandler } from "./queries";
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
 import { GetPosts } from "@encompass/app/profile/util";
@@ -41,7 +41,8 @@ import { GetPosts } from "@encompass/app/profile/util";
     UploadImage,
     GetByIdHandler,
     GetByCommunityHandler,
-    GetPostsByKeywordHandler
+    GetPostsByKeywordHandler,
+    GetRecommendedPostsHandler
   ],
 })
 

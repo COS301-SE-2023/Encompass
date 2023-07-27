@@ -73,10 +73,17 @@ export class PostController {
     return await uploadImage.uploadImage(file.buffer, file.originalname);
   }
 
-  @Get('get-all') //recommended feed
+  @Get('get-all')
   async getAllPosts(){
     return await this.queryBus.execute<GetAllPostsQuery, PostDto[]>(
       new GetAllPostsQuery(),
+    );
+  }
+
+  @Get('get-recommended-posts/:id')
+  async getRecommendedPosts( @Param('id') id: string){
+    return await this.queryBus.execute<GetRecommendedPostsQuery, PostDto[]>(
+      new GetRecommendedPostsQuery(id),
     );
   }
 
