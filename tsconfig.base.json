@@ -122,11 +122,11 @@
         "libs/app/profile/feature/src/index.ts"
       ],
       "@encompass/app/profile/util": ["libs/app/profile/util/src/index.ts"],
-      "@encompass/app/settings/data-access": [
-        "libs/app/settings/data-access/src/index.ts"
-      ],
       "@encompass/app/search-explore/feature": [
         "libs/app/search-explore/feature/src/index.ts"
+      ],
+      "@encompass/app/settings/data-access": [
+        "libs/app/settings/data-access/src/index.ts"
       ],
       "@encompass/app/settings/feature": [
         "libs/app/settings/feature/src/index.ts"
@@ -141,8 +141,14 @@
       "@encompass/app/sign-up-interior1/util": [
         "libs/app/sign-up-interior1/util/src/index.ts"
       ],
+      "@encompass/app/sign-up-interior2/data-access": [
+        "libs/app/sign-up-interior2/data-access/src/index.ts"
+      ],
       "@encompass/app/sign-up-interior2/feature": [
         "libs/app/sign-up-interior2/feature/src/index.ts"
+      ],
+      "@encompass/app/sign-up-interior2/util": [
+        "libs/app/sign-up-interior2/util/src/index.ts"
       ],
       "@encompass/app/sign-up/data-access": [
         "libs/app/sign-up/data-access/src/index.ts"

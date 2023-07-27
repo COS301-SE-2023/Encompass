@@ -177,7 +177,7 @@ export class UserProfile {
   }
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
   presentingElement: any;
   presentingElement2: any;

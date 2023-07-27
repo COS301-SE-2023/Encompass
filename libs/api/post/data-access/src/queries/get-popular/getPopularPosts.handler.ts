@@ -20,27 +20,27 @@ export class GetPopularPostsHandler implements IQueryHandler<GetPopularPostsQuer
         }
 
         function orderbyPopularity(postsNotByUser: PostSchema[]) {
+            const popularity: number[] = [];
 
-            interface PostSchemaWithPopularity extends PostSchema {
-                popularity: number;
-            }
-    
-            const postsWithPopularity: PostSchemaWithPopularity[] = postsNotByUser.map(post => {
+            postsNotByUser.forEach(post => {
                 const { shares, comments, likes } = post;
                 const shareWeight = 1;
                 const commentWeight = 1.2;
                 const likeWeight = 0.8;
-                const popularity = shares * shareWeight + comments * commentWeight + likes.length * likeWeight;
-            
-                return { ...post, popularity };
+                const popularityUnit = shares * shareWeight + comments * commentWeight + likes.length * likeWeight;
+                popularity.push(popularityUnit);
             });
+
+            //create new PostSchema array which is a deep copy of postsNotByUser
+            const postsNotByUserCopy: PostSchema[] = JSON.parse(JSON.stringify(postsNotByUser));
             
-            postsWithPopularity.sort((a, b) => b.popularity - a.popularity);
-            
-            return postsWithPopularity.map(post => {
-                const { popularity, ...rest } = post;
-                return rest; // Remove the temporary 'popularity' property from the post objects
+            //order posts by popularity descending
+            const orderedPosts = postsNotByUserCopy.sort((a, b) => {
+                const indexA = postsNotByUserCopy.indexOf(a);
+                const indexB = postsNotByUserCopy.indexOf(b);
+                return popularity[indexB] - popularity[indexA];
             });
+            return orderedPosts;
         }
     }
 

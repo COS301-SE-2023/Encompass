@@ -82,7 +82,7 @@ export class MessagesApi {
 
     async createChat(usernames: string[]){
       try{
-        const response = this.http.post<ChatDto>('/api/chat/create', usernames).toPromise();
+        const response = this.http.post<ChatDto>('/api/chat/create', {users: usernames}).toPromise();
 
         return response;
       }

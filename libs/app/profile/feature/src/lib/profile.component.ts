@@ -149,7 +149,7 @@ export class ProfilePage {
   }
 
 ViewPostofComment(postId: string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
     
 async openPopup() {
@@ -165,7 +165,7 @@ async openPopup() {
   }
 
   GoToCommunity(communityName:string){
-    this.router.navigate(['community-profile/' + communityName]);
+    this.router.navigate(['home/community-profile/' + communityName]);
   }
   
 viewReplies(n:number){
@@ -315,7 +315,7 @@ Edit(){
   }
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
 
   presentingElement: any;

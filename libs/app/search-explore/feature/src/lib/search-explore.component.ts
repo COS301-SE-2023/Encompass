@@ -280,11 +280,11 @@ export class SearchExploreComponent {
   }
 
   GoToCommunity(communityName:string){
-    this.router.navigate(['community-profile/' + communityName]);
+    this.router.navigate(['home/community-profile/' + communityName]);
   }
 
   GoToProfile(username: string){
-    this.router.navigate(['user-profile/' + username]);
+    this.router.navigate(['home/user-profile/' + username]);
   }
 
   newChange(){
@@ -516,7 +516,7 @@ Edit(){
   }
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
 
   presentingElement: any;

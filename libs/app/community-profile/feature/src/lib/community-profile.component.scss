@@ -1,10 +1,12 @@
 .overlay-container {
     overflow:auto;
-    background-color: #F8F8F8;
+    background-color: var(--ion-color-background);
     width: 100%;
     height: 100%;
     object-fit: fill;
     z-index: 1;
+    color: var(--ion-color-text);
+    // margin-left: 20px;
   }
 
 .image-container {
@@ -122,6 +124,7 @@
 
 .row-filter {
   justify-content: space-evenly;
+  // margin-right: 20px;
 }
 
 
@@ -284,7 +287,7 @@ left: 5%;
     }
 
     .PostCard{
-      background-color: #F0EFEF;
+      background-color: var(--card-color);
 
     }
     .PostCardHeader{
@@ -336,7 +339,7 @@ left: 5%;
     }
 
 ion-card {
-  background-color: #fdfdfd;
+  background-color: var(--card-color);
 }
 
 
@@ -476,20 +479,26 @@ position: relative;
   top:15px;
   left:15px;
   z-index: 5;
-}
-.Community{
-  width: 100%;
-  height: 130px;
-  border-bottom: #CECAE3 1px solid;
+  margin-left: 20px;
+
 }
 
+
 .Community{
+  width: 100%;
+  height: 150px;
+  border-bottom: #CECAE3 1px solid;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: CustomFont;
 }
 
+.editCommunityDetails{
+  width: 50%;
+   height: 100%;
+   margin-left: 20px;
+}
 .CommunityDetails{
   display: flex;
   flex-direction: column;
@@ -497,6 +506,7 @@ position: relative;
   height: 100%;
   width: 30%;
   padding-left: 2%;
+  margin-left: 20px;
 }
 
 .CommunityName{
@@ -539,7 +549,7 @@ justify-content: space-evenly;
 }
 
 .CommunityCard{
-  background-color: #F8F8F8;
+  background-color: var(--card-color);
   font-family: CustomFont;
   display: flex;
   flex-direction: column;
@@ -620,6 +630,8 @@ justify-content: space-evenly;
 }
 
 .DescInput{
+  text-align: center;
+  vertical-align: middle;
   font-size: 15px;
   border-radius: 10px;
   width: 50%;
@@ -706,7 +718,7 @@ justify-content: space-evenly;
   }
 
   .AdminCard{
-    background-color: #F8F8F8;
+    background-color: var(--card-color);
     font-family: CustomFont;
     color: #000000;
   }

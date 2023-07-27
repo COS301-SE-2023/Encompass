@@ -121,7 +121,7 @@ export class ProfileState{
       return;
     }
 
-    ctx.patchState({
+    await ctx.patchState({
       profile: response
     })
   }

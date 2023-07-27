@@ -3,10 +3,10 @@
 
 <div class="overlay-container" id="main" >
   
-  <ion-button fill="clear" class="centeredButton" (click)="goHome()">
+  <!-- <ion-button fill="clear" class="centeredButton" (click)="goHome()">
     <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
     <div class="text">Home</div>
-  </ion-button>
+  </ion-button> -->
 
     <ion-card class = "PostCard">
       <div class = "PostCardHeader">
@@ -46,8 +46,9 @@
             {{post?.text}}
           </div>
         </div>
-        <div class = "PostFooter">
-          <div class = "date">{{post?.dateAdded}}</div>
+        <div class = "PostFooter" *ngIf="post != null">
+          <div class = "date" *ngIf="post.dateAdded.length == 21">{{post.dateAdded.slice(0, 9)}}</div>
+          <div class = "date" *ngIf="post.dateAdded.length != 21">{{post.dateAdded.slice(0, 10)}}</div>
          
             <div class = "icons">
               <div style = "text-align: center;">
@@ -103,7 +104,7 @@
             <div class = Comment>
                 <div class = "CommentHead">
                   <div class = CommentIDs>
-                      <img src = "assets/icon/profile.jpg" style="object-fit: fill;
+                      <img src = "{{comment.profileImage}}" onerror="this.src='assets/icon/Profile.png'" style="object-fit: fill;
                       width: 50px; height: 50px; border-radius: 50%;">
                       <div class = "UserName">
                         @{{comment?.username}}
@@ -156,7 +157,7 @@
                     <div class = CommentReplies>
                         <div class = "CommentHead">
                           <div class = CommentIDs>
-                              <img src = "assets/icon/profile.jpg" style="object-fit: fill;
+                              <img src = "{{reply.profileImage}}" onerror="this.src='assets/icon/Profile.png'" style="object-fit: fill;
                               width: 50px; height: 50px; border-radius: 50%;">
                             <div class = "UserName">
                                 @ {{reply?.username}}

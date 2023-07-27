@@ -16,6 +16,7 @@ export class CreateCommentHandler
         postId,
         username,
         text,
+        profileImage
       } = createCommentRequest;
 
       const comment = this.eventPublisher.mergeObjectContext(
@@ -23,6 +24,7 @@ export class CreateCommentHandler
           postId,
           username,
           text,
+          profileImage
         )
       );
 

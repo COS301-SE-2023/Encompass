@@ -1,6 +1,6 @@
 .overlay-container {
   overflow:auto;
-  background-color: #F0EFEF;
+  background-color: var(--ion-color-background);
   width: 100%;
   height: 100%;
   object-fit: fill;
@@ -15,7 +15,7 @@
 
 .PostCard{
  
-  background-color: #F0EFEF;
+  background-color: var(--card-color);
   width: 40%;
   position: relative;
   bottom: 22%;
@@ -160,12 +160,10 @@ display: flex;
     align-items: center;
     height: 50%;
     width: 100%;
-    background-color: #F0EFEF;
+    background-color: var(--card-color);
 }
 
-.PostBody:hover{
-  cursor: pointer;
-}
+
 
 .PostFooter{
 display: flex;
@@ -173,7 +171,7 @@ display: flex;
     align-items: center;
     height: 15%;
     width: 100%;
-    background-color: #F0EFEF;
+    background-color: var(--card-color);
 }
 
 
@@ -192,10 +190,7 @@ border-radius: 50%;
   color: purple;
 }
 
-.heart:hover{
-  cursor: pointer;
-  color: purple;
-}
+
 
 .content{
   width: 40%;

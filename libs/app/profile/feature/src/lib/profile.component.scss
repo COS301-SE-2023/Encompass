@@ -127,7 +127,9 @@ height: 70px;
 object-fit: fill;
 border-radius: 15px;
 }
-
+.postImage:hover{
+cursor:pointer;
+}
 .PostDetails{
 display: flex;
 flex-direction: column;

@@ -21,6 +21,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { UserProfileModule } from '@encompass/app/user-profile/data-access';
 import { SettingsModule } from '@encompass/app/settings/data-access';
 import { ThemesModule } from '@encompass/app/themes/data-access';
+import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-access';
 
 const config: SocketIoConfig = {
   url: ':3000',
@@ -46,6 +47,7 @@ const config: SocketIoConfig = {
     UserProfileModule,
     SettingsModule,
     ThemesModule,
+    SignUpCommunitiesModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],
