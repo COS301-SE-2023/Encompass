@@ -204,6 +204,10 @@ object-fit: fill;
 .Title{
   display: inline-block;
   width: auto;
+  white-space: nowrap; 
+  // overflow: hidden; 
+  text-overflow: ellipsis;
+
 }
 
 .Name{
@@ -619,12 +623,14 @@ ion-button:hover {
 .media-info .MediaTitle {
   font-size: 18px;
   font-weight: bold;
+  text-align: center;
 }
 
 .media-info .MediaDate,
 .media-info .MediaAuthor {
   font-size: 14px;
   margin-bottom: 5px;
+  text-align: center;
 }
 
 .media-info .MediaGenres img {

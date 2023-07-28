@@ -187,3 +187,7 @@
     display: flex;
     justify-content: center;
 }
+
+ion-button:hover {
+  --border-radius: 50px;
+}

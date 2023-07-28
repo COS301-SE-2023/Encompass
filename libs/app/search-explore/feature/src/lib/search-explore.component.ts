@@ -271,10 +271,10 @@ export class SearchExploreComponent {
 
 
     if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.add('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
+      recBtn.classList.add('active-button-filter');
+      newBtn.classList.remove('active-button-filter');
+      popBtn.classList.remove('active-button-filter');
+      eventBtn.classList.remove('active-button-filter');
 
     }
   }
@@ -295,10 +295,10 @@ export class SearchExploreComponent {
 
 
     if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.add('active-button');
-      popBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
+      recBtn.classList.remove('active-button-filter');
+      newBtn.classList.add('active-button-filter');
+      popBtn.classList.remove('active-button-filter');
+      eventBtn.classList.remove('active-button-filter');
 
     }
   }
@@ -313,10 +313,10 @@ export class SearchExploreComponent {
 
 
     if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.add('active-button');
-      eventBtn.classList.remove('active-button');
+      recBtn.classList.remove('active-button-filter');
+      newBtn.classList.remove('active-button-filter');
+      popBtn.classList.add('active-button-filter');
+      eventBtn.classList.remove('active-button-filter');
 
     }
   }

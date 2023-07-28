@@ -53,7 +53,7 @@ export class CreateCommunityComponent {
 
   postForm = this.formBuilder.group({
     title: ['', [ Validators.required, Validators.maxLength(250)]],
-    category: [[]]
+    category: [[] as string[], Validators.required]
   });
 
 
@@ -86,14 +86,31 @@ export class CreateCommunityComponent {
     this.type = "Restricted";
   }
 
+  selections!: string[];
+
   checkInput(){
     if(this.title?.value == null || this.title?.value == undefined
       ||this.category?.value==null||this.category?.value==undefined
-      || this.category?.value =="" || this.title?.value =="" ){
+      || this.title?.value =="" ){
       this.isValid = false;
       }else{
         this.isValid = true;
       }
+
+      if(this.category?.value){
+        this.selections=this.category?.value;
+      }
+      if(this.selections.length > 3){
+        this.selections=this.selections.slice(0,3);
+      }
+  
+      const newCategoryValues = this.selections;
+      const categoryControl = this.postForm.get('category');
+      if (categoryControl) { 
+        categoryControl.patchValue(newCategoryValues);
+      }
+
+
   }
   onFileSelected(event: any) {
 
