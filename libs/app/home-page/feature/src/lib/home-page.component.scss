@@ -42,6 +42,7 @@
 
 .buttons-menu-container {
   --background: var(--ion-color-background-menu);
+  
 }
 
 
@@ -60,6 +61,23 @@
   z-index: 0;
 }
 
+ion-button {
+  span {
+    margin-left: 20px;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-family: customFont;
+    font-size: 24px;
+  }
+
+  .logo-span {
+    margin-left: 70px;
+    font-size: 18px;
+    text-transform: capitalize;
+    font-family: customFont;
+    font-size: 24px;
+  }
+}
 
 ion-split-pane {
 
@@ -67,6 +85,12 @@ ion-split-pane {
     .menu-pane {
       min-width: 72px !important;
       max-width: 72px !important;
+      transition: all 0.3s;
+    }
+
+    .menu-pane:hover {
+      min-width: 300px !important;
+      max-width: 300px !important;
     }
 
     .router-pane {
@@ -95,18 +119,18 @@ ion-button {
   }
 
   .centeredButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 70px;
-    height: 58px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .logo {
-    max-width: 100%;
-    max-height: 100%;
-
+    max-width: 60px;
+    max-height: 60px;
+    position: absolute;
+    top: 0;
+    left: 2%;
   }
 
   .invisible {
@@ -121,7 +145,12 @@ ion-button {
      height: 7% ;
      display: flex;
      align-items: left;
-    margin-top: 10px;
+    // margin-top: 10px;
+  }
+
+
+  .top-button {
+    margin-top: 80px;
   }
 
   .menuFooter {
@@ -134,7 +163,9 @@ ion-button {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
+    position: absolute;
+    bottom: 0;
+    left: 10px;
   }
 
 

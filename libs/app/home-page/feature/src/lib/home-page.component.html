@@ -3,57 +3,63 @@
   <ion-menu type="overlay" side="start" id="main-content" class="menu-pane" >
     <div class="menu-container">
 
-    <div class="logoButton" (click)="goHome()">
-      <ion-button fill="clear" class="centeredButton">
-        <img id="logo-default" src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-        <img id="logo-blue" src="assets/logos/logo-blue.png" class="logo invisible" alt="Encompass Logo">
-        <img id="logo-red" src="assets/logos/logo-red.png" class="logo invisible" alt="Encompass Logo">
-        <img id="logo-green" src="assets/logos/logo-green.png" class="logo invisible" alt="Encompass Logo">
-        <img id="logo-orange" src="assets/logos/logo-orange.png" class="logo invisible" alt="Encompass Logo">
-      </ion-button>
-    </div>
+    
       
     <ion-content class="ion-padding buttons-menu-container">
-      
-      <div class="MenuButton" >
-        <ion-button fill="clear" id="popover-button" (click)="toggleSearch()">
-          <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+      <div class="logoButton" (click)="goHome()">
+        <ion-button fill="clear" class="centeredButton">
+          <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+          <span class="logo-span">Home</span>
         </ion-button>
+        
+      </div>
+      
+      <div class="MenuButton top-button" >
+        <ion-button class="full" fill="clear" id="popover-button" (click)="toggleSearch()">
+          <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Search</span>
+        </ion-button>
+        
       </div>
 
       <div class="MenuButton">
         <ion-button fill="clear" (click)="goToExplore()">
           <ion-icon name="rocket" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Explore</span>
         </ion-button>
       </div>
 
       <div class="MenuButton">
         <ion-button fill="clear" (click)="goToChat()">
           <ion-icon name="chatbubbles" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Messages</span>
         </ion-button>
       </div>
 
       <div class="MenuButton">
         <ion-button fill="clear"(click)="toggleNotifications()">
           <ion-icon name="notifications" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Notifications</span>
         </ion-button>
       </div>
 
       <div class="MenuButton">
         <ion-button id="profile-trigger" fill="clear" (click)="goToProfile()">
           <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Profile</span>
         </ion-button>
       </div>
       
       <div class="menuFooter">
-        <ion-button id="menu-pop" fill="clear">
-        <ion-icon name="menu"></ion-icon>
+        <ion-button id="menu-pop"  fill="clear">
+        <ion-icon id="menu-pop" name="menu"></ion-icon>
+        <span>More Options</span>
       </ion-button>
       </div>
 
       <ion-popover trigger="menu-pop" [dismissOnSelect]="true" side="right" alignment="end" showBackdrop="false">
         <ng-template>
-          <ion-content class="popover-content" style="margin-bottom: 210px;">
+          <ion-content class="popover-content" style="margin-bottom: 210px; margin-left: 600px;">
             <ion-list>
               <ion-item [button]="true" [detail]="false" (click)="goToEvents()">
                 <ion-icon name="megaphone-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
