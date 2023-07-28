@@ -4,6 +4,8 @@ import { QueryBus } from "@nestjs/cqrs";
 import { GetRecommendedBooksQuery } from "./queries/get-all-books/getRecommendedBooks.query";
 import { GetRecommendedMoviesQuery } from "./queries/get-recommended-movies/getRecommendedMovies.query";
 import { MovieDto } from "./movie.dto";
+import { CreateMovieClustersCommand } from "./commands/create-movie-clusters/create-movie-clusters.command";
+import { GetAllMoviesQuery } from "./queries/get-all-movies/getAllMovies.query";
 
 @Controller('media-recommender')
 export class MediaRecommenderController {
@@ -20,6 +22,20 @@ export class MediaRecommenderController {
     async getRecommendedMovies(@Param('id') id: string) {
         return this.queryBus.execute<GetRecommendedMoviesQuery, MovieDto[]>(
             new GetRecommendedMoviesQuery(id),
+        );
+    }
+
+    @Get('all-movies')
+    async getAllMovies() {
+        return this.queryBus.execute<GetAllMoviesQuery, MovieDto[]>(
+            new GetAllMoviesQuery(),
+        );
+    }
+
+    @Get('movies-clustering')
+    async createMovieClusters() {
+        return this.queryBus.execute<CreateMovieClustersCommand, boolean>(
+            new CreateMovieClustersCommand(),
         );
     }
 
