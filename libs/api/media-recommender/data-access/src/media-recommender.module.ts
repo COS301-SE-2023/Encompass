@@ -26,7 +26,7 @@ import { GetAllMoviesHandler } from "./queries/get-all-movies/getAllMovies.handl
             {
                 name: MovieSchema.name,
                 schema: SchemaFactory.createForClass(MovieSchema),
-            }
+            },
         ]),
         HttpModule
     ],

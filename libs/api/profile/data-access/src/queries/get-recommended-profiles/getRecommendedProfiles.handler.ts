@@ -236,7 +236,6 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
 
     function defineK(userCount: number, allProfiles: any, postIds: postType[]) {
         const maxK = getMaxK(userCount);
-        console.log
         
         // Assuming `setupUserArrays` extracts the relevant profile data into an array
         const profilesData = setupUserArrays(allProfiles, postIds);
