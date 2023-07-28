@@ -235,29 +235,51 @@ export class HomeState{
 
   @Action(UpdatePost)
   async updatePost(ctx: StateContext<HomePostsModel>, {postId, updateRequest}: UpdatePost){
+
     const response = await this.homeApi.updatePost(updateRequest, postId);
 
     if(response == null || response == undefined){
       return;
     }
 
-    const posts = ctx.getState().HomePostsForm.model.homePosts;
+    try{
 
-    if(posts == null ){
-      return
+      const posts = ctx.getState().HomePostsForm.model.homePosts;
+
+      if(posts == null ){
+        return
+      }
+
+      const index = posts?.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.setState({
+        HomePostsForm: {
+          model: {
+            homePosts: posts
+          }
+        }
+      })
     }
 
-    const index = posts?.findIndex(x => x._id == response._id)
+    catch(error){
+      console.log("here")
+      // ctx.dispatch(new GetLatestPosts());
+      const res = await this.homeApi.getLatestPosts();
 
-    posts[index] = response;
-
-    ctx.setState({
-      HomePostsForm: {
-        model: {
-          homePosts: posts
-        }
+      if(res == null || res == undefined){
+        return
       }
-    })
+
+        ctx.setState({
+          HomePostsForm: {
+            model: {
+              homePosts: res
+            }
+          }
+        })
+      }
   }
 
   @Action(SendNotification)
@@ -292,4 +314,19 @@ export class HomeState{
   static notifications(state: HomeNotificationsModel){
     return state.HomeNotificationsForm.model.homeNotifications;
   }
+
+  @Selector()
+    static getCommunities(state: CommunitiesModel){
+      return state.CommunitiesForm.model.communities;
+    }
+  
+    @Selector()
+    static getMovies(state: MoviesModel){
+      return state.MoviesForm.model.movies;
+    } 
+
+    @Selector()
+    static getBooks(state: BooksModel){ 
+      return state.BooksForm.model.books;
+    }
 }
