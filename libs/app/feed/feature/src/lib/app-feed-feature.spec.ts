@@ -1,26 +1,26 @@
 import { appFeedFeature } from './app-feed-feature';
-// import { TestBed, ComponentFixture } from '@angular/core';
-// import { IonicModule } from '@ionic/angular';
-// import { FeedPage } from './feed.component';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { FeedPage } from './feed.component';
 
-// describe('FeedPage', () => {
-//   let component: FeedPage;
-//   let fixture: ComponentFixture<FeedPage>;
+describe('FeedPage', () => {
+  let component: FeedPage;
+  let fixture: ComponentFixture<FeedPage>;
 
-//   beforeEach(async () => {
-//     TestBed.configureTestingModule({
-//       declarations: [FeedPage],
-//       imports: [IonicModule.forRoot()],
-//     }).compileComponents();
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      declarations: [FeedPage],
+      imports: [IonicModule.forRoot()],
+    }).compileComponents();
 
-//     fixture = TestBed.createComponent(FeedPage);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    fixture = TestBed.createComponent(FeedPage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//   it('should create the feed page', () => {
-//     expect(component).toBeTruthy();
-//   });
+  it('should create the feed page', () => {
+    expect(component).toBeTruthy();
+  });
   
   // it('should display a list of posts', () => {
   //   // Assume you have a function that fetches posts and assigns them to a variable
@@ -43,11 +43,11 @@ import { appFeedFeature } from './app-feed-feature';
   //   expect(updatedLikes).toBe(initialLikes + 1);
   // });
   
-//});
-
-
-describe('appFeedFeature', () => {
-  it('should work', () => {
-    expect(appFeedFeature()).toEqual('app-feed-feature');
-  });
 });
+
+
+// describe('appFeedFeature', () => {
+//   it('should work', () => {
+//     expect(appFeedFeature()).toEqual('app-feed-feature');
+//   });
+// });
