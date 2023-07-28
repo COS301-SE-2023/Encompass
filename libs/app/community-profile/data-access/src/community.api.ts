@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { PostDto } from '@encompass/api/post/data-access';
+import { ProfileDto } from '@encompass/api/profile/data-access';
 
 export interface fileReturn{
   key: string,
