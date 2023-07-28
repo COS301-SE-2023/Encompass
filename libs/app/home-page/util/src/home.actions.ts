@@ -38,6 +38,11 @@ export class ClearNotification{
   constructor(public readonly userId: string, public readonly id : string){}
 }
 
+export class ClearAllNotifications{
+  static readonly type = '[Home] Clear All Notifications'
+  constructor(public readonly userId: string){}
+}
+
 export class GetRecommendedCommunities{
   static readonly type = '[Home] Get Recommended Communities';
   constructor(public readonly userId: string){}

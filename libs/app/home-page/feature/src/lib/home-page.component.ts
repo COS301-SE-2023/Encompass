@@ -6,7 +6,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
+import { ClearAllNotifications, ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -133,6 +133,14 @@ export class HomePage {
     }
     
     this.store.dispatch(new ClearNotification(this.profile._id, id));
+  }
+
+  clearAllNotifications(){
+    if(this.profile == null){
+      return;
+    }
+
+    this.store.dispatch(new ClearAllNotifications(this.profile._id));
   }
 
   logout() {

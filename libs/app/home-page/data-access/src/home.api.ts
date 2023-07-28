@@ -136,4 +136,18 @@ export class HomeApi{
       return null
     }
   }
+
+  async clearAllNotifications(userId: string){
+    try{
+      const response = await this.httpClient.patch<NotificationDto>('/api/notification/clear-all/' + userId, null).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+
+      return null
+    }
+  }
 }
