@@ -25,6 +25,7 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
                 
                 const categories = convertUserCategories(currentUserProfile?.data);
                 const allMovies = await this.movieDtoRepository.findSome(categories);
+                convertUserCategories( currentUserProfile?.data );
                 addUserToMovie(allMovies, currentUserProfile?.data);
                 //K-means clustering for Movies where K = sqrt(allMovies.length)
                 const clusters = kmeans(allMovies);
