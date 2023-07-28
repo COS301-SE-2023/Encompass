@@ -6,7 +6,7 @@
         <ion-card class="header card-styles">
           <!-- <ion-card-header class="header-header"> -->
             <div class="image-container">
-              <div color="dark" class="custom-title">Welcome Home</div>
+              <div color="dark" class="custom-title" >Welcome Home</div>
               <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
               <img class="rocket" src="assets/icon/rocket-planet.png" alt="Rocket">
             </div>
@@ -318,45 +318,31 @@
           <!-- content -->
 
           <div class="contentrecs">
-            <div class="media-item">
+           
+            <div class="media-item" *ngIf="books">
               <div class="imges">
-                <img src="assets/icon/127Hours.jpg" class="MediaImage">
+                <img src = {{books[0].coverImg}} class = "MediaImage">
               </div>
               <div class="media-info">
-                <div class="MediaTitle">127 Hours</div>
-                <div class="MediaDate">2010</div>
-                <div class="MediaAuthor">That One Guy</div>
-                <div class="MediaGenres">
-                  <img src="assets/icon/Movies.png" class="imgDiv">
-                  <img src="assets/icon/Drama.png" class="imgDiv">
-                  <img src="assets/icon/Adventure.png" class="imgDiv">
-                </div>
+                <div class = "MediaTitle">{{BookTitle1.slice(0,45)}}</div>
+                <div class = "MediaDate">{{books[0].publishDate}}</div>
+                <div class = "MediaAuthor">{{BookAuthor1}}</div> 
+                <div class = "MediaGenres">
+                  <img *ngFor="let category of myBookGenres1; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                  <!-- <img src = "assets/icon/Books.png" class="imgDiv">
+                  <img src = "assets/icon/Romance.png" class="imgDiv">
+                  <img src = "assets/icon/Drama.png" class="imgDiv"> -->
+                </div> 
               </div>
             </div>
-            <div class="media-item">
+            <div class="media-item" *ngIf="books">
               <div class="imges">
-                <img src = "assets/icon/Batman.jpg" class = "MediaImage" >
-              </div>
-              
-              <div class="media-info">
-                <div class = "MediaTitle">The Batman</div>
-                    <div class = "MediaDate">2022</div>
-                    <div class = "MediaAuthor">Matt Reeves</div>
-                <div class="MediaGenres">
-                  <img src = "assets/icon/Movies.png" class="imgDiv">
-                  <img src = "assets/icon/Mystery.png" class="imgDiv">
-                  <img src = "assets/icon/Action.png" class="imgDiv">
-                </div>
-              </div>
-            </div>
-            <div class="media-item">
-              <div class="imges">
-                <img src = "assets/icon/GreatGatsby.jpg" class = "MediaImage">
+                <img src = {{books[1].coverImg}} class = "MediaImage">
               </div>
               <div class="media-info">
-                <div class = "MediaTitle">The Great Gatsby</div>
-                <div class = "MediaDate">1913</div>
-                <div class = "MediaAuthor">F. Scott Fitzgerald</div> 
+                <div class = "MediaTitle">{{BookTitle2.slice(0,45)}}</div>
+                <div class = "MediaDate">{{books[1].publishDate}}</div>
+                <div class = "MediaAuthor">{{BookAuthor2}}</div> 
                 <div class = "MediaGenres">
                   <img src = "assets/icon/Books.png" class="imgDiv">
                   <img src = "assets/icon/Romance.png" class="imgDiv">
@@ -364,6 +350,7 @@
                 </div> 
               </div>
             </div>
+           
           </div>
             
             </div>
