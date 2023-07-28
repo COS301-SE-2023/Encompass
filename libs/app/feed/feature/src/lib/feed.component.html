@@ -321,7 +321,9 @@
            
             <div class="media-item" *ngIf="books">
               <div class="imges">
-                <img src = {{books[0].coverImg}} class = "MediaImage">
+                <img src = {{books[0].coverImg}} class = "MediaImage"
+                onerror="this.src='assets/icon/Books.png';"
+                >
               </div>
               <div class="media-info">
                 <div class = "MediaTitle">{{BookTitle1.slice(0,45)}}</div>
@@ -329,24 +331,20 @@
                 <div class = "MediaAuthor">{{BookAuthor1}}</div> 
                 <div class = "MediaGenres">
                   <img *ngFor="let category of myBookGenres1; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
-                  <!-- <img src = "assets/icon/Books.png" class="imgDiv">
-                  <img src = "assets/icon/Romance.png" class="imgDiv">
-                  <img src = "assets/icon/Drama.png" class="imgDiv"> -->
                 </div> 
               </div>
             </div>
             <div class="media-item" *ngIf="books">
               <div class="imges">
-                <img src = {{books[1].coverImg}} class = "MediaImage">
+                <img src = {{books[1].coverImg}} class = "MediaImage"
+                >
               </div>
               <div class="media-info">
                 <div class = "MediaTitle">{{BookTitle2.slice(0,45)}}</div>
                 <div class = "MediaDate">{{books[1].publishDate}}</div>
                 <div class = "MediaAuthor">{{BookAuthor2}}</div> 
                 <div class = "MediaGenres">
-                  <img src = "assets/icon/Books.png" class="imgDiv">
-                  <img src = "assets/icon/Romance.png" class="imgDiv">
-                  <img src = "assets/icon/Drama.png" class="imgDiv">
+                  <img *ngFor="let category of myBookGenres2; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
                 </div> 
               </div>
             </div>
