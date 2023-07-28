@@ -416,6 +416,41 @@ GoToProfile(username: string){
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
   }
 
+  activebutton = 'all';
+
+ changeFilter(btnname : string){
+  console.log(btnname);
+  const all = document.getElementById('all');
+  const books = document.getElementById('books');
+  const movies = document.getElementById('movies');
+  // const series = document.getElementById('series');
+  if(all && books && movies){
+    if (btnname == 'all'){
+      all.classList.add('active-select');
+      books.classList.remove('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'books'){
+      all.classList.remove('active-select');
+      books.classList.add('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'movies'){
+      all.classList.remove('active-select');
+      books.classList.remove('active-select');
+      movies.classList.add('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'series'){
+      all.classList.remove('active-select');
+      books.classList.remove('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.add('active-select');
+    }
+    
+  }
+    
+  }
+
  
 
 }

@@ -876,8 +876,8 @@ ion-button:hover {
 }
 
 .community-card {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   background-color: var(--card-color-contrast);
   border-radius: 25px;
   display: grid;
@@ -919,3 +919,91 @@ ion-button:hover {
   gap: 15px;
   padding: 15px;
 }
+
+//community
+
+.CommunityHeader{
+  display: flex;
+  justify-content: space-evenly;
+  height: 50%;
+  width: 100%;
+}
+
+.CommunityIcon{
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  border-radius: 15px;
+}
+
+.CommunityDetails{
+  display: flex;
+ height: 100%;
+ width: 50%;
+ flex-direction: column;
+ margin-top: 10px;
+ 
+}
+
+.CommunityName{
+    display: flex;
+    height: 50%;
+    width: 100%;
+    color: #000;
+    font-family: CustomFont;
+    font-size: 20px;
+}
+
+.CommunityMembers{
+  display: flex;
+  height: 50%;
+  width: 100%;
+  color: #000;
+  font-family: CustomFont;
+}
+
+.CommunityGenres{
+  display: flex;
+  justify-content: space-between;
+  height: 50%;
+  width: 50%;
+  color: #000;
+  font-family: CustomFont;
+  margin-top: 10px;
+}
+
+.CommunityAdd{
+  display: flex;
+  margin-top: 10px;
+  height: 70%;
+  width: 8%;
+}
+
+.CommunityBody{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: CustomFont2;
+  color: #000;
+  margin-top: 15px;
+  margin-left: 20px;
+  height: 50%;
+  width: 80%;
+}
+
+.CommunityDesc{
+  display: flex;
+   font-family: CustomFont2;
+   height: 90%;
+   width: 95%;
+}
+
+.card-color {
+  background-color: var(--card-color-contrast);
+  height: 100%;
+  padding-bottom: 15px;
+}
+
+// Import FontAwesome styles
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');

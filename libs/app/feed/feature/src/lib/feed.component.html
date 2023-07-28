@@ -30,7 +30,7 @@
     </ion-row>
   </ion-grid>
 
-
+  
   
   <ion-grid>
     <ion-row class="row-filter">
@@ -307,14 +307,24 @@
                       <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
+                  
                 </ion-row>
+                
               </ion-grid>
             </div>
           </div>
+          <div class=" filter-content">
+            <ion-button id="all" fill="clear" class="select active-select" (click)="changeFilter('all')">All</ion-button>
+            <ion-button id="movies" fill="clear" class="select" (click)="changeFilter('movies')">Movies</ion-button>
+            <ion-button id="books" fill="clear" class="select" (click)="changeFilter('books')">Books</ion-button>
+        
+            <!-- <ion-button fill="clear" class="select" (click)="changeFilter('all')>Series</ion-button> -->
+        </div>
           
           <!-- content -->
 
           <div class="contentrecs">
+            
             <div class="media-item">
               <div class="imges">
                 <img src="assets/icon/127Hours.jpg" class="MediaImage">
