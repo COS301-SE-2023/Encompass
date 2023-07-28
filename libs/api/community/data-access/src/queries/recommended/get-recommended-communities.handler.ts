@@ -90,10 +90,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 finalRecommendedCommunities = communitiesUserIsNotIn.sort((a, b) => rankedCommunities.indexOf(a._id) - rankedCommunities.indexOf(b._id));
             }
 
-            if(finalRecommendedCommunities.length > 3){
-                finalRecommendedCommunities.length = 3;
-            }
-
             return finalRecommendedCommunities;
 
         } catch (e) {

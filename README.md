@@ -1,6 +1,6 @@
 # Encompass
 [![codecov](https://codecov.io/gh/COS301-SE-2023/Encompass/branch/main/graph/badge.svg?token=M20C3A1SU1)](https://codecov.io/gh/COS301-SE-2023/Encompass)
-![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main-merge.yml/badge.svg?branch=main)
+![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main_merge.yml/badge.svg?branch=main)
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/Encompass)
 
 ## Description
