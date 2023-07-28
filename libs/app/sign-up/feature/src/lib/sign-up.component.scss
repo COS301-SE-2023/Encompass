@@ -76,7 +76,7 @@
 }
 
 .btn1{
-  border: 1px solid var(--ion-color-primary-contrast);
+  border: 1px solid #231942;
   border-radius: 25px;
   background-color: #634783;
   color:white;
@@ -92,7 +92,7 @@ btn1:hover{
   cursor: pointer;
 }
 .btn2{
-  border: 1px solid var(--ion-color-primary-contrast);
+  border: 1px solid #231942;
   border-radius: 25px;
   background-color: #CECAE3;
   color:#231942;
@@ -171,12 +171,12 @@ btn1:hover{
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--ion-color-primary-shade); 
+  background-color: #1c2154; 
   border-radius: 4px; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--hover-color);
+  background-color: #8231DD;
 }
 
 ::-webkit-scrollbar-button:start {

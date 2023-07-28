@@ -5,7 +5,11 @@
 
     <div class="logoButton" (click)="goHome()">
       <ion-button fill="clear" class="centeredButton">
-        <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+        <img id="logo-default" src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+        <img id="logo-blue" src="assets/logos/logo-blue.png" class="logo invisible" alt="Encompass Logo">
+        <img id="logo-red" src="assets/logos/logo-red.png" class="logo invisible" alt="Encompass Logo">
+        <img id="logo-green" src="assets/logos/logo-green.png" class="logo invisible" alt="Encompass Logo">
+        <img id="logo-orange" src="assets/logos/logo-orange.png" class="logo invisible" alt="Encompass Logo">
       </ion-button>
     </div>
       
@@ -93,6 +97,7 @@
               <ion-avatar slot="start">
                 <ion-img src={{notify.picture}}></ion-img>
               </ion-avatar>
+              <ion-icon class="delete-icon" name="trash-bin"></ion-icon>
             </div>
             <ion-label>
               <div class="noti-title">
@@ -107,6 +112,10 @@
         </div>
       </ion-list>
     </ion-content>
+    <div class="deleteAll">
+      <ion-icon name="trash-bin-outline"></ion-icon>
+      <span>Delete All</span>
+    </div>
   </div>
 
   <div class="search-card custom-list" *ngIf="showSearch" id="search-card">
@@ -116,6 +125,7 @@
       <ion-searchbar placeholder="Search"></ion-searchbar>
 
     <ion-content class="custom-list">
+      <div class="custom-background">
       <ion-list class="custom-list">
         <ion-item color="var(--ion-color-background)">
           <div class="search-item" id="search-person">
@@ -144,17 +154,16 @@
           </ion-label>
         </ion-item>
       </ion-list>
-
+    </div>
 
 
       <ion-footer class="search-footer">
         <ion-toolbar class="search-toolbar">
           <div class="footer-text">
             <ion-icon name="search"></ion-icon>
-          <div>
-            Search for 
-            <a>"term"</a>
-          </div>
+            <div>
+              <span>Search for <a>"term"</a></span>
+            </div>
           </div>
         </ion-toolbar>
       </ion-footer>
