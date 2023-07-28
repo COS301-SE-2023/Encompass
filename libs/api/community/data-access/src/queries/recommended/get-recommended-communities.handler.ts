@@ -22,11 +22,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
         }
 
         //define types for the following variables
-        type singleProfileType = { profile: number[], profileId: string };
-        type profileType = singleProfileType[];
-        type singleClusterType = { clusterCentroid: number[], clusterProfiles: profileType };
-        type clusterType = singleClusterType[];
-        type profileWithCommunitiesType = { profile: number[], profileId: string, communities: string[] };
         type communityType = { community: CommunityDto, count: number };
 
         const url = process.env["BASE_URL"];
@@ -80,7 +75,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 for(let i = 0; i < recommendedUsersCommunitiesWithCount.length; i++){
                     finalRecommendedCommunities.push(recommendedUsersCommunitiesWithCount[i].community);
                 }
-                console.log(finalRecommendedCommunities);
             }
             return finalRecommendedCommunities;
         } catch (e) {
