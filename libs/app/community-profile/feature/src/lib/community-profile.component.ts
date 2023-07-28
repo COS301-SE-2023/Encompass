@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { AddCommunity, RemoveCommunity, SubscribeToProfile } from '@encompass/app/profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
+import { AddCommunity as AddOtherUserCommunity, RemoveCommunity as RemoveOtherUserCommunity } from '@encompass/app/community-profile/util';
 
 
 @Component({
@@ -356,7 +357,7 @@ export class CommunityProfileComponent {
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
 
-
+    // To update the user that you removed call this.store.dispatch(new RemoveOtherUserCommunity(Community Name, Username of User to be removed))
   }
   join(){
     if(this.profile == null || this.community == null){
@@ -381,8 +382,7 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
-
-    
+    this.store.dispatch(new AddCommunity(this.community.name, this.profile.username))
   }
 
   leave(){
@@ -409,6 +409,7 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.store.dispatch(new RemoveCommunity(this.community.name, this.profile.username))
   }
 
   requestJoin(){
@@ -451,6 +452,7 @@ export class CommunityProfileComponent {
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
     this.store.dispatch(new RemoveCommunityRequest(this.community?._id, username))
+    this.store.dispatch(new AddOtherUserCommunity(this.community.name, username))
   }
 
   rejectUser(username: string){

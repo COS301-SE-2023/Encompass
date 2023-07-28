@@ -64,3 +64,13 @@ export class GetFollowing{
   static readonly type = '[Profile] Get Following';
   constructor(public readonly followingList: string[]){}
 }
+
+export class RemoveCommunity{
+  static readonly type = '[Profile] Remove Community';
+  constructor(public readonly communityName: string, public readonly username: string){}
+}
+
+export class AddCommunity{
+  static readonly type = '[Profile] Add Community';
+  constructor(public readonly communityName: string, public readonly username: string){}
+}
