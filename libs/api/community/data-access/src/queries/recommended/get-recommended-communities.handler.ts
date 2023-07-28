@@ -45,7 +45,7 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 //get recommended users ids
                 const recommendedUsersIds = recommendedUsersData.map((user: { _id: string; }) => user._id);
                 //find communities recommended users are in from communitiesUserIsNotIn const
-                const recommendedUsersCommunities = [];
+                const recommendedUsersCommunities: any[] = [];
                 for(let i = 0; i < recommendedUsersIds.length; i++){
                     for(let j = 0; j < communitiesUserIsNotIn.length; j++){
                         if(communitiesUserIsNotIn[j].members.includes(recommendedUsersIds[i]) || (communitiesUserIsNotIn[j].admin.includes(recommendedUsersIds[i]))){
