@@ -5,6 +5,7 @@ import { PostSchema } from "./post.schema";
 import { Post } from "../post";
 import { BaseEntityRepository } from "@encompass/api/database/data-access";
 import { PostSchemaFactory } from "./post-schema.factory";
+import { PostDto } from "../post.dto";
 
 @Injectable()
 export class PostEntityRepository extends BaseEntityRepository<
@@ -17,5 +18,23 @@ export class PostEntityRepository extends BaseEntityRepository<
     postSchemaFactory: PostSchemaFactory,
   ) {
     super(postModel, postSchemaFactory);
+  }
+
+  async findPostsByKeyword(keyword: string): Promise<PostDto[]> {
+    const allPosts = await this.findAll();
+    const filteredPosts = allPosts.filter(post => {
+      const title = post.title.toLowerCase();
+      const content = post.text.toLowerCase();
+      const categories = post.categories as string[];
+      const lowerCaseCategories = categories.map(category =>
+        category.toLowerCase(),
+      );
+
+      const isCategoryMatch = lowerCaseCategories.includes(keyword);
+      const isTitleMatch = title.includes(keyword);
+      const isContentMatch = content.includes(keyword);
+      return isTitleMatch || isContentMatch || isCategoryMatch;
+    });
+    return filteredPosts;
   }
 }
