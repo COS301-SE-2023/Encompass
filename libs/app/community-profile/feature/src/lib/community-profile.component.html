@@ -133,7 +133,9 @@
       
                   <div class = "PostCardHeader">
                     <div class = "PostImageContainer" >
-                      <img src =  {{post.communityImageUrl}}  class = "postImage">
+                      <img src =  {{post.communityImageUrl}}  class = "postImage"
+                      onerror="this.src='assets/icon/Group.png';">
+                      
                     </div>
                   <div class = "PostDetails"  >
                     <div class = "TitleNameOptions">
@@ -251,6 +253,25 @@
                     </div>
                 </ion-card>
                 </div>
+                <ion-card *ngIf = "!RemoveMember">
+                  <div class = "RemoveHead">
+                    <button (click)="OpenRemove()" class = "Button3">View Members</button>
+                  </div>
+                </ion-card>
+                <ion-card *ngIf = "RemoveMember">
+                  <div class = "RemoveHead">
+                    <button (click)="OpenRemove()" class = "Button3">View Members</button>
+                  </div>
+                    <div class = "RemoveMembers" *ngFor="let member of myMembers; let i = index">
+                    <label class = "RmvLabel">@{{member}}</label>
+                    <button class = "RmvBtn" *ngIf = "!removedMember[i]" (click)="Remove(member,i)">Remove</button>
+                    <button class = "RmvBtn2" *ngIf = "removedMember[i]" (click)="Undo(member,i)">Removed</button>
+                  </div>
+                  <div class = "RemoveFooter">
+                    <button (click)="CancelUpdate()" ><ion-icon class = "reject2" name="close-circle"></ion-icon></button>
+                    <button (click)="UpdateCommunity()" ><ion-icon class = "accept2" name="checkmark-circle"></ion-icon></button>
+                  </div>
+                </ion-card>
             </ion-col>
         </ion-row>
       </ion-grid>

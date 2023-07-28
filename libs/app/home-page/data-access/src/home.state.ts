@@ -320,4 +320,13 @@ export class HomeState{
       return state.CommunitiesForm.model.communities;
     }
   
+    @Selector()
+    static getMovies(state: MoviesModel){
+      return state.MoviesForm.model.movies;
+    } 
+
+    @Selector()
+    static getBooks(state: BooksModel){ 
+      return state.BooksForm.model.books;
+    }
 }
