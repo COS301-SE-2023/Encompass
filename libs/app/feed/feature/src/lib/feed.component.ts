@@ -658,6 +658,9 @@ GoToProfile(username: string){
     for(let k = 0;k<this.reports.length;k++){
       this.reports[k]=false;
    }   
+
+    this.postsIsFetched = false
+
     this.addPosts("recommended");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
@@ -676,6 +679,9 @@ GoToProfile(username: string){
     for(let k = 0;k<this.reports.length;k++){
       this.reports[k]=false;
    }   
+
+   this.postsIsFetched = false
+
     this.addPosts("latest");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
@@ -691,7 +697,10 @@ GoToProfile(username: string){
   popChange(){
     for(let k = 0;k<this.reports.length;k++){
       this.reports[k]=false;
-   }   
+   }
+   
+   this.postsIsFetched = false
+   
     this.addPosts("popular");
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
