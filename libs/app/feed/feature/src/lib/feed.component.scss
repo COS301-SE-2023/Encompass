@@ -424,7 +424,7 @@ object-fit: fill;
   justify-content: space-between;
 }
 
-.recomcard ion-button {
+.arrow {
   pointer-events: none;
 }
 
@@ -655,7 +655,7 @@ ion-button:hover {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
+  z-index: 3;
 }
 
 .select {
