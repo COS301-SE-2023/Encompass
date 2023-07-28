@@ -60,7 +60,13 @@ ion-card {
   --icon-color: var(--ion-color-text);
 }
 
-
+.backtotop {
+  position: fixed;
+  bottom: 2%;
+  right: 23%;
+  --border-radius: 50px;
+  color: white;
+}
 
 .overlay-container {
   overflow:auto;

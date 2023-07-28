@@ -249,6 +249,7 @@ object-fit: fill;
   bottom: 2%;
   right: 23%;
   --border-radius: 50px;
+  color: white;
 }
 //  .ProfileFilter{
 //       width:97%;
@@ -872,4 +873,49 @@ color: var(--hover-color);
 
 ion-button:hover {
   --border-radius: 50px;
+}
+
+.community-card {
+  width: 150px;
+  height: 150px;
+  background-color: var(--card-color-contrast);
+  border-radius: 25px;
+  display: grid;
+  place-items: center;
+  padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 15px;
+    
+  }
+
+}
+
+.community-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.community-subtitle {
+  // white-space: nowrap;
+  // overflow: hidden;
+  text-overflow: ellipsis; 
+  width: 90%; 
+  height: 100%;
+  font-size: 12px;
+}
+
+.community-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
 }
