@@ -166,12 +166,44 @@ export class MessagesPage implements OnDestroy {
 
 
   onSelectChange() {
-    console.log('Selected value:', this.selectedValue);
+    // console.log("here");
+    // console.log('Selected value:', this.selectedValue);
     if(this.profile == null){
       return;
     }
 
-    this.store.dispatch(new CreateChat([this.profile.username, this.selectedValue.username]))
+    this.store.dispatch(new CreateChat([this.profile.username, this.selectedValue.username], this.profile.username))
+    // this.store.dispatch(new GetChatList(this.profile.username))
+    // this.chatList$.subscribe((chatList) => {
+    //   if(chatList){
+    //     console.log(chatList)
+    //     this.chatList = chatList
+    //   }
+    // })
+    this.isGetNewChatsDispatched = false;
+    this.store.dispatch(new GetChatList(this.profile.username))
+        this.chatList$.subscribe((chatList) => {
+          if(chatList){
+            // this.chatList = chatList
+            console.log(chatList)
+            // if(this.chatList?.chatList.length != chatList.chatList.length){
+              this.chatList = chatList
+              // if(!this.isGetUserInformationDispatched){
+                // this.isGetUserInformationDispatched = true;
+                this.store.dispatch(new GetUserInformation(chatList)).subscribe(() => {
+                  this.chatProfiles$
+                  .pipe(takeUntil(this.unsubscribe$))
+                  .subscribe((chatProfiles) => {
+                    if(chatProfiles){
+                      console.log(chatProfiles)
+                      this.chatProfiles = chatProfiles;
+                    }
+                  })
+                })
+              // }
+            // }
+          }
+        })
   }
 
   getUsers() {

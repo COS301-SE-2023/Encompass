@@ -23,6 +23,7 @@ import { AddFollowerCommand } from "./commands/add-follower/add-follower.command
 import { AddFollowingCommand } from "./commands/add-following/add-following.command";
 import { RemoveFollowerCommand } from "./commands/remove-follower/remove-follower.command";
 import { RemoveFollowingCommand } from "./commands/remove-following/remove-following.command";
+import { AddCommunityCommand } from "./commands/add-community/add-community.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -80,6 +81,16 @@ export class ProfileController {
   ){
     return await this.commandBus.execute<RemoveCommunityCommand, ProfileDto>(
       new RemoveCommunityCommand(username, communityName),
+    );
+  }
+
+  @Patch('add-community/:username/:communityName')
+  async addCommunity(
+    @Param('username') username: string,
+    @Param('communityName') communityName: string,
+  ){
+    return await this.commandBus.execute<AddCommunityCommand, ProfileDto>(
+      new AddCommunityCommand(communityName, username),
     );
   }
 

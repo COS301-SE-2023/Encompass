@@ -29,3 +29,13 @@ export class RemoveCommunityRequest{
     static readonly type = '[Community] Remove Community Request';
     constructor(public communityId: string, public username: string){}
 }
+
+export class RemoveCommunity{
+    static readonly type = '[Profile] Remove Community';
+    constructor(public readonly communityName: string, public readonly username: string){}
+  }
+  
+  export class AddCommunity{
+    static readonly type = '[Profile] Add Community';
+    constructor(public readonly communityName: string, public readonly username: string){}
+  }

@@ -24,7 +24,7 @@ import { ThemesModule } from '@encompass/app/themes/data-access';
 import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-access';
 
 const config: SocketIoConfig = {
-  url: ':3000',
+  url: 'localhost:3000',
   options: {}
 };
 @NgModule({

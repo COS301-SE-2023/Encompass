@@ -740,12 +740,12 @@ justify-content: space-evenly;
 
   .accept{
     font-size: 30px;
-    color: #231942;
+    color: var(--ion-color-primary);;
   }
 
   .reject{
     font-size: 30px;
-    color: #231942;
+    color: var(--ion-color-primary);;
   }
 
   .accept:hover{
@@ -757,3 +757,91 @@ justify-content: space-evenly;
     color: red;
     cursor: pointer;
   }
+
+  .RemoveHead{
+    text-align: center;
+    vertical-align: middle;
+  }
+  .RemoveMembers{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2%;
+  }
+
+  .RmvLabel{
+    margin-left: 5%;
+    font-size: 20px;
+    color: black;
+  }
+
+  .RmvBtn{
+    margin-right: 5%;
+    font-size: 20px;
+    border-radius: 25px;
+    border: 1px solid var(--ion-color-primary-contrast);
+    padding: 1%;
+  }
+
+  .RmvBtn:hover{
+    color:red;
+    border-color: red;
+  }
+
+  .RmvBtn2{
+    margin-right: 5%;
+    font-size: 20px;
+    border-radius: 25px;
+    border: 1px solid var(--ion-color-primary-contrast);
+    padding: 1%;
+    color:red;
+  }
+
+.RmvBtn:hover{
+    color:red;
+    border-color: red;
+  }
+
+  .Button3{
+    border-radius: 30px;
+  font-size: 20px;
+  margin-top:2%;
+  margin-bottom: 2%;
+  // width:60%;
+  padding: 2%;
+  color: white;
+  background-color: var(--ion-color-primary-contrast);
+  }
+
+  .Button3:hover{
+    background-color: var(--hover-color);
+  }
+
+  .RemoveFooter{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+   
+  }
+
+  .reject2{
+    font-size: 40px;
+    color: var(--ion-color-primary);
+    margin: 1%;
+  }
+  .reject2:hover{
+    color:red;
+    cursor: pointer;
+  }
+
+  .accept2{
+    font-size: 40px;
+    color: var(--ion-color-primary);
+    margin: 1%;
+
+  }
+
+  .accept2:hover{
+    color:green;
+    cursor: pointer;
+  }
+

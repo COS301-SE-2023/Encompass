@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { AddCommunity, RemoveCommunity, SubscribeToProfile } from '@encompass/app/profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
+import { AddCommunity as AddOtherUserCommunity, RemoveCommunity as RemoveOtherUserCommunity } from '@encompass/app/community-profile/util';
 
 
 @Component({
@@ -38,14 +39,19 @@ export class CommunityProfileComponent {
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
   communityRequest!: CommunityRequestDto | null;
-  likes: number[] =[] ;
-   likedComments: boolean[] = [];
+  
    shares : number[] = [];
    sharing: boolean[] = [];
    edit=false;
    members=0;
    hasImage=false;
    hasBanner=false;
+   RemoveMember=false;
+
+  myMembers: string[] = [];
+  UpdatedMyMembers: string[] = [];
+  removedMember: boolean[] = [];
+
   constructor(private store: Store, private router: Router, 
     private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
     const communityName = this.route.snapshot.paramMap.get('name');
@@ -64,9 +70,22 @@ export class CommunityProfileComponent {
     this.store.dispatch(new GetCommunity(communityName));
     this.community$.subscribe((community) => {
       if(community){
+        this.myMembers = [];
+        this.UpdatedMyMembers = [];
         this.community = community;
         console.log(community);
         this.members = community.members.length;
+        for(let i =0; i<community.members.length;i++){
+          if(community.members[i]!=this.profile?.username){
+                this.myMembers.push(community.members[i]);
+                this.removedMember.push(false);
+          }
+        }
+
+        this.UpdatedMyMembers = this.myMembers;
+        console.log("CONSTRUCTOR CALLED")
+        console.log("My Members: " + this.myMembers);
+        console.log("Updated My Members: " + this.UpdatedMyMembers);
 
         if(community.type !== "Public"){
           this.store.dispatch(new GetCommunityRequest(community._id))
@@ -153,6 +172,9 @@ export class CommunityProfileComponent {
     await navigator.clipboard.writeText(link)
   }
 
+  OpenRemove(){
+    this.RemoveMember = !this.RemoveMember;
+  }
   Edit(){
     this.edit=true;
   }
@@ -274,6 +296,69 @@ export class CommunityProfileComponent {
     })
   }
 
+  Remove(m: string,i:number){
+    this.removedMember[i] = true;
+    this.UpdatedMyMembers = this.UpdatedMyMembers.filter(x => x != m);
+    console.log("REMOVE CALLED")
+    console.log("My Members: " + this.myMembers);
+    console.log("Updated My Members: " + this.UpdatedMyMembers);
+  }
+
+  Undo(m: string,i:number){
+    this.removedMember[i] = false;
+    this.UpdatedMyMembers.push(m);
+
+    console.log("UNDO CALLED")
+    console.log("My Members: " + this.myMembers);
+    console.log("Updated My Members: " + this.UpdatedMyMembers);
+  }
+
+  CancelUpdate(){
+    for(let i =0; i<this.removedMember.length;i++){
+      this.removedMember[i] = false;
+    }
+    this.UpdatedMyMembers = this.myMembers;
+    this.RemoveMember = false;
+
+    console.log("CANCEL CALLED")
+    console.log("My Members: " + this.myMembers);
+    console.log("Updated My Members: " + this.UpdatedMyMembers);
+  }
+  UpdateCommunity(){
+    this.RemoveMember = false;
+    if(this.profile == null || this.community == null){
+      return;
+    }
+
+    for(let i =0; i<this.removedMember.length;i++){
+      this.removedMember[i] = false;
+    }
+
+    this.myMembers=this.UpdatedMyMembers;
+    this.myMembers.push(this.profile?.username);
+    console.log("UPDATE CALLED")
+    console.log("My Members: " + this.myMembers);
+    console.log("Updated My Members: " + this.UpdatedMyMembers);
+
+    const data : UpdateCommunityRequest = {
+      name: this.community?.name,
+      type: this.community?.type,
+      admin: this.community?.admin,
+      about: this.community?.about,
+      rules: this.community?.rules,
+      groupImage: this.community?.groupImage,
+      bannerImage: this.community?.bannerImage,
+      categories: this.community?.categories,
+      events: this.community?.events,
+      posts: this.community?.posts,
+      members: this.myMembers,
+      ageRestricted: this.community?.ageRestricted,
+    }
+
+    this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+
+    // To update the user that you removed call this.store.dispatch(new RemoveOtherUserCommunity(Community Name, Username of User to be removed))
+  }
   join(){
     if(this.profile == null || this.community == null){
       return;
@@ -297,6 +382,7 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.store.dispatch(new AddCommunity(this.community.name, this.profile.username))
   }
 
   leave(){
@@ -323,6 +409,7 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.store.dispatch(new RemoveCommunity(this.community.name, this.profile.username))
   }
 
   requestJoin(){
@@ -365,6 +452,7 @@ export class CommunityProfileComponent {
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
     this.store.dispatch(new RemoveCommunityRequest(this.community?._id, username))
+    this.store.dispatch(new AddOtherUserCommunity(this.community.name, username))
   }
 
   rejectUser(username: string){

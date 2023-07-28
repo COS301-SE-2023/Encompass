@@ -46,7 +46,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
 
         function convertUserCategories( currentUserProfile: any ) {
             const updatedProfile: string[] = [];
-            currentUserProfile.categories.forEach((category: any) => {
+            currentUserProfile.categories?.forEach((category: any) => {
                 if (categoryMappings[category]) {
                     updatedProfile.push(categoryMappings[category].novels);
                 } else {
@@ -218,7 +218,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             const genres: string[] = [];
             const publisher: string[] = [];
 
-            items.forEach((item) => {
+            items?.forEach((item) => {
                 bookIds.push(item._id);
                 //console.log(item._id);
                 loadCategories(series, item.series);
@@ -228,7 +228,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             });
 
             //push 0 or 1 to each book array in books if it has the category, and then add bookId to the end
-            items.forEach((item) => { //test this!!!!
+            items?.forEach((item) => { //test this!!!!
                 const book: { book: number[], bookId: string } = { book: [], bookId: "" };
 
                 genres?.forEach((genresItem) => {
@@ -283,7 +283,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
                     return;
                 }
                 
-                array.forEach((item: string) => {
+                array?.forEach((item: string) => {
                     if ( categories.length < 1 || !categories.includes(item) ) {
                         categories.push(item);
                     }
