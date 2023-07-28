@@ -30,4 +30,19 @@ export class CommunityEntityRepository extends BaseEntityRepository<
         });
         return filteredCommunities;
     }
+
+    async findCommunitiesByKeyword(keyword: string): Promise<CommunityDto[]> {
+        const allCommunities = await this.findAll();
+        const filteredCommunities = allCommunities.filter(community => {
+            const name = community.name.toLowerCase();
+            const description = community.about.toLowerCase();
+            const categories = community.categories as string[];
+            const lowerCaseCategories = categories.map(category => category.toLowerCase());
+            const isCategoryMatch = lowerCaseCategories.includes(keyword);
+            const isNameMatch = name.includes(keyword);
+            const isDescriptionMatch = description.includes(keyword);
+            return isNameMatch || isDescriptionMatch || isCategoryMatch;
+        });
+        return filteredCommunities;
+    }
 }

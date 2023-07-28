@@ -19,6 +19,7 @@ import { UploadImage } from './upload-image.service';
 import { DeleteCommunityCommand } from './commands/delete-community/delete-community.command';
 import { RemovePostCommand } from './commands/remove-post/remove-post.command';
 import { RemoveUserCommand } from './commands/remove-user/remove-user.command';
+import { GetCommunitiesByKeyWordQuery } from './queries/community-search/get-community-by-keyword.query';
 
 
 
@@ -33,6 +34,13 @@ export class CommunityController {
     async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
         return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
             new GetCommunityQuery(id),
+        );
+    }
+
+    @Get('get-communities-by-keyword/:keyword')
+    async getCommunitiesByKeyword(@Param('keyword') keyword: string){
+        return await this.queryBus.execute<GetCommunitiesByKeyWordQuery, CommunityDto[]>(
+            new GetCommunitiesByKeyWordQuery(keyword),
         );
     }
 

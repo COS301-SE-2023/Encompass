@@ -1,3 +1,1 @@
-export class GetAllPostsQuery{
-    constructor (public readonly username: string) {}
-}
+export class GetAllPostsQuery{}

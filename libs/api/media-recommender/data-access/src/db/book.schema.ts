@@ -1,7 +1,7 @@
 import { IdentifiableEntitySchema } from "@encompass/api/database/data-access";
 import { Prop, Schema } from "@nestjs/mongoose";
 
-@Schema({ versionKey: false, collection: 'Books-sample' })
+@Schema({ versionKey: false, collection: 'Books-sample-2' })
 export class BookSchema extends IdentifiableEntitySchema{
     @Prop()
     readonly bookId!: string;
