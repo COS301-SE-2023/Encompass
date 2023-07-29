@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core"
 import { CommunityDto } from "@encompass/api/community/data-access"
 import { PostDto } from "@encompass/api/post/data-access"
 import { ProfileDto } from "@encompass/api/profile/data-access"
-import { Action, State, StateContext } from "@ngxs/store"
+import { Action, Selector, State, StateContext } from "@ngxs/store"
 import { SearchApi } from "./search.api"
 import { SearchCommunities, SearchPosts, SearchProfiles } from "@encompass/app/search-explore/util"
 
@@ -116,6 +116,21 @@ export class SearchState{
                 }
             }
         })
+    }
+
+    @Selector()
+    static getPosts(state: SearchModel){
+        return state.SearchPostsForm.model.posts;
+    }
+
+    @Selector()
+    static getProfiles(state: SearchProfilesModel){
+        return state.SearchProfilesForm.model.profiles;
+    }
+
+    @Selector()
+    static getCommunities(state: SearchCommunitiesModel){
+        return state.SearchCommunitiesForm.model.communities;
     }
 
 }
