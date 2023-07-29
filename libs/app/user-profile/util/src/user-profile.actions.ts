@@ -15,7 +15,7 @@ export class GetUserSettings{
   constructor(public readonly userId: string){}
 }
 
-export class UpdatePost{
+export class UpdateUserPost{
   static readonly type = '[User-Profile] Update Post'
   constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly username: string){}
 }

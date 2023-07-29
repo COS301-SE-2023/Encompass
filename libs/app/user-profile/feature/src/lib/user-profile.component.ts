@@ -5,7 +5,7 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { AddFollowing, RemoveFollowing, SubscribeToProfile } from '@encompass/app/profile/util';
 import { UserProfileState } from '@encompass/app/user-profile/data-access';
-import { GetUserProfile, GetUserProfilePosts, GetUserSettings, UpdatePost } from '@encompass/app/user-profile/util';
+import { GetUserProfile, GetUserProfilePosts, GetUserSettings, UpdateUserPost } from '@encompass/app/user-profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -155,7 +155,7 @@ export class UserProfile {
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
+    this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
   
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
@@ -328,7 +328,7 @@ ReportPost(n:number, post: PostDto){
     reported: true
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
+  this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
 }
 
 Like(n:number, post: PostDto){
@@ -368,7 +368,7 @@ Like(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
+  this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
 }
 
 Dislike(n:number, post: PostDto){
@@ -396,6 +396,6 @@ Dislike(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
+  this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
 }
 }
