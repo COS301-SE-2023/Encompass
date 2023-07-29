@@ -30,7 +30,7 @@ export class UserProfile {
 
   userProfile!: ProfileDto | null;
   profile!: ProfileDto | null;
-  userPosts!: PostDto[] | null;
+  userPosts: PostDto[] = [];
   userProfileSettings! : SettingsDto | null
   seePosts=true;
    seeComments=false;
@@ -53,7 +53,6 @@ export class UserProfile {
     if(username == null){
       return;
     }
-
     // this.store.dispatch(new GetUserProfile(username))
     // this.userProfile$.subscribe((userProfile) =>{
       this.userProfileState.getUserProfile(username).then((userProfile) => {
@@ -64,7 +63,20 @@ export class UserProfile {
         this.store.dispatch(new GetUserProfilePosts(this.userProfile.username))
         this.userPosts$.subscribe((userPosts) => {
           if(userPosts){
-            this.userPosts = userPosts
+            const temp = userPosts;
+
+            temp.forEach((post) => {
+              if(post.isPrivate){
+                if(this.profile?.communities.includes(post.community)){
+                  this.userPosts.push(post);
+                }
+              }
+    
+              else{
+                this.userPosts.push(post);
+              }
+            })
+            // this.userPosts = userPosts
             console.log(this.userPosts)
             for(let i =0;i<userPosts.length;i++){
               this.likedComments.push(false);
@@ -102,6 +114,10 @@ export class UserProfile {
       if(profile){
         this.profile = profile
         console.log(this.profile)
+
+        if(this.profile.username === username){
+          this.router.navigate(['home/profile']);
+        }
       }
     })
 

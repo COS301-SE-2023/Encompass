@@ -22,6 +22,7 @@ import { UserProfileModule } from '@encompass/app/user-profile/data-access';
 import { SettingsModule } from '@encompass/app/settings/data-access';
 import { ThemesModule } from '@encompass/app/themes/data-access';
 import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-access';
+import { SearchModule } from '@encompass/app/search-explore/data-access';
 
 const config: SocketIoConfig = {
   url: 'localhost:3000',
@@ -48,6 +49,7 @@ const config: SocketIoConfig = {
     SettingsModule,
     ThemesModule,
     SignUpCommunitiesModule,
+    SearchModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],
