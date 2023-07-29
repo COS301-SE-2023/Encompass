@@ -60,4 +60,9 @@ export interface SearchCommunitiesModel{
     }
 })
 
+@Injectable()
+export class SearchState{
+    constructor(private searchApi: SearchApi){}
 
+    @Action(SearchPosts)
+    async searchPosts(ctx: StateContext<SearchModel>, action: SearchPosts){
