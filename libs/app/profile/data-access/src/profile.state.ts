@@ -146,30 +146,36 @@ export class ProfileState{
   }
 
   @Action(UpdatePost)
-  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest}: UpdatePost){
+  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest, username}: UpdatePost){
     const response = await this.profileApi.updatePost(updateRequest, postId);
 
     if(response == null || response == undefined){
       return;
     }
 
-    const posts = ctx.getState().ProfilePostForm.model.posts;
+    try{
+      const posts = ctx.getState().ProfilePostForm.model.posts;
 
-    if(posts == null ){
-      return
+      if(posts == null ){
+        return
+      }
+
+      const index = posts?.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.setState({
+        ProfilePostForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
     }
 
-    const index = posts?.findIndex(x => x._id == response._id)
-
-    posts[index] = response;
-
-    ctx.setState({
-      ProfilePostForm: {
-        model: {
-          posts: posts
-        }
-      }
-    })
+    catch(error){
+      ctx.dispatch(new GetPosts(username))
+    }
   }
 
   @Action(GetComments)

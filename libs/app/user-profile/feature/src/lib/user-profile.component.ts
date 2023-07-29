@@ -146,8 +146,19 @@ export class UserProfile {
   
     this.store.dispatch(new UpdatePost(post._id, data));
   
-    const link : string = obj + '/app-comments-feature/' + post._id;
+    const link : string = obj + '/home/app-comments-feature/' + post._id;
   
+    await navigator.clipboard.writeText(link)
+  }
+
+  async shareProfile(){
+    const obj = location.origin
+    if(obj == undefined){
+      return;
+    }
+
+    const link: string = obj + '/home/user-profile/' + this.userProfile?.username;
+
     await navigator.clipboard.writeText(link)
   }
 

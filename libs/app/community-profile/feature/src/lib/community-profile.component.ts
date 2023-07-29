@@ -141,7 +141,7 @@ export class CommunityProfileComponent {
 
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
   async Share(n:number, post: PostDto){
     this.shares[n]++;
@@ -171,7 +171,7 @@ export class CommunityProfileComponent {
   
     this.store.dispatch(new UpdatePost(post._id, data));
   
-    const link : string = obj + '/app-comments-feature/' + post._id;
+    const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
   }

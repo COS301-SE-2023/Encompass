@@ -48,7 +48,7 @@
 
           <div class="your-message" *ngIf="message.username === profile.username">
             <div class = "msg2">{{message.message}}</div>
-            <img src={{profile.profileImage}} class = "imgDiv2">
+            <img src={{profile.profileImage}} onerror="this.src='assets/icon/Profile.png';" class = "imgDiv2">
 
           </div>
         </div>
