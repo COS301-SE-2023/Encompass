@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
@@ -18,6 +18,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileApi } from '@encompass/app/profile/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'profile',
@@ -33,6 +38,7 @@ export class ProfilePage {
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
   @Select(ProfileState.otherUsers) otherUsers$! : Observable<ProfileDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -58,6 +64,7 @@ export class ProfilePage {
    edit=false;
    hasImage=false;
    hasBanner=false;
+   settings!: SettingsDto | null;
 
    deletePost: boolean[] = [];
    deleteComment: boolean[] =[];
@@ -66,7 +73,7 @@ export class ProfilePage {
 
   isPostsFetched = false;
 
-  constructor(private router: Router, private store: Store, private modalController: ModalController
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
     ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
@@ -131,7 +138,53 @@ export class ProfilePage {
         }
       }
     });
+
+    this.load();
    }
+
+   load(){
+    const page = document.getElementById('home-page');
+  
+  
+      this.store.dispatch(new SubscribeToProfile())
+      // this.store.dispatch(new SubscribeToProfile())
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          
+          console.log("Profile CALLED")
+          console.log(profile); 
+          this.profile = profile;
+          // this.addPosts("recommended");
+          // this.newChange();
+  
+          this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+          this.settings$.subscribe(settings => {
+            if(settings){
+              this.settings = settings;
+              
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+  
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+              
+              if(page){
+                console.log("testing the feed page")
+                console.log("hello " + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              }else {
+                console.log("page is null")
+              }
+            }
+          })
+          
+        }
+      });
+  }
 
    postForm = this.formBuilder.group({
     FirstName: ['', Validators.maxLength(20)],

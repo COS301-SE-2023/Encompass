@@ -1,6 +1,6 @@
 .overlay-container {
     overflow:auto;
-    background-color: var(--ion-color-background);
+    // background-color: var(--ion-color-background);
     width: 100%;
     height: 100%;
     object-fit: fill;
@@ -1091,4 +1091,8 @@ justify-content: space-evenly;
   }
   
   
-  
+  .headerCard {
+    background-color: var(--ion-color-background-menu);
+    width: 90%;
+    margin-left: 5%;
+  }

@@ -22,8 +22,8 @@
       
 
       <div class="options">
-
         <ion-checkbox labelPlacement="end" class="ForgotPassword"  (input)="checkedTOS()">I have read and accepted the terms of service</ion-checkbox>
+        <span>Warning: USERNAME cannot be changed after signup, any submitted username herafter is perminant</span>
         <ion-button *ngIf = "isValid"  type="submit" fill="clear" class="btn1" size="large" >Sign Up</ion-button>
         <ion-button *ngIf = "!isValid" type="submit" fill="clear" class="btn2" size="large" [disabled]=true>Sign Up</ion-button>
 

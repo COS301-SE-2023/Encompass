@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AddReplyRequest, CommentDto, CreateCommentRequest } from '@encompass/api/comment/data-access';
@@ -13,6 +13,11 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 import { ToastController } from '@ionic/angular';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+
 @Component({
   selector: 'comments',
   templateUrl: './comments.component.html',
@@ -22,6 +27,7 @@ export class CommentsComponent {
   @Select(CommentsState.comments) comments$!: Observable<CommentDto[] | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(CommentsState.post) post$!: Observable<PostDto | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
   comments!: CommentDto[];
   profile!: ProfileDto;
@@ -40,9 +46,11 @@ export class CommentsComponent {
   inputValue!: string;
   inputValue2!: string;
   isValid = false;
+  settings!: SettingsDto | null;
+
   show = true;
 
-  constructor(private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private toastController: ToastController){
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private toastController: ToastController){
     const postId = this.route.snapshot.paramMap.get('id');
     
     this.likes=0;
@@ -106,6 +114,52 @@ export class CommentsComponent {
         }
       }
     })
+
+    this.load();
+  }
+
+  load(){
+    const page = document.getElementById('home-page');
+  
+  
+      this.store.dispatch(new SubscribeToProfile())
+      // this.store.dispatch(new SubscribeToProfile())
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          
+          console.log("Profile CALLED")
+          console.log(profile); 
+          this.profile = profile;
+          // this.addPosts("recommended");
+          // this.newChange();
+  
+          this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+          this.settings$.subscribe(settings => {
+            if(settings){
+              this.settings = settings;
+              
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+  
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+              
+              if(page){
+                console.log("testing the feed page")
+                console.log("hello " + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              }else {
+                console.log("page is null")
+              }
+            }
+          })
+          
+        }
+      });
   }
 
   commentForm = this.formBuilder.group({

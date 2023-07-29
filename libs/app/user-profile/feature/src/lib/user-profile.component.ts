@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PostDto } from '@encompass/api/post/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -12,6 +12,8 @@ import { UpdatePostRequest } from '@encompass/api/post/data-access';
 import { SendNotification } from '@encompass/app/home-page/util';
 import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -24,6 +26,7 @@ export class UserProfile {
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null> 
   @Select(UserProfileState.userProfilePosts) userPosts$!: Observable<PostDto[] | null>
   @Select(UserProfileState.userProfileSettings) profileSettings$!: Observable<SettingsDto | null>
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
   
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -41,10 +44,11 @@ export class UserProfile {
    comments  : number[] = [];
    reports : boolean[] =[];
    posts! : PostDto[] | null;
+   settings!: SettingsDto | null;
 
    isPostsFetched = false;
 
-  constructor(private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState) { 
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState) { 
     const username = this.route.snapshot.paramMap.get('username');
 
     if(username == null){
@@ -118,6 +122,52 @@ export class UserProfile {
         }
       }
     })
+
+    this.load();
+  }
+
+  load(){
+    const page = document.getElementById('home-page');
+  
+  
+      this.store.dispatch(new SubscribeToProfile())
+      // this.store.dispatch(new SubscribeToProfile())
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          
+          console.log("Profile CALLED")
+          console.log(profile); 
+          this.profile = profile;
+          // this.addPosts("recommended");
+          // this.newChange();
+  
+          this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+          this.settings$.subscribe(settings => {
+            if(settings){
+              this.settings = settings;
+              
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+  
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+              
+              if(page){
+                console.log("testing the feed page")
+                console.log("hello " + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              }else {
+                console.log("page is null")
+              }
+            }
+          })
+          
+        }
+      });
   }
 
   ngOnDestroy() {

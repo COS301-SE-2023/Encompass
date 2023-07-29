@@ -71,7 +71,7 @@ ion-button {
   }
 
   .logo-span {
-    margin-left: 70px;
+    // margin-left: 70px;
     font-size: 18px;
     text-transform: capitalize;
     font-family: customFont;
@@ -125,12 +125,26 @@ ion-button {
     left: 0;
   }
 
+  .square-image {
+    width: 60px; /* Set your desired width here */
+    height: 60px; /* Set your desired height here */
+    overflow: hidden;
+  }
+
   .logo {
     max-width: 60px;
     max-height: 60px;
     position: absolute;
     top: 0;
     left: 2%;
+  }
+
+  .logo2 {
+    max-width: 80px;
+    max-height: 80px;
+    position: absolute;
+    top: 0;
+    left: -3%;
   }
 
   .invisible {
@@ -486,4 +500,9 @@ ion-router-outlet {
   span {
     margin-left: 10px;
   }
+}
+
+
+.visible {
+  display: none;
 }

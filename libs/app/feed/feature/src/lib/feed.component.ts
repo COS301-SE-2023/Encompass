@@ -33,13 +33,14 @@ import { IonContent } from '@ionic/angular';
 })
 export class FeedPage {
 
-  @ViewChild(IonContent) content: IonContent | undefined;
+  @ViewChild(IonContent, { static: false })
+  content!: IonContent;
 
   scrollToTop() {
-    if (this.content){
-      this.content.scrollToTop();
+    const element = document.getElementById('header');
+    if (element) {
+      this.content.scrollToPoint(0, element.offsetTop, 500);
     }
-    
   }
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;

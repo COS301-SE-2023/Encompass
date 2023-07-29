@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'privacy',
@@ -8,8 +9,11 @@ import { Router } from '@angular/router';
 })
 export class PrivacyPage {
 
-  constructor(
-    private router: Router){}
+  constructor(@Inject(DOCUMENT) private document: Document,
+    private router: Router){
+
+      this.document.body.setAttribute('color-theme', 'light');
+    }
 
 
   openTCs(){
