@@ -781,10 +781,7 @@ async addPosts(type: string){
         const temp = posts;
         temp.forEach((post) => {
           if(post.isPrivate){
-            // console.log("PRIVATE POST")
-            // console.log(post)
             if(this.profile?.communities.includes(post.community)){
-              // console.log("accept")
               this.posts.push(post);
             }
           }
