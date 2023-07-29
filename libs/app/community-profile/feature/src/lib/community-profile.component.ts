@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddCommunity, RemoveCommunity, SubscribeToProfile } from '@encompass/app/profile/util';
 import { Select, Store } from '@ngxs/store';
@@ -15,6 +15,10 @@ import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 import { AddCommunity as AddOtherUserCommunity, RemoveCommunity as RemoveOtherUserCommunity } from '@encompass/app/community-profile/util';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -30,6 +34,7 @@ export class CommunityProfileComponent {
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
   @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
   @Select(CommunityState.communityRequest) communityRequest$!: Observable<CommunityRequestDto | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
   file!: File;
   fileBanner!: File;
@@ -47,6 +52,7 @@ export class CommunityProfileComponent {
    hasImage=false;
    hasBanner=false;
    RemoveMember=false;
+   settings!: SettingsDto | null;
 
   myMembers: string[] = [];
   UpdatedMyMembers: string[] = [];
@@ -56,7 +62,7 @@ export class CommunityProfileComponent {
    likes: number[] =[] ;
    likedComments: boolean[] = [];
 
-  constructor(private store: Store, private router: Router, 
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, 
     private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
@@ -122,9 +128,53 @@ export class CommunityProfileComponent {
       }
     })
 
-    
+    this.load();
   }
 
+  
+  load(){
+    const page = document.getElementById('home-page');
+  
+  
+      this.store.dispatch(new SubscribeToProfile())
+      // this.store.dispatch(new SubscribeToProfile())
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          
+          console.log("Profile CALLED")
+          console.log(profile); 
+          this.profile = profile;
+          // this.addPosts("recommended");
+          // this.newChange();
+  
+          this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+          this.settings$.subscribe(settings => {
+            if(settings){
+              this.settings = settings;
+              
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+  
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+              
+              if(page){
+                console.log("testing the feed page")
+                console.log("hello " + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              }else {
+                console.log("page is null")
+              }
+            }
+          })
+          
+        }
+      });
+  }
   
   postForm = this.formBuilder.group({
     text: ['', Validators.maxLength(80)],

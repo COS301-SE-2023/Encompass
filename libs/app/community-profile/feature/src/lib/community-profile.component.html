@@ -1,5 +1,6 @@
 <div class="overlay-container">
 
+  <ion-card class="headerCard">
    <div class = "Banner">
       <img src = {{community?.bannerImage}} onerror="this.src='assets/icon/Banner.png';" class="BannerImage">
       <img src = {{community?.groupImage}} onerror="this.src='assets/icon/Group.png';" class="CommunityImage">
@@ -29,25 +30,25 @@
           </div>
        
 
-<div class = "EditButtons">
-  <button [hidden]="hasImage" (click)="insertImage()">Change Photo</button>
-  <div [hidden]="!hasImage" class = "Image">
-  <input type="file" class="file-input"
-  [accept]="requiredFileType"
-  (change)="onFileSelected($event)" #fileUpload>
-  </div>
+        <div class = "EditButtons">
+          <button [hidden]="hasImage" (click)="insertImage()">Change Photo</button>
+          <div [hidden]="!hasImage" class = "Image">
+          <input type="file" class="file-input"
+          [accept]="requiredFileType"
+          (change)="onFileSelected($event)" #fileUpload>
+          </div>
 
-  <button [hidden]="hasBanner" (click)="insertBanner()">Change Banner</button>
-  <div [hidden]="!hasBanner" class = "Image">
-    <input type="file" class="file-input"
-    [accept]="requiredFileType"
-    (change)="onFileBannerSelected($event)" #fileUpload>
-    </div>
+          <button [hidden]="hasBanner" (click)="insertBanner()">Change Banner</button>
+          <div [hidden]="!hasBanner" class = "Image">
+            <input type="file" class="file-input"
+            [accept]="requiredFileType"
+            (change)="onFileBannerSelected($event)" #fileUpload>
+            </div>
 
-  <button  type = "submit" class="FinishEdit" (click)="FinishEdit()">
-    <ion-icon name="checkmark"  ></ion-icon>
-  </button>
-</div>
+          <button  type = "submit" class="FinishEdit" (click)="FinishEdit()">
+            <ion-icon name="checkmark"  ></ion-icon>
+          </button>
+        </div>
           
       
       </form>
@@ -77,6 +78,24 @@
           
      </div>
    </div>
+  </ion-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- other stuff -->
       <ion-grid style="margin-right:20px;"  >
         <ion-row class="row-filter" >
           <ion-col size="10">
