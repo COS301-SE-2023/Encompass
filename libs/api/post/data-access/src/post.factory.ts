@@ -21,7 +21,8 @@ export class PostFactory implements EntityFactory<Post>{
     categories: string[],
     likes: string[],
     spoiler: boolean,
-    ageRestricted: boolean
+    ageRestricted: boolean,
+    isPrivate: boolean
   ) : Promise<Post>{
     const post = new Post(
       new ObjectId().toHexString(),
@@ -38,7 +39,8 @@ export class PostFactory implements EntityFactory<Post>{
       ageRestricted,
       0,
       0,
-      false
+      false,
+      isPrivate
     );
     await this.postEntityRepository.create(post);
     post.apply(new PostCreatedEvent(post.getId()))

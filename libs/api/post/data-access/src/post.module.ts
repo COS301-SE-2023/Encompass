@@ -12,7 +12,7 @@ import { CreatePostHandler, UpdatePostHandler, DeletePostHandler } from "./comma
 import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, GetLatestPostHandler, GetPopularPostsHandler, GetPostsByKeywordHandler, GetRecommendedPostsHandler, UserIdGetPostHandler } from "./queries";
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
-import { GetPosts } from "@encompass/app/profile/util";
+// import { GetPosts } from "@encompass/app/profile/util";
 
 @Module({
   imports: [
@@ -42,7 +42,7 @@ import { GetPosts } from "@encompass/app/profile/util";
     GetByIdHandler,
     GetByCommunityHandler,
     GetPostsByKeywordHandler,
-    GetRecommendedPostsHandler
+    GetRecommendedPostsHandler,
   ],
 })
 

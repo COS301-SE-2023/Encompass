@@ -67,6 +67,7 @@
           </ion-grid>
         </ion-card>
 
+        
 
 
         <!-- posts -->
@@ -105,7 +106,11 @@
               
                 <div class = "GenreIcons" >
                   <div style = "width: 30%; display: flex; justify-content: space-around;">
-                  <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                    <div *ngFor="let category of post.categories; let k=index" class="tooltip">
+                      <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                      <span class="tooltiptext">{{category}}</span>
+                    </div>
+                  
                   </div>
                   <div style = "width: 70%; display: flex; justify-content: space-evenly;">
                     <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
@@ -113,15 +118,8 @@
                </div>
                </div>
 
-               
-              
-
           </div> 
             </div>
-
-
-
-
 
             <div class = "PostBody" (click)="GoToComments(post._id)">
 
@@ -337,8 +335,9 @@
               <div class="media-info">
                 <div class = "MediaTitle">{{BookTitle1.slice(0,45)}}</div>
                 <div class = "MediaAuthor">{{BookAuthor1}}</div> 
-                <div class = "MediaGenres">
-                  <img *ngFor="let category of myBookGenres1; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                <div *ngFor="let category of myBookGenres1; let k=index" class = "MediaGenres tooltip">
+                  <img  src = "assets/icon/{{category}}.png" class="imgDiv">
+                  <span class="tooltiptext">{{category}}</span>
                 </div> 
               </div>
             </div>
@@ -352,6 +351,30 @@
                 <div class = "MediaAuthor">{{BookAuthor2}}</div> 
                 <div class = "MediaGenres">
                   <img *ngFor="let category of myBookGenres2; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                </div> 
+              </div>
+            </div>
+            <div class="media-item" *ngIf="movies">
+              <div class="imges">
+                <img src = {{movies[0].Poster_Url}} class = "MediaImage"
+                >
+              </div>
+              <div class="media-info">
+                <div class = "MediaTitle">{{MovieTitle2.slice(0,45)}}</div>
+                <div class = "MediaGenres">
+                  <img *ngFor="let category of myMovieGenres1; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                </div> 
+              </div>
+            </div>
+            <div class="media-item" *ngIf="movies">
+              <div class="imges">
+                <img src = {{movies[1].Poster_Url}} class = "MediaImage"
+                >
+              </div>
+              <div class="media-info">
+                <div class = "MediaTitle">{{MovieTitle2.slice(0,45)}}</div>
+                <div class = "MediaGenres">
+                  <img *ngFor="let category of myMovieGenres2; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
                 </div> 
               </div>
             </div>

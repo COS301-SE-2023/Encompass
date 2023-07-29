@@ -87,26 +87,10 @@
                     <div style = "display:flex;justify-content:center">
                       <ion-button id="recommendedBtn" fill="clear" class="active-button" (click)="recChange()">
                         <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
-                        Recommended
+                        Posts
                       </ion-button>
                     </div>
                    
-                  </ion-col>
-                  <ion-col size="3">
-                    <div style = "display:flex;justify-content:center">
-                      <ion-button id="newBtn" fill="clear" class="none" (click)="newChange()" >
-                        <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
-                        New
-                      </ion-button>
-                    </div>
-                  </ion-col>
-                  <ion-col size="3">
-                    <div style = "display:flex;justify-content:center">
-                    <ion-button id="popularBtn" fill="clear" class="none" (click)="popChange()" >
-                      <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
-                      Popular
-                    </ion-button>
-                  </div>
                   </ion-col>
                   <ion-col size="3" >
                     <div style = "display:flex;justify-content:center">
@@ -122,55 +106,59 @@
             </ion-card>    
           </ion-col>
         </ion-row>
-      
+        <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)" -->
         <ion-row class="row-filter">
             <ion-col size = "5" >
               <div *ngIf="community !== null && community !== undefined && profile !== undefined && profile !== null">
               <div *ngIf="(community?.type !== 'Private' || community.members.includes(profile.username))">
               <div *ngFor="let post of communityPosts?.slice()?.reverse();let i = index">
 
-                <ion-card class = "PostCard" >
-      
+                <ion-card class = "PostCard card-styles" >
+
                   <div class = "PostCardHeader">
                     <div class = "PostImageContainer" >
-                      <img src =  {{post.communityImageUrl}}  class = "postImage"
-                      onerror="this.src='assets/icon/Group.png';">
-                      
+                      <img src =  {{post.communityImageUrl}}  class = "postImage" 
+                      onerror="this.src='assets/icon/Group.png';"
+                      >
                     </div>
                   <div class = "PostDetails"  >
                     <div class = "TitleNameOptions">
                       <div style = "display: flex; margin-left: 1.5%;">
                         <div class = "Title">{{post.community}}</div>
-                        <div class = "Name" > @{{post.username}}</div>
+                        <div class = "Name" (click)="GoToProfile(post.username)"> @{{post.username}}</div>
                       </div>
                       <div style = "display: flex; margin-right: 1.5%; ">
       
-                       
+                        <label class = "report" *ngIf="reports[i]" 
+                        (click)="ReportPost(i, post)">Report Post</label>
       
-                        <!-- <button class = "Options" > <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
+                        <label class = "report" *ngIf="post.reported" 
+                        style = "color: red;"
+                        >Post Reported.</label>
+      
+                        <button class = "Options" *ngIf="!post.reported" (click)="Report(i)"> 
+                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+      
                       </div>
             
                      </div>
                     
                       <div class = "GenreIcons" >
                         <div style = "width: 30%; display: flex; justify-content: space-around;">
-                        <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                          <div *ngFor="let category of post.categories; let k=index" class="tooltip">
+                            <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                            <span class="tooltiptext">{{category}}</span>
+                          </div>
+                        
                         </div>
                         <div style = "width: 70%; display: flex; justify-content: space-evenly;">
                           <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
-                          <button *ngIf="post.ageRestricted" class = "specialBtn">Age Restricted</button>
+                          <button *ngIf="post.ageRestricted" class = "specialBtn">NSFW</button>
                      </div>
                      </div>
-      
-                     
-                    
       
                 </div> 
                   </div>
-      
-      
-      
-      
       
                   <div class = "PostBody" (click)="GoToComments(post._id)">
       
@@ -202,8 +190,8 @@
                       </div>
                       <div style = "text-align: center;">
                         <div *ngIf="profile != null">
-                        <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
-                        <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" ></ion-icon>
+                        <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                        <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
                         <div>{{post.likes.length}}</div>
                         </div>
                       </div>
