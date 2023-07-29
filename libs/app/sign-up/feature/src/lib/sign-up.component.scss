@@ -196,3 +196,10 @@ btn1:hover{
 ::-webkit-scrollbar-button:end:increment:hover {
   background-color: #aaa; 
 }
+
+.options {
+  span {
+    color: rgba(255, 0, 0, 0.726);
+    font-size: 12px;
+  }
+}
