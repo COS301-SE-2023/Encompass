@@ -1,6 +1,7 @@
 import { ChatListDto } from "@encompass/api/chat-list/data-access";
 import { ChatDto, GateWayAddMessageRequest } from "@encompass/api/chat/data-access";
 import { AddNotificationRequest } from "@encompass/api/notifications/data-access";
+// import { AddNotificationRequest } from "@encompass/api/notifications/data-access";
 
 export class GetMessages {
   static readonly type = '[Messages] Get';
