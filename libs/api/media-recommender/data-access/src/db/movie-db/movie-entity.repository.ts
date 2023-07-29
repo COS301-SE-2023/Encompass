@@ -24,4 +24,5 @@ export class MovieEntityRepository extends BaseEntityRepository<MovieSchema, Mov
         //choose random 200 Movies 
         return await this.MovieModel.aggregate([{ $sample: { size: 200 } }]);
     }
+
 } 

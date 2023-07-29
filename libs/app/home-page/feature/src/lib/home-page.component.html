@@ -97,14 +97,14 @@
     <ion-content>
       <ion-list class="custom-list">
         <div *ngFor="let notify of notifications?.notifications">
-          <ion-item color="var(--ion-color-background)" (click)="clearNotification(notify.notificationId)">
+          <ion-item color="var(--ion-color-background)">
             <div class="noti-background">
             <div class="user">
               <div class="alert"></div>
               <ion-avatar slot="start">
                 <ion-img src={{notify.picture}}></ion-img>
               </ion-avatar>
-              <ion-icon class="delete-icon" name="trash-bin"></ion-icon>
+              <ion-icon class="delete-icon" name="trash-bin" (click)="clearNotification(notify.notificationId)"></ion-icon>
             </div>
             <ion-label>
               <div class="noti-title">
@@ -119,7 +119,7 @@
         </div>
       </ion-list>
     </ion-content>
-    <div class="deleteAll">
+    <div class="deleteAll" (click)="clearAllNotifications()">
       <ion-icon name="trash-bin-outline"></ion-icon>
       <span>Delete All</span>
     </div>

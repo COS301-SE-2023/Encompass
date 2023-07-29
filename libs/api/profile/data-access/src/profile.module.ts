@@ -13,6 +13,8 @@ import { ProfileCreatedHandler } from "./events";
 import { GetAllProfilesHandler, GetProfileHandler, GetUsernameHandler, GetByUsernameHandler } from "./queries";
 import { HttpModule } from "@nestjs/axios";
 import { UploadImage } from "./upload-image.service";
+import { GetRecommendedProfilesHandler } from "./queries/get-recommended-profiles/getRecommendedProfiles.handler";
+import { GetUsersByKeywordHandler } from "./queries/search-profiles/get-users-by-keyword.handler";
 
 @Module({
   imports: [
@@ -46,6 +48,8 @@ import { UploadImage } from "./upload-image.service";
     AddFollowingHandler,
     RemoveFollowerHandler,
     RemoveFollowingHandler,
+    GetRecommendedProfilesHandler,
+    GetUsersByKeywordHandler,
     AddCommunityHandler
   ],
 })

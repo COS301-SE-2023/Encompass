@@ -361,6 +361,12 @@ export class CommunityProfileComponent {
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
 
+    const communityName = this.community?.name;
+
+    this.myMembers.forEach(member => {
+      this.store.dispatch(new RemoveOtherUserCommunity(communityName, member))
+    })
+    
     // To update the user that you removed call this.store.dispatch(new RemoveOtherUserCommunity(Community Name, Username of User to be removed))
   }
   join(){
