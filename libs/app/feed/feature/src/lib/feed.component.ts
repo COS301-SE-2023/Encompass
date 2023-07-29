@@ -275,30 +275,38 @@ load(){
       
                 for(let i = 0; i < this.BookGenres1.length; i++){
                   if(this.BookGenres1[i]=='Picture Books'||this.BookGenres1[i]=='Kids'
-                  ||this.BookGenres1[i]=='Childrens'){
+                  ||this.BookGenres1[i]=='Childrens'||this.BookGenres1[i]=='Comics'){
                     this.BookGenres1[i]='Animation';
                   }else if(this.BookGenres1[i]=='Anime'||this.BookGenres1[i]=='Manga'
-                  ||this.BookGenres1[i]=='Comics Manga'||this.BookGenres1[i]=='Japan'){
+                  ||this.BookGenres1[i]=='Comics Manga'||this.BookGenres1[i]=='Japan'
+                  ||this.BookGenres1[i]=='Comics'||this.BookGenres1[i]=='Graphic Novels'){
                     this.BookGenres1[i]='Anime';
-                  }else if(this.BookGenres1[i]=='Art'){
+                  }else if(this.BookGenres1[i]=='Art'||this.BookGenres1[i]=='Poetry'
+                  ||this.BookGenres1[i]=='Philosophy'||this.BookGenres1[i]=='Photography'){
                     this.BookGenres1[i]='Arts';
-                  }else if(this.BookGenres1[i]=='Business'||this.BookGenres1[i]=='Economics'){
+                  }else if(this.BookGenres1[i]=='Business'||this.BookGenres1[i]=='Economics'
+                  ||this.BookGenres1[i]=='Finance'||this.BookGenres1[i]=='Personal Finance'){
                     this.BookGenres1[i]='Business';
                   }else if(this.BookGenres1[i]=='Comedy'||this.BookGenres1[i]=='Humor'){
                     this.BookGenres1[i]='Comedy';
                   }else if(this.BookGenres1[i]=='Nonfiction'||this.BookGenres1[i]=='Biography Memoir'
                   ||this.BookGenres1[i]=='Autobiography'||this.BookGenres1[i]=='Memoir'){
                     this.BookGenres1[i]='Documentary';
-                  }else if(this.BookGenres1[i]=='High Fantasy'||this.BookGenres1[i]=='Magic'){
+                  }else if(this.BookGenres1[i]=='High Fantasy'||this.BookGenres1[i]=='Magic'
+                  ||this.BookGenres1[i]=='Dark Fantasy'||this.BookGenres1[i]=='Supernatural'){
                     this.BookGenres1[i]='Fantasy';
                   }else if(this.BookGenres1[i]=='Historical'||this.BookGenres1[i]=='History'
                   ||this.BookGenres1[i]=='Biography'||this.BookGenres1[i]=='Memoir'
-                  ||this.BookGenres1[i]=='Auto-Biography'||this.BookGenres1[i]=='Biography Memoir'){
+                  ||this.BookGenres1[i]=='European History'||this.BookGenres1[i]=='Biography Memoir'
+                  ||this.BookGenres1[i]=='Autobiography'||this.BookGenres1[i]=='World History'
+                  ||this.BookGenres1[i]=='American History'||this.BookGenres1[i]=='Military History'
+                  ||this.BookGenres1[i]=='Historical Fiction'){
                     this.BookGenres1[i]='History';
                   }else if(this.BookGenres1[i]=='Horror'||this.BookGenres1[i]=='Thriller'
                   ||this.BookGenres1[i]=='Suspense'){
                     this.BookGenres1[i]='Horror';
-                  }else if(this.BookGenres1[i]=='Food'||this.BookGenres1[i]=='Cooking'){
+                  }else if(this.BookGenres1[i]=='Food'||this.BookGenres1[i]=='Cooking'
+                  ||this.BookGenres1[i]=='Cookbooks'||this.BookGenres1[i]=='Food Writing'){
                     this.BookGenres1[i]='Hospitality';
                   }else if(this.BookGenres1[i]=='Biology'||this.BookGenres1[i]=='Evolution'){
                     this.BookGenres1[i]='Life-Science';
@@ -313,11 +321,17 @@ load(){
                     this.BookGenres1[i]='Romance';
                   }else if(this.BookGenres1[i]=='Science Fiction'){
                     this.BookGenres1[i]='Science-Fiction';
+                  }else if(this.BookGenres1[i]=='Westerns'){
+                    this.BookGenres1[i]='Western';
+                  }else if(this.BookGenres1[i]=='World War II'||this.BookGenres1[i]=='Holocaust'){
+                    this.BookGenres1[i]='War';
                   }
               }
 
               console.log("NEW GENRES AFTER REPLACING (1):")
               console.log(this.BookGenres1);
+
+              this.BookGenres1 = Array.from(new Set(this.BookGenres1));
 
               for(let i=0;i<this.BookGenres1.length;i++){
                 if(this.BookGenres1[i]=='Animation'||this.BookGenres1[i]=='Anime'
@@ -343,7 +357,6 @@ load(){
               console.log(this.myBookGenres1);
 
 
-              this.myBookGenres1 = Array.from(new Set(this.myBookGenres1));
       
                 
               for(let i = 0; i < this.BookGenres2.length; i++){
@@ -351,27 +364,35 @@ load(){
                 ||this.BookGenres2[i]=='Childrens'){
                   this.BookGenres2[i]='Animation';
                 }else if(this.BookGenres2[i]=='Anime'||this.BookGenres2[i]=='Manga'
-                ||this.BookGenres2[i]=='Comics Manga'||this.BookGenres2[i]=='Japan'){
+                ||this.BookGenres2[i]=='Comics Manga'||this.BookGenres2[i]=='Japan'
+                ||this.BookGenres2[i]=='Comics'||this.BookGenres2[i]=='Graphic Novels'){
                   this.BookGenres2[i]='Anime';
-                }else if(this.BookGenres2[i]=='Art'){
+                }else if(this.BookGenres2[i]=='Art'||this.BookGenres2[i]=='Poetry'
+                ||this.BookGenres2[i]=='Philosophy'||this.BookGenres2[i]=='Photography'){
                   this.BookGenres2[i]='Arts';
-                }else if(this.BookGenres2[i]=='Business'||this.BookGenres2[i]=='Economics'){
+                }else if(this.BookGenres2[i]=='Business'||this.BookGenres2[i]=='Economics'
+                ||this.BookGenres2[i]=='Finance'||this.BookGenres1[i]=='Personal Finance'){
                   this.BookGenres2[i]='Business';
                 }else if(this.BookGenres2[i]=='Comedy'||this.BookGenres2[i]=='Humor'){
                   this.BookGenres2[i]='Comedy';
                 }else if(this.BookGenres2[i]=='Nonfiction'||this.BookGenres2[i]=='Biography Memoir'
                 ||this.BookGenres2[i]=='Autobiography'||this.BookGenres2[i]=='Memoir'){
                   this.BookGenres2[i]='Documentary';
-                }else if(this.BookGenres2[i]=='High Fantasy'||this.BookGenres2[i]=='Magic'){
+                }else if(this.BookGenres2[i]=='High Fantasy'||this.BookGenres2[i]=='Magic'
+                ||this.BookGenres2[i]=='Dark Fantasy'||this.BookGenres2[i]=='Supernatural'){
                   this.BookGenres2[i]='Fantasy';
                 }else if(this.BookGenres2[i]=='Historical'||this.BookGenres2[i]=='History'
                 ||this.BookGenres2[i]=='Biography'||this.BookGenres2[i]=='Memoir'
-                ||this.BookGenres2[i]=='Auto-Biography'||this.BookGenres2[i]=='Biography Memoir'){
+                ||this.BookGenres2[i]=='European History'||this.BookGenres2[i]=='Biography Memoir'
+                ||this.BookGenres2[i]=='Autobiography'||this.BookGenres2[i]=='World History'
+                ||this.BookGenres2[i]=='American History'||this.BookGenres2[i]=='Military History'
+                ||this.BookGenres2[i]=='Historical Fiction'){
                   this.BookGenres2[i]='History';
                 }else if(this.BookGenres2[i]=='Horror'||this.BookGenres2[i]=='Thriller'
                 ||this.BookGenres2[i]=='Suspense'){
                   this.BookGenres2[i]='Horror';
-                }else if(this.BookGenres2[i]=='Food'||this.BookGenres2[i]=='Cooking'){
+                }else if(this.BookGenres2[i]=='Food'||this.BookGenres2[i]=='Cooking'
+                ||this.BookGenres2[i]=='Cookbooks'||this.BookGenres2[i]=='Food Writing'){
                   this.BookGenres2[i]='Hospitality';
                 }else if(this.BookGenres2[i]=='Biology'||this.BookGenres2[i]=='Evolution'){
                   this.BookGenres2[i]='Life-Science';
@@ -386,11 +407,17 @@ load(){
                   this.BookGenres2[i]='Romance';
                 }else if(this.BookGenres2[i]=='Science Fiction'){
                   this.BookGenres2[i]='Science-Fiction';
+                }else if(this.BookGenres2[i]=='Westerns'){
+                  this.BookGenres2[i]='Western';
+                }else if(this.BookGenres2[i]=='World War II'||this.BookGenres2[i]=='Holocaust'){
+                  this.BookGenres2[i]='War';
                 }
             }
 
             console.log("NEW GENRES AFTER REPLACING (2):")
             console.log(this.BookGenres2);
+
+            this.BookGenres2 = Array.from(new Set(this.BookGenres2));
 
             for(let i=0;i<this.BookGenres2.length;i++){
               if(this.BookGenres2[i]=='Animation'||this.BookGenres2[i]=='Anime'
@@ -414,7 +441,6 @@ load(){
             console.log("NEW GENRES AFTER FILTERING (2):")
             console.log(this.myBookGenres2);
 
-            this.myBookGenres2 = Array.from(new Set(this.myBookGenres2));
                           
              
             console.log("REFINED GENRES:")

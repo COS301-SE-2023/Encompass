@@ -336,7 +336,6 @@
               </div>
               <div class="media-info">
                 <div class = "MediaTitle">{{BookTitle1.slice(0,45)}}</div>
-                <div class = "MediaDate">{{books[0].publishDate}}</div>
                 <div class = "MediaAuthor">{{BookAuthor1}}</div> 
                 <div class = "MediaGenres">
                   <img *ngFor="let category of myBookGenres1; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
@@ -350,13 +349,13 @@
               </div>
               <div class="media-info">
                 <div class = "MediaTitle">{{BookTitle2.slice(0,45)}}</div>
-                <div class = "MediaDate">{{books[1].publishDate}}</div>
                 <div class = "MediaAuthor">{{BookAuthor2}}</div> 
                 <div class = "MediaGenres">
                   <img *ngFor="let category of myBookGenres2; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
                 </div> 
               </div>
             </div>
+            
            
           </div>
             
