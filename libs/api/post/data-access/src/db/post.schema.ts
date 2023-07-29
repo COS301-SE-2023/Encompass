@@ -44,4 +44,7 @@ export class PostSchema extends IdentifiableEntitySchema{
 
   @Prop()
   readonly reported!: boolean;
+
+  @Prop()
+  readonly isPrivate!: boolean
 }

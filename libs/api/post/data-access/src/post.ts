@@ -17,7 +17,8 @@ export class Post extends AggregateRoot{
     public ageRestricted: boolean,
     public shares: number,
     public comments: number,
-    public reported: boolean
+    public reported: boolean,
+    public isPrivate: boolean
   ){
     super();
   }
@@ -82,6 +83,10 @@ export class Post extends AggregateRoot{
     return this.reported;
   }
 
+  getIsPrivate() : boolean{
+    return this.isPrivate;
+  }
+
   updatePost(updatePostRequest: UpdatePostRequest)
   {
     this.title = updatePostRequest.title;
@@ -94,6 +99,11 @@ export class Post extends AggregateRoot{
     this.ageRestricted = updatePostRequest.ageRestricted;
     this.shares = updatePostRequest.shares;
     this.comments = updatePostRequest.comments;
-    this.reported = updatePostRequest.reported
+    this.reported = updatePostRequest.reported;
+    // this.isPrivate = updatePostRequest.isPrivate;
+  }
+
+  setPrivate(){
+    this.isPrivate = true;
   }
 }
