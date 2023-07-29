@@ -5,11 +5,11 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { AddFollowing, RemoveFollowing, SubscribeToProfile } from '@encompass/app/profile/util';
 import { UserProfileState } from '@encompass/app/user-profile/data-access';
-import { GetUserProfile, GetUserProfilePosts, GetUserSettings } from '@encompass/app/user-profile/util';
+import { GetUserProfile, GetUserProfilePosts, GetUserSettings, UpdatePost } from '@encompass/app/user-profile/util';
 import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { UpdatePostRequest } from '@encompass/api/post/data-access';
-import { SendNotification, UpdatePost } from '@encompass/app/home-page/util';
+import { SendNotification } from '@encompass/app/home-page/util';
 import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 
@@ -24,6 +24,8 @@ export class UserProfile {
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null> 
   @Select(UserProfileState.userProfilePosts) userPosts$!: Observable<PostDto[] | null>
   @Select(UserProfileState.userProfileSettings) profileSettings$!: Observable<SettingsDto | null>
+  
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   userProfile!: ProfileDto | null;
   profile!: ProfileDto | null;
@@ -40,8 +42,7 @@ export class UserProfile {
    reports : boolean[] =[];
    posts! : PostDto[] | null;
 
-
-
+   isPostsFetched = false;
 
   constructor(private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState) { 
     const username = this.route.snapshot.paramMap.get('username');
@@ -55,46 +56,47 @@ export class UserProfile {
       if(userProfile){
         this.userProfile = userProfile
         console.log(this.userProfile)
-
-        this.store.dispatch(new GetUserProfilePosts(this.userProfile.username))
-        this.userPosts$.subscribe((userPosts) => {
-          if(userPosts){
-            const temp = userPosts;
-
-            temp.forEach((post) => {
-              if(post.isPrivate){
-                if(this.profile?.communities.includes(post.community)){
+        if(!this.isPostsFetched){
+          this.isPostsFetched = true;
+          this.store.dispatch(new GetUserProfilePosts(this.userProfile.username))
+          this.userPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((userPosts) => {
+            if(userPosts){
+              const temp = userPosts;
+              this.userPosts = [];
+              temp.forEach((post) => {
+                if(post.isPrivate){
+                  if(this.profile?.communities.includes(post.community)){
+                    this.userPosts.push(post);
+                  }
+                }
+      
+                else{
                   this.userPosts.push(post);
                 }
-              }
-    
-              else{
-                this.userPosts.push(post);
-              }
-            })
-            // this.userPosts = userPosts
-            console.log(this.userPosts)
-            for(let i =0;i<userPosts.length;i++){
-              this.likedComments.push(false);
-              this.sharing.push(false);
+              })
+              // this.userPosts = userPosts
+              console.log(this.userPosts)
+              for(let i =0;i<userPosts.length;i++){
+                this.likedComments.push(false);
+                this.sharing.push(false);
 
-              if(userPosts[i].dateAdded!=null&&userPosts[i].comments!=null
-                &&userPosts[i].shares!=null){
-                this.datesAdded.push(userPosts[i].dateAdded);
-                  this.comments.push(userPosts[i].comments);
-                  this.shares.push(userPosts[i].shares);
-            }
+                if(userPosts[i].dateAdded!=null&&userPosts[i].comments!=null
+                  &&userPosts[i].shares!=null){
+                  this.datesAdded.push(userPosts[i].dateAdded);
+                    this.comments.push(userPosts[i].comments);
+                    this.shares.push(userPosts[i].shares);
+              }
 
-              if(userPosts!=null&&userPosts[i].likes!=null){
-                this.likes.push(userPosts[i].likes?.length);
-                if(userPosts[i].likes?.includes(userPosts[i].username)){
-                  this.likedComments[i]=true;
+                if(userPosts!=null&&userPosts[i].likes!=null){
+                  this.likes.push(userPosts[i].likes?.length);
+                  if(userPosts[i].likes?.includes(userPosts[i].username)){
+                    this.likedComments[i]=true;
+                }
+              }
               }
             }
-            }
-          }
-        })
-
+          })
+        }
         this.store.dispatch(new GetUserSettings(this.userProfile._id))
         this.profileSettings$.subscribe((profileSettings) => {
           if(profileSettings){
@@ -118,7 +120,16 @@ export class UserProfile {
     })
   }
 
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   async Share(n:number, post: PostDto){
+    if(this.userProfile?.username == null){
+      return;
+    }
     this.shares[n]++;
     for(let i =0;i<this.sharing.length;i++){
       this.sharing[i]=false;
@@ -144,7 +155,7 @@ export class UserProfile {
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
   
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
@@ -293,6 +304,10 @@ Report(n:number){
 
 ReportPost(n:number, post: PostDto){
 
+  if(this.userProfile == null){
+    return;
+  }
+
   if(this.posts?.length==null){
     return;
   }
@@ -313,11 +328,15 @@ ReportPost(n:number, post: PostDto){
     reported: true
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
 }
 
 Like(n:number, post: PostDto){
- 
+  
+  if(this.userProfile == null){
+    return;
+  }
+
   let likesArr : string[];
 
   console.log(this.profile?.username + " LIKED POST");
@@ -349,10 +368,14 @@ Like(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
 }
 
 Dislike(n:number, post: PostDto){
+  if(this.userProfile == null){
+    return;
+  }
+
   this.likedComments[n]=false;
   this.likes[n]--;
 
@@ -373,6 +396,6 @@ Dislike(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePost(post._id, data, this.userProfile.username));
 }
 }

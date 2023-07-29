@@ -1,7 +1,7 @@
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { Injectable } from "@angular/core"
 import { Action, Selector, State, StateContext } from "@ngxs/store"
-import { GetUserProfile, GetUserProfilePosts, GetUserSettings } from "@encompass/app/user-profile/util"
+import { GetUserProfile, GetUserProfilePosts, GetUserSettings, UpdatePost } from "@encompass/app/user-profile/util"
 import { UserProfileApi } from "./user-profile.api"
 import { PostDto } from "@encompass/api/post/data-access"
 import { SettingsDto } from "@encompass/api/settings/data-access"
@@ -124,6 +124,39 @@ export class UserProfileState{
     })
   }
 
+  @Action(UpdatePost)
+  async updatePost(ctx: StateContext<UserProfilePostModel>, {postId, updateRequest, username}: UpdatePost){
+    const response = await this.userProfileApi.updatePost(updateRequest, postId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    try{
+      const posts = ctx.getState().UserProfilePostForm.model.userProfilePosts;
+
+      if(posts == null ){
+        return
+      }
+
+      const index = posts?.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.setState({
+        UserProfilePostForm: {
+          model: {
+            userProfilePosts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      ctx.dispatch(new GetUserProfilePosts(username))
+    }
+  }
+  
   @Action(GetUserSettings)
   async getUserSettings(ctx: StateContext<UserProfileSettingsModel>, {userId}: GetUserSettings){
     const response = await this.userProfileApi.getUserSettings(userId)
