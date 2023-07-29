@@ -48,6 +48,7 @@ export class HomePage {
   settings!: SettingsDto | null;
   profile! : ProfileDto | null;
   notifications! : NotificationDto | null;
+  themeName!: string;
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe){
     
@@ -57,11 +58,6 @@ export class HomePage {
 
   load() {
     const page = document.getElementById('home-page');
-    const defaultLogo = document.getElementById('logo-default');
-    const redLogo = document.getElementById('logo-red');
-    const blueLogo = document.getElementById('logo-blue');
-    const greenLogo = document.getElementById('logo-green');
-    const orangeLogo = document.getElementById('logo-orange');
 
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
@@ -75,9 +71,52 @@ export class HomePage {
             this.settings = settings;
 
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
-            console.log(this.settings.themes.themeColor);
-            if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo) {
-              console.log('I JUST WANNA SEE SOMETHING changing logo');
+            
+            this.themeName = this.settings.themes.themeColor;
+            
+           console.log(this.themeName);
+
+           const defaultLogo = document.getElementById('logo-default');
+            const redLogo = document.getElementById('logo-red');
+            const blueLogo = document.getElementById('logo-blue');
+            const greenLogo = document.getElementById('logo-green');
+            const orangeLogo = document.getElementById('logo-orange');
+
+            if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo){
+              // console.log('default logosssssssssssssssssssssssssssssssss1');
+              console.log(this.themeName);
+              if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
+                redLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+              }else if (this.themeName == 'light-blue' || this.themeName == 'dark-blue') {
+                // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                blueLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                redLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+            } else if (this.themeName == 'light-green' || this.themeName == 'dark-green') {
+                greenLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                redLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+            }else if (this.themeName == 'light-orange' || this.themeName == 'dark-orange') {
+              orangeLogo.classList.remove('visible');
+              defaultLogo.classList.add('visible');
+              redLogo.classList.add('visible');
+              blueLogo.classList.add('visible');
+              greenLogo.classList.add('visible');
+            }else {
+              defaultLogo.classList.remove('visible');
+              redLogo.classList.add('visible');
+              blueLogo.classList.add('visible');
+              greenLogo.classList.add('visible');
+              orangeLogo.classList.add('visible');
+            }
             }
 
             if(page){
@@ -90,7 +129,7 @@ export class HomePage {
     })
   }
 
-  
+
 
   goToProfile() {
     this.routerClick();
