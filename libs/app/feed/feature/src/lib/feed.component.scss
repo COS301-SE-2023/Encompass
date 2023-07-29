@@ -666,14 +666,19 @@ ion-button:hover {
 
 .select {
   --border-radius: 25px;
-  color: var(--ion-color-warning);
+  color: var(--ion-color-primary);
   --background: none;
-  border: 1px solid var(--ion-color-warning);
+  border: 1px solid var(--ion-color-primary);
   border-radius: 25px;
+  font-family: CustomFont;
+  font-size: larger;
 }
 
 .active-select {
-  --border-radius: 25px;
-  color: white;
-  --background: var(--ion-color-warning);
+  border-radius: 25px ;
+  border: 1px solid var(--ion-color-warning);
+  color: var(--ion-color-warning);
+  font-family: CustomFont;
+  font-size: larger;
+
 }

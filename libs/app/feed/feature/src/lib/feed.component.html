@@ -355,6 +355,30 @@
                 </div> 
               </div>
             </div>
+            <div class="media-item" *ngIf="movies">
+              <div class="imges">
+                <img src = {{movies[0].Poster_Url}} class = "MediaImage"
+                >
+              </div>
+              <div class="media-info">
+                <div class = "MediaTitle">{{MovieTitle2.slice(0,45)}}</div>
+                <div class = "MediaGenres">
+                  <img *ngFor="let category of myMovieGenres1; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                </div> 
+              </div>
+            </div>
+            <div class="media-item" *ngIf="movies">
+              <div class="imges">
+                <img src = {{movies[1].Poster_Url}} class = "MediaImage"
+                >
+              </div>
+              <div class="media-info">
+                <div class = "MediaTitle">{{MovieTitle2.slice(0,45)}}</div>
+                <div class = "MediaGenres">
+                  <img *ngFor="let category of myMovieGenres2; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                </div> 
+              </div>
+            </div>
             
            
           </div>
