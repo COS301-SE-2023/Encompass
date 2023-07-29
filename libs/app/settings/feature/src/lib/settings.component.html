@@ -235,7 +235,7 @@
         <ion-item class="profile-image-container" lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label" style="height: 100px;">Profile Picture 
             <ion-avatar>
-              <!-- <img src={{profile?.profileImage}} alt="Avatar" class="avatar"> -->
+              <img src={{profile?.profileImage}} alt="Avatar" class="avatar">
               <div class="overlay-image">
                 <input id="file-input" type="file" [accept]=requiredFileType (change)="onProfilePictureSelected($event)" class="file-input">
                 <label for="file-input" class="file-label">

@@ -797,6 +797,7 @@ GoToProfile(username: string){
     
   }
 
+  showTooltip = false;
  
 
 }

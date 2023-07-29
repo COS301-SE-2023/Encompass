@@ -485,4 +485,67 @@ Edit(){
     await this.modalController.dismiss();
     this.router.navigate(['user-profile/' + username]);
   }
+
+
+  
+  
+  Like(n:number, post: PostDto){
+   
+    let likesArr : string[];
+  
+    console.log(this.profile?.username + " LIKED POST");
+    const emptyArray : string[] = [];
+  
+    if(this.profile?.username == null){
+      return;
+    }
+    
+    if(post.likes == emptyArray){
+      likesArr = [this.profile?.username];
+    }
+  
+    else{
+      likesArr = [...post.likes, this.profile?.username];
+    }
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
+  
+  Dislike(n:number, post: PostDto){
+    this.likedComments[n]=false;
+    this.likes[n]--;
+  
+    let likesArr = [...post.likes];
+    likesArr = likesArr.filter((like) => like !== this.profile?.username);
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data));
+  }
 } 

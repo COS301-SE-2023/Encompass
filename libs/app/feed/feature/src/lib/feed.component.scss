@@ -2,12 +2,12 @@
 
 .overlay-container {
   overflow:auto;
-  background-color: var(--ion-color-background);
+  // background-color: var(--ion-color-background);
   width: 100%;
   height: 100%;
   object-fit: fill;
   z-index: 1;
-  background-color: var(--ion-color-background);
+  // background-color: var(--ion-color-background);
   color: var(--ion-color-text);
   background-repeat: no-repeat;
   background-position: center;
@@ -207,7 +207,7 @@ object-fit: fill;
   white-space: nowrap; 
   // overflow: hidden; 
   text-overflow: ellipsis;
-
+  color: #000;
 }
 
 .Name{
@@ -217,6 +217,7 @@ object-fit: fill;
   position: relative;
   font-family: CustomFont2;
   left: 5%;
+  margin-top: 3px;
 }
 
 .Title:hover{
@@ -256,7 +257,8 @@ object-fit: fill;
   height: 30%;
   // color: var(--ion-color-dark);
   font-family: CustomFont;
-  margin-left: 1.5%;
+  // margin-left: 1.5%;
+  margin-top: 10px;
 }
 
 .text{
@@ -264,7 +266,7 @@ object-fit: fill;
   height: 90%;
   font-family: CustomFont;
   font-size: medium;
-  color: var(--ion-color-dark);
+  color: #000;
   margin-left: 3%;
   margin-right: 3%;
   display: -webkit-box;
@@ -357,6 +359,42 @@ object-fit: fill;
   font-family: CustomFont;
   padding: 2%;
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  // border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: fit-content;
+  background-color: var(--ion-color-primary);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px 20px 10px 20px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  opacity: 95%;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -20px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+
+
+
+
 
 
 //filter
