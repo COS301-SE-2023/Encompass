@@ -50,6 +50,12 @@ export class HomePage {
   notifications! : NotificationDto | null;
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe){
+    
+
+    this.load();
+  }
+
+  load() {
     const page = document.getElementById('home-page');
     const defaultLogo = document.getElementById('logo-default');
     const redLogo = document.getElementById('logo-red');
@@ -71,7 +77,7 @@ export class HomePage {
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
             console.log(this.settings.themes.themeColor);
             if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo) {
-              console.log('changing logo');
+              console.log('I JUST WANNA SEE SOMETHING changing logo');
             }
 
             if(page){
