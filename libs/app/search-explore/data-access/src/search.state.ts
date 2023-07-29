@@ -119,17 +119,17 @@ export class SearchState{
     }
 
     @Selector()
-    static getPosts(state: SearchModel){
+    static searchPosts(state: SearchModel){
         return state.SearchPostsForm.model.posts;
     }
 
     @Selector()
-    static getProfiles(state: SearchProfilesModel){
+    static searchProfiles(state: SearchProfilesModel){
         return state.SearchProfilesForm.model.profiles;
     }
 
     @Selector()
-    static getCommunities(state: SearchCommunitiesModel){
+    static searchCommunities(state: SearchCommunitiesModel){
         return state.SearchCommunitiesForm.model.communities;
     }
 

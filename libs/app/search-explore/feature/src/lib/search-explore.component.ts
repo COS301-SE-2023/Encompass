@@ -19,6 +19,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileApi } from '@encompass/app/profile/data-access';
+import { SearchState } from '@encompass/app/search-explore/data-access';
 
 
 
@@ -36,6 +37,10 @@ export class SearchExploreComponent {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
+
+  @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
+  @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
+  @Select(SearchState.searchCommunities) searchCommunities$! : Observable<ProfileDto[] | null>;
 
 
   file!: File;
