@@ -246,4 +246,6 @@ export class MessagesPage implements OnDestroy {
     }
 
   }
+
+
 }

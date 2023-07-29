@@ -23,6 +23,8 @@ import { CommunityDto } from '@encompass/api/community/data-access';
 import { MovieDto } from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
+import { ViewChild } from '@angular/core';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'feed',
@@ -30,6 +32,15 @@ import { strict } from 'assert';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedPage {
+
+  @ViewChild(IonContent) content: IonContent | undefined;
+
+  scrollToTop() {
+    if (this.content){
+      this.content.scrollToTop();
+    }
+    
+  }
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
@@ -103,10 +114,11 @@ load(){
         this.newChange();
 
         this.store.dispatch(new GetUserSettings(this.profile._id))
+        
         this.settings$.subscribe(settings => {
           if(settings){
             this.settings = settings;
-
+            
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
             if (this.settings.themes.themeColor.startsWith('dark')) {
               const icons = document.getElementById('genreicons');
@@ -115,10 +127,13 @@ load(){
                 icons.style.filter = 'invert(1)';
               }
             }
-
+            
             if(page){
+              console.log("testing the feed page")
+              console.log("hello " + this.settings.themes.themeImage);
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              // page.style.backgroundImage = "blue";
+            }else {
+              console.log("page is null")
             }
           }
         })
@@ -747,4 +762,42 @@ GoToProfile(username: string){
     console.log(this.selectedCommunities);
   }
 
+  activebutton = 'all';
+
+ changeFilter(btnname : string){
+  console.log(btnname);
+  const all = document.getElementById('all');
+  const books = document.getElementById('books');
+  const movies = document.getElementById('movies');
+  // const series = document.getElementById('series');
+  if(all && books && movies){
+    if (btnname == 'all'){
+      all.classList.add('active-select');
+      books.classList.remove('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'books'){
+      all.classList.remove('active-select');
+      books.classList.add('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'movies'){
+      all.classList.remove('active-select');
+      books.classList.remove('active-select');
+      movies.classList.add('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'series'){
+      all.classList.remove('active-select');
+      books.classList.remove('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.add('active-select');
+    }
+    
+  }
+    
+  }
+
+ 
+
 }
+

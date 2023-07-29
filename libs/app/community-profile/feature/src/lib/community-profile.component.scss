@@ -629,7 +629,13 @@ justify-content: space-evenly;
   margin-right: 5%;
 }
 
-
+.backtotop {
+  position: fixed;
+  bottom: 2%;
+  right: 23%;
+  --border-radius: 50px;
+  color: white;
+}
 
 .Edit{
   border-radius: 30px;

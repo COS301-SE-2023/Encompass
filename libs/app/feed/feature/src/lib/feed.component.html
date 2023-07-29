@@ -3,7 +3,7 @@
   <ion-grid>
     <ion-row class="row-filter">
       <ion-col size="10">
-        <ion-card class="header card-styles">
+        <ion-card id="header" class="header card-styles">
           <!-- <ion-card-header class="header-header"> -->
             <div class="image-container">
               <div color="dark" class="custom-title" >Welcome Home</div>
@@ -30,7 +30,7 @@
     </ion-row>
   </ion-grid>
 
-
+  
   
   <ion-grid>
     <ion-row class="row-filter">
@@ -199,7 +199,7 @@
                   </ion-col>
                   <ion-col size="1">
                     <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
-                      <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
+                      <ion-icon class="arrow" name="arrow-up-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
                 </ion-row>
@@ -287,7 +287,7 @@
                     <div class="headtext" style="font-size: 18px; margin-top: 10px; margin-left: 10px;">Recommended Content</div>
                   </ion-col>
                   <ion-col size="1">
-                    <ion-button fill="clear"  style="width:80px; margin-top: 3px;">
+                    <ion-button class="arrow" fill="clear"  style="width:80px; margin-top: 3px;">
                       <ion-icon name="arrow-down-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
@@ -310,10 +310,19 @@
                       <ion-icon name="arrow-up-circle-outline" size = "large" ></ion-icon>
                     </ion-button>
                   </ion-col>
+                  
                 </ion-row>
+                
               </ion-grid>
             </div>
           </div>
+          <div class=" filter-content">
+            <ion-button id="all" fill="clear" class="select active-select" (click)="changeFilter('all')">All</ion-button>
+            <ion-button id="movies" fill="clear" class="select" (click)="changeFilter('movies')">Movies</ion-button>
+            <ion-button id="books" fill="clear" class="select" (click)="changeFilter('books')">Books</ion-button>
+        
+            <!-- <ion-button fill="clear" class="select" (click)="changeFilter('all')>Series</ion-button> -->
+        </div>
           
           <!-- content -->
 
@@ -359,5 +368,5 @@
     </ion-col>
     </ion-row>
   </ion-grid>
-
+  <ion-button class="backtotop" (click)="scrollToTop()">Back To Top</ion-button>
 </div>

@@ -1,6 +1,6 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunityRequest, UpdateCommunity } from '@encompass/app/community-profile/util';
+import { AddCommunity, AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunity, RemoveCommunityRequest, UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
@@ -169,6 +169,16 @@ export class CommunityState{
         }
       }
     })
+  }
+
+  @Action(RemoveCommunity)
+  async removeCommunity(ctx: StateContext<CommunityStateModel>, {communityName, username}: RemoveCommunity){
+    await this.communityApi.removeCommunity(username, communityName);
+  }
+
+  @Action(AddCommunity)
+  async addCommunity(ctx: StateContext<CommunityStateModel>, {communityName, username} : AddCommunity){
+    await this.communityApi.addCommunity(username, communityName);
   }
 
   @Selector()

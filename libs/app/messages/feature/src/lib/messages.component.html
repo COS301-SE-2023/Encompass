@@ -1,5 +1,6 @@
 <div class="messsages-page">
 <div class="container">
+  <div class="list-background">
     <div class="chat-list">       
       <ul>
         <li class ="UserName">
@@ -26,6 +27,7 @@
           
       </ul>
     </div>
+  </div>
     <div class="chat-area" >
       <div class = "User" [hidden]="!hasMessages">
         <div style = "display: flex; align-items: center;height: 100%;">
@@ -54,15 +56,20 @@
       </div>
       <div class = "Typer" [hidden]="!hasMessages">
       <div style = "display: flex; justify-content: center;">
-        <form class="message-form" [formGroup]="messageForm" class = "messageInput">
-          
-          <ion-textarea  class="input" formControlName="messageInput" 
-          [(ngModel)]="inputValue" (input)="checkInput()"
-          placeholder="Message..." ></ion-textarea >
-          <button *ngIf = "isValid"  type="submit" (click)="sendMessage()"><ion-icon name="send" class = "icon1"></ion-icon></button>
-          <button *ngIf = "!isValid" disabled = true type="submit" 
-          (click)="sendMessage()"><ion-icon name="send" class = "icon2"></ion-icon></button>
+        <form #sendForm class="message-form" [formGroup]="messageForm" class="messageInput" (keyup.enter)="sendMessage()">
+          <div class="input-box">
+            <ion-input class="input" formControlName="messageInput" [(ngModel)]="inputValue" (input)="checkInput()"
+              placeholder="Message..."></ion-input>
+        
+            <ion-button fill="clear" *ngIf="isValid" type="submit" (click)="sendMessage()">
+              <ion-icon name="send" class="icon1"></ion-icon>
+            </ion-button>
+            <ion-button id="sendBtn" fill="clear" *ngIf="!isValid" disabled=true type="submit" (click)="sendMessage()">
+              <ion-icon name="send" class="icon2"></ion-icon>
+            </ion-button>
+          </div>
         </form>
+        
       </div>
       </div>
 </div>

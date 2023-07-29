@@ -2,7 +2,7 @@ import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, GetFollowers, GetFollowing } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, GetFollowers, GetFollowing, RemoveCommunity, AddCommunity } from "@encompass/app/profile/util"
 import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
@@ -334,6 +334,50 @@ export class ProfileState{
         })
       }
     });
+  }
+
+  @Action(RemoveCommunity)
+  async removeCommunity(ctx: StateContext<ProfileStateModel>, {communityName, username}: RemoveCommunity){
+    const response = await this.profileApi.removeCommunity(username, communityName);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const profile = ctx.getState().profile;
+
+    if(profile == null){
+      return;
+    }
+
+    const index = profile.communities.findIndex(x => x == communityName);
+
+    profile.communities.splice(index, 1);
+
+    ctx.setState({
+      profile: profile
+    })
+  }
+
+  @Action(AddCommunity)
+  async addCommunity(ctx: StateContext<ProfileStateModel>, {communityName, username} : AddCommunity){
+    const response = await this.profileApi.addCommunity(username, communityName);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const profile = ctx.getState().profile;
+
+    if(profile == null){
+      return;
+    }
+
+    // profile.communities = [...profile.communities, communityName];
+
+    ctx.setState({
+      profile: response
+    })
   }
 
   getExpireLocalStorage(key: string): string | null{
