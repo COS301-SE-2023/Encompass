@@ -1,12 +1,15 @@
+import { Injectable } from "@angular/core"
 import { CommunityDto } from "@encompass/api/community/data-access"
 import { PostDto } from "@encompass/api/post/data-access"
 import { ProfileDto } from "@encompass/api/profile/data-access"
-import { State } from "@ngxs/store"
+import { Action, State, StateContext } from "@ngxs/store"
+import { SearchApi } from "./search.api"
+import { SearchCommunities, SearchPosts, SearchProfiles } from "@encompass/app/search-explore/util"
 
 export interface SearchModel{
     SearchPostsForm: {
         model: {
-            posts: PostDto[] | null
+            posts: PostDto[] | null | undefined
         }
     }
 }
@@ -14,7 +17,7 @@ export interface SearchModel{
 export interface SearchProfilesModel{
     SearchProfilesForm: {
         model: {
-            profiles: ProfileDto[] | null
+            profiles: ProfileDto[] | null | undefined
         }
     }
 }
@@ -22,7 +25,7 @@ export interface SearchProfilesModel{
 export interface SearchCommunitiesModel{
     SearchCommunitiesForm: {
         model: {
-            communities: CommunityDto[] | null
+            communities: CommunityDto[] | null | undefined
         }
     }
 }
@@ -65,4 +68,54 @@ export class SearchState{
     constructor(private searchApi: SearchApi){}
 
     @Action(SearchPosts)
-    async searchPosts(ctx: StateContext<SearchModel>, action: SearchPosts){
+    async searchPosts(ctx: StateContext<SearchModel>, {keyword}: SearchPosts){
+        const response = await this.searchApi.getPostsByKeyword(keyword);
+
+        if(response == null || response == undefined){
+            return;
+        }
+
+        ctx.setState({
+            SearchPostsForm: {
+                model: {
+                    posts: response
+                }
+            }
+        })
+    }
+
+    @Action(SearchProfiles)
+    async searchProfiles(ctx: StateContext<SearchProfilesModel>, {keyword}: SearchProfiles){
+        const response = await this.searchApi.getProfilesByKeyword(keyword);
+
+        if(response == null || response == undefined){
+            return;
+        }
+
+        ctx.setState({
+            SearchProfilesForm: {
+                model: {
+                    profiles: response
+                }
+            }
+        })
+    }
+
+    @Action(SearchCommunities)
+    async searchCommunities(ctx: StateContext<SearchCommunitiesModel>, {keyword}: SearchCommunities){
+        const response = await this.searchApi.getCommunitiesByKeyword(keyword);
+
+        if(response == null || response == undefined){
+            return;
+        }
+
+        ctx.setState({
+            SearchCommunitiesForm: {
+                model: {
+                    communities: response
+                }
+            }
+        })
+    }
+
+}
