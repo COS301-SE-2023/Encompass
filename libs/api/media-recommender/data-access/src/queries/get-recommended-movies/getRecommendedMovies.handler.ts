@@ -72,7 +72,7 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             const updatedProfile: string[] = [];
             currentUserProfile.categories.forEach((category: any) => {
                 if (categoryMappings[category]) {
-                    updatedProfile.push(categoryMappings[category].movies);
+                    updatedProfile.push(...categoryMappings[category].movies);
                 } else {
                     updatedProfile.push(category);
                 }
