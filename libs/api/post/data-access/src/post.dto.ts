@@ -14,4 +14,5 @@ export class PostDto{
   readonly shares!: number;
   readonly comments!: number;
   readonly reported!: boolean;
+  readonly isPrivate!: boolean;
 }

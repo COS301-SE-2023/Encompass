@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
-import { Observable, takeUntil, pipe, Subject } from 'rxjs';
+import { Observable, takeUntil, pipe, Subject, take } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome, GetRecommendedBooks, GetRecommendedMovies } from '@encompass/app/home-page/util';
@@ -53,7 +53,7 @@ export class FeedPage {
 
   settings!: SettingsDto | null;
   profile! : ProfileDto | null;
-  posts! : PostDto[] | null;
+  posts : PostDto[] = [];
   myCommunities! : CommunityDto[] | null;
   movies! : MovieDto[] | null;
   books! : BookDto[] | null;
@@ -764,9 +764,6 @@ async addPosts(type: string){
     return;
   }
 
-  if(!this.postsIsFetched){
-    this.postsIsFetched = true;
-
     if (type === "recommended") {
       this.store.dispatch(new GetAllPosts(this.profile?.username));
     } else if (type === "latest") {
@@ -774,10 +771,30 @@ async addPosts(type: string){
     } else {
       this.store.dispatch(new GetPopularPosts());
     }
-    
-    this.homePosts$.subscribe((posts) => {
+    if(!this.postsIsFetched){
+      
+      this.postsIsFetched = true; 
+      this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
       if(posts){
-        this.posts = posts;
+        // console.log("POSTS:")
+        this.posts = [];
+        const temp = posts;
+        temp.forEach((post) => {
+          if(post.isPrivate){
+            // console.log("PRIVATE POST")
+            // console.log(post)
+            if(this.profile?.communities.includes(post.community)){
+              // console.log("accept")
+              this.posts.push(post);
+            }
+          }
+
+          else{
+            this.posts.push(post);
+          }
+        })
+
+        // this.posts = posts;
         this.size=posts.length-1;
         // console.log("SIZE: " + this.size)
         for(let i =0;i<posts.length;i++){
