@@ -37,6 +37,8 @@ export class UserProfile {
    likedComments: boolean[] = [];
    datesAdded : string[] = [];
    comments  : number[] = [];
+   reports : boolean[] =[];
+   posts! : PostDto[] | null;
 
 
 
@@ -226,4 +228,124 @@ export class UserProfile {
 
     this.store.dispatch(new RemoveFollowing(this.profile.username, this.userProfile.username))
   }
+
+  GoToCommunity(communityName:string){
+    this.router.navigate(['home/community-profile/' + communityName]);
+  }
+
+  GoToProfile(username: string){
+    if(this.profile?.username !== username){
+      this.router.navigate(['home/user-profile/' + username]);
+    }
+  
+    else{
+      this.router.navigate(['home/profile']);
+    }
+  }
+
+  
+Report(n:number){
+  if(this.posts?.length==null){
+    return;
+  }
+  
+  if(this.reports[n]==true){
+    this.reports[n]=false;
+    return;
+  }else{
+    for(let k = 0;k<this.reports.length;k++){
+      this.reports[k]=false;
+   }   
+    this.reports[n]=true;
+
+  }
+
+    
+
+}
+
+ReportPost(n:number, post: PostDto){
+
+  if(this.posts?.length==null){
+    return;
+  }
+  
+  this.reports[n]=false;  
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: post.likes,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+    reported: true
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
+}
+
+Like(n:number, post: PostDto){
+ 
+  let likesArr : string[];
+
+  console.log(this.profile?.username + " LIKED POST");
+  const emptyArray : string[] = [];
+
+  if(this.profile?.username == null){
+    return;
+  }
+  
+  if(post.likes == emptyArray){
+    likesArr = [this.profile?.username];
+  }
+
+  else{
+    likesArr = [...post.likes, this.profile?.username];
+  }
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: likesArr,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+    reported: post.reported
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
+}
+
+Dislike(n:number, post: PostDto){
+  this.likedComments[n]=false;
+  this.likes[n]--;
+
+  let likesArr = [...post.likes];
+  likesArr = likesArr.filter((like) => like !== this.profile?.username);
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: likesArr,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+    reported: post.reported
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
+}
 }
