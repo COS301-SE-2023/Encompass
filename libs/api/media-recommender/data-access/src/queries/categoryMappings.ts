@@ -7,7 +7,7 @@ export const categoryMappings: { [key: string]: CategoryMapping } = {
   "Action": { movies: ["Action"], novels: ["Action"] },
   "Adventure": { movies: ["Adventure"], novels: ["Adventure"] },
   "Animation": { movies: ["Animation"], novels: ["Picture Books", "Kids", "Childrens"] },
-  "Anime": { movies: [""], novels: ["Anime", "Manga", "Comics Manga", "Japan"] },
+  "Anime": { movies: ["Animation"], novels: ["Anime", "Manga", "Comics Manga", "Japan"] },
   "Arts": { movies: [""], novels: ["Art"] },
   "Business": { movies: [""], novels: ["Business", "Economics"] },
   "Comedy": { movies: ["Comedy"], novels: ["Comedy", "Humor"] },
