@@ -19,7 +19,6 @@ import { SettingsModule } from '@encompass/api/settings/data-access';
 import {ServeStaticModule} from '@nestjs/serve-static';
 import { join } from 'path';
 import { SearchModule } from '@encompass/api/search/data-access';
-import { DatabaseService } from './database.service';
 
 @Module({
   imports: [
@@ -47,7 +46,5 @@ import { DatabaseService } from './database.service';
     SearchModule,
     // DatabaseModule
   ],
-
-  providers: [DatabaseService],
 })
 export class AppModule {}
