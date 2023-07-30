@@ -73,6 +73,9 @@ export class ProfilePage {
 
   isPostsFetched = false;
 
+  ViewCommunities=false;
+
+
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
     ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
     this.store.dispatch(new SubscribeToProfile())
@@ -142,6 +145,7 @@ export class ProfilePage {
     this.load();
    }
 
+   
    load(){
     const page = document.getElementById('home-page');
   
@@ -632,4 +636,9 @@ Edit(){
   
     this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   }
+
+  OpenRemove(){
+    this.ViewCommunities = !this.ViewCommunities;
+  }
+
 } 
