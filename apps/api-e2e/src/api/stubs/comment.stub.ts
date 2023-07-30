@@ -5,6 +5,7 @@ export const commentStub = () =>{
         _id: new mongoose.Types.ObjectId('abc123456789123456789010'),
         postId: 'reply_id_1',
         username: 'jane_smith',
-        text: 'Comment'
+        text: 'Comment',
+        profileImage: 'profile_image'
     }
 }

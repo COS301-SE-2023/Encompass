@@ -8,5 +8,6 @@ export const commentDtoStub = () =>{
         text: "Comment text",
         replies: [],
         dateAdded: new Date(),
+        profileImage: "profile_image"
     }
 }
