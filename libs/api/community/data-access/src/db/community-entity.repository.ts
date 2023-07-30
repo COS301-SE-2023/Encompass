@@ -25,12 +25,12 @@ export class CommunityEntityRepository extends BaseEntityRepository<
         console.log("allCommunities: ");
         console.log(allCommunities);
         const filteredCommunities = allCommunities.filter(community => {
-            if (!community || !community.members) {
+            if (!community) {
                 return false; // Skip if community or members is undefined
             }
 
-            const members = community.members as string[];
-            const isAdmin = community.admin === id;
+            const members = community.members? (community.members as string[]).map(members => members.toLowerCase()) : [];
+            const isAdmin = community.admin? true : false;
             console.log("members: ");
             console.log(members);
             const isMember = members.includes(id);
@@ -46,13 +46,14 @@ export class CommunityEntityRepository extends BaseEntityRepository<
                 return false; // Skip if community or members is undefined
             }
 
-            const name = community.name.toLowerCase();
-            const description = community.about.toLowerCase();
-            const categories = community.categories as string[];
-            const lowerCaseCategories = categories.map(category => category.toLowerCase());
-            const isCategoryMatch = lowerCaseCategories.includes(keyword);
+            const name = community.name ? community.name.toLowerCase() : '';
+            const description = community.about ? community.about.toLowerCase() : '';
+            const categories = community.categories ? (community.categories as string[]).map(category => category.toLowerCase()) : [];
+    
+            const isCategoryMatch = categories.includes(keyword);
             const isNameMatch = name.includes(keyword);
             const isDescriptionMatch = description.includes(keyword);
+            
             return isNameMatch || isDescriptionMatch || isCategoryMatch;
         });
         return filteredCommunities;
