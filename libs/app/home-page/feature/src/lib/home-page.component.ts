@@ -26,6 +26,8 @@ import { SearchState } from '@encompass/app/search-explore/data-access';
 import { SearchApi } from '@encompass/app/search-explore/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
+import { SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
+
 
 
 @Component({
@@ -48,16 +50,71 @@ export class HomePage {
   profile! : ProfileDto | null;
   notifications! : NotificationDto | null;
   themeName!: string;
-  postsIsFetched = false
-  communitiesIsFetched = false
-  peopleIsFetched = false
-  keyword = '';
+  postsIsFetched = false;
+  communitiesIsFetched = false;
+  peopleIsFetched = false;
+  keyword = 'term';
   profiles! : ProfileDto[];
+  peopleExists = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe, private searchApi: SearchApi){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe, private searchApi: SearchApi, private storage: Storage){
     
 
     this.load();
+  }
+
+  async search(event: any) {
+    this.keyword = event.detail.value;
+    console.log("KEYWORD: " + this.keyword);
+
+    if (!this.keyword) {
+      // If the search keyword is empty, return
+      return;
+    }else {
+      this.addPeople('people', this.keyword);
+      this.peopleExists = true;
+      this.storage.set('keyword', this.keyword);
+    }
+
+   
+  }
+
+  async addPeople(type: string, keyword: string){
+    
+    if(this.profile == null){
+      return;
+    }
+  
+      if (type === "people") {
+        this.store.dispatch(new SearchProfiles(keyword));
+      }else {
+        return;
+      }
+
+      if(!this.peopleIsFetched){
+        
+        this.peopleIsFetched = true; 
+        this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
+        if(profiles){
+          // console.log("POSTS:")
+          this.profiles = [];
+          const profileCount = profiles;
+          const temp = profiles;
+          temp.forEach((person) => {
+           
+              this.profiles.push(person);
+              if (person.name.toLowerCase().includes(this.keyword.toLowerCase())) {
+                profileCount.push(person);
+              }
+            
+          })
+  
+        }
+      })
+      
+    }
+
+    // console.log("profiles: " + this.peopleVisible);
   }
 
   load() {
@@ -231,36 +288,16 @@ export class HomePage {
     this.showSearch = false;
   }
 
-  async addPeople(type: string, keyword: string){
-    if(this.profile == null){
-      return;
+  GoToProfile(username: string){
+    this.showSearch = false;
+    if(this.profile?.username !== username){
+      this.router.navigate(['home/user-profile/' + username]);
     }
   
-      if (type === "people") {
-        this.store.dispatch(this.searchApi.getProfilesByKeyword(keyword));
-      }else {
-        return;
-      }
-
-      if(!this.peopleIsFetched){
-        
-        this.peopleIsFetched = true; 
-        this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
-        if(profiles){
-          // console.log("POSTS:")
-          this.profiles = [];
-          const temp = profiles;
-          temp.forEach((person) => {
-           
-              this.profiles.push(person);
-            
-          })
-  
-        }
-      })
+    else{
+      this.router.navigate(['home/profile']);
     }
   }
-
-
+  
 
 }

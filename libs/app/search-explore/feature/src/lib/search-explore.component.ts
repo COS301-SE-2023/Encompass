@@ -7,7 +7,7 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
-import { UpdatePost } from '@encompass/app/home-page/util';
+import { GetAllPosts, UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SearchState } from '@encompass/app/search-explore/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
@@ -17,6 +17,7 @@ import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
+import { HomeState } from '@encompass/app/home-page/data-access';
 
 
 
@@ -33,6 +34,7 @@ export class SearchExploreComponent {
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
+  @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
 
   @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
   @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
@@ -44,49 +46,144 @@ export class SearchExploreComponent {
 
   profile! : ProfileDto | null;
   posts : PostDto[] = [];
+  relatedCommunities : string[] = [];
   communities! : CommunityDto[];
+  relatedCommunitiesArray : CommunityDto[] = [];
   profiles! : ProfileDto[];
   settings!: SettingsDto | null;
   datesAdded : string[] = [];
   comments  : number[] = [];
   shares : number[] = [];
-   likes: number[] =[] ;
-   likedComments: boolean[] = [];
-   sharing: boolean[] = [];
-   size=0;
-   postsIsFetched = false
-   communitiesIsFetched = false
-   peopleIsFetched = false
-   keyword = '';
-   postsVisible = false;
-   communityVisible = false;
-    peopleVisible = false;
+  likes: number[] =[] ;
+  likedComments: boolean[] = [];
+  sharing: boolean[] = [];
+  size=0;
+  postsIsFetched = false
+  communitiesIsFetched = false
+  peopleIsFetched = false
 
-   postReported : boolean[] = [];
-   reports : boolean[] =[];
-   selectedCommunity: string | undefined;
-   selectedCommunities : string[]=[];
+  keyword = '';
+
+  postsVisible = true;
+  communityVisible = false;
+  peopleVisible = false;
+  noSearch = true;
+  noResult = false;
+  peopleExists = false;
+  CommunityExists = false;
+  PostsExists = false;
+  removed=false;
+
+
+  postReported : boolean[] = [];
+  reports : boolean[] =[];
+  selectedCommunity: string | undefined;
+  selectedCommunities : string[]=[];
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
     ,private formBuilder: FormBuilder) {
 
     this.load();
+    // this.addInitialPosts();
    }
 
 
    async search(event: any) {
     this.keyword = event.detail.value;
     console.log("KEYWORD: " + this.keyword);
+    this.noSearch=false;
 
     if (!this.keyword) {
       // If the search keyword is empty, return
       return;
     }else {
+      
       this.postChange();
     }
 
    
+  }
+
+  clearSearch() {
+    this.peopleExists=false;
+    this.CommunityExists=false;
+    this.PostsExists=false;
+    this.noSearch=true;
+    this.noResult=false;
+    this.keyword = '';
+    this.postChange();
+  }
+
+  async addInitialPosts(){
+
+    console.log("POSTS: " + this.profile?.username);
+
+    if(this.profile == null){
+      return;
+    }
+
+    console.log("profile is not null");
+
+    
+  
+      
+      this.store.dispatch(new GetAllPosts(this.profile?.username));
+      
+      if(!this.postsIsFetched){
+        
+        this.postsIsFetched = true; 
+        this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+        if(posts){
+          // console.log("POSTS:")
+          this.posts = [];
+          const temp = posts;
+          temp.forEach((post) => {
+            if(post.isPrivate){
+              if(this.profile?.communities.includes(post.community)){
+                this.posts.push(post);
+              }
+            }
+  
+            else{
+              this.posts.push(post);
+            }
+          })
+  
+          // this.posts = posts;
+          this.size=posts.length-1;
+          // console.log("SIZE: " + this.size)
+          for(let i =0;i<posts.length;i++){
+            this.likedComments.push(false);
+            this.sharing.push(false);
+  
+            this.reports.push(false);
+            this.postReported.push(false);
+  
+            if(posts[i].dateAdded!=null&&posts[i].comments!=null
+              &&posts[i].shares!=null){
+              this.datesAdded.push(posts[i].dateAdded);
+              this.comments.push(posts[i].comments);
+              this.shares.push(posts[i].shares);
+            }
+  
+            if(posts!=null&&posts[i].likes!=null){
+              this.likes.push(posts[i].likes?.length);
+              
+  
+              if(this.profile==undefined){
+                return;
+              }
+              if(posts[i].likes.includes(this.profile.username)){
+                this.likedComments[i]=true;
+              } 
+            }
+  
+          }
+  
+        }
+      })
+    }
   }
 
 
@@ -139,35 +236,49 @@ export class SearchExploreComponent {
     this.unsubscribe$.complete();
   }
 
-  async addPosts(type: string, keyword: string){
-    this.postsVisible=true;
-    this.communityVisible=false;
-    this.peopleVisible=false;
-    console.log("adding posts")
+  async addPosts(type: string, keyword: string) {
+  this.communityVisible = false;
+  this.peopleVisible = false;
 
-    if(this.profile == null){
-      return;
-    }
-  
-      if (type === "posts") {
-        this.store.dispatch(new SearchPosts(keyword));
-      }else {
-        return;
-      }
+  if (this.profile == null) {
+    return;
+  }
 
-      if(!this.postsIsFetched){
-        
-        this.postsIsFetched = true; 
-        this.searchPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-        if(posts){
-          // console.log("POSTS:")
-          this.posts = [];
-          const temp = posts;
-          temp.forEach((post) => {
-            
-              this.posts.push(post);
-            
-          })
+  if (type === "posts") {
+    this.store.dispatch(new SearchPosts(keyword));
+  } else {
+    return;
+  }
+
+  if (!this.postsIsFetched) {
+    this.postsIsFetched = true;
+    this.searchPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+      if (posts) {
+        this.posts = [];
+        this.relatedCommunities = [];
+        const filteredPosts = [];
+        for (const post of posts) {
+          this.posts.push(post);
+          if (
+            post.text.toLowerCase().includes(keyword.toLowerCase()) ||
+            post.title.toLowerCase().includes(keyword.toLowerCase())
+          ) {
+            filteredPosts.push(post);
+            this.relatedCommunities.push(post.community);
+            console.log("related communities: " + this.relatedCommunities);
+          }
+        }
+
+        this.noSearch = true;
+        if (filteredPosts.length !== 0) {
+          this.PostsExists = true;
+          this.noSearch = false;
+          this.noResult = false;
+        } else {
+          this.PostsExists = false;
+          this.noResult = true;
+          this.noSearch = false;
+        }
   
           // this.posts = posts;
           this.size=posts.length-1;
@@ -199,17 +310,95 @@ export class SearchExploreComponent {
             }
   
           }
+    //       console.log("related communities done: " + this.relatedCommunities);
+    //       this.relatedCommunitiesArray = [];
+    //       for (let i = 0; i < this.relatedCommunities.length; i++) {
+    //         console.log("related communities: " + this.relatedCommunities[i]);
+    //       this.store.dispatch(new SearchCommunities(this.relatedCommunities[i]));
+    //       if(!this.communitiesIsFetched){
+      
+    //       this.communitiesIsFetched = true; 
+    //       this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
+    //       if(communities){
+
+    //         console.log("POSTS:")
+    //         this.communities = [];
+    //         const temp = communities;
+    //         temp.forEach((community) => {
+    //             console.log("community: " + community.name);
+    //             this.communities.push(community);
+              
+    //         })
+    //       }
+    //     })
+    //   }
+    // }
+  }
+  })
+}
+
+    
+}
+
+
+async addRelatedCommunities(type: string, keyword: string){
+
+  this.postsVisible=false;
+  this.peopleVisible=false;
   
-        }
-      })
-    }
+
+  if(this.profile == null){
+    return;
   }
 
+    if (type === "communities") {
+      this.store.dispatch(new SearchCommunities(keyword));
+    }else {
+      return;
+    }
+
+    if(!this.communitiesIsFetched){
+      
+      this.communitiesIsFetched = true; 
+      this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
+      if(communities){
+        // console.log("POSTS:")
+        this.communities = [];
+        const communityCount = communities;
+        const temp = communities;
+        temp.forEach((community) => {
+         
+            this.communities.push(community);
+
+            if (community.name.toLowerCase().includes(this.keyword.toLowerCase())) {
+              communityCount.push(community);
+            }
+          
+        })
+
+        this.noSearch=true;
+        if(communityCount.length!==0){
+          this.CommunityExists=true;
+          this.noSearch=false;
+          this.noResult=false;
+        }else{
+          this.CommunityExists=false;
+          this.noResult=true;
+          this.noSearch=false;
+        }
+        
+      }
+    })
+  }
+}
+
+
+
   async addCommunities(type: string, keyword: string){
+
     this.postsVisible=false;
-    this.communityVisible=true;
     this.peopleVisible=false;
-    console.log("adding communities")
+    
 
     if(this.profile == null){
       return;
@@ -228,23 +417,40 @@ export class SearchExploreComponent {
         if(communities){
           // console.log("POSTS:")
           this.communities = [];
+          const communityCount = communities;
           const temp = communities;
           temp.forEach((community) => {
            
               this.communities.push(community);
+
+              if (community.name.toLowerCase().includes(this.keyword.toLowerCase())) {
+                communityCount.push(community);
+              }
             
           })
-  
+
+          this.noSearch=true;
+          if(communityCount.length!==0){
+            this.CommunityExists=true;
+            this.noSearch=false;
+            this.noResult=false;
+          }else{
+            this.CommunityExists=false;
+            this.noResult=true;
+            this.noSearch=false;
+          }
+          
         }
       })
     }
   }
 
   async addPeople(type: string, keyword: string){
+
     this.postsVisible=false;
     this.communityVisible=false;
-    this.peopleVisible=true;
-    console.log("adding people")
+    
+    
     if(this.profile == null){
       return;
     }
@@ -262,16 +468,36 @@ export class SearchExploreComponent {
         if(profiles){
           // console.log("POSTS:")
           this.profiles = [];
+          const profileCount = profiles;
           const temp = profiles;
           temp.forEach((person) => {
            
               this.profiles.push(person);
+              if (person.name.toLowerCase().includes(this.keyword.toLowerCase())) {
+                profileCount.push(person);
+              }
             
           })
+
+          
+          // console.log("profiles: " + this.profiles.length);
+          this.noSearch=true;
+          if(profileCount.length!==0){
+            this.peopleExists=true;
+            this.noResult=false;
+            this.noSearch=false;
+          }else{
+            this.peopleExists=false;
+            this.noResult=true;
+            this.noSearch=false;
+          }
   
         }
       })
+      
     }
+
+    // console.log("profiles: " + this.peopleVisible);
   }
 
   buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
@@ -464,6 +690,11 @@ ViewPostofComment(postId: string){
   }
   
   postChange(){
+    this.postsVisible=true;
+    if (this.PostsExists === false){
+      this.noSearch=true;
+    }
+    // this.noSearch=true;
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
@@ -477,9 +708,15 @@ ViewPostofComment(postId: string){
     }
     
     this.addPosts("posts", this.keyword);
+    
   }
 
   commChange(){
+    this.communityVisible=true;
+    if (this.CommunityExists === false){
+      this.noSearch=true;
+    }
+    // this.noSearch=true;
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
@@ -492,10 +729,35 @@ ViewPostofComment(postId: string){
       PeopleBtn.classList.remove('active-button');
     }
 
+
     this.addCommunities("communities", this.keyword);
   }
 
+  peopleChange(){
+    this.peopleVisible=true;
+    if (this.peopleExists === false){
+      this.noSearch=true;
+    }
+    // this.noSearch=true;
+    const PostBtn = document.getElementById('PostBtn');
+    const CommentsBtn = document.getElementById('CommentsBtn');
+    const eventBtn = document.getElementById('eventBtn');
+    const PeopleBtn = document.getElementById('PeopleBtn');
+    console.log("people change")
+
+    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
+      PostBtn.classList.remove('active-button');
+      CommentsBtn.classList.remove('active-button');
+      eventBtn.classList.remove('active-button');
+      PeopleBtn.classList.add('active-button');
+    }
+    
+
+    this.addPeople("people", this.keyword);
+  }
+
   eventChange(){
+    
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
@@ -511,22 +773,7 @@ ViewPostofComment(postId: string){
     
   }
 
-  peopleChange(){
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-    const PeopleBtn = document.getElementById('PeopleBtn');
-    console.log("people change")
-
-    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
-      PostBtn.classList.remove('active-button');
-      CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
-      PeopleBtn.classList.add('active-button');
-    }
-
-    this.addPeople("people", this.keyword);
-  }
+  
 
   GoToComments(postId : string){
     this.router.navigate(['home/app-comments-feature/' + postId]);

@@ -5,7 +5,7 @@
       <div class="toolbar-content">
         <ion-grid>
           <ion-row class="row-filter">
-            <ion-searchbar class="searchbar" placeholder="Search" (ionChange)="search($event)"
+            <ion-searchbar class="searchbar" placeholder="Search" (ionChange)="search($event)" (ionClear)="clearSearch()"
             ></ion-searchbar>
           </ion-row>
           <ion-row class="row-filter">
@@ -40,13 +40,26 @@
       <ion-row class="row-filter">
         <ion-col size="5" *ngIf="postsVisible">
 
-  
+          <div class="emptySpace" *ngIf="noSearch || noResult">
+          <div *ngIf="noSearch">
+            <div class="note">
+              <span class="noSearch">Enter a Search Term</span>
+            </div>
+          </div>
+
+          <div *ngIf="noResult">
+            <div class="note">
+              <span class="noResult">No Results Matching Your Search</span>
+            </div>
+          </div>
+        </div>
   
           <!-- posts -->
           <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)" -->
+          <div *ngIf="PostsExists">
           <div  *ngFor="let post of posts?.slice()?.reverse();let i = index">
-  
-            <ion-card *ngIf="post.text && post.text.toLowerCase().includes((keyword ?? '').toLowerCase())" class = "PostCard card-styles" >
+            <div>
+            <ion-card *ngIf="post.text && post.text.toLowerCase().includes((keyword ?? '').toLowerCase()) || post.title && post.title.toLowerCase().includes((keyword ?? '').toLowerCase())" class = "PostCard card-styles" >
 
               <div class = "PostCardHeader">
                 <div class = "PostImageContainer" >
@@ -132,7 +145,9 @@
                 </div>
               </div>
              </ion-card>
+            </div>
             </div> 
+          </div>
   
         </ion-col>
   
@@ -141,80 +156,81 @@
 
 
         <!-- communities -->
-            <ion-col size="8" class="fullSearch" *ngIf="!postsVisible">
-              <div class="communitiesSearch" *ngIf="communityVisible">
-                <ion-card class = "SearchCommunityCard">
-                  <div class = "SearchCommunityHeader"> 
-                    <img src = "assets/icon/Alien.jpg" class = "SearchCommunityIcon" >
-                     <div class = "SearchCommunityDetails" >
-                       <div class = "SearchCommunityName">XenoMorffs</div>
-                       <div class = "SearchCommunityMembers">92 Members</div>
-                       
-                    </div>
-                    <div class = "SearchCommunityGenres">
-                      <img src = "assets/icon/Science-Fiction.png" class="SearchimgDiv">
-                      <img src = "assets/icon/Adventure.png"  class="SearchimgDiv" >
-                      <img src = "assets/icon/Horror.png"  class="SearchimgDiv"></div>
-                   <div class = "SearchCommunityAdd">
-                     <ion-icon name="add-circle-outline" style="
-                     font-size: 50px;
-                     color: #231942;
-                     "></ion-icon>
-                   </div>
-                   </div>
-                   <div class = "SearchCommunityBody">
-                       <div class = "SearchCommunityDesc">
-                        Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!</div>
-                      </div>
-                 </ion-card>
+            <ion-col size="8" class="fullSearch" *ngIf="communityVisible">
+              <div class="emptySpace">
+                <div *ngIf="noSearch">
+                  <div class="note">
+                    <span class="noSearch">Enter a Search Term</span>
+                  </div>
+                </div>
+      
+                <div *ngIf="noResult">
+                  <div class="note">
+                    <span class="noResult">No Results Matching Your Search</span>
+                  </div>
+                </div>
+              </div>
 
-                 <ion-card class = "CommunityCard">
+              <div *ngIf="CommunityExists">
+              <div class="communitiesSearch">
+                <div>
+
+                 <div *ngFor="let community of communities">
+                 <ion-card class = "SearchCommunityCard" *ngIf="community.name && community.name.toLowerCase().includes((keyword ?? '').toLowerCase())">
                   <div class="card-color">
-                  <div class = "CommunityHeader"> 
-                    <img src = {{communities[1].groupImage}} 
+                  <div class = "SearchCommunityHeader"> 
+                    <img src = {{community?.groupImage}} 
                     onerror="this.src='assets/icon/Group.png';"
-                    class = "CommunityIcon" >                     
-                    <div class = "CommunityDetails" >
-                      <div class = "CommunityName">{{communities[1].name}}</div>
-                     <div class = "CommunityMembers">Members: {{communities[1].members.length}}</div>
-                     <div class = "CommunityGenres">
-                      <img *ngFor="let category of communities[1].categories;" src = "assets/icon/{{category}}.png" class="imgDiv">
-                    </div>
+                    class = "SearchCommunityIcon" >                     
+                    <div class = "SearchCommunityDetails" >
+                      <div class="nameAndMembers"> 
+                      <div class = "SearchCommunityName">{{community.name}}</div>
+                     <div class = "SearchCommunityMembers">Members: {{community.members.length}}</div>
+                      </div>
                    </div>
-                   <div class = "CommunityAdd">
-                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',communities[1].name)">
+                   <div class = "SearchCommunityGenres">
+                    <img *ngFor="let category of community.categories;" src = "assets/icon/{{category}}.png" class="SearchimgDiv">
+                  </div>
+                   <div class = "SearchCommunityAdd">
+                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',community.name)">
                       <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
                     </button>
                    </div>
                    </div>
-                   <div class = "CommunityBody">
-                    <div class = "CommunityDesc">{{communities[1].about}}</div>
+                   <div class = "SearchCommunityBody">
+                    <div class = "SearchCommunityDesc">{{community.about}}</div>
                       </div>
                     </div>
                  </ion-card>
-
                 </div>
+              </div>
+            </div>
+                </div>
+              </ion-col>
 
 
-                 <!-- people -->
-                 <div class="peopleSearch" *ngIf="peopleVisible">
-                  <ion-card class="peopleCard" >
-                  <ion-list class="peopleList">
-                    <ion-item class="peopleItem">
-                      <ion-avatar class="peopleAvatar">
-                        <img src="https://avatars.githubusercontent.com/u/104779369?v=4" class="peopleIcon">
-                      </ion-avatar>
-                      <div class="personDetails">
-                        <div class="nameAndUsername">
-                          <span class="personName">Julianna Venter</span>
-                          <span class="personUsername">@julesV</span>
-                        </div>
-                        <span class="personDesc">This is my profile :)</span>
+
+
+                <ion-col size="8" class="fullSearch" *ngIf="peopleVisible">
+                  <div class="emptySpace">
+                    <div *ngIf="noSearch">
+                      <div class="note">
+                        <span class="noSearch">Enter a Search Term</span>
                       </div>
-                      <ion-button slot="end" class="followButton">Follow</ion-button>
-                       <ion-button *ngIf="" slot="end" class="followButton">Unfollow</ion-button> 
+                    </div>
+          
+                    <div *ngIf="noResult">
+                      <div class="note">
+                        <span class="noResult">No Results Matching Your Search</span>
+                      </div>
+                    </div>
+                  </div>
+                 <!-- people -->
+                 <div>
+                 <div class="peopleSearch" *ngIf="peopleExists">
 
-                    </ion-item>
+                  <ion-card class="peopleCard">
+                  <ion-list class="peopleList" >
 
                     <ion-item class="peopleItem" *ngFor="let people of profiles">
                       <ion-avatar class="peopleAvatar">
@@ -223,7 +239,7 @@
                       <div class="personDetails">
                         <div class="nameAndUsername">
                           <span class="personName">{{people?.name}} {{people?.lastName}}</span>
-                          <span class="personUsername">{{people?.username}}</span>
+                          <span class="personUsername">@{{people?.username}}</span>
                         </div>
                         <span class="personDesc">{{people?.bio}}</span>
                       </div>
@@ -236,6 +252,7 @@
                   
                  </ion-card>
                  </div>
+                </div>
 
 
               
@@ -249,7 +266,7 @@
   
         <!-- recommendations -->
         <!-- style="display: none;" -->
-        <ion-col size="4" *ngIf="postsVisible">
+        <ion-col size="5" *ngIf="PostsExists && postsVisible">
           <ion-card class="recomcard" >
           <div>
               <div class = "RecomCommunities" >
@@ -266,62 +283,37 @@
             
             <!-- communities -->
   
-            <ion-grid>
+            <ion-grid >
               <ion-row class="content-row" >
                 <ion-col size="11">
-                  <ion-card class = "CommunityCard">
-                    <div class = "CommunityHeader"> 
-                      <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                  <div *ngFor="let community of communities">
+                    <ion-card class = "CommunityCard">
+                     <div class="card-color">
+                     <div class = "CommunityHeader"> 
+                       <img src = {{community?.groupImage}} 
+                       onerror="this.src='assets/icon/Group.png';"
+                       class = "CommunityIcon" >                     
                        <div class = "CommunityDetails" >
-                         <div class = "CommunityName">XenoMorffs</div>
-                         <div class = "CommunityMembers">92 Members</div>
-                         <div class = "CommunityGenres">
-                         <img src = "assets/icon/Science-Fiction.png" class="imgDiv">
-                         <img src = "assets/icon/Adventure.png"  class="imgDiv" >
-                         <img src = "assets/icon/Horror.png"  class="imgDiv"></div>
+                         <div class="nameAndMembers"> 
+                         <div class = "CommunityName">{{community.name}}</div>
+                        <div class = "CommunityMembers">Members: {{community.members.length}}</div>
+                         </div>
+                      </div>
+                      <div class = "CommunityGenres">
+                       <img *ngFor="let category of community.categories;" src = "assets/icon/{{category}}.png" class="imgDiv">
                      </div>
-                     <div class = "CommunityAdd">
-                       <ion-icon name="add-circle-outline" style="
-                       font-size: 50px;
-                       color: #231942;
-                       "></ion-icon>
-                     </div>
-                     </div>
-                     <div class = "CommunityBody">
-                         <div class = "CommunityDesc">
-                          Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       </div>
-                        </div>
-                   </ion-card>
-                </ion-col>
-              </ion-row>
-  
-              <ion-row class="content-row">
-                <ion-col size="11">
-                  <ion-card class = "CommunityCard">
-                    <div class = "CommunityHeader"> 
-                      <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
-                       <div class = "CommunityDetails" >
-                         <div class = "CommunityName">Potterheads</div>
-                         <div class = "CommunityMembers">105 Members</div>
-                         <div class = "CommunityGenres">
-                         <img src = "assets/icon/Fantasy.png" class="imgDiv">
-                         <img src = "assets/icon/Adventure.png"  class="imgDiv">
-                         <img src = "assets/icon/Movies.png"  class="imgDiv">
-                        </div>
-                     </div>
-                     <div class = "CommunityAdd">
-                       <ion-icon name="add-circle-outline" style="
-                       font-size: 50px;
-                       color: #231942;
-                       "></ion-icon>
-                     </div>
-                     </div>
-                     <div class = "CommunityBody">
-                         <div class = "CommunityDesc">
-                          Join in on all things Potterverse!
-                        </div>
-                        </div>
-                   </ion-card>
+                      <div class = "CommunityAdd">
+                       <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',community.name)">
+                         <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                       </button>
+                      </div>
+                      </div>
+                      <div class = "CommunityBody">
+                       <div class = "CommunityDesc">{{community.about}}</div>
+                         </div>
+                       </div>
+                    </ion-card>
+                   </div>
                 </ion-col>
               </ion-row>
             </ion-grid>

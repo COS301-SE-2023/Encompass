@@ -420,6 +420,11 @@ ion-router-outlet {
   display: flex;
   flex-direction: column;
   transition: all 0.3s;
+  
+}
+
+.list-item {
+  cursor: pointer;
 }
 
 .search-content, .notification-content {
@@ -510,3 +515,6 @@ ion-router-outlet {
   display: none;
 }
 
+.personUsername {
+  margin-left: 5px;
+}
