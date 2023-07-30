@@ -48,11 +48,45 @@ import { AppModule } from '../../../api/src/app/app.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { commentDtoStub } from './stubs/comment.dto.stub'; // Import the commentDtoStub
-import { CommentSchema } from '@encompass/api/comment/data-access';
+import { Schema, Document, Model } from 'mongoose';
+import { CommentController, CommentModule } from '@encompass/api/comment/data-access';
+
+export interface Reply {
+  id: string;
+  username: string;
+  text: string;
+  dateAdded: Date;
+}
+
+export interface Comment extends Document {
+  postId: string;
+  username: string;
+  text: string;
+  replies: Reply[]; // Use the Reply interface for the replies property
+  dateAdded: Date;
+}
+
+export const CommentSchema = new Schema<Comment>(
+  {
+    postId: { type: String, required: true },
+    username: { type: String, required: true },
+    text: { type: String, required: true },
+    replies: [
+      {
+        id: { type: String, required: true },
+        username: { type: String, required: true },
+        text: { type: String, required: true },
+        dateAdded: { type: Date, required: true },
+      },
+    ],
+    dateAdded: { type: Date, default: Date.now },
+  }
+);
 
 describe('CommentController (Integration with MongoDB)', () => {
   let app: INestApplication;
   let postId: string;
+  let commentModel: Model<Comment>; 
 
   // Prepare the test data using the commentDtoStub
   const testComment = commentDtoStub();
@@ -60,25 +94,39 @@ describe('CommentController (Integration with MongoDB)', () => {
   const setupTestApp = async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
-        AppModule,
-        MongooseModule.forRoot('mongodb://localhost:27017/encompass-test', { // Use your test database URL
-          useCreateIndex: true,
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
+        // AppModule,
+        MongooseModule.forRoot('mongodb://127.0.0.1:27017/encompass-test', { // Use your test database URL
+          // useCreateIndex: true,
+          // useNewUrlParser: true,
+          // useUnifiedTopology: true,
         }),
         MongooseModule.forFeature([{ name: 'comment', schema: CommentSchema }])
       ],
+      controllers: [CommentController],
+      providers:[CommentModule]
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
 
     // Insert the test comment into the database before running the tests
-    const commentModel = app.get(getModelToken('comment'));
-    await commentModel.create(testComment);
-    postId = testComment.postId;
+    // const commentModel = app.get(getModelToken('comment'));
+    // await commentModel.create(testComment);
+    // postId = testComment.postId;
+    commentModel = moduleFixture.get<Model<Comment>>(getModelToken('comment'));
   };
 
+  beforeEach(async () => {
+    // Clear the collection before each test
+    // const commentModel = app.get(getModelToken('comment'));
+    await commentModel.deleteMany({});
+    
+    // Insert the test comment into the database before running the test
+    await commentModel.create(testComment);
+    postId = testComment.postId;
+  });
+
+  
   beforeAll(async () => {
     await setupTestApp();
   });
@@ -88,10 +136,11 @@ describe('CommentController (Integration with MongoDB)', () => {
   });
 
   it('should return an array of comments for a given postId', async () => {
-    const response = await request(app.getHttpServer()).get(`/comment/get-post-comments/${postId}`);
+    const response = await request(app.getHttpServer()).get(`/comment/get-post-comments/6499cfd69f9b260697e55181`);
 
     expect(response.status).toBe(HttpStatus.OK);
     expect(Array.isArray(response.body)).toBe(true);
+    expect(response.body[0].postId).toBe(testComment.postId);
     // You can add more specific assertions based on your data model and expected response structure.
   });
 });
