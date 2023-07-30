@@ -326,6 +326,7 @@
 
           <div class="contentrecs">
            
+          
             <div class="media-item" *ngIf="books">
               <div class="imges">
                 <img src = {{books[0].coverImg}} class = "MediaImage"
@@ -334,35 +335,45 @@
               </div>
               <div class="media-info">
                 <div class = "MediaTitle">{{BookTitle1.slice(0,45)}}</div>
-                <div class = "MediaAuthor">{{BookAuthor1}}</div> 
-                <div *ngFor="let category of myBookGenres1; let k=index" class = "MediaGenres tooltip">
-                  <img  src = "assets/icon/{{category}}.png" class="imgDiv">
-                  <span class="tooltiptext">{{category}}</span>
-                </div> 
+                <div class = "MediaAuthor">{{BookAuthor1}}</div>
+                <div class = "MediaGenres">
+                  <div *ngFor="let category of myBookGenres1; let k=index" class="tooltip">
+                    <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                    <span class="tooltiptext">{{category}}</span>
+                  </div>  
+                </div>  
               </div>
             </div>
             <div class="media-item" *ngIf="books">
               <div class="imges">
                 <img src = {{books[1].coverImg}} class = "MediaImage"
+                onerror="this.src='assets/icon/Books.png';"
                 >
               </div>
               <div class="media-info">
                 <div class = "MediaTitle">{{BookTitle2.slice(0,45)}}</div>
                 <div class = "MediaAuthor">{{BookAuthor2}}</div> 
                 <div class = "MediaGenres">
-                  <img *ngFor="let category of myBookGenres2; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
-                </div> 
+                  <div *ngFor="let category of myBookGenres2; let k=index" class="tooltip">
+                    <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                    <span class="tooltiptext">{{category}}</span>
+                  </div>  
+                  </div> 
               </div>
             </div>
+             
             <div class="media-item" *ngIf="movies">
               <div class="imges">
                 <img src = {{movies[0].Poster_Url}} class = "MediaImage"
                 >
               </div>
               <div class="media-info">
-                <div class = "MediaTitle">{{MovieTitle2.slice(0,45)}}</div>
+                <div class = "MediaTitle">{{MovieTitle1.slice(0,45)}}</div>
                 <div class = "MediaGenres">
-                  <img *ngFor="let category of myMovieGenres1; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                  <div *ngFor="let category of myMovieGenres1; let k=index" class="tooltip">
+                    <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                    <span class="tooltiptext">{{category}}</span>
+                  </div>
                 </div> 
               </div>
             </div>
@@ -374,7 +385,10 @@
               <div class="media-info">
                 <div class = "MediaTitle">{{MovieTitle2.slice(0,45)}}</div>
                 <div class = "MediaGenres">
-                  <img *ngFor="let category of myMovieGenres2; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                  <div *ngFor="let category of myMovieGenres2; let k=index" class="tooltip">
+                    <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                    <span class="tooltiptext">{{category}}</span>
+                  </div>
                 </div> 
               </div>
             </div>
