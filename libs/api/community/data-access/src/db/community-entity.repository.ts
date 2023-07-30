@@ -25,11 +25,15 @@ export class CommunityEntityRepository extends BaseEntityRepository<
         console.log("allCommunities: ");
         console.log(allCommunities);
         const filteredCommunities = allCommunities.filter(community => {
+            if (!community || !community.members) {
+                return false; // Skip if community or members is undefined
+            }
+
             const members = community.members as string[];
             const isAdmin = community.admin === id;
             console.log("members: ");
             console.log(members);
-            const isMember = members?.includes(id);
+            const isMember = members.includes(id);
             return !isAdmin && !isMember;
         });
         return filteredCommunities;
@@ -38,6 +42,10 @@ export class CommunityEntityRepository extends BaseEntityRepository<
     async findCommunitiesByKeyword(keyword: string): Promise<CommunityDto[]> {
         const allCommunities = await this.findAll();
         const filteredCommunities = allCommunities.filter(community => {
+            if (!community) {
+                return false; // Skip if community or members is undefined
+            }
+
             const name = community.name.toLowerCase();
             const description = community.about.toLowerCase();
             const categories = community.categories as string[];
