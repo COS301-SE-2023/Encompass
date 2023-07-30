@@ -29,7 +29,7 @@ export class BookEntityRepository extends BaseEntityRepository<BookSchema, Book>
         // then return the array
         return await this.bookModel.distinct('genres').then((genres) => {
             return genres.map((genre) => {
-                return genre.split(',').map((g) => {
+                return genre.split(',').map((g: string) => {
                     //remove the square brackets and the single quotes
                     g = g.replace('[', '').replace(']', '').replace(/'/g, '');
                     return g.trim();
