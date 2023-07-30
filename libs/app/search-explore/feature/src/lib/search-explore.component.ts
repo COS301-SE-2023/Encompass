@@ -27,6 +27,7 @@ import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
 import { CommunityDto } from '@encompass/api/community/data-access';
+import { SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
 
 
 
@@ -42,8 +43,6 @@ export class SearchExploreComponent {
 
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
-  @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
   @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
@@ -53,16 +52,10 @@ export class SearchExploreComponent {
   private unsubscribe$: Subject<void> = new Subject<void>();
   myCommunities! : CommunityDto[] | null;
 
-
-  file!: File;
-  fileBanner!: File;
-  fileName!: string;
-  fileNameBanner!: string;
   profile! : ProfileDto | null;
   posts : PostDto[] = [];
   communities! : CommunityDto[];
   profiles! : ProfileDto[];
-  commentsList!: CommentDto[] | null;
   settings!: SettingsDto | null;
   datesAdded : string[] = [];
   comments  : number[] = [];
@@ -70,89 +63,18 @@ export class SearchExploreComponent {
    likes: number[] =[] ;
    likedComments: boolean[] = [];
    sharing: boolean[] = [];
-   seePosts=true;
-   seeComments=false;
-   viewreplies : boolean[] = [];
-   replies : number[] = [];
    size=0;
-   edit=false;
-   hasImage=false;
-   hasBanner=false;
    postsIsFetched = false
    communitiesIsFetched = false
    peopleIsFetched = false
    keyword = '';
 
-   deletePost: boolean[] = [];
-   deleteComment: boolean[] =[];
-   MarkedForCommentDeletion: boolean[] = [];
-   MarkedForPostDeletion: boolean[] = [];
    postReported : boolean[] = [];
    reports : boolean[] =[];
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
-    ,private formBuilder: FormBuilder, private profileApi: ProfileApi, private searchApi: SearchApi) {
-    this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        console.log(profile);
-        this.profile = profile;
-
-        this.store.dispatch(new GetPosts(profile.username));
-        this.posts$.subscribe((posts) => {
-          if(posts){
-            this.posts = posts;
-            this.size=posts.length-1;
-            for(let i =0;i<posts.length;i++){
-              this.likedComments.push(false);
-              this.sharing.push(false);
-            }
-
-            for(let i =0;i<posts.length;i++){
-
-                  this.deletePost.push(false);
-                  this.MarkedForPostDeletion.push(false);
-                  if(posts[i].dateAdded!=null&&posts[i].comments!=null
-                    &&posts[i].shares!=null){
-                    this.datesAdded.push(posts[i].dateAdded);
-                      this.comments.push(posts[i].comments);
-                      this.shares.push(posts[i].shares);
-                }
-
-                if(posts!=null&&posts[i].likes!=null){
-                    this.likes.push(posts[i].likes?.length);
-                    if(posts[i].likes?.includes(posts[i].username)){
-                      this.likedComments[i]=true;
-                  }
-                }
-
-              }
-
-              this.store.dispatch(new GetComments(profile.username));
-              this.commentsList$.subscribe((comments) => {
-                if(comments){
-                  // console.log(comments);
-                  this.commentsList = comments;
-          
-                  for(let i =0;i<comments.length;i++){
-                    this.deleteComment.push(false);
-                    this.MarkedForCommentDeletion.push(false);
-                    this.viewreplies.push(false);
-                    if(comments[i].replies.length>0){
-                      this.replies[i]=comments[i].replies.length;
-                    }
-                    else{
-                      this.replies[i]=0;
-                    }
-                  }
-                }
-              })
-          }
-        })
-      }
-    });
-
+    ,private formBuilder: FormBuilder) {
     this.load();
    }
 
@@ -175,10 +97,8 @@ export class SearchExploreComponent {
   }
 
 
-
    load(){
     const page = document.getElementById('home-page');
-  
   
       this.store.dispatch(new SubscribeToProfile())
       // this.store.dispatch(new SubscribeToProfile())
@@ -232,7 +152,7 @@ export class SearchExploreComponent {
     }
   
       if (type === "posts") {
-        this.store.dispatch(this.searchApi.getPostsByKeyword(keyword));
+        this.store.dispatch(new SearchPosts(keyword));
       }else {
         return;
       }
@@ -293,7 +213,7 @@ export class SearchExploreComponent {
     }
   
       if (type === "communities") {
-        this.store.dispatch(this.searchApi.getCommunitiesByKeyword(keyword));
+        this.store.dispatch(new SearchCommunities(keyword));
       }else {
         return;
       }
@@ -323,7 +243,7 @@ export class SearchExploreComponent {
     }
   
       if (type === "people") {
-        this.store.dispatch(this.searchApi.getProfilesByKeyword(keyword));
+        this.store.dispatch(new SearchProfiles(keyword));
       }else {
         return;
       }
@@ -346,12 +266,6 @@ export class SearchExploreComponent {
       })
     }
   }
-
-  postForm = this.formBuilder.group({
-  FirstName: ['', Validators.maxLength(20)],
-  LastName: ['', Validators.maxLength(20)],
-  Bio: ['', Validators.maxLength(150)],
-  });
 
   Dislike(n:number, post: PostDto){
     this.likedComments[n]=false;
@@ -376,7 +290,6 @@ export class SearchExploreComponent {
   
     this.store.dispatch(new UpdatePost(post._id, data));
   }
-
 
   Report(n:number){
 
@@ -486,104 +399,9 @@ export class SearchExploreComponent {
     this.router.navigate(['home/user-profile/' + username]);
   }
 
-
-  get FirstName(){
-    return this.postForm.get('FirstName');
-  }
-
-  get LastName() {
-    return this.postForm.get('LastName');
-  }
-
-  get Bio() {
-    return this.postForm.get('Bio');
-  }
-
 ViewPostofComment(postId: string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
-    
-async openPopup() {
-    const modal = await this.modalController.create({
-      component: CreatePostComponent,
-      cssClass: 'custom-modal', // Replace with the component or template for your popup
-      componentProps: {
-        // Add any input properties or data you want to pass to the popup component
-      }
-    });
-  
-    return await modal.present();
-  }
-  
-viewReplies(n:number){
-    for(let i=0;i<this.viewreplies.length;i++){
-      if(i!=n){
-        this.viewreplies[i]=false;
-      }
-    }
-        this.viewreplies[n] =!this.viewreplies[n];
-  }  
-        
-Edit(){
-    this.edit=true;
-  }
-       
-  Delete(n:number){
-
-    if(this.posts?.length==null){
-      return;
-    }
-
-
-    if(this.deletePost[n]==true){
-      for(let k = 0;k<this.deletePost.length;k++){
-        this.deletePost[k]=false;
-     }
-    }
-    else{
-      for(let k = 0;k<this.deletePost.length;k++){
-        this.deletePost[k]=false;
-     }
-     this.deletePost[n]=true;
-    }
-
-    this.MarkedForPostDeletion[n]=true;
-  }
-
-  Delete2(n:number){
-
-    if(this.comments?.length==null){
-      return;
-    }
-
-    if(this.deleteComment[n]==true){
-      for(let k = 0;k<this.deleteComment.length;k++){
-        this.deleteComment[k]=false;
-     }
-    }else{
-      for(let k = 0;k<this.deleteComment.length;k++){
-        this.deleteComment[k]=false;
-     }
-     this.deleteComment[n]=true;
-    }
-
-   
-     this.MarkedForCommentDeletion[n]=true;
-    
-      
-    
-  }
-
-  DeletePost(n:number,post: PostDto){
-    this.MarkedForPostDeletion[n]=false;
-    this.store.dispatch(new DeletePost(post._id));
-  }
-
-  DeleteComment(n:number,comment: CommentDto){
-    this.MarkedForCommentDeletion[n]=false;
-    this.store.dispatch(new DeleteComment(comment._id));
-  }
-  
   
   async Share(n:number, post: PostDto){
     this.shares[n]++;
@@ -630,9 +448,6 @@ Edit(){
       eventBtn.classList.remove('active-button');
       PeopleBtn.classList.remove('active-button');
     }
-
-    this.seePosts=true;
-   this.seeComments=false;
     
   }
 
@@ -648,9 +463,6 @@ Edit(){
       eventBtn.classList.remove('active-button');
       PeopleBtn.classList.remove('active-button');
     }
-
-    this.seePosts=false;
-    this.seeComments=true;
   }
 
   eventChange(){
