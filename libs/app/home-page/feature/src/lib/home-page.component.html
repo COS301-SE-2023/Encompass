@@ -108,7 +108,7 @@
             <div class="user">
               <div class="alert"></div>
               <ion-avatar slot="start">
-                <ion-img src={{notify.picture}}></ion-img>
+                <img src={{notify.picture}} onerror="this.src='assets/icon/Profile.png';">
               </ion-avatar>
               <ion-icon class="delete-icon" name="trash-bin" (click)="clearNotification(notify.notificationId)"></ion-icon>
             </div>

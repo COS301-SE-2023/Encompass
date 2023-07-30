@@ -24,7 +24,7 @@ export const categoryMappings: { [key: string]: CategoryMapping } = {
   "Mystery": { movies: ["Mystery, Thriller, Crime"], novels: ["Mystery", "Thriller", "Crime", "Suspense"] },
   "Physics": { movies: ["Science Fiction"], novels: ["Science"] },
   "Romance": { movies: ["Romance"], novels: ["Romance", "Love"] },
-  "Science-Fiction": { movies: ["Science Fiction"], novels: ["Science Fiction"] },
+  "Science-Fiction": { movies: ["Science Fiction"], novels: ["Science Fiction","Science Fiction Fantasy","Dystopia"] },
   "Western": { movies: ["Western"], novels: ["Western", "Westerns"]},
   "War": { movies: ["War"], novels: ["War", "World War II", "Holocaust"]},
 };

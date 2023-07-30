@@ -8,7 +8,7 @@
     <div class="text">Home</div>
   </ion-button> -->
 
-    <ion-card class = "PostCard">
+    <ion-card class = "PostCard" *ngIf="show">
       <div class = "PostCardHeader">
         <div class = "PostImageContainer" >
           <img src = {{post?.communityImageUrl}}  class = "postImage" 

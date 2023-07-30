@@ -12,6 +12,7 @@ import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
+import { ToastController } from '@ionic/angular';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
@@ -47,7 +48,9 @@ export class CommentsComponent {
   isValid = false;
   settings!: SettingsDto | null;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){
+  show = true;
+
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private toastController: ToastController){
     const postId = this.route.snapshot.paramMap.get('id');
     
     this.likes=0;
@@ -69,7 +72,20 @@ export class CommentsComponent {
     this.post$.subscribe((post) => {
       if(post){
         console.log(post);
-        this.post = post;
+        if(post.isPrivate){
+          if(this.profile.communities.includes(post.community)){
+            this.post = post;
+          }
+
+          else{
+            this.show = false;
+            this.throwError();
+          }
+        }
+
+        else{
+          this.post = post;
+        }
         // console.log("Categories: " + post.categories);
         this.likes = post.likes.length;
         if(this.profile==undefined){
@@ -381,5 +397,14 @@ for(let i=0;i<this.viewreplies.length;i++){
     this.likedComments=false;
     this.likes--;
   }
-}
 
+  async throwError(){
+    const toast = await this.toastController.create({
+      message: 'You do not have access to this post',
+      // duration: 2000,
+      color: 'danger'
+    })
+
+    await toast.present();
+  }
+}

@@ -230,9 +230,7 @@ load(){
               this.books = books;
               console.log("My Books:")
               console.log(this.books);
-              console.log("BOOKS are EQUAL")
               if(this.books){
-                console.log("BOOKS are EQUAL2")
       
                   this.BookTitle1 = this.books[0].title;
                   this.BookTitle2 = this.books[1].title;
@@ -377,7 +375,8 @@ load(){
                     this.BookGenres1[i]='Physics';
                   }else if(this.BookGenres1[i]=='Romance'||this.BookGenres1[i]=='Love'){
                     this.BookGenres1[i]='Romance';
-                  }else if(this.BookGenres1[i]=='Science Fiction'){
+                  }else if(this.BookGenres1[i]=='Science Fiction'||this.BookGenres1[i]=='Science Fiction Fantasy'
+                  ||this.BookGenres1[i]=='Dystopia'){
                     this.BookGenres1[i]='Science-Fiction';
                   }else if(this.BookGenres1[i]=='Westerns'){
                     this.BookGenres1[i]='Western';
@@ -401,7 +400,7 @@ load(){
                 ||this.BookGenres1[i]=='Mystery'||this.BookGenres1[i]=='Physics'
                 ||this.BookGenres1[i]=='Romance'||this.BookGenres1[i]=='Science-Fiction'
                 ||this.BookGenres1[i]=='War'||this.BookGenres1[i]=='Western'
-                ||this.BookGenres1[i]=='Thriller'||this.BookGenres1[i]=='Action'
+                ||this.BookGenres1[i]=='Drama'||this.BookGenres1[i]=='Action'
                 ||this.BookGenres1[i]=='Geography'||this.BookGenres1[i]=='Mathematics'
                 ||this.BookGenres1[i]=='Adventure'){
                   this.myBookGenres1.push(this.BookGenres1[i]);
@@ -463,7 +462,8 @@ load(){
                   this.BookGenres2[i]='Physics';
                 }else if(this.BookGenres2[i]=='Romance'||this.BookGenres2[i]=='Love'){
                   this.BookGenres2[i]='Romance';
-                }else if(this.BookGenres2[i]=='Science Fiction'){
+                }else if(this.BookGenres2[i]=='Science Fiction'||this.BookGenres2[i]=='Science Fiction Fantasy'
+                ||this.BookGenres2[i]=='Dystopia'){
                   this.BookGenres2[i]='Science-Fiction';
                 }else if(this.BookGenres2[i]=='Westerns'){
                   this.BookGenres2[i]='Western';
@@ -487,7 +487,7 @@ load(){
               ||this.BookGenres2[i]=='Mystery'||this.BookGenres2[i]=='Physics'
               ||this.BookGenres2[i]=='Romance'||this.BookGenres2[i]=='Science-Fiction'
               ||this.BookGenres2[i]=='War'||this.BookGenres2[i]=='Western'
-              ||this.BookGenres2[i]=='Thriller'||this.BookGenres2[i]=='Action'
+              ||this.BookGenres2[i]=='Drama'||this.BookGenres2[i]=='Action'
               ||this.BookGenres2[i]=='Geography'||this.BookGenres2[i]=='Mathematics'
               ||this.BookGenres2[i]=='Adventure'){
                 this.myBookGenres2.push(this.BookGenres2[i]);
@@ -523,14 +523,11 @@ load(){
               }
 
               else{
-                console.log("Movies:")
               console.log(movies);
               this.movies = movies;
               console.log("My Movies:")
               console.log(this.movies);
-              console.log("Movies are EQUAL")
               if(this.movies){
-                console.log("Movies are EQUAL2")
       
                   this.MovieTitle1 = this.movies[0].Title;
                   this.MovieTitle2 = this.movies[1].Title;
@@ -538,49 +535,6 @@ load(){
                 console.log("Movie Titles:");
                 console.log(this.MovieTitle1);
                 console.log(this.MovieTitle2);
-
-                  if(this.movies[0].Title.includes(',')){
-                    const Index = this.movies[0].Title.indexOf(',');
-                    if (Index !== -1) {
-                      this.MovieTitle1 = this.movies[0].Title.substring(0, Index );
-                    }
-                  }
-      
-                  if(this.movies[0].Title.includes(':')){
-                    const Index = this.movies[0].Title.indexOf(':');
-                    if (Index !== -1) {
-                      this.MovieTitle1 = this.movies[0].Title.substring(0, Index);
-                    }
-                  }
-      
-                  if(this.movies[0].Title.includes('/')){
-                    const Index = this.movies[0].Title.indexOf('/');
-                    if (Index !== -1) {
-                      this.MovieTitle1 = this.movies[0].Title.substring(0, Index);
-                    }
-                  }
-      
-                  if(this.movies[1].Title.includes(',')){
-                    const Index = this.movies[1].Title.indexOf(',');
-                    if (Index !== -1) {
-                      this.MovieTitle2 = this.movies[1].Title.substring(0, Index );
-                    }
-                  }
-      
-                  if(this.movies[1].Title.includes(':')){
-                    const Index = this.movies[1].Title.indexOf(':');
-                    if (Index !== -1) {
-                      this.MovieTitle2 = this.movies[1].Title.substring(0, Index);
-                    }
-                  }
-      
-                  if(this.movies[1].Title.includes('/')){
-                    const Index = this.movies[1].Title.indexOf('/');
-                    if (Index !== -1) {
-                      this.MovieTitle2 = this.movies[1].Title.substring(0, Index);
-                    }
-                  }
-      
                   
 
                 if(this.movies[0].Genre){
@@ -602,59 +556,13 @@ load(){
                 
       
                 for(let i = 0; i < this.MovieGenres1.length; i++){
-                  if(this.MovieGenres1[i]=='Picture Books'||this.MovieGenres1[i]=='Kids'
-                  ||this.MovieGenres1[i]=='Childrens'||this.MovieGenres1[i]=='Comics'){
-                    this.MovieGenres1[i]='Animation';
-                  }else if(this.MovieGenres1[i]=='Anime'||this.MovieGenres1[i]=='Manga'
-                  ||this.MovieGenres1[i]=='Comics Manga'||this.MovieGenres1[i]=='Japan'
-                  ||this.MovieGenres1[i]=='Comics'||this.MovieGenres1[i]=='Graphic Novels'){
-                    this.MovieGenres1[i]='Anime';
-                  }else if(this.MovieGenres1[i]=='Art'||this.MovieGenres1[i]=='Poetry'
-                  ||this.MovieGenres1[i]=='Philosophy'||this.MovieGenres1[i]=='Photography'){
-                    this.MovieGenres1[i]='Arts';
-                  }else if(this.MovieGenres1[i]=='Business'||this.MovieGenres1[i]=='Economics'
-                  ||this.MovieGenres1[i]=='Finance'||this.MovieGenres1[i]=='Personal Finance'){
-                    this.MovieGenres1[i]='Business';
-                  }else if(this.MovieGenres1[i]=='Comedy'||this.MovieGenres1[i]=='Humor'){
-                    this.MovieGenres1[i]='Comedy';
-                  }else if(this.MovieGenres1[i]=='Nonfiction'||this.MovieGenres1[i]=='Biography Memoir'
-                  ||this.MovieGenres1[i]=='Autobiography'||this.MovieGenres1[i]=='Memoir'){
-                    this.MovieGenres1[i]='Documentary';
-                  }else if(this.MovieGenres1[i]=='High Fantasy'||this.MovieGenres1[i]=='Magic'
-                  ||this.MovieGenres1[i]=='Dark Fantasy'||this.MovieGenres1[i]=='Supernatural'){
-                    this.MovieGenres1[i]='Fantasy';
-                  }else if(this.MovieGenres1[i]=='Historical'||this.MovieGenres1[i]=='History'
-                  ||this.MovieGenres1[i]=='Biography'||this.MovieGenres1[i]=='Memoir'
-                  ||this.MovieGenres1[i]=='European History'||this.MovieGenres1[i]=='Biography Memoir'
-                  ||this.MovieGenres1[i]=='Autobiography'||this.MovieGenres1[i]=='World History'
-                  ||this.MovieGenres1[i]=='American History'||this.MovieGenres1[i]=='Military History'
-                  ||this.MovieGenres1[i]=='Historical Fiction'){
-                    this.MovieGenres1[i]='History';
-                  }else if(this.MovieGenres1[i]=='Horror'||this.MovieGenres1[i]=='Thriller'
-                  ||this.MovieGenres1[i]=='Suspense'){
-                    this.MovieGenres1[i]='Horror';
-                  }else if(this.MovieGenres1[i]=='Food'||this.MovieGenres1[i]=='Cooking'
-                  ||this.MovieGenres1[i]=='Cookbooks'||this.MovieGenres1[i]=='Food Writing'){
-                    this.MovieGenres1[i]='Hospitality';
-                  }else if(this.MovieGenres1[i]=='Biology'||this.MovieGenres1[i]=='Evolution'){
-                    this.MovieGenres1[i]='Life-Science';
-                  }else if(this.MovieGenres1[i]=='Music'){
-                    this.MovieGenres1[i]='Musical';
-                  }else if(this.MovieGenres1[i]=='Mystery'||this.MovieGenres1[i]=='Thriller'
-                  ||this.MovieGenres1[i]=='Crime'||this.MovieGenres1[i]=='Suspense'){
+                if(this.MovieGenres1[i]=='Mystery'||this.MovieGenres1[i]=='Thriller'
+                  ||this.MovieGenres1[i]=='Crime'){
                     this.MovieGenres1[i]='Mystery';
-                  }else if(this.MovieGenres1[i]=='Science'){
-                    this.MovieGenres1[i]='Physics';
-                  }else if(this.MovieGenres1[i]=='Romance'||this.MovieGenres1[i]=='Love'){
-                    this.MovieGenres1[i]='Romance';
                   }else if(this.MovieGenres1[i]=='ScienceFiction'){
                     this.MovieGenres1[i]='Science-Fiction';
-                  }else if(this.MovieGenres1[i]=='Westerns'){
-                    this.MovieGenres1[i]='Western';
-                  }else if(this.MovieGenres1[i]=='World War II'||this.MovieGenres1[i]=='Holocaust'){
-                    this.MovieGenres1[i]='War';
                   }
-              }
+                }
 
               console.log("NEW GENRES AFTER REPLACING (1):")
               console.log(this.MovieGenres1);
@@ -672,20 +580,9 @@ load(){
                 ||this.MovieGenres1[i]=='Mystery'||this.MovieGenres1[i]=='Physics'
                 ||this.MovieGenres1[i]=='Romance'||this.MovieGenres1[i]=='Science-Fiction'
                 ||this.MovieGenres1[i]=='War'||this.MovieGenres1[i]=='Western'
-                ||this.MovieGenres1[i]=='Thriller'||this.MovieGenres1[i]=='Action'
+                ||this.MovieGenres1[i]=='Drama'||this.MovieGenres1[i]=='Action'
                 ||this.MovieGenres1[i]=='Geography'||this.MovieGenres1[i]=='Mathematics'
-                ||this.MovieGenres1[i]=='Adventure'||this.MovieGenres1[i]==' Animation'||this.MovieGenres1[i]==' Anime'
-                ||this.MovieGenres1[i]==' Arts'||this.MovieGenres1[i]==' Business'
-                ||this.MovieGenres1[i]==' Comedy'||this.MovieGenres1[i]==' Documentary'
-                ||this.MovieGenres1[i]==' Fantasy'||this.MovieGenres1[i]==' History'
-                ||this.MovieGenres1[i]==' Horror'||this.MovieGenres1[i]==' Hospitality'
-                ||this.MovieGenres1[i]==' Life-Science'||this.MovieGenres1[i]==' Musical'
-                ||this.MovieGenres1[i]==' Mystery'||this.MovieGenres1[i]==' Physics'
-                ||this.MovieGenres1[i]==' Romance'||this.MovieGenres1[i]==' Science-Fiction'
-                ||this.MovieGenres1[i]==' War'||this.MovieGenres1[i]==' Western'
-                ||this.MovieGenres1[i]==' Thriller'||this.MovieGenres1[i]==' Action'
-                ||this.MovieGenres1[i]==' Geography'||this.MovieGenres1[i]==' Mathematics'
-                ||this.MovieGenres1[i]==' Adventure'){
+                ||this.MovieGenres1[i]=='Adventure'){
                   this.myMovieGenres1.push(this.MovieGenres1[i]);
                   if(this.myMovieGenres1.length==3){
                     break;
@@ -700,58 +597,12 @@ load(){
       
                 
               for(let i = 0; i < this.MovieGenres2.length; i++){
-                if(this.MovieGenres2[i]=='Picture Books'||this.MovieGenres2[i]=='Kids'
-                ||this.MovieGenres2[i]=='Childrens'){
-                  this.MovieGenres2[i]='Animation';
-                }else if(this.MovieGenres2[i]=='Anime'||this.MovieGenres2[i]=='Manga'
-                ||this.MovieGenres2[i]=='Comics Manga'||this.MovieGenres2[i]=='Japan'
-                ||this.MovieGenres2[i]=='Comics'||this.MovieGenres2[i]=='Graphic Novels'){
-                  this.MovieGenres2[i]='Anime';
-                }else if(this.MovieGenres2[i]=='Art'||this.MovieGenres2[i]=='Poetry'
-                ||this.MovieGenres2[i]=='Philosophy'||this.MovieGenres2[i]=='Photography'){
-                  this.MovieGenres2[i]='Arts';
-                }else if(this.MovieGenres2[i]=='Business'||this.MovieGenres2[i]=='Economics'
-                ||this.MovieGenres2[i]=='Finance'||this.MovieGenres1[i]=='Personal Finance'){
-                  this.MovieGenres2[i]='Business';
-                }else if(this.MovieGenres2[i]=='Comedy'||this.MovieGenres2[i]=='Humor'){
-                  this.MovieGenres2[i]='Comedy';
-                }else if(this.MovieGenres2[i]=='Nonfiction'||this.MovieGenres2[i]=='Biography Memoir'
-                ||this.MovieGenres2[i]=='Autobiography'||this.MovieGenres2[i]=='Memoir'){
-                  this.MovieGenres2[i]='Documentary';
-                }else if(this.MovieGenres2[i]=='High Fantasy'||this.MovieGenres2[i]=='Magic'
-                ||this.MovieGenres2[i]=='Dark Fantasy'||this.MovieGenres2[i]=='Supernatural'){
-                  this.MovieGenres2[i]='Fantasy';
-                }else if(this.MovieGenres2[i]=='Historical'||this.MovieGenres2[i]=='History'
-                ||this.MovieGenres2[i]=='Biography'||this.MovieGenres2[i]=='Memoir'
-                ||this.MovieGenres2[i]=='European History'||this.MovieGenres2[i]=='Biography Memoir'
-                ||this.MovieGenres2[i]=='Autobiography'||this.MovieGenres2[i]=='World History'
-                ||this.MovieGenres2[i]=='American History'||this.MovieGenres2[i]=='Military History'
-                ||this.MovieGenres2[i]=='Historical Fiction'){
-                  this.MovieGenres2[i]='History';
-                }else if(this.MovieGenres2[i]=='Horror'||this.MovieGenres2[i]=='Thriller'
-                ||this.MovieGenres2[i]=='Suspense'){
-                  this.MovieGenres2[i]='Horror';
-                }else if(this.MovieGenres2[i]=='Food'||this.MovieGenres2[i]=='Cooking'
-                ||this.MovieGenres2[i]=='Cookbooks'||this.MovieGenres2[i]=='Food Writing'){
-                  this.MovieGenres2[i]='Hospitality';
-                }else if(this.MovieGenres2[i]=='Biology'||this.MovieGenres2[i]=='Evolution'){
-                  this.MovieGenres2[i]='Life-Science';
-                }else if(this.MovieGenres2[i]=='Music'){
-                  this.MovieGenres2[i]='Musical';
-                }else if(this.MovieGenres2[i]=='Mystery'||this.MovieGenres2[i]=='Thriller'
-                ||this.MovieGenres2[i]=='Crime'||this.MovieGenres2[i]=='Suspense'){
-                  this.MovieGenres2[i]='Mystery';
-                }else if(this.MovieGenres2[i]=='Science'){
-                  this.MovieGenres2[i]='Physics';
-                }else if(this.MovieGenres2[i]=='Romance'||this.MovieGenres2[i]=='Love'){
-                  this.MovieGenres2[i]='Romance';
-                }else if(this.MovieGenres2[i]=='ScienceFiction'){
-                  this.MovieGenres2[i]='Science-Fiction';
-                }else if(this.MovieGenres2[i]=='Westerns'){
-                  this.MovieGenres2[i]='Western';
-                }else if(this.MovieGenres2[i]=='World War II'||this.MovieGenres2[i]=='Holocaust'){
-                  this.MovieGenres2[i]='War';
-                }
+                if(this.MovieGenres2[i]=='Mystery'||this.MovieGenres2[i]=='Thriller'
+                  ||this.MovieGenres2[i]=='Crime'){
+                    this.MovieGenres2[i]='Mystery';
+                  }else if(this.MovieGenres2[i]=='ScienceFiction'){
+                    this.MovieGenres2[i]='Science-Fiction';
+                  }
             }
 
             console.log("NEW GENRES AFTER REPLACING (2):")
@@ -769,20 +620,9 @@ load(){
               ||this.MovieGenres2[i]=='Mystery'||this.MovieGenres2[i]=='Physics'
               ||this.MovieGenres2[i]=='Romance'||this.MovieGenres2[i]=='Science-Fiction'
               ||this.MovieGenres2[i]=='War'||this.MovieGenres2[i]=='Western'
-              ||this.MovieGenres2[i]=='Thriller'||this.MovieGenres2[i]=='Action'
+              ||this.MovieGenres2[i]=='Drama'||this.MovieGenres2[i]=='Action'
               ||this.MovieGenres2[i]=='Geography'||this.MovieGenres2[i]=='Mathematics'
-              ||this.MovieGenres2[i]=='Adventure'||this.MovieGenres2[i]==' Animation'||this.MovieGenres2[i]==' Anime'
-              ||this.MovieGenres2[i]==' Arts'||this.MovieGenres2[i]==' Business'
-              ||this.MovieGenres2[i]==' Comedy'||this.MovieGenres2[i]==' Documentary'
-              ||this.MovieGenres2[i]==' Fantasy'||this.MovieGenres2[i]==' History'
-              ||this.MovieGenres2[i]==' Horror'||this.MovieGenres2[i]==' Hospitality'
-              ||this.MovieGenres2[i]==' Life-Science'||this.MovieGenres2[i]==' Musical'
-              ||this.MovieGenres2[i]==' Mystery'||this.MovieGenres2[i]==' Physics'
-              ||this.MovieGenres2[i]==' Romance'||this.MovieGenres2[i]==' Science-Fiction'
-              ||this.MovieGenres2[i]==' War'||this.MovieGenres2[i]==' Western'
-              ||this.MovieGenres2[i]==' Thriller'||this.MovieGenres2[i]==' Action'
-              ||this.MovieGenres2[i]==' Geography'||this.MovieGenres2[i]==' Mathematics'
-              ||this.MovieGenres2[i]==' Adventure'){
+              ||this.MovieGenres2[i]=='Adventure'){
                 this.myMovieGenres2.push(this.MovieGenres2[i]);
                 if(this.myMovieGenres2.length==3){
                   break;

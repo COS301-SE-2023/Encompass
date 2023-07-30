@@ -53,7 +53,13 @@
                     <div class = "Name"> @{{post.username}}</div>
                   </div>
                   <div style = "display: flex; margin-right: 1.5%; ">
-  
+                    <label class = "report" *ngIf="deletePost[i]&&MarkedForPostDeletion[i]" 
+                    (click)="DeletePost(i,post)">Delete Post</label>
+                    <label class = "report" *ngIf="deletePost[i]&&!MarkedForPostDeletion[i]" 
+                    style = "color:red">Post Deleted</label>
+                    
+                    <button class = "Options" (click)="Delete(i)"> 
+                      <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
                   </div>
         
                  </div>
@@ -199,6 +205,7 @@
             fill="clear"
             size="medium"
             color="dark"
+            (click)="shareProfile()"
             class="edit-button">
             <ion-icon name="share-social"></ion-icon>
           </ion-button>

@@ -2,16 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile, UpdatePost } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
-import { UpdatePost } from '@encompass/app/home-page/util';
 import { CommentDto } from '@encompass/api/comment/data-access';
 import {DeletePost} from '@encompass/app/profile/util';
 import {DeleteComment} from '@encompass/app/profile/util';
@@ -40,6 +39,8 @@ export class ProfilePage {
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
   @Select(ProfileState.otherUsers) otherUsers$! : Observable<ProfileDto[] | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   file!: File;
   fileBanner!: File;
@@ -70,6 +71,7 @@ export class ProfilePage {
    MarkedForCommentDeletion: boolean[] = [];
    MarkedForPostDeletion: boolean[] = [];
 
+  isPostsFetched = false;
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
     ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
@@ -79,8 +81,11 @@ export class ProfilePage {
         console.log(profile);
         this.profile = profile;
 
-        this.store.dispatch(new GetPosts(profile.username));
-        this.posts$.subscribe((posts) => {
+        if(!this.isPostsFetched){
+          this.isPostsFetched = true;
+
+          this.store.dispatch(new GetPosts(profile.username));
+        this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
           if(posts){
             this.posts = posts;
             this.size=posts.length-1;
@@ -130,6 +135,7 @@ export class ProfilePage {
               })
           }
         })
+        }
       }
     });
 
@@ -187,7 +193,11 @@ export class ProfilePage {
 
   });
 
- 
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   get FirstName(){
     return this.postForm.get('FirstName');
@@ -292,6 +302,10 @@ Edit(){
   
   
   async Share(n:number, post: PostDto){
+
+    if(this.profile == null){
+      return;
+    }
     this.shares[n]++;
     for(let i =0;i<this.sharing.length;i++){
       this.sharing[i]=false;
@@ -317,9 +331,9 @@ Edit(){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   
-    const link : string = obj + '/app-comments-feature/' + post._id;
+    const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
   }
@@ -539,11 +553,24 @@ Edit(){
     this.router.navigate(['user-profile/' + username]);
   }
 
+  async shareProfile(){
+    const obj = location.origin
+    if(obj == undefined){
+      return;
+    }
 
+    const link: string = obj + '/home/user-profile/' + this.profile?.username;
+
+    await navigator.clipboard.writeText(link)
+  }
   
   
   Like(n:number, post: PostDto){
-   
+  
+    if(this.profile == null){
+      return;
+    }
+
     let likesArr : string[];
   
     console.log(this.profile?.username + " LIKED POST");
@@ -575,10 +602,14 @@ Edit(){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   }
   
   Dislike(n:number, post: PostDto){
+    if(this.profile == null){
+      return;
+    }
+
     this.likedComments[n]=false;
     this.likes[n]--;
   
@@ -599,6 +630,6 @@ Edit(){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   }
 } 
