@@ -40,6 +40,7 @@ export class SearchExploreComponent {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   myCommunities! : CommunityDto[] | null;
+  
 
   profile! : ProfileDto | null;
   posts : PostDto[] = [];
@@ -57,13 +58,19 @@ export class SearchExploreComponent {
    communitiesIsFetched = false
    peopleIsFetched = false
    keyword = '';
+   postsVisible = false;
+   communityVisible = false;
+    peopleVisible = false;
 
    postReported : boolean[] = [];
    reports : boolean[] =[];
+   selectedCommunity: string | undefined;
+   selectedCommunities : string[]=[];
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
     ,private formBuilder: FormBuilder) {
+
     this.load();
    }
 
@@ -76,10 +83,7 @@ export class SearchExploreComponent {
       // If the search keyword is empty, return
       return;
     }else {
-      this.addPosts("posts", this.keyword);
-      // this.addPosts("communities", keyword);
-      // this.addPosts("people", keyword);
-      // this.addPosts("events", keyword);
+      this.postChange();
     }
 
    
@@ -136,6 +140,11 @@ export class SearchExploreComponent {
   }
 
   async addPosts(type: string, keyword: string){
+    this.postsVisible=true;
+    this.communityVisible=false;
+    this.peopleVisible=false;
+    console.log("adding posts")
+
     if(this.profile == null){
       return;
     }
@@ -197,6 +206,11 @@ export class SearchExploreComponent {
   }
 
   async addCommunities(type: string, keyword: string){
+    this.postsVisible=false;
+    this.communityVisible=true;
+    this.peopleVisible=false;
+    console.log("adding communities")
+
     if(this.profile == null){
       return;
     }
@@ -227,6 +241,10 @@ export class SearchExploreComponent {
   }
 
   async addPeople(type: string, keyword: string){
+    this.postsVisible=false;
+    this.communityVisible=false;
+    this.peopleVisible=true;
+    console.log("adding people")
     if(this.profile == null){
       return;
     }
@@ -254,6 +272,26 @@ export class SearchExploreComponent {
         }
       })
     }
+  }
+
+  buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
+
+  handleButtonClick(buttonId: string, CommunityName: string) {
+    this.selectedCommunity = CommunityName;
+
+    this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+    if(!this.selectedCommunities.includes(CommunityName))
+    {
+
+      this.selectedCommunities.push(this.selectedCommunity);
+
+    }else{
+      this.selectedCommunities=this.selectedCommunities.filter((community) => community !== this.selectedCommunity);
+
+    }
+
+    console.log(this.selectedCommunities);
   }
 
   Dislike(n:number, post: PostDto){
@@ -438,6 +476,7 @@ ViewPostofComment(postId: string){
       PeopleBtn.classList.remove('active-button');
     }
     
+    this.addPosts("posts", this.keyword);
   }
 
   commChange(){
@@ -452,6 +491,8 @@ ViewPostofComment(postId: string){
       eventBtn.classList.remove('active-button');
       PeopleBtn.classList.remove('active-button');
     }
+
+    this.addCommunities("communities", this.keyword);
   }
 
   eventChange(){
@@ -466,6 +507,8 @@ ViewPostofComment(postId: string){
       eventBtn.classList.add('active-button');
       PeopleBtn.classList.remove('active-button');
     }
+
+    
   }
 
   peopleChange(){
@@ -473,6 +516,7 @@ ViewPostofComment(postId: string){
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
     const PeopleBtn = document.getElementById('PeopleBtn');
+    console.log("people change")
 
     if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
       PostBtn.classList.remove('active-button');
@@ -480,6 +524,8 @@ ViewPostofComment(postId: string){
       eventBtn.classList.remove('active-button');
       PeopleBtn.classList.add('active-button');
     }
+
+    this.addPeople("people", this.keyword);
   }
 
   GoToComments(postId : string){

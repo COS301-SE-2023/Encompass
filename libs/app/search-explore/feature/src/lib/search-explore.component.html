@@ -20,12 +20,12 @@
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
+              <ion-button id="PeopleBtn" fill="clear" class="none buttonStyle" (click)="peopleChange()">
                 <span>People</span>
               </ion-button>
             </ion-col>
             <ion-col size="2">
-              <ion-button id="PeopleBtn" fill="clear" class="none buttonStyle" (click)="peopleChange()">
+              <ion-button id="eventBtn" fill="clear" class="none buttonStyle" (click)="eventChange()">
                 <span>Events</span>
               </ion-button>
             </ion-col>
@@ -38,15 +38,15 @@
   <div class="overlay-container">
     <ion-grid>
       <ion-row class="row-filter">
-        <ion-col size="5">
+        <ion-col size="5" *ngIf="postsVisible">
 
   
   
           <!-- posts -->
           <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)" -->
-          <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
+          <div  *ngFor="let post of posts?.slice()?.reverse();let i = index">
   
-            <ion-card class = "PostCard card-styles" >
+            <ion-card *ngIf="post.text && post.text.toLowerCase().includes((keyword ?? '').toLowerCase())" class = "PostCard card-styles" >
 
               <div class = "PostCardHeader">
                 <div class = "PostImageContainer" >
@@ -101,7 +101,7 @@
                       <img src = {{post.imageUrl}} style="border-radius: 15px;" >
                     </div>
                     <br>
-                    <span *ngIf="post.text && post.text.toLowerCase().includes((keyword ?? '').toLowerCase())">{{post.text}}</span>
+                    <span>{{post.text}}</span>
                 </div>
               </div>
               <div class = "PostFooter">
@@ -141,8 +141,8 @@
 
 
         <!-- communities -->
-            <!-- <ion-col size="8" class="fullSearch">
-              <div class="communitiesSearch">
+            <ion-col size="8" class="fullSearch" *ngIf="!postsVisible">
+              <div class="communitiesSearch" *ngIf="communityVisible">
                 <ion-card class = "SearchCommunityCard">
                   <div class = "SearchCommunityHeader"> 
                     <img src = "assets/icon/Alien.jpg" class = "SearchCommunityIcon" >
@@ -168,11 +168,37 @@
                       </div>
                  </ion-card>
 
+                 <ion-card class = "CommunityCard">
+                  <div class="card-color">
+                  <div class = "CommunityHeader"> 
+                    <img src = {{communities[1].groupImage}} 
+                    onerror="this.src='assets/icon/Group.png';"
+                    class = "CommunityIcon" >                     
+                    <div class = "CommunityDetails" >
+                      <div class = "CommunityName">{{communities[1].name}}</div>
+                     <div class = "CommunityMembers">Members: {{communities[1].members.length}}</div>
+                     <div class = "CommunityGenres">
+                      <img *ngFor="let category of communities[1].categories;" src = "assets/icon/{{category}}.png" class="imgDiv">
+                    </div>
+                   </div>
+                   <div class = "CommunityAdd">
+                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',communities[1].name)">
+                      <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                    </button>
+                   </div>
+                   </div>
+                   <div class = "CommunityBody">
+                    <div class = "CommunityDesc">{{communities[1].about}}</div>
+                      </div>
+                    </div>
+                 </ion-card>
 
+                </div>
 
 
                  <!-- people -->
-                 <!--<ion-card class="peopleCard">
+                 <div class="peopleSearch" *ngIf="peopleVisible">
+                  <ion-card class="peopleCard" >
                   <ion-list class="peopleList">
                     <ion-item class="peopleItem">
                       <ion-avatar class="peopleAvatar">
@@ -186,18 +212,34 @@
                         <span class="personDesc">This is my profile :)</span>
                       </div>
                       <ion-button slot="end" class="followButton">Follow</ion-button>
-                      <!-- <ion-button *ngIf="" slot="end" class="followButton">Unfollow</ion-button> -->
+                       <ion-button *ngIf="" slot="end" class="followButton">Unfollow</ion-button> 
 
-                    <!--</ion-item>
+                    </ion-item>
+
+                    <ion-item class="peopleItem" *ngFor="let people of profiles">
+                      <ion-avatar class="peopleAvatar">
+                        <img src="{{people?.profileImage}}" class="peopleIcon">
+                      </ion-avatar>
+                      <div class="personDetails">
+                        <div class="nameAndUsername">
+                          <span class="personName">{{people?.name}} {{people?.lastName}}</span>
+                          <span class="personUsername">{{people?.username}}</span>
+                        </div>
+                        <span class="personDesc">{{people?.bio}}</span>
+                      </div>
+                      <ion-button slot="end" class="followButton">Follow</ion-button>
+                       <ion-button *ngIf="" slot="end" class="followButton">Unfollow</ion-button> 
+
+                    </ion-item>
                   </ion-list>
                  
                   
                  </ion-card>
+                 </div>
 
 
-
-              </div>
-            </ion-col> -->
+              
+            </ion-col>
   
   
   
@@ -207,7 +249,7 @@
   
         <!-- recommendations -->
         <!-- style="display: none;" -->
-        <ion-col size="4" >
+        <ion-col size="4" *ngIf="postsVisible">
           <ion-card class="recomcard" >
           <div>
               <div class = "RecomCommunities" >
