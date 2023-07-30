@@ -1,17 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpStatus, INestApplication } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from './app.module';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-// import { AppModule } from '../../../api/src/app/app.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { getModelToken } from '@nestjs/mongoose';
-import { commentDtoStub } from './stubs/comment.dto.stub'; // Import the commentDtoStub
-import mongoose, { Schema, Document, Model, Connection } from 'mongoose';
-import { CommentController, CommentModule } from '@encompass/api/comment/data-access';
+import { commentDtoStub } from './stubs/comment.dto.stub';
+import mongoose, { Schema, Document, Connection } from 'mongoose';
 import { commentStub } from './stubs/comment.stub';
 import { commentWithReplyStub } from './stubs/commentWithReply.stub';
-import { DatabaseService } from './database.service';
 
 
 export interface Reply {
@@ -25,7 +20,7 @@ export interface Comment extends Document {
   postId: string;
   username: string;
   text: string;
-  replies: Reply[]; // Use the Reply interface for the replies property
+  replies: Reply[];
   dateAdded: Date;
   profileImage: string;
 }
