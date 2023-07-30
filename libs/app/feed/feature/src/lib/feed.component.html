@@ -327,7 +327,7 @@
           <div class="contentrecs">
            
           
-            <div class="media-item" *ngIf="books">
+            <div class="media-item" *ngIf="books&&ShowBooks">
               <div class="imges">
                 <img src = {{books[0].coverImg}} class = "MediaImage"
                 onerror="this.src='assets/icon/Books.png';"
@@ -344,7 +344,7 @@
                 </div>  
               </div>
             </div>
-            <div class="media-item" *ngIf="books">
+            <div class="media-item" *ngIf="books&&ShowBooks">
               <div class="imges">
                 <img src = {{books[1].coverImg}} class = "MediaImage"
                 onerror="this.src='assets/icon/Books.png';"
@@ -362,9 +362,10 @@
               </div>
             </div>
              
-            <div class="media-item" *ngIf="movies">
+            <div class="media-item" *ngIf="movies&&ShowMovies">
               <div class="imges">
                 <img src = {{movies[0].Poster_Url}} class = "MediaImage"
+                onerror="this.src='assets/icon/Movies.png';"
                 >
               </div>
               <div class="media-info">
@@ -377,9 +378,10 @@
                 </div> 
               </div>
             </div>
-            <div class="media-item" *ngIf="movies">
+            <div class="media-item" *ngIf="movies&&ShowMovies">
               <div class="imges">
                 <img src = {{movies[1].Poster_Url}} class = "MediaImage"
+                onerror="this.src='assets/icon/Movies.png';"
                 >
               </div>
               <div class="media-info">
