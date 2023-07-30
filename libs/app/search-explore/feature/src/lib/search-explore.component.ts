@@ -26,6 +26,7 @@ import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
+import { CommunityDto } from '@encompass/api/community/data-access';
 
 
 
@@ -47,9 +48,10 @@ export class SearchExploreComponent {
 
   @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
   @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
-  @Select(SearchState.searchCommunities) searchCommunities$! : Observable<ProfileDto[] | null>;
+  @Select(SearchState.searchCommunities) searchCommunities$! : Observable<CommunityDto[] | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
+  myCommunities! : CommunityDto[] | null;
 
 
   file!: File;
@@ -58,7 +60,8 @@ export class SearchExploreComponent {
   fileNameBanner!: string;
   profile! : ProfileDto | null;
   posts : PostDto[] = [];
-  communities! : PostDto[] | null;
+  communities! : CommunityDto[];
+  profiles! : ProfileDto[];
   commentsList!: CommentDto[] | null;
   settings!: SettingsDto | null;
   datesAdded : string[] = [];
@@ -76,6 +79,8 @@ export class SearchExploreComponent {
    hasImage=false;
    hasBanner=false;
    postsIsFetched = false
+   communitiesIsFetched = false
+   peopleIsFetched = false
    keyword = '';
 
    deletePost: boolean[] = [];
@@ -241,15 +246,9 @@ export class SearchExploreComponent {
           this.posts = [];
           const temp = posts;
           temp.forEach((post) => {
-            if(post.isPrivate){
-              if(this.profile?.communities.includes(post.community)){
-                this.posts.push(post);
-              }
-            }
-  
-            else{
+            
               this.posts.push(post);
-            }
+            
           })
   
           // this.posts = posts;
@@ -282,6 +281,66 @@ export class SearchExploreComponent {
             }
   
           }
+  
+        }
+      })
+    }
+  }
+
+  async addCommunities(type: string, keyword: string){
+    if(this.profile == null){
+      return;
+    }
+  
+      if (type === "communities") {
+        this.store.dispatch(this.searchApi.getCommunitiesByKeyword(keyword));
+      }else {
+        return;
+      }
+
+      if(!this.communitiesIsFetched){
+        
+        this.communitiesIsFetched = true; 
+        this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
+        if(communities){
+          // console.log("POSTS:")
+          this.communities = [];
+          const temp = communities;
+          temp.forEach((community) => {
+           
+              this.communities.push(community);
+            
+          })
+  
+        }
+      })
+    }
+  }
+
+  async addPeople(type: string, keyword: string){
+    if(this.profile == null){
+      return;
+    }
+  
+      if (type === "people") {
+        this.store.dispatch(this.searchApi.getProfilesByKeyword(keyword));
+      }else {
+        return;
+      }
+
+      if(!this.peopleIsFetched){
+        
+        this.peopleIsFetched = true; 
+        this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
+        if(profiles){
+          // console.log("POSTS:")
+          this.profiles = [];
+          const temp = profiles;
+          temp.forEach((person) => {
+           
+              this.profiles.push(person);
+            
+          })
   
         }
       })
