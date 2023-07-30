@@ -91,7 +91,7 @@ export class CreateCommunityComponent {
   checkInput(){
     if(this.title?.value == null || this.title?.value == undefined
       ||this.category?.value==null||this.category?.value==undefined
-      || this.title?.value =="" ){
+      || this.title?.value ==""){
       this.isValid = false;
       }else{
         this.isValid = true;
@@ -103,6 +103,8 @@ export class CreateCommunityComponent {
       if(this.selections.length > 3){
         this.selections=this.selections.slice(0,3);
       }
+
+      
   
       const newCategoryValues = this.selections;
       const categoryControl = this.postForm.get('category');
