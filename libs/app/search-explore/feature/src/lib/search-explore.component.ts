@@ -20,10 +20,12 @@ import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileApi } from '@encompass/app/profile/data-access';
 import { SearchState } from '@encompass/app/search-explore/data-access';
+import { SearchApi } from '@encompass/app/search-explore/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { takeUntil, pipe, Subject, take } from 'rxjs';
 
 
 
@@ -47,13 +49,16 @@ export class SearchExploreComponent {
   @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
   @Select(SearchState.searchCommunities) searchCommunities$! : Observable<ProfileDto[] | null>;
 
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
 
   file!: File;
   fileBanner!: File;
   fileName!: string;
   fileNameBanner!: string;
   profile! : ProfileDto | null;
-  posts! : PostDto[] | null;
+  posts : PostDto[] = [];
+  communities! : PostDto[] | null;
   commentsList!: CommentDto[] | null;
   settings!: SettingsDto | null;
   datesAdded : string[] = [];
@@ -70,6 +75,8 @@ export class SearchExploreComponent {
    edit=false;
    hasImage=false;
    hasBanner=false;
+   postsIsFetched = false
+   keyword = '';
 
    deletePost: boolean[] = [];
    deleteComment: boolean[] =[];
@@ -80,7 +87,7 @@ export class SearchExploreComponent {
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
-    ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
+    ,private formBuilder: FormBuilder, private profileApi: ProfileApi, private searchApi: SearchApi) {
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -145,6 +152,23 @@ export class SearchExploreComponent {
    }
 
 
+   async search(event: any) {
+    this.keyword = event.detail.value;
+    console.log("KEYWORD: " + this.keyword);
+
+    if (!this.keyword) {
+      // If the search keyword is empty, return
+      return;
+    }else {
+      this.addPosts("posts", this.keyword);
+      // this.addPosts("communities", keyword);
+      // this.addPosts("people", keyword);
+      // this.addPosts("events", keyword);
+    }
+
+   
+  }
+
 
 
    load(){
@@ -160,7 +184,7 @@ export class SearchExploreComponent {
           console.log(profile); 
           this.profile = profile;
           // this.addPosts("recommended");
-          this.newChange();
+          this.postChange();
   
           this.store.dispatch(new GetUserSettings(this.profile._id))
           
@@ -191,11 +215,83 @@ export class SearchExploreComponent {
       });
   }
 
-   postForm = this.formBuilder.group({
-    FirstName: ['', Validators.maxLength(20)],
-    LastName: ['', Validators.maxLength(20)],
-    Bio: ['', Validators.maxLength(150)],
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
+  async addPosts(type: string, keyword: string){
+    if(this.profile == null){
+      return;
+    }
+  
+      if (type === "posts") {
+        this.store.dispatch(this.searchApi.getPostsByKeyword(keyword));
+      }else {
+        return;
+      }
+
+      if(!this.postsIsFetched){
+        
+        this.postsIsFetched = true; 
+        this.searchPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+        if(posts){
+          // console.log("POSTS:")
+          this.posts = [];
+          const temp = posts;
+          temp.forEach((post) => {
+            if(post.isPrivate){
+              if(this.profile?.communities.includes(post.community)){
+                this.posts.push(post);
+              }
+            }
+  
+            else{
+              this.posts.push(post);
+            }
+          })
+  
+          // this.posts = posts;
+          this.size=posts.length-1;
+          // console.log("SIZE: " + this.size)
+          for(let i =0;i<posts.length;i++){
+            this.likedComments.push(false);
+            this.sharing.push(false);
+  
+            this.reports.push(false);
+            this.postReported.push(false);
+  
+            if(posts[i].dateAdded!=null&&posts[i].comments!=null
+              &&posts[i].shares!=null){
+              this.datesAdded.push(posts[i].dateAdded);
+              this.comments.push(posts[i].comments);
+              this.shares.push(posts[i].shares);
+            }
+  
+            if(posts!=null&&posts[i].likes!=null){
+              this.likes.push(posts[i].likes?.length);
+              
+  
+              if(this.profile==undefined){
+                return;
+              }
+              if(posts[i].likes.includes(this.profile.username)){
+                this.likedComments[i]=true;
+              } 
+            }
+  
+          }
+  
+        }
+      })
+    }
+  }
+
+  postForm = this.formBuilder.group({
+  FirstName: ['', Validators.maxLength(20)],
+  LastName: ['', Validators.maxLength(20)],
+  Bio: ['', Validators.maxLength(150)],
   });
 
   Dislike(n:number, post: PostDto){
@@ -322,22 +418,6 @@ export class SearchExploreComponent {
     this.store.dispatch(new UpdatePost(post._id, data));
   }
   
- 
-  recChange(){
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-
-    if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.add('active-button-filter');
-      newBtn.classList.remove('active-button-filter');
-      popBtn.classList.remove('active-button-filter');
-      eventBtn.classList.remove('active-button-filter');
-
-    }
-  }
 
   GoToCommunity(communityName:string){
     this.router.navigate(['home/community-profile/' + communityName]);
@@ -347,39 +427,6 @@ export class SearchExploreComponent {
     this.router.navigate(['home/user-profile/' + username]);
   }
 
-  newChange(){
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-
-    if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.remove('active-button-filter');
-      newBtn.classList.add('active-button-filter');
-      popBtn.classList.remove('active-button-filter');
-      eventBtn.classList.remove('active-button-filter');
-
-    }
-  }
-
-
-
-  popChange(){
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-
-    if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.remove('active-button-filter');
-      newBtn.classList.remove('active-button-filter');
-      popBtn.classList.add('active-button-filter');
-      eventBtn.classList.remove('active-button-filter');
-
-    }
-  }
 
   get FirstName(){
     return this.postForm.get('FirstName');
@@ -578,155 +625,6 @@ Edit(){
   GoToComments(postId : string){
     this.router.navigate(['home/app-comments-feature/' + postId]);
   }
-
-  presentingElement: any;
-  presentingElement2: any;
-
-  ngOnInit() {
-    this.presentingElement = document.querySelector('.ion-page');
-    this.presentingElement2 = document.querySelector('.ion-page');
-  }
-
-  FinishEdit(){
-
-    this.edit=false;
-    this.hasImage = false;
-    this.hasBanner = false;
-
-  }
-
-  insertImage() {
-    this.hasImage = !this.hasImage;
-  }
-
-  insertBanner() {
-    this.hasBanner = !this.hasBanner;
-  }
-
-  onFileSelected(event: any) {
-
-    const file:File = event.target.files[0];
-
-    if (file) {
-        this.file = file;
-        this.fileName = file.name;
-    }
-  }
-
-  onFileBannerSelected(event: any) {
-
-    const file:File = event.target.files[0];
-
-    if (file) {
-        this.fileBanner = file;
-        this.fileNameBanner = file.name;
-    }
-  }
-
-  async onSubmit(){
-
-    console.log("OH HELLO THERE!!!!!!");
-    if(this.profile == null){
-      return;
-    }
-
-    let textData : string;
-
-    let First : string;
-    let Last : string;
-    let bioData : string;
-
-    let imageUrl : string | null;
-    let bannerUrl : string | null;
-
-    if(this.file){
-      imageUrl = await this.uploadImage(this.file, this.fileName);
-
-      if(imageUrl == null){
-        imageUrl = this.profile?.profileImage;
-      }
-    }
-
-    else{
-      imageUrl = this.profile?.profileImage;
-    }
-
-    if(this.fileBanner){
-      bannerUrl = await this.uploadImage(this.fileBanner, this.fileNameBanner);
-
-      if(bannerUrl == null){
-        bannerUrl = this.profile?.profileBanner;
-      }
-    }
-
-    else{
-      bannerUrl = this.profile?.profileBanner;
-    }
-
-    if(this.FirstName?.value == null || this.FirstName?.value == undefined){
-      First = "";
-    }
-    else{
-      First = this.FirstName?.value;
-    }
-
-    if(this.LastName?.value == null || this.LastName?.value == undefined){
-      Last = "";
-    }
-    else{
-      Last = this.LastName?.value;
-    }
-
-    if(this.Bio?.value == null || this.Bio?.value == undefined){
-      bioData = "";
-    }
-    else{
-      bioData = this.Bio?.value;
-    }
-
-    const data : UpdateProfileRequest = {
-  username: this.profile?.username,
-  name: First,
-  lastName: Last,
-  categories:  this.profile?.categories,
-  communities: this.profile?.communities,
-  awards: this.profile?.awards,
-  events: this.profile?.events,
-  followers: this.profile?.followers,
-  following: this.profile?.following,
-  posts: this.profile?.posts,
-  reviews: this.profile?.reviews,
-  profileImage: imageUrl,
-  profileBanner: bannerUrl,
-  bio: bioData,
-
-    }
-
-    this.store.dispatch(new UpdateProfile(data,this.profile?._id));
-  }
-
-  async uploadImage(file: File, fileName: string) : Promise<string | null>{
-    return new Promise((resolve) => {
-      const formData = new FormData();
-      formData.append('file', file, fileName);
-
-      const uploadFile = this.profileApi.uploadFile(formData)
-      console.log(uploadFile);
-      resolve(uploadFile);
-    })
-  }
-
-  collapse1 = false;
-  collapse2 = false;
-
-  Collapse1(){
-    this.collapse1 = !this.collapse1;
-  }
-  Collapse2(){
-    this.collapse2 = !this.collapse2;
-  }
-
-  
 
 
 }

@@ -5,7 +5,8 @@
       <div class="toolbar-content">
         <ion-grid>
           <ion-row class="row-filter">
-            <ion-searchbar class="searchbar" placeholder="Search"></ion-searchbar>
+            <ion-searchbar class="searchbar" placeholder="Search" (ionChange)="search($event)"
+            ></ion-searchbar>
           </ion-row>
           <ion-row class="row-filter">
             <ion-col size="2">
@@ -100,7 +101,7 @@
                       <img src = {{post.imageUrl}} style="border-radius: 15px;" >
                     </div>
                     <br>
-                    {{post.text}}
+                    <span *ngIf="post.text && post.text.toLowerCase().includes((keyword ?? '').toLowerCase())">{{post.text}}</span>
                 </div>
               </div>
               <div class = "PostFooter">
