@@ -85,6 +85,7 @@
   // height: 80%;
   font-family: CustomFont;
   text-transform: none;
+  padding: 3%;
 
 }
 
@@ -94,28 +95,29 @@ btn1:hover{
 .btn2{
   border: 1px solid #231942;
   border-radius: 25px;
-  background-color: #CECAE3;
+  background-color: hsl(250, 31%, 84%);
   color:#231942;
   z-index: 3;
   width: 100%;
-  height: 80%;
+  // height: 80%;
   font-family: CustomFont;
-  text-transform: none;
+   text-transform: none;
+  padding: 3%;
+
 
 }
 
 
   .ForgotPassword{
-    width: 90%;
-    text-align: center;
+    //  width: 90%;
+     text-align: center;
     color: white;
     font-size: small;
-    
-    position: relative;
-    height: 70px;
+    // height: 70px;
     --checkbox-background-checked: #6815ec;
     --size: 28px;
-    --padding-end: 0;
+    // --padding-end: 0;
+
   }
 
   .Title{
@@ -136,9 +138,12 @@ btn1:hover{
   }
 
 .options {
-    // margin-top: 30px;
-    text-align: center;
-
+     margin-top: 10px;
+    // text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
 .login {
@@ -197,9 +202,18 @@ btn1:hover{
   background-color: #aaa; 
 }
 
-.options {
-  span {
+.warning{
     color: rgba(255, 0, 0, 0.726);
     font-size: 12px;
+    margin-bottom:10px;
   }
+
+
+.TOS{
+  color: white;
+  margin-bottom: 10px;
+}
+.TOS:hover {
+  cursor: pointer;
+  color: #8231DD;
 }
