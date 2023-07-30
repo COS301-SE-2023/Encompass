@@ -1249,3 +1249,41 @@ ion-button:hover {
   }
   
   
+  //Viewing Communities
+
+.CommunityHead{
+  text-align: center;
+  vertical-align: middle;
+}
+.ViewCommunity{
+  
+  margin-bottom: 2%;
+}
+
+.JoinedCommunity{
+  font-size: 20px;
+  color: black;
+  font-family: CustomFont;
+  margin-left: 5%;
+}
+
+.JoinedCommunity:hover{
+  cursor: pointer;
+  color: var(--hover-color);
+}
+
+.Button3{
+  border-radius: 30px;
+font-size: 20px;
+margin-top:2%;
+margin-bottom: 2%;
+// width:60%;
+padding: 10px 20px 10px 20px;
+color: white;
+background-color: var(--ion-color-primary-contrast);
+}
+
+.Button3:hover{
+  background-color: var(--hover-color);
+}
+

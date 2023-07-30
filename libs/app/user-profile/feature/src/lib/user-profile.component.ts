@@ -47,6 +47,8 @@ export class UserProfile {
    settings!: SettingsDto | null;
 
    isPostsFetched = false;
+   ViewCommunities=false;
+
 
   constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState) { 
     const username = this.route.snapshot.paramMap.get('username');
@@ -152,7 +154,7 @@ export class UserProfile {
                 const icons = document.getElementById('genreicons');
   
                 if (icons) {
-                  icons.style.filter = 'invert(1)';
+                  // icons.style.filter = 'invert(1)';
                 }
               }
               
@@ -448,4 +450,9 @@ Dislike(n:number, post: PostDto){
 
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
 }
+
+OpenRemove(){
+  this.ViewCommunities = !this.ViewCommunities;
+}
+
 }
