@@ -963,7 +963,9 @@ CommunityCard{
       width: 100%;
       color: black;
       font-family: CustomFont;
-      font-size: 34px;
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
     }
     
     .SearchCommunityMembers{
@@ -973,7 +975,7 @@ CommunityCard{
     // align-items: center;
     height: 50%;
     width: 100%;
-    color: darkgray;
+    color: rgb(87, 87, 87);
     font-family: CustomFont;
     font-size: 20px;
     margin-top: 20px;

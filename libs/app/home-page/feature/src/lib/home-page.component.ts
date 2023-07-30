@@ -57,9 +57,10 @@ export class HomePage {
   profiles! : ProfileDto[];
   peopleExists = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe, private searchApi: SearchApi, private storage: Storage){
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe, private searchApi: SearchApi){
     
-
+    const storedKeyword = localStorage.getItem('keyword');
+    console.log("STORED KEYWORD: " + storedKeyword);
     this.load();
   }
 
@@ -73,7 +74,7 @@ export class HomePage {
     }else {
       this.addPeople('people', this.keyword);
       this.peopleExists = true;
-      this.storage.set('keyword', this.keyword);
+      localStorage.setItem('keyword', this.keyword);
     }
 
    
@@ -108,6 +109,12 @@ export class HomePage {
               }
             
           })
+
+          if(profileCount.length!==0){
+            this.peopleExists=true;
+          }else{
+            this.peopleExists=false;
+          }
   
         }
       })

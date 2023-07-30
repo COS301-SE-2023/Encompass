@@ -434,6 +434,10 @@ ion-router-outlet {
   transition: all 0.3s;
 }
 
+.tempNoResult {
+  margin-left: 30%;
+}
+
 .search-card {
   span {
     color: var(--ion-color-text);

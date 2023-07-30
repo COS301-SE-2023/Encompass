@@ -86,6 +86,15 @@ export class SearchExploreComponent {
 
     this.load();
     // this.addInitialPosts();
+    // const searchBar = document.getElementById('search-bar');
+    const storedKeyword = localStorage.getItem('keyword');
+    console.log("stored keyword: " + storedKeyword);
+    if (storedKeyword) {
+      // searchBar.setAttribute('value', storedKeyword);
+      this.keyword = storedKeyword;
+      localStorage.removeItem('keyword');
+      this.postChange();
+    }
    }
 
 

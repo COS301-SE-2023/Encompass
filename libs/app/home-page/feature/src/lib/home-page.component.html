@@ -145,8 +145,7 @@
          <!-- people -->
          <div>
          <div class="peopleSearch" *ngIf="peopleExists">
-
-          <!-- <ion-card class="peopleCard"> -->
+       
           <ion-list class="custom-list list-item" >
 
             <ion-item class="peopleItem" *ngFor="let people of profiles" color="var(--ion-color-background)" (click)="GoToProfile(people.username)">
@@ -167,9 +166,10 @@
 
             </ion-item>
           </ion-list>
-         
-          
-         <!-- </ion-card> -->
+
+         </div>
+         <div class="tempNoResult" *ngIf="!peopleExists">
+          <span>No Search Results</span>
          </div>
         </div>
 
