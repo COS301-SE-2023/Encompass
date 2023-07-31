@@ -526,6 +526,7 @@ Edit(){
   }
 
   loadFollowers(){
+    this.otherUsers = [];
     if(this.profile == null){
       return;
     }
@@ -540,6 +541,8 @@ Edit(){
   }
 
   loadFollowing(){
+    this.otherUsers = [];
+
     if(this.profile == null){
       return;
     }

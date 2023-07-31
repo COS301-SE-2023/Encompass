@@ -43,9 +43,9 @@ export class HomeApi{
     }
   }
 
-  async getRecommendedCommunites(userId: string){
+  async getRecommendedCommunites(userId: string, username: string){
     try{
-      const response = await this.httpClient.get<CommunityDto[]>('/api/community/get-recommended-communities/' + userId).toPromise();
+      const response = await this.httpClient.get<CommunityDto[]>('/api/community/get-recommended-communities/' + userId + '/' + username).toPromise();
       return response;
     }
     catch(error){

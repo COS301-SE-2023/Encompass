@@ -153,7 +153,7 @@ load(){
         if(!this.communitiesIsFetched){
           this.communitiesIsFetched = true;
 
-          this.store.dispatch(new GetRecommendedCommunities(this.profile._id));
+          this.store.dispatch(new GetRecommendedCommunities(this.profile._id, this.profile.username));
           this.communities$
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((communities) => {
