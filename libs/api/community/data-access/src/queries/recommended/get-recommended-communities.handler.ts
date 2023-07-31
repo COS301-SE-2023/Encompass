@@ -48,16 +48,20 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 console.log("finalRecommendedCommunities:");
                 console.log(finalRecommendedCommunities);
             } else if (userCount > 3) {
-                //get recommended users ids
-                const recommendedUsersIds = recommendedUsersData.map((user: { _id: string; }) => user._id);
+                //get recommended users Names
+                /*const recommendedUsersNames = recommendedUsersData.map((user: { _id: string; }) => user._id);
                 console.log("coldstart was not used:");
-                console.log("recommendedUsersIds:");                                              
-                console.log(recommendedUsersIds);
+                console.log("recommendedUsersNames:");                                              
+                console.log(recommendedUsersNames);*/
+                //get recommended userNames
+                const recommendedUsersNames = recommendedUsersData.map((user: { username: string; }) => user.username);
+                console.log("recommendedUsersNames:");
+                console.log(recommendedUsersNames);
                 //find communities recommended users are in from communitiesUserIsNotIn const
                 const recommendedUsersCommunities: any[] = [];
-                for(let i = 0; i < recommendedUsersIds.length; i++){
+                for(let i = 0; i < recommendedUsersNames.length; i++){
                     for(let j = 0; j < communitiesUserIsNotIn.length; j++){
-                        if(communitiesUserIsNotIn[j].members.includes(recommendedUsersIds[i]) || (communitiesUserIsNotIn[j].admin.includes(recommendedUsersIds[i]))){
+                        if(communitiesUserIsNotIn[j].members.includes(recommendedUsersNames[i]) || (communitiesUserIsNotIn[j].admin.includes(recommendedUsersNames[i]))){
                             //only push the community if it is not already in the array
                             if(!recommendedUsersCommunities.includes(communitiesUserIsNotIn[j])){
                                 recommendedUsersCommunities.push(communitiesUserIsNotIn[j]);
@@ -75,8 +79,8 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     const communityMembers = recommendedUsersCommunities[i].members;
                     const communityAdmin = recommendedUsersCommunities[i].admin;
                     let count = 0;
-                    for(let j = 0; j < recommendedUsersIds.length; j++){
-                        if(communityMembers.includes(recommendedUsersIds[j]) || communityAdmin.includes(recommendedUsersIds[j])){
+                    for(let j = 0; j < recommendedUsersNames.length; j++){
+                        if(communityMembers.includes(recommendedUsersNames[j]) || communityAdmin.includes(recommendedUsersNames[j])){
                             count++;
                         }
                     }
