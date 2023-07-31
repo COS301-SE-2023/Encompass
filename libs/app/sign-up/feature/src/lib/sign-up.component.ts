@@ -76,4 +76,8 @@ export class SignUpPage {
     }
 
     }
+
+    TOS(){
+      this.router.navigate(['tscs']);
+    }
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { ProfileDto } from "@encompass/api/profile/data-access";
 import { Injectable } from "@angular/core";
-import { PostDto } from "@encompass/api/post/data-access";
+import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { SettingsDto } from "@encompass/api/settings/data-access";
 
 @Injectable()
@@ -69,6 +69,16 @@ export class UserProfileApi{
 
     catch(error){
       console.log(error)
+      return null;
+    }
+  }
+
+  async updatePost(post: UpdatePostRequest, postId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
+      return response;
+    }
+    catch(error){
       return null;
     }
   }

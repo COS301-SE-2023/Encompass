@@ -2,7 +2,7 @@ import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, GetFollowers, GetFollowing } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, GetFollowers, GetFollowing, RemoveCommunity, AddCommunity } from "@encompass/app/profile/util"
 import { SignUpState } from "@encompass/app/sign-up/data-access"
 import { LoginState } from "@encompass/app/login/data-access"
 import { profile } from "console"
@@ -146,30 +146,36 @@ export class ProfileState{
   }
 
   @Action(UpdatePost)
-  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest}: UpdatePost){
+  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest, username}: UpdatePost){
     const response = await this.profileApi.updatePost(updateRequest, postId);
 
     if(response == null || response == undefined){
       return;
     }
 
-    const posts = ctx.getState().ProfilePostForm.model.posts;
+    try{
+      const posts = ctx.getState().ProfilePostForm.model.posts;
 
-    if(posts == null ){
-      return
+      if(posts == null ){
+        return
+      }
+
+      const index = posts?.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.setState({
+        ProfilePostForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
     }
 
-    const index = posts?.findIndex(x => x._id == response._id)
-
-    posts[index] = response;
-
-    ctx.setState({
-      ProfilePostForm: {
-        model: {
-          posts: posts
-        }
-      }
-    })
+    catch(error){
+      ctx.dispatch(new GetPosts(username))
+    }
   }
 
   @Action(GetComments)
@@ -334,6 +340,50 @@ export class ProfileState{
         })
       }
     });
+  }
+
+  @Action(RemoveCommunity)
+  async removeCommunity(ctx: StateContext<ProfileStateModel>, {communityName, username}: RemoveCommunity){
+    const response = await this.profileApi.removeCommunity(username, communityName);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const profile = ctx.getState().profile;
+
+    if(profile == null){
+      return;
+    }
+
+    const index = profile.communities.findIndex(x => x == communityName);
+
+    profile.communities.splice(index, 1);
+
+    ctx.setState({
+      profile: profile
+    })
+  }
+
+  @Action(AddCommunity)
+  async addCommunity(ctx: StateContext<ProfileStateModel>, {communityName, username} : AddCommunity){
+    const response = await this.profileApi.addCommunity(username, communityName);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const profile = ctx.getState().profile;
+
+    if(profile == null){
+      return;
+    }
+
+    // profile.communities = [...profile.communities, communityName];
+
+    ctx.setState({
+      profile: response
+    })
   }
 
   getExpireLocalStorage(key: string): string | null{

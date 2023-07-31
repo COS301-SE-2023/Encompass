@@ -38,46 +38,15 @@
     <ion-grid>
       <ion-row class="row-filter">
         <ion-col size="5">
-          <ion-card class="Filter">
-            <ion-grid>
-              <ion-row class="row-filter">
-                <ion-col size="5">
-                  <div style = "display:flex;justify-content:center">
-                    <ion-button id="recommendedBtn" fill="clear" class="active-button-filter" (click)="recChange()">
-                      <ion-icon name="alert-circle-outline" style="margin-right: 5px; "></ion-icon>
-                      Recommended
-                    </ion-button>
-                  </div>
-                 
-                </ion-col>
-                <ion-col size="3">
-                  <div style = "display:flex;justify-content:center">
-                    <ion-button id="newBtn" fill="clear" class="none" (click)="newChange()">
-                      <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
-                      New
-                    </ion-button>
-                  </div>
-                </ion-col>
-                <ion-col size="4">
-                  <div style = "display:flex;justify-content:center">
-                  <ion-button id="popularBtn" fill="clear" class="none" (click)="popChange()">
-                    <ion-icon name="star-outline" style="margin-right: 5px; margin-bottom: 3px;"></ion-icon>
-                    Popular
-                  </ion-button>
-                </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card>
-  
+
   
   
           <!-- posts -->
-  
+          <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)" -->
           <div *ngFor="let post of posts?.slice()?.reverse();let i = index">
   
-            <ion-card class = "PostCard" >
-  
+            <ion-card class = "PostCard card-styles" >
+
               <div class = "PostCardHeader">
                 <div class = "PostImageContainer" >
                   <img src =  {{post.communityImageUrl}}  class = "postImage" 
@@ -92,21 +61,27 @@
                   </div>
                   <div style = "display: flex; margin-right: 1.5%; ">
   
-                    <label class = "report" *ngIf="reports[size-i]&&!postReported[size-i]" 
+                    <label class = "report" *ngIf="reports[i]" 
                     (click)="ReportPost(i, post)">Report Post</label>
   
                     <label class = "report" *ngIf="post.reported" 
                     style = "color: red;"
                     >Post Reported.</label>
   
-                    <button class = "Options" (click)="Report(i)"> <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                    <button class = "Options" *ngIf="!post.reported" (click)="Report(i)"> 
+                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+  
                   </div>
         
                  </div>
                 
                   <div class = "GenreIcons" >
                     <div style = "width: 30%; display: flex; justify-content: space-around;">
-                    <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                      <div *ngFor="let category of post.categories; let k=index" class="tooltip">
+                        <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                        <span class="tooltiptext">{{category}}</span>
+                      </div>
+                    
                     </div>
                     <div style = "width: 70%; display: flex; justify-content: space-evenly;">
                       <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
@@ -114,15 +89,8 @@
                  </div>
                  </div>
   
-                 
-                
-  
             </div> 
               </div>
-  
-  
-  
-  
   
               <div class = "PostBody" (click)="GoToComments(post._id)">
   
@@ -136,7 +104,8 @@
                 </div>
               </div>
               <div class = "PostFooter">
-                <div class = "date">{{post.dateAdded}}</div>
+                <div class = "date" *ngIf="post.dateAdded.length == 21">{{post.dateAdded.slice(0, 9)}}</div>
+                <div class = "date" *ngIf="post.dateAdded.length != 21">{{post.dateAdded.slice(0, 10)}}</div>
                
                 
                 <div class = "icons">
@@ -265,5 +234,6 @@
     </ion-grid>
   
   </div>
+  <ion-button class="backtotop">Back To Top</ion-button>
 
 </div>

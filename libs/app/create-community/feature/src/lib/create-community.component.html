@@ -30,11 +30,11 @@
             </div> 
         </div>
        
-        <div class = "SectionTitle" >
+        <div class = "SectionTitle textSection" >
                 Community Type
         </div>
        
-        <div class = "TypeOptions" >
+        <div class = "TypeOptions textSection" >
             <div>
                 <div>
                     <input type="radio" id="public" name="option" value="Public" [checked]="true" (click)="setPublic()">
@@ -57,10 +57,10 @@
 
         <div class = "space"></div>
 
-        <div class = "SectionTitle" >
+        <div class = "SectionTitle textSection" >
                Mature Content 
         </div>
-        <div class = "Age" >
+        <div class = "Age textSection" >
             <div>
                 <input type="checkbox" id="mature" name="AgeRestricted" value="restricted" (click)="isAgeRestricted()">
                 NSFW
@@ -68,13 +68,13 @@
         </div>
 
 
-        <div class = "Footer">
-            <ion-icon name="image-outline" style = "font-size: 25px;" (click)="insertImage()"></ion-icon>
-            <Button *ngIf = "!isValid" type = "submit" class = "btn1" disabled = "true">Create</Button>
-            <Button *ngIf = "isValid" type = "submit" class = "btn2">Create</Button>
+        <div class = "Footer textSection">
+            <span class="image-span" (click)="insertImage()"><ion-icon name="image-outline" style = "font-size: 25px;" ></ion-icon><span class="image-text">Select Community Avatar</span></span>
+            <Button *ngIf = "!isValid" type = "submit" class = "btn1 createbtn" disabled = "true">Create</Button>
+            <Button *ngIf = "isValid" type = "submit" class = "btn2 createbtn">Create</Button>
 
         </div>
-        <div *ngIf="hasImage" class = "Image">
+        <div *ngIf="hasImage" class = "Image textSection">
             <input type="file" class="file-input"
           [accept]="requiredFileType"
           (change)="onFileSelected($event)" #fileUpload>

@@ -6,7 +6,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
+import { ClearAllNotifications, ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -21,12 +21,23 @@ import { DatePipe } from '@angular/common';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
 @Component({
   selector: 'home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  animations: [
+    trigger('slideIn', [
+      state('in', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('300ms ease-in-out')
+      ]),
+      transition(':leave', animate('300ms ease-in-out', style({ transform: 'translateX(-100%)' })))
+    ])
+  ]
 })
 export class HomePage {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
@@ -39,7 +50,19 @@ export class HomePage {
   notifications! : NotificationDto | null;
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe){
+    
+
+    this.load();
+  }
+
+  load() {
     const page = document.getElementById('home-page');
+    const defaultLogo = document.getElementById('logo-default');
+    const redLogo = document.getElementById('logo-red');
+    const blueLogo = document.getElementById('logo-blue');
+    const greenLogo = document.getElementById('logo-green');
+    const orangeLogo = document.getElementById('logo-orange');
+
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -52,6 +75,10 @@ export class HomePage {
             this.settings = settings;
 
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+            console.log(this.settings.themes.themeColor);
+            if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo) {
+              console.log('I JUST WANNA SEE SOMETHING changing logo');
+            }
 
             if(page){
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
@@ -62,6 +89,8 @@ export class HomePage {
       }
     })
   }
+
+  
 
   goToProfile() {
     this.routerClick();
@@ -110,6 +139,14 @@ export class HomePage {
     }
     
     this.store.dispatch(new ClearNotification(this.profile._id, id));
+  }
+
+  clearAllNotifications(){
+    if(this.profile == null){
+      return;
+    }
+
+    this.store.dispatch(new ClearAllNotifications(this.profile._id));
   }
 
   logout() {

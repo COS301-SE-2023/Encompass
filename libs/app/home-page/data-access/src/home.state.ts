@@ -3,7 +3,7 @@ import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 // import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 // import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
-import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome, ClearAllNotifications } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
@@ -291,6 +291,23 @@ export class HomeState{
   @Action(ClearNotification)
   async clearNotification(ctx: StateContext<HomeNotificationsModel>, {userId, id}: ClearNotification){
     const response = await this.homeApi.clearNotification(userId, id);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      HomeNotificationsForm: {
+        model: {
+          homeNotifications: response
+        }
+      }
+    })
+  }
+
+  @Action(ClearAllNotifications)
+  async clearAllNotifications(ctx: StateContext<HomeNotificationsModel>, {userId}: ClearAllNotifications){
+    const response = await this.homeApi.clearAllNotifications(userId);
 
     if(response == null || response == undefined){
       return;

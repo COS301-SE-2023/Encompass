@@ -52,54 +52,51 @@
         </div>
         <div class = "TextFooter">
             <ion-icon name="image-outline"
-            class = "icon"
+            class = "icon imageIcon"
             style = "font-size: 25px;" 
             (click) = "insertImage()"></ion-icon>
 
             <button *ngIf = "spoilers" 
             type="button" 
-            class = "btns" 
-            style="background-color: #66617F;
-            color: white;"
+            class = "btns tagbtnclicked" 
             (click)="Spoilers()"><ion-icon 
-            name="add-outline"></ion-icon>Spoilers</button>
+            name="add-outline"></ion-icon>
+            <span>Spoilers</span>
+            </button>
 
             <button *ngIf = "!spoilers" 
             type="button" 
-            class = "btns" 
-            style="background-color: #CECAE3;"  
+            class = "btns tagbtn" 
             (click)="Spoilers()"><ion-icon
-             name="add-outline"></ion-icon>Spoilers</button>
+             name="add-outline"></ion-icon>
+             <span>Spoilers</span>
+            </button>
             
             <button *ngIf = "agerestricted" 
             type="button" 
-            class = "btns"  
-            style="background-color: #66617F;
-            color: white;"
-             
+            class = "btns tagbtnclicked"  
             (click)="AgeRestricted()">
             <ion-icon name="add-outline">
             </ion-icon>NSFW</button>
 
             <button *ngIf = "!agerestricted" 
             type="button" 
-            class = "btns"  
-            style="background-color: #CECAE3;" 
+            class = "btns tagbtn"  
             (click)="AgeRestricted()">
             <ion-icon name="add-outline">
-            </ion-icon>Age NSFW</button>
+            </ion-icon>NSFW</button>
             
             <button *ngIf = "isValid" 
             type = "submit" 
-            class = "btns"  
-            style="background-color: #231942; color:white" 
+            class = "btns validPost"  
+            style=" color:white" 
             (click)="closePopup()">Post</button>
 
             <button *ngIf = "!isValid" 
             type = "submit" 
             disabled = true 
             class = "btns"  
-            style="background-color: #AFABC5; color:black" 
+            style="background-color: darkgray; color:grey" 
             (click)="closePopup()">Post</button>
     
         </div>
