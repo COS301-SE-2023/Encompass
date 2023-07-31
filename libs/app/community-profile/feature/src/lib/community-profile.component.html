@@ -15,7 +15,7 @@
             <ion-icon name="pencil-outline" ></ion-icon>
           </button>
         </div>
-        <div class = "Admin">Created by {{community?.admin}} </div>
+        <div class = "Admin">Created by @{{community?.admin}} </div>
         <div class = "CommunityDescription">{{community?.about}}</div>
      </div>
 
@@ -275,7 +275,7 @@
                     <button (click)="OpenRemove()" class = "Button3">View Members</button>
                   </div>
                     <div class = "RemoveMembers" *ngFor="let member of myMembers; let i = index">
-                    <label class = "RmvLabel">@{{member}}</label>
+                    <label class = "RmvLabel" (click)="GoToProfile(member)">@{{member}}</label>
                     <button class = "RmvBtn" *ngIf = "!removedMember[i] && community?.admin === profile?.username" (click)="Remove(member,i)">Remove</button>
                     <button class = "RmvBtn2" *ngIf = "removedMember[i] && community?.admin === profile?.username" (click)="Undo(member,i)">Removed</button>
                   </div>

@@ -58,6 +58,7 @@ export class CommunityProfileComponent {
   myMembers: string[] = [];
   UpdatedMyMembers: string[] = [];
   removedMember: boolean[] = [];
+  removedlist: string[] = [];
   reports : boolean[] =[];
    posts! : PostDto[] | null;
    likes: number[] =[] ;
@@ -114,10 +115,11 @@ export class CommunityProfileComponent {
         console.log(community);
         this.members = community.members.length;
         for(let i =0; i<community.members.length;i++){
-          if(community.members[i]!=this.profile?.username){
-                this.myMembers.push(community.members[i]);
-                this.removedMember.push(false);
+          if(community.members[i]==this.profile?.username&&community.admin==this.profile?.username){
+            continue;
           }
+          this.myMembers.push(community.members[i]);
+          this.removedMember.push(false);
         }
 
         this.UpdatedMyMembers = this.myMembers;
@@ -432,6 +434,7 @@ export class CommunityProfileComponent {
     console.log("REMOVE CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+    this.removedlist.push(m);
   }
 
   Undo(m: string,i:number){
@@ -441,6 +444,8 @@ export class CommunityProfileComponent {
     console.log("UNDO CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+    this.removedlist = this.removedlist.filter(x => x != m);
+
   }
 
   CancelUpdate(){
@@ -453,6 +458,7 @@ export class CommunityProfileComponent {
     console.log("CANCEL CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+    this.removedlist = [];
   }
   UpdateCommunity(){
     this.RemoveMember = false;
@@ -489,7 +495,7 @@ export class CommunityProfileComponent {
 
     const communityName = this.community?.name;
 
-    this.myMembers.forEach(member => {
+    this.removedlist.forEach(member => {
       this.store.dispatch(new RemoveOtherUserCommunity(communityName, member))
     })
     

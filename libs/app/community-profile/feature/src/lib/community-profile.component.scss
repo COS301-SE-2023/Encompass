@@ -782,6 +782,11 @@ justify-content: space-evenly;
     color: black;
   }
 
+  .RmvLabel:hover{
+    cursor:pointer;
+    color: var(--hover-color);
+  }
+
   .RmvBtn{
     margin-right: 5%;
     font-size: 20px;
