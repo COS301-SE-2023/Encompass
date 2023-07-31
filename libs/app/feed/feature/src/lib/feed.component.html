@@ -221,14 +221,16 @@
                   <div class = "CommunityHeader"> 
                     <img src = {{myCommunities[0].groupImage}} 
                     onerror="this.src='assets/icon/Group.png';"
-                    class = "CommunityIcon" >                     
+                    class = "CommunityIcon" (click)="GoToCommunity(myCommunities[0].name)">                     
                     <div class = "CommunityDetails" >
-                      <div class = "CommunityName">{{myCommunities[0].name}}</div>
-                     <div class = "CommunityMembers">Members: {{myCommunities[0].members.length}}</div>
-
-                     <div *ngFor="let category of myCommunities[0].categories;" class = "CommunityGenres tooltip">
-                      <img  src = "assets/icon/{{category}}.png" class="imgDiv">
-                      <span class="tooltiptext">{{category}}</span>
+                      <div class = "CommunityName" (click)="GoToCommunity(myCommunities[0].name)">{{myCommunities[0].name}}</div>
+                     <div class = "CommunityMembers" (click)="GoToCommunity(myCommunities[0].name)">Members: {{myCommunities[0].members.length}}</div>
+                      <div class = "CommunityGenres">
+                        <div *ngFor="let category of myCommunities[0].categories" class = "tooltip">
+                          <img  src = "assets/icon/{{category}}.png" class="imgDiv">
+                          <span class="tooltiptext">{{category}}</span>
+                      </div> 
+                     
                     </div>
 
                    </div>
@@ -253,13 +255,17 @@
                   <div class = "CommunityHeader"> 
                     <img src = {{myCommunities[1].groupImage}} 
                     onerror="this.src='assets/icon/Group.png';"
-                    class = "CommunityIcon" >                     
+                    class = "CommunityIcon" (click)="GoToCommunity(myCommunities[1].name)">                     
                     <div class = "CommunityDetails" >
-                      <div class = "CommunityName">{{myCommunities[1].name}}</div>
-                     <div class = "CommunityMembers">Members: {{myCommunities[1].members.length}}</div>
+                      <div class = "CommunityName" (click)="GoToCommunity(myCommunities[1].name)">{{myCommunities[1].name}}</div>
+                     <div class = "CommunityMembers" (click)="GoToCommunity(myCommunities[1].name)">Members: {{myCommunities[1].members.length}}</div>
                      <div class = "CommunityGenres">
-                      <img *ngFor="let category of myCommunities[1].categories;" src = "assets/icon/{{category}}.png" class="imgDiv">
-                    </div>
+                      <div *ngFor="let category of myCommunities[1].categories" class = "tooltip">
+                        <img  src = "assets/icon/{{category}}.png" class="imgDiv">
+                        <span class="tooltiptext">{{category}}</span>
+                    </div> 
+                   
+                  </div>
                    </div>
                    <div class = "CommunityAdd">
                     <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',myCommunities[1].name)">
