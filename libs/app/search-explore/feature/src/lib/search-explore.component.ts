@@ -16,7 +16,7 @@ import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
+import { GetAllCommunities, SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
 import { HomeState } from '@encompass/app/home-page/data-access';
 
 
@@ -110,8 +110,8 @@ export class SearchExploreComponent {
       // If the search keyword is empty, return
       return;
     }else {
-      
       this.postChange();
+      // this.addCommunities("communities", this.keyword);
     }
 
    
@@ -127,76 +127,76 @@ export class SearchExploreComponent {
     this.postChange();
   }
 
-  async addInitialPosts(){
+  // async addInitialPosts(){
 
-    console.log("POSTS: " + this.profile?.username);
+  //   console.log("POSTS: " + this.profile?.username);
 
-    if(this.profile == null){
-      return;
-    }
+  //   if(this.profile == null){
+  //     return;
+  //   }
 
-    console.log("profile is not null");
+  //   console.log("profile is not null");
 
     
   
       
-      this.store.dispatch(new GetAllPosts(this.profile?.username));
+  //     this.store.dispatch(new GetAllPosts(this.profile?.username));
       
-      if(!this.postsIsFetched){
+  //     if(!this.postsIsFetched){
         
-        this.postsIsFetched = true; 
-        this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-        if(posts){
-          // console.log("POSTS:")
-          this.posts = [];
-          const temp = posts;
-          temp.forEach((post) => {
-            if(post.isPrivate){
-              if(this.profile?.communities.includes(post.community)){
-                this.posts.push(post);
-              }
-            }
+  //       this.postsIsFetched = true; 
+  //       this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+  //       if(posts){
+  //         // console.log("POSTS:")
+  //         this.posts = [];
+  //         const temp = posts;
+  //         temp.forEach((post) => {
+  //           if(post.isPrivate){
+  //             if(this.profile?.communities.includes(post.community)){
+  //               this.posts.push(post);
+  //             }
+  //           }
   
-            else{
-              this.posts.push(post);
-            }
-          })
+  //           else{
+  //             this.posts.push(post);
+  //           }
+  //         })
   
-          // this.posts = posts;
-          this.size=posts.length-1;
-          // console.log("SIZE: " + this.size)
-          for(let i =0;i<posts.length;i++){
-            this.likedComments.push(false);
-            this.sharing.push(false);
+  //         // this.posts = posts;
+  //         this.size=posts.length-1;
+  //         // console.log("SIZE: " + this.size)
+  //         for(let i =0;i<posts.length;i++){
+  //           this.likedComments.push(false);
+  //           this.sharing.push(false);
   
-            this.reports.push(false);
-            this.postReported.push(false);
+  //           this.reports.push(false);
+  //           this.postReported.push(false);
   
-            if(posts[i].dateAdded!=null&&posts[i].comments!=null
-              &&posts[i].shares!=null){
-              this.datesAdded.push(posts[i].dateAdded);
-              this.comments.push(posts[i].comments);
-              this.shares.push(posts[i].shares);
-            }
+  //           if(posts[i].dateAdded!=null&&posts[i].comments!=null
+  //             &&posts[i].shares!=null){
+  //             this.datesAdded.push(posts[i].dateAdded);
+  //             this.comments.push(posts[i].comments);
+  //             this.shares.push(posts[i].shares);
+  //           }
   
-            if(posts!=null&&posts[i].likes!=null){
-              this.likes.push(posts[i].likes?.length);
+  //           if(posts!=null&&posts[i].likes!=null){
+  //             this.likes.push(posts[i].likes?.length);
               
   
-              if(this.profile==undefined){
-                return;
-              }
-              if(posts[i].likes.includes(this.profile.username)){
-                this.likedComments[i]=true;
-              } 
-            }
+  //             if(this.profile==undefined){
+  //               return;
+  //             }
+  //             if(posts[i].likes.includes(this.profile.username)){
+  //               this.likedComments[i]=true;
+  //             } 
+  //           }
   
-          }
+  //         }
   
-        }
-      })
-    }
-  }
+  //       }
+  //     })
+  //   }
+  // }
 
 
    load(){
@@ -223,9 +223,9 @@ export class SearchExploreComponent {
               if (this.settings.themes.themeColor.startsWith('dark')) {
                 const icons = document.getElementById('genreicons');
   
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
-                }
+                // if (icons) {
+                //   icons.style.filter = 'invert(1)';
+                // }
               }
               
               if(page){
@@ -249,48 +249,124 @@ export class SearchExploreComponent {
   }
 
   async addPosts(type: string, keyword: string) {
-  this.communityVisible = false;
-  this.peopleVisible = false;
-
-  if (this.profile == null) {
-    return;
-  }
-
-  if (type === "posts") {
-    this.store.dispatch(new SearchPosts(keyword));
-  } else {
-    return;
-  }
-
-  if (!this.postsIsFetched) {
-    this.postsIsFetched = true;
-    this.searchPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-      if (posts) {
-        this.posts = [];
-        this.relatedCommunities = [];
-        const filteredPosts = [];
-        for (const post of posts) {
-          this.posts.push(post);
-          if (
-            post.text.toLowerCase().includes(keyword.toLowerCase()) ||
-            post.title.toLowerCase().includes(keyword.toLowerCase())
-          ) {
-            filteredPosts.push(post);
-            this.relatedCommunities.push(post.community);
-            console.log("related communities: " + this.relatedCommunities);
+    this.communityVisible = false;
+    this.peopleVisible = false;
+  
+    if (this.profile == null) {
+      return;
+    }
+  
+    if (type === "posts") {
+      this.store.dispatch(new SearchPosts(keyword));
+      // this.store.dispatch(new GetAllCommunities());
+      this.store.dispatch(new SearchCommunities(keyword));
+      this.store.dispatch(new SearchProfiles(keyword));
+    } else {
+      return;
+    }
+  
+    if (!this.postsIsFetched) {
+      this.postsIsFetched = true;
+      this.searchPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+        if (posts) {
+          this.posts = [];
+          this.relatedCommunities = [];
+          this.relatedCommunitiesArray = [];
+          const filteredPosts = [];
+          for (const post of posts) {
+            this.posts.push(post);
+            if (
+              post.text.toLowerCase().includes(keyword.toLowerCase()) ||
+              post.title.toLowerCase().includes(keyword.toLowerCase())
+            ) {
+              filteredPosts.push(post);
+              this.relatedCommunities.push(post.community);
+            }
           }
+  
+          // this.allCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((relatedCommunities) => {
+          //   if (relatedCommunities) {
+          //     this.relatedCommunitiesArray = [];
+          //     const temp = relatedCommunities;
+          //     temp.forEach((community) => {
+          //       console.log("community: " + community.name);
+          //       if (this.relatedCommunities.includes(community.name)) {
+          //         this.relatedCommunitiesArray.push(community);
+          //       }
+          //     });
+  
+          //     // Here, you can process the data related to communities.
+          //     console.log("Related Communities Array:", this.relatedCommunitiesArray);
+          //   }
+          // });
+
+          if(!this.communitiesIsFetched){
+        
+            this.communitiesIsFetched = true; 
+            this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
+            if(communities){
+              // console.log("POSTS:")
+              this.communities = [];
+              const communityCount = communities;
+              const temp = communities;
+              temp.forEach((community) => {
+               
+                  this.communities.push(community);
+    
+                  if (community.name.toLowerCase().includes(this.keyword.toLowerCase())) {
+                    communityCount.push(community);
+                  }
+                
+              })
+    
+              this.noSearch=true;
+              if(communityCount.length!==0){
+                this.CommunityExists=true;
+                this.noSearch=false;
+                this.noResult=false;
+              }else{
+                this.CommunityExists=false;
+                this.noResult=true;
+                this.noSearch=false;
+              }
+              
+            }
+          })
         }
 
-        this.noSearch = true;
-        if (filteredPosts.length !== 0) {
-          this.PostsExists = true;
-          this.noSearch = false;
-          this.noResult = false;
-        } else {
-          this.PostsExists = false;
-          this.noResult = true;
-          this.noSearch = false;
-        }
+        if(!this.peopleIsFetched){
+        
+          this.peopleIsFetched = true; 
+          this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
+          if(profiles){
+            // console.log("POSTS:")
+            this.profiles = [];
+            const profileCount = profiles;
+            const temp = profiles;
+            temp.forEach((person) => {
+             
+                this.profiles.push(person);
+                if (person.name.toLowerCase().includes(this.keyword.toLowerCase())) {
+                  profileCount.push(person);
+                }
+              
+            })
+          }
+        })
+        
+      }
+  
+          this.noSearch = true;
+          if (filteredPosts.length !== 0) {
+            this.PostsExists = true;
+            this.noSearch = false;
+            this.noResult = false;
+          } else {
+            this.PostsExists = false;
+            this.noResult = true;
+            this.noSearch = false;
+          }
+  
   
           // this.posts = posts;
           this.size=posts.length-1;
@@ -322,88 +398,14 @@ export class SearchExploreComponent {
             }
   
           }
-    //       console.log("related communities done: " + this.relatedCommunities);
-    //       this.relatedCommunitiesArray = [];
-    //       for (let i = 0; i < this.relatedCommunities.length; i++) {
-    //         console.log("related communities: " + this.relatedCommunities[i]);
-    //       this.store.dispatch(new SearchCommunities(this.relatedCommunities[i]));
-    //       if(!this.communitiesIsFetched){
-      
-    //       this.communitiesIsFetched = true; 
-    //       this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
-    //       if(communities){
-
-    //         console.log("POSTS:")
-    //         this.communities = [];
-    //         const temp = communities;
-    //         temp.forEach((community) => {
-    //             console.log("community: " + community.name);
-    //             this.communities.push(community);
-              
-    //         })
-    //       }
-    //     })
-    //   }
-    // }
   }
   })
+
+  
 }
 
     
 }
-
-
-async addRelatedCommunities(type: string, keyword: string){
-
-  this.postsVisible=false;
-  this.peopleVisible=false;
-  
-
-  if(this.profile == null){
-    return;
-  }
-
-    if (type === "communities") {
-      this.store.dispatch(new SearchCommunities(keyword));
-    }else {
-      return;
-    }
-
-    if(!this.communitiesIsFetched){
-      
-      this.communitiesIsFetched = true; 
-      this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
-      if(communities){
-        // console.log("POSTS:")
-        this.communities = [];
-        const communityCount = communities;
-        const temp = communities;
-        temp.forEach((community) => {
-         
-            this.communities.push(community);
-
-            if (community.name.toLowerCase().includes(this.keyword.toLowerCase())) {
-              communityCount.push(community);
-            }
-          
-        })
-
-        this.noSearch=true;
-        if(communityCount.length!==0){
-          this.CommunityExists=true;
-          this.noSearch=false;
-          this.noResult=false;
-        }else{
-          this.CommunityExists=false;
-          this.noResult=true;
-          this.noSearch=false;
-        }
-        
-      }
-    })
-  }
-}
-
 
 
   async addCommunities(type: string, keyword: string){

@@ -150,6 +150,111 @@
           </div>
   
         </ion-col>
+         <ion-col size="4" *ngIf="PostsExists && postsVisible">
+          <ion-card class="recomcard" >
+          <div>
+              <div class = "RecomCommunities" >
+              <div class = "RecomHeader">
+                <ion-grid>
+                  <ion-row class="recomRow">
+                    <ion-col size="10">
+                      <div style="font-size: 18px; margin-top: 10px;">Relavant Communities:</div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </div>
+            
+            <!-- communities -->
+  
+            <ion-grid >
+              <ion-row class="content-row" >
+                <ion-col size="11">
+                  <div *ngFor="let community of communities">
+                    <ion-card class = "CommunityCard">
+                     <div class="card-color">
+                     <div class = "CommunityHeader"> 
+                       <img src = {{community?.groupImage}} 
+                       onerror="this.src='assets/icon/Group.png';"
+                       class = "CommunityIcon" >                     
+                       <div class = "CommunityDetails" >
+                         <div class="nameAndMembers"> 
+                         <div class = "CommunityName">{{community.name}}</div>
+                        <div class = "CommunityMembers">Members: {{community.members.length}}</div>
+                         </div>
+                      
+                      <div class = "CommunityGenres">
+                       <img *ngFor="let category of community.categories;" src = "assets/icon/{{category}}.png" class="categoryImages">
+                     </div>
+                    </div>
+                      <div class = "CommunityAdd">
+                       <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',community.name)">
+                         <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
+                       </button>
+                      </div>
+                      </div>
+                      <div class = "CommunityBody">
+                       <div class = "CommunityDesc">{{community.about}}</div>
+                         </div>
+                       </div>
+                    </ion-card>
+                   </div>
+
+
+                   
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+   
+              </div>
+              <!-- <br> -->
+          </ion-card>
+          <ion-card class="recomcard" >
+            <div>
+                <div class = "RecomCommunities" >
+                <div class = "RecomHeader">
+                  <ion-grid>
+                    <ion-row class="recomRow">
+                      <ion-col size="10">
+                        <div style="font-size: 18px; margin-top: 10px;">Relavant Profiles:</div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </div>
+              </div>
+              
+              <!-- communities -->
+    
+          <ion-grid >
+          <ion-row class="content-row" >
+          <ion-col size="11">
+          <div>
+          <ion-card class="peopleCard ">
+            <ion-list class="peopleList" >
+              <ion-item color="var(--ion-card-contrast)" *ngFor="let people of profiles">
+                <ion-avatar class="peopleAvatar">
+                  <img src="{{people?.profileImage}}" class="peopleIcon">
+                </ion-avatar>
+                <div class="personDetails">
+                  <div class="nameAndUsername">
+                    <span class="personName">{{people?.name}} {{people?.lastName}}</span>
+                    <span class="personUsername">@{{people?.username}}</span>
+                  </div>
+                  <span class="personDesc">{{people?.bio}}</span>
+                </div>
+                <ion-button slot="end" class="followButton">Follow</ion-button>
+                 <ion-button *ngIf="" slot="end" class="followButton">Unfollow</ion-button> 
+              </ion-item>
+            </ion-list>
+           </ion-card>
+          </div>  
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+      </div>
+    </ion-card>
+      </ion-col>
   
 
 
@@ -266,66 +371,7 @@
   
         <!-- recommendations -->
         <!-- style="display: none;" -->
-        <ion-col size="5" *ngIf="PostsExists && postsVisible">
-          <ion-card class="recomcard" >
-          <div>
-              <div class = "RecomCommunities" >
-              <div class = "RecomHeader">
-                <ion-grid>
-                  <ion-row class="recomRow">
-                    <ion-col size="10">
-                      <div style="font-size: 18px; margin-top: 10px;">Related Communities:</div>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </div>
-            </div>
-            
-            <!-- communities -->
-  
-            <ion-grid >
-              <ion-row class="content-row" >
-                <ion-col size="11">
-                  <div *ngFor="let community of communities">
-                    <ion-card class = "CommunityCard">
-                     <div class="card-color">
-                     <div class = "CommunityHeader"> 
-                       <img src = {{community?.groupImage}} 
-                       onerror="this.src='assets/icon/Group.png';"
-                       class = "CommunityIcon" >                     
-                       <div class = "CommunityDetails" >
-                         <div class="nameAndMembers"> 
-                         <div class = "CommunityName">{{community.name}}</div>
-                        <div class = "CommunityMembers">Members: {{community.members.length}}</div>
-                         </div>
-                      </div>
-                      <div class = "CommunityGenres">
-                       <img *ngFor="let category of community.categories;" src = "assets/icon/{{category}}.png" class="imgDiv">
-                     </div>
-                      <div class = "CommunityAdd">
-                       <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',community.name)">
-                         <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
-                       </button>
-                      </div>
-                      </div>
-                      <div class = "CommunityBody">
-                       <div class = "CommunityDesc">{{community.about}}</div>
-                         </div>
-                       </div>
-                    </ion-card>
-                   </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-   
-              </div>
-              <!-- <br> -->
-          </ion-card>
-          
-  
-  
-          
-      </ion-col>
+       
       </ion-row>
     </ion-grid>
   
