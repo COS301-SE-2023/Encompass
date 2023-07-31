@@ -362,10 +362,16 @@ align-items: center;}
   //   cursor: pointer;
   // }
 
-  .specialBtn:hover{
-    cursor: default;
-
+  .specialBtn{
+    background-color: var(--ion-color-primary-tint);
+    color: var(--ion-color-text);
+    border-radius: 50px;
+    border: 1px solid var(--ion-color-primary-tint);
+    font-size: 15px;
+    font-family: CustomFont;
+    padding: 2%;
   }
+
 
   .header{
     width: 25%;
