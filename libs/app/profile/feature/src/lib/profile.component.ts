@@ -73,6 +73,9 @@ export class ProfilePage {
 
   isPostsFetched = false;
 
+  ViewCommunities=false;
+
+
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
     ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
     this.store.dispatch(new SubscribeToProfile())
@@ -142,6 +145,7 @@ export class ProfilePage {
     this.load();
    }
 
+   
    load(){
     const page = document.getElementById('home-page');
   
@@ -540,6 +544,8 @@ Edit(){
       return;
     }
 
+        console.log("here as well");
+
     this.store.dispatch(new GetFollowing(this.profile.following));
     this.otherUsers$.subscribe((users) => {
       if(users){
@@ -549,8 +555,9 @@ Edit(){
   }
 
   async goToProfile(username : string | undefined){
+    console.log("Route is " + username);
     await this.modalController.dismiss();
-    this.router.navigate(['user-profile/' + username]);
+    this.router.navigate(['home/user-profile/' + username]);
   }
 
   async shareProfile(){
@@ -632,4 +639,19 @@ Edit(){
   
     this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   }
+
+  OpenRemove(){
+    this.ViewCommunities = !this.ViewCommunities;
+  }
+
+  GoToProfile(username: string){
+    if(this.profile?.username !== username){
+      this.router.navigate(['home/user-profile/' + username]);
+    }
+  
+    else{
+      this.router.navigate(['home/profile']);
+    }
+  }
+
 } 

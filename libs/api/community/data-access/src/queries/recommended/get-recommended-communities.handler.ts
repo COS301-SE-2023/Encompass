@@ -14,6 +14,9 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
     
     async execute({ userId }: GetRecommendedCommunitiesQuery) {
         const communitiesUserIsNotIn = await this.communityEntityRepository.findCommunitiesByUserId(userId);
+        console.log("---------------------------------------------------------------------------------------------");
+        console.log("communitiesUserIsNotIn:");
+        console.log(communitiesUserIsNotIn);
         //put an if statement here to check if there is more than one community the user is not in
         if( communitiesUserIsNotIn == undefined ){
             return [];
@@ -41,9 +44,15 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             let finalRecommendedCommunities: CommunityDto[] = [];
             if(userCount <= 3){
                 finalRecommendedCommunities = coldStart(currentUserCategories, recommendedCommunities); //test this
+                console.log("coldstart was used:");
+                console.log("finalRecommendedCommunities:");
+                console.log(finalRecommendedCommunities);
             } else if (userCount > 3) {
                 //get recommended users ids
                 const recommendedUsersIds = recommendedUsersData.map((user: { _id: string; }) => user._id);
+                console.log("coldstart was not used:");
+                console.log("recommendedUsersIds:");                                              
+                console.log(recommendedUsersIds);
                 //find communities recommended users are in from communitiesUserIsNotIn const
                 const recommendedUsersCommunities: any[] = [];
                 for(let i = 0; i < recommendedUsersIds.length; i++){
@@ -56,6 +65,9 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                         }
                     }
                 }
+
+                console.log("recommendedUsersCommunities not ordered:");
+                console.log(recommendedUsersCommunities);
 
                 //order the communities by the number of recommended users in them
                 const recommendedUsersCommunitiesWithCount = [];
@@ -76,6 +88,9 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     finalRecommendedCommunities.push(recommendedUsersCommunitiesWithCount[i].community);
                 }
             }
+            console.log("finalRecommendedCommunities:");
+            console.log(finalRecommendedCommunities);
+
             return finalRecommendedCommunities;
         } catch (e) {
             console.log(e);

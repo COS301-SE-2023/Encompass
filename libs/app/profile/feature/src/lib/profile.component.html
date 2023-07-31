@@ -265,6 +265,20 @@
             </div>
 
         </ion-card>
+        <ion-card *ngIf = "!ViewCommunities">
+          <div class = "CommunityHead">
+            <button (click)="OpenRemove()" class = "Button3">Communities:</button>
+          </div>
+        </ion-card>
+        <ion-card *ngIf = "ViewCommunities">
+          <div class = "CommunityHead">
+            <button (click)="OpenRemove()" class = "Button3">Communities:</button>
+          </div>
+            <div class = "ViewCommunity" *ngFor="let community of profile?.communities; let i = index">
+            <label class = "JoinedCommunity" (click)="GoToCommunity(community)">{{community}}</label>
+            </div>         
+        </ion-card>
+
 
         <ion-modal #modal trigger="follow-trigger" [presentingElement]="presentingElement">
           <ng-template>
@@ -276,15 +290,18 @@
             <ion-content>
               <ion-list>
                 <div *ngFor="let user of otherUsers">
-                  <ion-item>
+                  
+                  <ion-item (click)="goToProfile(user?.username)" class = "User">
                     <ion-avatar slot="start">
-                      <ion-img src={{user?.profileImage}}></ion-img>
+                      <img src={{user?.profileImage}}
+                      onerror="this.src='assets/icon/Profile.png';">
                     </ion-avatar>
                     <ion-label>
                       <h2>{{user?.name}} {{user?.lastName}}</h2>
                       <p>@{{user?.username}}</p>
                     </ion-label>
                   </ion-item>
+                  
                 </div>
               </ion-list>
             </ion-content>
@@ -301,9 +318,10 @@
             <ion-content>
               <ion-list>
                 <div *ngFor="let user of otherUsers">
-                  <ion-item (click)="goToProfile(user?.username)">
+                  <ion-item (click)="goToProfile(user?.username)" class = "User">
                     <ion-avatar slot="start">
-                      <ion-img src={{user?.profileImage}}></ion-img>
+                      <img src={{user?.profileImage}}
+                      onerror="this.src='assets/icon/Profile.png';">
                     </ion-avatar>
                     <ion-label>
                       <h2>{{user?.name}} {{user?.lastName}}</h2>
@@ -411,7 +429,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button class="backtotop">Back To Top</ion-button>
+  <!-- <ion-button class="backtotop">Back To Top</ion-button> -->
 </div>
 
 <!-- <ion-icon class = "Rocket1" name="rocket-outline"></ion-icon> -->

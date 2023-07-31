@@ -20,6 +20,12 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             const recommendedUsersPromise = this.httpService.get(url + "/api/profile/get-recommended/" + userId).toPromise();
             const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
             const [currentUserProfile, recommendedUsers] = await Promise.all([currentUserProfilePromise, recommendedUsersPromise]);
+            //const allCategories = await this.bookEntityRepository.findAllCategories();
+            /*console.log('allCategories: ');
+            //console all categories
+            allCategories.forEach((category) => {
+                console.log(category);
+            });*/
             if ( recommendedUsers?.data.length > 0 ) {
                 const categories = convertUserCategories( currentUserProfile?.data );
                 const allBooks = await this.bookEntityRepository.findSome(categories);
@@ -255,48 +261,55 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             });
 
             //push 0 or 1 to each book array in books if it has the category, and then add bookId to the end
+            
             items?.forEach((item) => { //test this!!!!
                 const book: { book: number[], bookId: string } = { book: [], bookId: "" };
+                /*if (!Array.isArray(item.genres) || !Array.isArray(item.series) || !Array.isArray(item.author) || !Array.isArray(item.publisher)) {
+                    console.log("item.genres: " + item.genres);
+                    console.log("item.series: " + item.series);
+                    console.log("item.author: " + item.author);
+                    console.log("item.publisher: " + item.publisher);*/
 
-                genres?.forEach((genresItem) => {
-                    if (item.genres?.includes(genresItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                    genres?.forEach((genresItem) => {
+                        if (item.genres?.includes(genresItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                series?.forEach((seriesItem) => {
+                    series?.forEach((seriesItem) => {
 
-                    if (item.series?.includes(seriesItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                        if (item.series?.includes(seriesItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                author?.forEach((authorItem) => {
-                    if (item.author?.includes(authorItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                    author?.forEach((authorItem) => {
+                        if (item.author?.includes(authorItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                publisher?.forEach((publisherItem) => {
-                    if (item.publisher?.includes(publisherItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                    publisher?.forEach((publisherItem) => {
+                        if (item.publisher?.includes(publisherItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                book.bookId = item._id;
-                books.push(book);
+                    book.bookId = item._id;
+                    books.push(book);
+                /*} else {
+                    console.log("item  not an array !!!!!!!!!!!!!!!!!!!");
+                }*/
             });
-
             return books;
-
         }
 
         function loadCategories( categories: string[], category: string, categoryIsArray = false, categyIsAuthor = false ) {

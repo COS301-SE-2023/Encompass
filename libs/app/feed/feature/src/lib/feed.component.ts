@@ -98,6 +98,8 @@ export class FeedPage {
   moviesIsFetched = false
   booksIsFetched = false
   postsIsFetched = false
+  ShowBooks = true;
+  ShowMovies = true;
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
     this.load();
@@ -204,6 +206,8 @@ load(){
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((communities) => {
             if(communities){
+              console.log("Communities Found");
+              console.log(communities);
               this.myCommunities = communities.slice(0, 3);
               console.log("COMMUNITIES: ");
               for(let k =0; k<this.myCommunities.length;k++){  
@@ -878,7 +882,7 @@ async Share(n:number, post: PostDto){
 
   this.store.dispatch(new UpdatePost(post._id, data));
 
-  const link : string = obj + '/app-comments-feature/' + post._id;
+  const link : string = obj + '/home/app-comments-feature/' + post._id;
 
   await navigator.clipboard.writeText(link)
 }
@@ -996,16 +1000,22 @@ GoToProfile(username: string){
   // const series = document.getElementById('series');
   if(all && books && movies){
     if (btnname == 'all'){
+      this.ShowMovies = true;
+      this.ShowBooks = true;
       all.classList.add('active-select');
       books.classList.remove('active-select');
       movies.classList.remove('active-select');
       // series.classList.remove('active-select');
     } else if (btnname == 'books'){
+      this.ShowMovies = false;
+      this.ShowBooks = true;
       all.classList.remove('active-select');
       books.classList.add('active-select');
       movies.classList.remove('active-select');
       // series.classList.remove('active-select');
     } else if (btnname == 'movies'){
+      this.ShowMovies = true;
+      this.ShowBooks = false;
       all.classList.remove('active-select');
       books.classList.remove('active-select');
       movies.classList.add('active-select');
