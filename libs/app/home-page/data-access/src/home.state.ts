@@ -246,6 +246,7 @@ export class HomeState{
 
     try{
 
+      // ctx.dispatch(new GetLatestPosts());
       const posts = ctx.getState().HomePostsForm.model.homePosts;
 
       if(posts == null ){

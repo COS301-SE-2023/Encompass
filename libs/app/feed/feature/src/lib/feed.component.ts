@@ -656,7 +656,7 @@ async addPosts(type: string){
   if(this.profile == null){
     return;
   }
-
+  if(!this.postsIsFetched){
     if (type === "recommended") {
       this.store.dispatch(new GetAllPosts(this.profile?._id));
     } else if (type === "latest") {
@@ -664,7 +664,7 @@ async addPosts(type: string){
     } else {
       this.store.dispatch(new GetPopularPosts());
     }
-    if(!this.postsIsFetched){
+    
       
       this.postsIsFetched = true; 
       this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
@@ -806,6 +806,7 @@ Like(n:number, post: PostDto){
 }
 
 Dislike(n:number, post: PostDto){
+  console.log("dislike")
   this.likedComments[n]=false;
   this.likes[n]--;
 

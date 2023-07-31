@@ -86,7 +86,7 @@ export class SignUpState{
             bio: null,
           }
 
-          ctx.dispatch(new CreateProfile(profileData))
+          await ctx.dispatch(new CreateProfile(profileData))
         }
         if(response != null)
         {

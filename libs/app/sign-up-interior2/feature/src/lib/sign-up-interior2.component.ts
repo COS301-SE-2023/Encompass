@@ -5,8 +5,8 @@ import { SubscribeToProfile,UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { Observable } from 'rxjs';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { SignUpCommunitiesState } from '@encompass/app/sign-up-interior2/data-access';
-import { CommunityDto } from '@encompass/api/community/data-access';
+import { SignUpCommunitiesApi, SignUpCommunitiesState } from '@encompass/app/sign-up-interior2/data-access';
+import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { GetCommunities } from '@encompass/app/sign-up-interior2/util';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
@@ -26,14 +26,15 @@ export class SignUpInterior2Page{
   myCommunities! : CommunityDto[] | null;
   selectedCommunities : string[]=[];
   selectedCommunity: string | undefined;
-  constructor(private router: Router, private store: Store){
+  constructor(private router: Router, private store: Store, private signupApi: SignUpCommunitiesApi){
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
       if(profile){
         this.profile = profile;
         
-        this.store.dispatch(new GetCommunities(this.profile._id));
+        this.store.dispatch(new GetCommunities(this.profile._id, this.profile.username));
         this.communities$.subscribe((communities) => {
+          console.log("communities:");
           if(communities){
             console.log("communities:");
             console.log(communities);
@@ -41,6 +42,10 @@ export class SignUpInterior2Page{
             this.myCommunities = communities.slice(0, 3);
           }
         })
+      }
+
+      else{
+        console.log("profile is null");
       }
     })
   }
@@ -92,6 +97,34 @@ export class SignUpInterior2Page{
     }
 
     this.store.dispatch(new UpdateProfile(data, this.profile._id));
+
+    if(this.profile){
+    this.selectedCommunities.forEach(community =>{
+      this.communities?.forEach(comm => {
+        if(comm.name === community && !comm.members.includes(this.profile!.username)){
+
+          const newMembers = [...comm.members, this.profile!.username]
+
+          const data2: UpdateCommunityRequest = {
+            name: comm.name,
+            type: comm.type,
+            admin: comm.admin,
+            about: comm.about,
+            rules: comm.rules,
+            groupImage: comm.groupImage,
+            bannerImage: comm.bannerImage,
+            categories: comm.categories,
+            events: comm.events,
+            posts: comm.posts,
+            members: newMembers,
+            ageRestricted: comm.ageRestricted
+          }
+
+          this.signupApi.updateCommunity(comm._id, data2);
+        }
+      })
+    })
+  }
     this.router.navigate(['/home']);
   }
 }
