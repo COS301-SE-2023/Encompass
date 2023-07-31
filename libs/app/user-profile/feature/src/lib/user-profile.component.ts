@@ -451,7 +451,7 @@ Dislike(n:number, post: PostDto){
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
 }
 
-OpenRemove(){
+OpenView(){
   this.ViewCommunities = !this.ViewCommunities;
 }
 
