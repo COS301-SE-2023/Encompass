@@ -300,46 +300,83 @@ export class ProfileState{
     })
   }
 
-  @Action(GetFollowers)
-  async getFollowers(ctx: StateContext<OtherUsers>, {followerList}: GetFollowers){
-    let followers: ProfileDto[] = [];
+  // @Action(GetFollowers)
+  // async getFollowers(ctx: StateContext<OtherUsers>, {followerList}: GetFollowers){
+  //   let followers: ProfileDto[] = [];
 
-    followerList.forEach(async element => {
-      const item = await this.profileApi.getProfile(element)
+  //   followerList.forEach(async element => {
+  //     const item = await this.profileApi.getProfile(element)
 
-      if(item != null && item != undefined){
-        followers = [...followers, item];
+  //     if(item != null && item != undefined){
+  //       followers = [...followers, item];
 
-        ctx.setState({
-          OtherUsersForm: {
-            model: {
-              otherUsers: followers
-            }
-          }
-        })
-      }
-    });
+  //       ctx.setState({
+  //         OtherUsersForm: {
+  //           model: {
+  //             otherUsers: followers
+  //           }
+  //         }
+  //       })
+  //     }
+  //   });
+  // }
+
+  // @Action(GetFollowing)
+  // async getFollowing(ctx: StateContext<OtherUsers>, {followingList}: GetFollowing){
+  //   let following: ProfileDto[] = [];
+
+  //   followingList.forEach(async element => {
+  //     const item = await this.profileApi.getProfile(element)
+
+  //     if(item != null && item != undefined){
+  //       following = [...following, item];
+
+  //       ctx.setState({
+  //         OtherUsersForm: {
+  //           model: {
+  //             otherUsers: following
+  //           }
+  //         }
+  //       })
+  //     }
+  //   });
+  // }
+
+  async getFollowers(followerList: string[]){
+    const followers: ProfileDto[] = [];
+  
+    await Promise.all(
+      followerList.map(async (element) => {
+        const item = await this.profileApi.getProfile(element);
+  
+        if (item != null && item != undefined) {
+          followers.push(item);
+        }
+      })
+    );
+  
+    console.log(followers);
+  
+    return followers;
   }
 
-  @Action(GetFollowing)
-  async getFollowing(ctx: StateContext<OtherUsers>, {followingList}: GetFollowing){
-    let following: ProfileDto[] = [];
-
-    followingList.forEach(async element => {
-      const item = await this.profileApi.getProfile(element)
-
-      if(item != null && item != undefined){
-        following = [...following, item];
-
-        ctx.setState({
-          OtherUsersForm: {
-            model: {
-              otherUsers: following
-            }
-          }
-        })
-      }
-    });
+  // @Action(GetFollowing)
+  async getFollowing(followingList: string[]): Promise<ProfileDto[]> {
+    const following: ProfileDto[] = [];
+  
+    await Promise.all(
+      followingList.map(async (element) => {
+        const item = await this.profileApi.getProfile(element);
+  
+        if (item != null && item != undefined) {
+          following.push(item);
+        }
+      })
+    );
+  
+    console.log(following);
+  
+    return following;
   }
 
   @Action(RemoveCommunity)

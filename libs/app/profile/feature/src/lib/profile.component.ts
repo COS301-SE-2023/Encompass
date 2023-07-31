@@ -77,7 +77,7 @@ export class ProfilePage {
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
-    ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
+    ,private formBuilder: FormBuilder, private profileApi: ProfileApi, private profileState: ProfileState) {
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
@@ -525,36 +525,41 @@ Edit(){
     })
   }
 
-  loadFollowers(){
+  async loadFollowers(){
     this.otherUsers = [];
     if(this.profile == null){
       return;
     }
     console.log("here");
-    this.store.dispatch(new GetFollowers(this.profile.followers));
-    this.otherUsers$.subscribe((users) => {
-      if(users){
-        console.log(users);
-        this.otherUsers = users;
-      }
-    })
+    console.log(this.profile.followers);
+    this.otherUsers = await this.profileState.getFollowers(this.profile.followers);
+
+    // this.store.dispatch(new GetFollowers(this.profile.followers));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     console.log(users);
+    //     this.otherUsers = users;
+    //   }
+    // })
   }
 
-  loadFollowing(){
+  async loadFollowing(){
     this.otherUsers = [];
 
     if(this.profile == null){
       return;
     }
 
-        console.log("here as well");
+    console.log("here as well");
+    console.log(this.profile.following);
+    this.otherUsers = await this.profileState.getFollowing(this.profile.following);
 
-    this.store.dispatch(new GetFollowing(this.profile.following));
-    this.otherUsers$.subscribe((users) => {
-      if(users){
-        this.otherUsers = users;
-      }
-    })
+    // this.store.dispatch(new GetFollowing(this.profile.following));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     this.otherUsers = users;
+    //   }
+    // })
   }
 
   async goToProfile(username : string | undefined){
