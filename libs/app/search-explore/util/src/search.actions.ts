@@ -22,3 +22,7 @@ export class SearchCommunities{
 export class GetAllCommunities{
     static readonly type = '[Search] Get All Communities';
 }
+
+export class GetAllProfiles{
+    static readonly type = '[Search] Get All Profiles';
+}
