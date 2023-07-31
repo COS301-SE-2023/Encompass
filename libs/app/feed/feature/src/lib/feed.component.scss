@@ -464,6 +464,7 @@ object-fit: fill;
   border-radius: 15px;
 }
 
+
 .RecomHeader{
   width: 150%;
   display: flex;
@@ -494,6 +495,13 @@ ion-button:hover {
   margin-top: 10px;
   border-radius: 15px;
 }
+.CommunityIcon:hover{
+  cursor: pointer;
+}
+
+.CommunityMembers:hover{
+  cursor: pointer;
+}
 
 .CommunityDetails{
   display: flex;
@@ -511,6 +519,9 @@ ion-button:hover {
     color: #000;
     font-family: CustomFont;
     font-size: 20px;
+}
+.CommunityName:hover{
+  cursor: pointer;
 }
 
 .CommunityMembers{

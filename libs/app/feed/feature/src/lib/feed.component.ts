@@ -78,9 +78,6 @@ export class FeedPage {
   myMovieGenres1: string[]=[];
   myMovieGenres2: string[]=[];
 
-  selectedCommunity: string | undefined;
-  selectedCommunities : string[]=[];
-
   reports : boolean[] =[];
   postReported : boolean[] = [];
 
@@ -973,21 +970,8 @@ GoToProfile(username: string){
   buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
 
   handleButtonClick(buttonId: string, CommunityName: string) {
-    this.selectedCommunity = CommunityName;
 
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
-
-    if(!this.selectedCommunities.includes(CommunityName))
-    {
-
-      this.selectedCommunities.push(this.selectedCommunity);
-
-    }else{
-      this.selectedCommunities=this.selectedCommunities.filter((community) => community !== this.selectedCommunity);
-
-    }
-
-    console.log(this.selectedCommunities);
   }
 
   activebutton = 'all';
