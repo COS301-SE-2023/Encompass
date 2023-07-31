@@ -37,4 +37,18 @@ export class PostEntityRepository extends BaseEntityRepository<
     });
     return filteredPosts;
   }
+
+  async findPostsByCategory(category: string): Promise<PostDto[]> {
+    const allPosts = await this.findAll();
+    const filteredPosts = allPosts.filter(post => {
+      const categories = post.categories as string[];
+      const lowerCaseCategories = categories.map(category =>
+        category.toLowerCase(),
+      );
+      const isCategoryMatch = lowerCaseCategories.includes(category);
+      return isCategoryMatch;
+    });
+    return filteredPosts;
+  }
+
 }

@@ -4,6 +4,11 @@ export class SearchPosts{
     constructor(public readonly keyword: string){}
 }
 
+export class SearchPostsByCategory{
+    static readonly type = '[Search] Search Posts By Category';
+    constructor(public readonly category: string){}
+}
+
 export class SearchProfiles{
     static readonly type = '[Search] Search Profiles';
     constructor(public readonly keyword: string){}

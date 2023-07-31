@@ -44,6 +44,13 @@ export class PostController {
       );
   }
 
+  @Get('get-posts-by-category/:category')
+  async getPostsByCategory(@Param('category') category: string){
+      return await this.queryBus.execute<GetPostsByKeywordQuery, PostDto[]>(
+          new GetPostsByKeywordQuery(category),
+      );
+  }
+
   @Patch(':id')
   async updatePost(
     @Param('id') id: string,
@@ -80,6 +87,8 @@ export class PostController {
       new GetAllPostsQuery(),
     );
   }
+
+  
 
   @Get('get-recommended-posts/:id')
   async getRecommendedPosts( @Param('id') id: string){
