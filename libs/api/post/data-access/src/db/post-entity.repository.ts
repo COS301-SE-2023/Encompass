@@ -23,14 +23,15 @@ export class PostEntityRepository extends BaseEntityRepository<
   async findPostsByKeyword(keyword: string): Promise<PostDto[]> {
     const allPosts = await this.findAll();
     const filteredPosts = allPosts.filter(post => {
-      const title = post.title.toLowerCase();
-      const content = post.text.toLowerCase();
-      const categories = post.categories as string[];
-      const lowerCaseCategories = categories.map(category =>
-        category.toLowerCase(),
-      );
+      if (!post) {
+        return false; // Skip if post or members is undefined
+      }
 
-      const isCategoryMatch = lowerCaseCategories.includes(keyword);
+      const title = post.title? post.title.toLowerCase() : '';
+      const content = post.text? post.text.toLowerCase() : '';
+      const categories = post.categories? (post.categories as string[]).map(category => category.toLowerCase()) : [];
+
+      const isCategoryMatch = categories.includes(keyword);
       const isTitleMatch = title.includes(keyword);
       const isContentMatch = content.includes(keyword);
       return isTitleMatch || isContentMatch || isCategoryMatch;
