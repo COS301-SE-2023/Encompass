@@ -834,7 +834,7 @@ async Share(n:number, post: PostDto){
 
   this.store.dispatch(new UpdatePost(post._id, data));
 
-  const link : string = obj + '/app-comments-feature/' + post._id;
+  const link : string = obj + '/home/app-comments-feature/' + post._id;
 
   await navigator.clipboard.writeText(link)
 }
