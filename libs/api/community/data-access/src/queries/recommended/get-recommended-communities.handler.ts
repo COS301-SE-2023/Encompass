@@ -12,8 +12,8 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
     ){}
 
     
-    async execute({ userId }: GetRecommendedCommunitiesQuery) {
-        const communitiesUserIsNotIn = await this.communityEntityRepository.findCommunitiesByUserId(userId);
+    async execute({ username, userId }: GetRecommendedCommunitiesQuery) {
+        const communitiesUserIsNotIn = await this.communityEntityRepository.findCommunitiesByUserId(username);
         console.log("---------------------------------------------------------------------------------------------");
         console.log("communitiesUserIsNotIn:");
         console.log(communitiesUserIsNotIn);
