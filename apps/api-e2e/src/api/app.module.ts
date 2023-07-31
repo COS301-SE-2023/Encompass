@@ -16,17 +16,10 @@ import { CommunityRequestModule } from '@encompass/api/community-request/data-ac
 import { NotificationModule } from '@encompass/api/notifications/data-access';
 import { MediaRecommenderModule } from '@encompass/api/media-recommender/data-access';
 import { SettingsModule } from '@encompass/api/settings/data-access';
-import {ServeStaticModule} from '@nestjs/serve-static';
-import { join } from 'path';
 import { SearchModule } from '@encompass/api/search/data-access';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'encompass'),
-      // exclude: ['/api*'],
-    }),
-
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/encompass-test',{
       useNewUrlParser: true,
       useUnifiedTopology: true,
