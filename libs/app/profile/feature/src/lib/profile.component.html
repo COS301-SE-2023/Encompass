@@ -123,7 +123,7 @@
             </div>
         </div>
         <div *ngIf = "seeComments">
-          <div class = "lineBreakers" *ngFor="let comment of commentsList;let i = index" >
+          <div class = "lineBreakers" *ngFor="let comment of commentsList?.slice()?.reverse();let i = index" >
             <br>
             <div class = Comment *ngIf="profile != null">
                 <div class = "CommentHead">
@@ -201,7 +201,7 @@
           <img class="banner" src={{profile?.profileBanner}} onerror="this.src='assets/icon/Banner.png';" />
           </div>
           <ion-card-header *ngIf = "!edit" >
-            <ion-card-title>{{profile?.name}} {{profile?.lastName}}
+            <ion-card-title> {{profile?.name}} {{profile?.lastName}}
               <ion-button
             fill="clear"
             size="medium"
