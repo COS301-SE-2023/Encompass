@@ -45,7 +45,7 @@ export class ClearAllNotifications{
 
 export class GetRecommendedCommunities{
   static readonly type = '[Home] Get Recommended Communities';
-  constructor(public readonly userId: string){}
+  constructor(public readonly userId: string, public readonly username: string){}
 }
 
 export class GetRecommendedMovies{

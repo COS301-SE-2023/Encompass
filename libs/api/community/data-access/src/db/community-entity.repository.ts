@@ -22,11 +22,32 @@ export class CommunityEntityRepository extends BaseEntityRepository<
 
     async findCommunitiesByUserId(id: string): Promise<CommunityDto[]> {
         const allCommunities = await this.findAll();
+        console.log("allCommunities: ");
+        console.log(allCommunities);
         const filteredCommunities = allCommunities.filter(community => {
             const members = community.members as string[];
-            const isAdmin = community.admin === id;
             const isMember = members.includes(id);
-            return !isAdmin && !isMember;
+            return !isMember;
+        });
+        return filteredCommunities;
+    }
+
+    async findCommunitiesByKeyword(keyword: string): Promise<CommunityDto[]> {
+        const allCommunities = await this.findAll();
+        const filteredCommunities = allCommunities.filter(community => {
+            if (!community) {
+                return false; // Skip if community or members is undefined
+            }
+
+            const name = community.name ? community.name.toLowerCase() : '';
+            const description = community.about ? community.about.toLowerCase() : '';
+            const categories = community.categories ? (community.categories as string[]).map(category => category.toLowerCase()) : [];
+    
+            const isCategoryMatch = categories.includes(keyword);
+            const isNameMatch = name.includes(keyword);
+            const isDescriptionMatch = description.includes(keyword);
+            
+            return isNameMatch || isDescriptionMatch || isCategoryMatch;
         });
         return filteredCommunities;
     }

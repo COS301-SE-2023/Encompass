@@ -4,9 +4,17 @@ import { PostDto } from "@encompass/api/post/data-access"
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { Action, Selector, State, StateContext } from "@ngxs/store"
 import { SearchApi } from "./search.api"
-import { SearchCommunities, SearchPosts, SearchProfiles } from "@encompass/app/search-explore/util"
+import { SearchCommunities, SearchPosts, SearchPostsByCategory, SearchProfiles } from "@encompass/app/search-explore/util"
 
 export interface SearchModel{
+    SearchPostsForm: {
+        model: {
+            posts: PostDto[] | null | undefined
+        }
+    }
+}
+
+export interface SearchPostsByCategoryModel{
     SearchPostsForm: {
         model: {
             posts: PostDto[] | null | undefined
@@ -29,6 +37,17 @@ export interface SearchCommunitiesModel{
         }
     }
 }
+
+@State<SearchPostsByCategoryModel>({
+    name: 'searchPostsByCategory',
+    defaults: {
+        SearchPostsForm: {
+            model: {
+                posts: null
+            }
+        }
+    }
+})
 
 @State<SearchModel>({
     name: 'searchPosts',
@@ -84,6 +103,23 @@ export class SearchState{
         })
     }
 
+    @Action(SearchPostsByCategory)
+    async searchPostsByCategory(ctx: StateContext<SearchPostsByCategoryModel>, {category}: SearchPostsByCategory){
+        const response = await this.searchApi.getPostsByCategory(category);
+
+        if(response == null || response == undefined){
+            return;
+        }
+
+        ctx.setState({
+            SearchPostsForm: {
+                model: {
+                    posts: response
+                }
+            }
+        })
+    }
+
     @Action(SearchProfiles)
     async searchProfiles(ctx: StateContext<SearchProfilesModel>, {keyword}: SearchProfiles){
         const response = await this.searchApi.getProfilesByKeyword(keyword);
@@ -116,6 +152,11 @@ export class SearchState{
                 }
             }
         })
+    }
+
+    @Selector()
+    static searchPostsByCategory(state: SearchPostsByCategoryModel){
+        return state.SearchPostsForm.model.posts;
     }
 
     @Selector()

@@ -30,12 +30,12 @@ export class RemoveCommunityRequest{
     constructor(public communityId: string, public username: string){}
 }
 
-export class RemoveCommunity{
+export class RemoveOtherUserCommunity{
     static readonly type = '[Profile] Remove Community';
     constructor(public readonly communityName: string, public readonly username: string){}
   }
   
-  export class AddCommunity{
+  export class AddOtherUserCommunity{
     static readonly type = '[Profile] Add Community';
     constructor(public readonly communityName: string, public readonly username: string){}
   }

@@ -145,8 +145,10 @@ export class HomeState{
   }
 
   @Action(GetRecommendedCommunities)
-  async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId}: GetRecommendedCommunities){
-    const response = await this.homeApi.getRecommendedCommunites(userId);
+  async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId, username}: GetRecommendedCommunities){
+    const response = await this.homeApi.getRecommendedCommunites(userId, username);
+
+    console.log("Response", response)
 
     if(response == null || response == undefined){
       return;
@@ -217,7 +219,7 @@ export class HomeState{
 
   @Action(GetAllPosts)
   async getAllPosts(ctx: StateContext<HomePostsModel>, {username}: GetAllPosts){
-    const response = await this.homeApi.getAllPosts(username);
+    const response = await this.homeApi.getRecommendPosts(username);
     console.log(response);
 
     if(response == null || response == undefined){
