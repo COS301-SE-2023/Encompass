@@ -85,6 +85,16 @@ export class HomeApi{
     }
   }
 
+  async getRecommendPosts(userId: string) {
+    try {
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-recommended-posts/' + userId).toPromise();
+        return response;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+  }
+
   async sendNotification(userId: string, notification: AddNotificationRequest){ 
     try{
       const response = await this.httpClient.patch<NotificationDto>('/api/notification/add/' + userId, notification).toPromise();

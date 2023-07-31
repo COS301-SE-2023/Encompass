@@ -658,7 +658,7 @@ async addPosts(type: string){
   }
 
     if (type === "recommended") {
-      this.store.dispatch(new GetAllPosts(this.profile?.username));
+      this.store.dispatch(new GetAllPosts(this.profile?._id));
     } else if (type === "latest") {
       this.store.dispatch(new GetLatestPosts());
     } else {
