@@ -28,6 +28,15 @@ export class SearchApi {
         }
     }
 
+    async getAllCommunities(){
+        try{
+            return await this.http.get<CommunityDto[]>('/api/community/get-all-communities').toPromise();
+        } catch(error){
+            console.log(error);
+            return null;
+        }
+    }
+
     async getCommunitiesByKeyword(keyword: string){
         try{
             return await this.http.get<CommunityDto[]>('/api/community/get-communities-by-keyword/' + keyword).toPromise();

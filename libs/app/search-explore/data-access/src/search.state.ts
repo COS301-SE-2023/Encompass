@@ -14,6 +14,14 @@ export interface SearchModel{
     }
 }
 
+export interface GetAllCommunitiesModel{
+    GetAllCommunitiesForm: {
+        model: {
+            communities: CommunityDto[] | null | undefined
+        }
+    }
+}
+
 export interface SearchPostsByCategoryModel{
     SearchPostsForm: {
         model: {
@@ -81,6 +89,7 @@ export interface SearchCommunitiesModel{
         }
     }
 })
+
 
 @Injectable()
 export class SearchState{
