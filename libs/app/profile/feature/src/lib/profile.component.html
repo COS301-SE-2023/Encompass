@@ -36,7 +36,7 @@
         <!-- Posts -->
 
         <div *ngIf = "seePosts">
-          <div  *ngFor="let post of posts?.reverse();let i = index">
+          <div  *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
             <ion-card class = "PostCard card-styles" >
 
@@ -123,13 +123,14 @@
             </div>
         </div>
         <div *ngIf = "seeComments">
-          <div class = "lineBreakers" *ngFor="let comment of commentsList;let i = index" >
+          <div class = "lineBreakers" *ngFor="let comment of commentsList?.slice()?.reverse();let i = index" >
             <br>
-            <div class = Comment>
+            <div class = Comment *ngIf="profile!=null">
                 <div class = "CommentHead">
                   <div class = CommentIDs>
-                      <img src = "assets/icon/profile.jpg" style="object-fit: fill;
-                      width: 50px; height: 50px; border-radius: 50%;">
+                      <img src = {{profile?.profileImage}} style="object-fit: fill;
+                      width: 50px; height: 50px; border-radius: 50%;"
+                      onerror="this.src='assets/icon/Profile.png';">
                       <div class = "UserName">
                         @{{comment?.username}}
                       </div>
@@ -267,12 +268,12 @@
         </ion-card>
         <ion-card *ngIf = "!ViewCommunities">
           <div class = "CommunityHead">
-            <button (click)="OpenRemove()" class = "Button3">Communities:</button>
+            <button (click)="OpenView()" class = "Button3">Communities:</button>
           </div>
         </ion-card>
         <ion-card *ngIf = "ViewCommunities">
           <div class = "CommunityHead">
-            <button (click)="OpenRemove()" class = "Button3">Communities:</button>
+            <button (click)="OpenView()" class = "Button3">Communities:</button>
           </div>
             <div class = "ViewCommunity" *ngFor="let community of profile?.communities; let i = index">
             <label class = "JoinedCommunity" (click)="GoToCommunity(community)">{{community}}</label>
@@ -336,7 +337,7 @@
 
 
 
-        <div class="awards">
+        <!-- <div class="awards">
           <ion-title class="awards-header">
             Awards
           </ion-title>
@@ -345,10 +346,6 @@
             <img src="assets/icon/Award2.JPG" class="badge">
           </div>
         </div>
-
-
-
-
 
 
         <ion-card>
@@ -371,10 +368,7 @@
                          <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
                          <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
                          <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
-                         <!-- <div *ngFor="let category of myCommunities[0].categories;" class = "CommunityGenres tooltip">
-                          <img  src = "assets/icon/{{category}}.png" class="imgDiv">
-                          <span class="tooltiptext">{{category}}</span>
-                        </div> -->
+                      
                      </div>
                      <div class = "CommunityAdd">
                       
@@ -403,10 +397,7 @@
                          <img src = "assets/icon/Fantasy.png" class="imgDiv">
                          <img src = "assets/icon/Adventure.png"  class="imgDiv">
                          <img src = "assets/icon/Movies.png"  class="imgDiv">
-                         <!-- <div *ngFor="let category of myCommunities[0].categories;" class = "CommunityGenres tooltip">
-                          <img  src = "assets/icon/{{category}}.png" class="imgDiv">
-                          <span class="tooltiptext">{{category}}</span>
-                        </div> -->
+                        
                         </div>
                      </div>
                      <div class = "CommunityAdd">
@@ -424,7 +415,7 @@
               </ion-row>
             </ion-grid>
           </div>
-        </ion-card>
+        </ion-card> -->
 
       </ion-col>
     </ion-row>

@@ -648,7 +648,7 @@ Edit(){
     this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   }
 
-  OpenRemove(){
+  OpenView(){
     this.ViewCommunities = !this.ViewCommunities;
   }
 
