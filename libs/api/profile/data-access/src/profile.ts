@@ -140,6 +140,7 @@ export class Profile extends AggregateRoot{
 
   addCommunity(communityName: string){
     if(this.communities){
+      if(this.communities.includes(communityName)) return;
       this.communities = [...this.communities, communityName];
     }
 

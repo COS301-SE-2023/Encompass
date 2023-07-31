@@ -271,10 +271,10 @@
                   </div>
                     <div class = "RemoveMembers" *ngFor="let member of myMembers; let i = index">
                     <label class = "RmvLabel">@{{member}}</label>
-                    <button class = "RmvBtn" *ngIf = "!removedMember[i]" (click)="Remove(member,i)">Remove</button>
-                    <button class = "RmvBtn2" *ngIf = "removedMember[i]" (click)="Undo(member,i)">Removed</button>
+                    <button class = "RmvBtn" *ngIf = "!removedMember[i] && community?.admin === profile?.username" (click)="Remove(member,i)">Remove</button>
+                    <button class = "RmvBtn2" *ngIf = "removedMember[i] && community?.admin === profile?.username" (click)="Undo(member,i)">Removed</button>
                   </div>
-                  <div class = "RemoveFooter">
+                  <div class = "RemoveFooter" *ngIf="community?.admin === profile?.username">
                     <button (click)="CancelUpdate()" ><ion-icon class = "reject2" name="close-circle"></ion-icon></button>
                     <button (click)="UpdateCommunity()" ><ion-icon class = "accept2" name="checkmark-circle"></ion-icon></button>
                   </div>
