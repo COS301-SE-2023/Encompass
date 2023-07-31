@@ -39,6 +39,8 @@ export class SearchExploreComponent {
   @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
   @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
   @Select(SearchState.searchCommunities) searchCommunities$! : Observable<CommunityDto[] | null>;
+  @Select(SearchState.searchPostsByCategory) searchPostsByCategory$! : Observable<PostDto[] | null>;
+  @Select(SearchState.getAllCommunities) AllCommunities$! : Observable<CommunityDto[] | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   myCommunities! : CommunityDto[] | null;

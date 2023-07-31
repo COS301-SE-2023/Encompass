@@ -18,3 +18,7 @@ export class SearchCommunities{
     static readonly type = '[Search] Search Communities';
     constructor(public readonly keyword: string){}
 }
+
+export class GetAllCommunities{
+    static readonly type = '[Search] Get All Communities';
+}
