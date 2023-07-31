@@ -44,7 +44,7 @@ export class CommunityController {
         );
     }
 
-    @Get('get-recommended-communities/:userid')
+    @Get('get-recommended-communities/:userid/:username')
     async getRecommendedCommunities(@Param('username') username: string, @Param('userid') userId: string): Promise<CommunityDto[]> {
         return await this.queryBus.execute<GetRecommendedCommunitiesQuery, CommunityDto[]>(
             new GetRecommendedCommunitiesQuery(username, userId),
