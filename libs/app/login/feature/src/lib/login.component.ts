@@ -65,7 +65,7 @@ export class LoginPage {
     }
 
     checkInput(){
-      if(this.user.email != "" && this.user.password != ""&&this.user.password.length>7){
+      if(this.user.email != "" && this.user.password != ""&&this.user.password.length>6){
         if(this.isValidEmail(this.user.email)){
           this.isValid = true;
         }else{
