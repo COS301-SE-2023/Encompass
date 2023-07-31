@@ -748,6 +748,11 @@ ion-card {
   font-weight: bold;
   color: var(--ion-color-medium);
 }
+.profile-info:hover{
+  cursor: pointer;
+  background-color: var(--hover-color);
+  color: var(--ion-color-text);
+}
 
 .info-post {
   // padding-left: 35px;

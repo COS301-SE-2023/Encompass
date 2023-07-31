@@ -455,4 +455,39 @@ OpenRemove(){
   this.ViewCommunities = !this.ViewCommunities;
 }
 
+// loadFollowers(){
+//   if(this.profile == null){
+//     return;
+//   }
+//   console.log("here");
+//   this.store.dispatch(new GetFollowers(this.profile.followers));
+//   this.otherUsers$.subscribe((users) => {
+//     if(users){
+//       console.log(users);
+//       this.otherUsers = users;
+//     }
+//   })
+// }
+
+// loadFollowing(){
+//   if(this.profile == null){
+//     return;
+//   }
+
+//       console.log("here as well");
+
+//   this.store.dispatch(new GetFollowing(this.profile.following));
+//   this.otherUsers$.subscribe((users) => {
+//     if(users){
+//       this.otherUsers = users;
+//     }
+//   })
+// }
+
+// async goToProfile(username : string | undefined){
+//   console.log("Route is " + username);
+//   await this.modalController.dismiss();
+//   this.router.navigate(['home/user-profile/' + username]);
+// }
+
 }

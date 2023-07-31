@@ -27,7 +27,7 @@
     <ion-row class="filter-row">
       <ion-col size="5">
         <div *ngIf = "seePosts">
-          <div *ngFor="let post of userPosts;let i = index">
+          <div *ngFor="let post of userPosts.slice().reverse();let i = index">
 
           <ion-card class = "PostCard card-styles" >
 
@@ -52,8 +52,8 @@
                   style = "color: red;"
                   >Post Reported.</label>
 
-                  <button class = "Options" *ngIf="!post.reported" (click)="Report(i)"> 
-                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button>
+                  <!-- <button class = "Options" *ngIf="!post.reported" (click)="Report(i)"> 
+                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
 
                 </div>
       
@@ -170,8 +170,8 @@
             <div>{{userProfile?.bio}}</div>
             <div class="profile-info-container">
               <div class="profile-info info-post">{{userPosts?.length}} <br> Posts</div>
-              <div id="follow-trigger" class="profile-info"> {{userProfile.followers.length}}<br> Followers</div>
-              <div id="following-trigger" class="profile-info"> {{userProfile.following.length}} <br> Following</div>
+              <div id="follow-trigger" class="profile-info" > {{userProfile.followers.length}}<br> Followers</div>
+              <div id="following-trigger" class="profile-info" > {{userProfile.following.length}} <br> Following</div>
             </div>
           </ion-card-content>
          
