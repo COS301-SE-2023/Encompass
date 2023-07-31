@@ -114,10 +114,13 @@ export class CommunityProfileComponent {
         console.log(community);
         this.members = community.members.length;
         for(let i =0; i<community.members.length;i++){
-          if(community.members[i]!=this.profile?.username){
-                this.myMembers.push(community.members[i]);
-                this.removedMember.push(false);
+
+          if(community.members[i]==this.profile?.username&&community.admin==this.profile?.username){
+                continue;
           }
+            this.myMembers.push(community.members[i]);
+            this.removedMember.push(false);
+          
         }
 
         this.UpdatedMyMembers = this.myMembers;

@@ -643,8 +643,11 @@ Edit(){
     this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   }
 
-  OpenRemove(){
+  OpenView(){
+    console.log("View Communities: "+this.ViewCommunities);
     this.ViewCommunities = !this.ViewCommunities;
+    console.log("View Communities is now: "+this.ViewCommunities);
+
   }
 
   GoToProfile(username: string){
