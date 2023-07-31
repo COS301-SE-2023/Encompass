@@ -290,15 +290,18 @@
             <ion-content>
               <ion-list>
                 <div *ngFor="let user of otherUsers">
-                  <ion-item>
+                  
+                  <ion-item (click)="goToProfile(user?.username)" class = "User">
                     <ion-avatar slot="start">
-                      <ion-img src={{user?.profileImage}}></ion-img>
+                      <img src={{user?.profileImage}}
+                      onerror="this.src='assets/icon/Profile.png';">
                     </ion-avatar>
                     <ion-label>
                       <h2>{{user?.name}} {{user?.lastName}}</h2>
                       <p>@{{user?.username}}</p>
                     </ion-label>
                   </ion-item>
+                  
                 </div>
               </ion-list>
             </ion-content>
@@ -315,9 +318,10 @@
             <ion-content>
               <ion-list>
                 <div *ngFor="let user of otherUsers">
-                  <ion-item (click)="goToProfile(user?.username)">
+                  <ion-item (click)="goToProfile(user?.username)" class = "User">
                     <ion-avatar slot="start">
-                      <ion-img src={{user?.profileImage}}></ion-img>
+                      <img src={{user?.profileImage}}
+                      onerror="this.src='assets/icon/Profile.png';">
                     </ion-avatar>
                     <ion-label>
                       <h2>{{user?.name}} {{user?.lastName}}</h2>
