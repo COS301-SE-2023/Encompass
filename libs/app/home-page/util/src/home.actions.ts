@@ -23,6 +23,11 @@ export class UpdatePost{
   constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
 }
 
+export class UpdatePostWithType{
+  static readonly type = '[Home] Update Post';
+  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly type: string){}
+}
+
 export class GetNotifications{
   static readonly type = '[Home] Get Notifications';
   constructor(public readonly userId: string){}

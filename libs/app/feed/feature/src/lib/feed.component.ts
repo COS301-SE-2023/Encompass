@@ -5,7 +5,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable, takeUntil, pipe, Subject, take } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome, GetRecommendedBooks, GetRecommendedMovies } from '@encompass/app/home-page/util';
+import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome, GetRecommendedBooks, GetRecommendedMovies, UpdatePostWithType } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -100,6 +100,8 @@ export class FeedPage {
   postsIsFetched = false
   ShowBooks = true;
   ShowMovies = true;
+
+  type = "recommended";
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
     this.load();
@@ -652,14 +654,14 @@ load(){
     });
 }
 
-async addPosts(type: string){
+async addPosts(){
   if(this.profile == null){
     return;
   }
-  if(!this.postsIsFetched){
-    if (type === "recommended") {
+  // if(!this.postsIsFetched){
+    if (this.type === "recommended") {
       this.store.dispatch(new GetAllPosts(this.profile?._id));
-    } else if (type === "latest") {
+    } else if (this.type === "latest") {
       this.store.dispatch(new GetLatestPosts());
     } else {
       this.store.dispatch(new GetPopularPosts());
@@ -717,7 +719,7 @@ async addPosts(type: string){
 
       }
     })
-  }
+  // }
 }
 
 async openPopup() {
@@ -802,7 +804,9 @@ Like(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type));
+  
+  this.addPosts();
 }
 
 Dislike(n:number, post: PostDto){
@@ -827,7 +831,8 @@ Dislike(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type));
+  this.addPosts();
 }
 
 ReportPost(n:number, post: PostDto){
@@ -905,7 +910,8 @@ GoToProfile(username: string){
 
     this.postsIsFetched = false
 
-    this.addPosts("recommended");
+    this.type = "recommended";
+    this.addPosts();
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
@@ -926,7 +932,8 @@ GoToProfile(username: string){
 
    this.postsIsFetched = false
 
-    this.addPosts("latest");
+    this.type = "latest";
+    this.addPosts();
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
@@ -944,8 +951,9 @@ GoToProfile(username: string){
    }
    
    this.postsIsFetched = false
-   
-    this.addPosts("popular");
+  
+    this.type = "popular";
+    this.addPosts();
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
