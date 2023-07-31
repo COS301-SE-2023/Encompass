@@ -22,6 +22,8 @@ export class CommunityEntityRepository extends BaseEntityRepository<
 
     async findCommunitiesByUserId(id: string): Promise<CommunityDto[]> {
         const allCommunities = await this.findAll();
+        console.log("allCommunities: ");
+        console.log(allCommunities);
         const filteredCommunities = allCommunities.filter(community => {
             const members = community.members as string[];
             const isMember = members.includes(id);
@@ -33,13 +35,18 @@ export class CommunityEntityRepository extends BaseEntityRepository<
     async findCommunitiesByKeyword(keyword: string): Promise<CommunityDto[]> {
         const allCommunities = await this.findAll();
         const filteredCommunities = allCommunities.filter(community => {
-            const name = community.name.toLowerCase();
-            const description = community.about.toLowerCase();
-            const categories = community.categories as string[];
-            const lowerCaseCategories = categories.map(category => category.toLowerCase());
-            const isCategoryMatch = lowerCaseCategories.includes(keyword);
+            if (!community) {
+                return false; // Skip if community or members is undefined
+            }
+
+            const name = community.name ? community.name.toLowerCase() : '';
+            const description = community.about ? community.about.toLowerCase() : '';
+            const categories = community.categories ? (community.categories as string[]).map(category => category.toLowerCase()) : [];
+    
+            const isCategoryMatch = categories.includes(keyword);
             const isNameMatch = name.includes(keyword);
             const isDescriptionMatch = description.includes(keyword);
+            
             return isNameMatch || isDescriptionMatch || isCategoryMatch;
         });
         return filteredCommunities;

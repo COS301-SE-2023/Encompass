@@ -91,6 +91,7 @@ export class FeedPage {
   likedComments: boolean[] = [];
   sharing: boolean[] = [];
   size=0;
+  themeName!: string;
   // type = "recommended";
 
   communitiesIsFetched = false
@@ -138,6 +139,53 @@ load(){
               if (icons) {
                 icons.style.filter = 'invert(1)';
               }
+            }
+
+            this.themeName = this.settings.themes.themeColor;
+            
+           console.log(this.themeName);
+
+            const defaultcloud = document.getElementById('cloud-default');
+            const redcloud = document.getElementById('cloud-red');
+            const bluecloud = document.getElementById('cloud-blue');
+            const greencloud = document.getElementById('cloud-green');
+            const orangecloud = document.getElementById('cloud-orange');
+
+            if (defaultcloud && redcloud && bluecloud && greencloud && orangecloud){
+              // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+              console.log(this.themeName);
+              if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
+                redcloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                greencloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+              }else if (this.themeName == 'light-blue' || this.themeName == 'dark-blue') {
+                // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                bluecloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                redcloud.classList.add('visible');
+                greencloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+            } else if (this.themeName == 'light-green' || this.themeName == 'dark-green') {
+                greencloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                redcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+            }else if (this.themeName == 'light-orange' || this.themeName == 'dark-orange') {
+              orangecloud.classList.remove('visible');
+              defaultcloud.classList.add('visible');
+              redcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              greencloud.classList.add('visible');
+            }else {
+              defaultcloud.classList.remove('visible');
+              redcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              greencloud.classList.add('visible');
+              orangecloud.classList.add('visible');
+            }
             }
             
             if(page){

@@ -44,6 +44,8 @@
   top: 9%;
   left: 4%;
   width: 8.5%;
+  filter: brightness(150%);
+  opacity: 90%;
 }
 
 .cropped-image {
@@ -153,7 +155,9 @@
   justify-content: space-evenly;
 }
 
-
+.visible {
+  display: none;
+}
 
 
 
