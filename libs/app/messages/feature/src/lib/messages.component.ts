@@ -190,7 +190,7 @@ export class MessagesPage implements OnDestroy {
               this.chatList = chatList
               // if(!this.isGetUserInformationDispatched){
                 // this.isGetUserInformationDispatched = true;
-                this.store.dispatch(new GetUserInformation(chatList)).subscribe(() => {
+                this.store.dispatch(new GetUserInformation(chatList))
                   this.chatProfiles$
                   .pipe(takeUntil(this.unsubscribe$))
                   .subscribe((chatProfiles) => {
@@ -198,7 +198,6 @@ export class MessagesPage implements OnDestroy {
                       console.log(chatProfiles)
                       this.chatProfiles = chatProfiles;
                     }
-                  })
                 })
               // }
             // }
