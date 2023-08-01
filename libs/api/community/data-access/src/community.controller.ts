@@ -137,10 +137,10 @@ export class CommunityController {
         return await uploadImage.uploadImage(file.buffer, file.originalname);
     }
 
-    @Get(':id')
+    /*@Get(':id')
     async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
         return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
             new GetCommunityQuery(id),
         );
-    }
+    }*/
 }
