@@ -28,6 +28,13 @@ export class PostController {
     private readonly queryBus: QueryBus,
   ){}
 
+  @Get('get-latest/:userId')
+  async getLatestPosts(@Param('userId') userId: string){
+    return await this.queryBus.execute<GetLatestPostsQuery, PostDto[]>(
+      new GetLatestPostsQuery(userId),
+    );
+  }
+
   @Post('create')
   async createPost(
     @Body() createPostRequest: CreatePostRequest,
@@ -104,12 +111,7 @@ export class PostController {
     );
   }
 
-  @Get('get-latest')
-  async getLatestPosts(){
-    return await this.queryBus.execute<GetLatestPostsQuery, PostDto[]>(
-      new GetLatestPostsQuery(),
-    );
-  }
+  
 
 
   @Get('get-by-user/:username')
