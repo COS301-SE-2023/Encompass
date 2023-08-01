@@ -661,7 +661,7 @@ async addPosts(){
       console.log("GETTING RECOMMENDED POSTS")
       this.store.dispatch(new GetAllPosts(this.profile?._id));
     } else if (this.type === "latest") {
-      this.store.dispatch(new GetLatestPosts());
+      this.store.dispatch(new GetLatestPosts(this.profile.username));
     } else {
       this.store.dispatch(new GetPopularPosts());
     }
@@ -802,8 +802,11 @@ Like(n:number, post: PostDto){
     comments: post.comments,
     reported: post.reported
   }
+  if(this.profile == null){
+    return;
+  }
 
-  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type));
+  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type, this.profile.username));
   
   this.addPosts();
 }
@@ -830,7 +833,11 @@ Dislike(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type));
+  if(this.profile == null){
+    return;
+  }
+
+  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type, this.profile.username));
   this.addPosts();
 }
 
