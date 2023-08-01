@@ -2,10 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
-import { Observable, takeUntil, pipe, Subject } from 'rxjs';
+import { Observable, takeUntil, pipe, Subject, take } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome, GetRecommendedBooks, GetRecommendedMovies } from '@encompass/app/home-page/util';
+import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome, GetRecommendedBooks, GetRecommendedMovies, UpdatePostWithType } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -23,6 +23,8 @@ import { CommunityDto } from '@encompass/api/community/data-access';
 import { MovieDto } from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
+import { ViewChild } from '@angular/core';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'feed',
@@ -30,6 +32,16 @@ import { strict } from 'assert';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedPage {
+
+  @ViewChild(IonContent, { static: false })
+  content!: IonContent;
+
+  scrollToTop() {
+    const element = document.getElementById('header');
+    if (element) {
+      this.content.scrollToPoint(0, element.offsetTop, 500);
+    }
+  }
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
@@ -42,9 +54,9 @@ export class FeedPage {
 
   settings!: SettingsDto | null;
   profile! : ProfileDto | null;
-  posts! : PostDto[] | null;
+  posts : PostDto[] = [];
   myCommunities! : CommunityDto[] | null;
-  myMovies! : MovieDto[] | null;
+  movies! : MovieDto[] | null;
   books! : BookDto[] | null;
 
   BookTitle1! : string;
@@ -57,8 +69,15 @@ export class FeedPage {
   myBookGenres1: string[]=[];
   myBookGenres2: string[]=[];
 
-  selectedCommunity: string | undefined;
-  selectedCommunities : string[]=[];
+  MovieTitle1! : string;
+  MovieTitle2! : string;
+  
+
+  MovieGenres1!: string[];
+  MovieGenres2!: string[];
+  myMovieGenres1: string[]=[];
+  myMovieGenres2: string[]=[];
+
 
   reports : boolean[] =[];
   postReported : boolean[] = [];
@@ -70,12 +89,17 @@ export class FeedPage {
   likedComments: boolean[] = [];
   sharing: boolean[] = [];
   size=0;
+  themeName!: string;
   // type = "recommended";
 
   communitiesIsFetched = false
   moviesIsFetched = false
   booksIsFetched = false
   postsIsFetched = false
+  ShowBooks = true;
+  ShowMovies = true;
+
+  type = "recommended";
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
     this.load();
@@ -103,10 +127,11 @@ load(){
         this.newChange();
 
         this.store.dispatch(new GetUserSettings(this.profile._id))
+        
         this.settings$.subscribe(settings => {
           if(settings){
             this.settings = settings;
-
+            
             this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
             if (this.settings.themes.themeColor.startsWith('dark')) {
               const icons = document.getElementById('genreicons');
@@ -116,31 +141,83 @@ load(){
               }
             }
 
+            this.themeName = this.settings.themes.themeColor;
+            
+           console.log(this.themeName);
+
+            const defaultcloud = document.getElementById('cloud-default');
+            const redcloud = document.getElementById('cloud-red');
+            const bluecloud = document.getElementById('cloud-blue');
+            const greencloud = document.getElementById('cloud-green');
+            const orangecloud = document.getElementById('cloud-orange');
+
+            if (defaultcloud && redcloud && bluecloud && greencloud && orangecloud){
+              // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+              console.log(this.themeName);
+              if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
+                redcloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                greencloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+              }else if (this.themeName == 'light-blue' || this.themeName == 'dark-blue') {
+                // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                bluecloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                redcloud.classList.add('visible');
+                greencloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+            } else if (this.themeName == 'light-green' || this.themeName == 'dark-green') {
+                greencloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                redcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+            }else if (this.themeName == 'light-orange' || this.themeName == 'dark-orange') {
+              orangecloud.classList.remove('visible');
+              defaultcloud.classList.add('visible');
+              redcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              greencloud.classList.add('visible');
+            }else {
+              defaultcloud.classList.remove('visible');
+              redcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              greencloud.classList.add('visible');
+              orangecloud.classList.add('visible');
+            }
+            }
+            
             if(page){
+              console.log("testing the feed page")
+              console.log("hello " + this.settings.themes.themeImage);
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              // page.style.backgroundImage = "blue";
+            }else {
+              console.log("page is null")
             }
           }
         })
 
-        if(!this.communitiesIsFetched){
-          this.communitiesIsFetched = true;
+        // if(!this.communitiesIsFetched){
+        //   this.communitiesIsFetched = true;
 
-          this.store.dispatch(new GetRecommendedCommunities(this.profile._id));
-          this.communities$
-          .pipe(takeUntil(this.unsubscribe$))
-          .subscribe((communities) => {
-            if(communities){
-              this.myCommunities = communities.slice(0, 3);
-              console.log("COMMUNITIES: ");
-              for(let k =0; k<this.myCommunities.length;k++){  
-                console.log(this.myCommunities[k].name);
-              }
-              // console.log("END OF COMMUNITIES: ")
+        //   this.store.dispatch(new GetRecommendedCommunities(this.profile._id, this.profile.username));
+        //   this.communities$
+        //   .pipe(takeUntil(this.unsubscribe$))
+        //   .subscribe((communities) => {
+        //     if(communities){
+        //       console.log("Communities Found");
+        //       console.log(communities);
+        //       this.myCommunities = communities.slice(0, 3);
+        //       console.log("COMMUNITIES: ");
+        //       for(let k =0; k<this.myCommunities.length;k++){  
+        //         console.log(this.myCommunities[k].name);
+        //       }
+        //       // console.log("END OF COMMUNITIES: ")
 
-            }
-          })
-        }
+        //     }
+        //   })
+        // }
        
         if(!this.booksIsFetched){
           this.booksIsFetched = true;
@@ -157,9 +234,7 @@ load(){
               this.books = books;
               console.log("My Books:")
               console.log(this.books);
-              console.log("BOOKS are EQUAL")
               if(this.books){
-                console.log("BOOKS are EQUAL2")
       
                   this.BookTitle1 = this.books[0].title;
                   this.BookTitle2 = this.books[1].title;
@@ -260,30 +335,38 @@ load(){
       
                 for(let i = 0; i < this.BookGenres1.length; i++){
                   if(this.BookGenres1[i]=='Picture Books'||this.BookGenres1[i]=='Kids'
-                  ||this.BookGenres1[i]=='Childrens'){
+                  ||this.BookGenres1[i]=='Childrens'||this.BookGenres1[i]=='Comics'){
                     this.BookGenres1[i]='Animation';
                   }else if(this.BookGenres1[i]=='Anime'||this.BookGenres1[i]=='Manga'
-                  ||this.BookGenres1[i]=='Comics Manga'||this.BookGenres1[i]=='Japan'){
+                  ||this.BookGenres1[i]=='Comics Manga'||this.BookGenres1[i]=='Japan'
+                  ||this.BookGenres1[i]=='Comics'||this.BookGenres1[i]=='Graphic Novels'){
                     this.BookGenres1[i]='Anime';
-                  }else if(this.BookGenres1[i]=='Art'){
+                  }else if(this.BookGenres1[i]=='Art'||this.BookGenres1[i]=='Poetry'
+                  ||this.BookGenres1[i]=='Philosophy'||this.BookGenres1[i]=='Photography'){
                     this.BookGenres1[i]='Arts';
-                  }else if(this.BookGenres1[i]=='Business'||this.BookGenres1[i]=='Economics'){
+                  }else if(this.BookGenres1[i]=='Business'||this.BookGenres1[i]=='Economics'
+                  ||this.BookGenres1[i]=='Finance'||this.BookGenres1[i]=='Personal Finance'){
                     this.BookGenres1[i]='Business';
                   }else if(this.BookGenres1[i]=='Comedy'||this.BookGenres1[i]=='Humor'){
                     this.BookGenres1[i]='Comedy';
                   }else if(this.BookGenres1[i]=='Nonfiction'||this.BookGenres1[i]=='Biography Memoir'
                   ||this.BookGenres1[i]=='Autobiography'||this.BookGenres1[i]=='Memoir'){
                     this.BookGenres1[i]='Documentary';
-                  }else if(this.BookGenres1[i]=='High Fantasy'||this.BookGenres1[i]=='Magic'){
+                  }else if(this.BookGenres1[i]=='High Fantasy'||this.BookGenres1[i]=='Magic'
+                  ||this.BookGenres1[i]=='Dark Fantasy'||this.BookGenres1[i]=='Supernatural'){
                     this.BookGenres1[i]='Fantasy';
                   }else if(this.BookGenres1[i]=='Historical'||this.BookGenres1[i]=='History'
                   ||this.BookGenres1[i]=='Biography'||this.BookGenres1[i]=='Memoir'
-                  ||this.BookGenres1[i]=='Auto-Biography'||this.BookGenres1[i]=='Biography Memoir'){
+                  ||this.BookGenres1[i]=='European History'||this.BookGenres1[i]=='Biography Memoir'
+                  ||this.BookGenres1[i]=='Autobiography'||this.BookGenres1[i]=='World History'
+                  ||this.BookGenres1[i]=='American History'||this.BookGenres1[i]=='Military History'
+                  ||this.BookGenres1[i]=='Historical Fiction'){
                     this.BookGenres1[i]='History';
                   }else if(this.BookGenres1[i]=='Horror'||this.BookGenres1[i]=='Thriller'
                   ||this.BookGenres1[i]=='Suspense'){
                     this.BookGenres1[i]='Horror';
-                  }else if(this.BookGenres1[i]=='Food'||this.BookGenres1[i]=='Cooking'){
+                  }else if(this.BookGenres1[i]=='Food'||this.BookGenres1[i]=='Cooking'
+                  ||this.BookGenres1[i]=='Cookbooks'||this.BookGenres1[i]=='Food Writing'){
                     this.BookGenres1[i]='Hospitality';
                   }else if(this.BookGenres1[i]=='Biology'||this.BookGenres1[i]=='Evolution'){
                     this.BookGenres1[i]='Life-Science';
@@ -296,13 +379,20 @@ load(){
                     this.BookGenres1[i]='Physics';
                   }else if(this.BookGenres1[i]=='Romance'||this.BookGenres1[i]=='Love'){
                     this.BookGenres1[i]='Romance';
-                  }else if(this.BookGenres1[i]=='Science Fiction'){
+                  }else if(this.BookGenres1[i]=='Science Fiction'||this.BookGenres1[i]=='Science Fiction Fantasy'
+                  ||this.BookGenres1[i]=='Dystopia'){
                     this.BookGenres1[i]='Science-Fiction';
+                  }else if(this.BookGenres1[i]=='Westerns'){
+                    this.BookGenres1[i]='Western';
+                  }else if(this.BookGenres1[i]=='World War II'||this.BookGenres1[i]=='Holocaust'){
+                    this.BookGenres1[i]='War';
                   }
               }
 
               console.log("NEW GENRES AFTER REPLACING (1):")
               console.log(this.BookGenres1);
+
+              this.BookGenres1 = Array.from(new Set(this.BookGenres1));
 
               for(let i=0;i<this.BookGenres1.length;i++){
                 if(this.BookGenres1[i]=='Animation'||this.BookGenres1[i]=='Anime'
@@ -314,7 +404,7 @@ load(){
                 ||this.BookGenres1[i]=='Mystery'||this.BookGenres1[i]=='Physics'
                 ||this.BookGenres1[i]=='Romance'||this.BookGenres1[i]=='Science-Fiction'
                 ||this.BookGenres1[i]=='War'||this.BookGenres1[i]=='Western'
-                ||this.BookGenres1[i]=='Thriller'||this.BookGenres1[i]=='Action'
+                ||this.BookGenres1[i]=='Drama'||this.BookGenres1[i]=='Action'
                 ||this.BookGenres1[i]=='Geography'||this.BookGenres1[i]=='Mathematics'
                 ||this.BookGenres1[i]=='Adventure'){
                   this.myBookGenres1.push(this.BookGenres1[i]);
@@ -328,7 +418,6 @@ load(){
               console.log(this.myBookGenres1);
 
 
-              this.myBookGenres1 = Array.from(new Set(this.myBookGenres1));
       
                 
               for(let i = 0; i < this.BookGenres2.length; i++){
@@ -336,27 +425,35 @@ load(){
                 ||this.BookGenres2[i]=='Childrens'){
                   this.BookGenres2[i]='Animation';
                 }else if(this.BookGenres2[i]=='Anime'||this.BookGenres2[i]=='Manga'
-                ||this.BookGenres2[i]=='Comics Manga'||this.BookGenres2[i]=='Japan'){
+                ||this.BookGenres2[i]=='Comics Manga'||this.BookGenres2[i]=='Japan'
+                ||this.BookGenres2[i]=='Comics'||this.BookGenres2[i]=='Graphic Novels'){
                   this.BookGenres2[i]='Anime';
-                }else if(this.BookGenres2[i]=='Art'){
+                }else if(this.BookGenres2[i]=='Art'||this.BookGenres2[i]=='Poetry'
+                ||this.BookGenres2[i]=='Philosophy'||this.BookGenres2[i]=='Photography'){
                   this.BookGenres2[i]='Arts';
-                }else if(this.BookGenres2[i]=='Business'||this.BookGenres2[i]=='Economics'){
+                }else if(this.BookGenres2[i]=='Business'||this.BookGenres2[i]=='Economics'
+                ||this.BookGenres2[i]=='Finance'||this.BookGenres1[i]=='Personal Finance'){
                   this.BookGenres2[i]='Business';
                 }else if(this.BookGenres2[i]=='Comedy'||this.BookGenres2[i]=='Humor'){
                   this.BookGenres2[i]='Comedy';
                 }else if(this.BookGenres2[i]=='Nonfiction'||this.BookGenres2[i]=='Biography Memoir'
                 ||this.BookGenres2[i]=='Autobiography'||this.BookGenres2[i]=='Memoir'){
                   this.BookGenres2[i]='Documentary';
-                }else if(this.BookGenres2[i]=='High Fantasy'||this.BookGenres2[i]=='Magic'){
+                }else if(this.BookGenres2[i]=='High Fantasy'||this.BookGenres2[i]=='Magic'
+                ||this.BookGenres2[i]=='Dark Fantasy'||this.BookGenres2[i]=='Supernatural'){
                   this.BookGenres2[i]='Fantasy';
                 }else if(this.BookGenres2[i]=='Historical'||this.BookGenres2[i]=='History'
                 ||this.BookGenres2[i]=='Biography'||this.BookGenres2[i]=='Memoir'
-                ||this.BookGenres2[i]=='Auto-Biography'||this.BookGenres2[i]=='Biography Memoir'){
+                ||this.BookGenres2[i]=='European History'||this.BookGenres2[i]=='Biography Memoir'
+                ||this.BookGenres2[i]=='Autobiography'||this.BookGenres2[i]=='World History'
+                ||this.BookGenres2[i]=='American History'||this.BookGenres2[i]=='Military History'
+                ||this.BookGenres2[i]=='Historical Fiction'){
                   this.BookGenres2[i]='History';
                 }else if(this.BookGenres2[i]=='Horror'||this.BookGenres2[i]=='Thriller'
                 ||this.BookGenres2[i]=='Suspense'){
                   this.BookGenres2[i]='Horror';
-                }else if(this.BookGenres2[i]=='Food'||this.BookGenres2[i]=='Cooking'){
+                }else if(this.BookGenres2[i]=='Food'||this.BookGenres2[i]=='Cooking'
+                ||this.BookGenres2[i]=='Cookbooks'||this.BookGenres2[i]=='Food Writing'){
                   this.BookGenres2[i]='Hospitality';
                 }else if(this.BookGenres2[i]=='Biology'||this.BookGenres2[i]=='Evolution'){
                   this.BookGenres2[i]='Life-Science';
@@ -369,13 +466,20 @@ load(){
                   this.BookGenres2[i]='Physics';
                 }else if(this.BookGenres2[i]=='Romance'||this.BookGenres2[i]=='Love'){
                   this.BookGenres2[i]='Romance';
-                }else if(this.BookGenres2[i]=='Science Fiction'){
+                }else if(this.BookGenres2[i]=='Science Fiction'||this.BookGenres2[i]=='Science Fiction Fantasy'
+                ||this.BookGenres2[i]=='Dystopia'){
                   this.BookGenres2[i]='Science-Fiction';
+                }else if(this.BookGenres2[i]=='Westerns'){
+                  this.BookGenres2[i]='Western';
+                }else if(this.BookGenres2[i]=='World War II'||this.BookGenres2[i]=='Holocaust'){
+                  this.BookGenres2[i]='War';
                 }
             }
 
             console.log("NEW GENRES AFTER REPLACING (2):")
             console.log(this.BookGenres2);
+
+            this.BookGenres2 = Array.from(new Set(this.BookGenres2));
 
             for(let i=0;i<this.BookGenres2.length;i++){
               if(this.BookGenres2[i]=='Animation'||this.BookGenres2[i]=='Anime'
@@ -387,7 +491,7 @@ load(){
               ||this.BookGenres2[i]=='Mystery'||this.BookGenres2[i]=='Physics'
               ||this.BookGenres2[i]=='Romance'||this.BookGenres2[i]=='Science-Fiction'
               ||this.BookGenres2[i]=='War'||this.BookGenres2[i]=='Western'
-              ||this.BookGenres2[i]=='Thriller'||this.BookGenres2[i]=='Action'
+              ||this.BookGenres2[i]=='Drama'||this.BookGenres2[i]=='Action'
               ||this.BookGenres2[i]=='Geography'||this.BookGenres2[i]=='Mathematics'
               ||this.BookGenres2[i]=='Adventure'){
                 this.myBookGenres2.push(this.BookGenres2[i]);
@@ -399,7 +503,6 @@ load(){
             console.log("NEW GENRES AFTER FILTERING (2):")
             console.log(this.myBookGenres2);
 
-            this.myBookGenres2 = Array.from(new Set(this.myBookGenres2));
                           
              
             console.log("REFINED GENRES:")
@@ -413,35 +516,176 @@ load(){
         }
        
 
-       
-
         if(!this.moviesIsFetched){
+          console.log("Movies CALLED:")
           this.moviesIsFetched = true;
           this.store.dispatch(new GetRecommendedMovies(this.profile._id));
+          this.movies$.pipe().subscribe((movies) => {
+            if(movies){
+              if(movies.length == undefined){
+                this.moviesIsFetched = false
+              }
+
+              else{
+              console.log(movies);
+              this.movies = movies;
+              console.log("My Movies:")
+              console.log(this.movies);
+              if(this.movies){
+      
+                  this.MovieTitle1 = this.movies[0].Title;
+                  this.MovieTitle2 = this.movies[1].Title;
+                 
+                console.log("Movie Titles:");
+                console.log(this.MovieTitle1);
+                console.log(this.MovieTitle2);
+                  
+
+                if(this.movies[0].Genre){
+                  const newString = this.movies[0].Genre.replace(/\s/g, '');
+                  this.MovieGenres1 = newString.split(',');
+                  console.log("New String: " + newString);
+                }
+                
+                if(this.movies[1].Genre){
+                  const newString = this.movies[1].Genre.replace(/\s/g, '');
+                  this.MovieGenres2 = newString.split(',');  
+                  console.log("New String2: " + newString);
+   
+                }
+      
+                console.log("GENRES AGAIN:")                
+                console.log(this.MovieGenres1);
+                console.log(this.MovieGenres2);
+                
+      
+                for(let i = 0; i < this.MovieGenres1.length; i++){
+                if(this.MovieGenres1[i]=='Mystery'||this.MovieGenres1[i]=='Thriller'
+                  ||this.MovieGenres1[i]=='Crime'){
+                    this.MovieGenres1[i]='Mystery';
+                  }else if(this.MovieGenres1[i]=='ScienceFiction'){
+                    this.MovieGenres1[i]='Science-Fiction';
+                  }
+                }
+
+              console.log("NEW GENRES AFTER REPLACING (1):")
+              console.log(this.MovieGenres1);
+              
+
+              this.MovieGenres1 = Array.from(new Set(this.MovieGenres1));
+
+              for(let i=0;i<this.MovieGenres1.length;i++){
+                if(this.MovieGenres1[i]=='Animation'||this.MovieGenres1[i]=='Anime'
+                ||this.MovieGenres1[i]=='Arts'||this.MovieGenres1[i]=='Business'
+                ||this.MovieGenres1[i]=='Comedy'||this.MovieGenres1[i]=='Documentary'
+                ||this.MovieGenres1[i]=='Fantasy'||this.MovieGenres1[i]=='History'
+                ||this.MovieGenres1[i]=='Horror'||this.MovieGenres1[i]=='Hospitality'
+                ||this.MovieGenres1[i]=='Life-Science'||this.MovieGenres1[i]=='Musical'
+                ||this.MovieGenres1[i]=='Mystery'||this.MovieGenres1[i]=='Physics'
+                ||this.MovieGenres1[i]=='Romance'||this.MovieGenres1[i]=='Science-Fiction'
+                ||this.MovieGenres1[i]=='War'||this.MovieGenres1[i]=='Western'
+                ||this.MovieGenres1[i]=='Drama'||this.MovieGenres1[i]=='Action'
+                ||this.MovieGenres1[i]=='Geography'||this.MovieGenres1[i]=='Mathematics'
+                ||this.MovieGenres1[i]=='Adventure'){
+                  this.myMovieGenres1.push(this.MovieGenres1[i]);
+                  if(this.myMovieGenres1.length==3){
+                    break;
+                  }
+                }
+              }
+      
+              console.log("NEW GENRES AFTER FILTERING (1):")
+              console.log(this.myMovieGenres1);
+
+
+      
+                
+              for(let i = 0; i < this.MovieGenres2.length; i++){
+                if(this.MovieGenres2[i]=='Mystery'||this.MovieGenres2[i]=='Thriller'
+                  ||this.MovieGenres2[i]=='Crime'){
+                    this.MovieGenres2[i]='Mystery';
+                  }else if(this.MovieGenres2[i]=='ScienceFiction'){
+                    this.MovieGenres2[i]='Science-Fiction';
+                  }
+            }
+
+            console.log("NEW GENRES AFTER REPLACING (2):")
+            console.log(this.MovieGenres2);
+
+            this.MovieGenres2 = Array.from(new Set(this.MovieGenres2));
+
+            for(let i=0;i<this.MovieGenres2.length;i++){
+              if(this.MovieGenres2[i]=='Animation'||this.MovieGenres2[i]=='Anime'
+              ||this.MovieGenres2[i]=='Arts'||this.MovieGenres2[i]=='Business'
+              ||this.MovieGenres2[i]=='Comedy'||this.MovieGenres2[i]=='Documentary'
+              ||this.MovieGenres2[i]=='Fantasy'||this.MovieGenres2[i]=='History'
+              ||this.MovieGenres2[i]=='Horror'||this.MovieGenres2[i]=='Hospitality'
+              ||this.MovieGenres2[i]=='Life-Science'||this.MovieGenres2[i]=='Musical'
+              ||this.MovieGenres2[i]=='Mystery'||this.MovieGenres2[i]=='Physics'
+              ||this.MovieGenres2[i]=='Romance'||this.MovieGenres2[i]=='Science-Fiction'
+              ||this.MovieGenres2[i]=='War'||this.MovieGenres2[i]=='Western'
+              ||this.MovieGenres2[i]=='Drama'||this.MovieGenres2[i]=='Action'
+              ||this.MovieGenres2[i]=='Geography'||this.MovieGenres2[i]=='Mathematics'
+              ||this.MovieGenres2[i]=='Adventure'){
+                this.myMovieGenres2.push(this.MovieGenres2[i]);
+                if(this.myMovieGenres2.length==3){
+                  break;
+                }
+              }
+            }
+            console.log("NEW GENRES AFTER FILTERING (2):")
+            console.log(this.myMovieGenres2);
+
+                          
+             
+            console.log("REFINED GENRES:")
+            console.log(this.myMovieGenres1);
+            console.log(this.myMovieGenres2);
+          } 
+              } 
+              
+            }
+          })
+
         }
       }
     });
 }
 
-async addPosts(type: string){
+async addPosts(){
   if(this.profile == null){
     return;
   }
-
-  if(!this.postsIsFetched){
-    this.postsIsFetched = true;
-
-    if (type === "recommended") {
-      this.store.dispatch(new GetAllPosts(this.profile?.username));
-    } else if (type === "latest") {
+  // if(!this.postsIsFetched){
+    if (this.type === "recommended") {
+      console.log("GETTING RECOMMENDED POSTS")
+      this.store.dispatch(new GetAllPosts(this.profile?._id));
+    } else if (this.type === "latest") {
       this.store.dispatch(new GetLatestPosts());
     } else {
       this.store.dispatch(new GetPopularPosts());
     }
     
-    this.homePosts$.subscribe((posts) => {
+      
+      this.postsIsFetched = true; 
+      this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
       if(posts){
-        this.posts = posts;
+        // console.log("POSTS:")
+        this.posts = [];
+        const temp = posts;
+        temp.forEach((post) => {
+          if(post.isPrivate){
+            if(this.profile?.communities.includes(post.community)){
+              this.posts.push(post);
+            }
+          }
+
+          else{
+            this.posts.push(post);
+          }
+        })
+
+        // this.posts = posts;
         this.size=posts.length-1;
         // console.log("SIZE: " + this.size)
         for(let i =0;i<posts.length;i++){
@@ -474,7 +718,7 @@ async addPosts(type: string){
 
       }
     })
-  }
+  // }
 }
 
 async openPopup() {
@@ -559,10 +803,13 @@ Like(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type));
+  
+  this.addPosts();
 }
 
 Dislike(n:number, post: PostDto){
+  console.log("dislike")
   this.likedComments[n]=false;
   this.likes[n]--;
 
@@ -583,7 +830,8 @@ Dislike(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type));
+  this.addPosts();
 }
 
 ReportPost(n:number, post: PostDto){
@@ -639,7 +887,7 @@ async Share(n:number, post: PostDto){
 
   this.store.dispatch(new UpdatePost(post._id, data));
 
-  const link : string = obj + '/app-comments-feature/' + post._id;
+  const link : string = obj + '/home/app-comments-feature/' + post._id;
 
   await navigator.clipboard.writeText(link)
 }
@@ -661,7 +909,8 @@ GoToProfile(username: string){
 
     this.postsIsFetched = false
 
-    this.addPosts("recommended");
+    this.type = "recommended";
+    this.addPosts();
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
@@ -682,7 +931,8 @@ GoToProfile(username: string){
 
    this.postsIsFetched = false
 
-    this.addPosts("latest");
+    this.type = "latest";
+    this.addPosts();
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
@@ -700,8 +950,9 @@ GoToProfile(username: string){
    }
    
    this.postsIsFetched = false
-   
-    this.addPosts("popular");
+  
+    this.type = "popular";
+    this.addPosts();
     const recBtn = document.getElementById('recommendedBtn');
     const newBtn = document.getElementById('newBtn');
     const popBtn = document.getElementById('popularBtn');
@@ -730,21 +981,56 @@ GoToProfile(username: string){
   buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
 
   handleButtonClick(buttonId: string, CommunityName: string) {
-    this.selectedCommunity = CommunityName;
+    
 
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
 
-    if(!this.selectedCommunities.includes(CommunityName))
-    {
-
-      this.selectedCommunities.push(this.selectedCommunity);
-
-    }else{
-      this.selectedCommunities=this.selectedCommunities.filter((community) => community !== this.selectedCommunity);
-
-    }
-
-    console.log(this.selectedCommunities);
+  
   }
 
+  activebutton = 'all';
+
+ changeFilter(btnname : string){
+  console.log(btnname);
+  const all = document.getElementById('all');
+  const books = document.getElementById('books');
+  const movies = document.getElementById('movies');
+  // const series = document.getElementById('series');
+  if(all && books && movies){
+    if (btnname == 'all'){
+      this.ShowMovies = true;
+      this.ShowBooks = true;
+      all.classList.add('active-select');
+      books.classList.remove('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'books'){
+      this.ShowMovies = false;
+      this.ShowBooks = true;
+      all.classList.remove('active-select');
+      books.classList.add('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'movies'){
+      this.ShowMovies = true;
+      this.ShowBooks = false;
+      all.classList.remove('active-select');
+      books.classList.remove('active-select');
+      movies.classList.add('active-select');
+      // series.classList.remove('active-select');
+    } else if (btnname == 'series'){
+      all.classList.remove('active-select');
+      books.classList.remove('active-select');
+      movies.classList.remove('active-select');
+      // series.classList.add('active-select');
+    }
+    
+  }
+    
+  }
+
+  showTooltip = false;
+ 
+
 }
+

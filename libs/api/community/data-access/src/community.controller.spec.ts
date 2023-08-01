@@ -59,12 +59,12 @@ describe('CommunityController', () => {
     describe('getRecommendedCommunities', () => {
         it('Should call the Community controller with the given User id', async () => {	
             const getCommunitySpy = jest.spyOn(controller, 'getRecommendedCommunities');	
-            await controller.getRecommendedCommunities('testID');	
-            expect(getCommunitySpy).toBeCalledWith('testID');	
+            await controller.getRecommendedCommunities('testID', 'testUsername');	
+            expect(getCommunitySpy).toBeCalledWith('testID', 'testUsername');	
         });
         it('Should return the list of recommended communities when name is passed in', async () => {
             mockQueryBus.execute.mockReturnValue([genericCommunity]);
-            const CommunityExists = await controller.getRecommendedCommunities('testID');
+            const CommunityExists = await controller.getRecommendedCommunities('testID', 'testUsername');
             expect(CommunityExists).toEqual([genericCommunity]);
         });
     })

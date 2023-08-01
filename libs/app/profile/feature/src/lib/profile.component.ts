@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile } from '@encompass/app/profile/util';
+import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile, UpdatePost } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
-import { UpdatePost } from '@encompass/app/home-page/util';
 import { CommentDto } from '@encompass/api/comment/data-access';
 import {DeletePost} from '@encompass/app/profile/util';
 import {DeleteComment} from '@encompass/app/profile/util';
@@ -19,6 +18,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileApi } from '@encompass/app/profile/data-access';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'profile',
@@ -34,6 +38,9 @@ export class ProfilePage {
   @Select(ProfileState.posts) posts$! : Observable<PostDto[] | null>;
   @Select(ProfileState.comments) commentsList$! : Observable<CommentDto[] | null>;
   @Select(ProfileState.otherUsers) otherUsers$! : Observable<ProfileDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   file!: File;
   fileBanner!: File;
@@ -57,23 +64,31 @@ export class ProfilePage {
    edit=false;
    hasImage=false;
    hasBanner=false;
+   settings!: SettingsDto | null;
 
    deletePost: boolean[] = [];
    deleteComment: boolean[] =[];
    MarkedForCommentDeletion: boolean[] = [];
    MarkedForPostDeletion: boolean[] = [];
 
+  isPostsFetched = false;
 
-  constructor(private router: Router, private store: Store, private modalController: ModalController
-    ,private formBuilder: FormBuilder, private profileApi: ProfileApi) {
+  ViewCommunities=false;
+
+
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
+    ,private formBuilder: FormBuilder, private profileApi: ProfileApi, private profileState: ProfileState) {
     this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if(profile){
         console.log(profile);
         this.profile = profile;
 
-        this.store.dispatch(new GetPosts(profile.username));
-        this.posts$.subscribe((posts) => {
+        if(!this.isPostsFetched){
+          this.isPostsFetched = true;
+
+          this.store.dispatch(new GetPosts(profile.username));
+        this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
           if(posts){
             this.posts = posts;
             this.size=posts.length-1;
@@ -123,9 +138,57 @@ export class ProfilePage {
               })
           }
         })
+        }
       }
     });
+
+    this.load();
    }
+
+   
+   load(){
+    const page = document.getElementById('home-page');
+  
+  
+      this.store.dispatch(new SubscribeToProfile())
+      // this.store.dispatch(new SubscribeToProfile())
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          
+          console.log("Profile CALLED")
+          console.log(profile); 
+          this.profile = profile;
+          // this.addPosts("recommended");
+          // this.newChange();
+  
+          this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+          this.settings$.subscribe(settings => {
+            if(settings){
+              this.settings = settings;
+              
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+  
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+              
+              if(page){
+                console.log("testing the feed page")
+                console.log("hello " + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              }else {
+                console.log("page is null")
+              }
+            }
+          })
+          
+        }
+      });
+  }
 
    postForm = this.formBuilder.group({
     FirstName: ['', Validators.maxLength(20)],
@@ -134,7 +197,11 @@ export class ProfilePage {
 
   });
 
- 
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   get FirstName(){
     return this.postForm.get('FirstName');
@@ -239,6 +306,10 @@ Edit(){
   
   
   async Share(n:number, post: PostDto){
+
+    if(this.profile == null){
+      return;
+    }
     this.shares[n]++;
     for(let i =0;i<this.sharing.length;i++){
       this.sharing[i]=false;
@@ -264,9 +335,9 @@ Edit(){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
   
-    const link : string = obj + '/app-comments-feature/' + post._id;
+    const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
   }
@@ -454,35 +525,141 @@ Edit(){
     })
   }
 
-  loadFollowers(){
+  async loadFollowers(){
+    this.otherUsers = [];
     if(this.profile == null){
       return;
     }
     console.log("here");
-    this.store.dispatch(new GetFollowers(this.profile.followers));
-    this.otherUsers$.subscribe((users) => {
-      if(users){
-        console.log(users);
-        this.otherUsers = users;
-      }
-    })
+    console.log(this.profile.followers);
+    this.otherUsers = await this.profileState.getFollowers(this.profile.followers);
+
+    // this.store.dispatch(new GetFollowers(this.profile.followers));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     console.log(users);
+    //     this.otherUsers = users;
+    //   }
+    // })
   }
 
-  loadFollowing(){
+  async loadFollowing(){
+    this.otherUsers = [];
+
     if(this.profile == null){
       return;
     }
 
-    this.store.dispatch(new GetFollowing(this.profile.following));
-    this.otherUsers$.subscribe((users) => {
-      if(users){
-        this.otherUsers = users;
-      }
-    })
+    console.log("here as well");
+    console.log(this.profile.following);
+    this.otherUsers = await this.profileState.getFollowing(this.profile.following);
+
+    // this.store.dispatch(new GetFollowing(this.profile.following));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     this.otherUsers = users;
+    //   }
+    // })
   }
 
   async goToProfile(username : string | undefined){
+    console.log("Route is " + username);
     await this.modalController.dismiss();
-    this.router.navigate(['user-profile/' + username]);
+    this.router.navigate(['home/user-profile/' + username]);
   }
+
+  async shareProfile(){
+    const obj = location.origin
+    if(obj == undefined){
+      return;
+    }
+
+    const link: string = obj + '/home/user-profile/' + this.profile?.username;
+
+    await navigator.clipboard.writeText(link)
+  }
+  
+  
+  Like(n:number, post: PostDto){
+  
+    if(this.profile == null){
+      return;
+    }
+
+    let likesArr : string[];
+  
+    console.log(this.profile?.username + " LIKED POST");
+    const emptyArray : string[] = [];
+  
+    if(this.profile?.username == null){
+      return;
+    }
+    
+    if(post.likes == emptyArray){
+      likesArr = [this.profile?.username];
+    }
+  
+    else{
+      likesArr = [...post.likes, this.profile?.username];
+    }
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
+  }
+  
+  Dislike(n:number, post: PostDto){
+    if(this.profile == null){
+      return;
+    }
+
+    this.likedComments[n]=false;
+    this.likes[n]--;
+  
+    let likesArr = [...post.likes];
+    likesArr = likesArr.filter((like) => like !== this.profile?.username);
+  
+    const data : UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported
+    }
+  
+    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
+  }
+
+  OpenView(){
+    this.ViewCommunities = !this.ViewCommunities;
+  }
+
+  GoToProfile(username: string){
+    if(this.profile?.username !== username){
+      this.router.navigate(['home/user-profile/' + username]);
+    }
+  
+    else{
+      this.router.navigate(['home/profile']);
+    }
+  }
+
 } 

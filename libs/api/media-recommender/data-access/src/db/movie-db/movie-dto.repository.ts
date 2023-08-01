@@ -15,9 +15,11 @@ export class MovieDtoRepository{
         return await this.movieModel.find();
     }
 
-    async findSome(): Promise<MovieDto[]> {
-        //choose random 200 movies 
-        return await this.movieModel.aggregate([{ $sample: { size: 200 } }]);
+    async findSome(categories: string[]): Promise<MovieDto[]> {
+        //choose random 200 movies where all have Original_Language = 'en' and they have at least one of the categories exist in the Genre string 
+        return await this.movieModel.aggregate([{ $match: { Original_Language: 'en', Genre: { $regex: categories.join('|') } } }, { $sample: { size: 200 } }]);
+
+        //return await this.movieModel.aggregate([{ $sample: { size: 200 } }]);
     }
 
     async findById(id: string){

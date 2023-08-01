@@ -36,27 +36,25 @@
         <!-- Posts -->
 
         <div *ngIf = "seePosts">
-          <div  *ngFor="let post of posts;let i = index">
+          <div  *ngFor="let post of posts?.slice()?.reverse();let i = index">
 
-            <ion-card class = "PostCard" >
+            <ion-card class = "PostCard card-styles" >
+
               <div class = "PostCardHeader">
                 <div class = "PostImageContainer" >
                   <img src =  {{post.communityImageUrl}}  class = "postImage" 
                   onerror="this.src='assets/icon/Group.png';"
-                  (click)="GoToCommunity(post.community)"
-                  >
+                  (click)="GoToCommunity(post.community)">
                 </div>
               <div class = "PostDetails"  >
                 <div class = "TitleNameOptions">
                   <div style = "display: flex; margin-left: 1.5%;">
                     <div class = "Title" (click)="GoToCommunity(post.community)">{{post.community}}</div>
-                    <div class = "Name" > @{{post.username}}</div>
+                    <div class = "Name"> @{{post.username}}</div>
                   </div>
-                  <div style = "display: flex; margin-right: 1.5%;">
-
+                  <div style = "display: flex; margin-right: 1.5%; ">
                     <label class = "report" *ngIf="deletePost[i]&&MarkedForPostDeletion[i]" 
                     (click)="DeletePost(i,post)">Delete Post</label>
-
                     <label class = "report" *ngIf="deletePost[i]&&!MarkedForPostDeletion[i]" 
                     style = "color:red">Post Deleted</label>
                     
@@ -66,33 +64,39 @@
         
                  </div>
                 
-                <div class = "GenreIcons" >
-                  <div style = "width: 30%; display: flex; justify-content: space-around;">
-                    <img *ngFor="let category of post.categories; let k=index" src = "assets/icon/{{category}}.png" class="imgDiv">
+                  <div class = "GenreIcons" >
+                    <div style = "width: 30%; display: flex; justify-content: space-around;">
+                      <div *ngFor="let category of post.categories; let k=index" class="tooltip">
+                        <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                        <span class="tooltiptext">{{category}}</span>
+                      </div>
+                    
                     </div>
                     <div style = "width: 70%; display: flex; justify-content: space-evenly;">
                       <button *ngIf="post.spoiler" class = "specialBtn">Spoiler</button>
                       <button *ngIf="post.ageRestricted" class = "specialBtn">NSFW</button>
-                  </div>
-                </div>
-
+                 </div>
+                 </div>
+  
             </div> 
               </div>
-              <div class = "PostBody"  (click)="GoToComments(post._id)">
+  
+              <div class = "PostBody" (click)="GoToComments(post._id)">
   
                 <div class = "text">
                     <h5>{{post.title}}</h5>
                     <div style = "display:flex;justify-content: center;">
-                      <img src = {{post.imageUrl}} style="border-radius: 10px;" >
+                      <img src = {{post.imageUrl}} style="border-radius: 15px;" >
                     </div>
                     <br>
                     {{post.text}}
                 </div>
               </div>
               <div class = "PostFooter">
-                <!-- <div class = "date">{{datesAdded[i]}}</div> -->
-                <div class = "date" *ngIf="datesAdded[i].length == 21">{{datesAdded[i].slice(0, 9)}}</div>
-                <div class = "date" *ngIf="datesAdded[i].length != 21">{{datesAdded[i].slice(0, 10)}}</div>
+                <div class = "date" *ngIf="post.dateAdded.length == 21">{{post.dateAdded.slice(0, 9)}}</div>
+                <div class = "date" *ngIf="post.dateAdded.length != 21">{{post.dateAdded.slice(0, 10)}}</div>
+               
+                
                 <div class = "icons">
                   <div style = "text-align: center;">
                     <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing[i]" (click)="Share(i,post)"></ion-icon>
@@ -107,8 +111,8 @@
                   </div>
                   <div style = "text-align: center;">
                     <div *ngIf="profile != null">
-                    <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" ></ion-icon>
-                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" ></ion-icon>
+                    <ion-icon name="heart" *ngIf = "post.likes.includes(profile.username)" id="icons2"style = "color:red" (click)="Dislike(i, post)"></ion-icon>
+                    <ion-icon name="heart-outline" id = "icons2" *ngIf = "!post.likes.includes(profile.username)" (click)="Like(i, post)"></ion-icon>
                     <div>{{post.likes.length}}</div>
                     </div>
                   </div>
@@ -119,13 +123,14 @@
             </div>
         </div>
         <div *ngIf = "seeComments">
-          <div class = "lineBreakers" *ngFor="let comment of commentsList;let i = index" >
+          <div class = "lineBreakers" *ngFor="let comment of commentsList?.slice()?.reverse();let i = index" >
             <br>
-            <div class = Comment>
+            <div class = Comment *ngIf="profile!=null">
                 <div class = "CommentHead">
                   <div class = CommentIDs>
-                      <img src = "assets/icon/profile.jpg" style="object-fit: fill;
-                      width: 50px; height: 50px; border-radius: 50%;">
+                      <img src = {{profile?.profileImage}} style="object-fit: fill;
+                      width: 50px; height: 50px; border-radius: 50%;"
+                      onerror="this.src='assets/icon/Profile.png';">
                       <div class = "UserName">
                         @{{comment?.username}}
                       </div>
@@ -201,6 +206,7 @@
             fill="clear"
             size="medium"
             color="dark"
+            (click)="shareProfile()"
             class="edit-button">
             <ion-icon name="share-social"></ion-icon>
           </ion-button>
@@ -260,6 +266,20 @@
             </div>
 
         </ion-card>
+        <ion-card *ngIf = "!ViewCommunities">
+          <div class = "CommunityHead">
+            <button (click)="OpenView()" class = "Button3">Communities:</button>
+          </div>
+        </ion-card>
+        <ion-card *ngIf = "ViewCommunities">
+          <div class = "CommunityHead">
+            <button (click)="OpenView()" class = "Button3">Communities:</button>
+          </div>
+            <div class = "ViewCommunity" *ngFor="let community of profile?.communities; let i = index">
+            <label class = "JoinedCommunity" (click)="GoToCommunity(community)">{{community}}</label>
+            </div>         
+        </ion-card>
+
 
         <ion-modal #modal trigger="follow-trigger" [presentingElement]="presentingElement">
           <ng-template>
@@ -271,15 +291,18 @@
             <ion-content>
               <ion-list>
                 <div *ngFor="let user of otherUsers">
-                  <ion-item>
+                  
+                  <ion-item (click)="goToProfile(user?.username)" class = "User">
                     <ion-avatar slot="start">
-                      <ion-img src={{user?.profileImage}}></ion-img>
+                      <img src={{user?.profileImage}}
+                      onerror="this.src='assets/icon/Profile.png';">
                     </ion-avatar>
                     <ion-label>
                       <h2>{{user?.name}} {{user?.lastName}}</h2>
                       <p>@{{user?.username}}</p>
                     </ion-label>
                   </ion-item>
+                  
                 </div>
               </ion-list>
             </ion-content>
@@ -296,9 +319,10 @@
             <ion-content>
               <ion-list>
                 <div *ngFor="let user of otherUsers">
-                  <ion-item (click)="goToProfile(user?.username)">
+                  <ion-item (click)="goToProfile(user?.username)" class = "User">
                     <ion-avatar slot="start">
-                      <ion-img src={{user?.profileImage}}></ion-img>
+                      <img src={{user?.profileImage}}
+                      onerror="this.src='assets/icon/Profile.png';">
                     </ion-avatar>
                     <ion-label>
                       <h2>{{user?.name}} {{user?.lastName}}</h2>
@@ -313,7 +337,7 @@
 
 
 
-        <div class="awards">
+        <!-- <div class="awards">
           <ion-title class="awards-header">
             Awards
           </ion-title>
@@ -324,23 +348,79 @@
         </div>
 
 
-
-
-
-
         <ion-card>
           <ion-card-header>
             <ion-card-title class="topComms" color="grey">Top Communities</ion-card-title>
           </ion-card-header>
-        
-           
-            
-        </ion-card>
+          <div class="community-card-container">
+
+            <ion-grid>
+              <ion-row class="content-row">
+                <ion-col size="11">
+                  <ion-card class = "CommunityCard">
+                    <div class="card-color">
+                    <div class = "CommunityHeader"> 
+                      <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
+                       <div class = "CommunityDetails" >
+                         <div class = "CommunityName">XenoMorffs</div>
+                         <div class = "CommunityMembers">92 Members</div>
+                         <div class = "CommunityGenres">
+                         <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
+                         <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
+                         <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
+                      
+                     </div>
+                     <div class = "CommunityAdd">
+                      
+                     </div>
+                     </div>
+                     <div class = "CommunityBody">
+                         <div class = "CommunityDesc">
+                          Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       
+                        </div>
+                        </div>
+                      </div>
+                   </ion-card>
+                </ion-col>
+              </ion-row>
+  
+              <ion-row class="content-row">
+                <ion-col size="11">
+                  <ion-card class = "CommunityCard">
+                    <div class="card-color">
+                    <div class = "CommunityHeader"> 
+                      <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
+                       <div class = "CommunityDetails" >
+                         <div class = "CommunityName">Potterheads</div>
+                         <div class = "CommunityMembers">105 Members</div>
+                         <div class = "CommunityGenres">
+                         <img src = "assets/icon/Fantasy.png" class="imgDiv">
+                         <img src = "assets/icon/Adventure.png"  class="imgDiv">
+                         <img src = "assets/icon/Movies.png"  class="imgDiv">
+                        
+                        </div>
+                     </div>
+                     <div class = "CommunityAdd">
+                      
+                     </div>
+                     </div>
+                     <div class = "CommunityBody">
+                         <div class = "CommunityDesc">
+                          Join in on all things Potterverse!
+                        </div>
+                        </div>
+                      </div>
+                   </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-card> -->
 
       </ion-col>
     </ion-row>
   </ion-grid>
-
+  <!-- <ion-button class="backtotop">Back To Top</ion-button> -->
 </div>
 
 <!-- <ion-icon class = "Rocket1" name="rocket-outline"></ion-icon> -->

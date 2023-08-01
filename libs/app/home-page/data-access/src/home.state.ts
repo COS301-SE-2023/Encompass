@@ -3,7 +3,7 @@ import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 // import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 // import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
-import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome } from "@encompass/app/home-page/util";
+import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome, ClearAllNotifications, UpdatePostWithType } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
@@ -145,8 +145,10 @@ export class HomeState{
   }
 
   @Action(GetRecommendedCommunities)
-  async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId}: GetRecommendedCommunities){
-    const response = await this.homeApi.getRecommendedCommunites(userId);
+  async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId, username}: GetRecommendedCommunities){
+    const response = await this.homeApi.getRecommendedCommunites(userId, username);
+
+    console.log("Response", response)
 
     if(response == null || response == undefined){
       return;
@@ -217,7 +219,7 @@ export class HomeState{
 
   @Action(GetAllPosts)
   async getAllPosts(ctx: StateContext<HomePostsModel>, {username}: GetAllPosts){
-    const response = await this.homeApi.getAllPosts(username);
+    const response = await this.homeApi.getRecommendPosts(username);
     console.log(response);
 
     if(response == null || response == undefined){
@@ -243,7 +245,6 @@ export class HomeState{
     }
 
     try{
-
       const posts = ctx.getState().HomePostsForm.model.homePosts;
 
       if(posts == null ){
@@ -265,21 +266,49 @@ export class HomeState{
 
     catch(error){
       console.log("here")
-      // ctx.dispatch(new GetLatestPosts());
-      const res = await this.homeApi.getLatestPosts();
+    }
+  }
 
-      if(res == null || res == undefined){
-        return
+  @Action(UpdatePostWithType)
+  async updatePostWithType(ctx: StateContext<HomePostsModel>, {postId, updateRequest, type}: UpdatePostWithType){
+
+    const response = await this.homeApi.updatePost(updateRequest, postId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    try{
+      let posts: PostDto[] | null | undefined = [];
+
+      if(type == "latest"){
+        posts = await this.homeApi.getLatestPosts();
       }
 
-        ctx.setState({
-          HomePostsForm: {
-            model: {
-              homePosts: res
-            }
+      else if(type == "popular"){
+        posts = await this.homeApi.getPopularPosts();
+      }
+
+      else{
+        // posts = await this.homeApi.getRecommendPosts(updateRequest.username);
+      }
+
+      if(posts === undefined){
+        return;
+      }
+
+      ctx.setState({
+        HomePostsForm: {
+          model: {
+            homePosts: posts
           }
-        })
-      }
+        }
+      })
+    }
+
+    catch(error){
+      console.log("here")
+    }
   }
 
   @Action(SendNotification)
@@ -291,6 +320,23 @@ export class HomeState{
   @Action(ClearNotification)
   async clearNotification(ctx: StateContext<HomeNotificationsModel>, {userId, id}: ClearNotification){
     const response = await this.homeApi.clearNotification(userId, id);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      HomeNotificationsForm: {
+        model: {
+          homeNotifications: response
+        }
+      }
+    })
+  }
+
+  @Action(ClearAllNotifications)
+  async clearAllNotifications(ctx: StateContext<HomeNotificationsModel>, {userId}: ClearAllNotifications){
+    const response = await this.homeApi.clearAllNotifications(userId);
 
     if(response == null || response == undefined){
       return;

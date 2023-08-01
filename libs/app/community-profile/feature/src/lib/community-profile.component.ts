@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { AddCommunity, RemoveCommunity, SubscribeToProfile } from '@encompass/app/profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
@@ -14,6 +14,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
+import { AddOtherUserCommunity, RemoveOtherUserCommunity } from '@encompass/app/community-profile/util';
+import { SettingsDto } from '@encompass/api/settings/data-access';
+import { SettingsState } from '@encompass/app/settings/data-access';
+import { GetUserSettings } from '@encompass/app/settings/util';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -29,6 +34,7 @@ export class CommunityProfileComponent {
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
   @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
   @Select(CommunityState.communityRequest) communityRequest$!: Observable<CommunityRequestDto | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
   file!: File;
   fileBanner!: File;
@@ -46,13 +52,22 @@ export class CommunityProfileComponent {
    hasImage=false;
    hasBanner=false;
    RemoveMember=false;
+   settings!: SettingsDto | null;
+   themeName!: string;
 
   myMembers: string[] = [];
   UpdatedMyMembers: string[] = [];
   removedMember: boolean[] = [];
+  removedlist: string[] = [];
+  reports : boolean[] =[];
+   posts! : PostDto[] | null;
+   likes: number[] =[] ;
+   likedComments: boolean[] = [];
 
-  constructor(private store: Store, private router: Router, 
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, 
     private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
+    const page = document.getElementById('home-page');
+
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if(communityName == null){
@@ -63,6 +78,31 @@ export class CommunityProfileComponent {
     this.profile$.subscribe((profile) => {
       if(profile){
         this.profile = profile;
+
+        this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+          this.settings$.subscribe(settings => {
+            if(settings){
+              this.settings = settings;
+              
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+  
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+              
+              if(page){
+                console.log("testing the feed page")
+                console.log("hello " + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              }else {
+                console.log("page is null")
+              }
+            }
+          })
       }
     })
 
@@ -75,10 +115,11 @@ export class CommunityProfileComponent {
         console.log(community);
         this.members = community.members.length;
         for(let i =0; i<community.members.length;i++){
-          if(community.members[i]!=this.profile?.username){
-                this.myMembers.push(community.members[i]);
-                this.removedMember.push(false);
+          if(community.members[i]==this.profile?.username&&community.admin==this.profile?.username){
+            continue;
           }
+          this.myMembers.push(community.members[i]);
+          this.removedMember.push(false);
         }
 
         this.UpdatedMyMembers = this.myMembers;
@@ -117,9 +158,101 @@ export class CommunityProfileComponent {
       }
     })
 
-    
+    this.load();
   }
 
+  
+  load(){
+    const page = document.getElementById('home-page');
+  
+  
+      this.store.dispatch(new SubscribeToProfile())
+      // this.store.dispatch(new SubscribeToProfile())
+      this.profile$.subscribe((profile) => {
+        if(profile){
+          
+          console.log("Profile CALLED")
+          console.log(profile); 
+          this.profile = profile;
+          // this.addPosts("recommended");
+          // this.newChange();
+  
+          this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+          this.settings$.subscribe(settings => {
+            if(settings){
+              this.settings = settings;
+              
+              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+  
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+
+              
+            this.themeName = this.settings.themes.themeColor;
+            
+            console.log(this.themeName);
+ 
+             const defaultcloud = document.getElementById('cloud-default');
+             const redcloud = document.getElementById('cloud-red');
+             const bluecloud = document.getElementById('cloud-blue');
+             const greencloud = document.getElementById('cloud-green');
+             const orangecloud = document.getElementById('cloud-orange');
+ 
+             if (defaultcloud && redcloud && bluecloud && greencloud && orangecloud){
+               // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+               console.log(this.themeName);
+               if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
+                 redcloud.classList.remove('visible');
+                 defaultcloud.classList.add('visible');
+                 bluecloud.classList.add('visible');
+                 greencloud.classList.add('visible');
+                 orangecloud.classList.add('visible');
+               }else if (this.themeName == 'light-blue' || this.themeName == 'dark-blue') {
+                 // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                 bluecloud.classList.remove('visible');
+                 defaultcloud.classList.add('visible');
+                 redcloud.classList.add('visible');
+                 greencloud.classList.add('visible');
+                 orangecloud.classList.add('visible');
+             } else if (this.themeName == 'light-green' || this.themeName == 'dark-green') {
+                 greencloud.classList.remove('visible');
+                 defaultcloud.classList.add('visible');
+                 redcloud.classList.add('visible');
+                 bluecloud.classList.add('visible');
+                 orangecloud.classList.add('visible');
+             }else if (this.themeName == 'light-orange' || this.themeName == 'dark-orange') {
+               orangecloud.classList.remove('visible');
+               defaultcloud.classList.add('visible');
+               redcloud.classList.add('visible');
+               bluecloud.classList.add('visible');
+               greencloud.classList.add('visible');
+             }else {
+               defaultcloud.classList.remove('visible');
+               redcloud.classList.add('visible');
+               bluecloud.classList.add('visible');
+               greencloud.classList.add('visible');
+               orangecloud.classList.add('visible');
+             }
+             }
+              
+              if(page){
+                console.log("testing the feed page")
+                console.log("hello " + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              }else {
+                console.log("page is null")
+              }
+            }
+          })
+          
+        }
+      });
+  }
   
   postForm = this.formBuilder.group({
     text: ['', Validators.maxLength(80)],
@@ -136,7 +269,7 @@ export class CommunityProfileComponent {
 
 
   GoToComments(postId : string){
-    this.router.navigate(['app-comments-feature/' + postId]);
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
   async Share(n:number, post: PostDto){
     this.shares[n]++;
@@ -166,7 +299,7 @@ export class CommunityProfileComponent {
   
     this.store.dispatch(new UpdatePost(post._id, data));
   
-    const link : string = obj + '/app-comments-feature/' + post._id;
+    const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
   }
@@ -301,6 +434,7 @@ export class CommunityProfileComponent {
     console.log("REMOVE CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+    this.removedlist.push(m);
   }
 
   Undo(m: string,i:number){
@@ -310,6 +444,8 @@ export class CommunityProfileComponent {
     console.log("UNDO CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+    this.removedlist = this.removedlist.filter(x => x != m);
+
   }
 
   CancelUpdate(){
@@ -322,6 +458,7 @@ export class CommunityProfileComponent {
     console.log("CANCEL CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+    this.removedlist = [];
   }
   UpdateCommunity(){
     this.RemoveMember = false;
@@ -356,7 +493,13 @@ export class CommunityProfileComponent {
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
 
+    const communityName = this.community?.name;
 
+    this.removedlist.forEach(member => {
+      this.store.dispatch(new RemoveOtherUserCommunity(communityName, member))
+    })
+    
+    // To update the user that you removed call this.store.dispatch(new RemoveOtherUserCommunity(Community Name, Username of User to be removed))
   }
   join(){
     if(this.profile == null || this.community == null){
@@ -381,8 +524,7 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
-
-    
+    this.store.dispatch(new AddCommunity(this.community.name, this.profile.username))
   }
 
   leave(){
@@ -409,6 +551,7 @@ export class CommunityProfileComponent {
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    this.store.dispatch(new RemoveCommunity(this.community.name, this.profile.username))
   }
 
   requestJoin(){
@@ -449,8 +592,12 @@ export class CommunityProfileComponent {
       ageRestricted: this.community?.ageRestricted,
     }
 
+    console.log(this.profile)
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
     this.store.dispatch(new RemoveCommunityRequest(this.community?._id, username))
+    this.communityApi.addCommunity(username, this.community.name)
+
+    console.log(this.profile)
   }
 
   rejectUser(username: string){
@@ -463,47 +610,11 @@ export class CommunityProfileComponent {
   //***********************************UI FUNCTIONS**************************************************** */
   recChange(){
     const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
     const eventBtn = document.getElementById('eventBtn');
 
 
-    if (recBtn && newBtn && popBtn&&eventBtn) {
+    if (recBtn && eventBtn) {
       recBtn.classList.add('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
-
-    }
-  }
-
-  newChange(){
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-
-    if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.add('active-button');
-      popBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
-
-    }
-  }
-
-  popChange(){
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-
-    if (recBtn && newBtn && popBtn&&eventBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.add('active-button');
       eventBtn.classList.remove('active-button');
 
     }
@@ -511,17 +622,129 @@ export class CommunityProfileComponent {
 
   eventChange(){
     const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
     const eventBtn = document.getElementById('eventBtn');
 
 
-    if (recBtn && newBtn && popBtn&&eventBtn) {
+    if (recBtn && eventBtn) {
       recBtn.classList.remove('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.remove('active-button');
       eventBtn.classList.add('active-button');
 
     }
   }
+
+  GoToProfile(username: string){
+    if(this.profile?.username !== username){
+      this.router.navigate(['home/user-profile/' + username]);
+    }
+  
+    else{
+      this.router.navigate(['home/profile']);
+    }
+  }
+
+  
+Report(n:number){
+  if(this.posts?.length==null){
+    return;
+  }
+  
+  if(this.reports[n]==true){
+    this.reports[n]=false;
+    return;
+  }else{
+    for(let k = 0;k<this.reports.length;k++){
+      this.reports[k]=false;
+   }   
+    this.reports[n]=true;
+
+  }
+
+    
+
+}
+
+ReportPost(n:number, post: PostDto){
+
+  if(this.posts?.length==null){
+    return;
+  }
+  
+  this.reports[n]=false;  
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: post.likes,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+    reported: true
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
+}
+
+Like(n:number, post: PostDto){
+ 
+  let likesArr : string[];
+
+  console.log(this.profile?.username + " LIKED POST");
+  const emptyArray : string[] = [];
+
+  if(this.profile?.username == null){
+    return;
+  }
+  
+  if(post.likes == emptyArray){
+    likesArr = [this.profile?.username];
+  }
+
+  else{
+    likesArr = [...post.likes, this.profile?.username];
+  }
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: likesArr,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+    reported: post.reported
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
+}
+
+Dislike(n:number, post: PostDto){
+  this.likedComments[n]=false;
+  this.likes[n]--;
+
+  let likesArr = [...post.likes];
+  likesArr = likesArr.filter((like) => like !== this.profile?.username);
+
+  const data : UpdatePostRequest = {
+    title: post.title,
+    text: post.text,
+    imageUrl: post.imageUrl,
+    communityImageUrl: post.communityImageUrl,
+    categories: post.categories,
+    likes: likesArr,
+    spoiler: post.spoiler,
+    ageRestricted: post.ageRestricted,
+    shares: post.shares,
+    comments: post.comments,
+    reported: post.reported
+  }
+
+  this.store.dispatch(new UpdatePost(post._id, data));
+}
 }

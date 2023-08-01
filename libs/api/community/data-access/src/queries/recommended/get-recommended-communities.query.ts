@@ -1,3 +1,3 @@
 export class GetRecommendedCommunitiesQuery{
-    constructor(public readonly userId: string){}
+    constructor(public readonly username: string, public readonly userId: string){}
   }

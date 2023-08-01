@@ -5,20 +5,21 @@
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-color: #ECECEC;
+    background-color: var(--ion-color-background);
 }
 
 .HeadText{
     width: 100%;
-    background-color: #CECAE3;
+    background-color: var(--ion-color-secondary);
     font-family: CustomFont;
     font-size: 25px;
-    border-bottom: 2px solid #AFABC5;
-    border-right: 1px solid #AFABC5;
+    border-bottom: 2px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    border-radius: 0 0 15px 15px;
+    color: var(--ion-color-text);
 }
 
 .head{
@@ -61,9 +62,9 @@
 
 
 .SelectCategory{
-    background-color: #ECECEC;
+    background-color: var(--ion-color-background);
     width: 95%;
-   
+    color: var(--ion-color-text);
 }
 
 
@@ -73,9 +74,10 @@
     vertical-align: middle;
     white-space: nowrap;
     font-size: 15px;
-    border: 1px solid #AFABC5;
+    border: 1px solid var(--ion-color-secondary-contrast);
     border-radius: 5px;
     overflow: hidden;
+    
 }
 
 .select{
@@ -101,7 +103,7 @@ ion-textarea.custom {
     font-size: 15px;
     font-family: CustomFont;
     width: 97%;
-    --background: white;
+    --background: var(--card-color);
     --padding-bottom: 10px;
     --padding-end: 10px;
     --padding-start: 10px;
@@ -169,24 +171,48 @@ ion-textarea.custom {
 }
 
 .btn1{
-    background-color: #AFABC5; color:black
+    background-color: darkgray; 
+    color:grey;
+    margin-bottom:5%
 
 }
 
 .btn2{
-    background-color: #231942; color:white
+    background-color: var(--ion-color-primary);
+    margin-bottom:5%
+
 }
    .Footer>ion-icon{
     margin-left: 2%;
     font-size: 25px;
    }
 
-   .Footer>button{
-    margin-right: 2%;
-    font-size: 25px;
-    font-family: CustomFont;
-    padding: 1%;
-    border-radius: 50px;
+   .textSection {
+    color: var(--ion-color-text);
    }
 
-   
+.createbtn {
+    padding: 10px 25px 10px 25px;
+    margin-right: 2%;
+    margin-top: 13%;
+    font-size: 20px;
+    font-family: CustomFont;
+    // padding: 1%;
+    border-radius: 50px;
+}
+
+.image-text {
+    margin-left: 5px;
+}
+
+.image-span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--hover-color);
+    }
+}

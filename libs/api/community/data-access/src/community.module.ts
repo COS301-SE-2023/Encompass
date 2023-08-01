@@ -10,7 +10,7 @@ import { CommunitySchemaFactory } from "./db/community-schema.factory";
 import { CommunityFactory } from "./community.factory";
 import { CreateCommunityHandler, DeleteCommunityHandler, RemoveUserHandler, UpdateCommunityHandler} from "./commands";
 import { CommunityCreatedHandler } from "./events";
-import { DoesExistHandler, GetByNameHandler, GetCommunityHandler, GetRecommendedCommunitiesHandler} from "./queries";
+import { DoesExistHandler, GetByNameHandler, GetCommunitiesByKeywordHandler, GetCommunityHandler, GetRecommendedCommunitiesHandler, GetAllCommunitiesHandler} from "./queries";
 import { AddPostHandler } from "./commands/add-post/add-post.handler";
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
@@ -46,7 +46,9 @@ import { RemovePostHandler } from "./commands/remove-post/remove-post.handler";
     UploadImage,
     DeleteCommunityHandler,
     RemovePostHandler,
-    RemoveUserHandler
+    RemoveUserHandler,
+    GetCommunitiesByKeywordHandler,
+    GetAllCommunitiesHandler
   ],
 })
 

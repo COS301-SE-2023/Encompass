@@ -47,7 +47,7 @@ export class SignUpPage {
 
       if(this.user.email != "" && this.user.password != ""
       && this.user.username != "" && this.user.firstName != ""
-      && this.user.lastName != ""&&this.checked == true){
+      && this.user.lastName != ""&&this.checked == true&&this.user.password.length >= 8){
         if(this.isValidEmail(this.user.email)){
           this.isValid = true;
         }else{
@@ -65,7 +65,7 @@ export class SignUpPage {
       
       if(this.user.email != "" && this.user.password != ""
       && this.user.username != "" && this.user.firstName != ""
-      && this.user.lastName != ""&&this.checked == true){
+      && this.user.lastName != ""&&this.checked == true&&this.user.password.length >= 8){
         if(this.isValidEmail(this.user.email)){
           this.isValid = true;
         }else{
@@ -75,5 +75,9 @@ export class SignUpPage {
       this.isValid = false;
     }
 
+    }
+
+    TOS(){
+      this.router.navigate(['tscs']);
     }
 }
