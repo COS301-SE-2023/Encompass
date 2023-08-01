@@ -25,7 +25,7 @@ import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-a
 import { SearchModule } from '@encompass/app/search-explore/data-access';
 
 const config: SocketIoConfig = {
-  url: process.env["BASE_URL"] || 'localhost:3000',
+  url: 'https://encompass-hosting.onrender.com',
   options: {}
 };
 @NgModule({

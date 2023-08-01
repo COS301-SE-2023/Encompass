@@ -19,10 +19,10 @@
       <ion-label>Notifications</ion-label>
     </ion-button>
 
-    <ion-button id="messBtn" class="none buttonStyle" fill="clear" (click)="eventChange('messBtn'); scrollTo('messaging-settings')">
+    <!-- <ion-button id="messBtn" class="none buttonStyle" fill="clear" (click)="eventChange('messBtn'); scrollTo('messaging-settings')">
       <ion-icon name="chatbubble" aria-hidden="true" class="ion-padding-end"></ion-icon>
       <ion-label>Messaging</ion-label>
-    </ion-button>
+    </ion-button> -->
   </div>
 </ion-toolbar>
 
@@ -285,20 +285,20 @@
           <ion-label class="info-label">Comment Replies <br> <a>Send notifications if there was a reply to a comment</a></ion-label>
           <ion-toggle [checked]=settings.notifications.commentReplies labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'commentReplies')"></ion-toggle><br /><br />
         </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
+        <!-- <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Recommended Posts <br> <a>Send notifications of new Recommended posts</a></ion-label>
           <ion-toggle [checked]=settings.notifications.recomPosts labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'recomPosts')"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
+        </ion-item> -->
+        <!-- <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Recommended Content and Communities <br> <a>Send notifications of new recommended content or communities</a></ion-label>
           <ion-toggle [checked]=settings.notifications.recomCC labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'recomCC')"></ion-toggle><br /><br />
-        </ion-item>
+        </ion-item> -->
       </ion-list>
     </div>
   </div>
 
-  <div id="messaging-settings" class="messaging-settings settings">
-    <ion-header class="header">Messaging Settings</ion-header>
+  <div id="messaging-settings" class="messaging-settings settings" style="height: 50px;">
+    <!-- <ion-header class="header">Messaging Settings</ion-header>
     <div class="content">
       <ion-list class="custom-list">
         <ion-item lines="none" color="var(--ion-color-background)">
@@ -309,9 +309,9 @@
           </ion-select>
         </ion-item>
       </ion-list>
-    </div>
+    </div> --> 
 
-  </div>
+   </div>
 </ion-content>
 
 </div>

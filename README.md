@@ -1,6 +1,6 @@
 # Encompass
 [![codecov](https://codecov.io/gh/COS301-SE-2023/Encompass/branch/main/graph/badge.svg?token=M20C3A1SU1)](https://codecov.io/gh/COS301-SE-2023/Encompass)
-![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main_merge.yml/badge.svg?branch=main)
+![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main-merge.yml/badge.svg?branch=main)
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/Encompass)
 
 ## Description
@@ -19,7 +19,10 @@ Email: perfectstrangers.tuks@gmail.com
 <br>
 
 ## Other Documents:
-<a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation</a>
+
+<a align="right" href="https://drive.google.com/file/d/1sNVyIYGJbFSV6YknX2brYlxIlB8bUO_8/view?usp=sharing">Encompass Architecture Documentation Updated</a>
+<br>
+<a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation V1</a>
 <br>
 <a align="right" href="https://drive.google.com/file/d/1dhy1m-4ChnO6DJOg6ZY5fytJL9fR1k8D/view?usp=sharing">Encompass Coding Standards Documentation </a>
 <br>

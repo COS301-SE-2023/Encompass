@@ -90,14 +90,7 @@ export class SearchExploreComponent {
     this.load();
     // this.addInitialPosts();
     // const searchBar = document.getElementById('search-bar');
-    const storedKeyword = localStorage.getItem('keyword');
-    console.log("stored keyword: " + storedKeyword);
-    if (storedKeyword) {
-      // searchBar.setAttribute('value', storedKeyword);
-      this.keyword = storedKeyword;
-      localStorage.removeItem('keyword');
-      this.postChange();
-    }
+    
    }
 
 
@@ -127,79 +120,19 @@ export class SearchExploreComponent {
     this.postChange();
   }
 
-  // async addInitialPosts(){
-
-  //   console.log("POSTS: " + this.profile?.username);
-
-  //   if(this.profile == null){
-  //     return;
-  //   }
-
-  //   console.log("profile is not null");
-
-    
-  
-      
-  //     this.store.dispatch(new GetAllPosts(this.profile?.username));
-      
-  //     if(!this.postsIsFetched){
-        
-  //       this.postsIsFetched = true; 
-  //       this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-  //       if(posts){
-  //         // console.log("POSTS:")
-  //         this.posts = [];
-  //         const temp = posts;
-  //         temp.forEach((post) => {
-  //           if(post.isPrivate){
-  //             if(this.profile?.communities.includes(post.community)){
-  //               this.posts.push(post);
-  //             }
-  //           }
-  
-  //           else{
-  //             this.posts.push(post);
-  //           }
-  //         })
-  
-  //         // this.posts = posts;
-  //         this.size=posts.length-1;
-  //         // console.log("SIZE: " + this.size)
-  //         for(let i =0;i<posts.length;i++){
-  //           this.likedComments.push(false);
-  //           this.sharing.push(false);
-  
-  //           this.reports.push(false);
-  //           this.postReported.push(false);
-  
-  //           if(posts[i].dateAdded!=null&&posts[i].comments!=null
-  //             &&posts[i].shares!=null){
-  //             this.datesAdded.push(posts[i].dateAdded);
-  //             this.comments.push(posts[i].comments);
-  //             this.shares.push(posts[i].shares);
-  //           }
-  
-  //           if(posts!=null&&posts[i].likes!=null){
-  //             this.likes.push(posts[i].likes?.length);
-              
-  
-  //             if(this.profile==undefined){
-  //               return;
-  //             }
-  //             if(posts[i].likes.includes(this.profile.username)){
-  //               this.likedComments[i]=true;
-  //             } 
-  //           }
-  
-  //         }
-  
-  //       }
-  //     })
-  //   }
-  // }
 
 
    load(){
+
+    const storedKeyword = localStorage.getItem('keyword');
+    console.log("stored keyword: " + storedKeyword);
+    if (storedKeyword) {
+      // searchBar.setAttribute('value', storedKeyword);
+      this.keyword = storedKeyword;
+      localStorage.removeItem('keyword');
+      this.postChange();
+    }
+
     const page = document.getElementById('home-page');
   
       this.store.dispatch(new SubscribeToProfile())
@@ -351,6 +284,16 @@ export class SearchExploreComponent {
                 }
               
             })
+            this.noSearch=true;
+          if(profileCount.length!==0){
+            this.peopleExists=true;
+            this.noResult=false;
+            this.noSearch=false;
+          }else{
+            this.peopleExists=false;
+            this.noResult=true;
+            this.noSearch=false;
+          }
           }
         })
         
@@ -460,7 +403,8 @@ export class SearchExploreComponent {
   }
 
   async addPeople(type: string, keyword: string){
-
+    console.log("add people called")
+    this.profiles = [];
     this.postsVisible=false;
     this.communityVisible=false;
     
@@ -480,7 +424,7 @@ export class SearchExploreComponent {
         this.peopleIsFetched = true; 
         this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
         if(profiles){
-          // console.log("POSTS:")
+          console.log("PROFILES:")
           this.profiles = [];
           const profileCount = profiles;
           const temp = profiles;
