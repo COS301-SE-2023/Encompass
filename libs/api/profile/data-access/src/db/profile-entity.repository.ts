@@ -20,14 +20,15 @@ Profile
   }
 
   async findUsersByKeyword(keyword: string): Promise<Profile[]>{
+    const lowerCaseKeyword = keyword.toLowerCase();
     const allUsers = await this.findAll();
     const filteredUsers = allUsers.filter(user => {
       const firstName = user.username.toLowerCase();
       const lastName = user?.lastName?.toLowerCase();
       const name = user?.name?.toLowerCase();
-      const isNameMatch = name?.includes(keyword);
-      const isFirstNameMatch = firstName.includes(keyword);
-      const isLastNameMatch = lastName?.includes(keyword);
+      const isNameMatch = name?.includes(lowerCaseKeyword);
+      const isFirstNameMatch = firstName.includes(lowerCaseKeyword);
+      const isLastNameMatch = lastName?.includes(lowerCaseKeyword);
       return isFirstNameMatch || isLastNameMatch || isNameMatch;
     });
     return filteredUsers;

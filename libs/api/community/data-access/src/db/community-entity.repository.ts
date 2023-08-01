@@ -33,6 +33,7 @@ export class CommunityEntityRepository extends BaseEntityRepository<
     }
 
     async findCommunitiesByKeyword(keyword: string): Promise<CommunityDto[]> {
+        const lowerCaseKeywords = keyword.toLowerCase();
         const allCommunities = await this.findAll();
         const filteredCommunities = allCommunities.filter(community => {
             if (!community) {
@@ -43,9 +44,9 @@ export class CommunityEntityRepository extends BaseEntityRepository<
             const description = community.about ? community.about.toLowerCase() : '';
             const categories = community.categories ? (community.categories as string[]).map(category => category.toLowerCase()) : [];
     
-            const isCategoryMatch = categories.includes(keyword);
-            const isNameMatch = name.includes(keyword);
-            const isDescriptionMatch = description.includes(keyword);
+            const isCategoryMatch = categories.includes(lowerCaseKeywords);
+            const isNameMatch = name.includes(lowerCaseKeywords);
+            const isDescriptionMatch = description.includes(lowerCaseKeywords);
             
             return isNameMatch || isDescriptionMatch || isCategoryMatch;
         });
