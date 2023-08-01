@@ -54,7 +54,7 @@ export class HomePage {
   communitiesIsFetched = false;
   peopleIsFetched = false;
   keyword = 'term';
-  profiles! : ProfileDto[];
+  searchprofiles! : ProfileDto[];
   peopleExists = false;
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe, private searchApi: SearchApi){
@@ -98,12 +98,12 @@ export class HomePage {
         this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
         if(profiles){
           // console.log("POSTS:")
-          this.profiles = [];
+          this.searchprofiles = [];
           const profileCount = profiles;
           const temp = profiles;
           temp.forEach((person) => {
            
-              this.profiles.push(person);
+              this.searchprofiles.push(person);
               if (person.name.toLowerCase().includes(this.keyword.toLowerCase())) {
                 profileCount.push(person);
               }

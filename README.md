@@ -19,7 +19,10 @@ Email: perfectstrangers.tuks@gmail.com
 <br>
 
 ## Other Documents:
-<a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation</a>
+
+<a align="right" href="https://drive.google.com/file/d/1sNVyIYGJbFSV6YknX2brYlxIlB8bUO_8/view?usp=sharing">Encompass Architecture Documentation Updated</a>
+<br>
+<a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation V1</a>
 <br>
 <a align="right" href="https://drive.google.com/file/d/1dhy1m-4ChnO6DJOg6ZY5fytJL9fR1k8D/view?usp=sharing">Encompass Coding Standards Documentation </a>
 <br>
