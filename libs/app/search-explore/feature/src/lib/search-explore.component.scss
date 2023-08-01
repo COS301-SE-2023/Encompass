@@ -816,101 +816,89 @@ ion-button:hover {
 
 
 //related communities
+.categoryImages {
+  width: 30px;
+  height: 30px;
+  object-fit: fill;
+}
 
-CommunityCard{
-  left: 2.5%;
+.CommunityGenres {
   display: flex;
   justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  background-color: var(--card-color);
-  height: 200px;
-  gap: 20px;
-  }
+}
 
+.CommunityIcon {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
 
-.CommunityHeader{
+.CommunityHeader {
   display: flex;
   justify-content: space-evenly;
-  height: 50%;
+  gap: 30px;
+}
+
+.card-color {
+  padding-top: 20px;
+  background-color: var(--card-color-contrast);
+  // display: grid;
+  // place-items: center;
+  height: inherit;
+  height: 180px;
+}
+
+.CommunityCard {
   width: 100%;
+  margin-left: 20px;
+  height: 180px;
 }
 
-.CommunityIcon{
-  object-fit: cover;
-  width: 80px;
-  height: 80px;
-  margin-top: 10px;
-  border-radius: 15px;
-}
-
-.CommunityDetails{
-  display: flex;
- height: 100%;
- width: 50%;
- flex-direction: column;
- margin-top: 10px;
- 
-}
-
-.CommunityName{
-    display: flex;
-    height: 50%;
-    width: 100%;
-    color: #000;
-    font-family: CustomFont;
-    font-size: 20px;
-}
-
-.CommunityMembers{
-  display: flex;
-  height: 50%;
-  width: 100%;
-  color: #000;
+.CommunityName {
   font-family: CustomFont;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--ion-color-primary-contrast);
+  margin-bottom: 10px;
 }
 
-.CommunityGenres{
+.CommunityMembers {
+  font-family: CustomFont;
+  font-size: 15px;
+}
+
+.CommunityDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 10px;
+  width: 40%;
+  // margin-left: 40px;
+}
+
+.CommunityBody {
   display: flex;
   justify-content: space-between;
-  height: 50%;
-  width: 50%;
-  color: #000;
-  font-family: CustomFont;
-  margin-top: 10px;
-}
-
-.CommunityAdd{
-  display: flex;
-  margin-top: 10px;
-  height: 70%;
-  width: 8%;
-}
-
-.CommunityBody{
-  display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: CustomFont2;
-  color: #000;
-  margin-top: 15px;
-  margin-left: 20px;
-  height: 50%;
-  width: 80%;
+  width: 100%;
+  padding: 10px 30px 10px 30px;
 }
 
-.CommunityDesc{
-  display: flex;
-   font-family: CustomFont2;
-   height: 90%;
-   width: 95%;
+.CommunityDesc {
+  font-family: CustomFont2;
+  font-size: 15px;
+  color: black;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
-  
-  .imgDiv{
-  width: 25px;
-  height: 25px;
-  object-fit: fill;
-  }
+
 
 
 
@@ -1073,6 +1061,9 @@ CommunityCard{
 
 .peopleCard {
   width: 100%;
+
+    margin-left: 20px;
+
 }
 
 .peopleList {
