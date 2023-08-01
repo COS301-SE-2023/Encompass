@@ -148,7 +148,7 @@
        
           <ion-list class="custom-list list-item" >
 
-            <ion-item class="peopleItem" *ngFor="let people of profiles" color="var(--ion-color-background)" (click)="GoToProfile(people.username)">
+            <ion-item class="peopleItem" *ngFor="let people of searchprofiles" color="var(--ion-color-background)" (click)="GoToProfile(people.username)">
               <div class="search-item" id="search-person">
               <ion-avatar class="peopleAvatar" slot="start">
                 <img src="{{people?.profileImage}}" class="peopleIcon">
