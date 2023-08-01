@@ -198,26 +198,26 @@ load(){
           }
         })
 
-        if(!this.communitiesIsFetched){
-          this.communitiesIsFetched = true;
+        // if(!this.communitiesIsFetched){
+        //   this.communitiesIsFetched = true;
 
-          this.store.dispatch(new GetRecommendedCommunities(this.profile._id, this.profile.username));
-          this.communities$
-          .pipe(takeUntil(this.unsubscribe$))
-          .subscribe((communities) => {
-            if(communities){
-              console.log("Communities Found");
-              console.log(communities);
-              this.myCommunities = communities.slice(0, 3);
-              console.log("COMMUNITIES: ");
-              for(let k =0; k<this.myCommunities.length;k++){  
-                console.log(this.myCommunities[k].name);
-              }
-              // console.log("END OF COMMUNITIES: ")
+        //   this.store.dispatch(new GetRecommendedCommunities(this.profile._id, this.profile.username));
+        //   this.communities$
+        //   .pipe(takeUntil(this.unsubscribe$))
+        //   .subscribe((communities) => {
+        //     if(communities){
+        //       console.log("Communities Found");
+        //       console.log(communities);
+        //       this.myCommunities = communities.slice(0, 3);
+        //       console.log("COMMUNITIES: ");
+        //       for(let k =0; k<this.myCommunities.length;k++){  
+        //         console.log(this.myCommunities[k].name);
+        //       }
+        //       // console.log("END OF COMMUNITIES: ")
 
-            }
-          })
-        }
+        //     }
+        //   })
+        // }
        
         if(!this.booksIsFetched){
           this.booksIsFetched = true;
@@ -658,6 +658,7 @@ async addPosts(){
   }
   // if(!this.postsIsFetched){
     if (this.type === "recommended") {
+      console.log("GETTING RECOMMENDED POSTS")
       this.store.dispatch(new GetAllPosts(this.profile?._id));
     } else if (this.type === "latest") {
       this.store.dispatch(new GetLatestPosts());
