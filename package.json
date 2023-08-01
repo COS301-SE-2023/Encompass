@@ -9,7 +9,7 @@
     "build:api:dev": "yarn nx run api:build --configuration=development",
     "build:prod": "yarn nx run api:build --configuration=production && yarn nx run encompass:build --configuration=production",
     "start:prod": "yarn nx run api:serve --configuration=deployment && yarn nx run encompass:serve --configuration=deployment",
-    "test": "nx run-many --target=test --all --skip-nx-cache --parallel=5",
+    "test": "nx run-many --target=test --all --skip-nx-cache --parallel=5 --coverage && yarn nx e2e api-e2e --coverage",
     "lint": "nx run-many --target=lint --all --skip-nx-cache --parallel=5"
   },
   "private": true,

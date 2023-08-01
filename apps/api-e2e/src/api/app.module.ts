@@ -18,9 +18,11 @@ import { MediaRecommenderModule } from '@encompass/api/media-recommender/data-ac
 import { SettingsModule } from '@encompass/api/settings/data-access';
 import { SearchModule } from '@encompass/api/search/data-access';
 
+const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_TEST']
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/encompass-test',{
+    MongooseModule.forRoot(NX_MONGO_DB_URL,{
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }),

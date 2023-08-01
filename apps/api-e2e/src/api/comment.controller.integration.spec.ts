@@ -43,7 +43,7 @@ export const CommentSchema = new Schema<Comment>(
   }
 );
 
-const dbUrl = 'mongodb://127.0.0.1:27017/encompass-test'; 
+const dbUrl = process.env['NX_MONGO_DB_TEST']; 
 
 const connectToDatabase = async () => {
   try {
