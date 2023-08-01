@@ -151,7 +151,7 @@
             <ion-item class="peopleItem" *ngFor="let people of profiles" color="var(--ion-color-background)" (click)="GoToProfile(people.username)">
               <div class="search-item" id="search-person">
               <ion-avatar class="peopleAvatar" slot="start">
-                <img src="{{people?.profileImage}}" class="peopleIcon">
+                <img src="{{people?.profileImage}}" onerror="this.src='assets/icon/Profile.png';" class="peopleIcon">
               </ion-avatar>
             </div>
               <ion-label>

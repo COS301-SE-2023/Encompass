@@ -233,7 +233,7 @@
             <ion-list class="peopleList" >
               <ion-item color="var(--ion-card-contrast)" *ngFor="let people of profiles">
                 <ion-avatar class="peopleAvatar">
-                  <img src="{{people?.profileImage}}" class="peopleIcon">
+                  <img src="{{people?.profileImage}}" onerror="this.src='assets/icon/Profile.png';" class="peopleIcon">
                 </ion-avatar>
                 <div class="personDetails">
                   <div class="nameAndUsername">
