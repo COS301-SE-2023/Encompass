@@ -38,13 +38,6 @@ export class CommunityController {
         );
     }
 
-    @Get(':id')
-    async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
-        return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
-            new GetCommunityQuery(id),
-        );
-    }
-
     @Get('get-communities-by-keyword/:keyword')
     async getCommunitiesByKeyword(@Param('keyword') keyword: string){
         return await this.queryBus.execute<GetCommunitiesByKeyWordQuery, CommunityDto[]>(
@@ -142,5 +135,12 @@ export class CommunityController {
         console.log("Here")
         const uploadImage = new UploadImage();
         return await uploadImage.uploadImage(file.buffer, file.originalname);
+    }
+
+    @Get(':id')
+    async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
+        return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
+            new GetCommunityQuery(id),
+        );
     }
 }
