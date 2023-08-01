@@ -7,6 +7,7 @@ export class getHome{
 
 export class GetLatestPosts{
   static readonly type = '[Home] Get Latest Posts';
+  constructor(public readonly username: string){}
 }
 
 export class GetPopularPosts{
@@ -25,7 +26,7 @@ export class UpdatePost{
 
 export class UpdatePostWithType{
   static readonly type = '[Home] Update Post';
-  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly type: string){}
+  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly type: string, public readonly username: string){}
 }
 
 export class GetNotifications{

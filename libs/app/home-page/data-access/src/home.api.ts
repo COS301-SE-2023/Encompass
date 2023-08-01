@@ -65,9 +65,9 @@ export class HomeApi{
     }
   }
 
-  async getLatestPosts() {
+  async getLatestPosts(username: string) {
     try {
-        const response = await this.httpClient.get<PostDto[]>('/api/post/get-latest').toPromise();
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-latest/' + username).toPromise();
         return response;
     } catch (error) {
         console.log(error);

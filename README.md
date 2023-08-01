@@ -28,6 +28,7 @@ Email: perfectstrangers.tuks@gmail.com
 <a align="right" href="https://drive.google.com/file/d/1dhy1m-4ChnO6DJOg6ZY5fytJL9fR1k8D/view?usp=sharing">Encompass Coding Standards Documentation </a>
 <br>
 <a align="right" href="https://drive.google.com/file/d/1vpNOToRo9uRYw8TT-m4ZkZgCXK48Cl4u/view?usp=sharing">Encompass User Manual </a>
+<br>
 <a align="right" href="https://drive.google.com/file/d/1ZeBgGCR2MJxZb0vgyLna02BUsAw6tvUH/view?usp=sharing">Encompass Technical Installation Manual</a>
 <br>
 <a align="right" href="https://gamma.app/docs/AI-for-Encompass-zxpgzgzurp7496b?mode=doc">Encompass AI Documentation </a>

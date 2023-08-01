@@ -17,7 +17,7 @@ export class GetLatestPostHandler implements IQueryHandler<GetLatestPostsQuery> 
         const url = process.env["BASE_URL"];
         try {
             let allPosts: any[] = [];
-            const currentUser = await this.httpService.get(`${url}/api/profile/get/${username}`).toPromise();
+            const currentUser = await this.httpService.get(`${url}/api/profile/get-user/${username}`).toPromise();
             const currentUserData = currentUser?.data;
             const currentUserCommunities = currentUserData?.communities;
 

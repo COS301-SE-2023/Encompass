@@ -182,8 +182,8 @@ export class HomeState{
   }
 
   @Action(GetLatestPosts)
-  async getLatestPosts(ctx: StateContext<HomePostsModel>){
-    const response = await this.homeApi.getLatestPosts();
+  async getLatestPosts(ctx: StateContext<HomePostsModel>, {username}: GetLatestPosts){
+    const response = await this.homeApi.getLatestPosts(username);
     console.log(response);
 
     if(response == null || response == undefined){
@@ -270,7 +270,7 @@ export class HomeState{
   }
 
   @Action(UpdatePostWithType)
-  async updatePostWithType(ctx: StateContext<HomePostsModel>, {postId, updateRequest, type}: UpdatePostWithType){
+  async updatePostWithType(ctx: StateContext<HomePostsModel>, {postId, updateRequest, type, username}: UpdatePostWithType){
 
     const response = await this.homeApi.updatePost(updateRequest, postId);
 
@@ -282,7 +282,7 @@ export class HomeState{
       let posts: PostDto[] | null | undefined = [];
 
       if(type == "latest"){
-        posts = await this.homeApi.getLatestPosts();
+        posts = await this.homeApi.getLatestPosts(username);
       }
 
       else if(type == "popular"){
