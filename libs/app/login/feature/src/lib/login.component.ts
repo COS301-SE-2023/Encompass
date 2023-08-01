@@ -7,12 +7,15 @@ import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ToastController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { ViewChild, ElementRef } from '@angular/core';
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginPage {
+  @ViewChild('loginForm', { static: false }) loginForm!: ElementRef<HTMLFormElement>;
   user: LoginModel = new LoginModel();
   @Select(LoginState.loginModel) loginModel$!: Observable<AccountDto>;
 
@@ -49,8 +52,20 @@ export class LoginPage {
       
     }
 
+    handleEnterKey(event: KeyboardEvent) {
+      const loginbtn = document.getElementById('loginBtn');
+      if (event.key === 'Enter' ) {
+        if (loginbtn) {
+          console.log('enter pressed');
+        loginbtn.style.backgroundColor = 'var(--hover-color)';
+        }
+        const loginButton: HTMLButtonElement | null = this.loginForm.nativeElement.querySelector('.btn1');
+        loginButton?.click(); 
+      }
+    }
+
     checkInput(){
-      if(this.user.email != "" && this.user.password != ""){
+      if(this.user.email != "" && this.user.password != ""&&this.user.password.length>6){
         if(this.isValidEmail(this.user.email)){
           this.isValid = true;
         }else{
@@ -70,7 +85,7 @@ export class LoginPage {
   }
   
 
-    Back(){
+    back(){
       this.router.navigate(['welcome']);
     }
 

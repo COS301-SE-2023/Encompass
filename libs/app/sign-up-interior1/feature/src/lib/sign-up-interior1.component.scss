@@ -159,3 +159,7 @@
   span {
     margin-left: 5px;
   }
+  
+  ion-button:hover {
+    --border-radius: 50px;
+  }

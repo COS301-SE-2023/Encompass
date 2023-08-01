@@ -8,11 +8,13 @@ import { ProfileEntityRepository } from "./db/profile-entity.repository";
 import { ProfileDtoRepository } from "./db/profile-dto.repository";
 import { ProfileSchemaFactory } from "./db/profile-schema.factory";
 import { ProfileFactory } from "./profile.factory";
-import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCommunityHandler, AddFollowerHandler, AddFollowingHandler, RemoveFollowerHandler, RemoveFollowingHandler } from "./commands";
+import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCommunityHandler, AddFollowerHandler, AddFollowingHandler, RemoveFollowerHandler, RemoveFollowingHandler, AddCommunityHandler } from "./commands";
 import { ProfileCreatedHandler } from "./events";
 import { GetAllProfilesHandler, GetProfileHandler, GetUsernameHandler, GetByUsernameHandler } from "./queries";
 import { HttpModule } from "@nestjs/axios";
 import { UploadImage } from "./upload-image.service";
+import { GetRecommendedProfilesHandler } from "./queries/get-recommended-profiles/getRecommendedProfiles.handler";
+import { GetUsersByKeywordHandler } from "./queries/search-profiles/get-users-by-keyword.handler";
 
 @Module({
   imports: [
@@ -45,7 +47,10 @@ import { UploadImage } from "./upload-image.service";
     AddFollowerHandler,
     AddFollowingHandler,
     RemoveFollowerHandler,
-    RemoveFollowingHandler
+    RemoveFollowingHandler,
+    GetRecommendedProfilesHandler,
+    GetUsersByKeywordHandler,
+    AddCommunityHandler
   ],
 })
 

@@ -28,9 +28,9 @@ export class SignUpCommunitiesState{
   constructor(private signUpCommunitiesApi: SignUpCommunitiesApi){}
 
   @Action(GetCommunities)
-  async getCommunities(ctx: StateContext<SignUpCommunitiesStateModel>, {userId}: GetCommunities){
+  async getCommunities(ctx: StateContext<SignUpCommunitiesStateModel>, {userId, username}: GetCommunities){
     console.log("herer")
-    const response = await this.signUpCommunitiesApi.getCommunities(userId);
+    const response = await this.signUpCommunitiesApi.getCommunities(userId, username);
 
     if(response == null || response == undefined){
       return;

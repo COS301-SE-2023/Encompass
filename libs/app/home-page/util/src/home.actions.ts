@@ -23,6 +23,11 @@ export class UpdatePost{
   constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
 }
 
+export class UpdatePostWithType{
+  static readonly type = '[Home] Update Post';
+  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly type: string){}
+}
+
 export class GetNotifications{
   static readonly type = '[Home] Get Notifications';
   constructor(public readonly userId: string){}
@@ -38,9 +43,14 @@ export class ClearNotification{
   constructor(public readonly userId: string, public readonly id : string){}
 }
 
+export class ClearAllNotifications{
+  static readonly type = '[Home] Clear All Notifications'
+  constructor(public readonly userId: string){}
+}
+
 export class GetRecommendedCommunities{
   static readonly type = '[Home] Get Recommended Communities';
-  constructor(public readonly userId: string){}
+  constructor(public readonly userId: string, public readonly username: string){}
 }
 
 export class GetRecommendedMovies{

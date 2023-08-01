@@ -23,6 +23,9 @@ import { AddFollowerCommand } from "./commands/add-follower/add-follower.command
 import { AddFollowingCommand } from "./commands/add-following/add-following.command";
 import { RemoveFollowerCommand } from "./commands/remove-follower/remove-follower.command";
 import { RemoveFollowingCommand } from "./commands/remove-following/remove-following.command";
+import { GetRecommendedProfilesQuery } from "./queries/get-recommended-profiles/getRecommendedProfiles.query";
+import { GetUsersByKeywordQuery } from "./queries/search-profiles/get-users-by-keyword.query";
+import { AddCommunityCommand } from "./commands/add-community/add-community.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -54,6 +57,20 @@ export class ProfileController {
     );
   }
 
+  @Get('get-users-by-keyword/:keyword')
+    async getUsersByKeyword(@Param('keyword') keyword: string){
+        return await this.queryBus.execute<GetUsersByKeywordQuery, ProfileDto[]>(
+            new GetUsersByKeywordQuery(keyword),
+        );
+    }
+
+  @Get('get-recommended/:id')
+  async getRecommendedProfiles(@Param('id') userId: string){
+    return await this.queryBus.execute<GetRecommendedProfilesQuery, ProfileDto[]>(
+      new GetRecommendedProfilesQuery(userId),
+    );
+  }
+
   @Patch('/update/:id')
   async updateProfile(
     @Param('id') userId: string, 
@@ -80,6 +97,16 @@ export class ProfileController {
   ){
     return await this.commandBus.execute<RemoveCommunityCommand, ProfileDto>(
       new RemoveCommunityCommand(username, communityName),
+    );
+  }
+
+  @Patch('add-community/:username/:communityName')
+  async addCommunity(
+    @Param('username') username: string,
+    @Param('communityName') communityName: string,
+  ){
+    return await this.commandBus.execute<AddCommunityCommand, ProfileDto>(
+      new AddCommunityCommand(communityName, username),
     );
   }
 

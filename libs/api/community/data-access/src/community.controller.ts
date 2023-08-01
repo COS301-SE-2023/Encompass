@@ -19,6 +19,8 @@ import { UploadImage } from './upload-image.service';
 import { DeleteCommunityCommand } from './commands/delete-community/delete-community.command';
 import { RemovePostCommand } from './commands/remove-post/remove-post.command';
 import { RemoveUserCommand } from './commands/remove-user/remove-user.command';
+import { GetCommunitiesByKeyWordQuery } from './queries/community-search/get-community-by-keyword.query';
+import { GetAllCommunitiesQuery } from './queries/get-all-communities/getAllCommunities.query';
 
 
 
@@ -29,6 +31,13 @@ export class CommunityController {
         private readonly queryBus: QueryBus
     ) {}
 
+    @Get('get-all-communities')
+    async getAllCommunities(): Promise<CommunityDto[]> {
+        return await this.queryBus.execute<GetAllCommunitiesQuery, CommunityDto[]>(
+            new GetAllCommunitiesQuery(),
+        );
+    }
+
     @Get(':id')
     async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
         return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
@@ -36,12 +45,21 @@ export class CommunityController {
         );
     }
 
-    @Get('get-recommended-communities/:userid')
-    async getRecommendedCommunities(@Param('userid') userId: string): Promise<CommunityDto[]> {
-        return await this.queryBus.execute<GetRecommendedCommunitiesQuery, CommunityDto[]>(
-            new GetRecommendedCommunitiesQuery(userId),
+    @Get('get-communities-by-keyword/:keyword')
+    async getCommunitiesByKeyword(@Param('keyword') keyword: string){
+        return await this.queryBus.execute<GetCommunitiesByKeyWordQuery, CommunityDto[]>(
+            new GetCommunitiesByKeyWordQuery(keyword),
         );
     }
+
+    @Get('get-recommended-communities/:userid/:username')
+    async getRecommendedCommunities(@Param('username') username: string, @Param('userid') userId: string): Promise<CommunityDto[]> {
+        return await this.queryBus.execute<GetRecommendedCommunitiesQuery, CommunityDto[]>(
+            new GetRecommendedCommunitiesQuery(username, userId),
+        );
+    }
+
+    
 
     @Get('get-community/:name')
     async getCommunityByName(@Param('name') name: string): Promise<CommunityDto> {
@@ -115,6 +133,8 @@ export class CommunityController {
             new DeleteCommunityCommand(communityName)
         )
     }
+
+    
 
     @Post('upload-image')
     @UseInterceptors(FileInterceptor('file'))

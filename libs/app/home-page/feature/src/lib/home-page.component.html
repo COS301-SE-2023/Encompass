@@ -3,53 +3,70 @@
   <ion-menu type="overlay" side="start" id="main-content" class="menu-pane" >
     <div class="menu-container">
 
-    <div class="logoButton" (click)="goHome()">
-      <ion-button fill="clear" class="centeredButton">
-        <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-      </ion-button>
-    </div>
+    
       
     <ion-content class="ion-padding buttons-menu-container">
-      
-      <div class="MenuButton" >
-        <ion-button fill="clear" id="popover-button" (click)="toggleSearch()">
-          <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+      <div class="logoButton" (click)="goHome()">
+        <ion-button fill="clear" class="centeredButton">
+          <div class="square-image">
+            <img id="logo-default" #logoDefault src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+            <img id="logo-red" #logoRed src="assets/logos/logo-red.png" class="logo2 logo-red visible" alt="Encompass Logo">
+            <img id="logo-blue" #logoBlue src="assets/logos/logo-blue.png" class="logo2 logo-blue visible" alt="Encompass Logo">
+            <img id="logo-green" #logoGreen src="assets/logos/logo-green.png" class="logo2 logo-green visible" alt="Encompass Logo">
+            <img id="logo-orange" #logoOrange src="assets/logos/logo-orange.png" class="logo2 logo-orange visible" alt="Encompass Logo">
+          </div>
+          <span class="logo-span">Home</span>
         </ion-button>
+        
+      </div>
+      
+      <div class="MenuButton top-button" >
+        <ion-button class="full" fill="clear" id="popover-button" (click)="toggleSearch()">
+          <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Search</span>
+          <!-- <ion-tooltip *ngIf="showTooltip">Tooltip text here</ion-tooltip> -->
+        </ion-button>
+        
       </div>
 
       <div class="MenuButton">
         <ion-button fill="clear" (click)="goToExplore()">
           <ion-icon name="rocket" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Explore</span>
         </ion-button>
       </div>
 
       <div class="MenuButton">
         <ion-button fill="clear" (click)="goToChat()">
           <ion-icon name="chatbubbles" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Messages</span>
         </ion-button>
       </div>
 
       <div class="MenuButton">
         <ion-button fill="clear"(click)="toggleNotifications()">
           <ion-icon name="notifications" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Notifications</span>
         </ion-button>
       </div>
 
       <div class="MenuButton">
         <ion-button id="profile-trigger" fill="clear" (click)="goToProfile()">
           <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
+          <span>Profile</span>
         </ion-button>
       </div>
       
       <div class="menuFooter">
-        <ion-button id="menu-pop" fill="clear">
-        <ion-icon name="menu"></ion-icon>
+        <ion-button id="menu-pop"  fill="clear">
+        <ion-icon id="menu-pop" name="menu"></ion-icon>
+        <span>More Options</span>
       </ion-button>
       </div>
 
-      <ion-popover trigger="menu-pop" [dismissOnSelect]="true" side="right" alignment="end" showBackdrop="false">
+      <ion-popover trigger="menu-pop" [dismissOnSelect]="true" side="top" alignment="end" showBackdrop="false">
         <ng-template>
-          <ion-content style="margin-bottom: 210px;">
+          <ion-content class="popover-content" style="margin-bottom: 210px;">
             <ion-list>
               <ion-item [button]="true" [detail]="false" (click)="goToEvents()">
                 <ion-icon name="megaphone-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
@@ -84,14 +101,16 @@
         </div>
     </ion-header>
     <ion-content>
-      <ion-list>
+      <ion-list class="custom-list">
         <div *ngFor="let notify of notifications?.notifications">
-          <ion-item (click)="clearNotification(notify.notificationId)">
+          <ion-item color="var(--ion-color-background)">
+            <div class="noti-background">
             <div class="user">
               <div class="alert"></div>
               <ion-avatar slot="start">
-                <ion-img src={{notify.picture}}></ion-img>
+                <img src={{notify.picture}} onerror="this.src='assets/icon/Profile.png';">
               </ion-avatar>
+              <ion-icon class="delete-icon" name="trash-bin" (click)="clearNotification(notify.notificationId)"></ion-icon>
             </div>
             <ion-label>
               <div class="noti-title">
@@ -101,58 +120,71 @@
               </div>
               <p>{{notify.description}}</p>
             </ion-label>
+          </div>
           </ion-item>
         </div>
       </ion-list>
     </ion-content>
+    <div class="deleteAll" (click)="clearAllNotifications()">
+      <ion-icon name="trash-bin-outline"></ion-icon>
+      <span>Delete All</span>
+    </div>
   </div>
 
-  <div class="search-card" *ngIf="showSearch" id="search-card">
+
+  <div class="search-card custom-list" *ngIf="showSearch"  id="search-card">
       <div class="search-header search-text">
         Search
       </div>
-      <ion-searchbar placeholder="Search"></ion-searchbar>
+      <ion-searchbar placeholder="Search" (ionChange)="search($event)"></ion-searchbar>
 
-    <ion-content>
-      <ion-list>
-        <ion-item>
-          <div class="search-item" id="search-person">
-            <ion-avatar slot="start">
-              <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-            </ion-avatar>
-          </div>
-          <ion-label>
-            <div class="search-title">
-              <span class="bold-text">Mattew McCartney</span>
-            </div>
-            <p>Just here for the long haul.</p>
-          </ion-label>
-        </ion-item>
-        <ion-item>
-          <div class="search-item" id="search-category">
-            <ion-avatar slot="start">
-              <ion-img class="categories" src="assets/icon/Rocket.png"></ion-img>
-            </ion-avatar>
-          </div>
-          <ion-label>
-            <div class="search-title">
-              <span class="bold-text">#Sci-Fi</span>
-            </div>
-            <p>234 Posts</p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
+    <ion-content class="custom-list">
+      <div class="custom-background">
 
+          
+         <!-- people -->
+         <div>
+         <div class="peopleSearch" *ngIf="peopleExists">
+       
+          <ion-list class="custom-list list-item" >
+
+            <ion-item class="peopleItem" *ngFor="let people of profiles" color="var(--ion-color-background)" (click)="GoToProfile(people.username)">
+              <div class="search-item" id="search-person">
+              <ion-avatar class="peopleAvatar" slot="start">
+                <img src="{{people?.profileImage}}" onerror="this.src='assets/icon/Profile.png';" class="peopleIcon">
+              </ion-avatar>
+            </div>
+              <ion-label>
+                <div class="search-title">
+                  <span class="personName bold-text">{{people?.name}} {{people?.lastName}}</span>
+                  <span class="personUsername">@{{people?.username}}</span>
+                </div>
+                <p class="personDesc">{{people?.bio}}</p>
+              </ion-label>
+              <ion-button fill="clear" slot="end" class="followButton"><ion-icon name="person-add"></ion-icon></ion-button>
+               <ion-button fill="clear" *ngIf="" slot="end" class="followButton"><ion-icon name="person-remove"></ion-icon></ion-button> 
+
+            </ion-item>
+          </ion-list>
+
+         </div>
+         <div class="tempNoResult" *ngIf="!peopleExists">
+          <span>No Search Results</span>
+         </div>
+        </div>
+
+
+
+    </div>
 
 
       <ion-footer class="search-footer">
         <ion-toolbar class="search-toolbar">
           <div class="footer-text">
             <ion-icon name="search"></ion-icon>
-          <div>
-            Search for 
-            <a>"term"</a>
-          </div>
+            <div>
+              <span>Search for <a href="/home/search-explore">"{{keyword}}"</a></span>
+            </div>
           </div>
         </ion-toolbar>
       </ion-footer>

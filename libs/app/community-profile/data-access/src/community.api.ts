@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { PostDto } from '@encompass/api/post/data-access';
+import { ProfileDto } from '@encompass/api/profile/data-access';
 
 export interface fileReturn{
   key: string,
@@ -103,6 +104,32 @@ export class CommunityApi {
   async removeCommunityRequest(communityId: string, username: string){
     try{
       const response = await this.httpClient.patch<CommunityRequestDto>('/api/community-request/remove-user/' + communityId + '/' + username, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async removeCommunity(username: string, communityName: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/remove-community/' + username + '/' + communityName, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async addCommunity(username: string, communityName: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-community/' + username + '/' + communityName, {}).toPromise();
 
       return response;
     }

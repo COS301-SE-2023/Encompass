@@ -18,4 +18,18 @@ Profile
   ){
     super(profileModel, profileSchemaFactory);
   }
+
+  async findUsersByKeyword(keyword: string): Promise<Profile[]>{
+    const allUsers = await this.findAll();
+    const filteredUsers = allUsers.filter(user => {
+      const firstName = user.username.toLowerCase();
+      const lastName = user?.lastName?.toLowerCase();
+      const name = user?.name?.toLowerCase();
+      const isNameMatch = name?.includes(keyword);
+      const isFirstNameMatch = firstName.includes(keyword);
+      const isLastNameMatch = lastName?.includes(keyword);
+      return isFirstNameMatch || isLastNameMatch || isNameMatch;
+    });
+    return filteredUsers;
+  }
 }

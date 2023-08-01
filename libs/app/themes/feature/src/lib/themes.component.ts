@@ -49,22 +49,20 @@ export class ThemesPage {
     const btn = document.getElementById(imgName);
     const activeImg = document.getElementById(this.activeImage);
     const page = document.getElementById('theme-page');
-
+   
     if (btn && this.activeImage !== imgName && page){
-
       if (activeImg){
       activeImg.style.border = 'none';
-      console.log('inner if')
       }
       btn.style.border = '4px solid var(--ion-color-warning)';
       this.activeImage = imgName;
       page.style.backgroundImage = `url(${url})`;
-      console.log('if')
+
+      
     } else if (btn && this.activeImage === imgName && page){
       btn.style.border = 'none';
       this.activeImage = '';
       page.style.backgroundImage = `none`;
-      console.log('else if')
       url = '';
     }
 
@@ -80,19 +78,31 @@ export class ThemesPage {
     this.store.dispatch(new UpdateThemes(this.profile?._id, data));
   }
 
+  
+
+
+
+
+
+
+
+
+
   active = false;
   getImg() {
     const fileInput = document.getElementById('backgroundFile');
     this.active = !this.active;
     if (this.active){
-      console.log('active');
+
       if (fileInput){
         fileInput.style.display = 'none';
+        this.active = false;
       }
     }else{
-      console.log('inactive');
+
       if (fileInput){
         fileInput.style.display = 'block';
+        this.active = true;
       }
     }
   }
@@ -132,6 +142,7 @@ export class ThemesPage {
     if (page) {
       page.style.backgroundImage = `url(${this.profilePictureUrl})`;
     }
+  
   }
 
   async uploadFile() : Promise<string | null>{
@@ -143,6 +154,7 @@ export class ThemesPage {
       console.log(uploadFile);
       resolve(uploadFile);
     })
+    
   }
 
   renderer: Renderer2;
@@ -210,7 +222,7 @@ export class ThemesPage {
               if(button){
               button.style.border = '4px solid var(--ion-color-warning)';
               }
-              this.activeImage = this.settings.themes.themeImage;
+              this.activeImage = background;
 
             }
           }

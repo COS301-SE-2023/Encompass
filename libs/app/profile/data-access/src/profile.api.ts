@@ -168,4 +168,30 @@ export class ProfileApi{
       return null;
     }
   }
+
+  async removeCommunity(username: string, communityName: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/remove-community/' + username + '/' + communityName, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async addCommunity(username: string, communityName: string){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-community/' + username + '/' + communityName, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
 }

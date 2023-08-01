@@ -13,6 +13,7 @@ import { MovieSchema } from "./db/movie-db/movie.schema";
 import { MovieSchemaFactory } from "./db/movie-db/movie-schema.factory";
 import { MovieDtoRepository } from "./db/movie-db/movie-dto.repository";
 import { MovieEntityRepository } from "./db/movie-db/movie-entity.repository";
+import { GetAllMoviesHandler } from "./queries/get-all-movies/getAllMovies.handler";
 
 @Module({
     imports: [
@@ -25,7 +26,7 @@ import { MovieEntityRepository } from "./db/movie-db/movie-entity.repository";
             {
                 name: MovieSchema.name,
                 schema: SchemaFactory.createForClass(MovieSchema),
-            }
+            },
         ]),
         HttpModule
     ],
@@ -41,7 +42,8 @@ import { MovieEntityRepository } from "./db/movie-db/movie-entity.repository";
         MovieSchemaFactory,
         MovieDtoRepository,
         MovieEntityRepository,
-        GetRecommendedMoviesHandler
+        GetRecommendedMoviesHandler,
+        GetAllMoviesHandler,
     ],
 })
 

@@ -17,27 +17,57 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
         //make AI recommendation here
         const url = process.env["BASE_URL"];
         try {
-            const allBooksPromise = this.bookEntityRepository.findSome();
+            const recommendedUsersPromise = this.httpService.get(url + "/api/profile/get-recommended/" + userId).toPromise();
             const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
-            const [allBooks, currentUserProfile] = await Promise.all([allBooksPromise, currentUserProfilePromise]);
+            const [currentUserProfile, recommendedUsers] = await Promise.all([currentUserProfilePromise, recommendedUsersPromise]);
+            //const allCategories = await this.bookEntityRepository.findAllCategories();
+            /*console.log('allCategories: ');
+            //console all categories
+            allCategories.forEach((category) => {
+                console.log(category);
+            });*/
+            if ( recommendedUsers?.data.length > 0 ) {
+                const categories = convertUserCategories( currentUserProfile?.data );
+                const allBooks = await this.bookEntityRepository.findSome(categories);
+                addUserToBook(allBooks, currentUserProfile?.data);
+                //K-means clustering for books where K = sqrt(allBooks.length)
+                const clusters = kmeans(allBooks);
+                //get closest cluster to current user profile
+                const recommendedCluster = getClusterOfCurrentProfile( clusters, userId );
+                //remove current user profile from cluster
+                const recommendedBooks = recommendedCluster[0].clusterBooks.filter(book => book.bookId !== userId);
+                //get recommended books from allBooks by _id
+                const recommendedBooksFromAllBooks = allBooks.filter(book => recommendedBooks.some(recommendedBook => recommendedBook.bookId === book._id));
+                //limit max to 5 books
+                if (recommendedBooksFromAllBooks.length > 2) {
+                    recommendedBooksFromAllBooks.length = 2;
+                }
 
-            convertUserCategories( currentUserProfile?.data );
+                return recommendedBooksFromAllBooks;
+            } else {
+                const randomIndex = Math.floor(Math.random() * recommendedUsers?.data.length);
+                const categories = convertUserCategories( recommendedUsers?.data[randomIndex] );
+                const allBooks = await this.bookEntityRepository.findSome(categories);
 
-            addUserToBook(allBooks, currentUserProfile?.data);
-            //K-means clustering for books where K = sqrt(allBooks.length)
-            const clusters = kmeans(allBooks);
-            //get closest cluster to current user profile
-            const recommendedCluster = getClusterOfCurrentProfile( clusters, userId );
-            //remove current user profile from cluster
-            const recommendedBooks = recommendedCluster[0].clusterBooks.filter(book => book.bookId !== userId);
-            //get recommended books from allBooks by _id
-            const recommendedBooksFromAllBooks = allBooks.filter(book => recommendedBooks.some(recommendedBook => recommendedBook.bookId === book._id));
-            //limit max to 5 books
-            if (recommendedBooksFromAllBooks.length > 2) {
-                recommendedBooksFromAllBooks.length = 2;
+                addUserToBook(allBooks, recommendedUsers?.data[randomIndex]);
+                const otherUserId = recommendedUsers?.data[randomIndex]._id;
+                //K-means clustering for books where K = sqrt(allBooks.length)
+                const clusters = kmeans(allBooks);
+                //get closest cluster to current user profile
+                const recommendedCluster = getClusterOfCurrentProfile( clusters, otherUserId );
+                //remove current user profile from cluster
+                const recommendedBooks = recommendedCluster[0].clusterBooks.filter(book => book.bookId !== otherUserId);
+                //get recommended books from allBooks by _id
+                const recommendedBooksFromAllBooks = allBooks.filter(book => recommendedBooks.some(recommendedBook => recommendedBook.bookId === book._id));
+                //limit max to 5 books
+                if (recommendedBooksFromAllBooks.length > 2) {
+                    recommendedBooksFromAllBooks.length = 2;
+                }
+
+                return recommendedBooksFromAllBooks;
             }
 
-            return recommendedBooksFromAllBooks;
+            
 
         } catch (error) {
             console.log(error);
@@ -46,14 +76,17 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
 
         function convertUserCategories( currentUserProfile: any ) {
             const updatedProfile: string[] = [];
-            currentUserProfile.categories.forEach((category: any) => {
+            //console.log('currentUserProfile: ', currentUserProfile);
+            currentUserProfile?.categories?.forEach((category: any) => {
                 if (categoryMappings[category]) {
-                    updatedProfile.push(categoryMappings[category].novels);
+                    //categoryMappings[category].novels is an array of strings
+                    updatedProfile.push(...categoryMappings[category].novels);
                 } else {
                     updatedProfile.push(category);
                 }
             });
             currentUserProfile.categories = updatedProfile;
+            return updatedProfile;
         }
 
         function getClusterOfCurrentProfile( clusters: { clusterCentroid: number[], clusterBooks: { book: number[], bookId: string }[] }[], userId: string ) {
@@ -218,7 +251,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             const genres: string[] = [];
             const publisher: string[] = [];
 
-            items.forEach((item) => {
+            items?.forEach((item) => {
                 bookIds.push(item._id);
                 //console.log(item._id);
                 loadCategories(series, item.series);
@@ -228,48 +261,55 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             });
 
             //push 0 or 1 to each book array in books if it has the category, and then add bookId to the end
-            items.forEach((item) => { //test this!!!!
+            
+            items?.forEach((item) => { //test this!!!!
                 const book: { book: number[], bookId: string } = { book: [], bookId: "" };
+                /*if (!Array.isArray(item.genres) || !Array.isArray(item.series) || !Array.isArray(item.author) || !Array.isArray(item.publisher)) {
+                    console.log("item.genres: " + item.genres);
+                    console.log("item.series: " + item.series);
+                    console.log("item.author: " + item.author);
+                    console.log("item.publisher: " + item.publisher);*/
 
-                genres?.forEach((genresItem) => {
-                    if (item.genres?.includes(genresItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                    genres?.forEach((genresItem) => {
+                        if (item.genres?.includes(genresItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                series?.forEach((seriesItem) => {
+                    series?.forEach((seriesItem) => {
 
-                    if (item.series?.includes(seriesItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                        if (item.series?.includes(seriesItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                author?.forEach((authorItem) => {
-                    if (item.author?.includes(authorItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                    author?.forEach((authorItem) => {
+                        if (item.author?.includes(authorItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                publisher?.forEach((publisherItem) => {
-                    if (item.publisher?.includes(publisherItem)) {
-                        book.book.push(1);
-                    } else {
-                        book.book.push(0);
-                    }
-                });
+                    publisher?.forEach((publisherItem) => {
+                        if (item.publisher?.includes(publisherItem)) {
+                            book.book.push(1);
+                        } else {
+                            book.book.push(0);
+                        }
+                    });
 
-                book.bookId = item._id;
-                books.push(book);
+                    book.bookId = item._id;
+                    books.push(book);
+                /*} else {
+                    console.log("item  not an array !!!!!!!!!!!!!!!!!!!");
+                }*/
             });
-
             return books;
-
         }
 
         function loadCategories( categories: string[], category: string, categoryIsArray = false, categyIsAuthor = false ) {
@@ -283,7 +323,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
                     return;
                 }
                 
-                array.forEach((item: string) => {
+                array?.forEach((item: string) => {
                     if ( categories.length < 1 || !categories.includes(item) ) {
                         categories.push(item);
                     }

@@ -137,4 +137,15 @@ export class Profile extends AggregateRoot{
     if(this.following)
       this.following = this.following.filter(follow => follow !== followingId);
   }
+
+  addCommunity(communityName: string){
+    if(this.communities){
+      if(this.communities.includes(communityName)) return;
+      this.communities = [...this.communities, communityName];
+    }
+
+    else{
+      this.communities = [communityName];
+    }
+  }
 }

@@ -9,40 +9,47 @@
 }
 
 .login{
-    background-color: #F0EFEF;
-    height: 80%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    
+  background-color: #F0EFEF;
+  background-image: url('../Images/WelcomeImg2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 80%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  overflow-y: auto;
 }
-
-.backgroundImage{
-    width: 100%;
-    height: 80%;
-    object-fit: cover;
-    position: absolute;
-    margin-top: 20%;
-    border-radius: 0 0 15px 15px;
-}
+// .backgroundImage{
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   position: absolute;
+//   border-radius: 15px 15px 15px 15px;
+// }
 
 .logo{
     width: 130px;
     height: 120px;
 }
+
 .SignUpDetails{
     width: 350px;
     height: 300px;
     // background-color: aqua;
     position: absolute;
     z-index: 2;
-    top:38%;
+    top: 45%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
 }
+
+  
 .input{
     width: 100%;
     height: 20%;
@@ -69,15 +76,16 @@
 }
 
 .btn1{
-  border: 1px solid var(--ion-color-primary-contrast);
+  border: 1px solid #231942;
   border-radius: 25px;
   background-color: #634783;
   color:white;
   z-index: 3;
   width: 100%;
-  height: 80%;
+  // height: 80%;
   font-family: CustomFont;
   text-transform: none;
+  padding: 3%;
 
 }
 
@@ -85,28 +93,31 @@ btn1:hover{
   cursor: pointer;
 }
 .btn2{
-  border: 1px solid var(--ion-color-primary-contrast);
+  border: 1px solid #231942;
   border-radius: 25px;
-  background-color: #CECAE3;
+  background-color: hsl(250, 31%, 84%);
   color:#231942;
   z-index: 3;
   width: 100%;
-  height: 80%;
+  // height: 80%;
   font-family: CustomFont;
-  text-transform: none;
+   text-transform: none;
+  padding: 3%;
+
 
 }
 
+
   .ForgotPassword{
-    width: 90%;
-    text-align: center;
+    //  width: 90%;
+     text-align: center;
     color: white;
     font-size: small;
-    z-index: 3;
-    position: relative;
-    height: 70px;
+    // height: 70px;
     --checkbox-background-checked: #6815ec;
     --size: 28px;
+    // --padding-end: 0;
+
   }
 
   .Title{
@@ -123,11 +134,16 @@ btn1:hover{
     flex-direction: column;
     align-items: center;
     margin-bottom: 340px;
+    margin-top: 75px;
   }
 
 .options {
-    // margin-top: 30px;
-    text-align: center;
+     margin-top: 10px;
+    // text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
 .login {
@@ -154,3 +170,50 @@ btn1:hover{
   .first-input {
     margin-right: 10px;
   }
+
+::-webkit-scrollbar {
+  width: 8px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1c2154; 
+  border-radius: 4px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8231DD;
+}
+
+::-webkit-scrollbar-button:start {
+  display: block;
+  height: 8px; 
+}
+
+::-webkit-scrollbar-button:end {
+  display: block;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button:start:decrement:hover {
+  background-color: #aaa; 
+}
+
+::-webkit-scrollbar-button:end:increment:hover {
+  background-color: #aaa; 
+}
+
+.warning{
+    color: rgba(255, 0, 0, 0.726);
+    font-size: 12px;
+    margin-bottom:10px;
+  }
+
+
+.TOS{
+  color: white;
+  margin-bottom: 10px;
+}
+.TOS:hover {
+  cursor: pointer;
+  color: #8231DD;
+}

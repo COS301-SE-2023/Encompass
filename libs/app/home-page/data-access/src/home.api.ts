@@ -43,9 +43,9 @@ export class HomeApi{
     }
   }
 
-  async getRecommendedCommunites(userId: string){
+  async getRecommendedCommunites(userId: string, username: string){
     try{
-      const response = await this.httpClient.get<CommunityDto[]>('/api/community/get-recommended-communities/' + userId).toPromise();
+      const response = await this.httpClient.get<CommunityDto[]>('/api/community/get-recommended-communities/' + userId + '/' + username).toPromise();
       return response;
     }
     catch(error){
@@ -85,6 +85,16 @@ export class HomeApi{
     }
   }
 
+  async getRecommendPosts(userId: string) {
+    try {
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-recommended-posts/' + userId).toPromise();
+        return response;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+  }
+
   async sendNotification(userId: string, notification: AddNotificationRequest){ 
     try{
       const response = await this.httpClient.patch<NotificationDto>('/api/notification/add/' + userId, notification).toPromise();
@@ -101,7 +111,10 @@ export class HomeApi{
 
   async getAllPosts(username : string){
     try{
+      console.log("I am fetching the AI Posts")
       const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/' + username).toPromise();
+
+      console.log(response);
       return response;
     }
 
@@ -123,6 +136,20 @@ export class HomeApi{
   async clearNotification(userId: string, id: string){
     try{
       const response = await this.httpClient.patch<NotificationDto>('/api/notification/remove/' + userId + '/' + id, null).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error)
+
+      return null
+    }
+  }
+
+  async clearAllNotifications(userId: string){
+    try{
+      const response = await this.httpClient.patch<NotificationDto>('/api/notification/clear-all/' + userId, null).toPromise();
 
       return response
     }
