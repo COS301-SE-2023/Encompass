@@ -38,13 +38,6 @@ export class CommunityController {
         );
     }
 
-    @Get(':id')
-    async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
-        return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
-            new GetCommunityQuery(id),
-        );
-    }
-
     @Get('get-communities-by-keyword/:keyword')
     async getCommunitiesByKeyword(@Param('keyword') keyword: string){
         return await this.queryBus.execute<GetCommunitiesByKeyWordQuery, CommunityDto[]>(
@@ -58,8 +51,6 @@ export class CommunityController {
             new GetRecommendedCommunitiesQuery(username, userId),
         );
     }
-
-    
 
     @Get('get-community/:name')
     async getCommunityByName(@Param('name') name: string): Promise<CommunityDto> {
@@ -145,4 +136,11 @@ export class CommunityController {
         const uploadImage = new UploadImage();
         return await uploadImage.uploadImage(file.buffer, file.originalname);
     }
+
+    /*@Get(':id')
+    async getCommunity(@Param('id') id: string): Promise<CommunityDto> {
+        return await this.queryBus.execute<GetCommunityQuery, CommunityDto>(
+            new GetCommunityQuery(id),
+        );
+    }*/
 }

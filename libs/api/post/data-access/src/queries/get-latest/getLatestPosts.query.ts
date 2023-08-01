@@ -1,1 +1,3 @@
-export class GetLatestPostsQuery {}
+export class GetLatestPostsQuery {
+    constructor(public readonly username: string){}
+}

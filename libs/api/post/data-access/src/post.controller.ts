@@ -28,6 +28,13 @@ export class PostController {
     private readonly queryBus: QueryBus,
   ){}
 
+  @Get('get-latest/:userId')
+  async getLatestPosts(@Param('userId') userId: string){
+    return await this.queryBus.execute<GetLatestPostsQuery, PostDto[]>(
+      new GetLatestPostsQuery(userId),
+    );
+  }
+
   @Post('create')
   async createPost(
     @Body() createPostRequest: CreatePostRequest,
@@ -104,12 +111,7 @@ export class PostController {
     );
   }
 
-  @Get('get-latest')
-  async getLatestPosts(){
-    return await this.queryBus.execute<GetLatestPostsQuery, PostDto[]>(
-      new GetLatestPostsQuery(),
-    );
-  }
+  
 
 
   @Get('get-by-user/:username')
@@ -121,21 +123,21 @@ export class PostController {
     );
   }
 
-  @Get(':id')
-  async getPostById(
-    @Param('id') id: string,
-  ){
-    return await this.queryBus.execute<GetByIdQuery, PostDto>(
-      new GetByIdQuery(id),
-    );
-  }
-
   @Get('get-by-community/:communityName')
   async getPostsByCommunity(
     @Param('communityName') communityName: string,
   ){
     return await this.queryBus.execute<GetByCommunityQuery, PostDto[]>(
       new GetByCommunityQuery(communityName),
+    );
+  }
+
+  @Get(':id')
+  async getPostById(
+    @Param('id') id: string,
+  ){
+    return await this.queryBus.execute<GetByIdQuery, PostDto>(
+      new GetByIdQuery(id),
     );
   }
 }

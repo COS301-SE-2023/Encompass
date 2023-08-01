@@ -43,13 +43,6 @@ export class ProfileController {
     );
   }
 
-  @Get('/get/:id')
-  async getProfile(@Param('id') userId: string) : Promise<ProfileDto>{
-    return await this.queryBus.execute<GetProfileQuery, ProfileDto>(
-      new GetProfileQuery(userId),
-    );
-  }
-
   @Get('get-all')
   async getAllProfiles(){
     return await this.queryBus.execute<GetAllProfilesQuery, ProfileDto[]>(
@@ -172,5 +165,12 @@ export class ProfileController {
     const uploadImage = new UploadImage();
     
     return await uploadImage.uploadImage(file.buffer, file.originalname);
+  }
+
+  @Get('/get/:id')
+  async getProfile(@Param('id') userId: string) : Promise<ProfileDto>{
+    return await this.queryBus.execute<GetProfileQuery, ProfileDto>(
+      new GetProfileQuery(userId),
+    );
   }
 }

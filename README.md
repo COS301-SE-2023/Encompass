@@ -1,6 +1,6 @@
 # Encompass
 [![codecov](https://codecov.io/gh/COS301-SE-2023/Encompass/branch/main/graph/badge.svg?token=M20C3A1SU1)](https://codecov.io/gh/COS301-SE-2023/Encompass)
-![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main_merge.yml/badge.svg?branch=main)
+![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main-merge.yml/badge.svg?branch=main)
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/Encompass)
 
 ## Description
@@ -12,18 +12,25 @@ Email: perfectstrangers.tuks@gmail.com
 
 ## SRS Documents:
 ### Current Version:
-<a align="right" href="https://drive.google.com/file/d/10isCadRUUbwuoZUJAXucHE76Przm9RVR/view?usp=sharing">Encompass SRS Doc Ver 2</a>
+<a align="right" href="https://drive.google.com/file/d/1tHh6vkPIemDcVFkvOskpfZ6ITMbZnV7r/view?usp=sharingg">Encompass SRS Doc Ver 3</a>
 
 ### Older Versions:
+<a align="right" href="https://drive.google.com/file/d/10isCadRUUbwuoZUJAXucHE76Przm9RVR/view?usp=sharing">Encompass SRS Doc Ver 2</a>
+<br>
 <a align="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/view?usp=sharing">Encompass SRS Doc Ver 1</a>
 <br>
 
 ## Other Documents:
-<a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation</a>
+<a align="right" href="https://drive.google.com/file/d/1sNVyIYGJbFSV6YknX2brYlxIlB8bUO_8/view?usp=sharing">Encompass Updated Architecture Documentation</a>
+<br>
+<a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation Version 1</a>
 <br>
 <a align="right" href="https://drive.google.com/file/d/1dhy1m-4ChnO6DJOg6ZY5fytJL9fR1k8D/view?usp=sharing">Encompass Coding Standards Documentation </a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/18SMqq4ZQBi8sAXr0g1ZFmSEBQjnk_eid/view?usp=sharing">Encompass User Manual </a>
+<a align="right" href="https://drive.google.com/file/d/1vpNOToRo9uRYw8TT-m4ZkZgCXK48Cl4u/view?usp=sharing">Encompass User Manual </a>
+<a align="right" href="https://drive.google.com/file/d/1ZeBgGCR2MJxZb0vgyLna02BUsAw6tvUH/view?usp=sharing">Encompass Technical Installation Manual</a>
+<br>
+<a align="right" href="https://gamma.app/docs/AI-for-Encompass-zxpgzgzurp7496b?mode=doc">Encompass AI Documentation </a>
 
 ## Demo Video Links:
 <a align="right" href="https://drive.google.com/file/d/1tQxs1yPxbQBnUl5uCtrbVn_q0S7w_ODg/view?usp=sharing">Encompass Demo 2 Video<a>

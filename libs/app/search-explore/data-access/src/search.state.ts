@@ -16,6 +16,7 @@ export interface SearchModel{
     }
 }
 
+
 export interface GetAllCommunitiesModel{
     GetAllCommunitiesForm: {
         model: {
