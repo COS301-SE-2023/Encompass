@@ -123,21 +123,21 @@ export class PostController {
     );
   }
 
-  @Get(':id')
-  async getPostById(
-    @Param('id') id: string,
-  ){
-    return await this.queryBus.execute<GetByIdQuery, PostDto>(
-      new GetByIdQuery(id),
-    );
-  }
-
   @Get('get-by-community/:communityName')
   async getPostsByCommunity(
     @Param('communityName') communityName: string,
   ){
     return await this.queryBus.execute<GetByCommunityQuery, PostDto[]>(
       new GetByCommunityQuery(communityName),
+    );
+  }
+
+  @Get(':id')
+  async getPostById(
+    @Param('id') id: string,
+  ){
+    return await this.queryBus.execute<GetByIdQuery, PostDto>(
+      new GetByIdQuery(id),
     );
   }
 }
