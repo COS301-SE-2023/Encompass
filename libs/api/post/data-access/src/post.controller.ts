@@ -28,10 +28,10 @@ export class PostController {
     private readonly queryBus: QueryBus,
   ){}
 
-  @Get('get-latest/:userId')
-  async getLatestPosts(@Param('userId') userId: string){
+  @Get('get-latest/:username')
+  async getLatestPosts(@Param('username') username: string){
     return await this.queryBus.execute<GetLatestPostsQuery, PostDto[]>(
-      new GetLatestPostsQuery(userId),
+      new GetLatestPostsQuery(username),
     );
   }
 
