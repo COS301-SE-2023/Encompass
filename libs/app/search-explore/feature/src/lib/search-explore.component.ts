@@ -385,6 +385,7 @@ Edit(){
   }
 
   Delete2(n:number){
+    //x
 
     if(this.comments?.length==null){
       return;
