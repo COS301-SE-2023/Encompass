@@ -9,7 +9,7 @@ import { CommunityApi, CommunityState } from '@encompass/app/community-profile/d
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveCommunityRequest } from '@encompass/app/community-profile/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
-import { UpdatePost } from '@encompass/app/home-page/util';
+// import { UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
@@ -20,7 +20,7 @@ import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { PostsState } from '@encompass/app/posts/data-access';
-import { GetCommunityPosts } from '@encompass/app/posts/util';
+import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
 
 @Component({
@@ -299,7 +299,7 @@ export class CommunityProfileComponent {
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePostArray(post._id, data));
   
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
@@ -687,7 +687,7 @@ ReportPost(n:number, post: PostDto){
     reported: true
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 }
 
 Like(n:number, post: PostDto){
@@ -723,7 +723,7 @@ Like(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 }
 
 Dislike(n:number, post: PostDto){
@@ -747,6 +747,6 @@ Dislike(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 }
 }

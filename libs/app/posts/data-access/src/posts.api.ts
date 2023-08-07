@@ -46,4 +46,48 @@ export class PostsApi{
       return null;
     }
   }
+
+  async getLatestPosts(username: string) {
+    try {
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-latest/' + username).toPromise();
+        return response;
+    } catch (error) {
+        console.log(error);
+        return null;   
+    }
+  }
+
+  async getPopularPosts() {
+    try {
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-popular').toPromise();
+        return response;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+  }
+
+  async getRecommendPosts(userId: string) {
+    try {
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-recommended-posts/' + userId).toPromise();
+        return response;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+  }
+
+  async getAllPosts(username : string){
+    try{
+      console.log("I am fetching the AI Posts")
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/' + username).toPromise();
+
+      console.log(response);
+      return response;
+    }
+
+    catch(error){
+      return null;
+    }
+  }
 }

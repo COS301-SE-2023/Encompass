@@ -5,29 +5,29 @@ export class getHome{
   static readonly type = '[Home] Get Home';
 }
 
-export class GetLatestPosts{
-  static readonly type = '[Home] Get Latest Posts';
-  constructor(public readonly username: string){}
-}
+// export class GetLatestPosts{
+//   static readonly type = '[Home] Get Latest Posts';
+//   constructor(public readonly username: string){}
+// }
 
-export class GetPopularPosts{
-  static readonly type = '[Home] Get Popular Posts';
-}
+// export class GetPopularPosts{
+//   static readonly type = '[Home] Get Popular Posts';
+// }
 
-export class GetAllPosts{
-  static readonly type = '[Home] Get All Posts';
-  constructor(public readonly username: string){}
-}
+// export class GetAllPosts{
+//   static readonly type = '[Home] Get All Posts';
+//   constructor(public readonly username: string){}
+// }
 
-export class UpdatePost{
-  static readonly type = '[Home] Update Post';
-  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
-}
+// export class UpdatePost{
+//   static readonly type = '[Home] Update Post';
+//   constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
+// }
 
-export class UpdatePostWithType{
-  static readonly type = '[Home] Update Post';
-  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly type: string, public readonly username: string){}
-}
+// export class UpdatePostWithType{
+//   static readonly type = '[Home] Update Post';
+//   constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly type: string, public readonly username: string){}
+// }
 
 export class GetNotifications{
   static readonly type = '[Home] Get Notifications';

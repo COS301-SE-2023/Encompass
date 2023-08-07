@@ -7,7 +7,7 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
-import { GetAllPosts, UpdatePost } from '@encompass/app/home-page/util';
+// import { GetAllPosts, UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SearchState } from '@encompass/app/search-explore/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
@@ -18,6 +18,8 @@ import { takeUntil, pipe, Subject, take } from 'rxjs';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { GetAllCommunities, SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
 import { HomeState } from '@encompass/app/home-page/data-access';
+import { PostsState } from '@encompass/app/posts/data-access';
+import { UpdatePostArray } from '@encompass/app/posts/util';
 
 
 
@@ -34,7 +36,7 @@ export class SearchExploreComponent {
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
-  @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
 
   @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
   @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
@@ -499,7 +501,7 @@ export class SearchExploreComponent {
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePostArray(post._id, data));
   }
 
   Report(n:number){
@@ -566,7 +568,7 @@ export class SearchExploreComponent {
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePostArray(post._id, data));
   }
 
   ReportPost(n:number, post: PostDto){
@@ -598,7 +600,7 @@ export class SearchExploreComponent {
       reported: true
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePostArray(post._id, data));
   }
   
 
@@ -640,7 +642,7 @@ ViewPostofComment(postId: string){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePostArray(post._id, data));
   
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
