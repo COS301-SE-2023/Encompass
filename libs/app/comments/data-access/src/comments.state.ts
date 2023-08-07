@@ -2,7 +2,7 @@ import { CommentDto } from '@encompass/api/comment/data-access';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { CommentsApi } from './comments.api';
-import { GetComments, AddReply, AddComment, GetPost, UpdatePost, SendNotification } from '@encompass/app/comments/util';
+import { GetComments, AddReply, AddComment, SendNotification } from '@encompass/app/comments/util';
 import { PostDto } from '@encompass/api/post/data-access';
 import { SendNotification as HomeSendNotification } from '@encompass/app/home-page/util';
 
@@ -14,13 +14,13 @@ export interface CommentStateModel {
   }
 }
 
-export interface CommentPostModel{
-  CommentPostForm:{
-    model: {
-      post: PostDto | null;
-    }
-  }
-}
+// export interface CommentPostModel{
+//   CommentPostForm:{
+//     model: {
+//       post: PostDto | null;
+//     }
+//   }
+// }
 
 @State<CommentStateModel>({
   name: 'comments',
@@ -33,16 +33,16 @@ export interface CommentPostModel{
   }
 })
 
-@State<CommentPostModel>({
-  name: 'commentPost',
-  defaults: {
-    CommentPostForm: {
-      model: {
-        post: null
-      }
-    }
-  } 
-})
+// @State<CommentPostModel>({
+//   name: 'commentPost',
+//   defaults: {
+//     CommentPostForm: {
+//       model: {
+//         post: null
+//       }
+//     }
+//   } 
+// })
 
 @Injectable()
 export class CommentsState{
@@ -128,52 +128,52 @@ export class CommentsState{
     })
   }
 
-  @Action(GetPost)
-  async getPost(ctx: StateContext<CommentPostModel>, {postId}: GetPost){
-    const response = await this.commentsApi.getPost(postId);
+  // @Action(GetPost)
+  // async getPost(ctx: StateContext<CommentPostModel>, {postId}: GetPost){
+  //   const response = await this.commentsApi.getPost(postId);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.patchState({
-      CommentPostForm: {
-        model: {
-          post: response
-        }
-      }
-    })
-  }
+  //   ctx.patchState({
+  //     CommentPostForm: {
+  //       model: {
+  //         post: response
+  //       }
+  //     }
+  //   })
+  // }
 
-  @Action(UpdatePost)
-  async updatePost(ctx: StateContext<CommentPostModel>, {postId, postUpdateRequest}: UpdatePost){
-    const response = await this.commentsApi.updatePost(postId, postUpdateRequest);
+  // @Action(UpdatePost)
+  // async updatePost(ctx: StateContext<CommentPostModel>, {postId, postUpdateRequest}: UpdatePost){
+  //   const response = await this.commentsApi.updatePost(postId, postUpdateRequest);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.patchState({
-      CommentPostForm: {
-        model: {
-          post: response
-        }
-      }
-    })
-  }
+  //   ctx.patchState({
+  //     CommentPostForm: {
+  //       model: {
+  //         post: response
+  //       }
+  //     }
+  //   })
+  // }
 
   @Selector()
   static comments(state: CommentStateModel){
     return state.CommentForm.model.comments;
   }
 
-  @Selector()
-  static post(state: CommentPostModel){
-    return state.CommentPostForm.model.post;
-  }
+  // @Selector()
+  // static post(state: CommentPostModel){
+  //   return state.CommentPostForm.model.post;
+  // }
 
   @Action(SendNotification)
-  async sendNotification(ctx: StateContext<CommentPostModel>, {username, notification}: SendNotification){
+  async sendNotification(ctx: StateContext<CommentStateModel>, {username, notification}: SendNotification){
     const user = await this.commentsApi.getProfile(username);
 
     console.log(user);

@@ -49,32 +49,32 @@ export class CommentsApi{
     }
   }
 
-  async getPost(postId: string){
-    try{
-      const response = await this.httpClient.get<PostDto>('/api/post/' + postId).toPromise();
+  // async getPost(postId: string){
+  //   try{
+  //     const response = await this.httpClient.get<PostDto>('/api/post/' + postId).toPromise();
 
-      return response;
-    }
-    catch(error){
-      console.log(error);
+  //     return response;
+  //   }
+  //   catch(error){
+  //     console.log(error);
 
-      return null;
-    }
-  }
+  //     return null;
+  //   }
+  // }
 
-  async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
-    try{
-      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
+  // async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
+  //   try{
+  //     const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
 
-      return response;
-    }
+  //     return response;
+  //   }
 
-    catch(error){
-      console.log(error);
+  //   catch(error){
+  //     console.log(error);
 
-      return null;
-    }
-  }
+  //     return null;
+  //   }
+  // }
 
   async getProfile(username: string){
     console.log("TIME")
