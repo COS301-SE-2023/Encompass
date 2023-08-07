@@ -32,4 +32,18 @@ export class PostsApi{
       return null;
     }
   }
+
+  async getCommunityPosts(name: string) {
+    try{
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-community/' + name).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
 }

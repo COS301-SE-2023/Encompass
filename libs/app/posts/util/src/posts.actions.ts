@@ -9,3 +9,8 @@ export class GetPost{
   static readonly type = '[Comments] Get Post';
   constructor(public readonly postId: string){}
 }
+
+export class GetCommunityPosts{
+  static readonly type = '[Community] Get Community Posts';
+  constructor(public name: string){}
+} 

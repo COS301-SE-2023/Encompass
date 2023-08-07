@@ -1,6 +1,6 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity } from '@encompass/app/community-profile/util';
+import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
@@ -17,13 +17,13 @@ export interface CommunityStateModel{
   }
 }
 
-export interface CommunityPostsModel{
-  CommunityPostForm: {
-    model:{
-      posts: PostDto[] | null
-    }
-  }
-}
+// export interface CommunityPostsModel{
+//   CommunityPostForm: {
+//     model:{
+//       posts: PostDto[] | null
+//     }
+//   }
+// }
 
 export interface CommunityRequestModel{
   CommunityRequestForm:{
@@ -44,16 +44,16 @@ export interface CommunityRequestModel{
   }
 })
 
-@State<CommunityPostsModel>({
-  name: 'communityPostsModel',
-  defaults: {
-    CommunityPostForm: {
-      model: {
-        posts: null
-      }
-    }
-  }
-})
+// @State<CommunityPostsModel>({
+//   name: 'communityPostsModel',
+//   defaults: {
+//     CommunityPostForm: {
+//       model: {
+//         posts: null
+//       }
+//     }
+//   }
+// })
 
 @State<CommunityRequestModel>({
   name: 'communityRequest',
@@ -86,22 +86,22 @@ export class CommunityState{
     })
   }
 
-  @Action(GetCommunityPosts)
-  async getCommunityPosts(ctx: StateContext<CommunityPostsModel>, {name}: GetCommunityPosts){
-    const response = await this.communityApi.getCommunityPosts(name);
+  // @Action(GetCommunityPosts)
+  // async getCommunityPosts(ctx: StateContext<CommunityPostsModel>, {name}: GetCommunityPosts){
+  //   const response = await this.communityApi.getCommunityPosts(name);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.setState({
-      CommunityPostForm: {
-        model: {
-          posts: response
-        }
-      }
-    })
-  }
+  //   ctx.setState({
+  //     CommunityPostForm: {
+  //       model: {
+  //         posts: response
+  //       }
+  //     }
+  //   })
+  // }
 
   @Action(UpdateCommunity)
   async updateCommunity(ctx: StateContext<CommunityStateModel>, {communityId, updateCommunityRequest}: UpdateCommunity){
@@ -187,10 +187,10 @@ export class CommunityState{
     return state.CommunityStateForm.model.community
   }
 
-  @Selector()
-  static posts(state: CommunityPostsModel){
-    return state.CommunityPostForm.model.posts
-  }
+  // @Selector()
+  // static posts(state: CommunityPostsModel){
+  //   return state.CommunityPostForm.model.posts
+  // }
 
   @Selector()
   static communityRequest(state: CommunityRequestModel){
