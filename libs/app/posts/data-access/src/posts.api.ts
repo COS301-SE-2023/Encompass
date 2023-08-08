@@ -33,19 +33,19 @@ export class PostsApi{
     }
   }
 
-  async getCommunityPosts(name: string) {
-    try{
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-community/' + name).toPromise();
+  // async getCommunityPosts(name: string) {
+  //   try{
+  //     const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-community/' + name).toPromise();
 
-      return response;
-    }
+  //     return response;
+  //   }
 
-    catch(error){
-      console.log(error);
+  //   catch(error){
+  //     console.log(error);
 
-      return null;
-    }
-  }
+  //     return null;
+  //   }
+  // }
 
   async getLatestPosts(username: string) {
     try {

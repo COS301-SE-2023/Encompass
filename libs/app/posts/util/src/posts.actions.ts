@@ -15,10 +15,10 @@ export class GetPost{
   constructor(public readonly postId: string){}
 }
 
-export class GetCommunityPosts{
-  static readonly type = '[Community] Get Community Posts';
-  constructor(public name: string){}
-} 
+// export class GetCommunityPosts{
+//   static readonly type = '[Community] Get Community Posts';
+//   constructor(public name: string){}
+// } 
 
 export class GetLatestPosts{
   static readonly type = '[Home] Get Latest Posts';

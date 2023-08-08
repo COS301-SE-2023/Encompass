@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { PostsApi } from "./posts.api";
-import { GetAllPosts, GetCommunityPosts, GetLatestPosts, GetPopularPosts, GetPost, UpdatePost, UpdatePostArray } from "@encompass/app/posts/util";
+import { GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, UpdatePost, UpdatePostArray } from "@encompass/app/posts/util";
 
 export interface PostStateModel {
   PostForm: {
@@ -80,22 +80,22 @@ export class PostsState {
     });
   }
 
-  @Action(GetCommunityPosts)
-  async getCommunityPosts(ctx: StateContext<PostArrayStateModel>, {name}: GetCommunityPosts){
-    const response = await this.postsApi.getCommunityPosts(name);
+  // @Action(GetCommunityPosts)
+  // async getCommunityPosts(ctx: StateContext<PostArrayStateModel>, {name}: GetCommunityPosts){
+  //   const response = await this.postsApi.getCommunityPosts(name);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.setState({
-      PostArrayForm: {
-        model: {
-          posts: response
-        }
-      }
-    })
-  }
+  //   ctx.setState({
+  //     PostArrayForm: {
+  //       model: {
+  //         posts: response
+  //       }
+  //     }
+  //   })
+  // }
 
   @Action(GetLatestPosts)
   async getLatestPosts(ctx: StateContext<PostArrayStateModel>, {username}: GetLatestPosts){

@@ -7,7 +7,7 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { CommunityApi, CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveCommunityRequest } from '@encompass/app/community-profile/util';
+import { AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunityRequest, UpdatePostArray } from '@encompass/app/community-profile/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 // import { UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,8 +19,8 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
-import { PostsState } from '@encompass/app/posts/data-access';
-import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
+// import { PostsState } from '@encompass/app/posts/data-access';
+// import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class CommunityProfileComponent {
 
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   @Select(CommunityState.community) community$!: Observable<CommunityDto | null>;
-  @Select(PostsState.posts) communityPosts$!: Observable<PostDto[] | null>;
+  @Select(CommunityState.posts) communityPosts$!: Observable<PostDto[] | null>;
   @Select(CommunityState.communityRequest) communityRequest$!: Observable<CommunityRequestDto | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
@@ -68,8 +68,6 @@ export class CommunityProfileComponent {
 
   constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, 
     private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
-    const page = document.getElementById('home-page');
-
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if(communityName == null){
