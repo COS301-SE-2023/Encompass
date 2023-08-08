@@ -83,61 +83,7 @@ export class ProfilePage {
         console.log("Profile")
         return;
       }
-
-    // if(!this.isPostsFetched){
-      this.isPostsFetched = true;
-
-    //   this.store.dispatch(new GetUserPosts(this.profile.username));
-    // this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-    //   if(posts){
-    //     this.posts = posts;
-    //     this.size=posts.length-1;
-    //     for(let i =0;i<posts.length;i++){
-    //       this.likedComments.push(false);
-    //       this.sharing.push(false);
-    //     }
-
-    //     for(let i =0;i<posts.length;i++){
-
-    //           this.deletePost.push(false);
-    //           this.MarkedForPostDeletion.push(false);
-    //           if(posts[i].dateAdded!=null&&posts[i].comments!=null
-    //             &&posts[i].shares!=null){
-    //             this.datesAdded.push(posts[i].dateAdded);
-    //               this.comments.push(posts[i].comments);
-    //               this.shares.push(posts[i].shares);
-    //         }
-
-    //         if(posts!=null&&posts[i].likes!=null){
-    //             this.likes.push(posts[i].likes?.length);
-    //             if(posts[i].likes?.includes(posts[i].username)){
-    //               this.likedComments[i]=true;
-    //           }
-    //         }
-
-    //       }
-    //     }
-    // })
-
-    this.store.dispatch(new GetComments(this.profile.username));
-          this.commentsList$.subscribe((comments) => {
-            if(comments){
-              // console.log(comments);
-              this.commentsList = comments;
-      
-              for(let i =0;i<comments.length;i++){
-                this.deleteComment.push(false);
-                this.MarkedForCommentDeletion.push(false);
-                this.viewreplies.push(false);
-                if(comments[i].replies.length>0){
-                  this.replies[i]=comments[i].replies.length;
-                }
-                else{
-                  this.replies[i]=0;
-                }
-              }
-            }
-          })
+    
         // }
       }
 
@@ -158,6 +104,7 @@ export class ProfilePage {
           console.log(profile); 
           this.profile = profile;
           this.getPosts(profile)
+          this.getComments(profile);
           // this.addPosts("recommended");
           // this.newChange();
   
@@ -245,6 +192,28 @@ export class ProfilePage {
           }
       })
     }
+  }
+
+  getComments(profile: ProfileDto){
+    this.store.dispatch(new GetComments(profile.username));
+          this.commentsList$.subscribe((comments) => {
+            if(comments){
+              // console.log(comments);
+              this.commentsList = comments;
+      
+              for(let i =0;i<comments.length;i++){
+                this.deleteComment.push(false);
+                this.MarkedForCommentDeletion.push(false);
+                this.viewreplies.push(false);
+                if(comments[i].replies.length>0){
+                  this.replies[i]=comments[i].replies.length;
+                }
+                else{
+                  this.replies[i]=0;
+                }
+              }
+            }
+          })
   }
 
   get FirstName(){
