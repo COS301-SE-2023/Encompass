@@ -1,5 +1,7 @@
 <div id='home-page' class="theme-page">
 <ion-split-pane>
+
+  <!-- desktop view -->
   <ion-menu type="overlay" side="start" id="main-content" class="menu-pane" >
     <div class="menu-container">
 
@@ -192,6 +194,129 @@
     
   </div>
 
-  <ion-router-outlet id="main-content" class="router-pane" (click)="routerClick()">
+
+<!-- mobile view -->
+
+<!-- mobile side menu  -->
+<ion-menu menuId="first-menu" contentId="main-content">
+  <ion-content class="ion-padding buttons-menu-container mobilemenu">
+
+    <ion-button fill="clear" class="mobileLogo" (click)="goHome()">
+      <div class="square-image">
+        <img id="logo-default" #logoDefault src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
+        <img id="logo-red" #logoRed src="assets/logos/logo-red.png" class="logo2 logo-red visible" alt="Encompass Logo">
+        <img id="logo-blue" #logoBlue src="assets/logos/logo-blue.png" class="logo2 logo-blue visible" alt="Encompass Logo">
+        <img id="logo-green" #logoGreen src="assets/logos/logo-green.png" class="logo2 logo-green visible" alt="Encompass Logo">
+        <img id="logo-orange" #logoOrange src="assets/logos/logo-orange.png" class="logo2 logo-orange visible" alt="Encompass Logo">
+      </div>
+    </ion-button>
+    
+    <div class="buttons-container">
+      <ion-button class="posts" fill="clear" (click) = "openPopup()" >Create a Post</ion-button>
+      <ion-button class="comms" fill="clear" (click) = "openPopup2()">Create a Community</ion-button>
+    </div>
+
+    <div class="optionalbuttons">
+    <div class="MenuButton top-button" >
+      <ion-button class="full" fill="clear" id="popover-button" (click)="toggleSearch()">
+        <ion-icon name="megaphone-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+        <span>Events</span>
+      </ion-button>
+      
+    </div>
+
+    <div class="MenuButton">
+      <ion-button fill="clear" (click)="goToThemes()">
+        <ion-icon name="color-palette-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+        <span>Themes</span>
+      </ion-button>
+    </div>
+
+    <div class="MenuButton">
+      <ion-button fill="clear" (click)="goToSettings()">
+        <ion-icon name="settings-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+        <span>Settings</span>
+      </ion-button>
+    </div>
+  </div>
+
+    <div class="menuFooter mobileFooter">
+      <ion-button id="menu-pop"  fill="clear" (click)="logout()">
+        <ion-icon name="exit-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
+      <span>Logout</span>
+    </ion-button>
+    </div>
+
+  </ion-content>
+</ion-menu>
+
+
+<!-- header -->
+
+<div class="ion-page" id="main-content" *ngIf="mobileview">
+  <ion-header class="mobile">
+    <ion-toolbar class="headermb">
+      <ion-button fill="clear" (click)="openFirstMenu()">
+        <ion-icon name="menu-outline" slot="start"></ion-icon>
+      </ion-button>
+      
+      <div slot="end">
+      <ion-button fill="clear" id="popover-button" (click)="toggleSearch()">
+        <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
+      </ion-button>
+      <ion-button id="profile-trigger" fill="clear" (click)="goToProfile()">
+        <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
+      </ion-button>
+    </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- mobile content  -->
+
+  <ion-content id="main-content" class="mobile mobileContent" *ngIf="mobileview">
+    <router-outlet class="router-pane" (click)="routerClick()"></router-outlet>
+  </ion-content>
+</div>
+  
+
+
+
+<!-- desktop content -->
+
+<ion-router-outlet id="main-content" class="router-pane" (click)="routerClick()" *ngIf="!mobileview">
   </ion-router-outlet>
+
+
+
+
+
+
+<!-- mobile footer  -->
+  <ion-footer class="footer mobile">
+    <ion-toolbar class="mobile-footer">
+      <div class="ion-segment-container">
+      <ion-segment color="success" value="homeButton">
+        <ion-segment-button value="homeButton" (click)="goHome()">
+          <ion-icon name="home"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="searchButton" (click)="goToExplore()">
+          <ion-icon name="rocket"></ion-icon>
+        </ion-segment-button>
+  
+        <!-- <ion-segment-button id="popover-button" value="addButton">
+          <ion-icon name="duplicate"></ion-icon>
+        </ion-segment-button> -->
+  
+        <ion-segment-button value="notiButton" >
+          <ion-icon name="notifications"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="chatButton" (click)="goToChat()">
+          <ion-icon name="chatbubble-ellipses"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    </ion-toolbar>
+  </ion-footer>
+
 </ion-split-pane>
+</div>

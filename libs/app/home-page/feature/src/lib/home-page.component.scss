@@ -42,7 +42,6 @@
 
 .buttons-menu-container {
   --background: var(--ion-color-background-menu);
-  
 }
 
 
@@ -521,4 +520,130 @@ ion-router-outlet {
 
 .personUsername {
   margin-left: 5px;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+//Scalability
+
+//menu
+@media (min-width: 992px) {
+  .mobile {
+    display: none;
+  }
+}
+
+.menumb {
+  height: 100vh;
+  width: 90vw;
+  background-color: var(--ion-color-background-menu);
+}
+
+.headermb {
+  --background: var(--ion-color-background-menu);
+  height: fit-content;
+
+  ion-button {
+    width: 50px;
+    font-size: 28px;
+
+    ion-icon {
+      margin-left: 0px;
+      margin-right: 0px;
+      color: var(--ion-color-text);
+    }
+  }
+}
+
+.footer {
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  
+
+    ion-toolbar.mobile-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      --background: var(--ion-color-background-menu);
+      bottom: 0;
+      
+  
+      ion-segment {
+        flex: 1;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        ion-segment-button {
+          min-width: auto;
+          color: var(--ion-color-text);
+        }
+      }
+    }
+
+}
+
+.mobileContent {
+  max-height: 86vh;
+  position: fixed;
+  top: 7vh;
+  bottom: 7vh;
+  --background: transparent;
+}
+
+.mobileFooter {
+  position: fixed;
+  bottom: 10px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  // margin-left: 10%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.posts {
+  border: 1px solid var(--ion-color-primary);
+  border-radius: 50px;
+  // padding: 10px 20px;
+  color: white;
+  background-color: var(--ion-color-primary);
+  font-family: CustomFont;
+
+}
+
+.comms {
+  border: 1px solid var(--hover-color);
+  border-radius: 50px;
+  // padding: 10px 20px;
+  font-family: CustomFont;
+}
+
+.header-icon {
+  position: fixed;
+  right: 0;
+}
+
+.mobileLogo {
+  height: 100px;
+  width: 100px;
+  margin-left: 25vw;
+}
+
+.mobilemenu {
+  ion-button {
+    color: var(--ion-color-text);
+  }
+
+  span {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+}
+
+.optionalbuttons {
+  margin-top: 15px;
 }
