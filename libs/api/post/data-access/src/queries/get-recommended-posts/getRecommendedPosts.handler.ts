@@ -24,10 +24,11 @@ export class GetRecommendedPostsHandler implements IQueryHandler<GetRecommendedP
     const url = process.env["BASE_URL"];
 
     try {
-      const allPostsPromise = this.postDtoRepository.findAll();
       const recommendedUsersPromise = this.httpService.get(`${url}/api/profile/get-recommended/${id}`).toPromise();
       const currentUserPromise = this.httpService.get(`${url}/api/profile/get/${id}`).toPromise();
-      const [allPosts, recommendedUsers, currentUser] = await Promise.all([allPostsPromise, recommendedUsersPromise, currentUserPromise]);
+      const [recommendedUsers, currentUser] = await Promise.all([ recommendedUsersPromise, currentUserPromise]);
+      const username = currentUser?.data?.username;
+      const allPosts = await this.postDtoRepository.getAllowedPosts(username);
       const recommendedProfiles = recommendedUsers?.data;
       const currentUserData = currentUser?.data;
 
