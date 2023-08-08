@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { PostsApi } from "./posts.api";
-import { GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, UpdatePost, UpdatePostArray } from "@encompass/app/posts/util";
+import { GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
 
 export interface PostStateModel {
   PostForm: {
@@ -19,6 +19,25 @@ export interface PostArrayStateModel{
     };
   };
 }
+
+export interface ProfilePostsStateModel{
+  ProfilePostsForm: {
+    model: {
+      posts: PostDto[] | null;
+    }
+  }
+}
+
+@State<ProfilePostsStateModel>({
+  name: "profilePosts",
+  defaults: {
+    ProfilePostsForm: {
+      model: {
+        posts: null,
+      },
+    },
+  },
+})
 
 @State<PostStateModel>({
   name: "posts",
@@ -61,6 +80,25 @@ export class PostsState {
         },
       },
     });
+  }
+
+  @Action(GetUserPosts)
+  async getPosts(ctx: StateContext<ProfilePostsStateModel>, {username}: GetUserPosts){
+    const response = await this.postsApi.getPosts(username);
+    
+    if(response == null || response == undefined){
+      return;
+    }
+
+    console.log(response);
+
+    return ctx.setState({
+      ProfilePostsForm: {
+        model: {
+          posts: response
+        }
+      }
+    })
   }
 
   @Action(GetPost)
@@ -115,8 +153,8 @@ export class PostsState {
   }
 
   @Action(GetPopularPosts)
-  async getPopularPosts(ctx: StateContext<PostArrayStateModel>){
-    const response = await this.postsApi.getPopularPosts();
+  async getPopularPosts(ctx: StateContext<PostArrayStateModel>, {userId}: GetPopularPosts){
+    const response = await this.postsApi.getPopularPosts(userId);
 
     if(response == null || response == undefined){
       return;
@@ -186,6 +224,44 @@ export class PostsState {
     }
   }
 
+  @Action(UpdateProfilePost)
+  async updateProfilePost(ctx: StateContext<ProfilePostsStateModel>, {postId, postUpdateRequest}: UpdatePostArray){
+    const response = await this.postsApi.updatePost(postId, postUpdateRequest);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().ProfilePostsForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      console.log(posts[index])
+
+      posts[index] = response;
+
+      console.log(posts[index])
+
+      ctx.patchState({
+        ProfilePostsForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+  }
+
   @Selector()
   static post(state: PostStateModel){
     return state.PostForm.model.post;
@@ -194,5 +270,10 @@ export class PostsState {
   @Selector()
   static posts(state: PostArrayStateModel){
     return state.PostArrayForm.model.posts;
+  }
+
+  @Selector()
+  static profilePosts(state: ProfilePostsStateModel){
+    return state.ProfilePostsForm.model.posts;
   }
 }

@@ -19,6 +19,18 @@ export class PostsApi{
     }
   }
   
+  async getPosts(username: string){
+    try{
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      return null;
+    }
+  }
+  
   async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
     try{
       const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
@@ -57,9 +69,9 @@ export class PostsApi{
     }
   }
 
-  async getPopularPosts() {
+  async getPopularPosts(username: string) {
     try {
-        const response = await this.httpClient.get<PostDto[]>('/api/post/get-popular').toPromise();
+        const response = await this.httpClient.get<PostDto[]>('/api/post/get-popular/' + username).toPromise();
         return response;
     } catch (error) {
         console.log(error);

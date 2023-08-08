@@ -1,18 +1,12 @@
-import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, GetFollowers, GetFollowing, RemoveCommunity, AddCommunity } from "@encompass/app/profile/util"
-import { SignUpState } from "@encompass/app/sign-up/data-access"
-import { LoginState } from "@encompass/app/login/data-access"
-import { profile } from "console"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, RemoveCommunity, AddCommunity } from "@encompass/app/profile/util"
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { tap } from "rxjs"
 import { produce } from "immer"
-import { set } from "mongoose"
 import { PostDto } from "@encompass/api/post/data-access"
 import { CommentDto } from "@encompass/api/comment/data-access"
-import { CommunityDto } from "@encompass/api/community/data-access"
 
 export interface ProfileStateModel{
   profile: ProfileDto | null
@@ -50,14 +44,14 @@ export interface ProfileCommentModel{
 })
 
 @State<ProfilePostModel>({
-  name: 'profilePost',
+  name: 'profilePosts',
   defaults: {
     ProfilePostForm: {
       model: {
         posts: null
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
 @State<ProfileCommentModel>({
@@ -146,25 +140,30 @@ export class ProfileState{
   }
 
   @Action(UpdatePost)
-  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest, username}: UpdatePost){
-    const response = await this.profileApi.updatePost(updateRequest, postId);
+  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest}: UpdatePost){
+    const response = await this.profileApi.updatePost(postId, updateRequest);
 
     if(response == null || response == undefined){
       return;
     }
 
     try{
-      const posts = ctx.getState().ProfilePostForm.model.posts;
+      const posts = await ctx.getState().ProfilePostForm.model.posts;
 
       if(posts == null ){
-        return
+        console.log("POSTS IS NULL")
+        return;
       }
 
-      const index = posts?.findIndex(x => x._id == response._id)
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      console.log(posts[index])
 
       posts[index] = response;
 
-      ctx.setState({
+      console.log(posts[index])
+
+      ctx.patchState({
         ProfilePostForm: {
           model: {
             posts: posts
@@ -174,7 +173,7 @@ export class ProfileState{
     }
 
     catch(error){
-      ctx.dispatch(new GetPosts(username))
+      console.log(error)
     }
   }
 

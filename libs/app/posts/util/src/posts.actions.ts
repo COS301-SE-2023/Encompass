@@ -10,6 +10,11 @@ export class UpdatePostArray{
   constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
 }
 
+export class UpdateProfilePost{
+  static readonly type = '[Post] Update Profile Post';
+  constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
+}
+
 export class GetPost{
   static readonly type = '[Comments] Get Post';
   constructor(public readonly postId: string){}
@@ -18,7 +23,12 @@ export class GetPost{
 // export class GetCommunityPosts{
 //   static readonly type = '[Community] Get Community Posts';
 //   constructor(public name: string){}
-// } 
+// }
+
+export class GetUserPosts{
+  static readonly type = '[Profile] GetUserPosts';
+  constructor(public username: string){}
+}
 
 export class GetLatestPosts{
   static readonly type = '[Home] Get Latest Posts';
@@ -27,6 +37,7 @@ export class GetLatestPosts{
 
 export class GetPopularPosts{
   static readonly type = '[Home] Get Popular Posts';
+  constructor(public readonly userId: string){}
 }
 
 export class GetAllPosts{

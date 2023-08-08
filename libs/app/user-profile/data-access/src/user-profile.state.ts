@@ -126,42 +126,40 @@ export class UserProfileState{
 
   @Action(UpdateUserPost)
   async updatePost(ctx: StateContext<UserProfilePostModel>, {postId, updateRequest, username}: UpdateUserPost){
-    console.log("POST")
     const response = await this.userProfileApi.updatePost(updateRequest, postId);
 
     if(response == null || response == undefined){
       return;
     }
 
-    ctx.dispatch(new GetUserProfilePosts(username))
-    
-    // try{
-    //   const posts = ctx.getState().UserProfilePostForm.model.userProfilePosts;
+    try{
+      const posts = await ctx.getState().UserProfilePostForm.model.userProfilePosts;
 
-    //   if(posts == null ){
-    //     return
-    //   }
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
 
-    //   const index = posts.findIndex(x => x._id == response._id)
-    //   // console.log(response)
-    //   posts[index] = response;
-    //   console.log(posts[index])
-    //   console.log("HERE")
+      const index = await posts.findIndex(x => x._id == response._id)
 
-    //   ctx.patchState({
-    //     UserProfilePostForm: {
-    //       model: {
-    //         userProfilePosts: posts
-    //       }
-    //     }
-    //   })
-    // }
+      console.log(posts[index])
 
-    // catch(error){
-    //   console.log("here")
-    //   ctx.dispatch(new GetUserProfilePosts(username))
-    //   console.log(error)
-    // }
+      posts[index] = response;
+
+      console.log(posts[index])
+
+      ctx.patchState({
+        UserProfilePostForm: {
+          model: {
+            userProfilePosts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
   }
   
   @Action(GetUserSettings)

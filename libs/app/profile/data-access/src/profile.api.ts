@@ -43,12 +43,16 @@ export class ProfileApi{
     }
   }
 
-  async updatePost(post: UpdatePostRequest, postId: string){
+  async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
     try{
-      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
+
       return response;
     }
+
     catch(error){
+      console.log(error);
+
       return null;
     }
   }

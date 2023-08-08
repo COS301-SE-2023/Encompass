@@ -665,7 +665,7 @@ async addPosts(){
     } else if (this.type === "latest") {
       this.store.dispatch(new GetLatestPosts(this.profile.username));
     } else {
-      this.store.dispatch(new GetPopularPosts());
+      this.store.dispatch(new GetPopularPosts(this.profile.username));
     }
     
       

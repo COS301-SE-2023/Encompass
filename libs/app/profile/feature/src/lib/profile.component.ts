@@ -1,20 +1,17 @@
 import { Component, Inject } from '@angular/core';
-import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
-import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
-import { GetComments, GetFollowers, GetFollowing, GetPosts, SubscribeToProfile, UpdatePost } from '@encompass/app/profile/util';
+import { GetComments, GetPosts, SubscribeToProfile, UpdatePost } from '@encompass/app/profile/util';
 import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { CommentDto } from '@encompass/api/comment/data-access';
 import {DeletePost} from '@encompass/app/profile/util';
 import {DeleteComment} from '@encompass/app/profile/util';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 import { UpdateProfile } from '@encompass/app/profile/util';
 import { ProfileApi } from '@encompass/app/profile/data-access';
@@ -22,6 +19,8 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { PostsState } from '@encompass/app/posts/data-access';
+// import { GetUserPosts, UpdateProfilePost } from '@encompass/app/posts/util';
 
 
 @Component({
@@ -72,81 +71,81 @@ export class ProfilePage {
    MarkedForPostDeletion: boolean[] = [];
 
   isPostsFetched = false;
+  isProfileFetched = false;
 
   ViewCommunities=false;
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
     ,private formBuilder: FormBuilder, private profileApi: ProfileApi, private profileState: ProfileState) {
-    this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        console.log(profile);
-        this.profile = profile;
 
-        if(!this.isPostsFetched){
-          this.isPostsFetched = true;
-
-          this.store.dispatch(new GetPosts(profile.username));
-        this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-          if(posts){
-            this.posts = posts;
-            this.size=posts.length-1;
-            for(let i =0;i<posts.length;i++){
-              this.likedComments.push(false);
-              this.sharing.push(false);
-            }
-
-            for(let i =0;i<posts.length;i++){
-
-                  this.deletePost.push(false);
-                  this.MarkedForPostDeletion.push(false);
-                  if(posts[i].dateAdded!=null&&posts[i].comments!=null
-                    &&posts[i].shares!=null){
-                    this.datesAdded.push(posts[i].dateAdded);
-                      this.comments.push(posts[i].comments);
-                      this.shares.push(posts[i].shares);
-                }
-
-                if(posts!=null&&posts[i].likes!=null){
-                    this.likes.push(posts[i].likes?.length);
-                    if(posts[i].likes?.includes(posts[i].username)){
-                      this.likedComments[i]=true;
-                  }
-                }
-
-              }
-
-              this.store.dispatch(new GetComments(profile.username));
-              this.commentsList$.subscribe((comments) => {
-                if(comments){
-                  // console.log(comments);
-                  this.commentsList = comments;
-          
-                  for(let i =0;i<comments.length;i++){
-                    this.deleteComment.push(false);
-                    this.MarkedForCommentDeletion.push(false);
-                    this.viewreplies.push(false);
-                    if(comments[i].replies.length>0){
-                      this.replies[i]=comments[i].replies.length;
-                    }
-                    else{
-                      this.replies[i]=0;
-                    }
-                  }
-                }
-              })
-          }
-        })
-        }
+      if(this.profile == null || this.profile == undefined){
+        console.log("Profile")
+        return;
       }
-    });
 
-    this.load();
-   }
+    // if(!this.isPostsFetched){
+      this.isPostsFetched = true;
+
+    //   this.store.dispatch(new GetUserPosts(this.profile.username));
+    // this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+    //   if(posts){
+    //     this.posts = posts;
+    //     this.size=posts.length-1;
+    //     for(let i =0;i<posts.length;i++){
+    //       this.likedComments.push(false);
+    //       this.sharing.push(false);
+    //     }
+
+    //     for(let i =0;i<posts.length;i++){
+
+    //           this.deletePost.push(false);
+    //           this.MarkedForPostDeletion.push(false);
+    //           if(posts[i].dateAdded!=null&&posts[i].comments!=null
+    //             &&posts[i].shares!=null){
+    //             this.datesAdded.push(posts[i].dateAdded);
+    //               this.comments.push(posts[i].comments);
+    //               this.shares.push(posts[i].shares);
+    //         }
+
+    //         if(posts!=null&&posts[i].likes!=null){
+    //             this.likes.push(posts[i].likes?.length);
+    //             if(posts[i].likes?.includes(posts[i].username)){
+    //               this.likedComments[i]=true;
+    //           }
+    //         }
+
+    //       }
+    //     }
+    // })
+
+    this.store.dispatch(new GetComments(this.profile.username));
+          this.commentsList$.subscribe((comments) => {
+            if(comments){
+              // console.log(comments);
+              this.commentsList = comments;
+      
+              for(let i =0;i<comments.length;i++){
+                this.deleteComment.push(false);
+                this.MarkedForCommentDeletion.push(false);
+                this.viewreplies.push(false);
+                if(comments[i].replies.length>0){
+                  this.replies[i]=comments[i].replies.length;
+                }
+                else{
+                  this.replies[i]=0;
+                }
+              }
+            }
+          })
+        // }
+      }
 
    
-   load(){
+   ngOnInit(){
+    this.presentingElement = document.querySelector('.ion-page');
+    this.presentingElement2 = document.querySelector('.ion-page');
+
     const page = document.getElementById('home-page');
   
   
@@ -158,6 +157,7 @@ export class ProfilePage {
           console.log("Profile CALLED")
           console.log(profile); 
           this.profile = profile;
+          this.getPosts(profile)
           // this.addPosts("recommended");
           // this.newChange();
   
@@ -187,6 +187,11 @@ export class ProfilePage {
           })
           
         }
+
+        else{
+          // this.load()
+        }
+
       });
   }
 
@@ -201,6 +206,45 @@ export class ProfilePage {
     // Unsubscribe to avoid memory leaks
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  getPosts(profile: ProfileDto){
+    if(!this.isPostsFetched){
+      this.isPostsFetched = true;
+      console.log("getPosts", profile)
+      this.store.dispatch(new GetPosts(profile.username));
+      this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+        if(posts){
+          console.log("posts", posts)
+          this.posts = posts;
+          this.size=posts.length-1;
+          for(let i =0;i<posts.length;i++){
+            this.likedComments.push(false);
+            this.sharing.push(false);
+          }
+
+          for(let i =0;i<posts.length;i++){
+
+                this.deletePost.push(false);
+                this.MarkedForPostDeletion.push(false);
+                if(posts[i].dateAdded!=null&&posts[i].comments!=null
+                  &&posts[i].shares!=null){
+                  this.datesAdded.push(posts[i].dateAdded);
+                    this.comments.push(posts[i].comments);
+                    this.shares.push(posts[i].shares);
+              }
+
+              if(posts!=null&&posts[i].likes!=null){
+                  this.likes.push(posts[i].likes?.length);
+                  if(posts[i].likes?.includes(posts[i].username)){
+                    this.likedComments[i]=true;
+                }
+              }
+
+            }
+          }
+      })
+    }
   }
 
   get FirstName(){
@@ -335,7 +379,7 @@ Edit(){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
+    this.store.dispatch(new UpdatePost(post._id, data));
   
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
@@ -392,10 +436,10 @@ Edit(){
   presentingElement: any;
   presentingElement2: any;
 
-  ngOnInit() {
-    this.presentingElement = document.querySelector('.ion-page');
-    this.presentingElement2 = document.querySelector('.ion-page');
-  }
+  // ngOnInit() {
+  //   this.presentingElement = document.querySelector('.ion-page');
+  //   this.presentingElement2 = document.querySelector('.ion-page');
+  // }
 
   FinishEdit(){
 
@@ -617,7 +661,7 @@ Edit(){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
+    this.store.dispatch(new UpdatePost(post._id, data));
   }
   
   Dislike(n:number, post: PostDto){
@@ -645,7 +689,7 @@ Edit(){
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data, this.profile.username));
+    this.store.dispatch(new UpdatePost(post._id, data));
   }
 
   OpenView(){
