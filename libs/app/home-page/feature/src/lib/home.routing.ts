@@ -73,7 +73,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule),
         // canActivate: [AuthGuard]
-      }
+      },
+      // {
+      //   path: 'challenge-description',
+      //   pathMatch: 'full',
+      //   loadChildren: () => import('@encompass/app/challenge-description/feature').then((m) => m.ChallengeDescriptionModule), 
+      // },
       // {
       //   path: 'comments', //comments/:id
       //   // pathMatch: 'full',

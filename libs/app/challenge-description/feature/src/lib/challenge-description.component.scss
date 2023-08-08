@@ -1,0 +1,82 @@
+.overlay
+{
+    //background-color: #CECAE3;
+}
+
+ion-header
+{
+    background-color: #CECAE3;
+    margin-bottom: auto;
+    margin-top: auto;
+    border: 2px solid #bdbdbc;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+
+.ChallengeName{
+    font-family: CustomFont;
+  font-size: 300%;
+  font-weight: bold;
+  position: relative;
+  text-align:center;
+  color: var(--hover-color);
+}
+.HostDetails{
+    font-family: CustomFont;
+    font-size: 150%;
+    position: relative;
+    text-align:center;
+    color: #363536;
+}
+
+.HostCommunity, .HostUsername
+{
+    font-weight: bold;
+}
+
+.ChallengeDetails
+{
+    text-align:center;
+}
+
+.ChallengeCard
+{
+    border-radius: 10px;
+    border: 2px solid var(--hover-color);
+    .ChallengeDates
+    {
+    text-align: center;
+    };
+
+}
+
+.CommunityQues
+{
+    font-family: CustomFont;
+  font-size: 120%;
+  font-weight: bold;
+  position: relative;
+  //text-align:center;
+  justify-content: center;
+  color: var(--hover-color);
+}
+.JoinChallenge
+{
+    position: center;
+    //align-items: center;
+  border-radius: 50px;
+  color: white;
+  background-color: var(--ion-color-primary);
+  font-family: CustomFont;
+}
+
+.CommunityLink
+{
+    color: var(--hover-color);
+    font-weight: bold;
+}
+
+.centerContents
+{
+  align-self: center;
+}

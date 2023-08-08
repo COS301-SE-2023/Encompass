@@ -18,6 +18,15 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/challenge-description/data-access": [
+        "libs/api/challenge-description/data-access/src/index.ts"
+      ],
+      "@encompass/api/challenge-description/feature": [
+        "libs/api/challenge-description/feature/src/index.ts"
+      ],
+      "@encompass/api/challenge-description/util": [
+        "libs/api/challenge-description/util/src/index.ts"
+      ],
       "@encompass/api/chat-list/data-access": [
         "libs/api/chat-list/data-access/src/index.ts"
       ],
@@ -56,6 +65,15 @@
       ],
       "@encompass/api/settings/data-access": [
         "libs/api/settings/data-access/src/index.ts"
+      ],
+      "@encompass/app/challenge-description/data-access": [
+        "libs/app/challenge-description/data-access/src/index.ts"
+      ],
+      "@encompass/app/challenge-description/feature": [
+        "libs/app/challenge-description/feature/src/index.ts"
+      ],
+      "@encompass/app/challenge-description/util": [
+        "libs/app/challenge-description/util/src/index.ts"
       ],
       "@encompass/app/comments/data-access": [
         "libs/app/comments/data-access/src/index.ts"
