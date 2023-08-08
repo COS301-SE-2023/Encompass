@@ -27,8 +27,8 @@ export class GetRecommendedPostsHandler implements IQueryHandler<GetRecommendedP
       const recommendedUsersPromise = this.httpService.get(`${url}/api/profile/get-recommended/${id}`).toPromise();
       const currentUserPromise = this.httpService.get(`${url}/api/profile/get/${id}`).toPromise();
       const [recommendedUsers, currentUser] = await Promise.all([ recommendedUsersPromise, currentUserPromise]);
-      const username = currentUser?.data?.username;
-      const allPosts = await this.postDtoRepository.getAllowedPosts(username);
+      const currentUserCommunities = currentUser?.data?.communities;
+      const allPosts = await this.postDtoRepository.getAllowedPosts(currentUserCommunities);
       const recommendedProfiles = recommendedUsers?.data;
       const currentUserData = currentUser?.data;
 
