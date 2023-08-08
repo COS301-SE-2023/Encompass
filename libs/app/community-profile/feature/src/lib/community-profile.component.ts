@@ -75,38 +75,9 @@ export class CommunityProfileComponent {
     if(communityName == null){
       return;
     }
+    
+    this.load();
 
-    this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        this.profile = profile;
-
-        this.store.dispatch(new GetUserSettings(this.profile._id))
-          
-          this.settings$.subscribe(settings => {
-            if(settings){
-              this.settings = settings;
-              
-              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
-  
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
-                }
-              }
-              
-              if(page){
-                console.log("testing the feed page")
-                console.log("hello " + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              }else {
-                console.log("page is null")
-              }
-            }
-          })
-      }
-    })
 
     this.store.dispatch(new GetCommunity(communityName));
     this.community$.subscribe((community) => {
@@ -160,7 +131,6 @@ export class CommunityProfileComponent {
       }
     })
 
-    this.load();
   }
 
   
