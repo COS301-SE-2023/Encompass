@@ -72,6 +72,7 @@ export class ProfilePage {
 
   isPostsFetched = false;
   isProfileFetched = false;
+  isCommentsFetched = false;
 
   ViewCommunities=false;
 
@@ -83,19 +84,19 @@ export class ProfilePage {
         console.log("Profile")
         return;
       }
-    
+      this.isPostsFetched = true;
         // }
       }
 
    
-   ngOnInit(){
+   async ngOnInit(){
     this.presentingElement = document.querySelector('.ion-page');
     this.presentingElement2 = document.querySelector('.ion-page');
 
     const page = document.getElementById('home-page');
   
   
-      this.store.dispatch(new SubscribeToProfile())
+      await this.store.dispatch(new SubscribeToProfile())
       // this.store.dispatch(new SubscribeToProfile())
       this.profile$.subscribe((profile) => {
         if(profile){
@@ -104,7 +105,7 @@ export class ProfilePage {
           console.log(profile); 
           this.profile = profile;
           this.getPosts(profile)
-          this.getComments(profile);
+          // this.getComments(profile);
           // this.addPosts("recommended");
           // this.newChange();
   
@@ -133,10 +134,6 @@ export class ProfilePage {
             }
           })
           
-        }
-
-        else{
-          // this.load()
         }
 
       });
@@ -192,9 +189,14 @@ export class ProfilePage {
           }
       })
     }
+
+    // this.getComments(profile);
+    
   }
 
   getComments(profile: ProfileDto){
+    // if(!this.isCommentsFetched){
+      this.isCommentsFetched = true;
     this.store.dispatch(new GetComments(profile.username));
           this.commentsList$.subscribe((comments) => {
             if(comments){
@@ -214,6 +216,7 @@ export class ProfilePage {
               }
             }
           })
+        // }
   }
 
   get FirstName(){
@@ -368,10 +371,24 @@ Edit(){
 
     this.seePosts=true;
    this.seeComments=false;
-    
+
+   if(this.profile === null){
+    return
+   }
+
+    this.isPostsFetched = false;
+    this.getPosts(this.profile) 
   }
 
-  commChange(){
+  async commChange(){
+    if(this.profile === null){
+      console.log("profile is null")
+      return;
+    }
+
+    this.isCommentsFetched = false;
+    await this.getComments(this.profile)
+
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');

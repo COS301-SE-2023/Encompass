@@ -55,14 +55,14 @@ export interface ProfileCommentModel{
 })
 
 @State<ProfileCommentModel>({
-  name: 'profileComment',
+  name: 'profileComments',
   defaults: {
     ProfileCommentForm: {
       model: {
         comments: null
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
 @State<OtherUsers>({
@@ -237,7 +237,7 @@ export class ProfileState{
       return
     }
 
-    const index = comments?.findIndex(x => x._id == response)
+    const index = comments?.findIndex(x => x._id == response._id)
 
     comments.splice(index, 1);
 
