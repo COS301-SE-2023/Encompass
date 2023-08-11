@@ -1,0 +1,216 @@
+<ion-content>
+    <div class="overlay-container">
+
+    <div class="image-container">
+        <div color="dark" class="custom-title">
+            <a class="head">User Manual & Help</a>
+        </div>
+    <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
+    </div>
+
+    <div class="help-container">
+        <div class="contents">
+        <a>Welcome to Encompass!</a> 
+        <br><br>Encompass is a vibrant social media application that allows you to connect with others who share your interests, ranging from movies and music to books and series. It provides a platform for you to join communities, engage in discussions, and share content related to your favourite topics. Whether you're a movie enthusiast, music lover, bookworm, or simply looking to connect with like-minded individuals, Encompass is the perfect place to explore, express, and engage.
+        <br><br>This user manual has been created to provide you with a comprehensive guide on how to make the most of your experience with Encompass. It will walk you through the various features and functionalities available within the application, helping you navigate the platform effortlessly and ensuring that you get the most out of your interactions within the Encompass community.
+          
+          <br><br><br>
+        <a> 1. Profile </a> 
+        <ion-segment value="Profile" [(ngModel)]="profileModel" >
+          <ion-segment-button value="Account"> 
+            <ion-label>a) Creating an Account</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="LogIn"> 
+              <ion-label>b) Logging In</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="Password"> 
+                <ion-label>c) Resettting Password</ion-label>
+                </ion-segment-button>
+        </ion-segment>
+
+       
+          <ion-card *ngIf="profileModel === 'Account'">
+            <ion-card-content class="popUpCard">
+              <ion-row>
+              <ion-col>
+                <img src='assets/images/homePage.png'class="screenshot"> 
+              </ion-col>
+              <ion-col>
+                <p> <b>Step 1:</b> On the Encompass homepage, click on "Sign Up."</p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <p><b>Step 2:</b> Fill in the required information, such as your name, surname, desired username, email address, and password. </p>
+                <br><br>
+                <p><b>Step 3: </b>Review the terms and conditions, privacy policy, and click "Sign Up" to complete the process.</p>
+              </ion-col>
+              <ion-col>
+                <img src="assets/images/sign-up.png" class="screenshot">"
+              </ion-col>
+            </ion-row>
+            </ion-card-content>
+            </ion-card>
+
+            <ion-card *ngIf="profileModel === 'LogIn'">
+              <ion-card-content class="popUpCard">
+                <ion-row>
+                <ion-col>
+                  <img src='assets/images/homePage.png'class="screenshot"> 
+                </ion-col>
+                <ion-col>
+                  <p> <b>Step 1: </b>On the Encompass homepage, click on "Log in."</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <p><b>Step 2: </b>Enter your registered email address and password.</p>
+                   <br><br>
+                  <p><b>Step 3: </b>Click "Log In" to access your Encompass account dashboard.</p>
+                   </ion-col>
+                <ion-col>
+                  <img src="assets/images/log-in.png" class="screenshot">"
+                </ion-col>
+              </ion-row>
+              </ion-card-content>
+              </ion-card>
+
+              <ion-card *ngIf="profileModel === 'Password'">
+                <ion-card-content class="popUpCard">
+                  <ion-row>
+                  <ion-col>
+                    <img src='assets/images/homePage.png'class="screenshot"> 
+                  </ion-col>
+                  <ion-col>
+                    <p> <b>Step 1: </b>On the Encompass homepage, click on "Sign in" and on "Forgot password" link</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p><b>Step 2: </b>Enter your registered email address and click on "Send reset instructions".</p>
+                     <br><br>
+                    <p><b>Step 3: </b>Access the automated e-mail sent to your inbox and follow the prompts</p>
+                    <br><br>
+                    <p>When complete, you must go back to the login page and use your new password to login</p>
+                     </ion-col>
+                  <ion-col>
+                    <img src="assets/images/forgotPassword.png" class="screenshot">
+                  </ion-col>
+                </ion-row>
+                </ion-card-content>
+                </ion-card>
+
+        <a> 2. Engagement </a> 
+        <ion-segment value="Engagment">
+          <ion-segment-button value="Posts"> <!--click=goToStartHelp()-->
+            <ion-label>a) Posts</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="Communities"> <!--click=goToEngagementHelp()-->
+              <ion-label>b) Communities</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="Messaging"> <!--click=goToToubleshootingHelp()-->
+                <ion-label>c) Messaging</ion-label>
+                </ion-segment-button>
+              <ion-segment-button value="Preferences"> <!--click=goToToubleshootingHelp()-->
+                <ion-label>d) Preferences</ion-label>
+                </ion-segment-button>
+              <ion-segment-button value="Searching"> <!--click=goToToubleshootingHelp()-->
+                <ion-label>e) Searching</ion-label>
+                </ion-segment-button>
+              <ion-segment-button value="Events"> <!--click=goToToubleshootingHelp()-->
+                <ion-label>f) Events</ion-label>
+                </ion-segment-button>
+        </ion-segment>
+
+        <a> 3. TroubleShooting </a> 
+        <ion-segment value="TroubleShooting">
+          <ion-segment-button value="FAQs"> <!--click=goToStartHelp()-->
+            <ion-label>a) FAQs</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="Contact"> <!--click=goToEngagementHelp()-->
+              <ion-label>b) Contact Support</ion-label>
+              </ion-segment-button>
+        </ion-segment>
+
+        <br><br>    
+        <a>Perfect Strangers<br>
+        (Developers of Encompass)<br>
+        11 August 2023</a>
+        </div>
+    </div>
+
+
+
+
+    <ion-footer>
+        <ion-toolbar class="footer" color="tertiary">
+          <ion-grid class="footer footer-grid">
+            <ion-row class="footer-row">
+              <ion-col size="1">
+                <ion-button fill="clear" class="footer-text" (click)="openTeam()">
+                  Team
+                </ion-button>
+              </ion-col>
+              <ion-col size="1">
+                <ion-button fill="clear" class="footer-text" (click)="openTCs()">
+                  T&Cs
+                </ion-button>
+              </ion-col>
+              <ion-col size="1">
+                <ion-button fill="clear" class="footer-text" (click)="openPrivacy()">
+                  Privacy
+                </ion-button>
+              </ion-col>
+            <ion-col size="1">
+              <ion-button fill="clear" class="footer-text" (click)="home()">
+                Home
+              </ion-button>
+            </ion-col>
+            </ion-row>
+            <ion-row class="footer-row">
+              <ion-col size="1">
+                <ion-icon id="click-trigger" name="logo-linkedin" class="lnk"></ion-icon>
+              </ion-col>
+              <ion-col size="1">
+                  <a href="https://github.com/COS301-SE-2023/Encompass/" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" class="git"></ion-icon></a>
+              </ion-col>
+            </ion-row>
+            <ion-row class="footer-row footer-row-text">
+              <ion-col size="3">
+                <div class="Overlayt3">PerfectStrangers Capstone 2023</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-toolbar>
+      </ion-footer>
+    
+      <ion-popover trigger="click-trigger" triggerAction="click" side="top" alignment="center">
+        <ng-template >
+          <ion-content style="margin-bottom: 280px;">
+          <ion-list >
+            <ion-item>
+              <a href="https://www.linkedin.com/in/julianna-venter-3b4841232/" target="_blank" rel="noopener noreferrer">Julianna Venter</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/keabetswe-mothapo/" target="_blank" rel="noopener noreferrer">Keabetswe Mothapo</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/morgan-bentley-0bb21a149/" target="_blank" rel="noopener noreferrer">Morgan Bentley</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/ronin-brookes/" target="_blank" rel="noopener noreferrer">Ronin Brookes</a>
+            </ion-item>
+            <ion-item>
+              <a href="https://www.linkedin.com/in/sameetkeshav/" target="_blank" rel="noopener noreferrer">Sameet Keshav</a>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+        </ng-template>
+      </ion-popover>
+    </div>
+    
+   
+  
+    
+    
+  </ion-content>

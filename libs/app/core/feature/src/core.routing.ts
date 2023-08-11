@@ -69,6 +69,12 @@ const routes: Routes = [
       import('@encompass/app/tsandcs/feature').then((m) => m.TsandcsModule)
   },
   {
+    path: 'help',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('@encompass/app/help/feature').then((m) => m.HelpModule)
+  },
+  {
     path: 'forgotpassword',
     pathMatch: 'full',
     loadChildren: () =>
