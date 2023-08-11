@@ -63,6 +63,15 @@
     
     
     }
+
+    .Overlayt3 {
+        position: absolute;
+        z-index: 2;
+        top: 95%;
+        color: white;
+        font-family: CustomFont;
+        left: 20%
+      }
     
     .image-container {
     width: 100%;

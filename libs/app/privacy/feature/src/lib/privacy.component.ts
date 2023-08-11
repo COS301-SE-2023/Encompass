@@ -28,4 +28,9 @@ export class PrivacyPage {
     this.router.navigate(['']);
   }
 
+  openHelp()
+  {
+    this.router.navigate(['help']); //double check link
+  }
+
 }
