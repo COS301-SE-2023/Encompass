@@ -27,4 +27,9 @@ export class TeamPage {
   home() {
     this.router.navigate(['']);
   }
+
+  openHelp()
+  {
+    this.router.navigate(['help']); //double check link
+  }
 }
