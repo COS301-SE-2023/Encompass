@@ -1,22 +1,21 @@
-<div class="overlay">
-    <ion-header>
+<div class="overlay-container">
+    <ion-header class="challengDescriptionHeader">
         <ion-toolbar>
             <h1 class="ChallengeName">Harry Potter Readathon!</h1>
             <h3 class="HostDetails">Hosted by <ion-text class="HostUsername"> Jules</ion-text> from <ion-text class="HostCommunity"> PotterHeads</ion-text></h3>
             <h5 class="ChallengeDetails"><ion-text class="partNum"> 237 </ion-text>Particicpants | <ion-text class="QuesNum">15</ion-text> MCQs</h5>
         </ion-toolbar>
       </ion-header>
-this is page content
+
       <ion-card class="ChallengeCard">
         <ion-card-header class="ChallengeDates">
             Start: 27 July 2023 | End: 20 August 2023 
         </ion-card-header>
         <ion-card-content>
-            here is the description
-            <br>
-            <br>
-                <b>Challenge Details:</b>
-                <br>details details details
+           <p>Welcome to the enchanting world of Hogwarts! Embark on a thrilling reading adventure by joining the "Magical Journey with Harry Potter" challenge. Delve into the wizarding world created by J.K. Rowling as you immerse yourself in the first three books of the beloved series.</p> 
+           <br>
+           <p ><b>Challenge Details:</b></p>  
+                <p>Step 1: Gather Your Wands blah blah blah etc etc... needs to be more convincing you’re trying to make me read books I am going to need more motivation than blah blah blah...</p>
                 <!--center this stuff-->
                 <div class="centerContents">
                     <br><ion-button class="JoinChallenge" fill="clear">Join Challenge</ion-button>
@@ -30,23 +29,27 @@ this is page content
 
       <ion-card class="Prompt">
         <ion-card-header class="PromptsHeader">Challenge Prompts:</ion-card-header>
-        <br>
         <ion-card-content class="Instruction">
            <ion-text>Instruction 1</ion-text>
         </ion-card-content>
-        <br>
         <ion-card-content class="Instruction">
              <ion-text>Instruction 2</ion-text>
         </ion-card-content>
-        <br>
         <ion-card-content class="Instruction">
             <ion-text >Instruction 3</ion-text>
         </ion-card-content>
-        <br>
         <ion-card-content class="Instruction">
          <ion-text>Instruction 4</ion-text>
         </ion-card-content>
         <br>
+        <ion-button fill="clear" class="completeQuiz">
+            <div class="innerButton" color="clear">
+            <p> Complete the Quiz! </p>
+            <ion-icon name="lock-closed" size="large" colour="gray"></ion-icon> 
+            <p class="countDown"> 15 days remaining</p>
+            </div>
+        </ion-button>
+
     </ion-card>
 
 </div>

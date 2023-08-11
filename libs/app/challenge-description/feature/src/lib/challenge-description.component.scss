@@ -1,16 +1,21 @@
-.overlay
-{
-    //background-color: #CECAE3;
+.overlay-container {
+    overflow:auto;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 1;
+    color: var(--ion-color-text);
 }
 
-ion-header
+
+.challengDescriptionHeader
 {
     background-color: #CECAE3;
     margin-bottom: auto;
     margin-top: auto;
-    border: 2px solid #bdbdbc;
-    border-bottom-left-radius: 10%;
-    border-bottom-right-radius: 10%;
+    border-bottom: 2px solid #232224;
+    border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;
 }
 
 .ChallengeName{
@@ -21,12 +26,13 @@ ion-header
   text-align:center;
   color: var(--hover-color);
 }
+
 .HostDetails{
     font-family: CustomFont;
     font-size: 150%;
     position: relative;
     text-align:center;
-    color: #363536;
+    color: #22212393;
 }
 
 .HostCommunity, .HostUsername
@@ -37,18 +43,29 @@ ion-header
 .ChallengeDetails
 {
     text-align:center;
+    color: #22212393;
 }
 
 .ChallengeCard
 {
     border-radius: 10px;
-    border: 2px solid var(--hover-color);
-    .ChallengeDates
-    {
-    text-align: center;
-    };
-
+    border: 3px solid var(--hover-color);
+    p{
+        color:#171716;
+    }
 }
+
+.ChallengeDates
+{
+    text-align: center;
+    color:#171716
+}
+
+.centerContents
+{
+    text-align: center;
+}
+
 
 .CommunityQues
 {
@@ -60,13 +77,13 @@ ion-header
   justify-content: center;
   color: var(--hover-color);
 }
+
 .JoinChallenge
 {
-    position: center;
-    //align-items: center;
+  position: center;
   border-radius: 50px;
   color: white;
-  background-color: var(--ion-color-primary);
+  background-color: #7a6f96;
   font-family: CustomFont;
 }
 
@@ -76,15 +93,10 @@ ion-header
     font-weight: bold;
 }
 
-.centerContents
-{
-  align-self: center;
-}
-
 .Prompt
 {
     font-size: 120%;
-    font-weight: bold;
+   // font-weight: bold;
     position: relative;
     text-align:center;
     color: var(--hover-color);
@@ -95,23 +107,44 @@ ion-header
 {
     text-align: left;
     color: var(--ion-color-primary-contrast);
+    font-weight: bold;
 }
 
 .Instruction
 {
-   // font-size: 120%;
-    font-weight: bold;
+    font-weight:lighter;
     position: relative;
     text-align:center;
-    background-color: var(--ion-color-primary-shade);
-    border-radius: 25px;
+    background-color: #4c3c75;
+    border-radius: 15px;
     color: white;
     margin-bottom: 5px;
     margin-top: 5px;
     max-height: 40%;
-    
     padding: 1%;
-    //padding-left: 20;
-    
-   // padding-block: 2%;
 }
+
+.completeQuiz
+{
+    background-color: #7a6f96;
+    font-weight:normal;
+    font-size: medium;
+    text-transform: none;
+    fill: clear;
+    color:rgb(48, 45, 45);
+    text-align: center; 
+    min-height: 110px;  
+    border-radius: 25px;
+    .innerButton
+    {
+        flex-flow: column;
+        .countDown
+        {
+            font-size:smaller;
+        }
+    }
+
+}
+
+
+
