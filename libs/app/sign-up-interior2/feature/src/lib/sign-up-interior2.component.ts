@@ -104,6 +104,7 @@ export class SignUpInterior2Page{
         if(comm.name === community && !comm.members.includes(this.profile!.username)){
 
           const newMembers = [...comm.members, this.profile!.username]
+          const newEP = comm.communityEP + this.profile!.ep;
 
           const data2: UpdateCommunityRequest = {
             name: comm.name,
@@ -117,7 +118,8 @@ export class SignUpInterior2Page{
             events: comm.events,
             posts: comm.posts,
             members: newMembers,
-            ageRestricted: comm.ageRestricted
+            ageRestricted: comm.ageRestricted,
+            communityEP: newEP
           }
 
           this.signupApi.updateCommunity(comm._id, data2);

@@ -44,6 +44,7 @@ export class ProfileFactory implements EntityFactory<Profile>{
       profileImage,
       profileBanner,
       bio,
+      0
     );
     await this.profileEntityRepository.create(profile);
     profile.apply(new ProfileCreatedEvent(profile.getId()))

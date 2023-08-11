@@ -23,6 +23,7 @@ export class CommunitySchemaFactory
             members: community.members,
             ageRestricted: community.ageRestricted,
             createdAt: community.createdAt,
+            communityEP: community.communityEP,
         };
     }
 
@@ -42,6 +43,7 @@ export class CommunitySchemaFactory
             communitySchema.members,
             communitySchema.ageRestricted,
             communitySchema.createdAt,
+            communitySchema.communityEP,
         );
     }
 }

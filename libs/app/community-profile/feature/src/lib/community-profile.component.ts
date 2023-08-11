@@ -380,6 +380,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: this.community?.members,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: this.community?.communityEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
@@ -430,12 +431,12 @@ export class CommunityProfileComponent {
     console.log("Updated My Members: " + this.UpdatedMyMembers);
     this.removedlist = [];
   }
-  UpdateCommunity(){
+  async UpdateCommunity(){
     this.RemoveMember = false;
     if(this.profile == null || this.community == null){
       return;
     }
-
+    
     for(let i =0; i<this.removedMember.length;i++){
       this.removedMember[i] = false;
     }
@@ -445,6 +446,25 @@ export class CommunityProfileComponent {
     console.log("UPDATE CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+
+    let newEP = this.community.communityEP
+
+    this.removedlist.forEach(async member => {
+      const newUser = await this.communityApi.getUser(member);
+
+      if(newUser === null || newUser === undefined){
+        return;
+      }
+
+      newEP -= newUser.ep;
+    })
+    
+
+    const communityName = this.community?.name;
+
+    this.removedlist.forEach(member => {
+      this.store.dispatch(new RemoveOtherUserCommunity(communityName, member))
+    })
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -459,17 +479,10 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: this.myMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
-
-    const communityName = this.community?.name;
-
-    this.removedlist.forEach(member => {
-      this.store.dispatch(new RemoveOtherUserCommunity(communityName, member))
-    })
-    
-    // To update the user that you removed call this.store.dispatch(new RemoveOtherUserCommunity(Community Name, Username of User to be removed))
   }
   join(){
     if(this.profile == null || this.community == null){
@@ -477,6 +490,7 @@ export class CommunityProfileComponent {
     }
 
     const newMembers : string[] = [...this.community.members, this.profile.username];
+    const newEP : number = this.profile.ep + this.community.communityEP;
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -491,6 +505,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: newMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
@@ -504,6 +519,7 @@ export class CommunityProfileComponent {
     const ourProfile: string = this.profile.username;
 
     const newMembers : string[] = this.community.members.filter(member => member != ourProfile);
+    const newEP : number = this.community.communityEP - this.profile.ep;
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -518,6 +534,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: newMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
@@ -540,12 +557,19 @@ export class CommunityProfileComponent {
     this.store.dispatch(new RemoveCommunityRequest(this.community?._id, this.profile.username))
   }
 
-  acceptUser(username: string){
+  async acceptUser(username: string){
     if(this.profile == null || this.community == null){
       return;
     }
 
+    const newUser = await this.communityApi.getUser(username);
+
+    if(newUser === null || newUser === undefined){
+      return;
+    }
+
     const newMembers : string[] = [...this.community.members, username];
+    const newEP: number = this.community.communityEP + newUser.ep;
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -560,6 +584,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: newMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     console.log(this.profile)

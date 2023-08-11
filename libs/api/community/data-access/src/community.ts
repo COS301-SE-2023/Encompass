@@ -18,6 +18,7 @@ export class Community extends AggregateRoot{
         public members: string[],
         public ageRestricted: boolean,
         public createdAt: string,
+        public communityEP: number
     ) {
         super();
     }
@@ -78,6 +79,10 @@ export class Community extends AggregateRoot{
         return this.createdAt;
     }
 
+    getCommunityEP(): number {
+        return this.communityEP;
+    }
+
     updateCommunity(updateCommunityRequest: UpdateCommunityRequest){
         this.name = updateCommunityRequest.name;
         this.type = updateCommunityRequest.type;
@@ -91,6 +96,7 @@ export class Community extends AggregateRoot{
         this.posts = updateCommunityRequest.posts;
         this.members = updateCommunityRequest.members;
         this.ageRestricted = updateCommunityRequest.ageRestricted;
+        this.communityEP = updateCommunityRequest.communityEP;
     }
 
     addPost(postName: string){
