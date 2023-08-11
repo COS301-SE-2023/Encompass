@@ -34,4 +34,9 @@ export class WelcomePage {
     openPrivacy() {
       this.router.navigate(['privacy']);
     }
+
+    openHelp()
+    {
+      this.router.navigate(['help']); //double check link
+    }
 }
