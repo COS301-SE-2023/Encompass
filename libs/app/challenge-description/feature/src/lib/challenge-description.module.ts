@@ -8,7 +8,7 @@ import { NgxsModule } from '@ngxs/store';
 
 
 @NgModule({
-  imports: [CommonModule, IonicModule, ChallengeDescriptionRouting], //NgxsModule.forFeature([ChallengeDescriptionState])],
+  imports: [CommonModule, IonicModule, ChallengeDescriptionRouting], 
   declarations: [ChallengeDescriptionComponent],
   providers: [],
 })
