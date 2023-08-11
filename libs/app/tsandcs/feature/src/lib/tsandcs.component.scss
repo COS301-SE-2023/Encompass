@@ -97,3 +97,12 @@ object-position: center 59%; /* Adjust the position here */
 a {
 font-weight: bold;
 }
+
+.Overlayt3 {
+    position: absolute;
+    z-index: 2;
+    top: 95%;
+    color: white;
+    font-family: CustomFont;
+    left: 20%
+  }

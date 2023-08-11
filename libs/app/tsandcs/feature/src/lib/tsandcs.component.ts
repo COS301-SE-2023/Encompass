@@ -25,4 +25,9 @@ export class TsandcsPage {
   home() {
     this.router.navigate(['']);
   }
+
+  openHelp()
+  {
+    this.router.navigate(['help']); //double check link
+  }
 }
