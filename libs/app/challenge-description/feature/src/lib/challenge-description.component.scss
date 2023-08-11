@@ -80,3 +80,38 @@ ion-header
 {
   align-self: center;
 }
+
+.Prompt
+{
+    font-size: 120%;
+    font-weight: bold;
+    position: relative;
+    text-align:center;
+    color: var(--hover-color);
+    border-style: none;
+}
+
+.PromptsHeader
+{
+    text-align: left;
+    color: var(--ion-color-primary-contrast);
+}
+
+.Instruction
+{
+   // font-size: 120%;
+    font-weight: bold;
+    position: relative;
+    text-align:center;
+    background-color: var(--ion-color-primary-shade);
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    max-height: 40%;
+    
+    padding: 1%;
+    //padding-left: 20;
+    
+   // padding-block: 2%;
+}
