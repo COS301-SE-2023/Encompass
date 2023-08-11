@@ -138,13 +138,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
   },
-  {
-      path: 'challenge-description',
-      pathMatch: 'full',
-      loadChildren: () =>
-        import('@encompass/app/challenge-description/feature').then((m) => m.ChallengeDescriptionModule),
-      //canActivate: [AuthGuard]
-    },
+  // {
+  //     path: 'challenge-description',
+  //     pathMatch: 'full',
+  //     loadChildren: () =>
+  //       import('@encompass/app/challenge-description/feature').then((m) => m.ChallengeDescriptionModule),
+  //     //canActivate: [AuthGuard]
+  //   },
   // {
   //   path: 'community-profile/:name',
   //   pathMatch: 'full',

@@ -1,21 +1,22 @@
-.overlay-container {
+.container {
     overflow:auto;
     width: 100%;
     height: 100%;
     object-fit: fill;
-    z-index: 1;
-    color: var(--ion-color-text);
+    padding-inline: 10%;
+    padding-top: 1%;
+    box-shadow: 0 !important;
 }
-
 
 .challengDescriptionHeader
 {
-    background-color: #CECAE3;
+    
     margin-bottom: auto;
     margin-top: auto;
     border-bottom: 2px solid #232224;
     border-bottom-left-radius: 5%;
     border-bottom-right-radius: 5%;
+    box-shadow: 0 !important;
 }
 
 .ChallengeName{
@@ -48,17 +49,20 @@
 
 .ChallengeCard
 {
+    box-shadow: 0 !important;
     border-radius: 10px;
     border: 3px solid var(--hover-color);
     p{
         color:#171716;
     }
+    font-size: 120%;
 }
 
 .ChallengeDates
 {
     text-align: center;
-    color:#171716
+    color:#171716;
+ 
 }
 
 .centerContents
@@ -95,8 +99,8 @@
 
 .Prompt
 {
+    box-shadow: 0 !important;
     font-size: 120%;
-   // font-weight: bold;
     position: relative;
     text-align:center;
     color: var(--hover-color);
