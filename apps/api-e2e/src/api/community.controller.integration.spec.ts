@@ -117,6 +117,61 @@ describe('CommunityController (Integration with MongoDB)', () => {
     }); 
   });
 
-  
+  describe('getCommunitiesByKeyword', () => {
+    it('should get communities by keyword', async () => {
+        // Insert multiple community DTO instances into the database
+        const communityStubs = [
+            communityDtoStub({ customName: "Example Community 1" }),
+            communityDtoStub({ customName: "Example Community 2" }),
+            communityDtoStub({ customName: "Another Community" }),
+        ];
+        await dbConnection.collection('community').insertMany(communityStubs);
+
+        // Choose a keyword to search for communities
+        const keyword = 'Example';
+
+        // Fetch communities by keyword using the API endpoint
+        const response = await request(app.getHttpServer()).get(`/community/get-communities-by-keyword/${keyword}`);
+
+        expect(response.status).toBe(200);
+
+        expect(response.body).toHaveLength(2); // Two communities match the keyword "Example"
+
+        // Assert specific properties of the first and second community
+        expect(response.body[0].name).toContain('Example');
+        expect(response.body[1].name).toContain('Example');
+
+    });
+    });
+
+    /*describe('getRecommendedCommunities', () => {      //TO BE IMPLEMENTED LAST!!!!!
+        it('should get recommended communities', async () => {
+            // Insert multiple community DTO instances into the database
+            const communityStubs = [
+                communityDtoStub({ customName: "Recommended Community 1" }),
+                communityDtoStub({ customName: "Recommended Community 2" }),
+                communityDtoStub({ customName: "Another Community" }),
+            ];
+            await dbConnection.collection('community').insertMany(communityStubs);
+    
+            // Replace with the user ID and username to test
+            const userId = 'user123';
+            const username = 'testuser';
+    
+            // Fetch recommended communities using the API endpoint
+            const response = await request(app.getHttpServer()).get(`/community/get-recommended-communities/${userId}/${username}`);
+    
+            // Assertions
+            expect(response.status).toBe(200);
+    
+            // Assert that the response body is an array
+            expect(Array.isArray(response.body)).toBe(true);
+    
+            console.log(response.body);
+        });
+    });*/
+    
+
+    
     
 });
