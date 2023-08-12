@@ -100,5 +100,23 @@ describe('CommunityController (Integration with MongoDB)', () => {
     await app.close();
   });
 
+  describe('getAllCommunities', () => {
+    it('should get all communities', async () => {
+        const numberOfCommunities = 3; // Change this to the number of communities you want to insert
+        
+        // Insert multiple community DTO instances into the database
+        const communityStubs = Array.from({ length: numberOfCommunities }, () => communityDtoStub());
+        await dbConnection.collection('community').insertMany(communityStubs);
+
+        // Fetch all communities using the API endpoint
+        const response = await request(app.getHttpServer()).get(`/community/get-all-communities`);
+
+        // Assertions
+        expect(response.status).toBe(200);
+        expect(response.body).toHaveLength(numberOfCommunities);
+    }); 
+  });
+
   
+    
 });
