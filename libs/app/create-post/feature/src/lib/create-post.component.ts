@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController} from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreatePost, UploadFile } from '@encompass/app/create-post/util';
@@ -33,6 +33,7 @@ export class CreatePostComponent {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   // @Select(CreatePostState.url) url$! : Observable<string | null>;
 
+  clickedButton = '';
   profile! : ProfileDto | null;
   hasImage = false;
   fileName! : string;
@@ -62,6 +63,7 @@ export class CreatePostComponent {
     community: ['', Validators.required],
     category: [[] as string[], Validators.required]
   });
+
 
   get title() {
     return this.postForm.get('title');
@@ -191,6 +193,17 @@ export class CreatePostComponent {
     
   }
 
+  chosenBtn(type:string)
+    {
+      if(type == 'eventBtn')
+      {
+        this.clickedButton = 'eventBtn';
+      }
+      if(type == 'postBtn')
+      {
+        this.clickedButton = 'postBtn';
+      }
+    }
   // displayText() {
   //   console.log(this.title?.value);
   //   console.log(this.text?.value);
@@ -244,4 +257,15 @@ export class CreatePostComponent {
       resolve(uploadFile);
     })
   }
+
+  //async chooseDate() {
+    // const modal = await this.modalController.create({
+    //   component: calendarModal,
+    //   cssClass: 'custom-modal', // Replace with the component or template for your popup
+    //   componentProps: {
+    //     // Add any input properties or data you want to pass to the popup component
+    //   }
+    // });
+  
+    
 }

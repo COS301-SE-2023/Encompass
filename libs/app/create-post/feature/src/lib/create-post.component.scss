@@ -19,6 +19,7 @@ height:10%;
 width: 100%;
 display: flex;
 }
+
 .form{
 width: 100%;
 height: 100%;
@@ -117,6 +118,7 @@ justify-content: center;
 align-items: center;
 height: 17%;
 }
+
 .TextBody{
 display: flex;
 justify-content: center;
@@ -124,6 +126,183 @@ align-items: center;
 height: 45%;
 position: relative;
 
+}
+
+.TextBody2
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    position: relative;
+}
+
+.TaskBody
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //height: 20%;
+    position: relative;
+    padding-top: 2%; 
+    //padding-bottom: 2%;
+    box-shadow: none;
+}
+
+.eventClass
+{
+    overflow-x: hidden;
+    overflow-y: show;
+    // scroll-margin-block: 10px;
+    // scroll-behavior: smooth;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    position: relative;
+}
+
+.removeTask
+{
+    size:larger;
+   // position: floating;
+    vertical-align: right;
+    box-shadow: none !important;
+    border-bottom-color: transparent !important;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    fill: var(--ion-color-secondary-contrast); 
+}
+
+
+ion-textarea.custom3
+{
+    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: CustomFont;
+    width: 97%;
+    height:  100%;
+    --background: var(--card-color);
+    --padding-bottom: 8px;
+    --padding-end: 8px;
+    --padding-start: 8px;
+    --padding-top: 8px;
+    --border-radius: 10px;
+    --border-width: 1px;
+}
+
+ion-textarea.custom4
+{
+    font-size: 15px;
+    font-family: CustomFont;
+    box-shadow: none !important;
+    border-bottom-color: transparent !important;
+    --padding-start: 8px;
+}
+
+.TaskBody2
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-top: 1%;
+    box-shadow: none;
+   // --color:var(--ion-color-primary);
+}
+
+.addMoreTask
+{
+    display: flex;
+    //color: var(--ion-color-primary);
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 15%;
+    width: 97%;
+    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+    border-radius: 5px;
+    --background: var(--ion-color-secondary-contrast);
+    --background-opacity: 80%;
+    --border-radius: 5px;
+    --border-width: 1px;
+    --padding-bottom: 1px;
+    --padding-top: 1px;
+}
+
+.addTask
+{
+    color: rgba(237, 235, 235, 0.711);
+}
+
+.TaskDatesLabels
+{
+    ion-text{
+        font-size: 15px;
+        font-family: CustomFont;
+        display: flex;
+    }
+    padding-top: 3%;
+}
+
+.TaskDates
+{
+  
+    // ion-grid{
+    //     padding-left: 0px;
+    //     padding-right: 0px;
+    // }
+    // ion-col{
+    //     padding-left: 0px;
+    //     padding-right: 0px;
+
+    // }
+}
+
+.picker
+{
+   // position:sticky;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+    max-width: 50%;
+    height: 37%;
+    --padding-bottom: 1px;
+    --padding-end: 1px;
+    --padding-start: 1px;
+    --padding-top: 1px;
+    --background: var(--card-color);
+}
+
+ion-datetime.picker{
+    //datetime-font-size: 15px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+    max-width: 50%;
+    height: 37%;
+    --padding-bottom: 1px;
+    --padding-end: 1px;
+    --padding-start: 1px;
+    --padding-top: 1px;
+    --background: var(--card-color);
+}
+
+.taskItem
+{
+    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+    border-radius: 10px;
+    height: 10%;
+    width: 97%;
+    --background: var(--card-color);
+    --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    --border-width: 1px;
+   
 }
 
 ion-textarea.custom {

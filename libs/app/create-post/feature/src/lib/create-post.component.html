@@ -2,11 +2,12 @@
 <div class="container">
   
     
-    <form [formGroup]="postForm"  (ngSubmit)="onSubmit()" class = "form">
+    <form [formGroup]="postForm"  (ngSubmit)="onSubmit()" class = "form" [(ngModel)]="clickedButton">
         <div class = "head">
-            <button type = "button" class = "btn1">Post</button>
-            <button type = "button" class = "btn2">Event</button>
+            <button type = "button" class = "btn1" value="postBtn" (click)="chosenBtn('postBtn')">Post</button>
+            <button type = "button" class = "btn2" value="eventBtn" (click)="chosenBtn('eventBtn')">Event</button>
         </div>
+
         <div class = "Subhead">
             <div  class = "SelectCommunity">
                 <div class = "title">Community:</div>
@@ -30,7 +31,7 @@
             </div> 
         </div>
        
-           
+        
         <div class = "TextHead">
             <ion-textarea
             [(ngModel)]="inputValue" (input)="checkInput()"
@@ -42,7 +43,10 @@
            
           ></ion-textarea>
         </div>
-        <div class = "TextBody">
+
+        <!--create a post div-->
+        
+        <div class = "TextBody" *ngIf="clickedButton === 'postBtn'">
             <ion-textarea
             formControlName="text"
             placeholder="Text (Optional)"
@@ -50,7 +54,7 @@
           ></ion-textarea>
        
         </div>
-        <div class = "TextFooter">
+        <div class = "TextFooter" *ngIf="clickedButton === 'postBtn'">
             <ion-icon name="image-outline"
             class = "icon imageIcon"
             style = "font-size: 25px;" 
@@ -101,34 +105,101 @@
     
         </div>
     
-        <div *ngIf="hasImage" class = "Image">
+        <div *ngIf="hasImage && clickedButton === 'postBtn'" class = "Image">
               <input type="file" class="file-input"
             [accept]="requiredFileType"
             (change)="onFileSelected($event)" #fileUpload>
-            
-            <!-- <div class="file-upload">
-
-                
-    
-                <button mat-mini-fab color="primary" class="upload-btn"
-                    (click)="fileUpload.click()">
-                </button>
-            </div> -->
         </div>
-        <!-- <div class = "Image">
-            <input type="file" class="file-input"
-            [accept]="requiredFileType"
-            (change)="onFileSelected($event)" #fileUpload>
-            
-            <div class="file-upload">
 
-                {{fileName}}
-    
-                <button mat-mini-fab color="primary" class="upload-btn"
-                    (click)="fileUpload.click()">
-                </button>
+        <!--create a event div-->
+        <div class = "eventClass" *ngIf="clickedButton === 'eventBtn'">   
+            <div class = "TextBody2">
+                <ion-textarea
+                formControlName="text"
+                placeholder="Describe the Challenge"
+                class="custom3"
+              ></ion-textarea>
             </div>
-        </div> -->
+            <div class = "TaskBody">
+                <ion-item  class="taskItem">
+                    <ion-textarea
+                    formControlName="text"
+                    placeholder="Add a challenge task"
+                    class="custom4"></ion-textarea>
+                    <ion-button fill="clear" size="larger" slot="end">
+                        <ion-icon slot ="icon-only" class= "removeTask" name="remove-circle"></ion-icon>
+                    </ion-button>  
+                 </ion-item>
+            </div>
+
+            <div class = "TaskBody2">
+            <ion-button class="addMoreTask" size="larger"> <!--(click)="addTask()"-->
+                <ion-icon slot="icon-only" class= "addTask" name="add-circle" size="larger"></ion-icon>
+                </ion-button>
+            </div>
+
+            <div class = "TaskDatesLabels">
+                <ion-row>
+                    <ion-col> <ion-text>Start Date</ion-text> </ion-col>
+                    <ion-col> <ion-text>End Date</ion-text> </ion-col> 
+                </ion-row>
+                
+            </div>
+
+            <div class = "TaskDates">
+
+                <ion-row>
+                    <ion-col  class="picker">
+                        <ion-datetime-button datetime="datetime" size="larger">end date picker here</ion-datetime-button>
+                    </ion-col>
+
+                    <ion-col  class="picker">
+                        <ion-datetime-button datetime="datetime" size="larger">end date picker here</ion-datetime-button>
+                    </ion-col>
+                </ion-row>
+
+                <ion-modal [keepContentsMounted]="true">
+                   <!--<ngTemplate>-->
+                        <ion-datetime displayFormat="DD/MM/YYYY" presentation="date-time" 
+                                formControlName="startDate" class="picker" >
+                            </ion-datetime>
+                    <!--</ngTemplate>-->
+                </ion-modal>
+                
+                   
+                </div>
+
+            <div class = "TextFooter">
+                <button *ngIf = "isValid" 
+                type = "submit" 
+                class = "btns validPost"  
+                style=" color:white" 
+                (click)="closePopup()">Create</button>
+    
+                <button *ngIf = "!isValid" 
+                type = "submit" 
+                disabled = true 
+                class = "btns"  
+                style="background-color: darkgray; color:grey" 
+                (click)="closePopup()">Create</button>
+        
+            </div>
+        
+            <div *ngIf="hasImage" class = "Image">
+                  <input type="file" class="file-input"
+                [accept]="requiredFileType"
+                (change)="onFileSelected($event)" #fileUpload>
+                
+                <!-- <div class="file-upload">
+    
+                    
+        
+                    <button mat-mini-fab color="primary" class="upload-btn"
+                        (click)="fileUpload.click()">
+                    </button>
+                </div> -->
+            </div>
+        </div>
         
       </form>
     
