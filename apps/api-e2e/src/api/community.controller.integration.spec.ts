@@ -192,7 +192,20 @@ describe('CommunityController (Integration with MongoDB)', () => {
 
         });
     
-        
+        it('should return nothing for non-existing community', async () => {
+            // Replace with a non-existing community name
+            const nonExistingCommunityName = 'Non Existing Community';
+    
+            // Fetch a non-existing community using the API endpoint
+            const response = await request(app.getHttpServer()).get(`/community/get-community/${nonExistingCommunityName}`);
+    
+            // Assertions
+            expect(response.status).toBe(200);
+
+            // Assert specific properties of the community in the response
+            expect(response.body).toEqual({});
+
+        });
     });
     
 });
