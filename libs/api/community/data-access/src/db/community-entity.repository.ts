@@ -49,12 +49,6 @@ export class CommunityEntityRepository extends BaseEntityRepository<
             const isCategoryMatch = categories.includes(lowerCaseKeywords);
             const isNameMatch = name.includes(lowerCaseKeywords);
             const isDescriptionMatch = description.includes(lowerCaseKeywords);
-            console.log("name: ");
-            console.log(name);
-            console.log("description: ");
-            console.log(description);
-            console.log("categories: ");
-            console.log(categories);
             return isNameMatch || isDescriptionMatch || isCategoryMatch;
         });
         return filteredCommunities;
