@@ -172,6 +172,27 @@ describe('CommunityController (Integration with MongoDB)', () => {
     });*/
     
 
+    describe('getCommunityByName', () => {
+        it('should get a community by name', async () => {
+            // Insert a community DTO instance into the database
+            const communityStub = communityDtoStub({ customName: "Example Community" });
+            await dbConnection.collection('community').insertOne(communityStub);
     
+            // Replace with the community name to test
+            const communityName = 'Example Community';
+    
+            // Fetch the community by name using the API endpoint
+            const response = await request(app.getHttpServer()).get(`/community/get-community/${communityName}`);
+    
+            // Assertions
+            expect(response.status).toBe(200);
+    
+            // Assert specific properties of the community in the response
+            expect(response.body.name).toBe(communityName);
+
+        });
+    
+        
+    });
     
 });
