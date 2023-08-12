@@ -142,32 +142,42 @@
                 <ion-row>
                     <ion-col> <ion-text>Start Date</ion-text> </ion-col>
                     <ion-col> <ion-text>End Date</ion-text> </ion-col> 
-                </ion-row>
-                
+                </ion-row>   
             </div>
 
-            <div class = "TaskDates">
 
-                <ion-row>
+            <!--DATE PICKER CODE-->
+            <div class = "TaskDates">
+                 <ion-row>
                     <ion-col  class="picker">
-                        <ion-datetime-button datetime="datetime" size="larger">end date picker here</ion-datetime-button>
+                       <!--<ion-datetime-button datetime="datetime" size="larger"> </ion-datetime-button>--> 
+                            start date picker here
                     </ion-col>
 
                     <ion-col  class="picker">
-                        <ion-datetime-button datetime="datetime" size="larger">end date picker here</ion-datetime-button>
+                                <!--<ion-datetime-button datetime="datetime" size="larger"> </ion-datetime-button>--> 
+                            end date picker here
                     </ion-col>
                 </ion-row>
 
-                <ion-modal [keepContentsMounted]="true">
-                   <!--<ngTemplate>-->
+                <!--<ion-modal [keepContentsMounted]="true">
+                   <ngTemplate>
                         <ion-datetime displayFormat="DD/MM/YYYY" presentation="date-time" 
                                 formControlName="startDate" class="picker" >
                             </ion-datetime>
-                    <!--</ngTemplate>-->
-                </ion-modal>
-                
-                   
-                </div>
+                    /ngTemplate>
+                </ion-modal>-->  
+            </div>
+
+            <div class="Quiz">
+                <h3>Quiz</h3>
+                <p> Give a description for your quiz topic:</p>
+                <ion-textarea class="custom3"></ion-textarea>
+                <ion-radio-group>
+                    <ion-radio value="short" justify="end">short</ion-radio>
+                </ion-radio-group>
+
+            </div>
 
             <div class = "TextFooter">
                 <button *ngIf = "isValid" 

@@ -247,19 +247,21 @@ ion-textarea.custom4
     padding-top: 3%;
 }
 
-.TaskDates
-{
-  
-    // ion-grid{
-    //     padding-left: 0px;
-    //     padding-right: 0px;
-    // }
-    // ion-col{
-    //     padding-left: 0px;
-    //     padding-right: 0px;
+//dateTime picker css
 
-    // }
-}
+// .TaskDates
+// {
+  
+//     // ion-grid{
+//     //     padding-left: 0px;
+//     //     padding-right: 0px;
+//     // }
+//     // ion-col{
+//     //     padding-left: 0px;
+//     //     padding-right: 0px;
+
+//     // }
+// }
 
 .picker
 {
@@ -276,19 +278,19 @@ ion-textarea.custom4
     --background: var(--card-color);
 }
 
-ion-datetime.picker{
-    //datetime-font-size: 15px;
-    font-size: 15px;
-    border-radius: 10px;
-    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-    max-width: 50%;
-    height: 37%;
-    --padding-bottom: 1px;
-    --padding-end: 1px;
-    --padding-start: 1px;
-    --padding-top: 1px;
-    --background: var(--card-color);
-}
+// ion-datetime.picker{
+//     //datetime-font-size: 15px;
+//     font-size: 15px;
+//     border-radius: 10px;
+//     border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+//     max-width: 50%;
+//     height: 37%;
+//     --padding-bottom: 1px;
+//     --padding-end: 1px;
+//     --padding-start: 1px;
+//     --padding-top: 1px;
+//     --background: var(--card-color);
+// }
 
 .taskItem
 {
@@ -303,6 +305,28 @@ ion-datetime.picker{
     --padding-top: 0px;
     --border-width: 1px;
    
+}
+
+.Quiz
+{
+    h3{
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        font-family: CustomFont2;
+    }
+    p{
+        font-size: 15px;
+        font-family: CustomFont;
+        text-align:left;
+        padding-bottom: 0%;
+    };
+    --background: var(--card-color);
+    --padding-bottom: 8px;
+    --padding-end: 8px;
+    --padding-start: 8px;
+    --padding-top: 8px;
+   // width: 97%;
 }
 
 ion-textarea.custom {
