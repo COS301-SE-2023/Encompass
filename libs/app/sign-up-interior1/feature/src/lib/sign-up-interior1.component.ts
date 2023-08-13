@@ -11,7 +11,7 @@ import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
   templateUrl: './sign-up-interior1.component.html',
   styleUrls: ['./sign-up-interior1.component.scss']
 })
-export class SignUpInterior1Page {
+export class SignUpInterior1Component {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
 
   profile! : ProfileDto | null;
