@@ -18,6 +18,7 @@ export class Profile extends AggregateRoot{
     public profileImage: string | null,
     public profileBanner: string | null,
     public bio: string | null,
+    public ep: number
   ){
     super();
   }
@@ -79,6 +80,10 @@ export class Profile extends AggregateRoot{
   }
   getBio(): string | null{
     return this.bio;
+  }
+
+  getEP(): number{
+    return this.ep;
   }
 
   updateProfile(updateProfileRequest: UpdateProfileRequest){

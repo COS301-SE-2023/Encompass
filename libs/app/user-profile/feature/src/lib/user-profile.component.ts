@@ -61,26 +61,26 @@ export class UserProfile {
       this.userProfileState.getUserProfile(username).then((userProfile) => {
       if(userProfile){
         this.userProfile = userProfile
-        console.log(this.userProfile)
-        if(!this.isPostsFetched){
+        console.log("Userprofile", this.userProfile)
+        // if(!this.isPostsFetched){
           this.isPostsFetched = true;
           this.store.dispatch(new GetUserProfilePosts(this.userProfile.username))
           this.userPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((userPosts) => {
             if(userPosts){
-              const temp = userPosts;
-              this.userPosts = [];
-              temp.forEach((post) => {
-                if(post.isPrivate){
-                  if(this.profile?.communities.includes(post.community)){
-                    this.userPosts.push(post);
-                  }
-                }
+              // const temp = userPosts;
+              // this.userPosts = [];
+              // temp.forEach((post) => {
+              //   if(post.isPrivate){
+              //     if(this.profile?.communities.includes(post.community)){
+              //       this.userPosts.push(post);
+              //     }
+              //   }
       
-                else{
-                  this.userPosts.push(post);
-                }
-              })
-              // this.userPosts = userPosts
+              //   else{
+              //     this.userPosts.push(post);
+              //   }
+              // })
+              this.userPosts = userPosts
               console.log(this.userPosts)
               for(let i =0;i<userPosts.length;i++){
                 this.likedComments.push(false);
@@ -101,8 +101,12 @@ export class UserProfile {
               }
               }
             }
+
+            else{
+              console.log("USER PROFILE IS", userProfile)
+            }
           })
-        }
+        // }
         this.store.dispatch(new GetUserSettings(this.userProfile._id))
         this.profileSettings$.subscribe((profileSettings) => {
           if(profileSettings){
@@ -113,17 +117,17 @@ export class UserProfile {
       }
     })
 
-    this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        this.profile = profile
-        console.log(this.profile)
+    // this.store.dispatch(new SubscribeToProfile())
+    // this.profile$.subscribe((profile) => {
+    //   if(profile){
+    //     this.profile = profile
+    //     console.log(this.profile)
 
-        if(this.profile.username === username){
-          this.router.navigate(['home/profile']);
-        }
-      }
-    })
+    //     if(this.profile.username === username){
+    //       this.router.navigate(['home/profile']);
+    //     }
+    //   }
+    // })
 
     this.load();
   }

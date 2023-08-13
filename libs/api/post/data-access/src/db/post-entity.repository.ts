@@ -22,7 +22,6 @@ export class PostEntityRepository extends BaseEntityRepository<
 
   async findPostsByKeyword(keyword: string): Promise<PostDto[]> {
     const lowerCaseKeyword = keyword.toLowerCase();
-    console.log('lowerCaseKeyword:', lowerCaseKeyword);
     const allPosts = await this.findAll();
     const filteredPosts = allPosts.filter(post => {
       if (!post) {
@@ -37,9 +36,6 @@ export class PostEntityRepository extends BaseEntityRepository<
       const isTitleMatch = title.includes(lowerCaseKeyword);
       const isContentMatch = content.includes(lowerCaseKeyword);
 
-      console.log('title:', title);
-      console.log('content:', content);
-      console.log('categories:', categories);
       return isTitleMatch || isContentMatch || isCategoryMatch;
     });
     return filteredPosts;

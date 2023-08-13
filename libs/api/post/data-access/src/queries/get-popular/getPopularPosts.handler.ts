@@ -2,18 +2,23 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetPopularPostsQuery } from "./getPopularPosts.query";
 import { PostDtoRepository } from "../../db/post-dto.repository";
 import { PostSchema } from "../../db/post.schema";
+import { HttpService } from "@nestjs/axios";
 
 @QueryHandler(GetPopularPostsQuery)
 export class GetPopularPostsHandler implements IQueryHandler<GetPopularPostsQuery>{
     constructor(
         private readonly postDtoRepository: PostDtoRepository,
+        private readonly httpService: HttpService,
     ){}
 
-    async execute() {
+    async execute({ username }: GetPopularPostsQuery) {
+        const url = process.env["BASE_URL"];
         try {
-            const allPosts = await this.postDtoRepository.findAll();
+            const currentUser = await this.httpService.get(`${url}/api/profile/get-user/${username}`).toPromise();
+            const currentUserData = currentUser?.data;
+            const currentUserCommunities: string[] = currentUserData?.communities;
+            const allPosts = await this.postDtoRepository.getAllowedPosts(currentUserCommunities);
             const popularPosts = orderbyPopularity(allPosts);
-            
             return popularPosts;
         } catch (error) {
             return [];

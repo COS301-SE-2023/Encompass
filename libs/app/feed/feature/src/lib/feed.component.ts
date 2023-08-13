@@ -5,7 +5,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable, takeUntil, pipe, Subject, take } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { GetRecommendedCommunities,GetAllPosts, GetLatestPosts, GetPopularPosts, getHome, GetRecommendedBooks, GetRecommendedMovies, UpdatePostWithType } from '@encompass/app/home-page/util';
+import { GetRecommendedCommunities, GetRecommendedBooks, GetRecommendedMovies } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -13,7 +13,7 @@ import { ModalController } from '@ionic/angular';
 import {CreatePostComponent} from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
-import { UpdatePost } from '@encompass/app/home-page/util';
+// import { UpdatePost } from '@encompass/app/home-page/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
@@ -25,6 +25,8 @@ import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
 import { ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
+import { PostsState } from '@encompass/app/posts/data-access';
+import { GetAllPosts, GetLatestPosts, GetPopularPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
 @Component({
   selector: 'feed',
@@ -44,7 +46,7 @@ export class FeedPage {
   }
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
   @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
   @Select(HomeState.getMovies) movies$! : Observable<MovieDto[] | null>;
@@ -663,62 +665,129 @@ async addPosts(){
     } else if (this.type === "latest") {
       this.store.dispatch(new GetLatestPosts(this.profile.username));
     } else {
-      this.store.dispatch(new GetPopularPosts());
+      this.store.dispatch(new GetPopularPosts(this.profile.username));
     }
     
       
       this.postsIsFetched = true; 
-      this.homePosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-      if(posts){
-        // console.log("POSTS:")
-        this.posts = [];
-        const temp = posts;
-        temp.forEach((post) => {
-          if(post.isPrivate){
-            if(this.profile?.communities.includes(post.community)){
-              this.posts.push(post);
-            }
-          }
+      await this.updatePosts();
+    //   this.homePosts$.subscribe((posts) => {
+    //   if(posts){
+    //     // console.log("POSTS:")
+    //     this.posts = [];
+    //     const temp = posts; 
+    //     temp.forEach((post) => {
+    //       if(post.isPrivate){
+    //         if(this.profile?.communities.includes(post.community)){
+    //           this.posts.push(post);
+    //         }
+    //       }
 
-          else{
-            this.posts.push(post);
-          }
-        })
+    //       else{
+    //         this.posts.push(post);
+    //       }
+    //     })
 
-        // this.posts = posts;
-        this.size=posts.length-1;
-        // console.log("SIZE: " + this.size)
-        for(let i =0;i<posts.length;i++){
-          this.likedComments.push(false);
-          this.sharing.push(false);
+    //     // this.posts = posts;
+    //     this.size=posts.length-1;
+    //     // console.log("SIZE: " + this.size)
+    //     for(let i =0;i<posts.length;i++){
+    //       this.likedComments.push(false);
+    //       this.sharing.push(false);
 
-          this.reports.push(false);
-          this.postReported.push(false);
+    //       this.reports.push(false);
+    //       this.postReported.push(false);
 
-          if(posts[i].dateAdded!=null&&posts[i].comments!=null
-            &&posts[i].shares!=null){
-            this.datesAdded.push(posts[i].dateAdded);
-            this.comments.push(posts[i].comments);
-            this.shares.push(posts[i].shares);
-          }
+    //       if(posts[i].dateAdded!=null&&posts[i].comments!=null
+    //         &&posts[i].shares!=null){
+    //         this.datesAdded.push(posts[i].dateAdded);
+    //         this.comments.push(posts[i].comments);
+    //         this.shares.push(posts[i].shares);
+    //       }
 
-          if(posts!=null&&posts[i].likes!=null){
-            this.likes.push(posts[i].likes?.length);
+    //       if(posts!=null&&posts[i].likes!=null){
+    //         this.likes.push(posts[i].likes?.length);
             
 
-            if(this.profile==undefined){
-              return;
-            }
-            if(posts[i].likes.includes(this.profile.username)){
-              this.likedComments[i]=true;
-            } 
-          }
+    //         if(this.profile==undefined){
+    //           return;
+    //         }
+    //         if(posts[i].likes.includes(this.profile.username)){
+    //           this.likedComments[i]=true;
+    //         } 
+    //       }
 
+    //     }
+
+    //   }
+    // })
+  // }
+}
+
+async updatePosts(){
+  this.homePosts$.subscribe((posts) => {
+    if(posts){
+      // console.log("POSTS:")
+      // this.posts = [];
+      let temp = posts; 
+      // temp.forEach((post) => {
+      //   if(post.isPrivate){
+      //     if(this.profile?.communities.includes(post.community)){
+      //       this.posts.push(post);
+      //     }
+      //   }
+
+      //   else{
+      //     this.posts.push(post);
+      //   }
+      // })
+
+      this.posts = posts;
+
+      //Filter posts to only show posts that are not private and if private user is a part of the community
+
+      temp = temp.filter((post) => {
+        if (post.isPrivate) {
+          return this.profile?.communities.includes(post.community);
+        } else {
+          return true;
+        }
+      });
+
+      // this.posts = temp
+
+      this.size=posts.length-1;
+      // console.log("SIZE: " + this.size)
+      for(let i =0;i<posts.length;i++){
+        this.likedComments.push(false);
+        this.sharing.push(false);
+
+        this.reports.push(false);
+        this.postReported.push(false);
+
+        if(posts[i].dateAdded!=null&&posts[i].comments!=null
+          &&posts[i].shares!=null){
+          this.datesAdded.push(posts[i].dateAdded);
+          this.comments.push(posts[i].comments);
+          this.shares.push(posts[i].shares);
+        }
+
+        if(posts!=null&&posts[i].likes!=null){
+          this.likes.push(posts[i].likes?.length);
+          
+
+          if(this.profile==undefined){
+            return;
+          }
+          if(posts[i].likes.includes(this.profile.username)){
+            this.likedComments[i]=true;
+          } 
         }
 
       }
-    })
-  // }
+
+    }
+  })
 }
 
 async openPopup() {
@@ -786,7 +855,7 @@ Like(n:number, post: PostDto){
   }
 
   else{
-    likesArr = [...post.likes, this.profile?.username];
+    likesArr = [...post.likes, this.profile.username];
   }
 
   const data : UpdatePostRequest = {
@@ -806,9 +875,9 @@ Like(n:number, post: PostDto){
     return;
   }
 
-  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type, this.profile.username));
-  
-  this.addPosts();
+  this.store.dispatch(new UpdatePostArray(post._id, data));
+  // this.updatePosts();
+  // this.addPosts();
 }
 
 Dislike(n:number, post: PostDto){
@@ -837,8 +906,8 @@ Dislike(n:number, post: PostDto){
     return;
   }
 
-  this.store.dispatch(new UpdatePostWithType(post._id, data, this.type, this.profile.username));
-  this.addPosts();
+  this.store.dispatch(new UpdatePostArray(post._id, data));
+  // this.addPosts();
 }
 
 ReportPost(n:number, post: PostDto){
@@ -863,7 +932,7 @@ ReportPost(n:number, post: PostDto){
     reported: true
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 }
 
 async Share(n:number, post: PostDto){
@@ -892,7 +961,7 @@ async Share(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 
   const link : string = obj + '/home/app-comments-feature/' + post._id;
 

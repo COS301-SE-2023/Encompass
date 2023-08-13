@@ -11,8 +11,9 @@ export class DeleteCommandHandler
   ){}
 
   async execute({ id }: DeleteCommentCommand){
+    const comment = this.commentEntityRepository.findOneById(id);
     await this.commentEntityRepository.findAndDelete(id);
 
-    return id;
+    return comment;
   }
 }

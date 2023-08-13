@@ -22,7 +22,7 @@ export class GetPosts{
 
 export class UpdatePost{
   static readonly type = '[Profile] Update Post';
-  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly username: string){}
+  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
 }
 
 export class GetComments{

@@ -30,7 +30,7 @@ export class CommentController {
   async deleteComment(
     @Param('id') id: string,
   ){
-    return await this.commandBus.execute<DeleteCommentCommand, string>(
+    return await this.commandBus.execute<DeleteCommentCommand, CommentDto>(
       new DeleteCommentCommand(id),
     );
   }

@@ -7,9 +7,9 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { CommunityApi, CommunityState } from '@encompass/app/community-profile/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunityRequest } from '@encompass/app/community-profile/util';
+import { AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveCommunityRequest, UpdatePostArray } from '@encompass/app/community-profile/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
-import { UpdatePost } from '@encompass/app/home-page/util';
+// import { UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { UpdateCommunity } from '@encompass/app/community-profile/util';
@@ -19,6 +19,8 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+// import { PostsState } from '@encompass/app/posts/data-access';
+// import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
 
 @Component({
@@ -66,45 +68,14 @@ export class CommunityProfileComponent {
 
   constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, 
     private route: ActivatedRoute,private formBuilder: FormBuilder, private communityApi: CommunityApi) {
-    const page = document.getElementById('home-page');
-
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if(communityName == null){
       return;
     }
+    
+    this.load();
 
-    this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        this.profile = profile;
-
-        this.store.dispatch(new GetUserSettings(this.profile._id))
-          
-          this.settings$.subscribe(settings => {
-            if(settings){
-              this.settings = settings;
-              
-              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
-  
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
-                }
-              }
-              
-              if(page){
-                console.log("testing the feed page")
-                console.log("hello " + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              }else {
-                console.log("page is null")
-              }
-            }
-          })
-      }
-    })
 
     this.store.dispatch(new GetCommunity(communityName));
     this.community$.subscribe((community) => {
@@ -158,7 +129,6 @@ export class CommunityProfileComponent {
       }
     })
 
-    this.load();
   }
 
   
@@ -297,7 +267,7 @@ export class CommunityProfileComponent {
       reported: post.reported
     }
   
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new UpdatePostArray(post._id, data));
   
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
@@ -410,6 +380,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: this.community?.members,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: this.community?.communityEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
@@ -460,12 +431,12 @@ export class CommunityProfileComponent {
     console.log("Updated My Members: " + this.UpdatedMyMembers);
     this.removedlist = [];
   }
-  UpdateCommunity(){
+  async UpdateCommunity(){
     this.RemoveMember = false;
     if(this.profile == null || this.community == null){
       return;
     }
-
+    
     for(let i =0; i<this.removedMember.length;i++){
       this.removedMember[i] = false;
     }
@@ -475,6 +446,25 @@ export class CommunityProfileComponent {
     console.log("UPDATE CALLED")
     console.log("My Members: " + this.myMembers);
     console.log("Updated My Members: " + this.UpdatedMyMembers);
+
+    let newEP = this.community.communityEP
+
+    this.removedlist.forEach(async member => {
+      const newUser = await this.communityApi.getUser(member);
+
+      if(newUser === null || newUser === undefined){
+        return;
+      }
+
+      newEP -= newUser.ep;
+    })
+    
+
+    const communityName = this.community?.name;
+
+    this.removedlist.forEach(member => {
+      this.store.dispatch(new RemoveOtherUserCommunity(communityName, member))
+    })
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -489,17 +479,10 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: this.myMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
-
-    const communityName = this.community?.name;
-
-    this.removedlist.forEach(member => {
-      this.store.dispatch(new RemoveOtherUserCommunity(communityName, member))
-    })
-    
-    // To update the user that you removed call this.store.dispatch(new RemoveOtherUserCommunity(Community Name, Username of User to be removed))
   }
   join(){
     if(this.profile == null || this.community == null){
@@ -507,6 +490,7 @@ export class CommunityProfileComponent {
     }
 
     const newMembers : string[] = [...this.community.members, this.profile.username];
+    const newEP : number = this.profile.ep + this.community.communityEP;
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -521,6 +505,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: newMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
@@ -534,6 +519,7 @@ export class CommunityProfileComponent {
     const ourProfile: string = this.profile.username;
 
     const newMembers : string[] = this.community.members.filter(member => member != ourProfile);
+    const newEP : number = this.community.communityEP - this.profile.ep;
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -548,6 +534,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: newMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
@@ -570,12 +557,19 @@ export class CommunityProfileComponent {
     this.store.dispatch(new RemoveCommunityRequest(this.community?._id, this.profile.username))
   }
 
-  acceptUser(username: string){
+  async acceptUser(username: string){
     if(this.profile == null || this.community == null){
       return;
     }
 
+    const newUser = await this.communityApi.getUser(username);
+
+    if(newUser === null || newUser === undefined){
+      return;
+    }
+
     const newMembers : string[] = [...this.community.members, username];
+    const newEP: number = this.community.communityEP + newUser.ep;
 
     const data : UpdateCommunityRequest = {
       name: this.community?.name,
@@ -590,6 +584,7 @@ export class CommunityProfileComponent {
       posts: this.community?.posts,
       members: newMembers,
       ageRestricted: this.community?.ageRestricted,
+      communityEP: newEP,
     }
 
     console.log(this.profile)
@@ -685,7 +680,7 @@ ReportPost(n:number, post: PostDto){
     reported: true
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 }
 
 Like(n:number, post: PostDto){
@@ -721,7 +716,7 @@ Like(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 }
 
 Dislike(n:number, post: PostDto){
@@ -745,6 +740,6 @@ Dislike(n:number, post: PostDto){
     reported: post.reported
   }
 
-  this.store.dispatch(new UpdatePost(post._id, data));
+  this.store.dispatch(new UpdatePostArray(post._id, data));
 }
 }

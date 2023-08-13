@@ -43,12 +43,16 @@ export class ProfileApi{
     }
   }
 
-  async updatePost(post: UpdatePostRequest, postId: string){
+  async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
     try{
-      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
+
       return response;
     }
+
     catch(error){
+      console.log(error);
+
       return null;
     }
   }
@@ -85,7 +89,7 @@ export class ProfileApi{
 
   async deleteComment(commentId: string){
     try{
-      const response = await this.httpClient.delete<string>('/api/comment/delete/' + commentId).toPromise();
+      const response = await this.httpClient.delete<CommentDto>('/api/comment/delete/' + commentId).toPromise();
 
       return response;
     }

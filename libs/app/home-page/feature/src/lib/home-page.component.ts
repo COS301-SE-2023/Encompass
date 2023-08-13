@@ -6,7 +6,7 @@ import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
 import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { ClearAllNotifications, ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
+import { ClearAllNotifications, ClearNotification, GetNotifications } from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';

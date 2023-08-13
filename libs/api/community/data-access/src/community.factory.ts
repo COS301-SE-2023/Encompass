@@ -40,6 +40,7 @@ export class CommunityFactory implements EntityFactory<Community> {
             members,
             ageRestricted,
             this.createDateAsString(),
+            0
         );
         await this.communityEntityRepository.create(community);
         community.apply(new CommunityCreatedEvent(community.getId()));

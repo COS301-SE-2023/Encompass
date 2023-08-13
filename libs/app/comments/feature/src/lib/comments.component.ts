@@ -7,7 +7,7 @@ import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddComment, AddReply, GetComments, GetPost, SendNotification, UpdatePost } from '@encompass/app/comments/util';
+import { AddComment, AddReply, GetComments, SendNotification } from '@encompass/app/comments/util';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -17,6 +17,8 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { PostsState } from '@encompass/app/posts/data-access';
+import { GetPost, UpdatePost } from '@encompass/app/posts/util';
 
 @Component({
   selector: 'comments',
@@ -26,7 +28,7 @@ import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 export class CommentsComponent {
   @Select(CommentsState.comments) comments$!: Observable<CommentDto[] | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
-  @Select(CommentsState.post) post$!: Observable<PostDto | null>;
+  @Select(PostsState.post) post$!: Observable<PostDto | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
 
   comments!: CommentDto[];
