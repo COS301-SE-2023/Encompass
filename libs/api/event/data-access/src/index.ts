@@ -1,0 +1,10 @@
+export * from './lib/api-event-data-access';
+export * from './event.dto'
+export * from './event.controller'
+export * from './event.module'
+export * from './dto'
+export * from './event.dto'
+export * from './event'
+// export * from './queries/search-profiles/get-users-by-keyword.handler'
+// export * from '../../../../../apps/api/src/dbTest/database.module'
+// export * from '../../../../../apps/api/src/dbTest/database.service'
