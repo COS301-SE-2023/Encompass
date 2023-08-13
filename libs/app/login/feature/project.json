@@ -19,7 +19,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/app/login/feature/**/*.ts", "libs/app/hope/feature/**/*.html"]
+        "lintFilePatterns": ["libs/app/login/feature/**/*.ts", "libs/app/login/feature/**/*.html"]
       }
     },
     "test": {

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SignUpModel, SignUpState } from '@encompass/app/sign-up/data-access';
 import { Select, Store } from '@ngxs/store';
-import { CreateAccountRequest } from '@encompass/api/account/data-access';
 import { SignUp } from '@encompass/app/sign-up/util';
 import { Observable } from 'rxjs';
 import { AccountDto } from '@encompass/api/account/data-access';
@@ -11,7 +10,7 @@ import { AccountDto } from '@encompass/api/account/data-access';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpPage {
+export class SignUpComponent {
   @Select(SignUpState.signup) signup$!: Observable<AccountDto | null>;
 
   constructor(private router: Router, private store: Store){
