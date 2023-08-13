@@ -36,6 +36,9 @@
       "@encompass/api/database/data-access": [
         "libs/api/database/data-access/src/index.ts"
       ],
+      "@encompass/api/event/data-access": [
+        "libs/api/event/data-access/src/index.ts"
+      ],
       "@encompass/api/home/data-access": [
         "libs/api/home/data-access/src/index.ts"
       ],
