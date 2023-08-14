@@ -268,6 +268,91 @@ describe('CommunityController (Integration with MongoDB)', () => {
       });
     });
 
-    
+    describe('addPostToCommunity', () => {
+      it('should add a post to a community', async () => {
+          // Create a community in the database to add a post to
+          const communityStub = communityDtoStub();
+          await dbConnection.collection('community').insertOne(communityStub);
   
+          // Replace with the name of the community to add a post to
+          const communityName = communityStub.name; // Assuming `name` is a property of the inserted community
+  
+          const newPost = "New Post Content";
+  
+          // Send a PATCH request to add a post to the community using the API endpoint
+          const response = await request(app.getHttpServer())
+              .patch(`/community/add-post/${communityName}/${newPost}`);
+  
+          // Assertions
+          expect(response.status).toBe(200); // Assuming 200 is the status code for successful post addition
+  
+          // Fetch the updated community from the database
+          const updatedCommunity = await dbConnection.collection('community').findOne({ name: communityName });
+  
+          // Assert that the post has been added to the community
+          expect(updatedCommunity.posts).toContain(newPost);
+      });
+  
+      it('should return 404 for non-existing community', async () => {
+          // Replace with a non-existing community name
+          const nonExistingCommunityName = 'Non Existing Community';
+  
+          const newPost = "New Post Content";
+  
+          // Send a PATCH request to add a post to a non-existing community using the API endpoint
+          const response = await request(app.getHttpServer())
+              .patch(`/community/add-post/${nonExistingCommunityName}/${newPost}`);
+  
+          // Assertions
+          expect(response.status).toBe(404);
+      });
+    });
+
+    describe('removePostFromCommunity', () => {
+      it('should remove a post from a community', async () => {
+          // Create a community in the database to remove a post from
+          const communityStub = communityDtoStub();
+          await dbConnection.collection('community').insertOne(communityStub);
+  
+          // Replace with the name of the community to remove a post from
+          const communityName = communityStub.name;
+  
+          const postToRemove = communityStub.posts[0];
+  
+          // Send a PATCH request to remove a post from the community using the API endpoint
+          const response = await request(app.getHttpServer())
+              .patch(`/community/remove-post/${communityName}/${postToRemove}`);
+  
+          // Assertions
+          expect(response.status).toBe(200); // Assuming 200 is the status code for successful post removal
+  
+          // Fetch the updated community from the database
+          const updatedCommunity = await dbConnection.collection('community').findOne({ name: communityName });
+  
+          // Assert that the post has been removed from the community
+          expect(updatedCommunity.posts).not.toContain(postToRemove);
+  
+          console.log(response.body);
+      });
+  
+      it('should return 404 for non-existing community', async () => {
+          // Replace with a non-existing community name
+          const nonExistingCommunityName = 'Non Existing Community';
+  
+          const postToRemove = "Post to Remove";
+  
+          // Send a PATCH request to remove a post from a non-existing community using the API endpoint
+          const response = await request(app.getHttpServer())
+              .patch(`/community/remove-post/${nonExistingCommunityName}/${postToRemove}`);
+  
+          // Assertions
+          expect(response.status).toBe(404);
+  
+          console.log(response.body);
+      });
+  });
+  
+  
+  
+    
 });
