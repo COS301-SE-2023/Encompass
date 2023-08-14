@@ -3,6 +3,8 @@ import { Test, TestingModule } from "@nestjs/testing";
 import mongoose, { Connection, Schema } from "mongoose";
 import { AppModule } from "./app.module";
 import { MongooseModule } from "@nestjs/mongoose";
+import request from 'supertest';
+import { chatListDtoStub } from "./stubs/chatlist.dto.stub";
 
 export interface ChatList extends Document {
     username: string;
@@ -61,7 +63,7 @@ describe('ChatController (Integration with MongoDB)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         AppModule,
-        MongooseModule.forFeature([{ name: 'chat', schema: ChatListSchema }])
+        MongooseModule.forFeature([{ name: 'chat-list', schema: ChatListSchema }])
       ],
     }).compile();
 
@@ -72,7 +74,7 @@ describe('ChatController (Integration with MongoDB)', () => {
   };
 
   afterEach(async () => {
-    await dbConnection.collection('chat').deleteMany({});
+    await dbConnection.collection('chat-list').deleteMany({});
   });
 
   
@@ -84,6 +86,85 @@ describe('ChatController (Integration with MongoDB)', () => {
     await app.close();
   });
 
-  
+  describe('createChatList', () => {  
+    it('should create a new chat list', async () => {
+        const createChatListRequest = {
+            username: 'User1',
+        };
+
+        // Send a POST request to create a new chat list using the API endpoint
+        const response = await request(app.getHttpServer())
+            .post('/chat-list/create')
+            .send(createChatListRequest);
+
+        // Assertions
+        expect(response.status).toBe(201); // Assuming 201 is the status code for successful creation
+        expect(response.body).toEqual(expect.objectContaining(createChatListRequest));
+    });
+    });
+
+    describe('getChatList', () => {
+        it('should get a chat list by username', async () => {
+            
+    
+            // Create a chat list in the database to retrieve
+            const chatListData = chatListDtoStub();
+            const usernameToRetrieve = chatListData.username;
+            await dbConnection.collection('chat-list').insertOne(chatListData);
+    
+            // Send a GET request to retrieve the chat list using the API endpoint
+            const response = await request(app.getHttpServer())
+                .get(`/chat-list/get-chat-list/${usernameToRetrieve}`);
+    
+            // Assertions
+            expect(response.status).toBe(200); // Assuming 200 is the status code for successful retrieval
+            expect(response.body.chatList).toEqual(expect.arrayContaining([
+                expect.objectContaining(chatListData.chatList[0]), 
+            ]));
+            
+    
+        });
+    
+        it('should return 404 for non-existing username', async () => {
+            const nonExistingUsername = 'NonExistingUser';
+    
+            // Send a GET request to retrieve a chat list for a non-existing username using the API endpoint
+            const response = await request(app.getHttpServer())
+                .get(`/chat-list/get-chat-list/${nonExistingUsername}`);
+    
+            // Assertions
+            expect(response.status).toBe(404);
+    
+        });
+    });
+    
+    describe('addChat', () => {
+        it('should add a chat to a chat list', async () => {
+            const usernameToAddChat = 'User1';
+            const addChatRequest = {
+                chatRef: 'test',
+                otherUser: 'test2',
+            };
+    
+            //insert chat list
+            await dbConnection.collection('chat-list').insertOne({
+                username: usernameToAddChat,
+                chatList: [],
+            });
+
+            // Send a POST request to add a chat to the chat list using the API endpoint
+            const response = await request(app.getHttpServer())
+                .post(`/chat-list/add-chat/${usernameToAddChat}`)
+                .send(addChatRequest);
+    
+            // Assertions
+            expect(response.status).toBe(201); // Assuming 201 is the status code for successful addition
+            expect(response.body.chatList).toEqual(expect.arrayContaining([
+                expect.objectContaining(addChatRequest), 
+            ]));
+        });
+    });
+    
+
 });
 
