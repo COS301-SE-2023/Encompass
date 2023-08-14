@@ -49,7 +49,7 @@ export class CommentsComponent {
   inputValue2!: string;
   isValid = false;
   settings!: SettingsDto | null;
-
+  isThemesCalled = false;
   show = true;
 
   constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private toastController: ToastController){
@@ -90,11 +90,9 @@ export class CommentsComponent {
         }
         // console.log("Categories: " + post.categories);
         this.likes = post.likes.length;
-        if(this.profile==undefined){
-          return;}
         if(post.likes.includes(this.profile.username)){
           this.likedComments=true;
-      }
+        }
       }
     })
 
@@ -117,51 +115,15 @@ export class CommentsComponent {
       }
     })
 
-    this.load();
-  }
+    this.store.dispatch(new GetUserSettings(this.profile._id))
+          
+    this.settings$.subscribe(settings => {
+      if(settings){
+        this.settings = settings;
+      }
+    })
 
-  load(){
-    const page = document.getElementById('home-page');
-  
-  
-      this.store.dispatch(new SubscribeToProfile())
-      // this.store.dispatch(new SubscribeToProfile())
-      this.profile$.subscribe((profile) => {
-        if(profile){
-          
-          console.log("Profile CALLED")
-          console.log(profile); 
-          this.profile = profile;
-          // this.addPosts("recommended");
-          // this.newChange();
-  
-          this.store.dispatch(new GetUserSettings(this.profile._id))
-          
-          this.settings$.subscribe(settings => {
-            if(settings){
-              this.settings = settings;
-              
-              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
-  
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
-                }
-              }
-              
-              if(page){
-                console.log("testing the feed page")
-                console.log("hello " + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              }else {
-                console.log("page is null")
-              }
-            }
-          })
-          
-        }
-      });
+    this.setTheme();
   }
 
   commentForm = this.formBuilder.group({
@@ -190,10 +152,6 @@ export class CommentsComponent {
     }else{
       this.isValid = true;
     }
-    // console.log("HELLO");
-
-    // console.log(this.isValid);
-    
   }
 
   checkInput2(){
@@ -206,10 +164,6 @@ export class CommentsComponent {
     }else{
       this.isValid = true;
     }
-    // console.log("HELLO");
-
-    // console.log(this.isValid);
-    
   }
 
   Report(){
@@ -218,8 +172,6 @@ export class CommentsComponent {
     }else if(this.reports==false){
       this.reports=true;
     }
-
-   
   }
 
   GoToCommunity(communityName:string){
@@ -227,8 +179,6 @@ export class CommentsComponent {
   }
 
   ReportPost(post: PostDto){
-    // console.log("reporting post");
-  
     if(this.reportedPosts==false){
       this.reportedPosts=true;
     }
@@ -248,19 +198,16 @@ export class CommentsComponent {
     }
   
     this.store.dispatch(new UpdatePost(post._id, data));
-
   }
 
   CancelComment(){
     this.commentBool = !this.commentBool;
-for(let i=0;i<this.reply.length;i++){
-  this.reply[i]=false;
-}
+    for(let i=0;i<this.reply.length;i++){
+      this.reply[i]=false;
+    }
 
-this.commentForm.reset();
+    this.commentForm.reset();
   }
-
-  
 
   AddComment(){
 
@@ -306,7 +253,6 @@ this.commentForm.reset();
   }
 
   Reply(n:number){
-
     this.commentBool = false;
     for(let i=0;i<this.reply.length;i++){
       if(i!=n){
@@ -314,16 +260,14 @@ this.commentForm.reset();
       }
     }
     this.reply[n] = !this.reply[n];
-    }
+  }
 
     CancelReply(n:number){
       this.reply[n] = !this.reply[n];
       this.replyField?.reset();
-    
-    }
+  }
 
     PostReply(comment: CommentDto,n:number){
-
       this.isValid = false;
       this.reply[n] = !this.reply[n];
 
@@ -377,33 +321,53 @@ this.commentForm.reset();
 
 
   viewReplies(n:number){
-for(let i=0;i<this.viewreplies.length;i++){
-  if(i!=n){
-    this.viewreplies[i]=false;
-  }
-}
-    this.viewreplies[n] =!this.viewreplies[n];
+    for(let i=0;i<this.viewreplies.length;i++){
+      if(i!=n){
+        this.viewreplies[i]=false;
+      }
     }
-
-  goHome() {
-    this.router.navigate(['/home']);
+    this.viewreplies[n] =!this.viewreplies[n];
   }
 
   
-  Like(post:PostDto){
-    this.likedComments=true;
-    this.likes++;
-  }
+  // Like(){
+  //   this.likedComments=true;
+  //   this.likes++;
+  // }
 
-  Dislike(post:PostDto){
-    this.likedComments=false;
-    this.likes--;
-  }
+  // Dislike(){
+  //   this.likedComments=false;
+  //   this.likes--;
+  // }
+  setTheme(){
+    const page = document.getElementById('home-page');
 
+    if(this.settings == null){
+      return;
+    }
+    if(!this.isThemesCalled){
+      this.isThemesCalled = true;
+      this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
+      if (this.settings.themes.themeColor.startsWith('dark')) {
+        const icons = document.getElementById('genreicons');
+
+        if (icons) {
+          icons.style.filter = 'invert(1)';
+        }
+      }
+        
+      if(page){
+        console.log("testing the feed page")
+        console.log("hello " + this.settings.themes.themeImage);
+        page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+      }else {
+        console.log("page is null")
+      }
+    }
+  }
   async throwError(){
     const toast = await this.toastController.create({
       message: 'You do not have access to this post',
-      // duration: 2000,
       color: 'danger'
     })
 

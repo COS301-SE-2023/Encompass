@@ -36,6 +36,7 @@
     "@nestjs/platform-socket.io": "^10.0.5",
     "@nestjs/serve-static": "^4.0.0",
     "@nestjs/websockets": "^10.0.5",
+    "@ngrx/store": "^16.2.0",
     "@ngxs-labs/actions-executing": "^1.0.6",
     "@ngxs/devtools-plugin": "^3.8.1",
     "@ngxs/form-plugin": "^3.8.1",

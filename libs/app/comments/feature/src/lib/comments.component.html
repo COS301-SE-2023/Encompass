@@ -46,9 +46,9 @@
             {{post?.text}}
           </div>
         </div>
-        <div class = "PostFooter" *ngIf="post != null">
-          <div class = "date" *ngIf="post.dateAdded.length == 21">{{post.dateAdded.slice(0, 9)}}</div>
-          <div class = "date" *ngIf="post.dateAdded.length != 21">{{post.dateAdded.slice(0, 10)}}</div>
+        <div class = "PostFooter" *ngIf="post !== null">
+          <div class = "date" *ngIf="post.dateAdded.length === 21">{{post.dateAdded.slice(0, 9)}}</div>
+          <div class = "date" *ngIf="post.dateAdded.length !== 21">{{post.dateAdded.slice(0, 10)}}</div>
          
             <div class = "icons">
               <div style = "text-align: center;">
@@ -173,28 +173,10 @@
                     </div>
         
                 </div>
-            </div>
-
-           
-
-        </div>
-
-        
-
-       
-        
+            </div> 
+        </div> 
     </div>
-
-
-       </ion-card> 
-
-       
-
-       
-        
-     
-
-       
+  </ion-card> 
 </div>
     
 
