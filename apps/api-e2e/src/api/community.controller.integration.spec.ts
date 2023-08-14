@@ -5,6 +5,7 @@ import { AppModule } from "./app.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import request from "supertest";
 import { communityDtoStub } from "./stubs/community.dto.stub";
+import { ObjectId } from 'mongoose';
 
 export interface Community extends Document {
     name: string;
@@ -222,5 +223,51 @@ describe('CommunityController (Integration with MongoDB)', () => {
       });
     });
 
+    describe('updateCommunity', () => {
+      it('should update a community', async () => {
+          // Create a community in the database to update
+          const communityStub = communityDtoStub();
+          const insertedCommunity = await dbConnection.collection('community').insertOne(communityStub);
+  
+          // Replace with the ID of the community to update
+          const communityIdToUpdate = insertedCommunity.insertedId.toString();
+  
+          const updatedData = {
+              name: "Updated Community Name",
+              about: "Updated community information",
+              // Add other properties you want to update
+          };
+  
+          // Send a PATCH request to update the community using the API endpoint
+          const response = await request(app.getHttpServer())
+              .patch(`/community/${communityIdToUpdate}`)
+              .send(updatedData);
+  
+          // Assertions
+          expect(response.status).toBe(200); // Assuming 200 is the status code for successful update
+  
+          // Fetch the updated community from the database
+          const updatedCommunity = await dbConnection.collection('community').findOne({ _id: new mongoose.Types.ObjectId(communityIdToUpdate) });
+  
+          // Assert that the properties have been updated in the database
+          expect(updatedCommunity.name).toBe(updatedData.name);
+          expect(updatedCommunity.about).toBe(updatedData.about);
+      });
+  
+      it('should return 404 for non-existing community', async () => {
+          // Replace with a non-existing community ID
+          const nonExistingCommunityId = '615013b37e9da47fc5e4eb90'; // Non-existing ObjectId
+  
+          // Send a PATCH request to update a non-existing community using the API endpoint
+          const response = await request(app.getHttpServer())
+              .patch(`/community/${nonExistingCommunityId}`)
+              .send({ name: "Updated Name" });
+  
+          // Assertions
+          expect(response.status).toBe(404);
+      });
+    });
+
     
+  
 });
