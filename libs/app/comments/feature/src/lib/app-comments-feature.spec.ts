@@ -28,7 +28,7 @@ describe('CommentsComponent', () => {
     shares: 0,
     comments: 1,
     reported: false,
-    isPrivate: false
+    isPrivate: false,
   };
   const mockProfile = {
     _id: '123',
@@ -46,7 +46,7 @@ describe('CommentsComponent', () => {
     profileImage: 'testimage.png',
     profileBanner: 'testbanner.png',
     bio: 'This is a test bio',
-    ep: 0
+    ep: 0,
   };
 
   const mockComment: CommentDto = {
@@ -83,19 +83,19 @@ describe('CommentsComponent', () => {
     fixture = TestBed.createComponent(CommentsComponent);
     component = fixture.componentInstance;
     component.commentForm = new FormGroup({
-      comment: new FormControl('')
+      comment: new FormControl(''),
     });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-  })
+  });
   it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
   it('should add a comment to the post and reset the comment form when a valid comment is submitted', () => {
-    const mockComment = "This is a very long comment"
+    const mockComment = 'This is a very long comment';
     const addCommentSpy = jest.spyOn(CommentsComponent.prototype, 'AddComment');
     const storeDispatchSpy = jest.spyOn(TestBed.inject(Store), 'dispatch');
     const commentFormResetSpy = jest.spyOn(component.commentForm, 'reset');
@@ -142,31 +142,31 @@ describe('CommentsComponent', () => {
     expect(replyFormResetSpy).not.toHaveBeenCalled();
   });
 
-// it('should add a reply to a comment and reset the reply form when a valid reply is submitted', () => {
-//   // Initialize component properties and form values as needed
-//   // Choose a specific comment index for testing
-//   const commentIndex = 0;
-//   // const mockComment: CommentDto = component.comments[commentIndex];
-//   const mockValidReply = 'This is a valid reply';
-  
-//   // Set up spies for relevant methods
-//   const addReplySpy = jest.spyOn(component, 'PostReply');
-//   const storeDispatchSpy = jest.spyOn(TestBed.inject(Store), 'dispatch');
-//   const replyFormResetSpy = jest.spyOn(component.replyForm, 'reset');
+  // it('should add a reply to a comment and reset the reply form when a valid reply is submitted', () => {
+  //   // Initialize component properties and form values as needed
+  //   // Choose a specific comment index for testing
+  //   const commentIndex = 0;
+  //   // const mockComment: CommentDto = component.comments[commentIndex];
+  //   const mockValidReply = 'This is a valid reply';
 
-//   // Set up the component for testing
-//   component.replyField?.setValue(mockValidReply);
-//   component.replyField?.markAsTouched() // Mark the field as dirty to trigger validation
-//   // component.post = mockPost;
-//   // component.profile = mockProfile;
-//   // component.replyField?.setValue(mockValidReply);
-//   component.PostReply(mockComment, commentIndex);
+  //   // Set up spies for relevant methods
+  //   const addReplySpy = jest.spyOn(component, 'PostReply');
+  //   const storeDispatchSpy = jest.spyOn(TestBed.inject(Store), 'dispatch');
+  //   const replyFormResetSpy = jest.spyOn(component.replyForm, 'reset');
 
-//   // Assertions
-//   expect(addReplySpy).toHaveBeenCalled();
-//   expect(storeDispatchSpy).toHaveBeenCalled();
-//   expect(replyFormResetSpy).toHaveBeenCalled();
-// });
+  //   // Set up the component for testing
+  //   component.replyField?.setValue(mockValidReply);
+  //   component.replyField?.markAsTouched() // Mark the field as dirty to trigger validation
+  //   // component.post = mockPost;
+  //   // component.profile = mockProfile;
+  //   // component.replyField?.setValue(mockValidReply);
+  //   component.PostReply(mockComment, commentIndex);
+
+  //   // Assertions
+  //   expect(addReplySpy).toHaveBeenCalled();
+  //   expect(storeDispatchSpy).toHaveBeenCalled();
+  //   expect(replyFormResetSpy).toHaveBeenCalled();
+  // });
 
   it('should update the post and send a notification when a valid reply is submitted', () => {
     const mockNotification = {
@@ -187,7 +187,7 @@ describe('CommentsComponent', () => {
       username: 'testuser',
     };
     const mockValidReply = 'This is a valid reply';
-    
+
     const sendNotificationSpy = jest.spyOn(TestBed.inject(Store), 'dispatch');
 
     component.post = mockPost;
@@ -197,14 +197,16 @@ describe('CommentsComponent', () => {
 
     const mockNotificationRequest: AddNotificationRequest = {
       description: mockNotification.description,
-        picture: mockNotification.picture,
-        sentBy: mockNotification.sentBy,
-        title: mockNotification.title,
-    }
+      picture: mockNotification.picture,
+      sentBy: mockNotification.sentBy,
+      title: mockNotification.title,
+    };
     const expectedNotificationAction = new SendNotification(
       mockProfile.username,
       mockNotificationRequest
     );
-    expect(sendNotificationSpy).toHaveBeenCalledWith(expectedNotificationAction);
+    expect(sendNotificationSpy).toHaveBeenCalledWith(
+      expectedNotificationAction
+    );
   });
 });
