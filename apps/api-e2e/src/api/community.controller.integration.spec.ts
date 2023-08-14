@@ -169,7 +169,7 @@ describe('CommunityController (Integration with MongoDB)', () => {
     
             console.log(response.body);
         });
-    });*/
+    });
     
 
     describe('getCommunityByName', () => {
@@ -206,6 +206,21 @@ describe('CommunityController (Integration with MongoDB)', () => {
             expect(response.body).toEqual({});
 
         });
+    });*/
+    
+    describe('createCommunity', () => {
+      it('should create a new community', async () => {
+          const { _id, createdAt , ...stub } = communityDtoStub();
+          // Send a POST request to create a new community using the API endpoint
+          const response = await request(app.getHttpServer())
+              .post('/community/create')
+              .send(stub);
+  
+          // Assertions
+          expect(response.status).toBe(201); // Assuming 201 is the created status code
+          expect(response.body).toEqual(expect.objectContaining(stub));
+      });
     });
+
     
 });
