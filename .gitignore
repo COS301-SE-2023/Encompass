@@ -43,4 +43,4 @@ Thumbs.db
 # .env files
 .env
 .env.prod
-package.json
+
