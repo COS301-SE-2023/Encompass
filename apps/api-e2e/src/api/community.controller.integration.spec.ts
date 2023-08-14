@@ -145,7 +145,7 @@ describe('CommunityController (Integration with MongoDB)', () => {
     });
     });
 
-    /*describe('getRecommendedCommunities', () => {      //TO BE IMPLEMENTED LAST!!!!!
+    /*describe('getRecommendedCommunities', () => {      //Error!!!!!
         it('should get recommended communities', async () => {
             // Insert multiple community DTO instances into the database
             const communityStubs = [
@@ -170,7 +170,7 @@ describe('CommunityController (Integration with MongoDB)', () => {
     
             console.log(response.body);
         });
-    });
+    });*/
     
 
     describe('getCommunityByName', () => {
@@ -207,7 +207,7 @@ describe('CommunityController (Integration with MongoDB)', () => {
             expect(response.body).toEqual({});
 
         });
-    });*/
+    });
     
     describe('createCommunity', () => {
       it('should create a new community', async () => {
@@ -332,7 +332,6 @@ describe('CommunityController (Integration with MongoDB)', () => {
           // Assert that the post has been removed from the community
           expect(updatedCommunity.posts).not.toContain(postToRemove);
   
-          console.log(response.body);
       });
   
       it('should return 404 for non-existing community', async () => {
@@ -348,11 +347,58 @@ describe('CommunityController (Integration with MongoDB)', () => {
           // Assertions
           expect(response.status).toBe(404);
   
-          console.log(response.body);
       });
   });
   
-  
-  
+  describe('removeUserFromCommunity', () => {
+    /*it('should remove a user from a community', async () => {   //CONNECTION ERROR
+        // Create a community in the database with a user
+        const communityStub = communityDtoStub();
+        await dbConnection.collection('community').insertOne(communityStub);
+
+        // Replace with the name of the community to remove a user from
+        const communityName = communityStub.name;
+
+        const userToRemove = communityStub.members[0];
+        const numberOfUsers = communityStub.members.length;
+
+
+        // Send a PATCH request to remove a user from the community using the API endpoint
+        const response = await request(app.getHttpServer())
+            .patch(`/community/remove-user/${communityName}/${userToRemove}`);
+
+        // Assertions
+        expect(response.status).toBe(200); // Assuming 200 is the status code for successful user removal
+
+        // Fetch the updated community from the database
+        const updatedCommunity = await dbConnection.collection('community').findOne({ name: communityName });
+
+        // Assert that the user has been removed from the community
+        //expect(updatedCommunity.members).not.toContain(userToRemove);
+        expect(updatedCommunity.members.length).toBe(numberOfUsers-1);
+
+        console.log("updatedcommunityMembers_length");
+        console.log(updatedCommunity.members.length);
+        console.log("numberOfUsers");
+        console.log(numberOfUsers);
+
+        //console.log(response.body);
+    });*/
+
+    it('should return 404 for non-existing community', async () => {
+        // Replace with a non-existing community name
+        const nonExistingCommunityName = 'Non Existing Community';
+
+        const userToRemove = "User to Remove";
+
+        // Send a PATCH request to remove a user from a non-existing community using the API endpoint
+        const response = await request(app.getHttpServer())
+            .patch(`/community/remove-user/${nonExistingCommunityName}/${userToRemove}`);
+
+        // Assertions
+        expect(response.status).toBe(404);
+
+    });
+  });
     
 });
