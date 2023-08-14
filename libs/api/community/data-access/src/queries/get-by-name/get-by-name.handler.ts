@@ -9,7 +9,6 @@ export class GetByNameHandler implements IQueryHandler<GetByNameQuery>{
   ){}
 
   async execute({ name }: GetByNameQuery){
-    console.log("did we get to request the community!!!!!!!!!!!!!!!!!");
     return await this.communityRepository.getByName(name);
   }
 }

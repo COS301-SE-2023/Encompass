@@ -54,7 +54,6 @@ export class CommunityController {
 
     @Get('get-community/:name')
     async getCommunityByName(@Param('name') name: string): Promise<CommunityDto> {
-        console.log("did we get to request the ByName!!!!!!!!!!!!!!!!!");
         return await this.queryBus.execute<GetByNameQuery, CommunityDto>(
             new GetByNameQuery(name),
         );

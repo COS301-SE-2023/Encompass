@@ -206,6 +206,4 @@ describe('accountController', () => {
     });
   });
 
-
-
 });
