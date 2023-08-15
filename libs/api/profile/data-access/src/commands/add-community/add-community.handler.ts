@@ -14,6 +14,21 @@ export class AddCommunityHandler implements ICommandHandler<AddCommunityCommand>
     );
 
     profile.addCommunity(communityName);
+
+    if(profile.communities !== null){
+      if(profile.communities?.length >= 5){
+        profile.addAward('join5');
+      }
+  
+      if(profile.communities?.length >= 15){
+        profile.addAward('join15');
+      }
+  
+      if(profile.communities?.length >= 50){
+        profile.addAward('join50');
+      }
+    }
+
     this.profileEntityRepository.findOneAndReplaceById(profile._id, profile);
     profile.commit();
 

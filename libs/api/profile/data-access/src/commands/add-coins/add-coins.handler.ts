@@ -18,6 +18,10 @@ export class AddCoinsHandler implements ICommandHandler<AddCoinsCommand> {
       await this.profileEntityRepository.findOneByUsername(username)
     );
 
+    if(profile.awards?.includes('ultimate')){
+      addCoinsAmount *= 2;
+    }
+    
     profile.addCoins(addCoinsAmount);
     this.profileEntityRepository.findOneAndReplaceById(profile._id, profile);
 

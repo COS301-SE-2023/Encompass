@@ -165,4 +165,20 @@ export class Profile extends AggregateRoot{
   addCoins(amount: number){
     this.ep += amount;
   }
+
+  addAward(awardName: string){
+    if(this.awards){
+      if(this.awards.includes(awardName)) return;
+      this.awards = [...this.awards, awardName];
+    }
+
+    else{
+      this.awards = [awardName];
+    }
+  }
+
+  removeAward(awardName: string){
+    if(this.awards)
+      this.awards = this.awards.filter(award => award !== awardName);
+  }
 }
