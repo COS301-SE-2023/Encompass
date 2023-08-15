@@ -169,4 +169,18 @@ export class HomeApi{
       return null;
     }
   }
+
+  async removeCoins(username: string, amount: number){
+    try{
+      const response = this.httpClient.patch('/api/profile/remove-coins/' + username + '/' + amount, null).toPromise();      
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
 }

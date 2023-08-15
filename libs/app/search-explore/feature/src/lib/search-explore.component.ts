@@ -502,6 +502,7 @@ export class SearchExploreComponent {
     }
   
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.searchApi.removeCoins(post.username, 1);
   }
 
   Report(n:number){
@@ -602,6 +603,7 @@ export class SearchExploreComponent {
     }
   
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.searchApi.removeCoins(post.username, 1);
   }
   
 

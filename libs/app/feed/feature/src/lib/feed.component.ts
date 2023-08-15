@@ -1100,6 +1100,8 @@ export class FeedPage {
     }
 
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.homeApi.removeCoins(post.username, 1);
+
     // this.addPosts();
   }
 
@@ -1125,6 +1127,8 @@ export class FeedPage {
     };
 
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.homeApi.removeCoins(post.username, 1);
+
   }
 
   async Share(n: number, post: PostDto) {

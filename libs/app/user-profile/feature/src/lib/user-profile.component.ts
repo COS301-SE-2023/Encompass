@@ -386,6 +386,7 @@ ReportPost(n:number, post: PostDto){
   }
 
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
+  this.userProfileApi.removeCoins(post.username, 1);
 }
 
 Like(n:number, post: PostDto){
@@ -455,6 +456,8 @@ Dislike(n:number, post: PostDto){
   }
 
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
+  this.userProfileApi.removeCoins(post.username, 1);
+
 }
 
 OpenView(){

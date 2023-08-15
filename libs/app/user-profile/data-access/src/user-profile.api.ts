@@ -94,4 +94,16 @@ export class UserProfileApi{
       return null
     }
   }
+
+  async removeCoins(username: string, amount: number){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/remove-coins/' + username + '/' + amount, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      return null
+    }
+  }
 }

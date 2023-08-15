@@ -72,5 +72,14 @@ export class SearchApi {
             return null;
         }
     }
+
+    async removeCoins(userId: string, coins: number){
+        try{
+            return await this.http.patch<ProfileDto>('/api/profile/remove-coins/' + userId + '/' + coins, null).toPromise();
+        } catch(error){
+            console.log(error);
+            return null;
+        }
+    }
 }
 
