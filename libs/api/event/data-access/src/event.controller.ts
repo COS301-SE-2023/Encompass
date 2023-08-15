@@ -12,7 +12,7 @@ import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
 import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community.query";
 import { CreateEventCommand } from "./commands/create-event/create-event.command";
 
-@Controller('profile')
+@Controller('event')
 export class EventController {
   constructor(
     private readonly commandBus: CommandBus,

@@ -19,6 +19,7 @@ import { SettingsModule } from '@encompass/api/settings/data-access';
 import {ServeStaticModule} from '@nestjs/serve-static';
 import { join } from 'path';
 import { SearchModule } from '@encompass/api/search/data-access';
+import { EventModule } from '@encompass/api/event/data-access';
 
 const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
 
@@ -43,6 +44,7 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     MediaRecommenderModule,
     SettingsModule,
     SearchModule,
+    EventModule,
     // DatabaseModule
   ],
   controllers: [AppController],
