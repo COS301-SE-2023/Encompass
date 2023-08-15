@@ -1,5 +1,4 @@
 export class CreateEventRequest{
-      _id!: string;
      name!: string | null;
      host!: string | null;
      community!: string | null;

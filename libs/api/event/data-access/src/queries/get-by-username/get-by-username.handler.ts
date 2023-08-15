@@ -7,6 +7,6 @@ export class GetByUsernameHandler implements IQueryHandler<GetByUsernameQuery>{
   constructor(private readonly eventDtoRepository: EventDtoRepository){}
 
   async execute(query: GetByUsernameQuery){
-    return await this.eventDtoRepository.getEventsByUsername(query.userId);
+    return await this.eventDtoRepository.getEventsByUsername(query.username);
   }
 }

@@ -17,4 +17,8 @@ export class EventDtoRepository{
   async findById(id: string){
     return await this.eventModel.findOne({ _id: id });
   }
+
+  async getEventsByUsername(username: string){
+    return await this.eventModel.findOne({ username });
+  }
 }
