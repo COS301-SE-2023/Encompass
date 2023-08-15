@@ -12,7 +12,6 @@ export class EventFactory implements EntityFactory<Event>{
   ){}
 
   async create(
-    _id: string,
     name: string | null,
     host: string | null,
     community: string | null,
@@ -25,7 +24,7 @@ export class EventFactory implements EntityFactory<Event>{
     prompt: string[] | null,
   ) : Promise<Event>{
     const event = new Event(
-      new ObjectId(_id).toHexString(),
+      new ObjectId().toHexString(),
        name,
         host,
         community,

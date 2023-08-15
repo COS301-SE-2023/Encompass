@@ -16,7 +16,6 @@ export class CreateEventHandler
 
 
       const { 
-        _id, 
         name, 
         host,
         community,
@@ -32,7 +31,7 @@ export class CreateEventHandler
 
       const event = this.eventPublisher.mergeObjectContext(
         await this.eventFactory.create(
-            _id, 
+             
             name, 
             host,
             community,
