@@ -10,7 +10,10 @@ import { EventSchemaFactory } from "./db/event-schema.factory";
 import { EventFactory } from "./event.factory";
 import { EventCreateHandler } from "./events";
 import { HttpModule } from "@nestjs/axios";
-
+import { CreateEventHandler } from "./commands/create-event/create-event.handler";
+import { GetByCommunityHandler } from "./queries/get-by-community/get-by-community.handler";
+import { GetByIdHandler } from "./queries/get-by-id/get-by-id.handler";
+import { GetByUsernameHandler } from "./queries/get-by-username/get-by-username.handler";
   
 @Module({
   imports: [
@@ -30,7 +33,12 @@ import { HttpModule } from "@nestjs/axios";
     EventDtoRepository,
     EventSchemaFactory,
     EventFactory,
+    CreateEventHandler,
     EventCreateHandler,
+    GetByCommunityHandler,
+    GetByIdHandler,
+    GetByUsernameHandler
+
   ],
 })
 

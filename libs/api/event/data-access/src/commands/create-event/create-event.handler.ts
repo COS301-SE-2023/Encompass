@@ -23,8 +23,6 @@ export class CreateEventHandler
         startDate,
         endDate,
         members,
-        quiz,
-        memo,
         prompt, 
         
       } = createEventRequest;
@@ -39,8 +37,6 @@ export class CreateEventHandler
             startDate,
             endDate,
             members,
-            quiz,
-            memo,
             prompt, 
         )
       );

@@ -19,8 +19,6 @@ export class EventFactory implements EntityFactory<Event>{
     startDate: Date | null,
     endDate: Date | null,
     members: string[] | null,
-    quiz: string[] | null,
-    memo: string[] | null,
     prompt: string[] | null,
   ) : Promise<Event>{
     const event = new Event(
