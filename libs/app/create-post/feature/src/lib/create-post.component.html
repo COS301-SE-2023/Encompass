@@ -173,18 +173,20 @@
                 <h3>Quiz</h3>
                 <p> Give a description for your quiz topic:</p>
                 <ion-textarea class="custom3"></ion-textarea>
-                <ion-radio-group>
-                    <ion-radio value="short" justify="end">short</ion-radio>
-                    <ion-radio value="medium" justify="end">medium</ion-radio>
-                    <ion-radio value="long" justify="end">long</ion-radio>
-                </ion-radio-group>
+                <ion-radio-group class="level">
+                <ion-row>
+                    <ion-col> <ion-radio value="short" labelPlacement="end" justify="end">Short <br> 5 Questions</ion-radio> </ion-col>
+                    <ion-col> <ion-radio value="medium" labelPlacement="end" justify="end">Medium <br> 10 Questions</ion-radio> </ion-col>
+                    <ion-col> <ion-radio value="long" labelPlacement="end"  justify="end">Long <br> 15 Questions</ion-radio> </ion-col> 
+            </ion-row>
+            </ion-radio-group>
 
             </div>
 
-            <div class = "TextFooter">
+            <div class = "TextFooterEvent">
                 <button *ngIf = "isValid" 
                 type = "submit" 
-                class = "btns validPost"  
+                class = "btns validPostEvent"  
                 style=" color:white" 
                 (click)="closePopup()">Create</button>
     
@@ -197,21 +199,21 @@
         
             </div>
         
-            <div *ngIf="hasImage" class = "Image">
+            <!-- <div *ngIf="hasImage" class = "Image">
                   <input type="file" class="file-input"
                 [accept]="requiredFileType"
                 (change)="onFileSelected($event)" #fileUpload>
                 
-                <!-- <div class="file-upload">
+                <div class="file-upload">
     
                     
         
                     <button mat-mini-fab color="primary" class="upload-btn"
                         (click)="fileUpload.click()">
                     </button>
-                </div> -->
-            </div>
-        </div>
+                </div> 
+            </div> -->
+        </div> 
         
       </form>
     
