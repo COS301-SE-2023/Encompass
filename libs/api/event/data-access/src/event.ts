@@ -10,7 +10,10 @@ export class Event extends AggregateRoot{
     public startDate: Date | null,
     public endDate: Date | null,
     public members: string[] | null,
-    public quiz: string[] | null,
+    public quiz:  {
+      questions: string;
+      options: string[];
+    } | null,
     public memo: string[] | null,
     public prompt: string[] | null,
   ){
@@ -49,7 +52,10 @@ export class Event extends AggregateRoot{
     return this.members;
   }
 
-  getQuiz(): string [] | null{
+  getQuiz():  {
+    questions: string;
+    options: string[];
+  } | null | null{
     return this.quiz;
   }
 
