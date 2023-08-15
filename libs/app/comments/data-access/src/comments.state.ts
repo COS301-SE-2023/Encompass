@@ -191,4 +191,8 @@ export class CommentsState{
       ctx.dispatch(new HomeSendNotification(user._id, notification));
     }
   }
+
+  addCoins(username: string, amount: number){
+    return this.commentsApi.addCoins(username, amount);
+  }
 }

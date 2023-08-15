@@ -307,6 +307,7 @@ export class CommunityProfileComponent {
     };
 
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.communityApi.addCoins(post.username, 1)
 
     const link: string = obj + '/home/app-comments-feature/' + post._id;
 
@@ -751,6 +752,7 @@ export class CommunityProfileComponent {
     };
 
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.communityApi.addCoins(post.username, 1)
   }
 
   Dislike(n: number, post: PostDto) {

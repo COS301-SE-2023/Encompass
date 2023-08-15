@@ -52,7 +52,7 @@ export class CommentsComponent {
   isThemesCalled = false;
   show = true;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private toastController: ToastController){
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private toastController: ToastController, private commentState: CommentsState){
     const postId = this.route.snapshot.paramMap.get('id');
     
     this.likes=0;
@@ -233,6 +233,7 @@ export class CommentsComponent {
     }
 
     this.store.dispatch(new AddComment(data)); 
+    this.commentState.addCoins(this.post.username, 1)
     this.commentForm.reset();
 
     const postData: UpdatePostRequest ={

@@ -9,7 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 // import { GetAllPosts, UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SearchState } from '@encompass/app/search-explore/data-access';
+import { SearchApi, SearchState } from '@encompass/app/search-explore/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
@@ -87,7 +87,7 @@ export class SearchExploreComponent {
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
-    ,private formBuilder: FormBuilder) {
+    ,private formBuilder: FormBuilder, private searchApi: SearchApi) {
 
     this.load();
     // this.addInitialPosts();
@@ -569,6 +569,7 @@ export class SearchExploreComponent {
     }
   
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.searchApi.addCoins(post.username, 1);
   }
 
   ReportPost(n:number, post: PostDto){
@@ -643,7 +644,7 @@ ViewPostofComment(postId: string){
     }
   
     this.store.dispatch(new UpdatePostArray(post._id, data));
-  
+    this.searchApi.addCoins(post.username, 1);
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)

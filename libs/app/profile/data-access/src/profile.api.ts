@@ -198,4 +198,17 @@ export class ProfileApi{
       return null;
     }
   }
+
+  async addCoins(username: string, amount: number){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-coins/' + username + '/' + amount, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
 }

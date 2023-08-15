@@ -4,7 +4,7 @@ import { PostDto } from '@encompass/api/post/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { AddFollowing, RemoveFollowing, SubscribeToProfile } from '@encompass/app/profile/util';
-import { UserProfileState } from '@encompass/app/user-profile/data-access';
+import { UserProfileApi, UserProfileState } from '@encompass/app/user-profile/data-access';
 import { GetUserProfile, GetUserProfilePosts, GetUserSettings, UpdateUserPost } from '@encompass/app/user-profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -50,7 +50,7 @@ export class UserProfile {
    ViewCommunities=false;
 
 
-  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState) { 
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState, private userProfileApi: UserProfileApi) { 
     const username = this.route.snapshot.paramMap.get('username');
 
     if(username == null){
@@ -210,9 +210,10 @@ export class UserProfile {
       comments: post.comments,
       reported: post.reported
     }
-  
+    
     this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
-  
+    this.userProfileApi.addCoins(post.username, 1);
+
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
@@ -425,6 +426,7 @@ Like(n:number, post: PostDto){
   }
 
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
+  this.userProfileApi.addCoins(post.username, 1);
 }
 
 Dislike(n:number, post: PostDto){

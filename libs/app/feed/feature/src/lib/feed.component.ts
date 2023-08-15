@@ -116,7 +116,8 @@ export class FeedPage {
     private router: Router,
     private store: Store,
     private modalController: ModalController,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private homeApi: HomeApi
   ) {
     this.load();
   }
@@ -1067,6 +1068,7 @@ export class FeedPage {
     }
 
     this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.homeApi.addCoins(post.username, 1)
     // this.updatePosts();
     // this.addPosts();
   }

@@ -160,4 +160,13 @@ export class HomeApi{
       return null
     }
   }
+
+  async addCoins(username: string, coins: number){
+    try{
+      return await this.httpClient.patch<HomeDto>('/api/profile/add-coins/' + username + '/' + coins, null).toPromise();
+    } catch(error){
+      console.log(error);
+      return null;
+    }
+  }
 }
