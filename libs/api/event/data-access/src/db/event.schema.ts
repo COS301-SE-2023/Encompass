@@ -25,7 +25,7 @@ export class EventSchema extends IdentifiableEntitySchema{
   @Prop()
   readonly members!: string[] | null;
 
-  @Prop()
+  @Prop({type: Object})
   readonly quiz!: {
     questions: string;
     options: string[];
