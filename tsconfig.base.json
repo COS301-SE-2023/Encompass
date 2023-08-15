@@ -83,14 +83,14 @@
       "@encompass/app/create-community/util": [
         "libs/app/create-community/util/src/index.ts"
       ],
-      "@encompass/app/create-event/data-access": [
-        "libs/app/create-event/data-access/src/index.ts"
+      "@encompass/app/calendarPopover/data-access": [
+        "libs/app/calendarPopover/data-access/src/index.ts"
       ],
-      "@encompass/app/create-event/feature": [
-        "libs/app/create-event/feature/src/index.ts"
+      "@encompass/app/calendarPopover/feature": [
+        "libs/app/calendarPopover/feature/src/index.ts"
       ],
-      "@encompass/app/create-event/util": [
-        "libs/app/create-event/util/src/index.ts"
+      "@encompass/app/calendarPopover/util": [
+        "libs/app/calendarPopover/util/src/index.ts"
       ],
       "@encompass/app/create-post/data-access": [
         "libs/app/create-post/data-access/src/index.ts"
