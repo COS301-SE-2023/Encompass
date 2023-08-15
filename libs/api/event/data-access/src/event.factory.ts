@@ -32,8 +32,8 @@ export class EventFactory implements EntityFactory<Event>{
         startDate,
         endDate,
         members,
-        quiz,
-        memo,
+        null,
+        null,
         prompt,
       
     );
