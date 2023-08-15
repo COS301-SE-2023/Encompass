@@ -113,4 +113,16 @@ export class Community extends AggregateRoot{
         const arr = this.members.filter(member => member !== username);
         this.members = arr;
     }
+
+    addCoins(amount: number){
+        this.communityEP += amount;
+    }
+
+    removeCoins(amount: number){
+        this.communityEP -= amount;
+
+        if(this.communityEP < 0){
+            this.communityEP = 0;
+        }
+    }
 }
