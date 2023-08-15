@@ -22,7 +22,8 @@ export class CreateCommunityHandler implements ICommandHandler<CreateCommunityCo
             events, 
             posts, 
             members,
-            ageRestricted 
+            ageRestricted,
+            communityEP
         } = createCommunityRequest;
         const community = this.eventPublisher.mergeObjectContext( 
             await this.communityFactory.create(
@@ -37,7 +38,8 @@ export class CreateCommunityHandler implements ICommandHandler<CreateCommunityCo
             events,
             posts,
             members,
-            ageRestricted
+            ageRestricted,
+            communityEP
             )
         );
 

@@ -156,6 +156,10 @@ export class Profile extends AggregateRoot{
 
   removeCoins(amount:number){
     this.ep -= amount;
+
+    if(this.ep < 0){
+      this.ep = 0;
+    }
   }
   
   addCoins(amount: number){

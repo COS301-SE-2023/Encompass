@@ -24,6 +24,7 @@ export class CommunityFactory implements EntityFactory<Community> {
         posts: string[],
         members: string[],
         ageRestricted: boolean,
+        communityEP: number
     ): Promise<Community> {
         const community = new Community(
             new ObjectId().toHexString(),
@@ -40,7 +41,7 @@ export class CommunityFactory implements EntityFactory<Community> {
             members,
             ageRestricted,
             this.createDateAsString(),
-            0
+            communityEP
         );
         await this.communityEntityRepository.create(community);
         community.apply(new CommunityCreatedEvent(community.getId()));
