@@ -26,6 +26,7 @@ import { RemoveFollowingCommand } from "./commands/remove-following/remove-follo
 import { GetRecommendedProfilesQuery } from "./queries/get-recommended-profiles/getRecommendedProfiles.query";
 import { GetUsersByKeywordQuery } from "./queries/search-profiles/get-users-by-keyword.query";
 import { AddCommunityCommand } from "./commands/add-community/add-community.command";
+import { AddCoinsCommand } from "./commands/add-coins/add-coins.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -140,6 +141,16 @@ export class ProfileController {
   ){
     return await this.commandBus.execute<RemoveFollowingCommand, ProfileDto>(
       new RemoveFollowingCommand(userId, followingId)
+    );
+  }
+
+  @Patch('add-coins/:username/:addCoinsAmount')
+  async addCoins(
+    @Param('username') username: string,
+    @Param('addCoinsAmount') addCoinsAmount: number
+  ){
+    return await this.commandBus.execute<AddCoinsCommand, ProfileDto>(
+      new AddCoinsCommand(username, addCoinsAmount)
     );
   }
 

@@ -153,4 +153,8 @@ export class Profile extends AggregateRoot{
       this.communities = [communityName];
     }
   }
+
+  addCoins(amount: number){
+    this.ep += amount;
+  }
 }
