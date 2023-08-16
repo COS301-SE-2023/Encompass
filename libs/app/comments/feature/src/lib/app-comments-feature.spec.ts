@@ -7,6 +7,7 @@ import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 import { SendNotification } from '@encompass/app/comments/util';
+import { CommentsState } from '@encompass/app/comments/data-access';
 
 describe('CommentsComponent', () => {
   let component: CommentsComponent;
@@ -75,6 +76,12 @@ describe('CommentsComponent', () => {
             dispatch: jest.fn(),
           },
         },
+        {
+          provide: CommentsState,
+          useValue: {
+            dispatch: jest.fn(),
+          }
+        }
       ],
     }).compileComponents();
   });
