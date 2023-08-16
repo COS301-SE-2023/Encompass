@@ -73,6 +73,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('@encompass/app/community-profile/feature').then((m) => m.CommunityProfileModule),
         // canActivate: [AuthGuard]
+      },
+      {
+        path: 'event',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/event/feature').then((m) => m.EventModule), 
+      
       }
       // {
       //   path: 'comments', //comments/:id
