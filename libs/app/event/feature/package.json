@@ -1,5 +1,5 @@
 {
-  "name": "@encompass/app/events/feature",
+  "name": "@encompass/app/event/feature",
   "version": "0.0.1",
   "type": "commonjs"
 }
