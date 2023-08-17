@@ -100,6 +100,8 @@
                 </ion-card-content>
                 </ion-card>
 
+                <!--ENGAGEMENT-->
+
         <a> 2. Engagement </a> 
         <ion-segment value="Engagment">
           <ion-segment-button value="Posts"> <!--click=goToStartHelp()-->
@@ -122,8 +124,150 @@
                 </ion-segment-button>
         </ion-segment>
 
+        <ion-card *ngIf="engagementModel === 'Posts'">
+          <ion-card-content class="popUpCard">
+            <ion-row>
+            <ion-col>
+              <img src='assets/images/homePage.png'class="screenshot"> 
+            </ion-col>
+            <ion-col>
+              <p> <b>Step 1:</b> On the Encompass homepage, click on "Sign Up."</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p><b>Step 2:</b> Fill in the required information, such as your name, surname, desired username, email address, and password. </p>
+              <br><br>
+              <p><b>Step 3: </b>Review the terms and conditions, privacy policy, and click "Sign Up" to complete the process.</p>
+            </ion-col>
+            <ion-col>
+              <img src="assets/images/sign-up.png" class="screenshot">"
+            </ion-col>
+          </ion-row>
+          </ion-card-content>
+          </ion-card>
+
+          <ion-card *ngIf="engagementModel === 'Communities'">
+            <ion-card-content class="popUpCard">
+              <ion-row>
+              <ion-col>
+                <img src='assets/images/homePage.png'class="screenshot"> 
+              </ion-col>
+              <ion-col>
+                <p> <b>Step 1: </b>On the Encompass homepage, click on "Log in."</p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <p><b>Step 2: </b>Enter your registered email address and password.</p>
+                 <br><br>
+                <p><b>Step 3: </b>Click "Log In" to access your Encompass account dashboard.</p>
+                 </ion-col>
+              <ion-col>
+                <img src="assets/images/log-in.png" class="screenshot">"
+              </ion-col>
+            </ion-row>
+            </ion-card-content>
+            </ion-card>
+
+          <ion-card *ngIf="engagementModel === 'Messaging'">
+                <ion-card-content class="popUpCard">
+                  <ion-row>
+                  <ion-col>
+                    <img src='assets/images/homePage.png'class="screenshot"> 
+                  </ion-col>
+                  <ion-col>
+                    <p> <b>Step 1:</b> On the Encompass homepage, click on "Sign Up."</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p><b>Step 2:</b> Fill in the required information, such as your name, surname, desired username, email address, and password. </p>
+                    <br><br>
+                    <p><b>Step 3: </b>Review the terms and conditions, privacy policy, and click "Sign Up" to complete the process.</p>
+                  </ion-col>
+                  <ion-col>
+                    <img src="assets/images/sign-up.png" class="screenshot">"
+                  </ion-col>
+                </ion-row>
+                </ion-card-content>
+                </ion-card>
+    
+              <ion-card *ngIf="engagementModel === 'LogIn'">
+                  <ion-card-content class="popUpCard">
+                    <ion-row>
+                    <ion-col>
+                      <img src='assets/images/homePage.png'class="Preferences"> 
+                    </ion-col>
+                    <ion-col>
+                      <p> <b>Step 1: </b>On the Encompass homepage, click on "Log in."</p>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <p><b>Step 2: </b>Enter your registered email address and password.</p>
+                       <br><br>
+                      <p><b>Step 3: </b>Click "Log In" to access your Encompass account dashboard.</p>
+                       </ion-col>
+                    <ion-col>
+                      <img src="assets/images/log-in.png" class="screenshot">"
+                    </ion-col>
+                  </ion-row>
+                  </ion-card-content>
+                  </ion-card>
+    
+              <ion-card *ngIf="engagementModel === 'Searching'">
+                    <ion-card-content class="popUpCard">
+                      <ion-row>
+                      <ion-col>
+                        <img src='assets/images/homePage.png'class="screenshot"> 
+                      </ion-col>
+                      <ion-col>
+                        <p> <b>Step 1: </b>On the Encompass homepage, click on "Sign in" and on "Forgot password" link</p>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        <p><b>Step 2: </b>Enter your registered email address and click on "Send reset instructions".</p>
+                         <br><br>
+                        <p><b>Step 3: </b>Access the automated e-mail sent to your inbox and follow the prompts</p>
+                        <br><br>
+                        <p>When complete, you must go back to the login page and use your new password to login</p>
+                         </ion-col>
+                      <ion-col>
+                        <img src="assets/images/forgotPassword.png" class="screenshot">
+                      </ion-col>
+                    </ion-row>
+                    </ion-card-content>
+                    </ion-card>
+
+                    <ion-card *ngIf="engagementModel === 'Events'">
+                      <ion-card-content class="popUpCard">
+                        <ion-row>
+                        <ion-col>
+                          <img src='assets/images/homePage.png'class="screenshot"> 
+                        </ion-col>
+                        <ion-col>
+                          <p> <b>Step 1: </b>On the Encompass homepage, click on "Sign in" and on "Forgot password" link</p>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <p><b>Step 2: </b>Enter your registered email address and click on "Send reset instructions".</p>
+                           <br><br>
+                          <p><b>Step 3: </b>Access the automated e-mail sent to your inbox and follow the prompts</p>
+                          <br><br>
+                          <p>When complete, you must go back to the login page and use your new password to login</p>
+                           </ion-col>
+                        <ion-col>
+                          <img src="assets/images/forgotPassword.png" class="screenshot">
+                        </ion-col>
+                      </ion-row>
+                      </ion-card-content>
+                      </ion-card>
+
         <a> 3. TroubleShooting </a> 
-        <ion-segment value="TroubleShooting">
+        <ion-segment value="TroubleShooting" [(ngModel)]="troubleModel">
           <ion-segment-button value="FAQs"> <!--click=goToStartHelp()-->
             <ion-label>a) FAQs</ion-label>
             </ion-segment-button>
@@ -131,6 +275,46 @@
               <ion-label>b) Contact Support</ion-label>
               </ion-segment-button>
         </ion-segment>
+
+        <ion-card *ngIf="troubleModel === 'FAQs'">
+          <ion-card-content class="popUpCard3">
+          <p class="question"> Q: How do I reset my password?</p>
+          <p class="answer">A: To reset your password, follow these steps: </p>
+          <p>-  Go to the Encompass login page.</p>
+          <p>-	Click on the "Forgot Password" option. </p>
+          <p>-	Follow the instructions provided to reset your password. </p>
+
+          <br>
+          <p class="question" >Q: How do I report inappropriate content or user behavior? </p>
+          <p class="answer"> A: To report inappropriate content or user behavior, follow these steps:</p>
+          <p>-	Go to the post you want to report. </p>
+          <p>-	Click on the "Report" option. </p>
+          <p>-	The post has now been flagged as reported and will be followed up on. </p>
+
+          <br>
+          <p class="question">Q: How can I delete my Encompass account?</p> 
+          <p class="answer">A: If you wish to delete your Encompass account, please follow these steps:</p>
+          <p>-	Log in to your Encompass account. </p>
+          <p>-	Go to your profile page. </p>
+          <p>-	Click on the "Account Settings" option. </p>
+          <p>-	Look for the "Delete Account" section. </p>
+          <p>-	Follow the provided instructions to permanently delete your account. </p> 
+
+          <br>
+          <p class="question">Q: Can I change my username on Encompass?</p>
+          <p class="answer">A: No, you cannot change your username on Encompass after your initial signup. However, you can change your display name at any time. </p>
+
+          </ion-card-content>
+          </ion-card>
+
+          <ion-card *ngIf="troubleModel === 'Contact'">
+            <ion-card-content class="popUpCard3">
+              <p> If you encounter any issues or have further questions, please contact our support team for assistance.
+                 You can reach us through the following channels:</p>
+              <p><b>Email: </b> <a href="mailto: perfectstrangers.tuks@gmail.com">perfectstrangers.tuks@gmail.com</a></p> 
+              <p><b> GitHub: </b> <a href="https://github.com/COS301-SE-2023/Encompass">Encompass Project</a></p>
+            </ion-card-content>
+            </ion-card>
 
         <br><br>    
         <a>Perfect Strangers<br>

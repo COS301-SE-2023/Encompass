@@ -11,6 +11,8 @@ import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 export class HelpPage {
  // collapse = false;
   profileModel = '';
+  engagementModel = '';
+  troubleModel = '';
 
   constructor(@Inject(DOCUMENT) private document: Document,
     private router: Router){

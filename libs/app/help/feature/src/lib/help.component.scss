@@ -46,6 +46,22 @@ ion-segment-button
     }
 }
 
+.popUpCard3
+{
+    flex-wrap: wrap;
+    position: relative;
+    text-align: start;
+    font-size: 20px;
+    .question{
+        font-weight: bold;
+        color: var(--ion-color-primary-contrast);
+        text-decoration: underline;
+    }
+    .answer{
+        font-style: italic;
+    }
+}
+
 
 .lnk {
 position: absolute;
