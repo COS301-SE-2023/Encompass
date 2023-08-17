@@ -285,17 +285,23 @@ ion-textarea.custom4
 ion-datetime-button{
     //datetime-font-size: 15px;
     font-size: 12px;
-    border-radius: 10px;
-    border: 9px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-    max-width: 50%;
+    //border-radius: 10px;
+    //border: px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+    max-width: 97%;
     height: 100%;
     text-align: center;
-    color: black;
-    // --padding-bottom: 1px;
-    // --padding-end: 1px;
-    // --padding-start: 1px;
-    // --padding-top: 1px;
-   // --background: var(--ion-color-secondary-contras);
+    //color: black;
+}
+
+
+.calendar-day
+{
+    .calendar-day-active
+    {
+        background-color: blue;//var(--ion-color-secondary-contrast);
+        color: white; //var(--ion-color-primary);
+        //active button color is not right :)
+    }
 }
 
 .taskItem

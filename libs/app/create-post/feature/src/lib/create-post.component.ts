@@ -270,20 +270,20 @@ export class CreatePostComponent {
   
     
 
-    async openCalendarPopup() {
-      const popOver = await this.popOverController.create({
-        component: calendarPopoverComponent,
-        cssClass: 'custom-modal', // Replace with the component or template for your popup
-        componentProps: {
-          id:  'popOverActivate'
-          // Add any input properties or data you want to pass to the popup component
-        }
-      });
+    // async openCalendarPopup() {
+    //   const popOver = await this.popOverController.create({
+    //     component: calendarPopoverComponent,
+    //     cssClass: 'custom-modal', // Replace with the component or template for your popup
+    //     componentProps: {
+    //       id:  'popOverActivate'
+    //       // Add any input properties or data you want to pass to the popup component
+    //     }
+    //   });
     
-      return await popOver.present();
-    }
+    //   return await popOver.present();
+    // }
 
-    closeCalendarPopup() {
-      this.popOverController.dismiss();
-    }
+    // closeCalendarPopup() {
+    //   this.popOverController.dismiss();
+    // }
 }

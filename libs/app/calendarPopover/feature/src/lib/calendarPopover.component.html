@@ -1,17 +1,17 @@
 
 <div class="shell">
-    <ion-popover trigger="click-trigger" triggerAction="click" [isOpen]="isPopoverOpen" [keepContentsMounted]="true" id="popOverActivate" >
+    <ion-popover triggerAction="click" [isOpen]="isPopoverOpen" [keepContentsMounted]="true" id="popOverActivate" >
         <!--<ng-template>-->
-            <ion-datetime   id="startDate" ><!--formControlName="startDate"-->
+            <ion-datetime   id="datetime" ><!--formControlName="startDate"-->
             </ion-datetime>
         <!--</ng-template>-->
     </ion-popover>  
-    <!-- <ion-popover [keepContentsMounted]="true" id="endDate">
-        <ng-template>
-            <ion-datetime displayFormat="DD/MM/YYYY" presentation="date-time" 
-                    formControlName="endDate" class="picker" >
-                </ion-datetime>
-        </ng-template>
-    </ion-popover>  -->
+
+    <ion-popover triggerAction="click" [isOpen]="isPopoverOpen" [keepContentsMounted]="true" id="popOverActivate" >
+        <!--<ng-template>-->
+            <ion-datetime   id="endDate" ><!--formControlName="startDate"-->
+            </ion-datetime>
+        <!--</ng-template>-->
+    </ion-popover>  
 </div>
     

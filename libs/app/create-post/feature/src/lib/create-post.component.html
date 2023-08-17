@@ -150,24 +150,22 @@
             <div>
                  <ion-row>
                     <ion-col  class="picker"> <!--class="picker"-->
-                       <ion-datetime-button fill="clear" datetime="datetime" id="startDate" (click)="openCalendarPopup()">Start</ion-datetime-button>   
-                       <ion-datetime id="startDate"></ion-datetime>
+                       <ion-datetime-button fill="clear" id="startDate" datetime="datetime">Start</ion-datetime-button>   
+                       
                     </ion-col>
 
                     <ion-col  class="picker"><!--class="picker"-->
-                        <ion-datetime-button datetime="datetime" size="larger" (click) = "openCalendarPopup()">End</ion-datetime-button> 
+                        <ion-datetime-button datetime="datetime" id="endDate" size="larger">End</ion-datetime-button> 
                     </ion-col>
                 </ion-row>
 
-                <!-- <ion-popover [keepContentsMounted]="true">
-                   <ng-Template>
-                    <app-popover-content>
-                        <ion-datetime displayFormat="DD/MM/YYYY" presentation="date-time" 
-                                formControlName="startDate" class="picker" >
+                <ion-popover [keepContentsMounted]="true">
+                   <ng-template>
+                        <ion-datetime id="datetime" displayFormat="DD/MM/YYYY" presentation="date-time" 
+                                formControlName="startDate">
                             </ion-datetime>
-                        </app-popover-content>
-                        </ng-Template>
-                </ion-popover> -->
+                        </ng-template>
+                </ion-popover> 
 
             
             </div>
