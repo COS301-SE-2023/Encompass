@@ -44,4 +44,7 @@ export class ProfileSchema extends IdentifiableEntitySchema{
   
   @Prop()
   readonly bio!: string | null;
+
+  @Prop()
+  readonly ep!: number;
 }

@@ -14,7 +14,7 @@ import { ViewChild, ElementRef } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginPage {
+export class LoginComponent {
   @ViewChild('loginForm', { static: false }) loginForm!: ElementRef<HTMLFormElement>;
   user: LoginModel = new LoginModel();
   @Select(LoginState.loginModel) loginModel$!: Observable<AccountDto>;
@@ -27,11 +27,6 @@ export class LoginPage {
 
     async LogIn()
     {
-      const toast = await this.toastController.create({
-        message: 'Incorrect login details were provided. Please try again.',
-        duration: 1500,
-        position: 'top',
-      });
       this.store.dispatch(new login({email: this.user.email, password: this.user.password}));
       this.loginModel$.subscribe(async (data) => {
         if(data){
@@ -44,8 +39,6 @@ export class LoginPage {
               this.router.navigate(['home']);
             }
           }
-        }else if (!data){
-          // await toast.present();
         }
       });
 

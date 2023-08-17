@@ -17,15 +17,15 @@ export class AddReply{
   constructor(public readonly comment: AddReplyRequest, public readonly commentId: string){}
 }
 
-export class GetPost{
-  static readonly type = '[Comments] Get Post';
-  constructor(public readonly postId: string){}
-}
+// export class GetPost{
+//   static readonly type = '[Comments] Get Post';
+//   constructor(public readonly postId: string){}
+// }
 
-export class UpdatePost{
-  static readonly type = '[Comments] Update Post';
-  constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
-}
+// export class UpdatePost{
+//   static readonly type = '[Comments] Update Post';
+//   constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
+// }
 
 export class SendNotification{
   static readonly type = '[Messages] Send Notification'

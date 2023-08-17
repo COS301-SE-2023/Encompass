@@ -14,4 +14,5 @@ export class CommunityDto {
     readonly members!: string[];
     readonly ageRestricted!: boolean;
     readonly createdAt!: string;
+    readonly communityEP!: number;
 }

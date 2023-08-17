@@ -4,7 +4,7 @@ import { CommunityDto } from "@encompass/api/community/data-access";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { AddNotificationRequest, NotificationDto } from "@encompass/api/notifications/data-access";
 import { BookDto } from "@encompass/api/media-recommender/data-access";
-import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
+// import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { MovieDto } from "@encompass/api/media-recommender/data-access";
 
 @Injectable()
@@ -65,35 +65,35 @@ export class HomeApi{
     }
   }
 
-  async getLatestPosts(username: string) {
-    try {
-        const response = await this.httpClient.get<PostDto[]>('/api/post/get-latest/' + username).toPromise();
-        return response;
-    } catch (error) {
-        console.log(error);
-        return null;   
-    }
-  }
+  // async getLatestPosts(username: string) {
+  //   try {
+  //       const response = await this.httpClient.get<PostDto[]>('/api/post/get-latest/' + username).toPromise();
+  //       return response;
+  //   } catch (error) {
+  //       console.log(error);
+  //       return null;   
+  //   }
+  // }
 
-  async getPopularPosts() {
-    try {
-        const response = await this.httpClient.get<PostDto[]>('/api/post/get-popular').toPromise();
-        return response;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
-  }
+  // async getPopularPosts() {
+  //   try {
+  //       const response = await this.httpClient.get<PostDto[]>('/api/post/get-popular').toPromise();
+  //       return response;
+  //   } catch (error) {
+  //       console.log(error);
+  //       return null;
+  //   }
+  // }
 
-  async getRecommendPosts(userId: string) {
-    try {
-        const response = await this.httpClient.get<PostDto[]>('/api/post/get-recommended-posts/' + userId).toPromise();
-        return response;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
-  }
+  // async getRecommendPosts(userId: string) {
+  //   try {
+  //       const response = await this.httpClient.get<PostDto[]>('/api/post/get-recommended-posts/' + userId).toPromise();
+  //       return response;
+  //   } catch (error) {
+  //       console.log(error);
+  //       return null;
+  //   }
+  // }
 
   async sendNotification(userId: string, notification: AddNotificationRequest){ 
     try{
@@ -109,29 +109,29 @@ export class HomeApi{
     }
   }
 
-  async getAllPosts(username : string){
-    try{
-      console.log("I am fetching the AI Posts")
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/' + username).toPromise();
+  // async getAllPosts(username : string){
+  //   try{
+  //     console.log("I am fetching the AI Posts")
+  //     const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/' + username).toPromise();
 
-      console.log(response);
-      return response;
-    }
+  //     console.log(response);
+  //     return response;
+  //   }
 
-    catch(error){
-      return null;
-    }
-  }
+  //   catch(error){
+  //     return null;
+  //   }
+  // }
 
-  async updatePost(post: UpdatePostRequest, postId: string){
-    try{
-      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
-      return response;
-    }
-    catch(error){
-      return null;
-    }
-  }
+  // async updatePost(post: UpdatePostRequest, postId: string){
+  //   try{
+  //     const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
+  //     return response;
+  //   }
+  //   catch(error){
+  //     return null;
+  //   }
+  // }
 
   async clearNotification(userId: string, id: string){
     try{
@@ -158,6 +158,29 @@ export class HomeApi{
       console.log(error)
 
       return null
+    }
+  }
+
+  async addCoins(username: string, coins: number){
+    try{
+      return await this.httpClient.patch<HomeDto>('/api/profile/add-coins/' + username + '/' + coins, null).toPromise();
+    } catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async removeCoins(username: string, amount: number){
+    try{
+      const response = this.httpClient.patch('/api/profile/remove-coins/' + username + '/' + amount, null).toPromise();      
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
     }
   }
 }

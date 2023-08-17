@@ -119,6 +119,10 @@
         "libs/app/messages/feature/src/index.ts"
       ],
       "@encompass/app/messages/util": ["libs/app/messages/util/src/index.ts"],
+      "@encompass/app/posts/data-access": [
+        "libs/app/posts/data-access/src/index.ts"
+      ],
+      "@encompass/app/posts/util": ["libs/app/posts/util/src/index.ts"],
       "@encompass/app/privacy/feature": [
         "libs/app/privacy/feature/src/index.ts"
       ],

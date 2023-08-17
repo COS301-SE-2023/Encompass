@@ -172,7 +172,8 @@ export class CreateCommunityComponent {
       events: [],
       posts: [],
       members: [this.profile.username],
-      ageRestricted: this.ageRestricted
+      ageRestricted: this.ageRestricted,
+      communityEP: this.profile.ep
     };
 
     this.store.dispatch(new CreateCommunity(data, this.profile));

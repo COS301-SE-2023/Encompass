@@ -4,7 +4,7 @@ import { PostDto } from '@encompass/api/post/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { AddFollowing, RemoveFollowing, SubscribeToProfile } from '@encompass/app/profile/util';
-import { UserProfileState } from '@encompass/app/user-profile/data-access';
+import { UserProfileApi, UserProfileState } from '@encompass/app/user-profile/data-access';
 import { GetUserProfile, GetUserProfilePosts, GetUserSettings, UpdateUserPost } from '@encompass/app/user-profile/util';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -50,7 +50,7 @@ export class UserProfile {
    ViewCommunities=false;
 
 
-  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState) { 
+  constructor(@Inject(DOCUMENT) private document: Document, private store: Store, private router: Router, private route: ActivatedRoute, private userProfileState: UserProfileState, private userProfileApi: UserProfileApi) { 
     const username = this.route.snapshot.paramMap.get('username');
 
     if(username == null){
@@ -61,26 +61,26 @@ export class UserProfile {
       this.userProfileState.getUserProfile(username).then((userProfile) => {
       if(userProfile){
         this.userProfile = userProfile
-        console.log(this.userProfile)
-        if(!this.isPostsFetched){
+        console.log("Userprofile", this.userProfile)
+        // if(!this.isPostsFetched){
           this.isPostsFetched = true;
           this.store.dispatch(new GetUserProfilePosts(this.userProfile.username))
           this.userPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((userPosts) => {
             if(userPosts){
-              const temp = userPosts;
-              this.userPosts = [];
-              temp.forEach((post) => {
-                if(post.isPrivate){
-                  if(this.profile?.communities.includes(post.community)){
-                    this.userPosts.push(post);
-                  }
-                }
+              // const temp = userPosts;
+              // this.userPosts = [];
+              // temp.forEach((post) => {
+              //   if(post.isPrivate){
+              //     if(this.profile?.communities.includes(post.community)){
+              //       this.userPosts.push(post);
+              //     }
+              //   }
       
-                else{
-                  this.userPosts.push(post);
-                }
-              })
-              // this.userPosts = userPosts
+              //   else{
+              //     this.userPosts.push(post);
+              //   }
+              // })
+              this.userPosts = userPosts
               console.log(this.userPosts)
               for(let i =0;i<userPosts.length;i++){
                 this.likedComments.push(false);
@@ -101,8 +101,12 @@ export class UserProfile {
               }
               }
             }
+
+            else{
+              console.log("USER PROFILE IS", userProfile)
+            }
           })
-        }
+        // }
         this.store.dispatch(new GetUserSettings(this.userProfile._id))
         this.profileSettings$.subscribe((profileSettings) => {
           if(profileSettings){
@@ -113,17 +117,17 @@ export class UserProfile {
       }
     })
 
-    this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if(profile){
-        this.profile = profile
-        console.log(this.profile)
+    // this.store.dispatch(new SubscribeToProfile())
+    // this.profile$.subscribe((profile) => {
+    //   if(profile){
+    //     this.profile = profile
+    //     console.log(this.profile)
 
-        if(this.profile.username === username){
-          this.router.navigate(['home/profile']);
-        }
-      }
-    })
+    //     if(this.profile.username === username){
+    //       this.router.navigate(['home/profile']);
+    //     }
+    //   }
+    // })
 
     this.load();
   }
@@ -206,9 +210,10 @@ export class UserProfile {
       comments: post.comments,
       reported: post.reported
     }
-  
+    
     this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
-  
+    this.userProfileApi.addCoins(post.username, 1);
+
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
@@ -381,6 +386,7 @@ ReportPost(n:number, post: PostDto){
   }
 
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
+  this.userProfileApi.removeCoins(post.username, 1);
 }
 
 Like(n:number, post: PostDto){
@@ -421,6 +427,7 @@ Like(n:number, post: PostDto){
   }
 
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
+  this.userProfileApi.addCoins(post.username, 1);
 }
 
 Dislike(n:number, post: PostDto){
@@ -449,6 +456,8 @@ Dislike(n:number, post: PostDto){
   }
 
   this.store.dispatch(new UpdateUserPost(post._id, data, this.userProfile.username));
+  this.userProfileApi.removeCoins(post.username, 1);
+
 }
 
 OpenView(){
