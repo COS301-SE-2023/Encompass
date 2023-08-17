@@ -267,33 +267,36 @@ ion-textarea.custom4
 .picker
 {
    // position:sticky;
-    font-size: 15px;
+    //font-size: 15px;
+    justify-content: center;
     border-radius: 5px;
     border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
     max-width: 50%;
-    height: 37%;
+    height: 100%;
     margin-left: 1%;
     margin-right:1%;
-    --padding-bottom: 1px;
-    --padding-end: 1px;
-    --padding-start: 1px;
-    --padding-top: 1px;
+    // --padding-bottom: 1px;
+    // --padding-end: 1px;
+    // --padding-start: 1px;
+    // --padding-top: 1px;
     --background: var(--card-color);
 }
 
-// ion-datetime.picker{
-//     //datetime-font-size: 15px;
-//     font-size: 15px;
-//     border-radius: 10px;
-//     border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-//     max-width: 50%;
-//     height: 37%;
-//     --padding-bottom: 1px;
-//     --padding-end: 1px;
-//     --padding-start: 1px;
-//     --padding-top: 1px;
-//     --background: var(--card-color);
-// }
+ion-datetime-button{
+    //datetime-font-size: 15px;
+    font-size: 12px;
+    border-radius: 10px;
+    border: 9px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+    max-width: 50%;
+    height: 100%;
+    text-align: center;
+    color: black;
+    // --padding-bottom: 1px;
+    // --padding-end: 1px;
+    // --padding-start: 1px;
+    // --padding-top: 1px;
+   // --background: var(--ion-color-secondary-contras);
+}
 
 .taskItem
 {
@@ -362,6 +365,11 @@ ion-radio-group.level
     width: 40%;
    // height: 10%;
 }
+
+
+
+
+
 
 ion-textarea.custom {
 

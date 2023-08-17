@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController} from '@ionic/angular';
+import { PopoverController, ModalController} from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreatePost, UploadFile } from '@encompass/app/create-post/util';
@@ -13,6 +13,7 @@ import { PostDto } from '@encompass/api/post/data-access';
 import { HttpClient } from '@angular/common/http';
 import { fileReturn } from '@encompass/app/create-post/data-access';
 import { IonSelect } from '@ionic/angular';
+import { calendarPopoverComponent } from '@encompass/app/calendarPopover/feature';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class CreatePostComponent {
   inputValue2! : string;
 
 
-  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createPostApi: CreatePostApi) {
+  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createPostApi: CreatePostApi, private popOverController: PopoverController) {
       if(!this.profile){
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.subscribe((profile) => {
@@ -268,4 +269,21 @@ export class CreatePostComponent {
     // });
   
     
+
+    async openCalendarPopup() {
+      const popOver = await this.popOverController.create({
+        component: calendarPopoverComponent,
+        cssClass: 'custom-modal', // Replace with the component or template for your popup
+        componentProps: {
+          id:  'popOverActivate'
+          // Add any input properties or data you want to pass to the popup component
+        }
+      });
+    
+      return await popOver.present();
+    }
+
+    closeCalendarPopup() {
+      this.popOverController.dismiss();
+    }
 }

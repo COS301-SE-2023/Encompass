@@ -147,16 +147,15 @@
 
 
             <!--DATE PICKER CODE-->
-            <div class = "TaskDates">
+            <div>
                  <ion-row>
-                    <ion-col  class="picker">
-                       <!--<ion-datetime-button datetime="datetime" size="larger"> </ion-datetime-button>--> 
-                            start date picker here
+                    <ion-col  class="picker"> <!--class="picker"-->
+                       <ion-datetime-button fill="clear" datetime="datetime" id="startDate" (click)="openCalendarPopup()">Start</ion-datetime-button>   
+                       <ion-datetime id="startDate"></ion-datetime>
                     </ion-col>
 
-                    <ion-col  class="picker">
-                                <!--<ion-datetime-button datetime="datetime" size="larger"> </ion-datetime-button>--> 
-                            end date picker here
+                    <ion-col  class="picker"><!--class="picker"-->
+                        <ion-datetime-button datetime="datetime" size="larger" (click) = "openCalendarPopup()">End</ion-datetime-button> 
                     </ion-col>
                 </ion-row>
 
@@ -169,6 +168,8 @@
                         </app-popover-content>
                         </ng-Template>
                 </ion-popover> -->
+
+            
             </div>
 
             <div class="Quiz">

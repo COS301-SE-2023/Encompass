@@ -1,15 +1,13 @@
-// import { CommonModule } from '@angular/common';
-// import { NgModule } from '@angular/core';
-// import { IonicModule,PopoverController } from '@ionic/angular';
-// import { CreatePostComponent } from './calendarPopover.component';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import {PopoverComponent} from '@encompass/app/create-post/feature/src/lib/popover/popover.component';
-// import { NgxsModule } from '@ngxs/store';
-// import { CreatePostState } from '@encompass/app/create-post/data-access';
+import { NgModule } from '@angular/core';
+import {calendarPopoverComponent} from './calendarPopover.component';
+import { CommonModule } from '@angular/common';
+//import { NgxsModule } from '@ngxs/store';
+import { IonicModule } from '@ionic/angular';
 
-// @NgModule({
-//   imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule, NgxsModule.forFeature([CreatePostState])],
-//   declarations: [CreatePostComponent],
-//   providers: [],
-// })
+
+@NgModule({
+  imports: [CommonModule, IonicModule], // NgxsModule.forFeature([CreatePostState])],
+  declarations: [calendarPopoverComponent],
+  providers: [],
+})
 export class calendarPopoverModule {}

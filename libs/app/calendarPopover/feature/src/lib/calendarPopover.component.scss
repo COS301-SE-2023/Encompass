@@ -1,0 +1,22 @@
+.shell{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    font-family: customFont;
+    background-color: var(--ion-color-background);
+    // border-radius: 50px;
+
+    ion-popover{
+        width: 97%;
+        height: 100%;
+        background-color: var(--ion-color-background);
+        // border-radius: 50px;
+        color: var(--card-color-contrast);
+        font-family: customFont;
+        font-size: 10px;
+    }
+    }
+
