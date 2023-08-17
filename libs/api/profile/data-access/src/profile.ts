@@ -181,4 +181,15 @@ export class Profile extends AggregateRoot{
     if(this.awards)
       this.awards = this.awards.filter(award => award !== awardName);
   }
+
+  addEvent(eventId: string){
+    if(this.events){
+      if(this.events.includes(eventId)) return;
+      this.events = [...this.events, eventId];
+    }
+
+    else{
+      this.events = [eventId];
+    }
+  }
 }
