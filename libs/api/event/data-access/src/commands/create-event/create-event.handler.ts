@@ -13,7 +13,7 @@ export class CreateEventHandler
     ){}
 
     async execute({ createEventRequest }: CreateEventCommand){
-
+      const url = process.env["BASE_URL"];
 
       const { 
         name, 
@@ -43,7 +43,13 @@ export class CreateEventHandler
 
       event.commit();
       
-    
+      try{
+        this.httpService.patch(url + '/api/community/add-event/' + event.community + '/' + event._id).toPromise();
+      }
+
+      catch(error){
+        console.log(error);
+      }
 
       return event;
     }

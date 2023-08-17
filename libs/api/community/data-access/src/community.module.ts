@@ -8,7 +8,7 @@ import { CommunityEntityRepository } from "./db/community-entity.repository";
 import { CommunityDtoRepository } from "./db/community-dto.repository";
 import { CommunitySchemaFactory } from "./db/community-schema.factory";
 import { CommunityFactory } from "./community.factory";
-import { AddCoinsHandler, CreateCommunityHandler, DeleteCommunityHandler, RemoveUserHandler, UpdateCommunityHandler, RemoveCoinsHandler} from "./commands";
+import { AddCoinsHandler, CreateCommunityHandler, DeleteCommunityHandler, RemoveUserHandler, UpdateCommunityHandler, RemoveCoinsHandler, AddEventHandler} from "./commands";
 import { CommunityCreatedHandler } from "./events";
 import { DoesExistHandler, GetByNameHandler, GetCommunitiesByKeywordHandler, GetCommunityHandler, GetRecommendedCommunitiesHandler, GetAllCommunitiesHandler} from "./queries";
 import { AddPostHandler } from "./commands/add-post/add-post.handler";
@@ -50,7 +50,8 @@ import { RemovePostHandler } from "./commands/remove-post/remove-post.handler";
     GetCommunitiesByKeywordHandler,
     GetAllCommunitiesHandler,
     AddCoinsHandler,
-    RemoveCoinsHandler
+    RemoveCoinsHandler,
+    AddEventHandler
   ],
 })
 

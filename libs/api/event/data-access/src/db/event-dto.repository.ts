@@ -19,6 +19,6 @@ export class EventDtoRepository{
   }
 
   async getEventsByUsername(username: string){
-    return await this.eventModel.findOne({ username });
+    return await this.eventModel.find({ host: username });
   }
 }

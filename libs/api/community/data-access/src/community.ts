@@ -125,4 +125,15 @@ export class Community extends AggregateRoot{
             this.communityEP = 0;
         }
     }
+
+    addEvent(eventId: string){
+        if(this.events){
+            const arr = [...this.events, eventId];
+            this.events = arr;
+        }
+
+        else{
+            this.events = [eventId];
+        }
+    }
 }

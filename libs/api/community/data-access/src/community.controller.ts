@@ -23,6 +23,7 @@ import { GetCommunitiesByKeyWordQuery } from './queries/community-search/get-com
 import { GetAllCommunitiesQuery } from './queries/get-all-communities/getAllCommunities.query';
 import { AddCoinsCommand } from './commands/add-coins/add-coins.command';
 import { RemoveCoinsCommand } from './commands/remove-coins/remove-coins.command';
+import { AddEventCommand } from './commands/add-event/add-event.command';
 
 
 
@@ -96,6 +97,16 @@ export class CommunityController {
     ){
         return await this.commandBus.execute<RemoveCoinsCommand, CommunityDto>(
             new RemoveCoinsCommand(communityName, coins)
+        )
+    }
+
+    @Patch('add-event/:name/:event')
+    async addEvent(
+        @Param('name') communityName: string,
+        @Param('event') event: string
+    ){
+        return await this.commandBus.execute<AddEventCommand, CommunityDto>(
+            new AddEventCommand(communityName, event)
         )
     }
 
