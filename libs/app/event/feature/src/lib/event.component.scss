@@ -101,9 +101,9 @@
     width: 350px;
     height:150px;
     border-radius: 25px;
-    background-color: var(--card-color);
+    background-color: var(--ion-color-secondary-tint);
     z-index: 1;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -120,16 +120,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    font-family: CustomFont;
   }
   .EventName{
-    font-family: CustomFont;
     font-size: 20px;
     font-weight: bold;
     margin-left: 10px;
     color: var(--hover-color);
   }
   .Host{
-    font-family: CustomFont;
     font-size: 15px;
     margin-left: 10px;
     color: var(--ion-color-medium);
@@ -162,6 +161,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: CustomFont2;
 
   }
   .Details{
@@ -282,7 +282,6 @@
   }
 
   .More:hover{
-    transform:translateY(-3px);
     background-color: var(--ion-color-background);
     border: 2px solid #7867D3;
     color: #7867D3;
