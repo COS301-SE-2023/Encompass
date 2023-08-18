@@ -1,12 +1,10 @@
 .overlay-container {
     overflow:auto;
-    // background-color: var(--ion-color-background);
     width: 100%;
     height: 100%;
     object-fit: fill;
     z-index: 1;
     color: var(--ion-color-text);
-    // margin-left: 20px;
   }
 
 .image-container {
