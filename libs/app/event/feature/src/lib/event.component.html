@@ -1,1 +1,148 @@
-<p>event works!</p>
+<!-- <div class = "overlay-container">
+<ion-grid >
+<ion-row >
+    <ion-col size = 8 class = "EventsLayout">
+
+    </ion-col>
+    <ion-col size = 4 class = "ProfileLayout">
+        <ion-card class = "Profile">
+
+        </ion-card>
+    </ion-col>
+</ion-row>
+</ion-grid>
+</div>   -->
+
+<div class = "overlay-container">
+
+    <div class = "overlay">
+    </div>
+    <div class = "content">
+
+        <ion-grid>
+            <ion-row>
+                <ion-col size = 7 class = "EventsLayout">
+                    <div class = "searchEvent">
+                        <form #sendForm class="message-form" [formGroup]="messageForm" class="messageInput" (keyup.enter)="sendMessage()">
+                            <div class="input-box">
+                              <ion-input class="input" formControlName="messageInput" [(ngModel)]="inputValue" (input)="checkInput()"
+                                placeholder="Search Event..."></ion-input>
+                          
+                              <ion-button fill="clear" *ngIf="isValid" type="submit" (click)="sendMessage()">
+                                <ion-icon name="search" class="icon1"></ion-icon>
+                              </ion-button>
+                              <ion-button id="sendBtn" fill="clear" *ngIf="!isValid" disabled=true type="submit" (click)="sendMessage()">
+                                <ion-icon name="search" class="icon2"></ion-icon>
+                              </ion-button>
+                            </div>
+                          </form>
+                    </div>
+                    <div class = "EventList">
+                        <ion-card *ngFor="let event of events" class = "Event">
+                            <div class = "Head">
+                                <label class = "EventName">Event Name</label>
+                                <label class = "Host">Hosted by Name by Name</label>
+                            </div>
+                            <div class = "border"></div>
+                            <div class = "Body">
+                                This is the lovely description and here it is again 
+                                This is the lovely description and here it is again
+                            </div>
+                            <div class = "Footer">
+                               
+                                <div class = "Details">
+                                    <div *ngFor="let category of categories; let k=index" class="tooltip">
+                                        <img src = "assets/icon/{{category}}.png" class="imgDiv">
+                                    </div>
+                                    <label>15 MCQ</label>
+                                    <label>14 days left</label>
+                                </div>
+                                <ion-icon class = "Lock" name="lock-closed"></ion-icon>
+                            </div>
+                        </ion-card>
+
+                        
+                    </div>
+
+                    
+                    
+                </ion-col>
+                <ion-col size = 5 class = "ScoreLayout">
+                    <ion-card class = "Leaderboard">
+                        <div class = "Profile">
+                            <img src = "assets/icon/Coin.png" class = "CoinImg">
+                            <label class = "Name">Default Name</label>
+                            <label class = "Score">150 Encompass Points</label>
+                        </div>
+                        <div class = "Top5">
+                            <div class = "User">
+                                <div>
+                                    <label class = "Number">1</label>
+                                    <label class = "Suffix">st</label>
+                                </div>
+                                <img src = "assets/icon/Profile.png" class = "ProfileImg">
+                                <div class = "UserDetails">
+                                    <label class = "Username">User Name</label>
+                                    <label class = "Points">100 EP</label>
+                                </div>
+                                <ion-icon class = "userIcon" name="chevron-forward"></ion-icon>
+                            </div>
+                            <div class = "User" style="background-color: #A08FFC;">
+                                <div>
+                                    <label class = "Number">2</label>
+                                    <label class = "Suffix">nd</label>
+                                </div>
+                                <img src = "assets/icon/Profile.png" class = "ProfileImg">
+                                <div class = "UserDetails">
+                                    <label class = "Username">User Name</label>
+                                    <label class = "Points">100 EP</label>
+                                </div>
+                                <ion-icon class = "userIcon" name="chevron-forward"></ion-icon>
+                            </div>
+                            <div class = "User2" style="background-color: #D2CAFF;">
+                                <div>
+                                    <label class = "Number">3</label>
+                                    <label class = "Suffix">rd</label>
+                                </div>
+                                <img src = "assets/icon/Profile.png" class = "ProfileImg">
+                                <div class = "UserDetails">
+                                    <label class = "Username">User Name</label>
+                                    <label class = "Points">100 EP</label>
+                                </div>
+                                <ion-icon class = "userIcon" name="chevron-forward"></ion-icon>
+                            </div>
+                            <div class = "User2" style="background-color: var(--ion-color-background)">
+                                <div>
+                                    <label class = "Number">4</label>
+                                    <label class = "Suffix">th</label>
+                                </div>
+                                <img src = "assets/icon/Profile.png" class = "ProfileImg">
+                                <div class = "UserDetails">
+                                    <label class = "Username">User Name</label>
+                                    <label class = "Points">100 EP</label>
+                                </div>
+                                <ion-icon class = "userIcon" name="chevron-forward"></ion-icon>
+                            </div>
+                            <div class = "User2" style="background-color: var(--ion-color-background)">
+                                <div>
+                                    <label class = "Number">5</label>
+                                    <label class = "Suffix">th</label>
+                                </div>
+                                <img src = "assets/icon/Profile.png" class = "ProfileImg">
+                                <div class = "UserDetails">
+                                    <label class = "Username">User Name</label>
+                                    <label class = "Points">100 EP</label>
+                                </div>
+                                <ion-icon class = "userIcon" name="chevron-forward"></ion-icon>
+                            </div>
+                            <button class = "More">
+                                More
+                            </button>
+                        </div>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        
+    </div>
+</div>
