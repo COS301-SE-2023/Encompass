@@ -5,10 +5,11 @@ import { EventPage } from './event.component';
 import { EventRouting } from './event.routing';
 import { NgxsModule } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  imports: [CommonModule, IonicModule, EventRouting, NgxsModule.forFeature([HomeState])],
+  imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule,EventRouting, NgxsModule.forFeature([HomeState])],
   declarations: [EventPage],
   providers: [],
 })
