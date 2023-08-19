@@ -22,8 +22,6 @@ import { calendarPopoverComponent } from '@encompass/app/calendarPopover/feature
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent {
-  // postForm: FormGroup | undefined;
-  communities: string[] =["Hobbits and all thatsdadwadawda","Community2222"]; // Replace with the actual type of the communities array
   categories: string[]=["Action", "Adventure", "Animation", "Anime", "Arts", "Business",
    "Comedy", "Documentary", "Drama", "Fantasy", "Geography", "History", "Horror", 
    "Hospitality", "Life-Science", "Mathematics", "Musical", "Mystery", "Physics", 
@@ -45,8 +43,10 @@ export class CreatePostComponent {
   inputValue! : string;
   inputValue2! : string;
 
+  createPost=true;
+  createEvent=false;
 
-  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createPostApi: CreatePostApi, private popOverController: PopoverController) {
+  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createPostApi: CreatePostApi, private popoverController: PopoverController) {
       if(!this.profile){
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.subscribe((profile) => {
@@ -80,6 +80,45 @@ export class CreatePostComponent {
 
   get category() {
     return this.postForm.get('category');
+  }
+
+  // async openPopover(event: any) {
+  //   const popover = await this.popoverController.create({
+  //     component: 'popovercontent', // Use a unique name for identification
+  //     event,
+  //     translucent: true,
+  //     componentProps: {
+  //       // You can pass any additional data to the popover here if needed
+  //     },
+  //   });
+  
+  //   await popover.present();
+  // }
+
+  
+
+  async closePopover() {
+    await this.popoverController.dismiss();
+  }
+
+   months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+  
+   currentDate = new Date();
+  
+   formattedDate = `${this.months[this.currentDate.getMonth()]} ${this.currentDate.getDate()}, ${this.currentDate.getFullYear()}`;
+
+  change(type: string){
+    if(type=="Post"){
+      this.createPost=true;
+      this.createEvent=false;
+    }
+    else{
+      this.createPost=false;
+      this.createEvent=true;
+    }
   }
 
   
@@ -194,23 +233,7 @@ export class CreatePostComponent {
     
   }
 
-  chosenBtn(type:string)
-    {
-      if(type == 'eventBtn')
-      {
-        this.clickedButton = 'eventBtn';
-      }
-      if(type == 'postBtn')
-      {
-        this.clickedButton = 'postBtn';
-      }
-    }
-  // displayText() {
-  //   console.log(this.title?.value);
-  //   console.log(this.text?.value);
-  //   console.log(this.community?.value);
-  //   console.log(this.category?.value);
-  // }
+  
 
   closePopup() {
     this.modalController.dismiss();
@@ -247,6 +270,15 @@ export class CreatePostComponent {
   //   })
     
   // }
+
+  selectedDate!: string;
+
+  markSelectedDate() {
+    const selectedDateCell = document.querySelector(`.custom-datetime td[data-value="${this.selectedDate}"]`);
+    if (selectedDateCell) {
+      selectedDateCell.classList.add('selected-date');
+    }
+  }
 
   async uploadFile() : Promise<string | null>{
     return new Promise((resolve) => {
