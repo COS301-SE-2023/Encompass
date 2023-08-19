@@ -54,6 +54,8 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Project Manager</li>
       <li>Designer</li>
       <li>UI Engineer</li>
+      <li>System Architecture Design</li>
+      <li>Integration and Data Engineering assist</li>
     </ul>
     <details>
     <summary>See More...</summary>
@@ -76,40 +78,14 @@ Email: perfectstrangers.tuks@gmail.com
 
 <br><br>
 <div style="display: flex; align-items: center;">
-  <img src="https://user-images.githubusercontent.com/89075980/236036745-e26dcf3e-c8bf-45a6-92b2-69d7ee0f197d.jpg" width="150" style="margin-right: 20px; ">
-  <div>
-    <h3>Keabetswe Mothapo</h3>
-    <ul>
-      <li>Business Analyst</li>
-      <li>UI Engineer</li>
-      <li>Tester</li>
-    </ul>
-    <details>
-    <summary>See More...</summary>
-    <p>
-      I am an aspiring expert in IT and law, with experience in software development and database management using various programming languages. I possess strong analytical and critical thinking skills, which enable me to navigate complex legal issues in the fast-paced world of technology. I am adept at communicating technical concepts in simple language and building strong relationships with legal and technical professionals. My strong work ethic and motivation drive me to stay up-to-date with the latest technological advancements and legal developments, allowing me to deliver exceptional results for both my work and studies. Ultimately, I am committed to using my skill set to help individuals and organizations navigate the complex landscape of technology law in a safe, legal, and ethical manner.
-    </p>
-    </details>
-    <div>
-      <a href="https://github.com/keamothapo" target="_blank">
-        <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
-      </a>
-      <a href="https://www.linkedin.com/in/keabetswe-mothapo/" target="_blank">
-        <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn">
-      </a>
-    </div>
-  </div>
-</div>
-
-<br><br>
-<div style="display: flex; align-items: center;">
   <img src="https://user-images.githubusercontent.com/126817281/236040993-d213e57b-6ae3-4b3e-9c6a-72b8dc3f8d2b.jpg" width="150" style="margin-right: 20px;">
   <div>
     <h3>Morgan Bentley</h3>
     <ul>
       <li>Integration Engineer</li>
       <li>Services Engineer</li>
-      <li>Tester</li>
+      <li>Backend and Integration Tester</li>
+      <li>AI Algorithm Engineer</li>
     </ul>
     <details>
     <summary>See More...</summary>
@@ -137,6 +113,7 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Designer</li>
       <li>UI Engineer</li>
       <li>Integration Engineer</li>
+      <li>Services Engineer</li>
     </ul>
     <details>
     <summary>See More...</summary>
@@ -164,6 +141,8 @@ Email: perfectstrangers.tuks@gmail.com
       <li>DevOps</li>
       <li>Services Engineer</li>
       <li>Integration Engineer</li>
+      <li>Unit Testing</li>
+      <li>Data Engineer</li>
     </ul>
     <details>
     <summary>See More...</summary>
