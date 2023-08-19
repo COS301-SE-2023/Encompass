@@ -60,6 +60,9 @@
       "@encompass/api/settings/data-access": [
         "libs/api/settings/data-access/src/index.ts"
       ],
+      "@encompass/api/user-events/data-access": [
+        "libs/api/user-events/data-access/src/index.ts"
+      ],
       "@encompass/app/comments/data-access": [
         "libs/app/comments/data-access/src/index.ts"
       ],
