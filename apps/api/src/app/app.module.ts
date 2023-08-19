@@ -20,6 +20,7 @@ import {ServeStaticModule} from '@nestjs/serve-static';
 import { join } from 'path';
 import { SearchModule } from '@encompass/api/search/data-access';
 import { EventModule } from '@encompass/api/event/data-access';
+import { UserEventsModule } from '@encompass/api/user-events/data-access';
 
 const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
 
@@ -45,6 +46,7 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     SettingsModule,
     SearchModule,
     EventModule,
+    UserEventsModule
     // DatabaseModule
   ],
   controllers: [AppController],
