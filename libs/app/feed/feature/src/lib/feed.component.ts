@@ -90,7 +90,7 @@ export class FeedPage {
   sharing: boolean[] = [];
   size=0;
   themeName!: string;
-  colSize=12.5;
+  colSize=0;
   // type = "recommended";
 
   communitiesIsFetched = false
@@ -99,12 +99,26 @@ export class FeedPage {
   postsIsFetched = false
   ShowBooks = true;
   ShowMovies = true;
-  mobileview = true;
+  mobileview = false;
 
   type = "recommended";
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController, private datePipe: DatePipe){
     this.load();
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    if (this.mobileview) {
+      this.colSize = 12.5;
+    }else{
+      this.colSize = 5;
+    }
   }
 
   ngOnDestroy() {

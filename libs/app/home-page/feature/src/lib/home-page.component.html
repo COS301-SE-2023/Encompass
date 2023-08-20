@@ -1,322 +1,513 @@
-<div id='home-page' class="theme-page">
-<ion-split-pane>
-
-  <!-- desktop view -->
-  <ion-menu type="overlay" side="start" id="main-content" class="menu-pane" >
-    <div class="menu-container">
-
-    
-      
-    <ion-content class="ion-padding buttons-menu-container">
-      <div class="logoButton" (click)="goHome()">
-        <ion-button fill="clear" class="centeredButton">
-          <div class="square-image">
-            <img id="logo-default" #logoDefault src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-            <img id="logo-red" #logoRed src="assets/logos/logo-red.png" class="logo2 logo-red visible" alt="Encompass Logo">
-            <img id="logo-blue" #logoBlue src="assets/logos/logo-blue.png" class="logo2 logo-blue visible" alt="Encompass Logo">
-            <img id="logo-green" #logoGreen src="assets/logos/logo-green.png" class="logo2 logo-green visible" alt="Encompass Logo">
-            <img id="logo-orange" #logoOrange src="assets/logos/logo-orange.png" class="logo2 logo-orange visible" alt="Encompass Logo">
-          </div>
-          <span class="logo-span">Home</span>
-        </ion-button>
-        
-      </div>
-      
-      <div class="MenuButton top-button" >
-        <ion-button class="full" fill="clear" id="popover-button" (click)="toggleSearch()">
-          <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
-          <span>Search</span>
-          <!-- <ion-tooltip *ngIf="showTooltip">Tooltip text here</ion-tooltip> -->
-        </ion-button>
-        
-      </div>
-
-      <div class="MenuButton">
-        <ion-button fill="clear" (click)="goToExplore()">
-          <ion-icon name="rocket" style="font-size: larger; position:relative;"></ion-icon>
-          <span>Explore</span>
-        </ion-button>
-      </div>
-
-      <div class="MenuButton">
-        <ion-button fill="clear" (click)="goToChat()">
-          <ion-icon name="chatbubbles" style="font-size: larger; position:relative;"></ion-icon>
-          <span>Messages</span>
-        </ion-button>
-      </div>
-
-      <div class="MenuButton">
-        <ion-button fill="clear"(click)="toggleNotifications()">
-          <ion-icon name="notifications" style="font-size: larger; position:relative;"></ion-icon>
-          <span>Notifications</span>
-        </ion-button>
-      </div>
-
-      <div class="MenuButton">
-        <ion-button id="profile-trigger" fill="clear" (click)="goToProfile()">
-          <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
-          <span>Profile</span>
-        </ion-button>
-      </div>
-      
-      <div class="menuFooter">
-        <ion-button id="menu-pop"  fill="clear">
-        <ion-icon id="menu-pop" name="menu"></ion-icon>
-        <span>More Options</span>
-      </ion-button>
-      </div>
-
-      <ion-popover trigger="menu-pop" [dismissOnSelect]="true" side="top" alignment="end" showBackdrop="false">
-        <ng-template>
-          <ion-content class="popover-content" style="margin-bottom: 210px;">
-            <ion-list>
-              <ion-item [button]="true" [detail]="false" (click)="goToEvents()">
-                <ion-icon name="megaphone-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-                Events
-              </ion-item>
-              <ion-item [button]="true" [detail]="false" (click)="goToThemes()">
-                <ion-icon name="color-palette-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-                Themes
-              </ion-item>
-              <ion-item [button]="true" [detail]="false" (click)="goToSettings()">
-                <ion-icon name="settings-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-                Settings
-              </ion-item>
-              <ion-item [button]="true" [detail]="false" (click)="logout()">
-                <ion-icon name="exit-outline" color="primary" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-                Logout
-              </ion-item>
-            </ion-list>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-
-    </ion-content>
-  </div>
-  </ion-menu>
-
-  <div class="notifications-card" *ngIf="showNotifications" id="notifications-card">
-    <ion-header class="noti-header">
-      <div class="noti-text">
-        Notifications
-         <div class="alert"></div>
-        </div>
-    </ion-header>
-    <ion-content>
-      <ion-list class="custom-list">
-        <div *ngFor="let notify of notifications?.notifications">
-          <ion-item color="var(--ion-color-background)">
-            <div class="noti-background">
-            <div class="user">
-              <div class="alert"></div>
-              <ion-avatar slot="start">
-                <img src={{notify.picture}} onerror="this.src='assets/icon/Profile.png';">
-              </ion-avatar>
-              <ion-icon class="delete-icon" name="trash-bin" (click)="clearNotification(notify.notificationId)"></ion-icon>
-            </div>
-            <ion-label>
-              <div class="noti-title">
-                <span class="bold-text">{{notify.sentBy}} {{notify.title}}</span>
-                <span>  ⋅  </span>
-                <span>{{notify.dateTime | date: 'medium'}}</span>
+<div id="home-page" class="theme-page">
+  <ion-split-pane>
+    <!-- desktop view -->
+    <ion-menu type="overlay" side="start" id="main-content" class="menu-pane">
+      <div class="menu-container">
+        <ion-content class="ion-padding buttons-menu-container">
+          <div class="logoButton" (click)="goHome()">
+            <ion-button fill="clear" class="centeredButton">
+              <div class="square-image">
+                <img
+                  id="logo-default"
+                  #logoDefault
+                  src="assets/icon/Logo.png"
+                  class="logo"
+                  alt="Encompass Logo"
+                />
+                <img
+                  id="logo-red"
+                  #logoRed
+                  src="assets/logos/logo-red.png"
+                  class="logo2 logo-red visible"
+                  alt="Encompass Logo"
+                />
+                <img
+                  id="logo-blue"
+                  #logoBlue
+                  src="assets/logos/logo-blue.png"
+                  class="logo2 logo-blue visible"
+                  alt="Encompass Logo"
+                />
+                <img
+                  id="logo-green"
+                  #logoGreen
+                  src="assets/logos/logo-green.png"
+                  class="logo2 logo-green visible"
+                  alt="Encompass Logo"
+                />
+                <img
+                  id="logo-orange"
+                  #logoOrange
+                  src="assets/logos/logo-orange.png"
+                  class="logo2 logo-orange visible"
+                  alt="Encompass Logo"
+                />
               </div>
-              <p>{{notify.description}}</p>
-            </ion-label>
+              <span class="logo-span">Home</span>
+            </ion-button>
           </div>
-          </ion-item>
-        </div>
-      </ion-list>
-    </ion-content>
-    <div class="deleteAll" (click)="clearAllNotifications()">
-      <ion-icon name="trash-bin-outline"></ion-icon>
-      <span>Delete All</span>
-    </div>
-  </div>
 
+          <div class="MenuButton top-button">
+            <ion-button
+              class="full"
+              fill="clear"
+              id="popover-button"
+              (click)="toggleSearch()"
+            >
+              <ion-icon
+                name="search"
+                style="font-size: larger; position: relative"
+              ></ion-icon>
+              <span>Search</span>
+              <!-- <ion-tooltip *ngIf="showTooltip">Tooltip text here</ion-tooltip> -->
+            </ion-button>
+          </div>
 
-  <div class="search-card custom-list" *ngIf="showSearch"  id="search-card">
-      <div class="search-header search-text">
-        Search
+          <div class="MenuButton">
+            <ion-button fill="clear" (click)="goToExplore()">
+              <ion-icon
+                name="rocket"
+                style="font-size: larger; position: relative"
+              ></ion-icon>
+              <span>Explore</span>
+            </ion-button>
+          </div>
+
+          <div class="MenuButton">
+            <ion-button fill="clear" (click)="goToChat()">
+              <ion-icon
+                name="chatbubbles"
+                style="font-size: larger; position: relative"
+              ></ion-icon>
+              <span>Messages</span>
+            </ion-button>
+          </div>
+
+          <div class="MenuButton">
+            <ion-button fill="clear" (click)="toggleNotifications()">
+              <ion-icon
+                name="notifications"
+                style="font-size: larger; position: relative"
+              ></ion-icon>
+              <span>Notifications</span>
+            </ion-button>
+          </div>
+
+          <div class="MenuButton">
+            <ion-button
+              id="profile-trigger"
+              fill="clear"
+              (click)="goToProfile()"
+            >
+              <ion-icon
+                name="person-circle"
+                style="font-size: larger; position: relative"
+              ></ion-icon>
+              <span>Profile</span>
+            </ion-button>
+          </div>
+
+          <div class="menuFooter">
+            <ion-button id="menu-pop" fill="clear">
+              <ion-icon id="menu-pop" name="menu"></ion-icon>
+              <span>More Options</span>
+            </ion-button>
+          </div>
+
+          <ion-popover
+            trigger="menu-pop"
+            [dismissOnSelect]="true"
+            side="top"
+            alignment="end"
+            showBackdrop="false"
+          >
+            <ng-template>
+              <ion-content class="popover-content" style="margin-bottom: 210px">
+                <ion-list>
+                  <ion-item
+                    [button]="true"
+                    [detail]="false"
+                    (click)="goToEvents()"
+                  >
+                    <ion-icon
+                      name="megaphone-outline"
+                      color="primary"
+                      style="
+                        font-size: 28px;
+                        position: relative;
+                        margin-right: 10px;
+                      "
+                    ></ion-icon>
+                    Events
+                  </ion-item>
+                  <ion-item
+                    [button]="true"
+                    [detail]="false"
+                    (click)="goToThemes()"
+                  >
+                    <ion-icon
+                      name="color-palette-outline"
+                      color="primary"
+                      style="
+                        font-size: 28px;
+                        position: relative;
+                        margin-right: 10px;
+                      "
+                    ></ion-icon>
+                    Themes
+                  </ion-item>
+                  <ion-item
+                    [button]="true"
+                    [detail]="false"
+                    (click)="goToSettings()"
+                  >
+                    <ion-icon
+                      name="settings-outline"
+                      color="primary"
+                      style="
+                        font-size: 28px;
+                        position: relative;
+                        margin-right: 10px;
+                      "
+                    ></ion-icon>
+                    Settings
+                  </ion-item>
+                  <ion-item [button]="true" [detail]="false" (click)="logout()">
+                    <ion-icon
+                      name="exit-outline"
+                      color="primary"
+                      style="
+                        font-size: 28px;
+                        position: relative;
+                        margin-right: 10px;
+                      "
+                    ></ion-icon>
+                    Logout
+                  </ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+        </ion-content>
       </div>
-      <ion-searchbar placeholder="Search" (ionChange)="search($event)"></ion-searchbar>
+    </ion-menu>
 
-    <ion-content class="custom-list">
-      <div class="custom-background">
-
-          
-         <!-- people -->
-         <div>
-         <div class="peopleSearch" *ngIf="peopleExists">
-       
-          <ion-list class="custom-list list-item" >
-
-            <ion-item class="peopleItem" *ngFor="let people of searchprofiles" color="var(--ion-color-background)" (click)="GoToProfile(people.username)">
-              <div class="search-item" id="search-person">
-              <ion-avatar class="peopleAvatar" slot="start">
-                <img src="{{people?.profileImage}}" onerror="this.src='assets/icon/Profile.png';" class="peopleIcon">
-              </ion-avatar>
-            </div>
-              <ion-label>
-                <div class="search-title">
-                  <span class="personName bold-text">{{people?.name}} {{people?.lastName}}</span>
-                  <span class="personUsername">@{{people?.username}}</span>
-                </div>
-                <p class="personDesc">{{people?.bio}}</p>
-              </ion-label>
-              <ion-button fill="clear" slot="end" class="followButton"><ion-icon name="person-add"></ion-icon></ion-button>
-               <ion-button fill="clear" *ngIf="" slot="end" class="followButton"><ion-icon name="person-remove"></ion-icon></ion-button> 
-
-            </ion-item>
-          </ion-list>
-
-         </div>
-         <div class="tempNoResult" *ngIf="!peopleExists">
-          <span>No Search Results</span>
-         </div>
+    <div
+      class="notifications-card"
+      *ngIf="showNotifications"
+      id="notifications-card"
+    >
+      <ion-header class="noti-header">
+        <div class="noti-text">
+          Notifications
+          <div class="alert"></div>
         </div>
-
-
-
+      </ion-header>
+      <ion-content>
+        <ion-list class="custom-list">
+          <div *ngFor="let notify of notifications?.notifications">
+            <ion-item color="var(--ion-color-background)">
+              <div class="noti-background">
+                <div class="user">
+                  <div class="alert"></div>
+                  <ion-avatar slot="start">
+                    <img
+                      src="{{ notify.picture }}"
+                      onerror="this.src='assets/icon/Profile.png';"
+                    />
+                  </ion-avatar>
+                  <ion-icon
+                    class="delete-icon"
+                    name="trash-bin"
+                    (click)="clearNotification(notify.notificationId)"
+                  ></ion-icon>
+                </div>
+                <ion-label>
+                  <div class="noti-title">
+                    <span class="bold-text"
+                      >{{ notify.sentBy }} {{ notify.title }}</span
+                    >
+                    <span> ⋅ </span>
+                    <span>{{ notify.dateTime | date : 'medium' }}</span>
+                  </div>
+                  <p>{{ notify.description }}</p>
+                </ion-label>
+              </div>
+            </ion-item>
+          </div>
+        </ion-list>
+      </ion-content>
+      <div class="deleteAll" (click)="clearAllNotifications()">
+        <ion-icon name="trash-bin-outline"></ion-icon>
+        <span>Delete All</span>
+      </div>
     </div>
 
+    <div class="search-card custom-list" *ngIf="showSearch" id="search-card">
+      <div class="search-header search-text">Search</div>
+      <ion-searchbar
+        placeholder="Search"
+        (ionChange)="search($event)"
+      ></ion-searchbar>
 
-      <ion-footer class="search-footer">
-        <ion-toolbar class="search-toolbar">
-          <div class="footer-text">
-            <ion-icon name="search"></ion-icon>
-            <div>
-              <span>Search for <a href="/home/search-explore">"{{keyword}}"</a></span>
+      <ion-content class="custom-list">
+        <div class="custom-background">
+          <!-- people -->
+          <div>
+            <div class="peopleSearch" *ngIf="peopleExists">
+              <ion-list class="custom-list list-item">
+                <ion-item
+                  class="peopleItem"
+                  *ngFor="let people of searchprofiles"
+                  color="var(--ion-color-background)"
+                  (click)="GoToProfile(people.username)"
+                >
+                  <div class="search-item" id="search-person">
+                    <ion-avatar class="peopleAvatar" slot="start">
+                      <img
+                        src="{{ people?.profileImage }}"
+                        onerror="this.src='assets/icon/Profile.png';"
+                        class="peopleIcon"
+                      />
+                    </ion-avatar>
+                  </div>
+                  <ion-label>
+                    <div class="search-title">
+                      <span class="personName bold-text"
+                        >{{ people?.name }} {{ people?.lastName }}</span
+                      >
+                      <span class="personUsername"
+                        >@{{ people?.username }}</span
+                      >
+                    </div>
+                    <p class="personDesc">{{ people?.bio }}</p>
+                  </ion-label>
+                  <ion-button fill="clear" slot="end" class="followButton"
+                    ><ion-icon name="person-add"></ion-icon
+                  ></ion-button>
+                  <ion-button
+                    fill="clear"
+                    *ngIf=""
+                    slot="end"
+                    class="followButton"
+                    ><ion-icon name="person-remove"></ion-icon
+                  ></ion-button>
+                </ion-item>
+              </ion-list>
             </div>
+            <div class="tempNoResult" *ngIf="!peopleExists">
+              <span>No Search Results</span>
+            </div>
+          </div>
+        </div>
+
+        <ion-footer class="search-footer">
+          <ion-toolbar class="search-toolbar">
+            <div class="footer-text">
+              <ion-icon name="search"></ion-icon>
+              <div>
+                <span
+                  >Search for
+                  <a href="/home/search-explore">"{{ keyword }}"</a></span
+                >
+              </div>
+            </div>
+          </ion-toolbar>
+        </ion-footer>
+      </ion-content>
+    </div>
+
+    <!-- mobile view -->
+
+    <!-- mobile side menu  -->
+    <ion-menu menuId="first-menu" contentId="main-content" (ionDidOpen)="menuOpened()">
+      <ion-content class="ion-padding buttons-menu-container mobilemenu">
+        <ion-button fill="clear" class="mobileLogo" (click)="goHome()">
+          <div class="square-image">
+            <img
+              *ngIf="default"
+              id="logo-default-mobile"
+              #logoDefault
+              src="assets/icon/Logo.png"
+              class="logo"
+              alt="Encompass Logo visible"
+            />
+            <img
+            *ngIf="red"
+              id="logo-red-mobile"
+              #logoRed
+              src="assets/logos/logo-red.png"
+              class="logo2 logo-red"
+              alt="Encompass Logo"
+            />
+            <img
+              *ngIf="blue"
+              id="logo-blue-mobile"
+              #logoBlue
+              src="assets/logos/logo-blue.png"
+              class="logo2 logo-blue"
+              alt="Encompass Logo"
+            />
+            <img
+            *ngIf="blue"
+              id="logo-green-mobile"
+              #logoGreen
+              src="assets/logos/logo-green.png"
+              class="logo2 logo-green"
+              alt="Encompass Logo"
+            />
+            <img
+            *ngIf="orange"
+              id="logo-orange-mobile"
+              #logoOrange
+              src="assets/logos/logo-orange.png"
+              class="logo2 logo-orange"
+              alt="Encompass Logo"
+            />
+          </div>
+        </ion-button>
+
+        <div class="buttons-container">
+          <ion-button class="posts" fill="clear" (click)="openPopup()"
+            >Create a Post</ion-button
+          >
+          <ion-button class="comms" fill="clear" (click)="openPopup2()"
+            >Create a Community</ion-button
+          >
+        </div>
+
+        <div class="optionalbuttons">
+          <div class="MenuButton top-button">
+            <ion-button
+              class="full"
+              fill="clear"
+              id="popover-button"
+              (click)="toggleSearch()"
+            >
+              <ion-icon
+                name="megaphone-outline"
+                style="font-size: 28px; position: relative; margin-right: 10px"
+              ></ion-icon>
+              <span>Events</span>
+            </ion-button>
+          </div>
+
+          <div class="MenuButton">
+            <ion-button fill="clear" (click)="goToThemes()">
+              <ion-icon
+                name="color-palette-outline"
+                style="font-size: 28px; position: relative; margin-right: 10px"
+              ></ion-icon>
+              <span>Themes</span>
+            </ion-button>
+          </div>
+
+          <div class="MenuButton">
+            <ion-button fill="clear" (click)="goToSettings()">
+              <ion-icon
+                name="settings-outline"
+                style="font-size: 28px; position: relative; margin-right: 10px"
+              ></ion-icon>
+              <span>Settings</span>
+            </ion-button>
+          </div>
+        </div>
+
+        <div class="menuFooter mobileFooter">
+          <ion-button id="menu-pop" fill="clear" (click)="logout()">
+            <ion-icon
+              name="exit-outline"
+              style="font-size: 28px; position: relative; margin-right: 10px"
+            ></ion-icon>
+            <span>Logout</span>
+          </ion-button>
+        </div>
+      </ion-content>
+    </ion-menu>
+
+    <!-- header -->
+
+    <div class="ion-page" id="main-content" *ngIf="mobileview">
+      <ion-header class="mobile">
+        <ion-toolbar class="headermb">
+          <ion-button fill="clear" (click)="openFirstMenu()">
+            <ion-icon name="menu-outline" slot="start"></ion-icon>
+          </ion-button>
+
+          <div slot="end">
+            <ion-button
+              fill="clear"
+              id="popover-button"
+              (click)="toggleSearch()"
+            >
+              <ion-icon
+                name="search"
+                style="font-size: larger; position: relative"
+              ></ion-icon>
+            </ion-button>
+            <ion-button
+              id="profile-trigger"
+              fill="clear"
+              (click)="goToProfile()"
+            >
+              <ion-icon
+                name="person-circle"
+                style="font-size: larger; position: relative"
+              ></ion-icon>
+            </ion-button>
           </div>
         </ion-toolbar>
-      </ion-footer>
-    </ion-content>
-    
-  </div>
+      </ion-header>
 
+      <!-- mobile content  -->
 
-<!-- mobile view -->
-
-<!-- mobile side menu  -->
-<ion-menu menuId="first-menu" contentId="main-content">
-  <ion-content class="ion-padding buttons-menu-container mobilemenu">
-
-    <ion-button fill="clear" class="mobileLogo" (click)="goHome()">
-      <div class="square-image">
-        <img id="logo-default" #logoDefault src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-        <img id="logo-red" #logoRed src="assets/logos/logo-red.png" class="logo2 logo-red visible" alt="Encompass Logo">
-        <img id="logo-blue" #logoBlue src="assets/logos/logo-blue.png" class="logo2 logo-blue visible" alt="Encompass Logo">
-        <img id="logo-green" #logoGreen src="assets/logos/logo-green.png" class="logo2 logo-green visible" alt="Encompass Logo">
-        <img id="logo-orange" #logoOrange src="assets/logos/logo-orange.png" class="logo2 logo-orange visible" alt="Encompass Logo">
-      </div>
-    </ion-button>
-    
-    <div class="buttons-container">
-      <ion-button class="posts" fill="clear" (click) = "openPopup()" >Create a Post</ion-button>
-      <ion-button class="comms" fill="clear" (click) = "openPopup2()">Create a Community</ion-button>
+      <ion-content
+        id="main-content"
+        class="mobile mobileContent"
+        *ngIf="mobileview"
+      >
+        <router-outlet
+          class="router-pane"
+          (click)="routerClick()"
+        ></router-outlet>
+      </ion-content>
     </div>
 
-    <div class="optionalbuttons">
-    <div class="MenuButton top-button" >
-      <ion-button class="full" fill="clear" id="popover-button" (click)="toggleSearch()">
-        <ion-icon name="megaphone-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-        <span>Events</span>
-      </ion-button>
-      
-    </div>
+    <!-- desktop content -->
 
-    <div class="MenuButton">
-      <ion-button fill="clear" (click)="goToThemes()">
-        <ion-icon name="color-palette-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-        <span>Themes</span>
-      </ion-button>
-    </div>
+    <ion-router-outlet
+      id="main-content"
+      class="router-pane"
+      (click)="routerClick()"
+      *ngIf="!mobileview"
+    >
+    </ion-router-outlet>
 
-    <div class="MenuButton">
-      <ion-button fill="clear" (click)="goToSettings()">
-        <ion-icon name="settings-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-        <span>Settings</span>
-      </ion-button>
-    </div>
-  </div>
+    <!-- mobile footer  -->
+    <ion-footer class="footer mobile">
+      <ion-toolbar class="mobile-footer">
+        <div class="ion-segment-container">
+          <ion-segment color="success" value="homeButton">
+            <ion-segment-button value="homeButton" (click)="goHome()">
+              <ion-icon name="home"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="searchButton" (click)="goToExplore()">
+              <ion-icon name="rocket"></ion-icon>
+            </ion-segment-button>
 
-    <div class="menuFooter mobileFooter">
-      <ion-button id="menu-pop"  fill="clear" (click)="logout()">
-        <ion-icon name="exit-outline" style="font-size: 28px; position:relative; margin-right: 10px;"></ion-icon>
-      <span>Logout</span>
-    </ion-button>
-    </div>
-
-  </ion-content>
-</ion-menu>
-
-
-<!-- header -->
-
-<div class="ion-page" id="main-content" *ngIf="mobileview">
-  <ion-header class="mobile">
-    <ion-toolbar class="headermb">
-      <ion-button fill="clear" (click)="openFirstMenu()">
-        <ion-icon name="menu-outline" slot="start"></ion-icon>
-      </ion-button>
-      
-      <div slot="end">
-      <ion-button fill="clear" id="popover-button" (click)="toggleSearch()">
-        <ion-icon name="search" style="font-size: larger; position:relative;"></ion-icon>
-      </ion-button>
-      <ion-button id="profile-trigger" fill="clear" (click)="goToProfile()">
-        <ion-icon name="person-circle" style="font-size: larger; position:relative;"></ion-icon>
-      </ion-button>
-    </div>
-    </ion-toolbar>
-  </ion-header>
-
-  <!-- mobile content  -->
-
-  <ion-content id="main-content" class="mobile mobileContent" *ngIf="mobileview">
-    <router-outlet class="router-pane" (click)="routerClick()"></router-outlet>
-  </ion-content>
-</div>
-  
-
-
-
-<!-- desktop content -->
-
-<ion-router-outlet id="main-content" class="router-pane" (click)="routerClick()" *ngIf="!mobileview">
-  </ion-router-outlet>
-
-
-
-
-
-
-<!-- mobile footer  -->
-  <ion-footer class="footer mobile">
-    <ion-toolbar class="mobile-footer">
-      <div class="ion-segment-container">
-      <ion-segment color="success" value="homeButton">
-        <ion-segment-button value="homeButton" (click)="goHome()">
-          <ion-icon name="home"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="searchButton" (click)="goToExplore()">
-          <ion-icon name="rocket"></ion-icon>
-        </ion-segment-button>
-  
-        <!-- <ion-segment-button id="popover-button" value="addButton">
+            <!-- <ion-segment-button id="popover-button" value="addButton">
           <ion-icon name="duplicate"></ion-icon>
         </ion-segment-button> -->
-  
-        <ion-segment-button value="notiButton" >
-          <ion-icon name="notifications"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="chatButton" (click)="goToChat()">
-          <ion-icon name="chatbubble-ellipses"></ion-icon>
-        </ion-segment-button>
-      </ion-segment>
-    </div>
-    </ion-toolbar>
-  </ion-footer>
 
-</ion-split-pane>
+            <ion-segment-button value="notiButton">
+              <ion-icon name="notifications"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="chatButton" (click)="goToChat()">
+              <ion-icon name="chatbubble-ellipses"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  </ion-split-pane>
 </div>
