@@ -286,7 +286,8 @@
                   <div class = "SearchCommunityHeader"> 
                     <img src = {{community?.groupImage}} 
                     onerror="this.src='assets/icon/Group.png';"
-                    class = "SearchCommunityIcon" >                     
+                    class = "SearchCommunityIcon" 
+                    (click)="GoToCommunity(community.name)">                     
                     <div class = "SearchCommunityDetails" >
                       <div class="nameAndMembers"> 
                       <div class = "SearchCommunityName">{{community.name}}</div>
