@@ -129,6 +129,7 @@ export class HomePage {
   }
 
   async openPopup() {
+    this.menuCtrl.close('first-menu');
     const modal = await this.modalController.create({
       component: CreatePostComponent,
       cssClass: 'custom-modal',
@@ -139,6 +140,7 @@ export class HomePage {
   }
 
   async openPopup2() {
+    this.menuCtrl.close('first-menu');
     const modal = await this.modalController.create({
       component: CreateCommunityComponent,
       cssClass: 'custom-modal',
@@ -298,6 +300,7 @@ export class HomePage {
   goHome() {
     this.routerClick();
     this.router.navigate(['/home/feed']);
+    this.menuCtrl.close('first-menu');
   }
 
   GoToComments() {
@@ -318,16 +321,19 @@ export class HomePage {
   goToSettings() {
     this.routerClick();
     this.router.navigate(['/home/settings']);
+    this.menuCtrl.close('first-menu');
   }
 
   goToThemes() {
     this.routerClick();
     this.router.navigate(['/home/themes']);
+    this.menuCtrl.close('first-menu');
   }
 
   goToEvents() {
     this.routerClick();
     // this.router.navigate(['/home/events']);
+    this.menuCtrl.close('first-menu');
   }
 
   clearNotification(id: string) {

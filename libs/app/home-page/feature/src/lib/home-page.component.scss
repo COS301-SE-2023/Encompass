@@ -511,6 +511,13 @@ ion-router-outlet {
   .mobile {
     display: none;
   }
+
+  .square-image {
+    width: 120px; /* Set your desired width here */
+    height: 120px; /* Set your desired height here */
+    overflow: hidden;
+  }
+  
 }
 
 .menumb {
@@ -609,6 +616,18 @@ ion-router-outlet {
   margin-left: 25vw;
 }
 
+.mobileLogobigger {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  height: fit-content;
+  height: fit-content;
+  margin-left: 19vw;
+} 
+
 .mobilemenu {
   ion-button {
     color: var(--ion-color-text);
@@ -622,4 +641,9 @@ ion-router-outlet {
 
 .optionalbuttons {
   margin-top: 15px;
+}
+
+.logomobile {
+  max-width: 150px;
+  max-height: 150px;
 }

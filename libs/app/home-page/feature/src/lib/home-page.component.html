@@ -322,7 +322,7 @@
     <!-- mobile side menu  -->
     <ion-menu menuId="first-menu" contentId="main-content" (ionDidOpen)="menuOpened()">
       <ion-content class="ion-padding buttons-menu-container mobilemenu">
-        <ion-button fill="clear" class="mobileLogo" (click)="goHome()">
+        <ion-button fill="clear" class="mobileLogo" (click)="goHome()" *ngIf="default">
           <div class="square-image">
             <img
               *ngIf="default"
@@ -332,12 +332,16 @@
               class="logo"
               alt="Encompass Logo visible"
             />
+          </div>
+        </ion-button>
+        <ion-button fill="clear" class="mobileLogobigger" (click)="goHome()" *ngIf="!default">
+          <div class="square-image">
             <img
             *ngIf="red"
               id="logo-red-mobile"
               #logoRed
               src="assets/logos/logo-red.png"
-              class="logo2 logo-red"
+              class="logomobile logo-red"
               alt="Encompass Logo"
             />
             <img
@@ -345,7 +349,7 @@
               id="logo-blue-mobile"
               #logoBlue
               src="assets/logos/logo-blue.png"
-              class="logo2 logo-blue"
+              class="logomobile logo-blue"
               alt="Encompass Logo"
             />
             <img
@@ -353,7 +357,7 @@
               id="logo-green-mobile"
               #logoGreen
               src="assets/logos/logo-green.png"
-              class="logo2 logo-green"
+              class="logomobile logo-green"
               alt="Encompass Logo"
             />
             <img
@@ -361,7 +365,7 @@
               id="logo-orange-mobile"
               #logoOrange
               src="assets/logos/logo-orange.png"
-              class="logo2 logo-orange"
+              class="logomobile logo-orange"
               alt="Encompass Logo"
             />
           </div>
