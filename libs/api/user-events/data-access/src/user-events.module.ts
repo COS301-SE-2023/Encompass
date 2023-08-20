@@ -8,7 +8,7 @@ import { UserEventsEntityRepository } from "./db/user-events-entity.repository";
 import { UserEventsDtoRepository } from "./db/user-events-dto.repository";
 import { UserEventsFactory } from "./user-events.factory";
 import { UserEventsSchemaFactory } from "./db/user-events-schema.factory";
-import { CreateUserEventsHandler } from "./commands";
+import { AddEventHandler, CreateUserEventsHandler, UpdateEventHandler } from "./commands";
 import { UserEventsCreatedHandler } from "./events";
 import { GetUserEventsHandler } from "./queries";
 
@@ -32,7 +32,9 @@ import { GetUserEventsHandler } from "./queries";
     UserEventsFactory,
     CreateUserEventsHandler,
     UserEventsCreatedHandler,
-    GetUserEventsHandler
+    GetUserEventsHandler,
+    UpdateEventHandler,
+    AddEventHandler
   ]
 })
 

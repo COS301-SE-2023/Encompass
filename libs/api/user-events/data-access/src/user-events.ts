@@ -1,4 +1,5 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+import { UpdateEventRequest } from "./dto";
 
 export class UserEvents extends AggregateRoot{
   constructor(
@@ -41,5 +42,15 @@ export class UserEvents extends AggregateRoot{
     else{
       this.events = [newEvent]
     }
+  }
+
+  updateEvent(updateEventRequest: UpdateEventRequest){
+    const { eventId, userAnswers, numCorrect, quizComplete } = updateEventRequest;
+
+    const eventIndex = this.events.findIndex(event => event.eventId === eventId);
+
+    this.events[eventIndex].userAnswers = userAnswers;
+    this.events[eventIndex].numCorrect = numCorrect;
+    this.events[eventIndex].quizComplete = quizComplete;
   }
 }
