@@ -668,9 +668,6 @@ ion-button:hover {
   }
 }
 
-//filter content
-.filter-row-content {
-}
 
 .filter-content {
   margin-top: 5px;
@@ -703,3 +700,32 @@ ion-button:hover {
   font-family: CustomFont;
   font-size: larger;
 }
+
+
+
+.Filtermobile {
+  margin-bottom: 50px;
+}
+
+.card-stylesmobile {
+  background-color: var(--card-color);
+  border-radius: 15px;
+}
+
+ion-segment {
+  border: none;
+}
+
+ion-segment-button {
+  border-radius: 50px;
+}
+
+// ion-segment-button {
+//   color: var(--ion-color-warning);
+//   font-weight: bold;
+//   border: 1px solid var(--ion-color-warning);
+// }
+
+// .inactive-segment {
+//   color: var(--ion-color-medium);
+// }

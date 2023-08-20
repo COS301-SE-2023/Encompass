@@ -925,6 +925,19 @@ GoToProfile(username: string){
   }
 }
 
+selectedSegment = 'recommended';
+
+segmentChanged(event: any) {
+  this.selectedSegment = event.detail.value;
+  if (this.selectedSegment === 'recommended') {
+    this.recChange();
+  } else if (this.selectedSegment === 'new') {
+    this.newChange();
+  } else if (this.selectedSegment === 'popular') {
+    this.popChange();
+  }
+}
+
   recChange(){
     for(let k = 0;k<this.reports.length;k++){
       this.reports[k]=false;

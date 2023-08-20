@@ -317,12 +317,23 @@
       </ion-content>
     </div>
 
+    <!-- ========================================================================================================================================================== -->
+
     <!-- mobile view -->
 
     <!-- mobile side menu  -->
-    <ion-menu menuId="first-menu" contentId="main-content" (ionDidOpen)="menuOpened()">
+    <ion-menu
+      menuId="first-menu"
+      contentId="main-content"
+      (ionDidOpen)="menuOpened()"
+    >
       <ion-content class="ion-padding buttons-menu-container mobilemenu">
-        <ion-button fill="clear" class="mobileLogo" (click)="goHome()" *ngIf="default">
+        <ion-button
+          fill="clear"
+          class="mobileLogo"
+          (click)="goHome()"
+          *ngIf="default"
+        >
           <div class="square-image">
             <img
               *ngIf="default"
@@ -334,10 +345,15 @@
             />
           </div>
         </ion-button>
-        <ion-button fill="clear" class="mobileLogobigger" (click)="goHome()" *ngIf="!default">
+        <ion-button
+          fill="clear"
+          class="mobileLogobigger"
+          (click)="goHome()"
+          *ngIf="!default"
+        >
           <div class="square-image">
             <img
-            *ngIf="red"
+              *ngIf="red"
               id="logo-red-mobile"
               #logoRed
               src="assets/logos/logo-red.png"
@@ -353,7 +369,7 @@
               alt="Encompass Logo"
             />
             <img
-            *ngIf="blue"
+              *ngIf="blue"
               id="logo-green-mobile"
               #logoGreen
               src="assets/logos/logo-green.png"
@@ -361,7 +377,7 @@
               alt="Encompass Logo"
             />
             <img
-            *ngIf="orange"
+              *ngIf="orange"
               id="logo-orange-mobile"
               #logoOrange
               src="assets/logos/logo-orange.png"
@@ -463,7 +479,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <!-- mobile content  -->
+      <!-- mobile outlet content  -->
 
       <ion-content
         id="main-content"
@@ -477,7 +493,9 @@
       </ion-content>
     </div>
 
-    <!-- desktop content -->
+    <!-- ========================================================================================================================================= -->
+
+    <!-- desktop outlet content -->
 
     <ion-router-outlet
       id="main-content"
@@ -486,6 +504,8 @@
       *ngIf="!mobileview"
     >
     </ion-router-outlet>
+
+    <!-- ========================================================================================================================================= -->
 
     <!-- mobile footer  -->
     <ion-footer class="footer mobile">
@@ -498,10 +518,6 @@
             <ion-segment-button value="searchButton" (click)="goToExplore()">
               <ion-icon name="rocket"></ion-icon>
             </ion-segment-button>
-
-            <!-- <ion-segment-button id="popover-button" value="addButton">
-          <ion-icon name="duplicate"></ion-icon>
-        </ion-segment-button> -->
 
             <ion-segment-button value="notiButton">
               <ion-icon name="notifications"></ion-icon>
