@@ -445,15 +445,15 @@
 
     <ion-card class="Filter card-styles">
     <ion-segment mode="ios" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="recommended" [ngStyle]="{'color': selectedSegment === 'recommended' ? 'var(--ion-color-primary)' : 'var(--ion-color-medium)'}">
+      <ion-segment-button value="recommended" [ngStyle]="{'color': selectedSegment === 'recommended' ? 'var(--ion-color-primary)' : 'black'}">
         <ion-icon name="alert-circle-outline" style="margin-right: 5px;"></ion-icon>
         Recommended
       </ion-segment-button>
-      <ion-segment-button value="new" [ngStyle]="{'color': selectedSegment === 'new' ? 'var(--ion-color-primary)' : 'var(--ion-color-medium)'}">
+      <ion-segment-button value="new" [ngStyle]="{'color': selectedSegment === 'new' ? 'var(--ion-color-primary)' : 'black'}">
         <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
         New
       </ion-segment-button>
-      <ion-segment-button value="popular" [ngStyle]="{'color': selectedSegment === 'popular' ? 'var(--ion-color-primary)' : 'var(--ion-color-medium)'}">
+      <ion-segment-button value="popular" [ngStyle]="{'color': selectedSegment === 'popular' ? 'var(--ion-color-primary)' : 'black'}">
         <ion-icon
           name="star-outline"
           style="margin-right: 5px; margin-bottom: 3px;"
@@ -618,59 +618,28 @@
     <ion-row class="row-filter">
       <ion-col size="{{ colSize }}">
         <ion-card class="Filter card-styles">
-          <ion-grid>
-            <ion-row class="row-filter">
-              <ion-col size="5">
-                <div style="display: flex; justify-content: center">
-                  <ion-button
-                    id="recommendedBtn"
-                    fill="clear"
-                    class="active-button"
-                    (click)="recChange()"
-                  >
-                    <ion-icon
-                      name="alert-circle-outline"
-                      style="margin-right: 5px"
-                    ></ion-icon>
-                    Recommended
-                  </ion-button>
-                </div>
-              </ion-col>
-              <ion-col size="3">
-                <div style="display: flex; justify-content: center">
-                  <ion-button
-                    id="newBtn"
-                    fill="clear"
-                    class="none"
-                    (click)="newChange()"
-                  >
-                    <ion-icon
-                      name="arrow-up-circle"
-                      style="margin-right: 5px"
-                    ></ion-icon>
-                    New
-                  </ion-button>
-                </div>
-              </ion-col>
-              <ion-col size="4">
-                <div style="display: flex; justify-content: center">
-                  <ion-button
-                    id="popularBtn"
-                    fill="clear"
-                    class="none"
-                    (click)="popChange()"
-                  >
-                    <ion-icon
-                      name="star-outline"
-                      style="margin-right: 5px; margin-bottom: 3px"
-                    ></ion-icon>
-                    Popular
-                  </ion-button>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <ion-segment mode="ios" (ionChange)="segmentChanged($event)">
+            <ion-segment-button style="margin-left: 10px;" value="recommended" [ngStyle]="{'color': selectedSegment === 'recommended' ? 'var(--ion-color-primary)' : 'black'}">
+              <div style="display: flex; align-items: center;">
+                <ion-icon name="alert-circle-outline" style="margin-right: 5px;"></ion-icon>
+                <span>Recommended</span>
+              </div>
+            </ion-segment-button>
+            <ion-segment-button value="new" [ngStyle]="{'color': selectedSegment === 'new' ? 'var(--ion-color-primary)' : 'black'}">
+              <div style="display: flex; align-items: center;">
+                <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
+                <span>New</span>
+              </div>
+            </ion-segment-button>
+            <ion-segment-button style="margin-right: 10px;" value="popular" [ngStyle]="{'color': selectedSegment === 'popular' ? 'var(--ion-color-primary)' : 'black'}">
+              <div style="display: flex; align-items: center;">
+                <ion-icon name="star-outline" style="margin-right: 5px;"></ion-icon>
+                <span>Popular</span>
+              </div>
+            </ion-segment-button>
+          </ion-segment>
         </ion-card>
+        
 
         <!-- posts -->
 

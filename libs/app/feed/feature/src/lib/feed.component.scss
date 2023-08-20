@@ -714,18 +714,28 @@ ion-button:hover {
 
 ion-segment {
   border: none;
+  
 }
 
 ion-segment-button {
-  border-radius: 50px;
+  --indicator-color : transparent!important;
+  --indicator-box-shadow : none!important;
+  margin: 10px 0px 10px 0px;
 }
 
-// ion-segment-button {
-//   color: var(--ion-color-warning);
-//   font-weight: bold;
-//   border: 1px solid var(--ion-color-warning);
-// }
+ion-segment-button::part(indicator-background) {
+  border: 1px solid var(--ion-color-warning);
+  border-radius: 25px;
+}
 
-// .inactive-segment {
-//   color: var(--ion-color-medium);
-// }
+@media (max-width: 992px) {
+  ion-segment-button {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  ion-segment-button {
+    font-size: 19px;
+  }
+}
