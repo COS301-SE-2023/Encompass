@@ -90,6 +90,7 @@ export class FeedPage {
   sharing: boolean[] = [];
   size=0;
   themeName!: string;
+  colSize=12.5;
   // type = "recommended";
 
   communitiesIsFetched = false
@@ -98,6 +99,7 @@ export class FeedPage {
   postsIsFetched = false
   ShowBooks = true;
   ShowMovies = true;
+  mobileview = true;
 
   type = "recommended";
 
