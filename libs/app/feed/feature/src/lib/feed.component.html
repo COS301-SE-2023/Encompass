@@ -441,22 +441,22 @@
       </div>
     </ion-card>
 
-    <!-- filter bar  -->
+    <!-- filter bar mobile -->
 
-    <ion-card class="Filter card-styles">
+    <ion-card class="Filter card-styles Filtermobile">
     <ion-segment mode="ios" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="recommended" [ngStyle]="{'color': selectedSegment === 'recommended' ? 'var(--ion-color-primary)' : 'black'}">
-        <ion-icon name="alert-circle-outline" style="margin-right: 5px;"></ion-icon>
+      <ion-segment-button style="margin-left: 5px; padding: 0px 3px 0px 3px" value="recommended" [ngStyle]="{'color': selectedSegment === 'recommended' ? 'var(--ion-color-primary)' : 'black'}">
+        <ion-icon name="alert-circle-outline" style="margin-bottom: 3px;"></ion-icon>
         Recommended
       </ion-segment-button>
       <ion-segment-button value="new" [ngStyle]="{'color': selectedSegment === 'new' ? 'var(--ion-color-primary)' : 'black'}">
-        <ion-icon name="arrow-up-circle" style="margin-right: 5px;"></ion-icon>
+        <ion-icon name="arrow-up-circle" style="margin-bottom: 3px;"></ion-icon>
         New
       </ion-segment-button>
-      <ion-segment-button value="popular" [ngStyle]="{'color': selectedSegment === 'popular' ? 'var(--ion-color-primary)' : 'black'}">
+      <ion-segment-button style="margin-right: 5px;" value="popular" [ngStyle]="{'color': selectedSegment === 'popular' ? 'var(--ion-color-primary)' : 'black'}">
         <ion-icon
           name="star-outline"
-          style="margin-right: 5px; margin-bottom: 3px;"
+          style="margin-bottom: 3px;"
         ></ion-icon>
         Popular
       </ion-segment-button>
@@ -464,7 +464,7 @@
   </ion-card>
 
 
-    <!-- posts  -->
+    <!-- posts mobile -->
 
     <div *ngFor="let post of posts; let i = index">
       <ion-card

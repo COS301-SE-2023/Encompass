@@ -383,7 +383,7 @@
 //filter
 
 .Filter {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .active-button {
@@ -704,7 +704,7 @@ ion-button:hover {
 
 
 .Filtermobile {
-  margin-bottom: 50px;
+  margin-top: 25px;
 }
 
 .card-stylesmobile {
@@ -730,12 +730,13 @@ ion-segment-button::part(indicator-background) {
 
 @media (max-width: 992px) {
   ion-segment-button {
-    font-size: 15px;
+    max-font-size: 15px;
   }
 }
 
 @media (min-width: 992px) {
   ion-segment-button {
     font-size: 19px;
+    margin: 10px 0px 10px 0px;
   }
 }
