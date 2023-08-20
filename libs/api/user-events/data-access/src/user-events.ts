@@ -25,4 +25,21 @@ export class UserEvents extends AggregateRoot{
   }[]{
     return this.events;
   }
+
+  addEvent(eventId: string){
+    const newEvent = {
+      eventId: eventId,
+      userAnswers: [],
+      numCorrect: 0,
+      quizComplete: false
+    }
+
+    if(this.events){
+      this.events = [...this.events, newEvent]
+    }
+
+    else{
+      this.events = [newEvent]
+    }
+  }
 }

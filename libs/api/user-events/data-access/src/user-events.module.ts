@@ -10,6 +10,7 @@ import { UserEventsFactory } from "./user-events.factory";
 import { UserEventsSchemaFactory } from "./db/user-events-schema.factory";
 import { CreateUserEventsHandler } from "./commands";
 import { UserEventsCreatedHandler } from "./events";
+import { GetUserEventsHandler } from "./queries";
 
 @Module({
   imports:[
@@ -30,7 +31,8 @@ import { UserEventsCreatedHandler } from "./events";
     UserEventsSchemaFactory,
     UserEventsFactory,
     CreateUserEventsHandler,
-    UserEventsCreatedHandler
+    UserEventsCreatedHandler,
+    GetUserEventsHandler
   ]
 })
 
