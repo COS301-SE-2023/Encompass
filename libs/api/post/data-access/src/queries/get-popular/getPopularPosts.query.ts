@@ -1,1 +1,5 @@
-export class GetPopularPostsQuery{}
+export class GetPopularPostsQuery{
+    constructor(
+        public readonly username: string,
+    ){}
+}

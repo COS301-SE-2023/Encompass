@@ -1,4 +1,5 @@
 import { UpdateCommunityRequest } from "@encompass/api/community/data-access";
+import { UpdatePostRequest } from "@encompass/api/post/data-access";
 
 export class GetCommunity{
     static readonly type = '[Community] Get Community';
@@ -10,6 +11,11 @@ export class GetCommunityPosts{
     constructor(public name: string){}
 }   
 
+export class UpdatePostArray{
+    static readonly type = '[Community] Update Post Array';
+    constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
+  }
+  
 export class UpdateCommunity{
     static readonly type = '[Community] Update Community';
     constructor(public communityId: string, public updateCommunityRequest: UpdateCommunityRequest){}

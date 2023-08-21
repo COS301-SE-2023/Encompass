@@ -1,34 +1,29 @@
-.main{
-    background-color: #72747d;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.main {
+  background-color: #72747d;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
-
-.next{
-  background-color: #8231DD;
-  color:white;
+.next {
+  background-color: #8231dd;
+  color: white;
   border-radius: 25px;
   font-size: 22px;
-  padding-left:10px;
-  padding-right:10px;
+  padding-left: 10px;
+  padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  border: #CECAE3 1px solid;
+  border: #cecae3 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  
 }
 
-
-
-.RecomCommunities{
+.RecomCommunities {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -38,78 +33,73 @@
   border-radius: 15px;
 }
 
-  .RecomHeader{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .recomRow{
-    justify-content: center;
-  }
-
-  .CommunityCard{
-    left: 2.5%;
-    width: 550px;
-    border-radius: 15px;
-  }
-
-  
-
-  .CommunityHeader{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100px;
-    width: 100%;
-  }
-
-
-  
-  .CommunityIcon{
-    object-fit: fill;
-    width: 80px;
-    height: 80px;
-    border-radius: 15px;
-  }
-
-  .CommunityDetails{
-    display: flex;
-   height: 100%;
-   width: 50%;
-   flex-direction: column;
-   justify-content: space-around;
-   
-  }
-
-  .CommunityName{
-    display: flex;
-    width: 100%;
-    color: #000;
-    font-family: CustomFont;
-    font-size: 20px;
+.RecomHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.CommunityMembers{
+.recomRow {
+  justify-content: center;
+}
+
+.CommunityCard {
+  left: 2.5%;
+  width: 550px;
+  border-radius: 15px;
+}
+
+.CommunityHeader {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+
+.CommunityIcon {
+  object-fit: fill;
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
+}
+
+.CommunityDetails {
+  display: flex;
+  height: 100%;
+  width: 50%;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.CommunityName {
+  display: flex;
+  width: 100%;
+  color: #000;
+  font-family: CustomFont;
+  font-size: 20px;
+}
+
+.CommunityMembers {
   display: flex;
   width: 100%;
   color: #000;
   font-family: CustomFont;
 }
 
-.CommunityGenres{
+.CommunityGenres {
   display: flex;
   justify-content: space-between;
   width: 50%;
-} 
+}
 
-.imgDiv{
+.imgDiv {
   width: 25px;
   height: 25px;
   object-fit: fill;
 }
 
-.CommunityAdd{
+.CommunityAdd {
   display: flex;
   height: 50px;
   width: 50px;
@@ -127,18 +117,17 @@
 }
 
 .icon {
-  
   transition: all 0.3s ease;
 }
 
 .fa-plus-circle {
   font-size: 30px;
-  color: #20173F; // Blue color for the "add" icon
+  color: #20173f; // Blue color for the "add" icon
 }
 
 .fa-check {
   font-size: 26px;
-  color: #9747FF; // Green color for the "check" icon
+  color: #9747ff; // Green color for the "check" icon
 }
 
 // Button animation on click
@@ -150,7 +139,7 @@
   transform: rotate(45deg);
 }
 
-.CommunityBody{
+.CommunityBody {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -161,12 +150,11 @@
   width: 100%;
 }
 
-.CommunityDesc{
+.CommunityDesc {
   display: flex;
-   font-family: CustomFont2;
-   height: 90%;
-   width: 90%;
-   
+  font-family: CustomFont2;
+  height: 90%;
+  width: 90%;
 }
 
 .button {
@@ -182,10 +170,10 @@
   transform: scale(0);
 }
 
-.RecomFooter{
+.RecomFooter {
   width: 100%;
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 ion-button:hover {

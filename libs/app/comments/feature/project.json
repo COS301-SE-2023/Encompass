@@ -2,6 +2,7 @@
   "name": "app-comments-feature",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/app/comments/feature/src",
+  "prefix": "encompass",
   "projectType": "library",
   "targets": {
     "build": {
@@ -18,7 +19,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/app/comments/feature/**/*.ts"]
+        "lintFilePatterns": ["libs/app/comments/feature/**/*.ts", "libs/app/comments/feature/**/*.html"]
       }
     },
     "test": {

@@ -2,6 +2,7 @@
   "name": "app-community-profile-feature",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/app/community-profile/feature/src",
+  "prefix": "encompass",
   "projectType": "library",
   "targets": {
     "build": {
@@ -18,7 +19,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/app/community-profile/feature/**/*.ts"]
+        "lintFilePatterns": ["libs/app/community-profile/feature/**/*.ts", "libs/app/community-profile/feature/**/*.html"]
       }
     },
     "test": {

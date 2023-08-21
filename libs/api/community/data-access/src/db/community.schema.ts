@@ -41,4 +41,7 @@ export class CommunitySchema extends IdentifiableEntitySchema {
 
     @Prop()
     readonly createdAt!: string;
+
+    @Prop()
+    readonly communityEP!: number;
 }

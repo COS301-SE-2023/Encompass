@@ -26,6 +26,13 @@ import { RemoveFollowingCommand } from "./commands/remove-following/remove-follo
 import { GetRecommendedProfilesQuery } from "./queries/get-recommended-profiles/getRecommendedProfiles.query";
 import { GetUsersByKeywordQuery } from "./queries/search-profiles/get-users-by-keyword.query";
 import { AddCommunityCommand } from "./commands/add-community/add-community.command";
+import { AddCoinsCommand } from "./commands/add-coins/add-coins.command";
+import { RemoveCoinsCommand } from "./commands/remove-coins/remove-coins.command";
+import { AddAwardCommand } from "./commands/add-award/add-award.command";
+import { RemoveAwardCommand } from "./commands/remove-award/remove-award.command";
+import { AddEventCommand } from "./commands/add-event/add-event.command";
+import { AddAwardByUserIdCommand } from "./commands/add-award-by-userId/add-award-by-userId.command";
+import { AddCoinsByUserIdCommand } from "./commands/add-coins-by-userId/add-coins-by-userId.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -140,6 +147,76 @@ export class ProfileController {
   ){
     return await this.commandBus.execute<RemoveFollowingCommand, ProfileDto>(
       new RemoveFollowingCommand(userId, followingId)
+    );
+  }
+
+  @Patch('add-coins/:username/:addCoinsAmount')
+  async addCoins(
+    @Param('username') username: string,
+    @Param('addCoinsAmount') addCoinsAmount: number
+  ){
+    return await this.commandBus.execute<AddCoinsCommand, ProfileDto>(
+      new AddCoinsCommand(username, addCoinsAmount)
+    );
+  }
+
+  @Patch('add-coins-by-userId/:userId/:addCoinsAmount')
+  async addCoinsByUserId(
+    @Param('userId') userId: string,
+    @Param('addCoinsAmount') addCoinsAmount: number
+  ){
+    return await this.commandBus.execute<AddCoinsByUserIdCommand, ProfileDto>(
+      new AddCoinsByUserIdCommand(userId, addCoinsAmount)
+    );
+  }
+
+  @Patch('remove-coins/:username/:removeCoinsAmount')
+  async removeCoins(
+    @Param('username') username: string,
+    @Param('removeCoinsAmount') removeCoinsAmount: number
+  ){
+    return await this.commandBus.execute<RemoveCoinsCommand, ProfileDto>(
+      new RemoveCoinsCommand(username, removeCoinsAmount)
+    );
+  }
+
+  @Patch('add-award/:username/:awardName')
+  async addAward(
+    @Param('username') username: string,
+    @Param('awardName') awardName: string
+  ){
+    return await this.commandBus.execute<AddAwardCommand, ProfileDto>(
+      new AddAwardCommand(username, awardName)
+    );
+  }
+
+  @Patch('add-award-by-userId/:userId/:awardName')
+  async addAwardByUserId(
+    @Param('userId') userId: string,
+    @Param('awardName') awardName: string
+  ){
+    return await this.commandBus.execute<AddAwardByUserIdCommand, ProfileDto>(
+      new AddAwardByUserIdCommand(userId, awardName)
+    );
+  }
+
+  @Patch('remove-award/:username/:awardName')
+  async removeAward(
+    @Param('username') username: string,
+    @Param('awardName') awardName: string
+  ){
+    return await this.commandBus.execute<RemoveAwardCommand, ProfileDto>(
+      new RemoveAwardCommand(username, awardName)
+    );
+  }
+
+  @Patch('add-event/:username/:eventId')
+  async addEvent(
+    @Param('username') username: string,
+    @Param('eventId') eventId: string
+  ){
+    return await this.commandBus.execute<AddEventCommand, ProfileDto>(
+      new AddEventCommand(username, eventId)
     );
   }
 

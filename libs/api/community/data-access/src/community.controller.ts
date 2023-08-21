@@ -21,6 +21,9 @@ import { RemovePostCommand } from './commands/remove-post/remove-post.command';
 import { RemoveUserCommand } from './commands/remove-user/remove-user.command';
 import { GetCommunitiesByKeyWordQuery } from './queries/community-search/get-community-by-keyword.query';
 import { GetAllCommunitiesQuery } from './queries/get-all-communities/getAllCommunities.query';
+import { AddCoinsCommand } from './commands/add-coins/add-coins.command';
+import { RemoveCoinsCommand } from './commands/remove-coins/remove-coins.command';
+import { AddEventCommand } from './commands/add-event/add-event.command';
 
 
 
@@ -75,6 +78,36 @@ export class CommunityController {
         return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
             new UpdateCommunityCommand(communityId, community),
         );
+    }
+
+    @Patch('add-coins/:name/:coins')
+    async addCoins(
+        @Param('name') communityName: string,
+        @Param('coins') coins: number
+    ){
+        return await this.commandBus.execute<AddCoinsCommand, CommunityDto>(
+            new AddCoinsCommand(communityName, coins)
+        )
+    }
+
+    @Patch('remove-coins/:name/:coins')
+    async removeCoins(
+        @Param('name') communityName: string,
+        @Param('coins') coins: number
+    ){
+        return await this.commandBus.execute<RemoveCoinsCommand, CommunityDto>(
+            new RemoveCoinsCommand(communityName, coins)
+        )
+    }
+
+    @Patch('add-event/:name/:event')
+    async addEvent(
+        @Param('name') communityName: string,
+        @Param('event') event: string
+    ){
+        return await this.commandBus.execute<AddEventCommand, CommunityDto>(
+            new AddEventCommand(communityName, event)
+        )
     }
 
     @Get('does-exist/:name')

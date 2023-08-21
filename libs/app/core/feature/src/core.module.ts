@@ -23,9 +23,10 @@ import { SettingsModule } from '@encompass/app/settings/data-access';
 import { ThemesModule } from '@encompass/app/themes/data-access';
 import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-access';
 import { SearchModule } from '@encompass/app/search-explore/data-access';
+import { PostsModule } from '@encompass/app/posts/data-access';
 
 const config: SocketIoConfig = {
-  url: 'https://encompass-hosting.onrender.com',
+  url: 'http://localhost:3000',
   options: {}
 };
 @NgModule({
@@ -50,6 +51,7 @@ const config: SocketIoConfig = {
     ThemesModule,
     SignUpCommunitiesModule,
     SearchModule,
+    PostsModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],

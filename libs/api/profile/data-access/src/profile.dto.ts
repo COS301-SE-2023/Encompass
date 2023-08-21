@@ -16,4 +16,5 @@ export class ProfileDto {
   readonly profileImage!: string;
   readonly profileBanner!: string;
   readonly bio!: string;
+  readonly ep!: number;
 }

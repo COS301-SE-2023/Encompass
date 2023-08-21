@@ -18,6 +18,7 @@ export class Profile extends AggregateRoot{
     public profileImage: string | null,
     public profileBanner: string | null,
     public bio: string | null,
+    public ep: number
   ){
     super();
   }
@@ -79,6 +80,10 @@ export class Profile extends AggregateRoot{
   }
   getBio(): string | null{
     return this.bio;
+  }
+
+  getEP(): number{
+    return this.ep;
   }
 
   updateProfile(updateProfileRequest: UpdateProfileRequest){
@@ -146,6 +151,45 @@ export class Profile extends AggregateRoot{
 
     else{
       this.communities = [communityName];
+    }
+  }
+
+  removeCoins(amount:number){
+    this.ep -= amount;
+
+    if(this.ep < 0){
+      this.ep = 0;
+    }
+  }
+  
+  addCoins(amount: number){
+    this.ep += amount;
+  }
+
+  addAward(awardName: string){
+    if(this.awards){
+      if(this.awards.includes(awardName)) return;
+      this.awards = [...this.awards, awardName];
+    }
+
+    else{
+      this.awards = [awardName];
+    }
+  }
+
+  removeAward(awardName: string){
+    if(this.awards)
+      this.awards = this.awards.filter(award => award !== awardName);
+  }
+
+  addEvent(eventId: string){
+    if(this.events){
+      if(this.events.includes(eventId)) return;
+      this.events = [...this.events, eventId];
+    }
+
+    else{
+      this.events = [eventId];
     }
   }
 }

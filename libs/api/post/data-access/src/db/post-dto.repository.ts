@@ -14,6 +14,17 @@ export class PostDtoRepository{
     return await this.postModel.find();
   }
 
+  async getAllowedPosts(communities: string[]){
+    //get all posts except private posts not from same community as user
+    const allPosts = await this.findAll();
+    const filteredPosts = allPosts.filter(post => {
+      const isPrivate = post.isPrivate;
+      const isFromSameCommunity = communities.includes(post.community);
+      return !isPrivate || isFromSameCommunity;
+    });
+    return filteredPosts;
+  }
+
   async findById(id: string){
     return await this.postModel.findOne({ _id: id });
   }
