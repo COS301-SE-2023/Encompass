@@ -23,6 +23,16 @@ export class AddEventHandler implements ICommandHandler<AddEventCommand>{
     this.profileEntityRepository.findOneAndReplaceById(profile._id, profile);
     profile.commit();
 
+    profile.communities?.forEach(community => {
+      try{
+        this.httpService.patch(url + '/api/community/add-coins/' + community + '/' + 5).toPromise();
+      }
+
+      catch(error){
+        console.log(error);
+      }
+    })
+
     try{
       this.httpService.patch(`${url}/api/user-events/add-event/${profile._id}/${eventId}`).toPromise()
     }
