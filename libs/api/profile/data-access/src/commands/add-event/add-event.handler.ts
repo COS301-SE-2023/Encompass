@@ -19,6 +19,7 @@ export class AddEventHandler implements ICommandHandler<AddEventCommand>{
     );
 
     profile.addEvent(eventId);
+    profile.addCoins(5)
     this.profileEntityRepository.findOneAndReplaceById(profile._id, profile);
     profile.commit();
 

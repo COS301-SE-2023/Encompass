@@ -32,6 +32,7 @@ import { AddAwardCommand } from "./commands/add-award/add-award.command";
 import { RemoveAwardCommand } from "./commands/remove-award/remove-award.command";
 import { AddEventCommand } from "./commands/add-event/add-event.command";
 import { AddAwardByUserIdCommand } from "./commands/add-award-by-userId/add-award-by-userId.command";
+import { AddCoinsByUserIdCommand } from "./commands/add-coins-by-userId/add-coins-by-userId.command";
 
 @Controller('profile')
 export class ProfileController {
@@ -156,6 +157,16 @@ export class ProfileController {
   ){
     return await this.commandBus.execute<AddCoinsCommand, ProfileDto>(
       new AddCoinsCommand(username, addCoinsAmount)
+    );
+  }
+
+  @Patch('add-coins-by-userId/:userId/:addCoinsAmount')
+  async addCoinsByUserId(
+    @Param('userId') userId: string,
+    @Param('addCoinsAmount') addCoinsAmount: number
+  ){
+    return await this.commandBus.execute<AddCoinsByUserIdCommand, ProfileDto>(
+      new AddCoinsByUserIdCommand(userId, addCoinsAmount)
     );
   }
 
