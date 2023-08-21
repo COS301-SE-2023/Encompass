@@ -8,7 +8,7 @@ import { ProfileEntityRepository } from "./db/profile-entity.repository";
 import { ProfileDtoRepository } from "./db/profile-dto.repository";
 import { ProfileSchemaFactory } from "./db/profile-schema.factory";
 import { ProfileFactory } from "./profile.factory";
-import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCommunityHandler, AddFollowerHandler, AddFollowingHandler, RemoveFollowerHandler, RemoveFollowingHandler, AddCommunityHandler, AddCoinsHandler, RemoveCoinsHandler, RemoveAwardHandler, AddAwardHandler, AddEventHandler } from "./commands";
+import { CreateProfileHandler, RemovePostHandler, UpdateProfileHandler, RemoveCommunityHandler, AddFollowerHandler, AddFollowingHandler, RemoveFollowerHandler, RemoveFollowingHandler, AddCommunityHandler, AddCoinsHandler, RemoveCoinsHandler, RemoveAwardHandler, AddAwardHandler, AddEventHandler, AddAwardByUserIdHandler } from "./commands";
 import { ProfileCreatedHandler } from "./events";
 import { GetAllProfilesHandler, GetProfileHandler, GetUsernameHandler, GetByUsernameHandler } from "./queries";
 import { HttpModule } from "@nestjs/axios";
@@ -55,7 +55,8 @@ import { GetUsersByKeywordHandler } from "./queries/search-profiles/get-users-by
     RemoveCoinsHandler,
     AddAwardHandler,
     RemoveAwardHandler,
-    AddEventHandler
+    AddEventHandler,
+    AddAwardByUserIdHandler
   ],
 })
 
