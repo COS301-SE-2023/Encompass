@@ -24,6 +24,7 @@ describe('CommunityController', () => {
         members: ["member1", "member2"],
         ageRestricted: true,
         createdAt: "2023-06-24T12:34:56Z",
+        communityEP: 0
     }
 
     beforeAll(async () => {
