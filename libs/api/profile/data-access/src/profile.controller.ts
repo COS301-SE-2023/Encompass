@@ -33,6 +33,9 @@ import { RemoveAwardCommand } from "./commands/remove-award/remove-award.command
 import { AddEventCommand } from "./commands/add-event/add-event.command";
 import { AddAwardByUserIdCommand } from "./commands/add-award-by-userId/add-award-by-userId.command";
 import { AddCoinsByUserIdCommand } from "./commands/add-coins-by-userId/add-coins-by-userId.command";
+import { GetLeaderboardQuery } from "./queries/get-leaderboard/get-leaderboard.query";
+import { SetLeaderboardCommand } from "./commands/set-leaderboard/set-leaderboard.command";
+import { leaderboardDto } from "./dto/leaderboard.dto";
 
 @Controller('profile')
 export class ProfileController {
@@ -68,6 +71,20 @@ export class ProfileController {
   async getRecommendedProfiles(@Param('id') userId: string){
     return await this.queryBus.execute<GetRecommendedProfilesQuery, ProfileDto[]>(
       new GetRecommendedProfilesQuery(userId),
+    );
+  }
+
+  @Get('leaderboard')
+  async getLeaderboard(){
+    return await this.queryBus.execute<GetLeaderboardQuery, leaderboardDto[]>(
+      new GetLeaderboardQuery(),
+    );
+  }
+
+  @Patch('leaderboard')
+  async setLeaderboard(){
+    return await this.commandBus.execute<SetLeaderboardCommand, leaderboardDto[]>(
+      new SetLeaderboardCommand(),
     );
   }
 
