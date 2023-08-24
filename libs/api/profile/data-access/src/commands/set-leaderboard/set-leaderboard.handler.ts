@@ -1,18 +1,16 @@
-import { CommandHandler, EventPublisher } from "@nestjs/cqrs";
+import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { SetLeaderboardCommand } from "./set-leaderboard.command";
 import * as fs from 'fs';
 import { leaderboardDto } from "../../dto/leaderboard.dto";
 import { HttpService } from "@nestjs/axios";
 import { ProfileDto } from "../../profile.dto";
 import { ProfileDtoRepository } from "../../db/profile-dto.repository";
-import { ProfileEntityRepository } from "../../db/profile-entity.repository";
 
 @CommandHandler(SetLeaderboardCommand)
-export class SetLeaderboardCommandHandler{
+export class SetLeaderboardCommandHandler implements ICommandHandler<SetLeaderboardCommand>{
   constructor(
     private httpService: HttpService,
     private readonly profileDtoRepository: ProfileDtoRepository,
-    private readonly eventPublisher: EventPublisher
   ){}
   async execute(){
     const url = process.env["BASE_URL"];

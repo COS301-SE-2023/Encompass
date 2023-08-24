@@ -1,5 +1,5 @@
 export class CommunityLeaderboardDto{
   name!: string;
-  communityEp!: number;
+  communityEP!: number;
   position!: number;
 }

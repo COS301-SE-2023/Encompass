@@ -25,6 +25,7 @@ import { AddCoinsCommand } from './commands/add-coins/add-coins.command';
 import { RemoveCoinsCommand } from './commands/remove-coins/remove-coins.command';
 import { AddEventCommand } from './commands/add-event/add-event.command';
 import { GetLeaderboardQuery } from './queries/get-leaderboard/get-leaderboard.query';
+import { UpdateLeaderboardCommand } from './commands/update-leaderboard/update-leaderboard.command';
 
 
 
@@ -79,13 +80,11 @@ export class CommunityController {
         );
     }
 
-    @Patch(':id')
-    async updateCommunity(
-        @Param('id') communityId: string,
-        @Body() community: UpdateCommunityRequest) {
-        return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
-            new UpdateCommunityCommand(communityId, community),
-        );
+    @Patch('leaderboard')
+    async updateLeaderboard(){
+        return await this.commandBus.execute<UpdateLeaderboardCommand, CommunityLeaderboardDto[]>(
+            new UpdateLeaderboardCommand()
+        )
     }
 
     @Patch('add-coins/:name/:coins')
@@ -176,6 +175,15 @@ export class CommunityController {
         console.log("Here")
         const uploadImage = new UploadImage();
         return await uploadImage.uploadImage(file.buffer, file.originalname);
+    }
+
+    @Patch(':id')
+    async updateCommunity(
+        @Param('id') communityId: string,
+        @Body() community: UpdateCommunityRequest) {
+        return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
+            new UpdateCommunityCommand(communityId, community),
+        );
     }
 
     /*@Get(':id')
