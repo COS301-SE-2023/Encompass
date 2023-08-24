@@ -1,6 +1,6 @@
 import { Body , Controller, Get, Param, Post, Patch, Delete } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateCommunityRequest, UpdateCommunityRequest } from './dto';
+import { CommunityLeaderboardDto, CreateCommunityRequest, UpdateCommunityRequest } from './dto';
 import { CreateCommunityCommand } from './commands/create-community.command';
 import { Community } from './community';
 import { GetCommunityQuery } from './queries/get-community.query';
@@ -24,6 +24,7 @@ import { GetAllCommunitiesQuery } from './queries/get-all-communities/getAllComm
 import { AddCoinsCommand } from './commands/add-coins/add-coins.command';
 import { RemoveCoinsCommand } from './commands/remove-coins/remove-coins.command';
 import { AddEventCommand } from './commands/add-event/add-event.command';
+import { GetLeaderboardQuery } from './queries/get-leaderboard/get-leaderboard.query';
 
 
 
@@ -45,6 +46,13 @@ export class CommunityController {
     async getCommunitiesByKeyword(@Param('keyword') keyword: string){
         return await this.queryBus.execute<GetCommunitiesByKeyWordQuery, CommunityDto[]>(
             new GetCommunitiesByKeyWordQuery(keyword),
+        );
+    }
+
+    @Get('leaderboard')
+    async getLeaderboard() {
+        return await this.queryBus.execute<GetLeaderboardQuery, CommunityLeaderboardDto[]>(
+            new GetLeaderboardQuery(),
         );
     }
 
