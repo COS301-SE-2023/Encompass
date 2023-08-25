@@ -171,7 +171,7 @@
               <ion-row class="content-row" >
                 <ion-col size="11">
                   <div *ngFor="let community of communities">
-                    <ion-card class = "CommunityCard">
+                    <ion-card class = "CommunityCard" (click)="GoToCommunity(community.name)">
                      <div class="card-color">
                      <div class = "CommunityHeader"> 
                        <img src = {{community?.groupImage}} 
