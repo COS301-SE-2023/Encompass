@@ -58,7 +58,7 @@ const connectToDatabase = async () => {
 };
 
 
-describe('ChatController (Integration with MongoDB)', () => {
+describe('NotificationController (Integration with MongoDB)', () => {
   let app: INestApplication; 
   let dbConnection: Connection;
 
@@ -75,36 +75,31 @@ describe('ChatController (Integration with MongoDB)', () => {
 
     dbConnection = await connectToDatabase();
   };
-
-  afterEach(async () => {
-    await dbConnection.collection('notification').deleteMany({});
-  });
-
-  
+ 
   beforeAll(async () => {
     await setupTestApp();
   });
 
   afterAll(async () => {
+    await dbConnection.collection('notification').deleteMany({});
     await app.close();
   });
 
   describe('createNotification', () => {
     it('should create a notification and return the same ID', async () => {
       // Define the ID to be used in the request
-      const idToUse = '12345';
+      const idToUse = '5f5b5a6f6d47975aabd8e667';
 
       // Send a POST request to the /create/:id endpoint
-      const response = await request(app.getHttpServer()).post(`/create/${idToUse}`);
+      const response = await request(app.getHttpServer()).post(`/notification/create/${idToUse}`);
 
-      // Assertions
+      // Assertion
       expect(response.status).toBe(201); // Assuming 201 is the status code for successful creation
-      expect(response.body).toHaveProperty('id'); // Assuming the response contains an 'id' property
-      expect(response.body.id).toBe(idToUse); // Check if the returned ID matches the provided ID
+      expect(response.body._id).toBe(idToUse); // Check if the returned ID matches the provided ID
+    });
+    });
 
-      console.log(response.body);
-    });
-    });
+   
 });
 
  
