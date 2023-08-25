@@ -122,5 +122,45 @@ describe('CommunityRequestController (Integration with MongoDB)', () => {
   
   });
 
+  describe('addUserToCommunityRequest', () => {
+    it('should add a user to a community request', async () => {
+        // Replace with valid community ID and username
+        const communityId = '5f5b5a6f6d47975aabd8e667';
+        const username = 'User1';
+
+        // Send a PATCH request to add a user to a community request using the API endpoint
+        const response = await request(app.getHttpServer())
+            .patch(`/community-request/add-user/${communityId}/${username}`);
+
+        // Assertions
+        console.log("addUserToCommunityRequest-1")
+
+        expect(response.status).toBe(200); // Assuming 200 is the status code for successful addition
+
+        //..test if username is added to community request
+        expect(response.body.requestUsernames).toContain(username);
+
+        
+    });
+
+    it('should return 404 for a non-existing community', async () => {
+      // Replace with a non-existing community ID and username
+      const nonExistingCommunityId = '5f5b5a6f6d47975a4448e667';
+      const username = 'User1';
   
+      // Send a PATCH request to add a user to a non-existing community
+      const response = await request(app.getHttpServer())
+          .patch(`/community-request/add-user/${nonExistingCommunityId}/${username}`);
+  
+      // Assertions
+      console.log("addUserToCommunityRequest-2")
+      expect(response.status).toBe(404); // Assuming 404 is the status code for not found
+
+      
+    });
+  
+  });
+
+  
+
 });
