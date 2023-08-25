@@ -45,3 +45,33 @@ const connectToDatabase = async () => {
 };
 
 
+describe('CommunityRequestController (Integration with MongoDB)', () => {
+  let app: INestApplication; 
+  let dbConnection: Connection;
+
+  const setupTestApp = async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [
+        AppModule,
+        MongooseModule.forFeature([{ name: 'community-request', schema: CommunityRequestSchema }])
+      ],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+
+    dbConnection = await connectToDatabase();
+  };
+  
+  beforeAll(async () => {
+    await setupTestApp();
+  });
+
+  afterAll(async () => {
+    await dbConnection.collection('community-request').deleteMany({});
+    await app.close();
+  });
+
+  
+
+});
