@@ -164,7 +164,18 @@ describe('NotificationController (Integration with MongoDB)', () => {
         });
       });
     
-      
+      describe('clearAllNotifications', () => {
+        it('should clear all notifications', async () => {
+          const idToUpdate = '5f5b5a6f6d47975aabd8e667';
+    
+          const response = await request(app.getHttpServer())
+            .patch(`/notification/clear-all/${idToUpdate}`);
+    
+          expect(response.status).toBe(200); // Assuming 200 is the status code for successful update
+          expect(response.body._id).toBe(idToUpdate);
+          expect(response.body.notifications).toEqual([]);
+        });
+      });
 });
 
  
