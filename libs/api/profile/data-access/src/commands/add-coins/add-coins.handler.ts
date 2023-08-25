@@ -24,17 +24,18 @@ export class AddCoinsHandler implements ICommandHandler<AddCoinsCommand> {
     
     profile.addCoins(addCoinsAmount);
     this.profileEntityRepository.findOneAndReplaceById(profile._id, profile);
+    profile.commit();
 
     profile.communities?.forEach(community => {
       try{
         this.httpService.patch(url + '/api/community/add-coins/' + community + '/' + addCoinsAmount).toPromise();
+        this.httpService.patch(url + '/api/profile/leaderboard').toPromise();
       }
 
       catch(error){
         console.log(error);
       }
     })
-    profile.commit();
 
     return profile;
   }

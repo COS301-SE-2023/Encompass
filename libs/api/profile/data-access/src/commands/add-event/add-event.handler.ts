@@ -26,6 +26,8 @@ export class AddEventHandler implements ICommandHandler<AddEventCommand>{
     profile.communities?.forEach(community => {
       try{
         this.httpService.patch(url + '/api/community/add-coins/' + community + '/' + 5).toPromise();
+        this.httpService.patch(url + '/api/profile/leaderboard').toPromise();
+
       }
 
       catch(error){
