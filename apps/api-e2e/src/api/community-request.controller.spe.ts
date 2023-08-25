@@ -72,6 +72,22 @@ describe('CommunityRequestController (Integration with MongoDB)', () => {
     await app.close();
   });
 
+  describe('createCommunityRequest', () => {
+    it('should create a community request', async () => {
+        // Replace with a valid community ID
+        const communityId = '5f5b5a6f6d47975aabd8e667';
+
+        // Send a POST request to create a community request using the API endpoint
+        const response = await request(app.getHttpServer())
+            .post(`/community-request/create/${communityId}`);
+
+        // Assertions
+        expect(response.status).toBe(201); // Assuming 201 is the status code for successful creation
+
+        expect(response.body._id).toBe(communityId);
+    });
+  });
+
   
 
 });
