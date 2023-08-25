@@ -1,6 +1,6 @@
 import { Body , Controller, Get, Param, Post, Patch, Delete } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CommunityLeaderboardDto, CreateCommunityRequest, UpdateCommunityRequest } from './dto';
+import { CreateCommunityRequest, UpdateCommunityRequest } from './dto';
 import { CreateCommunityCommand } from './commands/create-community.command';
 import { Community } from './community';
 import { GetCommunityQuery } from './queries/get-community.query';
@@ -25,7 +25,7 @@ import { AddCoinsCommand } from './commands/add-coins/add-coins.command';
 import { RemoveCoinsCommand } from './commands/remove-coins/remove-coins.command';
 import { AddEventCommand } from './commands/add-event/add-event.command';
 import { GetLeaderboardQuery } from './queries/get-leaderboard/get-leaderboard.query';
-import { UpdateLeaderboardCommand } from './commands/update-leaderboard/update-leaderboard.command';
+import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
 
 
 
@@ -78,13 +78,6 @@ export class CommunityController {
         return await this.commandBus.execute<CreateCommunityCommand, string>(
             new CreateCommunityCommand(createCommunityRequest),
         );
-    }
-
-    @Patch('leaderboard')
-    async updateLeaderboard(){
-        return await this.commandBus.execute<UpdateLeaderboardCommand, CommunityLeaderboardDto[]>(
-            new UpdateLeaderboardCommand()
-        )
     }
 
     @Patch('add-coins/:name/:coins')
