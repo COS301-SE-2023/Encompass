@@ -99,7 +99,34 @@ describe('NotificationController (Integration with MongoDB)', () => {
     });
     });
 
-   
+    describe('getNotification', () => {
+        it('should retrieve a notification by ID', async () => {
+          // Define the ID to be used in the request
+          const idToRetrieve = '5f5b5a6f6d47975aabd8e667';
+    
+          // Send a GET request to the /get/:id endpoint
+          const response = await request(app.getHttpServer()).get(`/notification/get/${idToRetrieve}`);
+    
+          // Assertions
+          expect(response.status).toBe(200); // Assuming 200 is the status code for successful retrieval
+          expect(response.body._id).toBe(idToRetrieve); // Check if the returned ID matches the provided ID
+    
+        });
+    
+        it('should return 404 for non-existing ID', async () => {
+          // Define a non-existing ID
+          const nonExistingId = '5f5b5a6f6d47975aabd8e668';
+    
+          // Send a GET request to retrieve a notification for a non-existing ID
+          const response = await request(app.getHttpServer()).get(`/notification/get/${nonExistingId}`);
+    
+          // Assertions
+          expect(response.status).toBe(404); // Assuming 404 is the status code for not found
+    
+        });
+      });
+
+      
 });
 
  
