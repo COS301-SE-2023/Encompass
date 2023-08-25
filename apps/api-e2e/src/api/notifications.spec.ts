@@ -148,6 +148,22 @@ describe('NotificationController (Integration with MongoDB)', () => {
         });
       });
     
+      describe('removeNotification', () => {
+        it('should remove a notification', async () => {
+          const idToUpdate = '5f5b5a6f6d47975aabd8e667';
+          const notificationIdToRemove = 'notificationIdToRemove';
+    
+          const response = await request(app.getHttpServer())
+            .patch(`/notification/remove/${idToUpdate}/${notificationIdToRemove}`);
+    
+          expect(response.status).toBe(200); // Assuming 200 is the status code for successful update
+          expect(response.body._id).toBe(idToUpdate);
+          expect(response.body.notifications).not.toContainEqual(
+            expect.objectContaining({ _id: notificationIdToRemove })
+          );
+        });
+      });
+    
       
 });
 
