@@ -161,6 +161,47 @@ describe('CommunityRequestController (Integration with MongoDB)', () => {
   
   });
 
+  describe('removeUserFromCommunityRequest', () => {
+    it('should remove a user from a community request', async () => {
+        // Replace with valid community ID and username
+        const communityId = '5f5b5a6f6d47975aabd8e667';
+        const username = 'User1';
+
+        // Send a PATCH request to remove a user from a community request using the API endpoint
+        const response = await request(app.getHttpServer())
+            .patch(`/community-request/remove-user/${communityId}/${username}`);
+
+        expect(response.status).toBe(200); // Assuming 200 is the status code for successful removal
+
+        //..test if username is removed from community request    
+        expect(response.body.requestUsernames).not.toContain(username);
+
+        
+    });
+
+    it('should return 404 for a non-existing user', async () => {
+      // Replace with a non-existing username
+      const communityId = '5f5b5a6f6d47975aabd8e667';
+      const nonExistingUsername = 'NonExistingUser';
+
+      //add 3 usernames to community request
+      const communityIdObject = new mongoose.Types.ObjectId(communityId);
+
+      await dbConnection.collection('community-request').updateOne(
+          { _id: communityIdObject },
+          { $push: { requestUsernames: { $each: ['User1', 'User2', 'User3'] } } }
+      );
+
+      
+      // Send a PATCH request to remove a non-existing user from a community request
+      const response = await request(app.getHttpServer())
+          .patch(`/community-request/remove-user/${communityId}/${nonExistingUsername}`);
   
+      expect(response.status).toBe(200); // Assuming 404 is the status code for not found
+  
+      
+    });
+  
+  });
 
 });
