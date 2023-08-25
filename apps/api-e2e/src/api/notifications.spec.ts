@@ -126,6 +126,28 @@ describe('NotificationController (Integration with MongoDB)', () => {
         });
       });
 
+      describe('addNotification', () => {
+        it('should add a notification', async () => {
+          const idToUpdate = '5f5b5a6f6d47975aabd8e667';
+          const addNotificationRequest = {
+            sentBy: 'User1',
+            picture: 'notification-image-url',
+            title: 'New Notification',
+            description: 'This is a new notification',
+          };
+    
+          const response = await request(app.getHttpServer())
+            .patch(`/notification/add/${idToUpdate}`)
+            .send(addNotificationRequest);
+    
+          expect(response.status).toBe(200); // Assuming 200 is the status code for successful update
+          expect(response.body._id).toBe(idToUpdate);
+          expect(response.body.notifications).toContainEqual(
+            expect.objectContaining(addNotificationRequest)
+          );
+        });
+      });
+    
       
 });
 
