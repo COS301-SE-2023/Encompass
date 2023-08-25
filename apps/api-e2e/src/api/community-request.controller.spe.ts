@@ -88,6 +88,39 @@ describe('CommunityRequestController (Integration with MongoDB)', () => {
     });
   });
 
-  
+  describe('findCommunityRequest', () => {
+    it('should find a community request by ID', async () => {
+        // Replace with a valid community request ID
+        const communityRequestId = '5f5b5a6f6d47975aabd8e667';
 
+        // Send a GET request to find a community request by ID using the API endpoint
+        const response = await request(app.getHttpServer())
+            .get(`/community-request/find/${communityRequestId}`);
+
+        // Assertions
+        console.log("findCommunityRequest-1");
+
+        expect(response.status).toBe(200); // Assuming 200 is the status code for successful retrieval
+        expect(response.body._id).toBe(communityRequestId);
+        
+    });
+
+    it('should return 404 for a non-existing community request', async () => {
+      // Replace with a non-existing community request ID
+      const nonExistingCommunityRequestId = '5f5b5a6f6d47975aabd44467';
+  
+      // Send a GET request to find a non-existing community request by ID
+      const response = await request(app.getHttpServer())
+          .get(`/community-request/find/${nonExistingCommunityRequestId}`);
+  
+      // Assertions
+      console.log("findCommunityRequest-2");
+      expect(response.status).toBe(404); // Assuming 404 is the status code for not found
+  
+      
+    });
+  
+  });
+
+  
 });
