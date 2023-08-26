@@ -143,6 +143,7 @@
         "libs/app/profile/feature/src/index.ts"
       ],
       "@encompass/app/profile/util": ["libs/app/profile/util/src/index.ts"],
+      "@encompass/app/quiz/feature": ["libs/app/quiz/feature/src/index.ts"],
       "@encompass/app/search-explore/data-access": [
         "libs/app/search-explore/data-access/src/index.ts"
       ],
