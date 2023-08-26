@@ -80,6 +80,13 @@ const routes: Routes = [
         loadChildren: () => 
           import('@encompass/app/challenge-description/feature').then((m) => m.ChallengeDescriptionModule), 
       },
+
+      {
+        path: 'quiz',
+        pathMatch: 'full',
+        loadChildren: () => 
+          import('@encompass/app/quiz/feature').then((m) => m.QuizModule), 
+      }
       // {
       //   path: 'comments', //comments/:id
       //   // pathMatch: 'full',
