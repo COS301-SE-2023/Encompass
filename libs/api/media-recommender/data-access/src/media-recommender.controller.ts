@@ -34,6 +34,13 @@ export class MediaRecommenderController {
         );
     }
 
+    @Get('podcasts/:id')
+    async getRecommendedPodcasts(@Param('id') id: string) {
+        return this.queryBus.execute<GetRecommendedPodcastsQuery, PodcastDto[]>(
+            new GetRecommendedPodcastsQuery(id),
+        );
+    }
+
 }
 
 
