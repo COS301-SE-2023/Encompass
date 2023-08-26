@@ -141,7 +141,6 @@ Email: perfectstrangers.tuks@gmail.com
       <li>DevOps</li>
       <li>Services Engineer</li>
       <li>Integration Engineer</li>
-      <li>Unit Testing</li>
       <li>Data Engineer</li>
       <li>Frontend Tester</li>
     </ul>
