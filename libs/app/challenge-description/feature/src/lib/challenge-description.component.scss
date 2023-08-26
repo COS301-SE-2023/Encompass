@@ -12,14 +12,6 @@
   flex-direction: column;
 }
 
-.Header {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .ChallengeName {
   font-family: CustomFont;
   font-weight: bold;
@@ -63,6 +55,7 @@
 }
 .ChallengeDetails {
   color: var(--ion-color-medium-shade);
+  font-family: CustomFont2;
 }
 
 .HostCommunity,
