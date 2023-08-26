@@ -15,6 +15,7 @@ import { Component } from '@angular/core';
     content!: IonContent;
 
     //fuctions here
-    
+
+  
 
   }
