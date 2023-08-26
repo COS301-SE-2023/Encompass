@@ -143,6 +143,7 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Integration Engineer</li>
       <li>Unit Testing</li>
       <li>Data Engineer</li>
+      <li>Frontend Tester</li>
     </ul>
     <details>
     <summary>See More...</summary>
