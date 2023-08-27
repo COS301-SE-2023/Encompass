@@ -1,1 +1,1 @@
-export * from './lib/app-leaderboard-feature';
+export * from './lib';
