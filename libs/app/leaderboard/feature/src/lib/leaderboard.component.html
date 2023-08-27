@@ -1,1 +1,54 @@
-<p>leaderboard works!</p>
+<div class="Top5">
+    <div class="User">
+      <div>
+        <label class="Number">1</label>
+        <label class="Suffix">st</label>
+      </div>
+      <img src="assets/icon/Profile.png" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">User Name</label>
+        <label class="Points">100 EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward" ></ion-icon>
+    </div>
+    <div class="User" style="background-color: #a08ffc">
+      <div>
+        <label class="Number">2</label>
+        <label class="Suffix">nd</label>
+      </div>
+      <img src="assets/icon/Profile.png" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">User Name</label>
+        <label class="Points">100 EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+    </div>
+    <div class="User2" style="background-color: #d2caff">
+      <div>
+        <label class="Number">3</label>
+        <label class="Suffix">rd</label>
+      </div>
+      <img src="assets/icon/Profile.png" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">User Name</label>
+        <label class="Points">100 EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+    </div>
+    <div *ngFor="let user of numbers;let k = index"
+      class="User2"
+      style="background-color: var(--ion-color-background)"
+    >
+      <div>
+        <label class="Number">{{numbers[k]}}</label>
+        <label class="Suffix">{{usersSuffix[k]}}</label>
+      </div>
+      <img src="assets/icon/Profile.png" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">User Name</label>
+        <label class="Points">100 EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+    </div>
+   
+  </div>
