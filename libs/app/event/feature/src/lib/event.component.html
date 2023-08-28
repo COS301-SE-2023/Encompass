@@ -91,20 +91,23 @@
               <label class="Name">Default Name</label>
               <label class="Score">150 Encompass Points</label>
             </div>
-            <div class="Top5">
-              <div class="User">
+            <div class="Top5" *ngIf="topFive !== null">
+              <div class="User" *ngFor="let user of topFive; let i = index">
                 <div>
-                  <label class="Number">1</label>
-                  <label class="Suffix">st</label>
+                  <label class="Number">{{ i + 1 }}</label>
+                  <label class="Suffix">{{
+                    i === 0 ? 'st' : i === 1 ? 'nd' : i === 2 ? 'rd' : 'th'
+                  }}</label>
                 </div>
                 <img src="assets/icon/Profile.png" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ user.username }}</label>
+                  <label class="Points">{{ user.ep }} EP</label>
                 </div>
-                <ion-icon class="userIcon" name="chevron-forward" ></ion-icon>
+                <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <div class="User" style="background-color: #a08ffc">
+
+              <!-- <div class="User" style="background-color: #a08ffc">
                 <div>
                   <label class="Number">2</label>
                   <label class="Suffix">nd</label>
@@ -116,7 +119,7 @@
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <div class="User2" style="background-color: #d2caff">
+               <div class="User2" style="background-color: #d2caff">
                 <div>
                   <label class="Number">3</label>
                   <label class="Suffix">rd</label>
@@ -158,7 +161,7 @@
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <button class="More" (click)="openPopup()">More</button>
+              <button class="More" (click)="openPopup()">More</button> -->
             </div>
           </ion-card>
         </ion-col>

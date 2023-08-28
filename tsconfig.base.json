@@ -122,7 +122,11 @@
       "@encompass/app/create-post/util": [
         "libs/app/create-post/util/src/index.ts"
       ],
+      "@encompass/app/event/data-access": [
+        "libs/app/event/data-access/src/index.ts"
+      ],
       "@encompass/app/event/feature": ["libs/app/event/feature/src/index.ts"],
+      "@encompass/app/event/util": ["libs/app/event/util/src/index.ts"],
       "@encompass/app/feed/feature": ["libs/app/feed/feature/src/index.ts"],
       "@encompass/app/forgotpassword/feature": [
         "libs/app/forgotpassword/feature/src/index.ts"

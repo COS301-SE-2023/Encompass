@@ -24,6 +24,7 @@ import { ThemesModule } from '@encompass/app/themes/data-access';
 import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-access';
 import { SearchModule } from '@encompass/app/search-explore/data-access';
 import { PostsModule } from '@encompass/app/posts/data-access';
+import { EventModule } from '@encompass/app/event/data-access';
 
 const config: SocketIoConfig = {
   url: 'http://localhost:3000',
@@ -52,6 +53,7 @@ const config: SocketIoConfig = {
     SignUpCommunitiesModule,
     SearchModule,
     PostsModule,
+    EventModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],
