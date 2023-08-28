@@ -92,30 +92,28 @@
               <label class="Score">150 Encompass Points</label>
             </div>
             <div class="Top5" *ngIf="topFive !== null">
-              <div class="User" *ngFor="let user of topFive; let i = index">
+              <div class="User">
                 <div>
-                  <label class="Number">{{ i + 1 }}</label>
-                  <label class="Suffix">{{
-                    i === 0 ? 'st' : i === 1 ? 'nd' : i === 2 ? 'rd' : 'th'
-                  }}</label>
+                  <label class="Number">1</label>
+                  <label class="Suffix">st</label>
                 </div>
                 <img src="assets/icon/Profile.png" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">{{ user.username }}</label>
-                  <label class="Points">{{ user.ep }} EP</label>
+                  <label class="Username">{{ topFive[0].username }}</label>
+                  <label class="Points">{{ topFive[0].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
 
-              <!-- <div class="User" style="background-color: #a08ffc">
+              <div class="User" style="background-color: #a08ffc">
                 <div>
                   <label class="Number">2</label>
                   <label class="Suffix">nd</label>
                 </div>
                 <img src="assets/icon/Profile.png" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[1].username }}</label>
+                  <label class="Points">{{ topFive[1].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
@@ -126,8 +124,8 @@
                 </div>
                 <img src="assets/icon/Profile.png" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[2].username }}</label>
+                  <label class="Points">{{ topFive[2].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
@@ -141,8 +139,8 @@
                 </div>
                 <img src="assets/icon/Profile.png" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[3].username }}</label>
+                  <label class="Points">{{ topFive[3].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
@@ -156,12 +154,12 @@
                 </div>
                 <img src="assets/icon/Profile.png" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[4].username }}</label>
+                  <label class="Points">{{ topFive[4].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <button class="More" (click)="openPopup()">More</button> -->
+              <button class="More" (click)="openPopup()">More</button>
             </div>
           </ion-card>
         </ion-col>
