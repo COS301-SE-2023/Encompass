@@ -274,9 +274,9 @@ export class HomePage {
     this.router.navigate(['/home/themes']);
   }
 
-  goToEvents() {
+  goToEvent() {
     this.routerClick();
-    // this.router.navigate(['/home/events']);
+     this.router.navigate(['/home/event']);
   }
 
   clearNotification(id: string) {
