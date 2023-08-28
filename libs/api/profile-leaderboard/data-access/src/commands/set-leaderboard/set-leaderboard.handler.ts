@@ -107,6 +107,7 @@ export class SetLeaderboardCommandHandler
     } catch (error) {
       console.log(error);
     }
+    await this.httpService.patch(url + '/api/community-leaderboard/leaderboard').toPromise();
 
     return newLeaderboard;
   }

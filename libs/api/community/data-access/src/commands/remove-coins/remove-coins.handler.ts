@@ -21,14 +21,6 @@ export class RemoveCoinsHandler implements ICommandHandler<RemoveCoinsCommand> {
     this.communityEntityRepository.findOneAndReplaceById(community._id, community);
     community.commit();
 
-    try{
-      await this.httpService.patch(url + '/api/community-leaderboard/leaderboard').toPromise();
-    }
-
-    catch(error){
-      console.log(error)
-    }
-
     return community;
   }
 }
