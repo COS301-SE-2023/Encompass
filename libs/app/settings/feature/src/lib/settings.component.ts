@@ -39,6 +39,8 @@ export class SettingsPage{
   newPassword!: string;
   confirmNewPassword!: string;
 
+  selectedOption = "option"
+
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
   @ViewChild(IonContent, { static: false })
@@ -77,12 +79,14 @@ export class SettingsPage{
         this.settings$.subscribe((settings) => {
           if(settings){
             this.settings = settings;
-            if(this.settings.messagePermissions == 'followers'){
+            if(this.settings.messagePermissions === 'followers'){
               this.placeHolderText = 'Followers Only';
+              this.selectedValue = 'followers';
             }
 
             else{
               this.placeHolderText = 'No One';
+              this.selectedValue = 'noone';
             }
           }
         })

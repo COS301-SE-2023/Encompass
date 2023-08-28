@@ -297,19 +297,21 @@
     </div>
   </div>
 
-  <div id="messaging-settings" class="messaging-settings settings" style="height: 50px;">
-    <!-- <ion-header class="header">Messaging Settings</ion-header>
+  <div id="messaging-settings" class="messaging-settings settings" *ngIf="settings != null" >
+
+    <ion-header class="header">Messaging Settings</ion-header>
     <div class="content">
       <ion-list class="custom-list">
         <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Who can send you messages</ion-label>
-          <ion-select [(ngModel)]="selectedValue" placeholder={{placeHolderText}} interface="popover" (ionChange)="onSelectChange()">
-            <ion-select-option value="followers">Followers Only</ion-select-option>
+          <ion-select [(ngModel)]="selectedValue" placeholder="{{placeHolderText}}" interface="popover" (ionChange)="onSelectChange()">
             <ion-select-option value="noone">No One</ion-select-option>
+            <ion-select-option value="followers">Followers Only</ion-select-option>
           </ion-select>
         </ion-item>
+        <ion-item></ion-item>     
       </ion-list>
-    </div> --> 
+    </div> 
 
    </div>
 </ion-content>
