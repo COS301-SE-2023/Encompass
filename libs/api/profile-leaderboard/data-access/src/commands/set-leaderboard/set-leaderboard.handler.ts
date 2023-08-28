@@ -69,6 +69,7 @@ export class SetLeaderboardCommandHandler
         lastName: profile.lastName,
         ep: profile.ep,
         username: profile.username,
+        profileImage: profile.profileImage,
       });
     });
 

@@ -14,4 +14,7 @@ export class ProfileLeaderboardSchema extends IdentifiableEntitySchema{
 
   @Prop()
   readonly username!: string;
+
+  @Prop()
+  readonly profileImage!: string;
 }

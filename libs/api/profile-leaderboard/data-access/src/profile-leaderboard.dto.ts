@@ -4,4 +4,5 @@ export class ProfileLeaderboardDto{
   readonly lastName!: string;
   readonly ep!: number;
   readonly username!: string;
+  readonly profileImage!: string;
 }

@@ -7,6 +7,10 @@ import { ProfileLeaderboardDto } from '@encompass/api/profile-leaderboard/data-a
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EventState } from '@encompass/app/event/data-access';
 import { GetLeaderboard } from '@encompass/app/event/util';
+import { Router } from '@angular/router';
+import { ProfileState } from '@encompass/app/profile/data-access';
+import { ProfileDto } from '@encompass/api/profile/data-access';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
 
 
 @Component({
@@ -16,16 +20,23 @@ import { GetLeaderboard } from '@encompass/app/event/util';
 })
 export class EventPage {
   @Select(EventState.leaderboard) leaderboard$!: Observable<ProfileLeaderboardDto[] | null>;
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   
+  profile!: ProfileDto | null;
   leaderboard!: ProfileLeaderboardDto[] | null;
   topFive!: ProfileLeaderboardDto[] | null;
 
   isLeaderboardFetched = false;
 
-  constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store) {
-    
+  constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store, private router: Router) {
+    this.store.dispatch(new SubscribeToProfile());
+    this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
+      if(profile){
+        this.profile = profile;
+      }
+    })
   }
   ngOnInit() {
     if(!this.isLeaderboardFetched){
@@ -45,6 +56,14 @@ export class EventPage {
     // Unsubscribe to avoid memory leaks
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  GoToProfile(username: string) {
+    if (this.profile?.username !== username) {
+      this.router.navigate(['home/user-profile/' + username]);
+    } else {
+      this.router.navigate(['home/profile']);
+    }
   }
 
   categories = ['Action', 'Comedy', 'Fantasy'];

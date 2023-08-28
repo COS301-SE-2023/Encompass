@@ -6,7 +6,8 @@ export class ProfileLeaderboard extends AggregateRoot{
     public name: string,
     public lastName: string,
     public ep: number,
-    public username: string
+    public username: string,
+    public profileImage: string
   ){
     super()
   }
@@ -29,5 +30,9 @@ export class ProfileLeaderboard extends AggregateRoot{
 
   getUsername(): string {
     return this.username;
+  }
+
+  getProfileImage(): string {
+    return this.profileImage;
   }
 }

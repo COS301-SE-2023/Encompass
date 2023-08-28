@@ -19,7 +19,8 @@ export class GetLeaderboardHandler implements IQueryHandler{
         name: profile.name,
         lastName: profile.lastName,
         ep: profile.ep,
-        username: profile.username
+        username: profile.username,
+        profileImage: profile.profileImage
       })
     })
 

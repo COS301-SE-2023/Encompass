@@ -13,7 +13,8 @@ export class ProfileLeaderboardSchemaFactory
         name: profileLeaderboard.getName(),
         lastName: profileLeaderboard.getLastName(),
         ep: profileLeaderboard.getEp(),
-        username: profileLeaderboard.getUsername()
+        username: profileLeaderboard.getUsername(),
+        profileImage: profileLeaderboard.getProfileImage()
       }
     }
 
@@ -23,7 +24,8 @@ export class ProfileLeaderboardSchemaFactory
         entitySchema.name,
         entitySchema.lastName,
         entitySchema.ep,
-        entitySchema.username
+        entitySchema.username,
+        entitySchema.profileImage
       )
     }
 }

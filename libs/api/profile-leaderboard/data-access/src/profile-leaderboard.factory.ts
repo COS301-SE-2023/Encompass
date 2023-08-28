@@ -16,13 +16,15 @@ export class ProfileLeaderboardFactory implements EntityFactory<ProfileLeaderboa
     lastName: string,
     ep: number,
     username: string,
+    profileImage: string
   ): Promise<ProfileLeaderboard>{
     const profileLeaderboard = new ProfileLeaderboard(
       new ObjectId(_id).toHexString(),
       name,
       lastName,
       ep,
-      username
+      username,
+      profileImage
     );
 
     await this.profileLeaderboardEntityRepository.create(profileLeaderboard);
