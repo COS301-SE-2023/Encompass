@@ -1,0 +1,65 @@
+<div class="overlay-container">
+  <h1 class="ChallengeName">Harry Potter Readathon!</h1>
+  <h3 class="HostDetails">
+    Hosted by <ion-text class="HostUsername"> Jules</ion-text> from
+    <ion-text class="HostCommunity"> PotterHeads</ion-text>
+  </h3>
+  <h5 class="ChallengeDetails">
+    <ion-text class="partNum"> 237 </ion-text>Particicpants |
+    <ion-text class="QuesNum">15</ion-text> MCQs
+  </h5>
+  <div class="border"></div>
+  <div
+    *ngFor="let question of questions; let i = index"
+    class="QuestionContainer"
+  >
+    <ion-card class="Question">
+      <div class="QuestionHeader">
+        <label style="width: 60%"
+          ><b>Question {{ i + 1 }}</b></label
+        >
+        <label style="width: 20%; text-align: center"
+          ><b>{{ i + 1 }}</b> of <b>{{ questions.length }}</b></label
+        >
+        <label style="width: 20%; text-align: end">Score: <b>50</b></label>
+      </div>
+      <div class="Text">What was Sirius Black’s animagus form?</div>
+      <div class="Options">
+        <div class="Option">
+          <label class="Letter">A.</label
+          ><label class="questionDesc">Yes this is very much true.</label>
+        </div>
+        <div class="Option">
+          <label class="Letter">B.</label
+          ><label class="questionDesc">Yes this is very much true.</label>
+        </div>
+        <div class="Option">
+          <label class="Letter">C.</label
+          ><label class="questionDesc">Yes this is very much true.</label>
+        </div>
+        <div class="Option">
+          <label class="Letter">D.</label
+          ><label class="questionDesc">Yes this is very much true.</label>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+
+  <div class="circle-container">
+    <div class="glass">
+      <div
+        class="water"
+        [style.transform]="'scaleY(' + fillPercentage + ')'"
+      ></div>
+      <div class="score1" *ngIf="LessThanHalf">
+        <label class="score">{{ fillNumber }} / {{ totalNumber }}</label>
+        <label class="points">{{ points }} points</label>
+      </div>
+      <div class="score2" *ngIf="MoreThanHalf">
+        <label class="score">{{ fillNumber }} / {{ totalNumber }}</label>
+        <label class="points">{{ points }} points</label>
+      </div>
+    </div>
+  </div>
+  <button (click)="fillCircle()">click me before you doubt me</button>
+</div>

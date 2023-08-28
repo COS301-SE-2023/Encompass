@@ -1,9 +1,7 @@
-import { Get } from "@nestjs/common";
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetRecommendedProfilesQuery } from "./getRecommendedProfiles.query";
 import { ProfileDtoRepository } from "../../db/profile-dto.repository";
 import { ProfileDto } from "../../profile.dto";
-import cluster from "cluster";
 import { HttpService } from "@nestjs/axios";
 
 @QueryHandler(GetRecommendedProfilesQuery)
@@ -26,13 +24,10 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
         const allPostsPromise = this.httpService.get(url + '/api/post/get-all').toPromise();
         
         const [allProfiles, allPosts] = await Promise.all([allProfilesPromise, allPostsPromise]);
-        //console.log('allPosts');
-        //console.log(allPosts?.data);
         const posts = getPostIdsWithProfileIds(allPosts?.data, allProfiles);
-        //console.log(posts);
-
 
         const profilesCount = allProfiles.length;
+
         if ( profilesCount <=1 ) {
             return [];
         } else {
@@ -174,25 +169,16 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
 
         // make user id new ObjectId(userId)
         const currentCluster = clusters.find(cluster => cluster.clusterProfiles.find(profile => profile.profileId.toString() === userId));
-        //console.log('currentCluster');
-        //console.log(currentCluster);
-        //type singleClusterType = { clusterCentroid: number[], clusterProfiles: profileType };
 
         if ( currentCluster && currentCluster?.clusterProfiles.length > 1 ) {
             //return other profiles in cluster excluding user
             const otherProfiles = currentCluster.clusterProfiles.filter(profile => profile.profileId.toString() !== userId);
-            //console.log('otherProfiles');
-            //console.log(otherProfiles);
             const recommendedProfiles = getProfilesFromCluster(otherProfiles, allProfiles);
-            //console.log('recommendedProfiles');
-            //console.log(recommendedProfiles);
             return recommendedProfiles;
         } else {
             //get cluster with closest centroid to current cluster
             const closestCluster = getClosestCluster(clusters, currentCluster);
             const recommendedProfiles = getProfilesFromCluster(closestCluster.clusterProfiles, allProfiles);
-            //console.log('recommendedProfiles');
-            //console.log(recommendedProfiles);
             return recommendedProfiles;
         }
     }
@@ -400,7 +386,6 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
     }
     
     function calculateDistance(profile1: number[], profile2: number[]): number {
-        // Calculate Euclidean distance between two profiles
         return Math.sqrt(profile1.reduce((sum, value, index) => sum + (value - profile2[index]) ** 2, 0));
     }
     
@@ -415,8 +400,6 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
                 distortionsDelta.push(delta);
             }
         });
-        //console.log('distortionsDelta');
-        //console.log(distortionsDelta);
     
         let elbowK = 1;
         let maxDelta = distortionsDelta[0];
