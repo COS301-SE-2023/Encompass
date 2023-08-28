@@ -22,7 +22,7 @@ export class RemoveCoinsHandler implements ICommandHandler<RemoveCoinsCommand> {
     community.commit();
 
     try{
-      this.httpService.patch(url + '/api/community-leaderboard/leaderboard').toPromise();
+      await this.httpService.patch(url + '/api/community-leaderboard/leaderboard').toPromise();
     }
 
     catch(error){

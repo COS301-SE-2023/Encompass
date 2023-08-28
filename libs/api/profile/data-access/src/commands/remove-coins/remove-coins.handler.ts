@@ -21,10 +21,9 @@ export class RemoveCoinsHandler implements ICommandHandler<RemoveCoinsCommand>{
     profile.removeCoins(removeCoinsAmount);
     await this.profileEntityRepository.findOneAndReplaceById(profile._id, profile);
 
-    profile.communities?.forEach(community => {
+    profile.communities?.forEach(async community => {
       try{
-        this.httpService.patch(url + '/api/community/remove-coins/' + community + '/' + removeCoinsAmount).toPromise();
-        this.httpService.patch(url + '/api/profile-leaderboard/leaderboard').toPromise();
+        await this.httpService.patch(url + '/api/community/remove-coins/' + community + '/' + removeCoinsAmount).toPromise();
       }
 
       catch(error){
@@ -33,6 +32,7 @@ export class RemoveCoinsHandler implements ICommandHandler<RemoveCoinsCommand>{
     })
     profile.commit();
 
+    await this.httpService.patch(url + '/api/profile-leaderboard/leaderboard').toPromise();
     return profile;
   }
 }

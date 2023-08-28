@@ -25,7 +25,7 @@ export class ProfileLeaderboardDtoRepository{
   }
 
   async removeAll(){
-    await this.profileLeaderboardModel.deleteMany();
+    await this.profileLeaderboardModel.deleteMany({});
   }
 
   async insertMany(profiles: ProfileLeaderboardDto[]){

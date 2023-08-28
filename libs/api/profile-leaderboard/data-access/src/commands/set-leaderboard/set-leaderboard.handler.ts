@@ -19,10 +19,11 @@ export class SetLeaderboardCommandHandler
     const leaderboard: ProfileLeaderboardDto[] =
       await this.profileLeaderboardDtoRepository.getLeaderboard();
     const newLeaderboard: ProfileLeaderboardDto[] = [];
+    await this.profileLeaderboardDtoRepository.removeAll();
 
     try {
       if (leaderboard.length > 0) {
-        this.httpService
+        await this.httpService
           .patch(
             url +
               '/api/profile/remove-award/' +
@@ -33,7 +34,7 @@ export class SetLeaderboardCommandHandler
       }
 
       if (leaderboard.length > 1) {
-        this.httpService
+        await this.httpService
           .patch(
             url +
               '/api/profile/remove-award/' +
@@ -44,7 +45,7 @@ export class SetLeaderboardCommandHandler
       }
 
       if (leaderboard.length > 2) {
-        this.httpService
+        await this.httpService
           .patch(
             url +
               '/api/profile/remove-award/' +
@@ -72,7 +73,7 @@ export class SetLeaderboardCommandHandler
     });
 
     try {
-      this.httpService
+      await this.httpService
         .patch(
           url +
             '/api/profile/add-award/' +
@@ -80,7 +81,7 @@ export class SetLeaderboardCommandHandler
             '/topLeader'
         )
         .toPromise();
-      this.httpService
+      await this.httpService
         .patch(
           url +
             '/api/profile/add-award/' +
@@ -88,7 +89,7 @@ export class SetLeaderboardCommandHandler
             '/secondLeader'
         )
         .toPromise();
-      this.httpService
+      await this.httpService
         .patch(
           url +
             '/api/profile/add-award/' +
@@ -101,7 +102,7 @@ export class SetLeaderboardCommandHandler
     }
 
     try {
-      await this.profileLeaderboardDtoRepository.removeAll();
+      
       await this.profileLeaderboardDtoRepository.insertMany(newLeaderboard);
     } catch (error) {
       console.log(error);

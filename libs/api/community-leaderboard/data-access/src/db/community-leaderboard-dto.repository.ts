@@ -25,7 +25,7 @@ export class CommunityLeaderboardDtoRepository{
   }
 
   async removeAll(){
-    await this.communityLeaderboardModel.deleteMany();
+    await this.communityLeaderboardModel.deleteMany({});
   }
 
   async insertMany(communities: CommunityLeaderboardDto[]){
