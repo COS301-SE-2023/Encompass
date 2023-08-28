@@ -75,8 +75,8 @@
           <ion-card class="Leaderboard">
             <div class="Profile">
               <img src="assets/icon/Coin.png" class="CoinImg" />
-              <label class="Name">Default Name</label>
-              <label class="Score">150 Encompass Points</label>
+              <label class="Name">{{profile?.name}} {{profile?.lastName}}</label>
+              <label class="Score">{{profile?.ep}} Encompass Points</label>
             </div>
             <div class="Top5" *ngIf="topFive !== null && topFive !== undefined">
               <div class="User" (click)="GoToProfile(topFive[0].username)">
