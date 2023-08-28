@@ -79,6 +79,8 @@ export class ProfilePage {
   isPostsFetched = false;
   isProfileFetched = false;
   isCommentsFetched = false;
+  isSettingsFetched = false;
+  isProfileFetching = false;
 
   ViewCommunities = false;
 
@@ -106,47 +108,53 @@ export class ProfilePage {
 
     const page = document.getElementById('home-page');
 
-    await this.store.dispatch(new SubscribeToProfile());
-    // this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if (profile) {
-        console.log('Profile CALLED');
-        console.log(profile);
-        this.profile = profile;
-        this.getPosts(profile);
-        // this.getComments(profile);
-        // this.addPosts("recommended");
-        // this.newChange();
+    if (!this.isProfileFetched) {
+      // this.isProfileFetched = true;
+      await this.store.dispatch(new SubscribeToProfile());
+      this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
+        if (profile) {
+          console.log('Profile CALLED');
+          console.log(profile);
+          this.profile = profile;
+          this.getPosts(profile);
+          // this.getComments(profile);
+          // this.addPosts("recommended");
+          // this.newChange();
+          if (!this.isSettingsFetched) {
+            this.isSettingsFetched = true;
+            this.store.dispatch(new GetUserSettings(this.profile._id));
 
-        this.store.dispatch(new GetUserSettings(this.profile._id));
+            this.settings$
+              .pipe(takeUntil(this.unsubscribe$))
+              .subscribe((settings) => {
+                if (settings) {
+                  this.settings = settings;
 
-        this.settings$.subscribe((settings) => {
-          if (settings) {
-            this.settings = settings;
+                  this.document.body.setAttribute(
+                    'color-theme',
+                    this.settings.themes.themeColor
+                  );
+                  if (this.settings.themes.themeColor.startsWith('dark')) {
+                    const icons = document.getElementById('genreicons');
 
-            this.document.body.setAttribute(
-              'color-theme',
-              this.settings.themes.themeColor
-            );
-            if (this.settings.themes.themeColor.startsWith('dark')) {
-              const icons = document.getElementById('genreicons');
+                    if (icons) {
+                      icons.style.filter = 'invert(1)';
+                    }
+                  }
 
-              if (icons) {
-                icons.style.filter = 'invert(1)';
-              }
-            }
-
-            if (page) {
-              console.log('testing the feed page');
-              console.log('hello ' + this.settings.themes.themeImage);
-              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-            } else {
-              console.log('page is null');
-            }
+                  if (page) {
+                    console.log('testing the feed page');
+                    console.log('hello ' + this.settings.themes.themeImage);
+                    page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+                  } else {
+                    console.log('page is null');
+                  }
+                }
+              });
           }
-        });
-      }
-    });
+        }
+      });
+    }
   }
 
   postForm = this.formBuilder.group({
@@ -358,8 +366,8 @@ export class ProfilePage {
     const toast = await this.toastController.create({
       message: 'Url Copied to Clipboard',
       duration: 2000,
-      color: 'success'
-    })
+      color: 'success',
+    });
 
     await toast.present();
   }
@@ -619,8 +627,8 @@ export class ProfilePage {
     const toast = await this.toastController.create({
       message: 'Url Copied to Clipboard',
       duration: 2000,
-      color: 'success'
-    })
+      color: 'success',
+    });
 
     await toast.present();
   }

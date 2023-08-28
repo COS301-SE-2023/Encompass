@@ -83,6 +83,14 @@ export class CommentsComponent {
       if (profile) {
         console.log(profile);
         this.profile = profile;
+
+        this.store.dispatch(new GetUserSettings(profile._id));
+
+        this.settings$.subscribe((settings) => {
+          if (settings) {
+            this.settings = settings;
+          }
+        });
       }
     });
 
@@ -123,14 +131,6 @@ export class CommentsComponent {
           this.reply.push(false);
           this.viewreplies.push(false);
         }
-      }
-    });
-
-    this.store.dispatch(new GetUserSettings(this.profile._id));
-
-    this.settings$.subscribe((settings) => {
-      if (settings) {
-        this.settings = settings;
       }
     });
 

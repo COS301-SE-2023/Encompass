@@ -106,6 +106,7 @@ export class FeedPage {
   moviesIsFetched = false;
   booksIsFetched = false;
   postsIsFetched = false;
+  settingsIsFetched = false;
   ShowBooks = true;
   ShowMovies = true;
 
@@ -142,98 +143,102 @@ export class FeedPage {
         // this.addPosts("recommended");
         this.newChange();
 
-        this.store.dispatch(new GetUserSettings(this.profile._id));
+        if (!this.settingsIsFetched) {
+          this.settingsIsFetched = true;
 
-        this.settings$.subscribe((settings) => {
-          if (settings) {
-            this.settings = settings;
+          this.store.dispatch(new GetUserSettings(this.profile._id));
 
-            this.document.body.setAttribute(
-              'color-theme',
-              this.settings.themes.themeColor
-            );
-            if (this.settings.themes.themeColor.startsWith('dark')) {
-              const icons = document.getElementById('genreicons');
+          this.settings$.pipe(takeUntil(this.unsubscribe$)).subscribe((settings) => {
+            if (settings) {
+              this.settings = settings;
 
-              if (icons) {
-                icons.style.filter = 'invert(1)';
+              this.document.body.setAttribute(
+                'color-theme',
+                this.settings.themes.themeColor
+              );
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
               }
-            }
 
-            this.themeName = this.settings.themes.themeColor;
+              this.themeName = this.settings.themes.themeColor;
 
-            console.log(this.themeName);
-
-            const defaultcloud = document.getElementById('cloud-default');
-            const redcloud = document.getElementById('cloud-red');
-            const bluecloud = document.getElementById('cloud-blue');
-            const greencloud = document.getElementById('cloud-green');
-            const orangecloud = document.getElementById('cloud-orange');
-
-            if (
-              defaultcloud &&
-              redcloud &&
-              bluecloud &&
-              greencloud &&
-              orangecloud
-            ) {
-              // console.log('default cloudsssssssssssssssssssssssssssssssss1');
               console.log(this.themeName);
+
+              const defaultcloud = document.getElementById('cloud-default');
+              const redcloud = document.getElementById('cloud-red');
+              const bluecloud = document.getElementById('cloud-blue');
+              const greencloud = document.getElementById('cloud-green');
+              const orangecloud = document.getElementById('cloud-orange');
+
               if (
-                this.themeName == 'light-red' ||
-                this.themeName == 'dark-red'
+                defaultcloud &&
+                redcloud &&
+                bluecloud &&
+                greencloud &&
+                orangecloud
               ) {
-                redcloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                greencloud.classList.add('visible');
-                orangecloud.classList.add('visible');
-              } else if (
-                this.themeName == 'light-blue' ||
-                this.themeName == 'dark-blue'
-              ) {
-                // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-                bluecloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                redcloud.classList.add('visible');
-                greencloud.classList.add('visible');
-                orangecloud.classList.add('visible');
-              } else if (
-                this.themeName == 'light-green' ||
-                this.themeName == 'dark-green'
-              ) {
-                greencloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                redcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                orangecloud.classList.add('visible');
-              } else if (
-                this.themeName == 'light-orange' ||
-                this.themeName == 'dark-orange'
-              ) {
-                orangecloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                redcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                greencloud.classList.add('visible');
+                // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+                console.log(this.themeName);
+                if (
+                  this.themeName == 'light-red' ||
+                  this.themeName == 'dark-red'
+                ) {
+                  redcloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                } else if (
+                  this.themeName == 'light-blue' ||
+                  this.themeName == 'dark-blue'
+                ) {
+                  // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                  bluecloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  redcloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                } else if (
+                  this.themeName == 'light-green' ||
+                  this.themeName == 'dark-green'
+                ) {
+                  greencloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  redcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                } else if (
+                  this.themeName == 'light-orange' ||
+                  this.themeName == 'dark-orange'
+                ) {
+                  orangecloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  redcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                } else {
+                  defaultcloud.classList.remove('visible');
+                  redcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                }
+              }
+
+              if (page) {
+                console.log('testing the feed page');
+                console.log('hello ' + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
               } else {
-                defaultcloud.classList.remove('visible');
-                redcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                greencloud.classList.add('visible');
-                orangecloud.classList.add('visible');
+                console.log('page is null');
               }
             }
-
-            if (page) {
-              console.log('testing the feed page');
-              console.log('hello ' + this.settings.themes.themeImage);
-              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-            } else {
-              console.log('page is null');
-            }
-          }
-        });
+          });
+        }
 
         if (!this.communitiesIsFetched) {
           this.communitiesIsFetched = true;
@@ -1166,8 +1171,8 @@ export class FeedPage {
     const toast = await this.toastController.create({
       message: 'Url Copied to Clipboard',
       duration: 2000,
-      color: 'success'
-    })
+      color: 'success',
+    });
 
     await toast.present();
   }
