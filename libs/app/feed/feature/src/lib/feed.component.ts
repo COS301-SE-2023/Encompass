@@ -13,7 +13,7 @@ import {
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { CreatePostComponent } from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { CreateCommunityComponent } from '@encompass/app/create-community/feature';
@@ -117,7 +117,8 @@ export class FeedPage {
     private store: Store,
     private modalController: ModalController,
     private datePipe: DatePipe,
-    private homeApi: HomeApi
+    private homeApi: HomeApi,
+    private toastController: ToastController
   ) {
     this.load();
   }
@@ -1161,6 +1162,14 @@ export class FeedPage {
     const link: string = obj + '/home/app-comments-feature/' + post._id;
 
     await navigator.clipboard.writeText(link);
+
+    const toast = await this.toastController.create({
+      message: 'Url Copied to Clipboard',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
 
   GoToProfile(username: string) {

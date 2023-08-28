@@ -10,7 +10,7 @@ import {
   SubscribeToProfile,
   UpdatePost,
 } from '@encompass/app/profile/util';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { CreatePostComponent } from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { CommentDto } from '@encompass/api/comment/data-access';
@@ -89,7 +89,8 @@ export class ProfilePage {
     private modalController: ModalController,
     private formBuilder: FormBuilder,
     private profileApi: ProfileApi,
-    private profileState: ProfileState
+    private profileState: ProfileState,
+    private toastController: ToastController
   ) {
     if (this.profile == null || this.profile == undefined) {
       console.log('Profile');
@@ -353,6 +354,14 @@ export class ProfilePage {
     const link: string = obj + '/home/app-comments-feature/' + post._id;
 
     await navigator.clipboard.writeText(link);
+
+    const toast = await this.toastController.create({
+      message: 'Url Copied to Clipboard',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
 
   postChange() {
@@ -606,6 +615,14 @@ export class ProfilePage {
     const link: string = obj + '/home/user-profile/' + this.profile?.username;
 
     await navigator.clipboard.writeText(link);
+
+    const toast = await this.toastController.create({
+      message: 'Url Copied to Clipboard',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
 
   Like(n: number, post: PostDto) {
