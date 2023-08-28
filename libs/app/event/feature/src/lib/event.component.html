@@ -44,16 +44,15 @@
               </div>
             </form>
           </div>
-          <div class="EventList">
+          <div class="EventList" *ngIf="events !== null && events !== undefined">
             <ion-card *ngFor="let event of events" class="Event">
               <div class="Head">
-                <label class="EventName">Event Name</label>
-                <label class="Host">Hosted by Name by Name</label>
+                <label class="EventName">{{event.name}}</label>
+                <label class="Host">Hosted by {{event.host}}</label>
               </div>
               <div class="border"></div>
               <div class="Body">
-                This is the lovely description and here it is again This is the
-                lovely description and here it is again
+                {{event.description}}
               </div>
               <div class="Footer">
                 <div class="Details">
@@ -64,7 +63,7 @@
                     <img src="assets/icon/{{ category }}.png" class="imgDiv" />
                   </div>
                   <label style="color:var(--ion-color-primary)">15 MCQ</label>
-                  <label style="color:var(--ion-color-primary)">14 days left</label>
+                  <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
                 </div>
                 <ion-icon class="Lock" name="lock-closed"></ion-icon>
               </div>

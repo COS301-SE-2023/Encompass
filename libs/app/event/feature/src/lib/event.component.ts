@@ -6,11 +6,12 @@ import { Select, Store } from '@ngxs/store';
 import { ProfileLeaderboardDto } from '@encompass/api/profile-leaderboard/data-access';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EventState } from '@encompass/app/event/data-access';
-import { GetLeaderboard } from '@encompass/app/event/util';
+import { GetEvents, GetLeaderboard } from '@encompass/app/event/util';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { EventDto } from '@encompass/api/event/data-access';
 
 
 @Component({
@@ -20,21 +21,35 @@ import { SubscribeToProfile } from '@encompass/app/profile/util';
 })
 export class EventPage {
   @Select(EventState.leaderboard) leaderboard$!: Observable<ProfileLeaderboardDto[] | null>;
+  @Select(EventState.events) events$!: Observable<EventDto[] | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   
   profile!: ProfileDto | null;
+  events!: EventDto[] | null;
   leaderboard!: ProfileLeaderboardDto[] | null;
   topFive!: ProfileLeaderboardDto[] | null;
 
   isLeaderboardFetched = false;
+  isEventsFetched = false;
 
   constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store, private router: Router) {
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
       if(profile){
         this.profile = profile;
+
+        if(!this.isEventsFetched){
+          this.isEventsFetched = true;
+          this.store.dispatch(new GetEvents(profile.communities));
+          this.events$.pipe(takeUntil(this.unsubscribe$)).subscribe((events) => {
+            if(events){
+              console.log(events)
+              this.events = events;
+            }
+          })
+        }
       }
     })
   }
@@ -66,8 +81,15 @@ export class EventPage {
     }
   }
 
+  daysLeft(targetDateStr: Date): number {
+    const currentDate = new Date();
+    const targetDate = new Date(targetDateStr);
+    const timeDifference = targetDate.getTime() - currentDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    return daysDifference >= 0 ? daysDifference : 0;
+  }
+
   categories = ['Action', 'Comedy', 'Fantasy'];
-  events = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
   isValid = false;
   inputValue!: string;
 
