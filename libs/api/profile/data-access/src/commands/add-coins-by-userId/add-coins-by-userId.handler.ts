@@ -24,7 +24,7 @@ export class AddCoinsByUserIdHandler implements ICommandHandler<AddCoinsByUserId
     profile.communities?.forEach(community => {
       try{
         this.httpService.patch(url + '/api/community/add-coins/' + community + '/' + coins).toPromise();
-        this.httpService.patch(url + '/api/profile/leaderboard').toPromise();
+        this.httpService.patch(url + '/api/profile-leaderboard/leaderboard').toPromise();
 
       }
 

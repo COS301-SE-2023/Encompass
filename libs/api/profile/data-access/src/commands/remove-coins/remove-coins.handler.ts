@@ -24,7 +24,7 @@ export class RemoveCoinsHandler implements ICommandHandler<RemoveCoinsCommand>{
     profile.communities?.forEach(community => {
       try{
         this.httpService.patch(url + '/api/community/remove-coins/' + community + '/' + removeCoinsAmount).toPromise();
-        this.httpService.patch(url + '/api/profile/leaderboard').toPromise();
+        this.httpService.patch(url + '/api/profile-leaderboard/leaderboard').toPromise();
       }
 
       catch(error){

@@ -29,7 +29,7 @@ export class AddCoinsHandler implements ICommandHandler<AddCoinsCommand> {
     profile.communities?.forEach(community => {
       try{
         this.httpService.patch(url + '/api/community/add-coins/' + community + '/' + addCoinsAmount).toPromise();
-        this.httpService.patch(url + '/api/profile/leaderboard').toPromise();
+        this.httpService.patch(url + '/api/profile-leaderboard/leaderboard').toPromise();
       }
 
       catch(error){

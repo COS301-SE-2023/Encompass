@@ -22,7 +22,7 @@ export class AddCoinsHandler implements ICommandHandler<AddCoinsCommand> {
     community.commit();
 
     try{
-      this.httpService.patch(url + '/api/community/leaderboard').toPromise();
+      this.httpService.patch(url + '/api/community-leaderboard/leaderboard').toPromise();
     }
 
     catch(error){
