@@ -1,17 +1,4 @@
-<!-- <div class = "overlay-container">
-<ion-grid >
-<ion-row >
-    <ion-col size = 8 class = "EventsLayout">
 
-    </ion-col>
-    <ion-col size = 4 class = "ProfileLayout">
-        <ion-card class = "Profile">
-
-        </ion-card>
-    </ion-col>
-</ion-row>
-</ion-grid>
-</div>   -->
 
 <div class="overlay-container">
   <div class="overlay"></div>
@@ -76,8 +63,8 @@
                   >
                     <img src="assets/icon/{{ category }}.png" class="imgDiv" />
                   </div>
-                  <label>15 MCQ</label>
-                  <label>14 days left</label>
+                  <label style="color:var(--ion-color-primary)">15 MCQ</label>
+                  <label style="color:var(--ion-color-primary)">14 days left</label>
                 </div>
                 <ion-icon class="Lock" name="lock-closed"></ion-icon>
               </div>
@@ -105,7 +92,7 @@
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
 
-              <div class="User" (click)="GoToProfile(topFive[1].username)" style="background-color: #a08ffc">
+              <div class="User" (click)="GoToProfile(topFive[1].username)" style="background-color: var(--ion-color-primary-tint)">
                 <div>
                   <label class="Number">2</label>
                   <label class="Suffix">nd</label>
@@ -117,7 +104,7 @@
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-               <div class="User2" (click)="GoToProfile(topFive[2].username)" style="background-color: #d2caff">
+               <div class="User2" (click)="GoToProfile(topFive[2].username)" style="background-color: var(--ion-color-secondary-contrast)">
                 <div>
                   <label class="Number">3</label>
                   <label class="Suffix">rd</label>
