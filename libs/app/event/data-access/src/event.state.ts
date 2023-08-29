@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { EventApi } from "./event.api";
-import { GetEventById, GetEvents, GetLeaderboard, GetUserEvents } from "@encompass/app/event/util";
+import { GetEventById, GetEvents, GetLeaderboard, GetUserEvents, UpdateUserEvent } from "@encompass/app/event/util";
 import { EventDto } from "@encompass/api/event/data-access";
 import { UserEventsDto } from "@encompass/api/user-events/data-access";
 
@@ -145,6 +145,23 @@ export class EventState{
   @Action(GetUserEvents)
   async getUserEvents(ctx: StateContext<UserEventsModel>, {userId}: GetUserEvents){
     const userEvents = await this.eventApi.getUserEvents(userId);
+
+    if(userEvents === null || userEvents === undefined){
+      return;
+    }
+
+    ctx.setState({
+      userEventsForm: {
+        model: {
+          userEvents: userEvents
+        }
+      }
+    })
+  }
+
+  @Action(UpdateUserEvent)
+  async updateUserEvent(ctx: StateContext<UserEventsModel>, {userId, event}: UpdateUserEvent){
+    const userEvents = await this.eventApi.updateUserEvent(userId, event);
 
     if(userEvents === null || userEvents === undefined){
       return;

@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { EventDto } from "@encompass/api/event/data-access";
 import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
-import { UserEventsDto } from "@encompass/api/user-events/data-access";
+import { UpdateEventRequest, UserEventsDto } from "@encompass/api/user-events/data-access";
 
 @Injectable()
 export class EventApi{
@@ -60,6 +60,19 @@ export class EventApi{
     catch(error){
       console.log(error)
 
+      return null;
+    }
+  }
+
+  async updateUserEvent(userId: string, updateRequest: UpdateEventRequest){
+    try{
+      const response = await this.httpClient.patch<UserEventsDto>('/api/user-events/update-event/' + userId, updateRequest).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
       return null;
     }
   }
