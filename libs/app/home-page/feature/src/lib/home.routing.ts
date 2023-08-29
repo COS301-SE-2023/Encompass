@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home-page.component';
 import { AuthGuard } from '../auth.guard';
@@ -97,7 +97,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'quiz',
+        path: 'quiz/:id',
         pathMatch: 'full',
         loadChildren: () => 
           import('@encompass/app/quiz/feature').then((m) => m.QuizModule), 

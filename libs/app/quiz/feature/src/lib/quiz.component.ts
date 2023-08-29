@@ -1,4 +1,14 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { EventDto } from '@encompass/api/event/data-access';
+import { ProfileDto } from '@encompass/api/profile/data-access';
+import { UserEventsDto } from '@encompass/api/user-events/data-access';
+import { EventState } from '@encompass/app/event/data-access';
+import { GetEventById, GetUserEvents } from '@encompass/app/event/util';
+import { ProfileState } from '@encompass/app/profile/data-access';
+import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { Select, Store } from '@ngxs/store';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'quiz',
@@ -6,7 +16,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizPage {
-  questions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  @Select(EventState.singleEvent) event$!: Observable<EventDto | null>;
+  @Select(EventState.userEvents) userEvents$!: Observable<UserEventsDto | null>;
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
+  event!: EventDto | null;
+  profile!: ProfileDto | null;
+  userEvents!: UserEventsDto | null;
+
+  numberOfQuestions!: number;
+  numberOfParticipants!: number
 
   fillPercentage = 0;
   fillNumber = 0;
@@ -15,6 +36,64 @@ export class QuizPage {
   MoreThanHalf = false;
   points = 0;
 
+  isQuizFetched = false;
+  isProfileFetched = false;
+  isProfileEventFetched = false;
+
+  constructor(private route: ActivatedRoute, private store: Store) {
+    const quizId = this.route.snapshot.paramMap.get('id');
+
+    if (quizId == null) {
+      return;
+    }
+
+    if(!this.isProfileFetched){
+      this.isProfileFetched = true;
+
+      this.store.dispatch(new SubscribeToProfile())
+      this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
+        if(profile){
+          console.log(profile);
+          this.profile = profile;
+
+          if(!this.isProfileEventFetched){
+            this.isProfileEventFetched = true;
+            // console.log(profile._id);
+            this.store.dispatch(new GetUserEvents(profile._id));
+            this.userEvents$.pipe(takeUntil(this.unsubscribe$)).subscribe((userEvents) => {
+              if(userEvents){
+                console.log(userEvents);
+                this.userEvents = userEvents;
+              }
+            })
+          }
+        }
+      })
+    }
+
+    if(!this.isQuizFetched){
+      this.isQuizFetched = true;
+
+      this.store.dispatch(new GetEventById(quizId));
+      this.event$.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
+        if(event){
+          console.log(event);
+          this.event = event;
+
+          this.numberOfQuestions = event.quiz.length;
+          this.numberOfParticipants = event.members.length;
+        }
+      })
+
+    }
+  }
+
+  ngOnDestroy() {
+    // Unsubscribe to avoid memory leaks
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+  
   fillCircle() {
     this.fillPercentage += 1 / this.totalNumber; // Increase by 1/totalNumber
     this.fillNumber += 1;
