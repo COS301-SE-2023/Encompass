@@ -1,12 +1,7 @@
-import { Body, Controller, Get, Post, Param, Patch } from "@nestjs/common";
+import { Body, Controller, Get, Post, Param } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { CreateEventRequest, UpdateEventRequest } from "./dto";
-import { Event } from "./event";
+import { CreateEventRequest } from "./dto";
 import { EventDto } from "./event.dto";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { UseInterceptors } from "@nestjs/common";
-import { Request } from "express";
-import { Multer } from "multer";
 import { GetByUsernameQuery} from "./queries/get-by-username/get-by-username.query"
 import { GetByIdQuery } from "./queries/get-by-id/get-by-id.query";
 import { GetByCommunityQuery } from "./queries/get-by-community/get-by-community.query";

@@ -9,7 +9,11 @@ export class EventDto {
   readonly startDate!: Date;
   readonly endDate!: Date;
   readonly members!: string[];
-  readonly quiz!: string[];
+  readonly quiz!: {
+    question: string;
+    options: string[];
+    answer: string;
+  }[];
   readonly memo!: string[];
   readonly prompt!: string[];
   

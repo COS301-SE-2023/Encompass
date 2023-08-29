@@ -2,11 +2,14 @@ import { EntityFactory } from "@encompass/api/database/data-access";
 import { Injectable } from "@nestjs/common";
 import { EventEntityRepository } from "./db/event-entity.repository";
 import { ObjectId } from "mongodb";
- import { EventCreatedEvent } from "./events";
+import { EventCreatedEvent } from "./events";
 import { Event } from "./event";
+import { GetQuestions } from "./get-questions.service";
 
 @Injectable()
 export class EventFactory implements EntityFactory<Event>{
+  questionsGenerator = new GetQuestions();
+
   constructor(
     private readonly eventEntityRepository: EventEntityRepository,
   ){}
@@ -21,22 +24,28 @@ export class EventFactory implements EntityFactory<Event>{
     members: string[] | null,
     prompt: string[] | null,
   ) : Promise<Event>{
+    
+    const questions = await this.getQuestions();
+    
     const event = new Event(
       new ObjectId().toHexString(),
-       name,
-        host,
-        community,
-        description,
-        startDate,
-        endDate,
-        members,
-        null,
-        null,
-        prompt,
-      
+      name,
+      host,
+      community,
+      description,
+      startDate,
+      endDate,
+      members,
+      questions,
+      prompt,
     );
     await this.eventEntityRepository.create(event);
     event.apply(new EventCreatedEvent(event.getId()))
     return event;
+  }
+
+  async getQuestions(){
+    const questions = await this.questionsGenerator.getQuestions();
+    return questions
   }
 }

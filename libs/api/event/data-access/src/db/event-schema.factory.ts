@@ -18,7 +18,6 @@ export class EventSchemaFactory
         endDate: event.getEndDate(),
         members: event.getMembers(),
         quiz: event.getQuiz(),
-        memo: event.getMemo(),
         prompt: event.getPrompt(),
       };
     }
@@ -34,7 +33,6 @@ export class EventSchemaFactory
         entitySchema.endDate,
         entitySchema.members,
         entitySchema.quiz,
-        entitySchema.memo,
         entitySchema.prompt,
       )
     }
