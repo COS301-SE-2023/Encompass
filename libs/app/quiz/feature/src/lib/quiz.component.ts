@@ -133,7 +133,7 @@ export class QuizPage {
       numCorrect++;
     }
 
-    isComplete = this.userAnswers.some((el) => el === null);
+    isComplete = !this.userAnswers.some((el) => el === null);
 
     const updateEvent: UpdateEventRequest = {
       eventId: this.event._id,
