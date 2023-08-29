@@ -6,18 +6,18 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
   providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate {
+export class UnauthGuard implements CanActivate {
   constructor( private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const id = this.getExpireLocalStorage('UserID');
     if(id === null){
-      this.router.navigate(['']);
-      return false;
+      return true;
     }
 
     else{
-      return true;
+      this.router.navigate(['/home']);
+      return false;
     }
   }
 
