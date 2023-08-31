@@ -23,6 +23,7 @@ export class EventFactory implements EntityFactory<Event>{
     endDate: Date | null,
     members: string[] | null,
     prompt: string[] | null,
+    categories: string[] | null,
   ) : Promise<Event>{
     
     const questions = await this.getQuestions();
@@ -38,6 +39,7 @@ export class EventFactory implements EntityFactory<Event>{
       members,
       questions,
       prompt,
+      categories,
     );
     await this.eventEntityRepository.create(event);
     event.apply(new EventCreatedEvent(event.getId()))

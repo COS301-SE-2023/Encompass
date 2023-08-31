@@ -1,5 +1,3 @@
-import { ObjectId } from "mongoose";
-
 export class EventDto {
   readonly _id!: string ;
   readonly name!: string;
@@ -16,5 +14,5 @@ export class EventDto {
   }[];
   readonly memo!: string[];
   readonly prompt!: string[];
-  
+  readonly categories!: string[];
 }

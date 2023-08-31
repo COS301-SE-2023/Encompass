@@ -60,8 +60,4 @@ export abstract class BaseEntityRepository<
   async findByCommunity(item: string): Promise<TEntity[]> {
     return await this.find({ community: item } as FilterQuery<TSchema>);
   }
-  // async findTop20Profiles(): Promise<TEntity[]>{
-  //   return await this.find({this.sort({ ep: -1 }).limit(20)});
-  //   return await this.find().sort({ ep: -1 }).limit(20);
-  // }
 }

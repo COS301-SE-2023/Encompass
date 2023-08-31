@@ -17,6 +17,7 @@ export class Event extends AggregateRoot{
       answer: string;
     }[] | null,
     public prompt: string[] | null,
+    public categories: string[] | null,
   ){
     super();
   }
@@ -65,6 +66,8 @@ export class Event extends AggregateRoot{
     return this.prompt;
   }
   
-
+  getCategories(): string [] | null{
+    return this.categories;
+  }
   
 }
