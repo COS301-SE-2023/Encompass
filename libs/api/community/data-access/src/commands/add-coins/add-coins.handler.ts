@@ -1,15 +1,18 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { AddCoinsCommand } from './add-coins.command';
 import { CommunityEntityRepository } from '../../db/community-entity.repository';
+import { HttpService } from '@nestjs/axios';
 
 @CommandHandler(AddCoinsCommand)
 export class AddCoinsHandler implements ICommandHandler<AddCoinsCommand> {
   constructor(
     private communityEntityRepository: CommunityEntityRepository,
-    private eventPublisher: EventPublisher
+    private eventPublisher: EventPublisher,
+    private httpService: HttpService
   ) {}
 
   async execute({ communityName, addCoinsAmount }: AddCoinsCommand) {
+    const url = process.env["BASE_URL"];
     const community = this.eventPublisher.mergeObjectContext(
       await this.communityEntityRepository.findOneByName(communityName)
     );

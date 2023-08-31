@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from './auth.service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
@@ -8,39 +7,48 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 })
 
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor( private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // if(this.authService.isLoggedIn()) {
-    //   return true;
-    // }
-
-    // else{
-    //   this.router.navigate(['']);
-
-    //   return false;
-    // }
-
-    const url = state.url;
-
-    return this.checkLogin();
-  }
-
-  checkLogin(): boolean {
-    if (this.authService.isLoggedIn()) {
-      return true;
+    const id = this.getExpireLocalStorage('UserID');
+    if(id === null){
+      this.router.navigate(['']);
+      return false;
     }
 
-    // Store the attempted URL for redirecting
+    else{
+      return true;
+    }
+  }
 
-    // Create a dummy session id
+  getExpireLocalStorage(key: string): string | null{
+    const item = localStorage.getItem(key);
+    
+    if(!item){
+      return null;
+    }
 
-    // Set our navigation extras object
-    // that contains our global query params and fragment
+    const store = JSON.parse(item);
 
-    // Navigate to the login page with extras
-    this.router.navigate(['']);
+    if(Date.now() > store.expirationTime){
+      localStorage.removeItem(key)
+      return null;
+    }
 
-    return false;
+    else{
+      localStorage.removeItem(key);
+      this.setExpireLocalStorage(key, store.value, 3600000);
+    }
+
+    return store.value;
+  }
+
+  setExpireLocalStorage(key: string, value: string, expirationTime: number){
+    const item = {
+      value: value,
+      expirationTime: Date.now() + expirationTime
+    };
+
+    localStorage.setItem(key, JSON.stringify(item));
   }
 }

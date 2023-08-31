@@ -1,6 +1,7 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 
 export class Event extends AggregateRoot{
+
   constructor( 
     public readonly _id: string ,
     public name: string | null,
@@ -11,11 +12,12 @@ export class Event extends AggregateRoot{
     public endDate: Date | null,
     public members: string[] | null,
     public quiz:  {
-      questions: string;
+      question: string;
       options: string[];
-    } | null,
-    public memo: string[] | null,
+      answer: string;
+    }[] | null,
     public prompt: string[] | null,
+    public categories: string[] | null,
   ){
     super();
   }
@@ -53,20 +55,19 @@ export class Event extends AggregateRoot{
   }
 
   getQuiz():  {
-    questions: string;
+    question: string;
     options: string[];
-  } | null | null{
+    answer: string;
+  }[] | null{
     return this.quiz;
-  }
-
-  getMemo(): string [] | null{
-    return this.memo;
   }
 
   getPrompt(): string [] | null{
     return this.prompt;
   }
   
-
+  getCategories(): string [] | null{
+    return this.categories;
+  }
   
 }

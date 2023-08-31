@@ -155,7 +155,7 @@ export class Profile extends AggregateRoot{
   }
 
   removeCoins(amount:number){
-    this.ep -= amount;
+    this.ep = Number(this.ep) - Number(amount);
 
     if(this.ep < 0){
       this.ep = 0;
@@ -163,7 +163,7 @@ export class Profile extends AggregateRoot{
   }
   
   addCoins(amount: number){
-    this.ep += amount;
+    this.ep = Number(this.ep) + Number(amount);
   }
 
   addAward(awardName: string){

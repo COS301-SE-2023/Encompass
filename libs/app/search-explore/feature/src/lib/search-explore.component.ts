@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 // import { GetAllPosts, UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -87,7 +87,7 @@ export class SearchExploreComponent {
 
 
   constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
-    ,private formBuilder: FormBuilder, private searchApi: SearchApi) {
+    ,private formBuilder: FormBuilder, private searchApi: SearchApi, private toastController: ToastController) {
 
     this.load();
     // this.addInitialPosts();
@@ -650,6 +650,14 @@ ViewPostofComment(postId: string){
     const link : string = obj + '/home/app-comments-feature/' + post._id;
   
     await navigator.clipboard.writeText(link)
+
+    const toast = await this.toastController.create({
+      message: 'Url Copied to Clipboard',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
   
   postChange(){

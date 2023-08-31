@@ -18,6 +18,15 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/challenge-description/data-access": [
+        "libs/api/challenge-description/data-access/src/index.ts"
+      ],
+      "@encompass/api/challenge-description/feature": [
+        "libs/api/challenge-description/feature/src/index.ts"
+      ],
+      "@encompass/api/challenge-description/util": [
+        "libs/api/challenge-description/util/src/index.ts"
+      ],
       "@encompass/api/chat-list/data-access": [
         "libs/api/chat-list/data-access/src/index.ts"
       ],
@@ -26,6 +35,9 @@
       ],
       "@encompass/api/comment/data-access": [
         "libs/api/comment/data-access/src/index.ts"
+      ],
+      "@encompass/api/community-leaderboard/data-access": [
+        "libs/api/community-leaderboard/data-access/src/index.ts"
       ],
       "@encompass/api/community-request/data-access": [
         "libs/api/community-request/data-access/src/index.ts"
@@ -51,6 +63,9 @@
       "@encompass/api/post/data-access": [
         "libs/api/post/data-access/src/index.ts"
       ],
+      "@encompass/api/profile-leaderboard/data-access": [
+        "libs/api/profile-leaderboard/data-access/src/index.ts"
+      ],
       "@encompass/api/profile/data-access": [
         "libs/api/profile/data-access/src/index.ts"
       ],
@@ -62,6 +77,15 @@
       ],
       "@encompass/api/user-events/data-access": [
         "libs/api/user-events/data-access/src/index.ts"
+      ],
+      "@encompass/app/challenge-description/data-access": [
+        "libs/app/challenge-description/data-access/src/index.ts"
+      ],
+      "@encompass/app/challenge-description/feature": [
+        "libs/app/challenge-description/feature/src/index.ts"
+      ],
+      "@encompass/app/challenge-description/util": [
+        "libs/app/challenge-description/util/src/index.ts"
       ],
       "@encompass/app/comments/data-access": [
         "libs/app/comments/data-access/src/index.ts"
@@ -98,7 +122,11 @@
       "@encompass/app/create-post/util": [
         "libs/app/create-post/util/src/index.ts"
       ],
+      "@encompass/app/event/data-access": [
+        "libs/app/event/data-access/src/index.ts"
+      ],
       "@encompass/app/event/feature": ["libs/app/event/feature/src/index.ts"],
+      "@encompass/app/event/util": ["libs/app/event/util/src/index.ts"],
       "@encompass/app/feed/feature": ["libs/app/feed/feature/src/index.ts"],
       "@encompass/app/forgotpassword/feature": [
         "libs/app/forgotpassword/feature/src/index.ts"
@@ -110,6 +138,9 @@
         "libs/app/home-page/feature/src/index.ts"
       ],
       "@encompass/app/home-page/util": ["libs/app/home-page/util/src/index.ts"],
+      "@encompass/app/leaderboard/feature": [
+        "libs/app/leaderboard/feature/src/index.ts"
+      ],
       "@encompass/app/login/data-access": [
         "libs/app/login/data-access/src/index.ts"
       ],
@@ -136,6 +167,7 @@
         "libs/app/profile/feature/src/index.ts"
       ],
       "@encompass/app/profile/util": ["libs/app/profile/util/src/index.ts"],
+      "@encompass/app/quiz/feature": ["libs/app/quiz/feature/src/index.ts"],
       "@encompass/app/search-explore/data-access": [
         "libs/app/search-explore/data-access/src/index.ts"
       ],

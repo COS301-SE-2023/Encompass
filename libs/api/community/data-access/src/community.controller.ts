@@ -24,6 +24,8 @@ import { GetAllCommunitiesQuery } from './queries/get-all-communities/getAllComm
 import { AddCoinsCommand } from './commands/add-coins/add-coins.command';
 import { RemoveCoinsCommand } from './commands/remove-coins/remove-coins.command';
 import { AddEventCommand } from './commands/add-event/add-event.command';
+import { GetLeaderboardQuery } from './queries/get-leaderboard/get-leaderboard.query';
+import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
 
 
 
@@ -48,6 +50,13 @@ export class CommunityController {
         );
     }
 
+    @Get('leaderboard')
+    async getLeaderboard() {
+        return await this.queryBus.execute<GetLeaderboardQuery, CommunityLeaderboardDto[]>(
+            new GetLeaderboardQuery(),
+        );
+    }
+
     @Get('get-recommended-communities/:userid/:username')
     async getRecommendedCommunities(@Param('username') username: string, @Param('userid') userId: string): Promise<CommunityDto[]> {
         return await this.queryBus.execute<GetRecommendedCommunitiesQuery, CommunityDto[]>(
@@ -68,15 +77,6 @@ export class CommunityController {
     ) {
         return await this.commandBus.execute<CreateCommunityCommand, string>(
             new CreateCommunityCommand(createCommunityRequest),
-        );
-    }
-
-    @Patch(':id')
-    async updateCommunity(
-        @Param('id') communityId: string,
-        @Body() community: UpdateCommunityRequest) {
-        return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
-            new UpdateCommunityCommand(communityId, community),
         );
     }
 
@@ -168,6 +168,15 @@ export class CommunityController {
         console.log("Here")
         const uploadImage = new UploadImage();
         return await uploadImage.uploadImage(file.buffer, file.originalname);
+    }
+
+    @Patch(':id')
+    async updateCommunity(
+        @Param('id') communityId: string,
+        @Body() community: UpdateCommunityRequest) {
+        return await this.commandBus.execute<UpdateCommunityCommand, CommunityDto>(
+            new UpdateCommunityCommand(communityId, community),
+        );
     }
 
     /*@Get(':id')

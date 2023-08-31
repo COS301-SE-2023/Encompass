@@ -36,6 +36,7 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { ToastController } from '@ionic/angular';
 // import { PostsState } from '@encompass/app/posts/data-access';
 // import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
@@ -91,7 +92,8 @@ export class CommunityProfileComponent {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private communityApi: CommunityApi
+    private communityApi: CommunityApi,
+    private toastController: ToastController
   ) {
     const communityName = this.route.snapshot.paramMap.get('name');
 
@@ -312,6 +314,14 @@ export class CommunityProfileComponent {
     const link: string = obj + '/home/app-comments-feature/' + post._id;
 
     await navigator.clipboard.writeText(link);
+
+    const toast = await this.toastController.create({
+      message: 'Url Copied to Clipboard',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
 
   OpenRemove() {

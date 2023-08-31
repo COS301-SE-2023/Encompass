@@ -27,14 +27,14 @@ export class EventSchema extends IdentifiableEntitySchema{
 
   @Prop({type: Object})
   readonly quiz!: {
-    questions: string;
+    question: string;
     options: string[];
-  } | null;
-
-  @Prop()
-  readonly memo!: string[] | null;
+    answer: string;
+  }[] | null;
 
   @Prop()
   readonly prompt!: string[] | null;
   
+  @Prop()
+  readonly categories!: string[] | null;
 }

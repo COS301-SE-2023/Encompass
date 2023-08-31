@@ -36,12 +36,6 @@ export class GetRecommendedPostsHandler implements IQueryHandler<GetRecommendedP
       
       //recommendedPosts are all posts with the username or likes by the username, NB: likes is an array of usernames
       const recommendedPosts = allPosts.filter((post: { username: string; likes: string[]; }) => profileNames.includes(post.username) || post.likes.some((like: string) => profileNames.includes(like)));
-      console.log("recommendedPosts:");
-      console.log(recommendedPosts);
-      console.log("recommended users:");
-      console.log(profileNames);
-      console.log("current user:");
-      console.log(currentUserData);
 
       const currentUserName = currentUserData.username;
       const postsToRemove = recommendedPosts.filter((post: { username: string; likes: string[]; }) => post.username === currentUserName || post.likes.includes(currentUserName));

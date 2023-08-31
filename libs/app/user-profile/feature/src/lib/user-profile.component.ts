@@ -26,6 +26,7 @@ import { AddNotificationRequest } from '@encompass/api/notifications/data-access
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'user-profile',
@@ -70,7 +71,8 @@ export class UserProfile {
     private router: Router,
     private route: ActivatedRoute,
     private userProfileState: UserProfileState,
-    private userProfileApi: UserProfileApi
+    private userProfileApi: UserProfileApi,
+    private toastController: ToastController
   ) {
     const username = this.route.snapshot.paramMap.get('username');
 
@@ -243,6 +245,14 @@ export class UserProfile {
     const link: string = obj + '/home/app-comments-feature/' + post._id;
 
     await navigator.clipboard.writeText(link);
+
+    const toast = await this.toastController.create({
+      message: 'Url Copied to Clipboard',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
 
   async shareProfile() {
@@ -255,6 +265,14 @@ export class UserProfile {
       obj + '/home/user-profile/' + this.userProfile?.username;
 
     await navigator.clipboard.writeText(link);
+
+    const toast = await this.toastController.create({
+      message: 'Url Copied to Clipboard',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
 
   postChange() {

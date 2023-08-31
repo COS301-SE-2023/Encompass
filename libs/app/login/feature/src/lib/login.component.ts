@@ -69,7 +69,7 @@ export class LoginComponent {
     if (
       this.user.email != '' &&
       this.user.password != '' &&
-      this.user.password.length > 6
+      this.user.password.length >= 8
     ) {
       if (this.isValidEmail(this.user.email)) {
         this.isValid = true;

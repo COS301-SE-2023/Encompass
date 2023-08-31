@@ -16,8 +16,6 @@ import { UploadImage } from "./upload-image.service";
 import { Request } from "express";
 import { Multer } from "multer";
 import { GetByUsernameQuery } from "./queries/get-by-username/get-by-username.query";
-
-
 import { GetAllProfilesQuery } from "./queries/get-all-profiles/getAllProfiles.query";
 import { AddFollowerCommand } from "./commands/add-follower/add-follower.command";
 import { AddFollowingCommand } from "./commands/add-following/add-following.command";
@@ -33,6 +31,8 @@ import { RemoveAwardCommand } from "./commands/remove-award/remove-award.command
 import { AddEventCommand } from "./commands/add-event/add-event.command";
 import { AddAwardByUserIdCommand } from "./commands/add-award-by-userId/add-award-by-userId.command";
 import { AddCoinsByUserIdCommand } from "./commands/add-coins-by-userId/add-coins-by-userId.command";
+import { GetLeaderboardQuery } from "./queries/get-leaderboard/get-leaderboard.query";
+import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
 
 @Controller('profile')
 export class ProfileController {
@@ -68,6 +68,13 @@ export class ProfileController {
   async getRecommendedProfiles(@Param('id') userId: string){
     return await this.queryBus.execute<GetRecommendedProfilesQuery, ProfileDto[]>(
       new GetRecommendedProfilesQuery(userId),
+    );
+  }
+
+  @Get('leaderboard')
+  async getLeaderboard(){
+    return await this.queryBus.execute<GetLeaderboardQuery, ProfileLeaderboardDto[]>(
+      new GetLeaderboardQuery(),
     );
   }
 

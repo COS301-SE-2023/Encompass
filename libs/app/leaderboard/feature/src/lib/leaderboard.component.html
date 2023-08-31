@@ -1,0 +1,55 @@
+<div class="Top5" *ngIf="topThree !== null && topThree !== undefined && leaderboard !== null && leaderboard !== undefined">
+    <div class="User" (click)="GoToProfile(topThree[0].username)">
+      <div>
+        <label class="Number">1</label>
+        <label class="Suffix">st</label>
+      </div>
+      <img src={{topThree[0].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">{{topThree[0].username}}</label>
+        <label class="Points">{{topThree[0].ep}} EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward" ></ion-icon>
+    </div>
+    <div class="User" (click)="GoToProfile(topThree[1].username)" style="background-color: #a08ffc">
+      <div>
+        <label class="Number">2</label>
+        <label class="Suffix">nd</label>
+      </div>
+      <img src={{topThree[1].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">{{topThree[1].username}}</label>
+        <label class="Points">{{topThree[1].ep}} EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+    </div>
+    <div class="User2" (click)="GoToProfile(topThree[2].username)" style="background-color: #d2caff">
+      <div>
+        <label class="Number">3</label>
+        <label class="Suffix">rd</label>
+      </div>
+      <img src={{topThree[2].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">{{topThree[2].username}}</label>
+        <label class="Points">{{topThree[2].ep}} EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+    </div>
+    <div *ngFor="let user of leaderboard;let k = index"
+      class="User2"
+      style="background-color: var(--ion-color-background)"
+      (click)="GoToProfile(user.username)"
+    >
+      <div>
+        <label class="Number">{{k + 4}}</label>
+        <label class="Suffix">{{ getOrdinalSuffix(k + 5) }}</label>
+      </div>
+      <img src={{user.profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+      <div class="UserDetails">
+        <label class="Username">{{user.username}}</label>
+        <label class="Points">{{user.ep}} EP</label>
+      </div>
+      <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+    </div>
+   
+  </div>

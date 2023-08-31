@@ -1,17 +1,4 @@
-<!-- <div class = "overlay-container">
-<ion-grid >
-<ion-row >
-    <ion-col size = 8 class = "EventsLayout">
 
-    </ion-col>
-    <ion-col size = 4 class = "ProfileLayout">
-        <ion-card class = "Profile">
-
-        </ion-card>
-    </ion-col>
-</ion-row>
-</ion-grid>
-</div>   -->
 
 <div class="overlay-container">
   <div class="overlay"></div>
@@ -57,27 +44,26 @@
               </div>
             </form>
           </div>
-          <div class="EventList">
+          <div class="EventList" *ngIf="events !== null && events !== undefined">
             <ion-card *ngFor="let event of events" class="Event">
               <div class="Head">
-                <label class="EventName">Event Name</label>
-                <label class="Host">Hosted by Name by Name</label>
+                <label class="EventName">{{event.name}}</label>
+                <label class="Host">Hosted by {{event.host}}</label>
               </div>
               <div class="border"></div>
               <div class="Body">
-                This is the lovely description and here it is again This is the
-                lovely description and here it is again
+                {{event.description}}
               </div>
               <div class="Footer">
                 <div class="Details">
                   <div
-                    *ngFor="let category of categories; let k = index"
+                    *ngFor="let category of event.categories; let k = index"
                     class="tooltip"
                   >
                     <img src="assets/icon/{{ category }}.png" class="imgDiv" />
                   </div>
-                  <label>15 MCQ</label>
-                  <label>14 days left</label>
+                  <label style="color:var(--ion-color-primary)">15 MCQ</label>
+                  <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
                 </div>
                 <ion-icon class="Lock" name="lock-closed"></ion-icon>
               </div>
@@ -88,77 +74,80 @@
           <ion-card class="Leaderboard">
             <div class="Profile">
               <img src="assets/icon/Coin.png" class="CoinImg" />
-              <label class="Name">Default Name</label>
-              <label class="Score">150 Encompass Points</label>
+              <label class="Name">{{profile?.name}} {{profile?.lastName}}</label>
+              <label class="Score">{{profile?.ep}} Encompass Points</label>
             </div>
-            <div class="Top5">
-              <div class="User">
+            <div class="Top5" *ngIf="topFive !== null && topFive !== undefined">
+              <div class="User" (click)="GoToProfile(topFive[0].username)">
                 <div>
                   <label class="Number">1</label>
                   <label class="Suffix">st</label>
                 </div>
-                <img src="assets/icon/Profile.png" class="ProfileImg" />
+                <img src={{topFive[0].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[0].username }}</label>
+                  <label class="Points">{{ topFive[0].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <div class="User" style="background-color: #a08ffc">
+
+              <div class="User" (click)="GoToProfile(topFive[1].username)" style="background-color: var(--ion-color-primary-tint)">
                 <div>
                   <label class="Number">2</label>
                   <label class="Suffix">nd</label>
                 </div>
-                <img src="assets/icon/Profile.png" class="ProfileImg" />
+                <img src={{topFive[1].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[1].username }}</label>
+                  <label class="Points">{{ topFive[1].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <div class="User2" style="background-color: #d2caff">
+               <div class="User2" (click)="GoToProfile(topFive[2].username)" style="background-color: var(--ion-color-secondary-contrast)">
                 <div>
                   <label class="Number">3</label>
                   <label class="Suffix">rd</label>
                 </div>
-                <img src="assets/icon/Profile.png" class="ProfileImg" />
+                <img src={{topFive[2].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[2].username }}</label>
+                  <label class="Points">{{ topFive[2].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
               <div
                 class="User2"
                 style="background-color: var(--ion-color-background)"
+                (click)="GoToProfile(topFive[3].username)"
               >
                 <div>
                   <label class="Number">4</label>
                   <label class="Suffix">th</label>
                 </div>
-                <img src="assets/icon/Profile.png" class="ProfileImg" />
+                <img src={{topFive[3].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[3].username }}</label>
+                  <label class="Points">{{ topFive[3].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
               <div
                 class="User2"
                 style="background-color: var(--ion-color-background)"
+                (click)="GoToProfile(topFive[4].username)"
               >
                 <div>
                   <label class="Number">5</label>
                   <label class="Suffix">th</label>
                 </div>
-                <img src="assets/icon/Profile.png" class="ProfileImg" />
+                <img src={{topFive[4].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
                 <div class="UserDetails">
-                  <label class="Username">User Name</label>
-                  <label class="Points">100 EP</label>
+                  <label class="Username">{{ topFive[4].username }}</label>
+                  <label class="Points">{{ topFive[4].ep }} EP</label>
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <button class="More">More</button>
+              <button class="More" (click)="openPopup()">More</button>
             </div>
           </ion-card>
         </ion-col>

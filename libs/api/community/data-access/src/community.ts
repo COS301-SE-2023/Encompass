@@ -115,11 +115,11 @@ export class Community extends AggregateRoot{
     }
 
     addCoins(amount: number){
-        this.communityEP += amount;
+        this.communityEP = Number(this.communityEP) + Number(amount);
     }
 
     removeCoins(amount: number){
-        this.communityEP -= amount;
+        this.communityEP = Number(this.communityEP) - Number(amount);
 
         if(this.communityEP < 0){
             this.communityEP = 0;
