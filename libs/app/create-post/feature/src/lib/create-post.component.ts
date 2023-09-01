@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { CreatePostApi, CreatePostState } from '@encompass/app/create-post/data-access';
-import { calendarPopoverComponent } from '@encompass/app/calendarPopover/feature';
 
 
 @Component({
