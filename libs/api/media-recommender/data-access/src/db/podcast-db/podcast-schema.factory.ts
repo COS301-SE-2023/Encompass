@@ -29,5 +29,6 @@ export class PodcastSchemaFactory implements EntitySchemaFactory<PodcastSchema, 
             entitySchema.categories,
             entitySchema.author,
             entitySchema.website,
-        );
+        )
     }
+}
