@@ -360,7 +360,7 @@
           >
             <div>{{ profile?.bio }}</div>
             <div class="profile-info-container">
-              <div class="profile-info info-post">
+              <div class="postsNumber">
                 {{ posts?.length }} <br />
                 Posts
               </div>
@@ -452,12 +452,12 @@
         </ion-card>
         <ion-card *ngIf="!ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
+            <button (click)="OpenView()" class="Button3">Communities</button>
           </div>
         </ion-card>
         <ion-card *ngIf="ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
+            <button (click)="OpenView()" class="Button3">Communities</button>
           </div>
           <div
             class="ViewCommunity"
