@@ -22,4 +22,29 @@ export class PodcastEntityRepository extends BaseEntityRepository<PodcastSchema,
     async findSome(categories: string[]): Promise<Podcast[]> { //TEST THIS!!!!
         return await this.podcastModel.aggregate([{ $match: { language: 'English', categories: { $regex: categories.join('|') } } }, { $sample: { size: 200 } }]);
     }
+
+    async findAllCategories(): Promise<string[]> {
+        return await this.podcastModel.aggregate([
+            {
+              $project: {
+                categories: { $split: ["$categories", " | "] } // Split the categories string into an array
+              }
+            },
+            {
+              $unwind: "$categories" // Unwind the array to create separate documents for each category
+            },
+            {
+              $group: {
+                _id: "$categories" // Group by category to get distinct values
+              }
+            },
+            {
+              $project: {
+                _id: 0, // Exclude the _id field
+                category: "$_id" // Rename _id to category
+              }
+            }
+          ]);
+    }
+          
 }
