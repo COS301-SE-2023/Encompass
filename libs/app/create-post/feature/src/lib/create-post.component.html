@@ -167,8 +167,8 @@
   </form>
 
   <form
-    [formGroup]="postForm"
-    (ngSubmit)="onSubmit()"
+    [formGroup]="eventForm"
+    (ngSubmit)="onSubmitEvent()"
     class="form"
     *ngIf="createEvent"
   >
@@ -199,10 +199,10 @@
             formControlName="community"
             placeholder="Add a community"
             [(ngModel)]="inputValue2"
-            (ionChange)="checkInput()"
+            (ionChange)="checkEventInput()"
           >
             <ion-select-option
-              *ngFor="let community of profile?.communities"
+              *ngFor="let community of adminCommunities"
               [value]="community"
               class="option"
             >
@@ -240,6 +240,7 @@
         class="custom"
         [counter]="true"
         [maxlength]="100"
+        (ionChange)="checkEventInput()"
       ></ion-textarea>
     </div>
 
@@ -249,23 +250,25 @@
         <ion-textarea
           formControlName="text"
           placeholder="Describe the Challenge"
+          (ionChange)="checkEventInput()"
           class="custom3"
         ></ion-textarea>
       </div>
       <div class="TaskBody">
         <ion-item class="taskItem">
           <ion-textarea
-            formControlName="text"
+            formControlName="challenge"
             placeholder="Add a challenge task"
+            (ionChange)="checkEventInput()"
             class="custom4"
           ></ion-textarea>
-          <ion-button fill="clear" size="larger" slot="end">
+          <!-- <ion-button fill="clear" size="larger" slot="end">
             <ion-icon
               slot="icon-only"
               class="removeTask"
               name="add-circle"
             ></ion-icon>
-          </ion-button>
+          </ion-button> -->
         </ion-item>
       </div>
       <div style="display: flex; align-items: center; flex-direction: column">
@@ -278,7 +281,7 @@
 
       <div class="TaskBody2">
         <ion-button class="addMoreTask" size="larger">
-          <!--(click)="addTask()"-->
+          
           <ion-icon
             slot="icon-only"
             class="addTask"
@@ -302,6 +305,7 @@
             {{ formattedDate }}
           </ion-col>
 
+          <!-- End Date -->
           <ion-col class="picker">
             <ion-datetime-button
               datetime="datetime"
@@ -312,6 +316,7 @@
           </ion-col>
         </ion-row>
 
+        <!-- Date Picker Date -->
         <ion-popover [keepContentsMounted]="true">
           <ng-template #popovercontent>
             <ion-datetime
@@ -319,7 +324,7 @@
               id="datetime"
               displayFormat="DD/MM/YYYY"
               presentation="date"
-              formControlName="startDate"
+              formControlName="endDate"
               color="calandar"
               (ionChange)="closePopover()"
             >
@@ -358,7 +363,7 @@
 
       <div class="TextFooterEvent">
         <button
-          *ngIf="isValid"
+          *ngIf="isEventValid"
           type="submit"
           class="btns validPostEvent"
           style="color: white"
@@ -368,7 +373,7 @@
         </button>
 
         <button
-          *ngIf="!isValid"
+          *ngIf="!isEventValid"
           type="submit"
           disabled="true"
           class="btns"

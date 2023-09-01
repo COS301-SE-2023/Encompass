@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access"
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { CreatePostApi } from "./create-post.api";
-import { CreatePost, UploadFile } from "@encompass/app/create-post/util";
-import { AddPost } from "@encompass/app/create-community/util";
+import { CreateEvent, CreatePost, UploadFile } from "@encompass/app/create-post/util";
+import { AddEvent, AddPost } from "@encompass/app/create-community/util";
 import { UpdateProfile } from "@encompass/app/profile/util";
 import { ToastController } from "@ionic/angular";
 
@@ -15,13 +15,6 @@ export interface PostStateModel {
   }
 }
 
-// export interface CreateFileModel{
-//   CreateFileForm:{
-//     model: {
-//       url: string | null;
-//     }
-//   }
-// }
 @State<PostStateModel>({
   name: 'post',
   defaults: {
@@ -32,17 +25,6 @@ export interface PostStateModel {
     }
   }
 })
-
-// @State<CreateFileModel>({
-//   name: 'createFile',
-//   defaults: {
-//     CreateFileForm: {
-//       model: {
-//         url: null
-//       }
-//     }
-//   }
-// })
 
 @Injectable()
 export class CreatePostState{
@@ -112,32 +94,72 @@ export class CreatePostState{
     await toast.present();
   }
 
-  // @Action(UploadFile)
-  // async uploadFile(ctx: StateContext<CreateFileModel>, {file}: UploadFile){
-  //   const response = await this.createPostApi.uploadFile(file);
+  @Action(CreateEvent)
+  async createEvent(ctx: StateContext<PostStateModel>, {createEventRequest, profile}: CreateEvent){
+    const event = await this.createPostApi.createEvent(createEventRequest);
 
-  //   console.log(response);
+    console.log(event);
 
-  //   if(response == null || response == undefined){
-  //     return;
-  //   }
+    if(event == null || event == undefined){
+      return;
+    }
 
-  //   ctx.setState({
-  //     CreateFileForm: {
-  //       model: {
-  //         url: response.url
-  //       }
-  //     }
-  //   })
-  // }
+    ctx.dispatch(new AddEvent(event.community, event._id));
+
+    let arr;
+
+    if(profile.events == null){
+      arr = [event._id];
+    }
+
+    else{
+      arr = [...profile.events, event._id];
+    }
+
+    const data  = {
+      username: profile.username,
+      name: profile.name,
+      lastName: profile.lastName,
+      categories: profile.categories,
+      communities: profile.communities,
+      awards: profile.awards,
+      events: arr,
+      followers: profile.followers,
+      following: profile.following,
+      posts: profile.posts,
+      reviews: profile.reviews,
+      profileImage: profile.profileImage,
+      profileBanner: profile.profileBanner,
+      bio: profile.bio,
+    }
+
+    ctx.dispatch(new UpdateProfile(data, profile._id));
+
+    const toast = await this.toastController.create({
+      message: 'Event Created',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
+  }
+
+  getAdminCommunities(communities: string[], profile: string){
+    const arr: string[] = [];
+
+    communities.forEach(element => {
+      this.createPostApi.getCommunity(element).then((response) => {
+        if(response?.admin == profile){
+          arr.push(element);
+        }
+      })
+    });
+
+    return arr;
+  }
 
   @Selector()
   static post(state: PostStateModel){
     return state.PostForm.model.post;
   }
-
-  // @Selector()
-  // static url(state: CreateFileModel){
-  //   return state.CreateFileForm.model.url;
-  // }
 }

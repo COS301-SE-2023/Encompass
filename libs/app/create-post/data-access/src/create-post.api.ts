@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CommunityDto } from "@encompass/api/community/data-access";
+import { CreateEventRequest, EventDto } from "@encompass/api/event/data-access";
 import { CreatePostRequest, PostDto } from "@encompass/api/post/data-access";
 
 export interface fileReturn{
@@ -23,6 +24,19 @@ export class CreatePostApi{
     }
   }
   
+  async createEvent(request: CreateEventRequest){
+    try{
+      const response = await this.httpClient.post<EventDto>('/api/event/create', request).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
   async uploadFile(request: FormData) : Promise<string | null>{
     try {
 

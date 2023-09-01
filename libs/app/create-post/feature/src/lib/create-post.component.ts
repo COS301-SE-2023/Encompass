@@ -1,65 +1,134 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PopoverController, ModalController} from '@ionic/angular';
+import { PopoverController, ModalController } from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CreatePost, UploadFile } from '@encompass/app/create-post/util';
+import { CreateEvent, CreatePost, UploadFile } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { CreatePostApi, CreatePostState } from '@encompass/app/create-post/data-access';
-
+import {
+  CreatePostApi,
+  CreatePostState,
+} from '@encompass/app/create-post/data-access';
+import { CreateEventRequest } from '@encompass/api/event/data-access';
 
 @Component({
   selector: 'create-post',
   templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent {
-  categories: string[]=["Action", "Adventure", "Animation", "Anime", "Arts", "Business",
-   "Comedy", "Documentary", "Drama", "Fantasy", "Geography", "History", "Horror", 
-   "Hospitality", "Life-Science", "Mathematics", "Musical", "Mystery", "Physics", 
-   "Romance", "Science-Fiction", "War", "Western"]  
+  categories: string[] = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Anime',
+    'Arts',
+    'Business',
+    'Comedy',
+    'Documentary',
+    'Drama',
+    'Fantasy',
+    'Geography',
+    'History',
+    'Horror',
+    'Hospitality',
+    'Life-Science',
+    'Mathematics',
+    'Musical',
+    'Mystery',
+    'Physics',
+    'Romance',
+    'Science-Fiction',
+    'War',
+    'Western',
+  ];
 
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
-  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
+  months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  currentDate = new Date();
+
+  formattedDate = `${
+    this.months[this.currentDate.getMonth()]
+  } ${this.currentDate.getDate()}, ${this.currentDate.getFullYear()}`;
+
+  datePickerdate = new Date().toISOString();
+
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
   // @Select(CreatePostState.url) url$! : Observable<string | null>;
 
   clickedButton = '';
-  profile! : ProfileDto | null;
+  profile!: ProfileDto | null;
   hasImage = false;
-  fileName! : string;
-  file! : File;
+  fileName!: string;
+  file!: File;
   spoilers = false;
   agerestricted = false;
   isValid = false;
-  inputValue! : string;
-  inputValue2! : string;
+  isEventValid = false;
+  inputValue!: string;
+  inputValue2!: string;
 
-  createPost=true;
-  createEvent=false;
+  createPost = true;
+  createEvent = false;
 
-  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createPostApi: CreatePostApi, private popoverController: PopoverController) {
-      if(!this.profile){
+  selectedDate!: string;
+
+  adminCommunities!: string[];
+
+  constructor(
+    private modalController: ModalController,
+    private formBuilder: FormBuilder,
+    private store: Store,
+    private createPostApi: CreatePostApi,
+    private popoverController: PopoverController,
+    private createPostState: CreatePostState
+  ) {
+    if (!this.profile) {
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.subscribe((profile) => {
-        if(profile){
+        if (profile) {
           console.log(profile);
           this.profile = profile;
+
+          this.adminCommunities = this.createPostState.getAdminCommunities(profile.communities, profile.username);
         }
-      })
+      });
     }
   }
 
   postForm = this.formBuilder.group({
-    title: ['', [ Validators.required, Validators.maxLength(100)]],
+    title: ['', [Validators.required, Validators.maxLength(100)]],
     text: ['', Validators.maxLength(1000)],
     community: ['', Validators.required],
-    category: [[] as string[], Validators.required]
+    category: [[] as string[], Validators.required],
   });
 
+  eventForm = this.formBuilder.group({
+    title: ['', [Validators.required, Validators.maxLength(100)]],
+    text: ['', Validators.maxLength(1000)],
+    community: ['', Validators.required],
+    category: [[] as string[], Validators.required],
+    challenge: ['', Validators.required],
+    endDate: [this.datePickerdate, Validators.required],
+  });
 
   get title() {
     return this.postForm.get('title');
@@ -77,158 +146,205 @@ export class CreatePostComponent {
     return this.postForm.get('category');
   }
 
-  // async openPopover(event: any) {
-  //   const popover = await this.popoverController.create({
-  //     component: 'popovercontent', // Use a unique name for identification
-  //     event,
-  //     translucent: true,
-  //     componentProps: {
-  //       // You can pass any additional data to the popover here if needed
-  //     },
-  //   });
-  
-  //   await popover.present();
-  // }
+  get eventTitle() {
+    return this.eventForm.get('title');
+  }
 
-  
+  get eventText() {
+    return this.eventForm.get('text');
+  }
+
+  get eventCommunity() {
+    return this.eventForm.get('community');
+  }
+
+  get eventCategory() {
+    return this.eventForm.get('category');
+  }
+
+  get eventChallenge() {
+    return this.eventForm.get('challenge');
+  }
+
+  get eventEndDate() {
+    return this.eventForm.get('endDate');
+  }
 
   async closePopover() {
     await this.popoverController.dismiss();
   }
 
-   months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ];
-  
-   currentDate = new Date();
-  
-   formattedDate = `${this.months[this.currentDate.getMonth()]} ${this.currentDate.getDate()}, ${this.currentDate.getFullYear()}`;
-
-  change(type: string){
-    if(type=="Post"){
-      this.createPost=true;
-      this.createEvent=false;
-    }
-    else{
-      this.createPost=false;
-      this.createEvent=true;
+  change(type: string) {
+    if (type == 'Post') {
+      this.createPost = true;
+      this.createEvent = false;
+    } else {
+      this.createPost = false;
+      this.createEvent = true;
     }
   }
-
-  
 
   selections!: string[];
 
   limitSelection() {
-    if(this.category?.value){
-      this.selections=this.category?.value;
+    if (this.category?.value) {
+      this.selections = this.category?.value;
     }
-    if(this.selections.length > 3){
-      this.selections=this.selections.slice(0,3);
+    if (this.selections.length > 3) {
+      this.selections = this.selections.slice(0, 3);
     }
 
     const newCategoryValues = this.selections;
     const categoryControl = this.postForm.get('category');
-    if (categoryControl) { 
+    if (categoryControl) {
       categoryControl.patchValue(newCategoryValues);
     }
-}
+  }
 
-  Spoilers(){
+  Spoilers() {
     this.spoilers = !this.spoilers;
   }
-  AgeRestricted(){
+  AgeRestricted() {
     this.agerestricted = !this.agerestricted;
   }
-  checkInput(){
-    if(this.community?.value == null || this.community?.value == undefined 
-        || this.title?.value == null || this.title?.value == undefined
-        || this.community?.value =="" || this.title?.value =="" ){
-
+  checkInput() {
+    if (
+      this.community?.value == null ||
+      this.community?.value == undefined ||
+      this.title?.value == null ||
+      this.title?.value == undefined ||
+      this.community?.value == '' ||
+      this.title?.value == ''
+    ) {
       this.isValid = false;
-          // console.log(this.community?.value);
-          // console.log(this.title?.value);
-    }else{
+      // console.log(this.community?.value);
+      // console.log(this.title?.value);
+    } else {
       this.isValid = true;
     }
-    
   }
 
+  checkEventInput() {
+    if (
+      this.eventCommunity?.value == null ||
+      this.eventCommunity?.value == undefined ||
+      this.eventTitle?.value == null ||
+      this.eventTitle?.value == undefined ||
+      this.eventCommunity?.value == '' ||
+      this.eventTitle?.value == '' ||
+      this.eventChallenge?.value == null ||
+      this.eventChallenge?.value == undefined ||
+      this.eventChallenge?.value == ''
+    ) {
+      this.isEventValid = false;
+    } else {
+      this.isEventValid = true;
+    }
+  }
 
   async onSubmit() {
-    const emptyArray : string[] = [];
+    const emptyArray: string[] = [];
 
-    let communityData : string;
-    let titleData : string;
-    let textData : string;
-    let categoryData : string[] | null;
-    let imageUrl : string | null = null;
+    let communityData: string;
+    let titleData: string;
+    let textData: string;
+    let categoryData: string[] | null;
+    let imageUrl: string | null = null;
 
-    if(this.file && this.hasImage){
+    if (this.file && this.hasImage) {
       imageUrl = await this.uploadFile();
       console.log(imageUrl);
-    }
-
-    else{
+    } else {
       imageUrl = null;
     }
 
-    if(this.community?.value == null || this.community?.value == undefined){
-      communityData = "";
-    }
-
-    else{
+    if (this.community?.value == null || this.community?.value == undefined) {
+      communityData = '';
+    } else {
       communityData = this.community?.value;
     }
 
-    if(this.title?.value == null || this.title?.value == undefined){
-      titleData = "";
-    }
-
-    else{
+    if (this.title?.value == null || this.title?.value == undefined) {
+      titleData = '';
+    } else {
       titleData = this.title?.value;
     }
 
-    if(this.text?.value == null || this.text?.value == undefined){
-      textData = "";
-    }
-
-    else{
+    if (this.text?.value == null || this.text?.value == undefined) {
+      textData = '';
+    } else {
       textData = this.text?.value;
     }
 
-    if(this.category?.value == null || this.category?.value == undefined){
+    if (this.category?.value == null || this.category?.value == undefined) {
       categoryData = emptyArray;
-    }
-
-    else{
-
+    } else {
       categoryData = this.category?.value;
     }
 
-    if(this.profile == null || this.profile == undefined){
+    if (this.profile == null || this.profile == undefined) {
       return;
     }
 
     const data = {
       community: communityData,
       title: titleData,
-      text: textData, 
+      text: textData,
       username: this.profile.username,
       imageUrl: imageUrl,
       communityImageUrl: null,
       categories: categoryData,
       likes: emptyArray,
       spoiler: this.spoilers,
-      ageRestricted: this.agerestricted
+      ageRestricted: this.agerestricted,
     };
-    console.log(data.imageUrl)
+    console.log(data.imageUrl);
     this.store.dispatch(new CreatePost(data, this.profile));
-    
   }
 
-  
+  async onSubmitEvent() {
+    if(this.profile == null || this.profile == undefined) {
+      return;
+    }
+
+    if(this.eventTitle?.value == null || this.eventTitle?.value == undefined) {
+      return;
+    }
+
+    if(this.eventCommunity?.value == null || this.eventCommunity?.value == undefined) {
+      return;
+    }
+
+    if(this.eventText?.value == null || this.eventText?.value == undefined) {
+      return;
+    }
+
+    if(this.eventEndDate?.value == null || this.eventEndDate?.value == undefined) {
+      return;
+    }
+
+    if(this.eventChallenge?.value == null || this.eventChallenge?.value == undefined) {
+      return;
+    }
+
+    if(this.eventCategory?.value == null || this.eventCategory?.value == undefined) {
+      return;
+    }
+
+    const data: CreateEventRequest = {
+      name: this.eventTitle?.value,
+      host: this.profile?.username,
+      community: this.eventCommunity?.value,
+      description: this.eventText?.value,
+      startDate: new Date(),
+      endDate: new Date(this.eventEndDate?.value),
+      members: [this.profile?.username],
+      prompt: [this.eventChallenge?.value],
+      categories: this.eventCategory?.value,
+    }
+
+    this.store.dispatch(new CreateEvent(data, this.profile));
+  }
 
   closePopup() {
     this.modalController.dismiss();
@@ -239,78 +355,31 @@ export class CreatePostComponent {
   }
 
   onFileSelected(event: any) {
-
-    const file:File = event.target.files[0];
+    const file: File = event.target.files[0];
 
     if (file) {
-        this.file = file;
-        this.fileName = file.name;
+      this.file = file;
+      this.fileName = file.name;
     }
   }
 
-  // async uploadFile() : Promise<string | null>{
-    
-  //   return new Promise((resolve) =>{
-  //     const formData = new FormData();
-  //     formData.append('file', this.file, this.fileName);
-
-  //     this.store.dispatch(new UploadFile(formData));
-  //     this.url$.subscribe((response) => {
-  //       if(response){
-  //         console.log(response);
-  //         resolve(response);
-  //       }
-  //     })
-      
-  //   })
-    
-  // }
-
-  selectedDate!: string;
-
   markSelectedDate() {
-    const selectedDateCell = document.querySelector(`.custom-datetime td[data-value="${this.selectedDate}"]`);
+    const selectedDateCell = document.querySelector(
+      `.custom-datetime td[data-value="${this.selectedDate}"]`
+    );
     if (selectedDateCell) {
       selectedDateCell.classList.add('selected-date');
     }
   }
 
-  async uploadFile() : Promise<string | null>{
+  async uploadFile(): Promise<string | null> {
     return new Promise((resolve) => {
       const formData = new FormData();
       formData.append('file', this.file, this.fileName);
 
-      const uploadFile = this.createPostApi.uploadFile(formData)
+      const uploadFile = this.createPostApi.uploadFile(formData);
       console.log(uploadFile);
       resolve(uploadFile);
-    })
+    });
   }
-
-  //async chooseDate() {
-    // const modal = await this.modalController.create({
-    //   component: calendarModal,
-    //   cssClass: 'custom-modal', // Replace with the component or template for your popup
-    //   componentProps: {
-    //     // Add any input properties or data you want to pass to the popup component
-    //   }
-    // });
-  
-    
-
-    // async openCalendarPopup() {
-    //   const popOver = await this.popOverController.create({
-    //     component: calendarPopoverComponent,
-    //     cssClass: 'custom-modal', // Replace with the component or template for your popup
-    //     componentProps: {
-    //       id:  'popOverActivate'
-    //       // Add any input properties or data you want to pass to the popup component
-    //     }
-    //   });
-    
-    //   return await popOver.present();
-    // }
-
-    // closeCalendarPopup() {
-    //   this.popOverController.dismiss();
-    // }
 }
