@@ -711,8 +711,6 @@ ion-card {
   border-radius: 50px;
   width: 120px;
   height: 50px;
-  // padding-left: 15px;
-  // padding-right: 15px;
   padding-top: 3px;
   text-align: center;
   font-size: 16px;
@@ -720,10 +718,26 @@ ion-card {
   color: var(--ion-color-medium);
 }
 
+.postsNumber{
+  flex: 1;
+  margin: 0 5px;
+  margin-top: 20px;
+  background-color: var(--ion-color-secondary-contrast);
+  border-radius: 50px;
+  width: 120px;
+  height: 50px;
+  padding-top: 3px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--ion-color-medium);
+  cursor:default;
+}
+
 .profile-info:hover {
   cursor: pointer;
   background-color: var(--hover-color);
-  color: var(--ion-color-text);
+  color: var(--ion-color-background);
 }
 .info-post {
   // padding-left: 35px;
