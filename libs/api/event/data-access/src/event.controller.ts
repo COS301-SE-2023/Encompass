@@ -23,7 +23,7 @@ export class EventController {
     }
 
     @Get('get-by-user/:username')
-    async getPostsByUserId(
+    async getEventsByUserId(
       @Param('username') username: string,
     ){
       return await this.queryBus.execute<GetByUsernameQuery, EventDto[]>(
@@ -41,7 +41,7 @@ export class EventController {
     }
   
     @Get(':id')
-    async getPostById(
+    async getEventById(
       @Param('id') id: string,
     ){
       return await this.queryBus.execute<GetByIdQuery, EventDto>(
