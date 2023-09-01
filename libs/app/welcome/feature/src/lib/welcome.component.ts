@@ -8,9 +8,22 @@ import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomePage {
+  
+
   constructor(@Inject(DOCUMENT) private document: Document,
     private router: Router){
       this.document.body.setAttribute('color-theme', 'light');
+    }
+
+    mobileview = false;
+
+    ngOnInit() {
+      this.updateMobileView();
+      window.addEventListener('resize', this.updateMobileView.bind(this));
+    }
+    
+    updateMobileView() {
+      this.mobileview = window.innerWidth <= 992;
     }
 
     LogIn()

@@ -15,6 +15,16 @@ export class TeamPage {
       this.document.body.setAttribute('color-theme', 'light');
     }
 
+    mobileview = false;
+
+    ngOnInit() {
+      this.updateMobileView();
+      window.addEventListener('resize', this.updateMobileView.bind(this));
+    }
+    
+    updateMobileView() {
+      this.mobileview = window.innerWidth <= 992;
+    }
 
   openTCs(){
     this.router.navigate(['tscs']);

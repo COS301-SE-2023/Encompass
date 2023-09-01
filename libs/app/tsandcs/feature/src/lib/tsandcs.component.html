@@ -1,12 +1,19 @@
 <ion-content>
     <div class="overlay-container">
 
-    <div class="image-container">
+    <div *ngIf="!mobileview" class="image-container">
         <div color="dark" class="custom-title">
             <a class="head">Terms & Conditions</a>
         </div>
     <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
     </div>
+
+    <div *ngIf="mobileview" class="image-container-mobile">
+      <div color="dark" class="custom-title-mobile">
+          <a class="head-mobile">Terms & Conditions</a>
+      </div>
+  <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
+  </div>
 
     <div class="text-container">
         <div class="whole-text">
@@ -67,7 +74,7 @@
 
 
 
-    <ion-footer>
+    <ion-footer *ngIf="!mobileview">
         <ion-toolbar class="footer" color="tertiary">
           <ion-grid class="footer footer-grid">
             <ion-row class="footer-row">
@@ -129,7 +136,46 @@
       </ion-popover>
     </div>
     
-   
+   <!-- ============================================================================mobile==================================================================== -->
+   <ion-footer *ngIf="mobileview">
+    <ion-toolbar class="footerMobile" color="tertiary">
+      <div class="info-options">
+        <ion-button fill="clear" class="footer-textMobile" (click)="openTeam()">
+          Team
+        </ion-button>
+
+        <ion-button fill="clear" class="footer-textMobile" (click)="home()">
+          Home
+        </ion-button>
+
+        <ion-button
+          fill="clear"
+          class="footer-textMobile"
+          (click)="openPrivacy()"
+        >
+          Privacy
+        </ion-button>
+      </div>
+      <div class="info-options-icons">
+        <ion-icon
+          id="click-trigger"
+          name="logo-linkedin"
+          class="lnkMobile"
+        ></ion-icon>
+
+        <a
+          href="https://github.com/COS301-SE-2023/Encompass/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><ion-icon name="logo-github" class="gitMobile"></ion-icon
+        ></a>
+      </div>
+      <div class="info-options" style="margin-top: 10px">
+        <div class="teamText">PerfectStrangers Capstone 2023</div>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+
   
     
     
