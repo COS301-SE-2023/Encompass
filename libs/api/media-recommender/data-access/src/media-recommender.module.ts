@@ -18,6 +18,7 @@ import { PodcastSchema } from "./db/podcast-db/podcast-schema";
 import { PodcastEntityRepository } from "./db/podcast-db/podcast-entity.repository";
 import { PodcastDto } from "./podcast.dto";
 import { PodcastDtoRepository } from "./db/podcast-db/podcast-dto.repository";
+import { PodcastSchemaFactory } from "./db/podcast-db/podcast-schema.factory";
 
 @Module({
     imports: [
@@ -55,6 +56,7 @@ import { PodcastDtoRepository } from "./db/podcast-db/podcast-dto.repository";
         PodcastEntityRepository,
         PodcastDtoRepository,
         PodcastSchema,
+        PodcastSchemaFactory,
         GetRecommendedPodcastsHandler,
     ],
 })
