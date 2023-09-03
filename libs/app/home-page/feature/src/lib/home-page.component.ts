@@ -115,13 +115,22 @@ export class HomePage {
     this.green = false;
     this.orange = false;
 
-    if (this.themeName == "dark-red" || this.themeName == "light-red"){
+    if (this.themeName == 'dark-red' || this.themeName == 'light-red') {
       this.red = true;
-    } else if (this.themeName == "dark-blue" || this.themeName == "light-blue"){
+    } else if (
+      this.themeName == 'dark-blue' ||
+      this.themeName == 'light-blue'
+    ) {
       this.blue = true;
-    } else if (this.themeName == "dark-green" || this.themeName == "light-green"){
+    } else if (
+      this.themeName == 'dark-green' ||
+      this.themeName == 'light-green'
+    ) {
       this.green = true;
-    } else if (this.themeName == "dark-orange" || this.themeName == "light-orange"){
+    } else if (
+      this.themeName == 'dark-orange' ||
+      this.themeName == 'light-orange'
+    ) {
       this.orange = true;
     } else {
       this.default = true;
