@@ -191,3 +191,21 @@
 ion-button:hover {
   --border-radius: 50px;
 }
+
+//=========================================================mobile======================================================
+.RecomCommunities-mobile{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  font-weight: 550;
+  padding: 10;
+  background-color: #f0efef;
+}
+
+.CommunityCard-mobile{
+  width: 90vw;
+  border-radius: 15px;
+}
