@@ -48,7 +48,7 @@
             <ion-card *ngFor="let event of events" class="Event">
               <div class="Head">
                 <label class="EventName">{{event.name}}</label>
-                <label class="Host">Hosted by {{event.host}}</label>
+                <label class="Host">Hosted by @{{event.host}}</label>
               </div>
               <div class="border"></div>
               <div class="Body">
@@ -62,7 +62,7 @@
                   >
                     <img src="assets/icon/{{ category }}.png" class="imgDiv" />
                   </div>
-                  <label style="color:var(--ion-color-primary)">15 MCQ</label>
+                  <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
                   <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
                 </div>
                 <ion-icon class="Lock" name="lock-closed"></ion-icon>
