@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PopoverController, ModalController } from '@ionic/angular';
-// import './create-post.component.scss';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { CreateEvent, CreatePost, UploadFile } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
@@ -93,6 +92,9 @@ export class CreatePostComponent {
 
   adminCommunities!: string[];
 
+  eventForm: FormGroup;
+  challenges: FormArray;
+
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
@@ -112,6 +114,17 @@ export class CreatePostComponent {
         }
       });
     }
+
+    this.eventForm = this.formBuilder.group({
+      title: ['', [Validators.required, Validators.maxLength(100)]],
+      text: ['', Validators.maxLength(1000)],
+      community: ['', Validators.required],
+      category: [[] as string[], Validators.required],
+      challenges: this.formBuilder.array([]),
+      endDate: [this.datePickerdate, Validators.required],
+    });
+
+    this.challenges = this.eventForm.get('challenges') as FormArray;
   }
 
   postForm = this.formBuilder.group({
@@ -119,15 +132,6 @@ export class CreatePostComponent {
     text: ['', Validators.maxLength(1000)],
     community: ['', Validators.required],
     category: [[] as string[], Validators.required],
-  });
-
-  eventForm = this.formBuilder.group({
-    title: ['', [Validators.required, Validators.maxLength(100)]],
-    text: ['', Validators.maxLength(1000)],
-    community: ['', Validators.required],
-    category: [[] as string[], Validators.required],
-    challenge: ['', Validators.required],
-    endDate: [this.datePickerdate, Validators.required],
   });
 
   get title() {
@@ -163,7 +167,7 @@ export class CreatePostComponent {
   }
 
   get eventChallenge() {
-    return this.eventForm.get('challenge');
+    return this.eventForm.get('challenges');
   }
 
   get eventEndDate() {
@@ -339,7 +343,7 @@ export class CreatePostComponent {
       startDate: new Date(),
       endDate: new Date(this.eventEndDate?.value),
       members: [this.profile?.username],
-      prompt: [this.eventChallenge?.value],
+      prompt: this.eventChallenge?.value,
       categories: this.eventCategory?.value,
     }
 
@@ -381,5 +385,18 @@ export class CreatePostComponent {
       console.log(uploadFile);
       resolve(uploadFile);
     });
+  }
+
+  addChallenge() {
+    this.challenges.push(this.formBuilder.control('', Validators.required));
+  }
+
+  // Function to remove a challenge from the FormArray by index
+  removeChallenge(index: number) {
+    this.challenges.removeAt(index);
+  }
+
+  getFormControl(index: number) {
+    return this.challenges.controls[index] as FormControl;
   }
 }
