@@ -218,7 +218,7 @@
             multiple
             formControlName="category"
             placeholder="Add categories"
-            (ionChange)="limitSelection()"
+            (ionChange)="limitSelection2()"
           >
             <ion-select-option
               *ngFor="let category of categories"
@@ -233,8 +233,6 @@
 
     <div class="TextHead">
       <ion-textarea
-        [(ngModel)]="inputValue"
-        (input)="checkInput()"
         formControlName="title"
         placeholder="Add a title"
         class="custom"
@@ -255,7 +253,36 @@
         ></ion-textarea>
       </div>
       <div class="TaskBody">
-        <ion-list>
+
+        <div class="input-box">
+          <ion-input
+            class="input"
+            formControlName="challenges"
+            placeholder="Add a challenge task..."
+            (keyup.enter)="addTask()"
+          ></ion-input>
+
+          <ion-button
+            fill="clear"
+            *ngIf="Added"
+            type="submit"
+            (click)="addTask()"
+          >
+            <ion-icon name="send" class="icon1"></ion-icon>
+          </ion-button>
+          <ion-button
+            id="sendBtn"
+            fill="clear"
+            *ngIf="!Added"
+            disabled="true"
+            type="submit"
+            (click)="addTask()"
+            
+          >
+            <ion-icon name="send" class="icon2"></ion-icon>
+          </ion-button>
+        </div>
+        <!-- <ion-list>
         <ion-item class="taskItem" *ngFor="let challengeControl of challenges.controls; let i = index">
           <ion-textarea
             [formControl]="getFormControl(i)"
@@ -271,16 +298,20 @@
             ></ion-icon>
           </ion-button>
         </ion-item>
-        </ion-list>
+        </ion-list> -->
+      </div>
+      <div style="display: flex; align-items: center; flex-direction: column">
+        <div *ngFor="let prompt of prompts; let k=index" class="Prompt">Step {{k+1}}: {{prompt}}</div>
+       
       </div>
 
       <div class="TaskBody2">
-        <ion-button class="addMoreTask" size="larger" (click)="addChallenge()">
+        <ion-button class="addMoreTask" size="larger" (click)="RemoveTask()">
           
           <ion-icon
             slot="icon-only"
             class="addTask"
-            name="add-circle"
+            name="remove-circle"
             size="larger"
           ></ion-icon>
         </ion-button>
@@ -331,28 +362,27 @@
       <div class="Quiz">
         <h3>Quiz</h3>
         <p>Give a description for your quiz topic:</p>
-        <ion-textarea class="custom3" formControlName="quizDescription"></ion-textarea>
-        <ion-radio-group class="level" formControlName="selectedOption">
-          <ion-row>
-            <ion-col>
-              <ion-radio value="5" labelPlacement="end" justify="end"
+        <ion-textarea class="custom3" formControlName="quizDescription" (ionChange)="checkEventInput()"></ion-textarea>
+        <ion-radio-group  formControlName="selectedOption" class="level">
+          
+            <div class = "radio">
+              <ion-radio value="5" labelPlacement="end"  (click)="checkEventInput()"
                 >Short <br />
                 5 Questions</ion-radio
               >
-            </ion-col>
-            <ion-col>
-              <ion-radio value="10" labelPlacement="end" justify="end"
+            </div>
+            <div class = "radio">
+              <ion-radio value="10" labelPlacement="end"  (click)="checkEventInput()"
                 >Medium <br />
                 10 Questions</ion-radio
               >
-            </ion-col>
-            <ion-col>
-              <ion-radio value="15" labelPlacement="end" justify="end"
+            </div>
+            <div class = "radio">
+              <ion-radio value="15" labelPlacement="end" (click)="checkEventInput()"
                 >Long <br />
                 15 Questions</ion-radio
               >
-            </ion-col>
-          </ion-row>
+            </div>
         </ion-radio-group>
       </div>
 
