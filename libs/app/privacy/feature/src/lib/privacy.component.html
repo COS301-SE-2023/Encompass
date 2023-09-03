@@ -1,12 +1,19 @@
 <ion-content>
     <div class="overlay-container">
 
-    <div class="image-container">
+    <div *ngIf="!mobileview" class="image-container">
         <div color="dark" class="custom-title">
             <a class="head">Privacy Policy</a>
         </div>
     <img src="assets/WelcomeImg.png" class="cropped-image" alt="Encompass Logo">
     </div>
+
+    <div *ngIf="mobileview" class="image-container-mobile">
+      <div color="dark" class="custom-title-mobile">
+        <a class="head-mobile">Privacy Policy</a>
+      </div>
+  <img src="assets/WelcomeImg.png" class="cropped-image-mobile" alt="Encompass Logo">
+  </div>
 
     <div class="text-container">
         <div class="whole-text">
