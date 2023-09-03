@@ -63,7 +63,8 @@ export class CreatePostComponent {
   ];
 
   currentDate = new Date();
-
+  prompts: string[] = [];
+  Added = false;
   formattedDate = `${
     this.months[this.currentDate.getMonth()]
   } ${this.currentDate.getDate()}, ${this.currentDate.getFullYear()}`;
@@ -93,7 +94,6 @@ export class CreatePostComponent {
   adminCommunities!: string[];
 
   eventForm: FormGroup;
-  challenges: FormArray;
 
   constructor(
     private modalController: ModalController,
@@ -120,13 +120,13 @@ export class CreatePostComponent {
       text: ['', Validators.maxLength(1000)],
       community: ['', Validators.required],
       category: [[] as string[], Validators.required],
-      challenges: this.formBuilder.array([this.formBuilder.control('')]),
+      challenges: ['', Validators.required],
       endDate: [this.datePickerdate, Validators.required],
       quizDescription: ['', Validators.maxLength(1000)],
       selectedOption: ['5', Validators.required],
     });
 
-    this.challenges = this.eventForm.get('challenges') as FormArray;
+    // this.challenges = this.eventForm.get('challenges') as FormArray;
   }
 
   postForm = this.formBuilder.group({
@@ -186,6 +186,7 @@ export class CreatePostComponent {
 
   async closePopover() {
     await this.popoverController.dismiss();
+    this.checkEventInput();
   }
 
   change(type: string) {
@@ -215,6 +216,22 @@ export class CreatePostComponent {
     }
   }
 
+  limitSelection2() {
+    if (this.category?.value) {
+      this.selections = this.eventCategory?.value;
+    }
+    if (this.selections.length > 3) {
+      this.selections = this.selections.slice(0, 3);
+    }
+
+    const newCategoryValues = this.selections;
+    const categoryControl = this.eventForm.get('category');
+    if (categoryControl) {
+      categoryControl.patchValue(newCategoryValues);
+    }
+    this.checkEventInput();
+  }
+
   Spoilers() {
     this.spoilers = !this.spoilers;
   }
@@ -239,6 +256,12 @@ export class CreatePostComponent {
   }
 
   checkEventInput() {
+
+    console.log(this.eventCommunity?.value);
+    console.log(this.eventTitle?.value);
+    console.log(this.quizDescription?.value);
+    console.log(this.prompts.length);
+   
     if (
       this.eventCommunity?.value == null ||
       this.eventCommunity?.value == undefined ||
@@ -246,12 +269,10 @@ export class CreatePostComponent {
       this.eventTitle?.value == undefined ||
       this.eventCommunity?.value == '' ||
       this.eventTitle?.value == '' ||
-      this.eventChallenge?.value == null ||
-      this.eventChallenge?.value == undefined ||
-      this.eventChallenge?.value == '' ||
       this.quizDescription?.value == null ||
       this.quizDescription?.value == undefined ||
-      this.quizDescription?.value == ''
+      this.quizDescription?.value == ''||
+      this.prompts.length == 0
     ) {
       this.isEventValid = false;
     } else {
@@ -364,7 +385,7 @@ export class CreatePostComponent {
       startDate: new Date(),
       endDate: new Date(this.eventEndDate?.value),
       members: [this.profile?.username],
-      prompt: this.eventChallenge?.value,
+      prompt: this.prompts,
       categories: this.eventCategory?.value,
       numberOfQuestions: this.eventSelectedOption.value,
       quizDescription: this.quizDescription?.value,
@@ -410,16 +431,56 @@ export class CreatePostComponent {
     });
   }
 
-  addChallenge() {
-    this.challenges.push(this.formBuilder.control('', Validators.required));
+  // addChallenge() {
+  //   this.challenges.push(this.formBuilder.control('', Validators.required));
+  // }
+
+  // // Function to remove a challenge from the FormArray by index
+  // removeChallenge(index: number) {
+  //   this.challenges.removeAt(index);
+  // }
+
+  // getFormControl(index: number) {
+  //   return this.challenges.controls[index] as FormControl;
+  // }
+
+
+  addTask(){
+    console.log("adding task");
+
+    if(this.eventChallenge?.value == null 
+      || this.eventChallenge?.value == undefined 
+      || this.eventChallenge?.value == '\n') {
+      return;
+    }
+    console.log(this.eventChallenge?.value);
+
+    this.prompts.push(this.eventChallenge?.value);
+    this.inputValue = '';
+    const newCategoryValues = "";
+    const categoryControl = this.eventForm.get('challenges');
+    if (categoryControl) {
+      categoryControl.patchValue(newCategoryValues);
+    }
+    this.Added = false;
+    this.checkEventInput();
+
   }
 
-  // Function to remove a challenge from the FormArray by index
-  removeChallenge(index: number) {
-    this.challenges.removeAt(index);
+  RemoveTask(){
+    console.log("removing task");
+    this.prompts.pop();
+    this.checkEventInput();
   }
 
-  getFormControl(index: number) {
-    return this.challenges.controls[index] as FormControl;
+  checkChallenge(){
+    if(this.eventChallenge?.value == null 
+      || this.eventChallenge?.value == undefined 
+      || this.eventChallenge?.value == '\n') {
+      this.Added = false;
+    }
+    else{
+      this.Added = true;
+    }
   }
 }
