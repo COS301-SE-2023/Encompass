@@ -67,4 +67,17 @@ export class CreatePostApi{
       return null;
     }
   }
+
+  async addToUserEvents(userId: string, eventId: string){
+    try{
+      const response = await this.httpClient.patch<CommunityDto>('/api/user-events/add-event/' + userId + "/" + eventId, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
 }

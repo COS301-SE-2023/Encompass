@@ -8,4 +8,6 @@ export class CreateEventRequest {
   members!: string[] | null;
   prompt!: string[] | null;
   categories!: string[] | null;
+  numberOfQuestions!: number;
+  quizDescription!: string | null;
 }

@@ -263,7 +263,7 @@
             (ionChange)="checkEventInput()"
             class="custom4"
           ></ion-textarea>
-          <ion-button fill="clear" size="larger" slot="end" (click)="removeChallenge(i)">
+          <ion-button fill="clear" size="larger" slot="end" (click)="removeChallenge(i)" *ngIf="i !== 0">
             <ion-icon
               slot="icon-only"
               class="removeTask"
@@ -273,13 +273,6 @@
         </ion-item>
         </ion-list>
       </div>
-      <!-- <div style="display: flex; align-items: center; flex-direction: column">
-        <div class="Prompt">Describe</div>
-        <div class="Prompt">Describe</div>
-        <div class="Prompt">Describe</div>
-        <div class="Prompt">Describe</div>
-        <div class="Prompt">Describe</div>
-      </div> -->
 
       <div class="TaskBody2">
         <ion-button class="addMoreTask" size="larger" (click)="addChallenge()">
@@ -338,23 +331,23 @@
       <div class="Quiz">
         <h3>Quiz</h3>
         <p>Give a description for your quiz topic:</p>
-        <ion-textarea class="custom3"></ion-textarea>
-        <ion-radio-group class="level">
+        <ion-textarea class="custom3" formControlName="quizDescription"></ion-textarea>
+        <ion-radio-group class="level" formControlName="selectedOption">
           <ion-row>
             <ion-col>
-              <ion-radio value="short" labelPlacement="end" justify="end"
+              <ion-radio value="5" labelPlacement="end" justify="end"
                 >Short <br />
                 5 Questions</ion-radio
               >
             </ion-col>
             <ion-col>
-              <ion-radio value="medium" labelPlacement="end" justify="end"
+              <ion-radio value="10" labelPlacement="end" justify="end"
                 >Medium <br />
                 10 Questions</ion-radio
               >
             </ion-col>
             <ion-col>
-              <ion-radio value="long" labelPlacement="end" justify="end"
+              <ion-radio value="15" labelPlacement="end" justify="end"
                 >Long <br />
                 15 Questions</ion-radio
               >

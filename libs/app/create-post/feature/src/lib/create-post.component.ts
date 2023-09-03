@@ -120,8 +120,10 @@ export class CreatePostComponent {
       text: ['', Validators.maxLength(1000)],
       community: ['', Validators.required],
       category: [[] as string[], Validators.required],
-      challenges: this.formBuilder.array([]),
+      challenges: this.formBuilder.array([this.formBuilder.control('')]),
       endDate: [this.datePickerdate, Validators.required],
+      quizDescription: ['', Validators.maxLength(1000)],
+      selectedOption: ['5', Validators.required],
     });
 
     this.challenges = this.eventForm.get('challenges') as FormArray;
@@ -172,6 +174,14 @@ export class CreatePostComponent {
 
   get eventEndDate() {
     return this.eventForm.get('endDate');
+  }
+
+  get eventSelectedOption() {
+    return this.eventForm.get('selectedOption');
+  }
+
+  get quizDescription() {
+    return this.eventForm.get('quizDescription');
   }
 
   async closePopover() {
@@ -238,7 +248,10 @@ export class CreatePostComponent {
       this.eventTitle?.value == '' ||
       this.eventChallenge?.value == null ||
       this.eventChallenge?.value == undefined ||
-      this.eventChallenge?.value == ''
+      this.eventChallenge?.value == '' ||
+      this.quizDescription?.value == null ||
+      this.quizDescription?.value == undefined ||
+      this.quizDescription?.value == ''
     ) {
       this.isEventValid = false;
     } else {
@@ -335,6 +348,14 @@ export class CreatePostComponent {
       return;
     }
 
+    if(this.quizDescription?.value == null || this.quizDescription?.value == undefined) {
+      return;
+    }
+
+    if(this.eventSelectedOption?.value == null || this.eventSelectedOption?.value == undefined) {
+      return;
+    }
+
     const data: CreateEventRequest = {
       name: this.eventTitle?.value,
       host: this.profile?.username,
@@ -345,6 +366,8 @@ export class CreatePostComponent {
       members: [this.profile?.username],
       prompt: this.eventChallenge?.value,
       categories: this.eventCategory?.value,
+      numberOfQuestions: this.eventSelectedOption.value,
+      quizDescription: this.quizDescription?.value,
     }
 
     this.store.dispatch(new CreateEvent(data, this.profile));
