@@ -6,11 +6,13 @@
     *ngIf="createPost"
   >
     <div class="head">
+      
       <button
         type="button"
         class="btn1"
         value="postBtn"
         (click)="change('Post')"
+        id="postBtn"
       >
         Post
       </button>
@@ -19,6 +21,7 @@
         class="btn2"
         value="eventBtn"
         (click)="change('Event')"
+        id="eventBtn"
       >
         Event
       </button>
@@ -86,16 +89,17 @@
       ></ion-textarea>
     </div>
     <div class="TextFooter">
-      <ion-avatar>
+      <!-- <ion-avatar> -->
+        <ion-item>
         <div class="overlay-image">
           <input
-            id="file-input"
+            id="image-input"
             type="file"
             [accept]="requiredFileType"
             (change)="onFileSelected($event)"
             class="file-input"
           />
-          <label for="file-input" class="file-label">
+          <label for="image-input" class="file-label">
             <ion-icon
               name="image-outline"
               class="icon imageIcon"
@@ -103,7 +107,8 @@
             ></ion-icon>
           </label>
         </div>
-      </ion-avatar>
+        </ion-item>
+      <!-- </ion-avatar> -->
       <button
         *ngIf="spoilers"
         type="button"
@@ -115,6 +120,7 @@
       </button>
 
       <button
+        id="spoilerBtn"
         *ngIf="!spoilers"
         type="button"
         class="btns tagbtn"
