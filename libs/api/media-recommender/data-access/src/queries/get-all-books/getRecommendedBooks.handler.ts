@@ -17,16 +17,16 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
         //make AI recommendation here
         const url = process.env["BASE_URL"];
         try {
-            const recommendedUsersPromise = this.httpService.get(url + "/api/profile/get-recommended/" + userId).toPromise();
+            /*const recommendedUsersPromise = this.httpService.get(url + "/api/profile/get-recommended/" + userId).toPromise();
             const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
-            const [currentUserProfile, recommendedUsers] = await Promise.all([currentUserProfilePromise, recommendedUsersPromise]);
-            //const allCategories = await this.bookEntityRepository.findAllCategories();
+            const [currentUserProfile, recommendedUsers] = await Promise.all([currentUserProfilePromise, recommendedUsersPromise]);*/
+            const allCategories = await this.bookEntityRepository.findAllCategories();
             /*console.log('allCategories: ');
             //console all categories
             allCategories.forEach((category) => {
                 console.log(category);
             });*/
-            if ( recommendedUsers?.data.length > 0 ) {
+            /*if ( recommendedUsers?.data.length > 0 ) {
                 const categories = convertUserCategories( currentUserProfile?.data );
                 const allBooks = await this.bookEntityRepository.findSome(categories);
                 addUserToBook(allBooks, currentUserProfile?.data);
@@ -65,7 +65,8 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
                 }
 
                 return recommendedBooksFromAllBooks;
-            }
+            }*/
+            return this.bookEntityRepository.findNonNSFW(allCategories);
 
             
 
