@@ -37,4 +37,7 @@ export class EventSchema extends IdentifiableEntitySchema{
   
   @Prop()
   readonly categories!: string[] | null;
+
+  @Prop()
+  readonly quizDescription!: string | null;
 }

@@ -18,6 +18,7 @@ export class Event extends AggregateRoot{
     }[] | null,
     public prompt: string[] | null,
     public categories: string[] | null,
+    public quizDescription: string | null,
   ){
     super();
   }
@@ -68,6 +69,10 @@ export class Event extends AggregateRoot{
   
   getCategories(): string [] | null{
     return this.categories;
+  }
+
+  getQuizDescription(): string | null{
+    return this.quizDescription;
   }
   
   addUser(username: string){

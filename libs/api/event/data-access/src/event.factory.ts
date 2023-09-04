@@ -42,6 +42,7 @@ export class EventFactory implements EntityFactory<Event>{
       questions,
       prompt,
       categories,
+      quizDescription
     );
     await this.eventEntityRepository.create(event);
     event.apply(new EventCreatedEvent(event.getId()))
