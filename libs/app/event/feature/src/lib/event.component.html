@@ -45,7 +45,7 @@
             </form>
           </div>
           <div class="EventList" *ngIf="events !== null && events !== undefined">
-            <ion-card *ngFor="let event of events" class="Event">
+            <ion-card *ngFor="let event of events" class="Event" (click)="goToEvent(event._id)">
               <div class="Head">
                 <label class="EventName">{{event.name}}</label>
                 <label class="Host">Hosted by @{{event.host}}</label>
