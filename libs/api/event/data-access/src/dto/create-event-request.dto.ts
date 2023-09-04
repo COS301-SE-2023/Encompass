@@ -5,7 +5,7 @@ export class CreateEventRequest {
   description!: string | null;
   startDate!: Date | null;
   endDate!: Date | null;
-  members!: string[] | null;
+  members!: string[];
   prompt!: string[] | null;
   categories!: string[] | null;
   numberOfQuestions!: number;

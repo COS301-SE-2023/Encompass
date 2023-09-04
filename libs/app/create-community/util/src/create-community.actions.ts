@@ -23,5 +23,5 @@ export class UploadFile{
 
 export class AddEvent{
   static readonly type = '[CreateCommunity] AddEvent'
-  constructor(public name: string, public id: string){}
+  constructor(public eventId: string, public username: string){}
 }

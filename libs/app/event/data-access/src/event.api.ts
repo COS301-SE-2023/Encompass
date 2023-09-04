@@ -76,4 +76,30 @@ export class EventApi{
       return null;
     }
   }
+
+  async addUser(eventId: string, username: string){
+    try{
+      const response = await this.httpClient.patch<EventDto>('/api/event/add-user/' + eventId + '/' + username, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async addToUserEvents(userId: string, eventId: string){
+    try{
+      const response = await this.httpClient.patch<UserEventsDto>('/api/user-events/add-event/' + userId + "/" + eventId, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
 }

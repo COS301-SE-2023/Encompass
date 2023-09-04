@@ -23,3 +23,13 @@ export class UpdateUserEvent{
   static readonly type = '[Event] Update User Event';
   constructor(public readonly userId: string, public readonly event: UpdateEventRequest){}
 }
+
+export class AddUser{
+  static readonly type = '[Event] Add User';
+  constructor(public readonly eventId: string, public readonly username: string){}
+}
+
+export class AddUserEvent{
+  static readonly type = '[Event] Add User Event';
+  constructor(public readonly eventId: string, public readonly userId: string){}
+}

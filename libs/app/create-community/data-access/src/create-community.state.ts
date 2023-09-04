@@ -156,8 +156,8 @@ export class CreateCommunityState{
   }
 
   @Action(AddEvent)
-  async addEvent(ctx: StateContext<CommunityStateModel>, {name, id} : AddEvent){
-    const response = await this.createCommunityApi.addEvent(name, id);
+  async addEvent(ctx: StateContext<CommunityStateModel>, {username, eventId} : AddEvent){
+    const response = await this.createCommunityApi.addEvent(username, eventId);
 
     if(response == null || response == undefined){
       return;

@@ -2,9 +2,10 @@ import { Injectable } from "@angular/core";
 import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { EventApi } from "./event.api";
-import { GetEventById, GetEvents, GetLeaderboard, GetUserEvents, UpdateUserEvent } from "@encompass/app/event/util";
+import { AddUserEvent, GetEventById, GetEvents, GetLeaderboard, GetUserEvents, UpdateUserEvent } from "@encompass/app/event/util";
 import { EventDto } from "@encompass/api/event/data-access";
 import { UserEventsDto } from "@encompass/api/user-events/data-access";
+import { AddUser } from "@encompass/app/event/util";
 
 export interface EventLeaderboardModel {
   leaderboardForm: {
@@ -174,6 +175,28 @@ export class EventState{
         }
       }
     })
+  }
+
+  @Action(AddUser)
+  async addEvent(ctx: StateContext<SingleEventModel>, {eventId, username}: AddUser){
+    const event = await this.eventApi.addUser(eventId, username);
+
+    if(event === null || event === undefined){
+      return;
+    }
+
+    ctx.setState({
+      singleEventForm: {
+        model: {
+          event: event
+        }
+      }
+    })
+  }
+
+  @Action(AddUserEvent)
+  async addUserEvent(ctx: StateContext<SingleEventModel>, {eventId, userId}: AddUserEvent){
+    const userEvent = await this.eventApi.addToUserEvents(userId, eventId);
   }
 
   @Selector()
