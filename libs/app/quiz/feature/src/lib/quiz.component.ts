@@ -34,7 +34,7 @@ export class QuizPage {
   userEvents!: UserEventsDto | null;
   currentEvent!: UpdateEventRequest;
 
-  userAnswers!: string[];
+  userAnswers: string[] = [];
 
   numberOfQuestions!: number;
   numberOfParticipants!: number;
@@ -55,6 +55,25 @@ export class QuizPage {
 
     if (quizId == null) {
       return;
+    }
+
+    if (!this.isQuizFetched) {
+      this.isQuizFetched = true;
+
+      this.store.dispatch(new GetEventById(quizId));
+      this.event$.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
+        if (event) {
+          console.log(event);
+          this.event = event;
+
+          this.numberOfQuestions = event.quiz.length;
+          this.numberOfParticipants = event.members.length;
+          this.userAnswers = new Array(this.numberOfQuestions).fill(null);
+         
+
+          this.totalNumber = event.quiz.length;
+        }
+      });
     }
 
     if (!this.isProfileFetched) {
@@ -80,7 +99,13 @@ export class QuizPage {
                   userEvents.events.forEach((element) => {
                     if (element.eventId === quizId) {
                       this.currentEvent = element;
-                      this.userAnswers = element.userAnswers;
+                      element.userAnswers.forEach((answer, index) => {
+                        this.userAnswers[index] = answer;
+
+                        if (answer === this.event?.quiz[index].answer) {
+                          this.fillCircle();
+                        }
+                      })
                     }
                   });
                 }
@@ -90,25 +115,7 @@ export class QuizPage {
       });
     }
 
-    if (!this.isQuizFetched) {
-      this.isQuizFetched = true;
-
-      this.store.dispatch(new GetEventById(quizId));
-      this.event$.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
-        if (event) {
-          console.log(event);
-          this.event = event;
-
-          this.numberOfQuestions = event.quiz.length;
-          this.numberOfParticipants = event.members.length;
-          if (this.userAnswers === null) {
-            this.userAnswers = new Array(this.numberOfQuestions).fill(null);
-          }
-
-          this.totalNumber = event.quiz.length;
-        }
-      });
-    }
+    
   }
 
   ngOnDestroy() {

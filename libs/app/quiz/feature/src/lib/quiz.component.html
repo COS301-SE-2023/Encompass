@@ -24,7 +24,7 @@
         <label style="width: 20%; text-align: end">Score: <b>50</b></label>
       </div>
       <div class="Text">{{question.question}}</div>
-      <div class="Options">
+      <div class="Options" *ngIf='userAnswers[i] === null'>
         <div class="Option" (click)="answerQuestion(i, question.options[0])">
           <label class="Letter">A.</label
           ><label class="questionDesc">{{question.options[0]}}</label>
@@ -42,6 +42,22 @@
           ><label class="questionDesc">{{question.options[3]}}</label>
         </div>
       </div>
+
+      <div class="Options" *ngIf="userAnswers[i] !== null">
+        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+          <label class="Letter">A.</label><label class="questionDesc">{{ question.options[0] }}</label>
+        </div>
+        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+          <label class="Letter">B.</label><label class="questionDesc">{{ question.options[1] }}</label>
+        </div>
+        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+          <label class="Letter">C.</label><label class="questionDesc">{{ question.options[2] }}</label>
+        </div>
+        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+          <label class="Letter">D.</label><label class="questionDesc">{{ question.options[3] }}</label>
+        </div>
+      </div>
+      
     </ion-card>
   </div>
 
