@@ -104,6 +104,8 @@ export class QuizPage {
           if (this.userAnswers === null) {
             this.userAnswers = new Array(this.numberOfQuestions).fill(null);
           }
+
+          this.totalNumber = event.quiz.length;
         }
       });
     }
@@ -131,7 +133,10 @@ export class QuizPage {
 
     if (answer === this.event.quiz[questionIndex].answer) {
       numCorrect++;
+
+      this.fillCircle();
     }
+    
 
     isComplete = !this.userAnswers.some((el) => el === null);
 
