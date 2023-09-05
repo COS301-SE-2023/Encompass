@@ -6,6 +6,7 @@ import { AddNotificationRequest, NotificationDto } from "@encompass/api/notifica
 import { BookDto } from "@encompass/api/media-recommender/data-access";
 import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { MovieDto } from "@encompass/api/media-recommender/data-access";
+import { PodcastDto } from "@encompass/api/media-recommender/data-access";
 
 @Injectable()
 export class HomeApi{
@@ -36,6 +37,16 @@ export class HomeApi{
   async getRecommendedMovies(userId: string){
     try{
       const response = await this.httpClient.get<MovieDto[]>('/api/media-recommender/movies/' + userId).toPromise();
+      return response;
+    }
+    catch(error){
+      return null;
+    }
+  }
+
+  async getRecommendedPodcasts(userId: string){
+    try{
+      const response = await this.httpClient.get<PodcastDto[]>('/api/media-recommender/podcasts/' + userId).toPromise();
       return response;
     }
     catch(error){

@@ -19,7 +19,7 @@ export class PodcastEntityRepository extends BaseEntityRepository<PodcastSchema,
         this.podcastModel = podcastModel;
     }
 
-    async findSome(categories: string[]): Promise<Podcast[]> { //TEST THIS!!!!
+    async findSome(categories: string[]): Promise<Podcast[]> {
         return await this.podcastModel.aggregate([{ $match: { language: 'English', categories: { $regex: categories.join('|') } } }, { $sample: { size: 2 } }]);
     }
 

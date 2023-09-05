@@ -3,13 +3,14 @@ import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 // import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 // import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
-import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome, ClearAllNotifications, UpdatePostWithType } from "@encompass/app/home-page/util";
+import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome, ClearAllNotifications, UpdatePostWithType, GetRecommendedPodcasts } from "@encompass/app/home-page/util";
 import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
 import { CommunityDto } from "@encompass/api/community/data-access";
 import { MovieDto } from "@encompass/api/media-recommender/data-access";
 import { BookDto } from "@encompass/api/media-recommender/data-access";
+import { PodcastDto } from "@encompass/api/media-recommender/data-access";
 
 export interface HomePostsModel{
   HomePostsForm: {
@@ -51,6 +52,14 @@ export interface BooksModel{
   }
 }
 
+export interface PocastsModel{
+  PodcastsForm: {
+    model: {
+      podcasts: PodcastDto[] | null
+    }
+  }
+}
+
 @State<BooksModel>({
   name: 'recommendedBooks',
   defaults: {
@@ -68,6 +77,17 @@ export interface BooksModel{
     MoviesForm: {
       model: {
         movies: null
+      }
+    }
+  }
+})
+
+@State<PocastsModel>({
+  name: 'recommendedPodcasts',
+  defaults: {
+    PodcastsForm: {
+      model: {
+        podcasts: null
       }
     }
   }
@@ -139,6 +159,23 @@ export class HomeState{
       BooksForm: {
         model: {
           books: response
+        }
+      }
+    })
+  }
+
+  @Action(GetRecommendedPodcasts)
+  async getRecommendedPodcasts(ctx: StateContext<PocastsModel>, {userId}: GetRecommendedPodcasts){
+    const response = await this.homeApi.getRecommendedPodcasts(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      PodcastsForm: {
+        model: {
+          podcasts: response
         }
       }
     })
@@ -374,5 +411,10 @@ export class HomeState{
     @Selector()
     static getBooks(state: BooksModel){ 
       return state.BooksForm.model.books;
+    }
+
+    @Selector()
+    static getPodcasts(state: PocastsModel){
+      return state.PodcastsForm.model.podcasts;
     }
 }

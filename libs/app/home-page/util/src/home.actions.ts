@@ -63,3 +63,8 @@ export class GetRecommendedBooks{
   static readonly type = '[Home] Get Recommended Books';
   constructor(public readonly userId: string){}
 }
+
+export class GetRecommendedPodcasts{
+  static readonly type = '[Home] Get Recommended Podcasts';
+  constructor(public readonly userId: string){}
+}
