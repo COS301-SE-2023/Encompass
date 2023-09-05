@@ -194,7 +194,7 @@
 
     <div
       class="notifications-card"
-      *ngIf="showNotifications"
+      *ngIf="showNotifications && !mobileview"
       id="notifications-card"
     >
       <ion-header class="noti-header">
@@ -243,7 +243,11 @@
       </div>
     </div>
 
-    <div class="search-card custom-list" *ngIf="showSearch" id="search-card">
+    <div
+      class="search-card custom-list"
+      *ngIf="showSearch && !mobileview"
+      id="search-card"
+    >
       <div class="search-header search-text">Search</div>
       <ion-searchbar
         placeholder="Search"
@@ -519,7 +523,7 @@
               <ion-icon name="rocket"></ion-icon>
             </ion-segment-button>
 
-            <ion-segment-button value="notiButton">
+            <ion-segment-button value="notiButton" (click)="toggleNotifications()">
               <ion-icon name="notifications"></ion-icon>
             </ion-segment-button>
             <ion-segment-button value="chatButton" (click)="goToChat()">
@@ -530,4 +534,147 @@
       </ion-toolbar>
     </ion-footer>
   </ion-split-pane>
+</div>
+
+<!-- ==================================================mobile search and notifications=============================================================== -->
+
+<div
+  class="notifications-card-mobile"
+  *ngIf="showNotifications && mobileview"
+  id="notifications-card"
+>
+  <ion-header class="noti-header">
+    <div class="noti-text">
+      Notifications
+
+      <div class="alert"></div>
+      <ion-button
+        fill="clear"
+        class="closeBtn search-text"
+        (click)="toggleNotifications()"
+      >
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-header>
+  <ion-content>
+    <ion-list class="custom-list">
+      <div *ngFor="let notify of notifications?.notifications">
+        <ion-item color="var(--ion-color-background)">
+          <div class="noti-background">
+            <div class="user">
+              <div class="alert"></div>
+              <ion-avatar slot="start">
+                <img
+                  src="{{ notify.picture }}"
+                  onerror="this.src='assets/icon/Profile.png';"
+                />
+              </ion-avatar>
+              <ion-icon
+                class="delete-icon"
+                name="trash-bin"
+                (click)="clearNotification(notify.notificationId)"
+              ></ion-icon>
+            </div>
+            <ion-label>
+              <div class="noti-title">
+                <span class="bold-text"
+                  >{{ notify.sentBy }} {{ notify.title }}</span
+                >
+                <span> ⋅ </span>
+                <span>{{ notify.dateTime | date : 'medium' }}</span>
+              </div>
+              <p>{{ notify.description }}</p>
+            </ion-label>
+          </div>
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+  <div class="deleteAll" (click)="clearAllNotifications()">
+    <ion-icon name="trash-bin-outline"></ion-icon>
+    <span>Delete All</span>
+  </div>
+</div>
+
+<div
+  class="search-card-mobile custom-list"
+  *ngIf="showSearch && mobileview"
+  id="search-card"
+>
+  <div class="search-header search-text">
+    Search
+
+    <ion-button
+      fill="clear"
+      class="closeBtn search-text"
+      (click)="toggleSearch()"
+    >
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-searchbar
+    placeholder="Search"
+    (ionChange)="search($event)"
+  ></ion-searchbar>
+
+  <ion-content class="custom-list">
+    <div class="custom-background">
+      <!-- people -->
+      <div>
+        <div class="peopleSearch" *ngIf="peopleExists">
+          <ion-list class="custom-list list-item">
+            <ion-item
+              class="peopleItem"
+              *ngFor="let people of searchprofiles"
+              color="var(--ion-color-background)"
+              (click)="GoToProfile(people.username)"
+            >
+              <div class="search-item" id="search-person">
+                <ion-avatar class="peopleAvatar" slot="start">
+                  <img
+                    src="{{ people?.profileImage }}"
+                    onerror="this.src='assets/icon/Profile.png';"
+                    class="peopleIcon"
+                  />
+                </ion-avatar>
+              </div>
+              <ion-label>
+                <div class="search-title">
+                  <span class="personName bold-text"
+                    >{{ people?.name }} {{ people?.lastName }}</span
+                  >
+                  <span class="personUsername">@{{ people?.username }}</span>
+                </div>
+                <p class="personDesc">{{ people?.bio }}</p>
+              </ion-label>
+              <ion-button fill="clear" slot="end" class="followButton"
+                ><ion-icon name="person-add"></ion-icon
+              ></ion-button>
+              <ion-button fill="clear" *ngIf="" slot="end" class="followButton"
+                ><ion-icon name="person-remove"></ion-icon
+              ></ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="tempNoResult" *ngIf="!peopleExists">
+          <span>No Search Results</span>
+        </div>
+      </div>
+    </div>
+
+    <ion-footer class="search-footer">
+      <ion-toolbar class="search-toolbar">
+        <div class="footer-text">
+          <ion-icon name="search"></ion-icon>
+          <div>
+            <span
+              >Search for
+              <a href="/home/search-explore">"{{ keyword }}"</a></span
+            >
+          </div>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  </ion-content>
 </div>
