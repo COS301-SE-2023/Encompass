@@ -350,8 +350,8 @@ describe('CommunityController (Integration with MongoDB)', () => {
       });
   });
   
-  describe('removeUserFromCommunity', () => {
-    /*it('should remove a user from a community', async () => {   //CONNECTION ERROR
+  /*describe('removeUserFromCommunity', () => {
+    it('should remove a user from a community', async () => {   //CONNECTION ERROR
         // Create a community in the database with a user
         const communityStub = communityDtoStub();
         await dbConnection.collection('community').insertOne(communityStub);

@@ -81,7 +81,6 @@ describe('ChatController (Integration with MongoDB)', () => {
       const response = await request(app.getHttpServer()).get('/home');
 
       // Assertions
-      console.log(response.body);
       expect(response.status).toBe(200); // Assuming 200 is the status code for success
       expect(Array.isArray(response.body)).toBe(true); // Check if the response is an array
       expect(response.body.length).toBe(0); // Check if the array is not empty

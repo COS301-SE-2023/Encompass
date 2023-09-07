@@ -98,7 +98,7 @@ describe('ChatController (Integration with MongoDB)', () => {
             .send(createChatListRequest);
 
         // Assertions
-        expect(response.status).toBe(201); // Assuming 201 is the status code for successful creation
+        expect(response.status).toBe(201); 
         expect(response.body).toEqual(expect.objectContaining(createChatListRequest));
     });
     });
@@ -117,7 +117,7 @@ describe('ChatController (Integration with MongoDB)', () => {
                 .get(`/chat-list/get-chat-list/${usernameToRetrieve}`);
     
             // Assertions
-            expect(response.status).toBe(200); // Assuming 200 is the status code for successful retrieval
+            expect(response.status).toBe(200); 
             expect(response.body.chatList).toEqual(expect.arrayContaining([
                 expect.objectContaining(chatListData.chatList[0]), 
             ]));
@@ -158,7 +158,7 @@ describe('ChatController (Integration with MongoDB)', () => {
                 .send(addChatRequest);
     
             // Assertions
-            expect(response.status).toBe(201); // Assuming 201 is the status code for successful addition
+            expect(response.status).toBe(201); 
             expect(response.body.chatList).toEqual(expect.arrayContaining([
                 expect.objectContaining(addChatRequest), 
             ]));

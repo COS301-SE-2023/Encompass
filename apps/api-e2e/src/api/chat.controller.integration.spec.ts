@@ -99,7 +99,7 @@ describe('accountController', () => {
     await app.close();
     });
 
-    /*describe('createChat', () => {      //env error
+    describe('createChat', () => {      //env error
       it('should create a new chat', async () => {
           const chatData = {
               users: ['User1', 'User2'],
@@ -115,7 +115,7 @@ describe('accountController', () => {
           expect(response.body).toEqual(expect.objectContaining(chatData));
   
       });
-    });*/
+    });
   
   describe('getChat', () => {
     it('should get a chat by chatId', async () => {
