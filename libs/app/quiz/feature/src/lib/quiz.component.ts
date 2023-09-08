@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventDto } from '@encompass/api/event/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import {
@@ -14,6 +14,7 @@ import {
 } from '@encompass/app/event/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { ToastController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
@@ -50,7 +51,7 @@ export class QuizPage {
   isProfileFetched = false;
   isProfileEventFetched = false;
 
-  constructor(private route: ActivatedRoute, private store: Store) {
+  constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
     const quizId = this.route.snapshot.paramMap.get('id');
 
     if (quizId == null) {
@@ -111,6 +112,10 @@ export class QuizPage {
                 }
               });
           }
+
+          if(!this.event?.members.includes(profile.username)){
+            this.presentToast()
+          }
         }
       });
     }
@@ -122,6 +127,18 @@ export class QuizPage {
     // Unsubscribe to avoid memory leaks
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'You are not a member of this event',
+      duration: 2000,
+      color: 'danger'
+    });
+
+    await toast.present();
+
+    this.router.navigate(['']);
   }
 
   answerQuestion(questionIndex: number, answer: string) {
