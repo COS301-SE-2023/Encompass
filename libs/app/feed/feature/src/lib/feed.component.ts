@@ -55,7 +55,7 @@ export class FeedPage {
 
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(HomeState.posts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
   @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
   @Select(HomeState.getMovies) movies$! : Observable<MovieDto[] | null>;
