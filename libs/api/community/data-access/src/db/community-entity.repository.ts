@@ -22,8 +22,6 @@ export class CommunityEntityRepository extends BaseEntityRepository<
 
     async findCommunitiesByUserId(id: string): Promise<CommunityDto[]> {
         const allCommunities = await this.findAll();
-        console.log("allCommunities: ");
-        console.log(allCommunities);
         const filteredCommunities = allCommunities.filter(community => {
             const members = community.members as string[];
             const isMember = members.includes(id);
@@ -34,8 +32,6 @@ export class CommunityEntityRepository extends BaseEntityRepository<
 
     async findCommunitiesByKeyword(keyword: string): Promise<CommunityDto[]> {
         const lowerCaseKeywords = keyword.toLowerCase();
-        console.log("lowerCaseKeywords: ");
-        console.log(lowerCaseKeywords);
         const allCommunities = await this.findAll();
         const filteredCommunities = allCommunities.filter(community => {
             if (!community) {
