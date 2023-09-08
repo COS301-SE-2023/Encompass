@@ -10,10 +10,11 @@ export class CreateCommunityRequestHandler implements ICommandHandler<CreateComm
   ){}
 
   async execute({communityId}: CreateCommunityRequestCommand){
+    console.log("i called create community");
     const communityRequest = this.eventPublisher.mergeObjectContext(
       await this.communityRequestFactory.create(communityId)
     )
-
+   
     communityRequest.commit();
     return communityRequest;
   }
