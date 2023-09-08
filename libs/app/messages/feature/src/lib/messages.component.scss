@@ -211,3 +211,32 @@
   box-shadow: 0px 0px 5px 0px var(--ion-color-background);
 }
 
+
+
+
+// ======================================================================
+.list-background-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  background-color: var(--ion-color-background);
+  // display: none;
+  border-radius: 0px 20px 20px 0px;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s;
+
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  overflow: auto;
+
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+}

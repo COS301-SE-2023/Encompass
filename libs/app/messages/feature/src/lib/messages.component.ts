@@ -281,6 +281,7 @@ export class MessagesPage implements OnDestroy {
   }
 
   mobileview = false;
+  openChats = true;
 
   updateMobileView() {
     this.mobileview = window.innerWidth <= 992;
@@ -289,5 +290,9 @@ export class MessagesPage implements OnDestroy {
   ngOnInit() {
     this.updateMobileView();
     window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  closeChats(value: boolean) {
+    this.openChats = value;
   }
 }
