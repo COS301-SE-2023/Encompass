@@ -24,7 +24,7 @@ import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { MovieDto } from '@encompass/api/media-recommender/data-access';
+import { MovieDto, PodcastDto } from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
 import { ViewChild } from '@angular/core';
@@ -53,12 +53,15 @@ export class FeedPage {
     }
   }
 
-  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
-  @Select(PostsState.posts) homePosts$!: Observable<PostDto[] | null>;
-  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
-  @Select(HomeState.getCommunities) communities$!: Observable<CommunityDto[] | null>;
-  @Select(HomeState.getMovies) movies$!: Observable<MovieDto[] | null>;
-  @Select(HomeState.getBooks) books$!: Observable<BookDto[] | null>;
+
+  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
+  @Select(HomeState.posts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
+  @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
+  @Select(HomeState.getMovies) movies$! : Observable<MovieDto[] | null>;
+  @Select(HomeState.getBooks) books$! : Observable<BookDto[] | null>;
+  @Select(HomeState.getPodcasts) podcasts$! : Observable<PodcastDto[] | null>; 
+
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 

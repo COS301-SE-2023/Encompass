@@ -5,6 +5,8 @@ import { GetRecommendedBooksQuery } from "./queries/get-all-books/getRecommended
 import { GetRecommendedMoviesQuery } from "./queries/get-recommended-movies/getRecommendedMovies.query";
 import { MovieDto } from "./movie.dto";
 import { GetAllMoviesQuery } from "./queries/get-all-movies/getAllMovies.query";
+import { GetRecommendedPodcastsQuery } from "./queries/get-recommended-podcasts/getRecommendedPodcasts.query";
+import { PodcastDto } from "./podcast.dto";
 
 @Controller('media-recommender')
 export class MediaRecommenderController {
@@ -31,6 +33,13 @@ export class MediaRecommenderController {
     async getAllMovies() {
         return this.queryBus.execute<GetAllMoviesQuery, MovieDto[]>(
             new GetAllMoviesQuery(),
+        );
+    }
+
+    @Get('podcasts/:id')
+    async getRecommendedPodcasts(@Param('id') id: string) {
+        return this.queryBus.execute<GetRecommendedPodcastsQuery, PodcastDto[]>(
+            new GetRecommendedPodcastsQuery(id),
         );
     }
 
