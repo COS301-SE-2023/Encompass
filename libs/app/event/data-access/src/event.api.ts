@@ -36,6 +36,20 @@ export class EventApi{
     }
   }
 
+  async getEventsByUsername(username: string){
+    try{
+      const response = await this.httpClient.get<EventDto[]>('/api/event/get-by-user/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
   async getEventById(id: string){
     try{
       const response = await this.httpClient.get<EventDto>('/api/event/' + id).toPromise();

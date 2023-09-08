@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { EventApi } from "./event.api";
-import { AddUserEvent, GetEventById, GetEvents, GetLeaderboard, GetUserEvents, UpdateUserEvent } from "@encompass/app/event/util";
+import { AddUserEvent, GetByCommunity, GetByUsername, GetEventById, GetEvents, GetLeaderboard, GetUserEvents, UpdateUserEvent } from "@encompass/app/event/util";
 import { EventDto } from "@encompass/api/event/data-access";
 import { UserEventsDto } from "@encompass/api/user-events/data-access";
 import { AddUser } from "@encompass/app/event/util";
@@ -19,6 +19,22 @@ export interface EventStateModel {
   eventForm:{
     model: {
       events: EventDto[] | null;
+    }
+  }
+}
+
+export interface ProfileEventModel{
+  profileEventForm: {
+    model: {
+      profileEvents: EventDto[] | null;
+    }
+  }
+}
+
+export interface CommunityEventModel{
+  communityEventForm: {
+    model: {
+      communityEvents: EventDto[] | null;
     }
   }
 }
@@ -56,6 +72,28 @@ export interface UserEventsModel {
     eventForm: {
       model: {
         events: null
+      }
+    }
+  }
+})
+
+@State<ProfileEventModel>({
+  name: 'profileEventModel',
+  defaults: {
+    profileEventForm: {
+      model: {
+        profileEvents: null
+      }
+    }
+  }
+})
+
+@State<CommunityEventModel>({
+  name: 'communityEventModel',
+  defaults: {
+    communityEventForm: {
+      model: {
+        communityEvents: null
       }
     }
   }
@@ -199,6 +237,40 @@ export class EventState{
     const userEvent = await this.eventApi.addToUserEvents(userId, eventId);
   }
 
+  @Action(GetByCommunity)
+  async getByCommunity(ctx: StateContext<CommunityEventModel>, {community}: GetByCommunity){
+    const events = await this.eventApi.getEventsByCommunity(community);
+
+    if(events === null || events === undefined){
+      return;
+    }
+
+    ctx.setState({
+      communityEventForm: {
+        model: {
+          communityEvents: events
+        }
+      }
+    })
+  }
+
+  @Action(GetByUsername)
+  async getByUsername(ctx: StateContext<ProfileEventModel>, {username}: GetByUsername){
+    const events = await this.eventApi.getEventsByUsername(username);
+
+    if(events === null || events === undefined){
+      return;
+    }
+
+    ctx.setState({
+      profileEventForm: {
+        model: {
+          profileEvents: events
+        }
+      }
+    })
+  }
+
   @Selector()
   static leaderboard(state: EventLeaderboardModel){
     return state.leaderboardForm.model.leaderboard;
@@ -217,5 +289,15 @@ export class EventState{
   @Selector()
   static userEvents(state: UserEventsModel){
     return state.userEventsForm.model.userEvents;
+  }
+
+  @Selector()
+  static profileEvents(state: ProfileEventModel){
+    return state.profileEventForm.model.profileEvents;
+  }
+
+  @Selector()
+  static communityEvents(state: CommunityEventModel){
+    return state.communityEventForm.model.communityEvents;
   }
 }

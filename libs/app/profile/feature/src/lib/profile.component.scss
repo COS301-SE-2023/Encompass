@@ -230,6 +230,76 @@ ion-card {
   --border-radius: 50px;
   color: white;
 }
+.Event {
+  width: 350px;
+  height: 150px;
+  border-radius: 25px;
+  background-color: var(--ion-color-secondary-tint);
+  z-index: 1;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.EventHead {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-family: CustomFont;
+}
+.EventName {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+  color: var(--hover-color);
+}
+.Host {
+  font-size: 15px;
+  margin-left: 10px;
+  color: var(--ion-color-medium);
+}
+.EventBody {
+  width: 100%;
+  height: 40%;
+  color: var(--ion-color-medium);
+  font-family: CustomFont2;
+  padding: 2%;
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+.EventFooter {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: CustomFont2;
+}
+.EventDetails {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+}
+.Eventtooltip {
+  position: relative;
+  display: inline-block;
+}
+.EventLock {
+  margin-right: 5%;
+  font-size: 20px;
+  color: var(--ion-color-medium);
+}
 //  .ProfileFilter{
 //       width:97%;
 //       background-color: #CECAE3;

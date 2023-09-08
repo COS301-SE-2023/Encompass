@@ -310,6 +310,31 @@
           </div>
           <br />
         </div>
+        <div *ngIf="seeEvents">
+          <ion-card *ngFor="let event of events" class="Event" (click)="goToEvent(event._id)">
+            <div class="EventHead">
+              <label class="EventName">{{event.name}}</label>
+              <label class="Host">Hosted by @{{event.host}}</label>
+            </div>
+            <div class="border"></div>
+            <div class="EventBody">
+              {{event.description}}
+            </div>
+            <div class="EventFooter">
+              <div class="EventDetails">
+                <div
+                  *ngFor="let category of event.categories; let k = index"
+                  class="Eventtooltip"
+                >
+                  <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                </div>
+                <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
+                <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
+              </div>
+              <ion-icon class="EventLock" name="lock-closed"></ion-icon>
+            </div>
+          </ion-card>
+        </div>
       </ion-col>
 
       <ion-col size="4">

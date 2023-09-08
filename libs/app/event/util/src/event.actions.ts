@@ -33,3 +33,13 @@ export class AddUserEvent{
   static readonly type = '[Event] Add User Event';
   constructor(public readonly eventId: string, public readonly userId: string){}
 }
+
+export class GetByCommunity{
+  static readonly type = '[Event] Get By Community';
+  constructor(public readonly community: string){}
+}
+
+export class GetByUsername{
+  static readonly type = '[Event] Get By User Username';
+  constructor(public readonly username: string){}
+}

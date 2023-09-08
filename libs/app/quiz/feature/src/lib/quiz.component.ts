@@ -51,6 +51,8 @@ export class QuizPage {
   isProfileFetched = false;
   isProfileEventFetched = false;
 
+  isComplete = false;
+
   constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
     const quizId = this.route.snapshot.paramMap.get('id');
 
@@ -143,7 +145,6 @@ export class QuizPage {
 
   answerQuestion(questionIndex: number, answer: string) {
     let numCorrect = this.currentEvent.numCorrect;
-    let isComplete = false;
 
     if (this.event === null || this.event === undefined) {
       return;
@@ -162,13 +163,13 @@ export class QuizPage {
     }
     
 
-    isComplete = !this.userAnswers.some((el) => el === null);
+    this.isComplete = !this.userAnswers.some((el) => el === null);
 
     const updateEvent: UpdateEventRequest = {
       eventId: this.event._id,
       userAnswers: this.userAnswers,
       numCorrect: numCorrect,
-      quizComplete: isComplete,
+      quizComplete: this.isComplete,
     };
 
     if (this.profile === null || this.profile === undefined) {
