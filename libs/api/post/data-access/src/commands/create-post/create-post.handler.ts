@@ -14,7 +14,7 @@ export class CreatePostHandler
     ){}
 
     async execute({ createPostRequest }: CreatePostCommand){
-      const url = "http://localhost:3000";
+      const url = process.env["BASE_URL"];
 
       let isPrivate = false;
 
