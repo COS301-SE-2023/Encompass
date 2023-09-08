@@ -6,7 +6,7 @@ import {
   CommentDto,
   CreateCommentRequest,
 } from '@encompass/api/comment/data-access';
-import { CommentsState } from '@encompass/app/comments/data-access';
+import { CommentsApi, CommentsState } from '@encompass/app/comments/data-access';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
@@ -68,7 +68,8 @@ export class CommentsComponent {
     private router: Router,
     private formBuilder: FormBuilder,
     private toastController: ToastController,
-    private commentState: CommentsState
+    private commentState: CommentsState,
+    private commentApi: CommentsApi
   ) {
     const postId = this.route.snapshot.paramMap.get('id');
 
@@ -243,7 +244,7 @@ export class CommentsComponent {
     };
 
     this.store.dispatch(new AddComment(data));
-    this.commentState.addCoins(this.post.username, 1);
+    this.commentApi.addCoins(this.post.username, 1);
     this.commentForm.reset();
 
     const postData: UpdatePostRequest = {
