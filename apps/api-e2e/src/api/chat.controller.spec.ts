@@ -5,6 +5,7 @@ import mongoose, { Connection, Schema } from "mongoose";
 import { AppModule } from "./app.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { chatDtoStub } from "./stubs/chat.dto.stub";
+import { HttpModule } from "@nestjs/axios";
 
 export interface Chat extends Document {
     users: string[];
@@ -75,6 +76,7 @@ describe('accountController', () => {
     const setupTestApp = async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
         imports: [
+        HttpModule,
         AppModule,
         MongooseModule.forFeature([{ name: 'chat', schema: ChatSchema }])
         ],
@@ -99,7 +101,7 @@ describe('accountController', () => {
     await app.close();
     });
 
-    /*describe('createChat', () => {      //env error
+    /*describe('createChat', () => {      //connect ECONNREFUSED ::1:3000
       it('should create a new chat', async () => {
           const chatData = {
               users: ['User1', 'User2'],

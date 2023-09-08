@@ -351,7 +351,7 @@ describe('CommunityController (Integration with MongoDB)', () => {
   });
   
   describe('removeUserFromCommunity', () => {
-    /*it('should remove a user from a community', async () => {   //CONNECTION ERROR
+    /*it('should remove a user from a community', async () => {   //CONNECTION ERROR  'connect ECONNREFUSED ::1:3000'
         // Create a community in the database with a user
         const communityStub = communityDtoStub();
         await dbConnection.collection('community').insertOne(communityStub);
