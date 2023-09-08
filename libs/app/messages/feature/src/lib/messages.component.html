@@ -206,10 +206,14 @@
 
     <!-- ===================================mobile chat============================================== -->
 
-    <div class="chat-area" *ngIf="mobileview">
+    <div class="chat-area-mobile" *ngIf="mobileview">
       <div class="User" [hidden]="!hasMessages">
         <div style="display: flex; align-items: center; height: 100%">
-          <ion-icon (click)="closeChats(true)" name="chevron-back"></ion-icon>
+          <ion-icon
+            (click)="closeChats(true)"
+            name="chevron-back"
+            style="font-size: larger; margin-right: 5px; margin-left: 10px"
+          ></ion-icon>
           <img
             src="{{ userImage }}"
             onerror="this.src='assets/icon/Profile.png';"
@@ -218,8 +222,9 @@
           {{ firstName }} {{ lastName }}
         </div>
       </div>
+
       <div
-        class="messages"
+        class="messages-mobile"
         chatScroll
         *ngIf="
           hasMessages &&
@@ -236,14 +241,14 @@
               onerror="this.src='assets/icon/Profile.png';"
               class="imgDiv2"
             />
-            <div class="msg">{{ message.message }}</div>
+            <div class="msg-mobile">{{ message.message }}</div>
           </div>
 
           <div
             class="your-message"
             *ngIf="message.username === profile.username"
           >
-            <div class="msg2">{{ message.message }}</div>
+            <div class="msg2-mobile">{{ message.message }}</div>
             <img
               src="{{ profile.profileImage }}"
               onerror="this.src='assets/icon/Profile.png';"
@@ -252,16 +257,20 @@
           </div>
         </div>
       </div>
-      <div class="Typer" [hidden]="!hasMessages">
-        <div style="display: flex; justify-content: center">
+
+      <div class="Typer-mobile" [hidden]="!hasMessages">
+        <div
+          class="inputbox-mobile"
+          style="display: flex; justify-content: center"
+        >
           <form
             #sendForm
             class="message-form"
             [formGroup]="messageForm"
-            class="messageInput"
+            class="messageInput-mobile"
             (keyup.enter)="sendMessage()"
           >
-            <div class="input-box">
+            <div class="input-box-mobile">
               <ion-input
                 class="input"
                 formControlName="messageInput"
