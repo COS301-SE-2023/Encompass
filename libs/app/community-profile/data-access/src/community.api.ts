@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
-import { PostDto } from '@encompass/api/post/data-access';
+import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 
 export interface fileReturn{
@@ -31,6 +31,20 @@ export class CommunityApi {
   async getCommunityPosts(name: string) {
     try{
       const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-community/' + name).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
 
       return response;
     }
@@ -130,6 +144,33 @@ export class CommunityApi {
   async addCommunity(username: string, communityName: string){
     try{
       const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-community/' + username + '/' + communityName, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getUser(username: string){
+    try{
+      const response = await this.httpClient.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
+
+      return response
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async addCoins(username: string, amount: number){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-coins/' + username + '/' + amount, null).toPromise();
 
       return response;
     }

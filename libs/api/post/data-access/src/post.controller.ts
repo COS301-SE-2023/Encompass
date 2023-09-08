@@ -104,10 +104,12 @@ export class PostController {
     );
   }
 
-  @Get('get-popular')
-  async getPopularPosts(){
+  @Get('get-popular/:username')
+  async getPopularPosts(
+    @Param('username') username: string,
+  ){
     return await this.queryBus.execute<GetPopularPostsQuery, PostDto[]>(
-      new GetPopularPostsQuery(),
+      new GetPopularPostsQuery(username),
     );
   }
 

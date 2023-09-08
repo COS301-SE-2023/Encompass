@@ -16,6 +16,11 @@ export class UpdateProfileHandler
       );
 
       profile.updateProfile(updateProfileRequest);
+
+      if(profile.bio !== null && profile.profileBanner !== null && profile.profileImage !== null ){
+        profile.addAward('profileComplete')
+      }
+
       await this.profileEntityRepository.findOneAndReplaceById(id, profile);
       profile.commit();
 

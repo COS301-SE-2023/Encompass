@@ -1,0 +1,316 @@
+.overlay-container {
+  display: flex;
+}
+
+.Profile {
+  width: 80%;
+  height: 100px;
+}
+
+.EventsLayout {
+}
+.searchEvent {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+  // background-color: var(--ion-color-background);
+}
+
+.EventList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.ScoreLayout {
+  display: flex;
+  justify-content: center;
+}
+
+.overlay {
+  width: 22px;
+}
+
+.content {
+  flex: 1;
+  object-fit: fill;
+  z-index: 1;
+  color: var(--ion-color-text);
+  overflow: auto;
+  max-height: 100vh;
+  background-color: var(--ion-color-background);
+  margin-top: 2%;
+}
+
+.messageInput {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+}
+.input-box {
+  width: 50%;
+  padding: 0px 30px 1px 30px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+  position: fixed;
+  background-color: var(--ion-color-background);
+  border: 2px solid var(--ion-color-secondary-tint);
+}
+.input {
+  font-family: CustomFont;
+  width: 100%;
+}
+.icon1 {
+  font-size: 30px;
+  color: var(--ion-color-medium);
+}
+
+.icon2 {
+  font-size: 30px;
+  color: var(--ion-color-medium);
+}
+
+.icon1:hover {
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.Event {
+  width: 350px;
+  height: 150px;
+  border-radius: 25px;
+  background-color: var(--ion-color-secondary-tint);
+  z-index: 1;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Event:hover {
+  transform: translateY(-10px);
+}
+
+.Head {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-family: CustomFont;
+}
+.EventName {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+  color: var(--hover-color);
+}
+.Host {
+  font-size: 15px;
+  margin-left: 10px;
+  color: var(--ion-color-medium);
+}
+
+.border {
+  width: 95%;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.Body {
+  width: 100%;
+  height: 40%;
+  color: var(--ion-color-medium);
+  font-family: CustomFont2;
+  padding: 2%;
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+.Footer {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: CustomFont2;
+}
+.Details {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.imgDiv {
+  width: 20px;
+  height: 20px;
+  object-fit: fill;
+}
+.Lock {
+  margin-right: 5%;
+  font-size: 20px;
+  color: var(--ion-color-medium);
+}
+
+.Leaderboard {
+  width: 400px;
+  height: 600px;
+  position: fixed;
+  border-radius: 25px;
+  background-color: var(--ion-color-primary-shade);
+}
+
+.Profile {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--ion-color-background);
+  font-family: CustomFont;
+}
+
+.Name {
+  font-size: 25px;
+}
+
+.Score {
+  font-size: 20px;
+}
+
+.CoinImg {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: fill;
+}
+
+.Top5 {
+  width: 100%;
+  height: 60%;
+  background-color: var(--ion-color-background);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.User {
+  width: 95%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 50px;
+  background-color: var(--ion-color-primary-shade);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+  cursor: pointer;
+  color: var(--ion-color-background);
+}
+
+.User2 {
+  width: 95%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 50px;
+  background-color: #7867d3;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+  cursor: pointer;
+  color: var(--ion-color-primary);
+}
+
+.User:hover {
+  transform: translateY(-5px);
+}
+
+.User2:hover {
+  transform: translateY(-5px);
+}
+
+.More {
+  background-color: var(--ion-color-primary-shade);
+  border-radius: 50px;
+  width: 100px;
+  padding-bottom: 2%;
+  padding-top: 2%;
+  color: var(--ion-color-background);
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.More:hover {
+  background-color: var(--ion-color-background);
+  border: 2px solid var(--ion-color-primary-shade);
+  color: var(--ion-color-primary-shade);
+}
+
+.Number {
+  font-family: CustomFont;
+  font-size: 30px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.Suffix {
+  font-family: CustomFont;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.userIcon {
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.ProfileImg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: fill;
+  cursor: pointer;
+}
+
+.UserDetails {
+  width: 55%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: CustomFont;
+}
+
+.Username {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.Points {
+  font-size: 15px;
+  cursor: pointer;
+}

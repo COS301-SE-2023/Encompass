@@ -24,6 +24,7 @@ export class ProfileSchemaFactory
         profileImage: profile.getProfileImage(),
         profileBanner: profile.getProfileBanner(),
         bio: profile.getBio(),
+        ep: profile.getEP(),
       };
     }
 
@@ -44,6 +45,7 @@ export class ProfileSchemaFactory
         entitySchema.profileImage,
         entitySchema.profileBanner,
         entitySchema.bio,
+        entitySchema.ep
       )
     }
   }

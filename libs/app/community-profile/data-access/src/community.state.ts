@@ -1,6 +1,6 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityPosts, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity } from '@encompass/app/community-profile/util';
+import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
@@ -101,6 +101,44 @@ export class CommunityState{
         }
       }
     })
+  }
+
+  @Action(UpdatePostArray)
+  async updatePostArray(ctx: StateContext<CommunityPostsModel>, {postId, postUpdateRequest}: UpdatePostArray){
+    const response = await this.communityApi.updatePost(postId, postUpdateRequest);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().CommunityPostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      console.log(posts[index])
+
+      posts[index] = response;
+
+      console.log(posts[index])
+
+      ctx.patchState({
+        CommunityPostForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
   }
 
   @Action(UpdateCommunity)

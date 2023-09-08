@@ -1,137 +1,383 @@
-
 <div class="container">
-  
-    
-    <form [formGroup]="postForm"  (ngSubmit)="onSubmit()" class = "form">
-        <div class = "head">
-            <button type = "button" class = "btn1">Post</button>
-            <button type = "button" class = "btn2">Event</button>
-        </div>
-        <div class = "Subhead">
-            <div  class = "SelectCommunity">
-                <div class = "title">Community:</div>
-                <div  class = "select" >
-                    <ion-select formControlName="community" placeholder="Add a community"  [(ngModel)]="inputValue2" (ionChange)="checkInput()">
-                       
-                        <ion-select-option *ngFor="let community of profile?.communities" [value]="community" class = "option" >
-                           
-                            {{ community }}</ion-select-option>
-                    </ion-select>
-                </div>
-            </div>
-            <div  class = "SelectCategory">
-                <div class = "title">Categories:</div>
-                 <div class = "select">
-                    <ion-select  multiple formControlName="category" placeholder="Add categories" (ionChange)="limitSelection()">
-                        <ion-select-option *ngFor="let category of categories" [value]="category" >
-                         {{ category }}</ion-select-option>
-                    </ion-select>
-                </div>
-            </div> 
-        </div>
-       
-           
-        <div class = "TextHead">
-            <ion-textarea
-            [(ngModel)]="inputValue" (input)="checkInput()"
-            formControlName="title"
-            placeholder="Add a title"
-            class="custom"
-            [counter]="true"
-            [maxlength]="100"
-           
-          ></ion-textarea>
-        </div>
-        <div class = "TextBody">
-            <ion-textarea
-            formControlName="text"
-            placeholder="Text (Optional)"
-            class="custom2"
-          ></ion-textarea>
-       
-        </div>
-        <div class = "TextFooter">
-            <ion-icon name="image-outline"
-            class = "icon imageIcon"
-            style = "font-size: 25px;" 
-            (click) = "insertImage()"></ion-icon>
-
-            <button *ngIf = "spoilers" 
-            type="button" 
-            class = "btns tagbtnclicked" 
-            (click)="Spoilers()"><ion-icon 
-            name="add-outline"></ion-icon>
-            <span>Spoilers</span>
-            </button>
-
-            <button *ngIf = "!spoilers" 
-            type="button" 
-            class = "btns tagbtn" 
-            (click)="Spoilers()"><ion-icon
-             name="add-outline"></ion-icon>
-             <span>Spoilers</span>
-            </button>
-            
-            <button *ngIf = "agerestricted" 
-            type="button" 
-            class = "btns tagbtnclicked"  
-            (click)="AgeRestricted()">
-            <ion-icon name="add-outline">
-            </ion-icon>NSFW</button>
-
-            <button *ngIf = "!agerestricted" 
-            type="button" 
-            class = "btns tagbtn"  
-            (click)="AgeRestricted()">
-            <ion-icon name="add-outline">
-            </ion-icon>NSFW</button>
-            
-            <button *ngIf = "isValid" 
-            type = "submit" 
-            class = "btns validPost"  
-            style=" color:white" 
-            (click)="closePopup()">Post</button>
-
-            <button *ngIf = "!isValid" 
-            type = "submit" 
-            disabled = true 
-            class = "btns"  
-            style="background-color: darkgray; color:grey" 
-            (click)="closePopup()">Post</button>
-    
-        </div>
-    
-        <div *ngIf="hasImage" class = "Image">
-              <input type="file" class="file-input"
-            [accept]="requiredFileType"
-            (change)="onFileSelected($event)" #fileUpload>
-            
-            <!-- <div class="file-upload">
-
-                
-    
-                <button mat-mini-fab color="primary" class="upload-btn"
-                    (click)="fileUpload.click()">
-                </button>
-            </div> -->
-        </div>
-        <!-- <div class = "Image">
-            <input type="file" class="file-input"
-            [accept]="requiredFileType"
-            (change)="onFileSelected($event)" #fileUpload>
-            
-            <div class="file-upload">
-
-                {{fileName}}
-    
-                <button mat-mini-fab color="primary" class="upload-btn"
-                    (click)="fileUpload.click()">
-                </button>
-            </div>
-        </div> -->
-        
-      </form>
-    
-      
+  <form
+    [formGroup]="postForm"
+    (ngSubmit)="onSubmit()"
+    class="form"
+    *ngIf="createPost"
+  >
+    <div class="head">
+      <button
+        type="button"
+        class="btn1"
+        value="postBtn"
+        (click)="change('Post')"
+      >
+        Post
+      </button>
+      <button
+        type="button"
+        class="btn2"
+        value="eventBtn"
+        (click)="change('Event')"
+      >
+        Event
+      </button>
     </div>
-    
+
+    <div class="Subhead">
+      <div class="SelectCommunity">
+        <div class="title">Community:</div>
+        <div class="select">
+          <ion-select
+            formControlName="community"
+            placeholder="Add a community"
+            [(ngModel)]="inputValue2"
+            (ionChange)="checkInput()"
+          >
+            <ion-select-option
+              *ngFor="let community of profile?.communities"
+              [value]="community"
+              class="option"
+            >
+              {{ community }}</ion-select-option
+            >
+          </ion-select>
+        </div>
+      </div>
+      <div class="SelectCategory">
+        <div class="title">Categories:</div>
+        <div class="select">
+          <ion-select
+            multiple
+            formControlName="category"
+            placeholder="Add categories"
+            (ionChange)="limitSelection()"
+          >
+            <ion-select-option
+              *ngFor="let category of categories"
+              [value]="category"
+            >
+              {{ category }}</ion-select-option
+            >
+          </ion-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="TextHead">
+      <ion-textarea
+        [(ngModel)]="inputValue"
+        (input)="checkInput()"
+        formControlName="title"
+        placeholder="Add a title"
+        class="custom"
+        [counter]="true"
+        [maxlength]="100"
+      ></ion-textarea>
+    </div>
+
+    <!--create a post div-->
+
+    <div class="TextBody">
+      <ion-textarea
+        formControlName="text"
+        placeholder="Text (Optional)"
+        class="custom2"
+      ></ion-textarea>
+    </div>
+    <div class="TextFooter">
+      <ion-icon
+        name="image-outline"
+        class="icon imageIcon"
+        style="font-size: 25px"
+        (click)="insertImage()"
+      ></ion-icon>
+
+      <button
+        *ngIf="spoilers"
+        type="button"
+        class="btns tagbtnclicked"
+        (click)="Spoilers()"
+      >
+        <ion-icon name="add-outline"></ion-icon>
+        <span>Spoilers</span>
+      </button>
+
+      <button
+        *ngIf="!spoilers"
+        type="button"
+        class="btns tagbtn"
+        (click)="Spoilers()"
+      >
+        <ion-icon name="add-outline"></ion-icon>
+        <span>Spoilers</span>
+      </button>
+
+      <button
+        *ngIf="agerestricted"
+        type="button"
+        class="btns tagbtnclicked"
+        (click)="AgeRestricted()"
+      >
+        <ion-icon name="add-outline"> </ion-icon>NSFW
+      </button>
+
+      <button
+        *ngIf="!agerestricted"
+        type="button"
+        class="btns tagbtn"
+        (click)="AgeRestricted()"
+      >
+        <ion-icon name="add-outline"> </ion-icon>NSFW
+      </button>
+
+      <button
+        *ngIf="isValid"
+        type="submit"
+        class="btns validPost"
+        style="color: white"
+        (click)="closePopup()"
+      >
+        Post
+      </button>
+
+      <button
+        *ngIf="!isValid"
+        type="submit"
+        disabled="true"
+        class="btns"
+        style="background-color: darkgray; color: grey"
+        (click)="closePopup()"
+      >
+        Post
+      </button>
+    </div>
+
+    <div *ngIf="hasImage" class="Image">
+      <input
+        type="file"
+        class="file-input"
+        [accept]="requiredFileType"
+        (change)="onFileSelected($event)"
+        #fileUpload
+      />
+    </div>
+
+    <!--create a event div-->
+  </form>
+
+  <form
+    [formGroup]="postForm"
+    (ngSubmit)="onSubmit()"
+    class="form"
+    *ngIf="createEvent"
+  >
+    <div class="head">
+      <button
+        type="button"
+        class="btn2"
+        value="postBtn"
+        (click)="change('Post')"
+      >
+        Post
+      </button>
+      <button
+        type="button"
+        class="btn3"
+        value="eventBtn"
+        (click)="change('Event')"
+      >
+        Event
+      </button>
+    </div>
+
+    <div class="Subhead">
+      <div class="SelectCommunity">
+        <div class="title">Community:</div>
+        <div class="select">
+          <ion-select
+            formControlName="community"
+            placeholder="Add a community"
+            [(ngModel)]="inputValue2"
+            (ionChange)="checkInput()"
+          >
+            <ion-select-option
+              *ngFor="let community of profile?.communities"
+              [value]="community"
+              class="option"
+            >
+              {{ community }}</ion-select-option
+            >
+          </ion-select>
+        </div>
+      </div>
+      <div class="SelectCategory">
+        <div class="title">Categories:</div>
+        <div class="select">
+          <ion-select
+            multiple
+            formControlName="category"
+            placeholder="Add categories"
+            (ionChange)="limitSelection()"
+          >
+            <ion-select-option
+              *ngFor="let category of categories"
+              [value]="category"
+            >
+              {{ category }}</ion-select-option
+            >
+          </ion-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="TextHead">
+      <ion-textarea
+        [(ngModel)]="inputValue"
+        (input)="checkInput()"
+        formControlName="title"
+        placeholder="Add a title"
+        class="custom"
+        [counter]="true"
+        [maxlength]="100"
+      ></ion-textarea>
+    </div>
+
+    <!--create a event div-->
+    <div class="eventClass">
+      <div class="TextBody2">
+        <ion-textarea
+          formControlName="text"
+          placeholder="Describe the Challenge"
+          class="custom3"
+        ></ion-textarea>
+      </div>
+      <div class="TaskBody">
+        <ion-item class="taskItem">
+          <ion-textarea
+            formControlName="text"
+            placeholder="Add a challenge task"
+            class="custom4"
+          ></ion-textarea>
+          <ion-button fill="clear" size="larger" slot="end">
+            <ion-icon
+              slot="icon-only"
+              class="removeTask"
+              name="add-circle"
+            ></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+      <div style="display: flex; align-items: center; flex-direction: column">
+        <div class="Prompt">Describe</div>
+        <div class="Prompt">Describe</div>
+        <div class="Prompt">Describe</div>
+        <div class="Prompt">Describe</div>
+        <div class="Prompt">Describe</div>
+      </div>
+
+      <div class="TaskBody2">
+        <ion-button class="addMoreTask" size="larger">
+          <!--(click)="addTask()"-->
+          <ion-icon
+            slot="icon-only"
+            class="addTask"
+            name="remove-circle"
+            size="larger"
+          ></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="TaskDatesLabels">
+        <ion-row>
+          <ion-col> <ion-text>Start Date</ion-text> </ion-col>
+          <ion-col> <ion-text>End Date</ion-text> </ion-col>
+        </ion-row>
+      </div>
+
+      <!--DATE PICKER CODE-->
+      <div>
+        <ion-row>
+          <ion-col class="picker">
+            {{ formattedDate }}
+          </ion-col>
+
+          <ion-col class="picker">
+            <ion-datetime-button
+              datetime="datetime"
+              id="endDate"
+              size="larger"
+              class="date"
+            ></ion-datetime-button>
+          </ion-col>
+        </ion-row>
+
+        <ion-popover [keepContentsMounted]="true">
+          <ng-template #popovercontent>
+            <ion-datetime
+              class="custom-datetime"
+              id="datetime"
+              displayFormat="DD/MM/YYYY"
+              presentation="date"
+              formControlName="startDate"
+              color="calandar"
+              (ionChange)="closePopover()"
+            >
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </div>
+
+      <div class="Quiz">
+        <h3>Quiz</h3>
+        <p>Give a description for your quiz topic:</p>
+        <ion-textarea class="custom3"></ion-textarea>
+        <ion-radio-group class="level">
+          <ion-row>
+            <ion-col>
+              <ion-radio value="short" labelPlacement="end" justify="end"
+                >Short <br />
+                5 Questions</ion-radio
+              >
+            </ion-col>
+            <ion-col>
+              <ion-radio value="medium" labelPlacement="end" justify="end"
+                >Medium <br />
+                10 Questions</ion-radio
+              >
+            </ion-col>
+            <ion-col>
+              <ion-radio value="long" labelPlacement="end" justify="end"
+                >Long <br />
+                15 Questions</ion-radio
+              >
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+      </div>
+
+      <div class="TextFooterEvent">
+        <button
+          *ngIf="isValid"
+          type="submit"
+          class="btns validPostEvent"
+          style="color: white"
+          (click)="closePopup()"
+        >
+          Create
+        </button>
+
+        <button
+          *ngIf="!isValid"
+          type="submit"
+          disabled="true"
+          class="btns"
+          style="background-color: darkgray; color: grey"
+          (click)="closePopup()"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

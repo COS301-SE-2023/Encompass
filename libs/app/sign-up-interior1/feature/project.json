@@ -2,6 +2,7 @@
   "name": "app-sign-up-interior1-feature",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/app/sign-up-interior1/feature/src",
+  "prefix": "encompass",
   "projectType": "library",
   "targets": {
     "build": {
@@ -18,7 +19,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/app/sign-up-interior1/feature/**/*.ts"]
+        "lintFilePatterns": ["libs/app/sign-up-interior1/feature/**/*.ts", "libs/app/sign-up-interior1/feature/**/*.html"]
       }
     },
     "test": {

@@ -1,37 +1,112 @@
 <div class="main">
   <div class="login">
     <a href="/">
-      <ion-icon name="chevron-back-outline" class="back-icon" color="primary"></ion-icon>
+      <ion-icon
+        name="chevron-back-outline"
+        class="back-icon"
+        color="primary"
+      ></ion-icon>
     </a>
     <!-- <img src="assets/WelcomeImg2.png" class="backgroundImage"> -->
     <div class="title-info">
-      <img src = "assets/icon/Logo.png" class = "logo">
-      <label class = "Title">Encompass</label>
+      <img src="assets/icon/Logo.png" class="logo" />
+      <label class="Title">Encompass</label>
     </div>
 
     <form (ngSubmit)="SignUp()" class="SignUpDetails">
       <div class="input-boxes">
         <div class="input-container">
-          <ion-input fill="outline" type="text" class="input first-input" [(ngModel)]="user.firstName" name="name" label="First name" required="true" labelPlacement="floating" (input)="checkInput()"></ion-input>
-          <ion-input fill="outline" type="text" class="input" [(ngModel)]="user.lastName" name="name" label="Surname" required="true" labelPlacement="floating" (input)="checkInput()"></ion-input>
+          <ion-input
+            fill="outline"
+            type="text"
+            class="input first-input"
+            [(ngModel)]="user.firstName"
+            name="name"
+            label="First name"
+            required="true"
+            labelPlacement="floating"
+            (input)="checkInput()"
+          ></ion-input>
+          <ion-input
+            fill="outline"
+            type="text"
+            class="input"
+            [(ngModel)]="user.lastName"
+            name="name"
+            label="Surname"
+            required="true"
+            labelPlacement="floating"
+            (input)="checkInput()"
+          ></ion-input>
         </div>
-        <ion-input fill="outline" type="text" class="input" [(ngModel)]="user.username" name="name" label="Username" required="true" labelPlacement="floating" (input)="checkInput()"></ion-input>
-        <ion-input fill="outline" type="email" class="input" [(ngModel)]="user.email" name="email" autocomplete="email" email="true" label="Email" labelPlacement="floating" required="true" (input)="checkInput()"></ion-input>
-        <ion-input fill="outline" type="password" class="input" [(ngModel)]="user.password" name="password" autocomplete="password" label="Password" required="true" labelPlacement="floating" (input)="checkInput()"></ion-input>
+        <ion-input
+          fill="outline"
+          type="text"
+          class="input"
+          [(ngModel)]="user.username"
+          name="name"
+          label="Username"
+          required="true"
+          labelPlacement="floating"
+          (input)="checkInput()"
+        ></ion-input>
+        <ion-input
+          fill="outline"
+          type="email"
+          class="input"
+          [(ngModel)]="user.email"
+          name="email"
+          autocomplete="email"
+          email="true"
+          label="Email"
+          labelPlacement="floating"
+          required="true"
+          (input)="checkInput()"
+        ></ion-input>
+        <ion-input
+          fill="outline"
+          type="password"
+          class="input"
+          [(ngModel)]="user.password"
+          name="password"
+          autocomplete="password"
+          label="Password"
+          required="true"
+          labelPlacement="floating"
+          (input)="checkInput()"
+        ></ion-input>
       </div>
-      
 
       <div class="options">
-        
-        <ion-checkbox labelPlacement="end" class="ForgotPassword"  (input)="checkedTOS()">I have read and accepted the </ion-checkbox>
-        <label class = "TOS" (click)="TOS()">Terms of Service</label>
-        <div class = "warning">WARNING: Username cannot be changed after signing up, any submitted username is permanent herafter</div>
-        <ion-button *ngIf = "isValid"  type="submit" fill="clear" class="btn1" size="large" >Sign Up</ion-button>
-        <ion-button *ngIf = "!isValid" type="submit" fill="clear" class="btn2" size="large" [disabled]=true>Sign Up</ion-button>
-
+        <ion-checkbox
+          labelPlacement="end"
+          class="ForgotPassword"
+          (input)="checkedTOS()"
+          >I have read and accepted the
+        </ion-checkbox>
+        <label class="TOS" (click)="TOS()">Terms of Service</label>
+        <div class="warning">
+          WARNING: Username cannot be changed after signing up, any submitted
+          username is permanent herafter
+        </div>
+        <ion-button
+          *ngIf="isValid"
+          type="submit"
+          fill="clear"
+          class="btn1"
+          size="large"
+          >Sign Up</ion-button
+        >
+        <ion-button
+          *ngIf="!isValid"
+          type="submit"
+          fill="clear"
+          class="btn2"
+          size="large"
+          [disabled]="true"
+          >Sign Up</ion-button
+        >
       </div>
     </form>
-
-
   </div>
 </div>

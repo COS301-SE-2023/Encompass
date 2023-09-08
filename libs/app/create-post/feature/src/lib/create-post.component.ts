@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { PopoverController, ModalController} from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreatePost, UploadFile } from '@encompass/app/create-post/util';
@@ -9,10 +9,7 @@ import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { CreatePostApi, CreatePostState } from '@encompass/app/create-post/data-access';
-import { PostDto } from '@encompass/api/post/data-access';
-import { HttpClient } from '@angular/common/http';
-import { fileReturn } from '@encompass/app/create-post/data-access';
-import { IonSelect } from '@ionic/angular';
+import { calendarPopoverComponent } from '@encompass/app/calendarPopover/feature';
 
 
 @Component({
@@ -21,8 +18,6 @@ import { IonSelect } from '@ionic/angular';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent {
-  // postForm: FormGroup | undefined;
-  communities: string[] =["Hobbits and all thatsdadwadawda","Community2222"]; // Replace with the actual type of the communities array
   categories: string[]=["Action", "Adventure", "Animation", "Anime", "Arts", "Business",
    "Comedy", "Documentary", "Drama", "Fantasy", "Geography", "History", "Horror", 
    "Hospitality", "Life-Science", "Mathematics", "Musical", "Mystery", "Physics", 
@@ -33,6 +28,7 @@ export class CreatePostComponent {
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
   // @Select(CreatePostState.url) url$! : Observable<string | null>;
 
+  clickedButton = '';
   profile! : ProfileDto | null;
   hasImage = false;
   fileName! : string;
@@ -43,8 +39,10 @@ export class CreatePostComponent {
   inputValue! : string;
   inputValue2! : string;
 
+  createPost=true;
+  createEvent=false;
 
-  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createPostApi: CreatePostApi) {
+  constructor(private modalController: ModalController,private formBuilder: FormBuilder, private store: Store, private createPostApi: CreatePostApi, private popoverController: PopoverController) {
       if(!this.profile){
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.subscribe((profile) => {
@@ -63,6 +61,7 @@ export class CreatePostComponent {
     category: [[] as string[], Validators.required]
   });
 
+
   get title() {
     return this.postForm.get('title');
   }
@@ -77,6 +76,45 @@ export class CreatePostComponent {
 
   get category() {
     return this.postForm.get('category');
+  }
+
+  // async openPopover(event: any) {
+  //   const popover = await this.popoverController.create({
+  //     component: 'popovercontent', // Use a unique name for identification
+  //     event,
+  //     translucent: true,
+  //     componentProps: {
+  //       // You can pass any additional data to the popover here if needed
+  //     },
+  //   });
+  
+  //   await popover.present();
+  // }
+
+  
+
+  async closePopover() {
+    await this.popoverController.dismiss();
+  }
+
+   months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+  
+   currentDate = new Date();
+  
+   formattedDate = `${this.months[this.currentDate.getMonth()]} ${this.currentDate.getDate()}, ${this.currentDate.getFullYear()}`;
+
+  change(type: string){
+    if(type=="Post"){
+      this.createPost=true;
+      this.createEvent=false;
+    }
+    else{
+      this.createPost=false;
+      this.createEvent=true;
+    }
   }
 
   
@@ -191,12 +229,7 @@ export class CreatePostComponent {
     
   }
 
-  // displayText() {
-  //   console.log(this.title?.value);
-  //   console.log(this.text?.value);
-  //   console.log(this.community?.value);
-  //   console.log(this.category?.value);
-  // }
+  
 
   closePopup() {
     this.modalController.dismiss();
@@ -234,6 +267,15 @@ export class CreatePostComponent {
     
   // }
 
+  selectedDate!: string;
+
+  markSelectedDate() {
+    const selectedDateCell = document.querySelector(`.custom-datetime td[data-value="${this.selectedDate}"]`);
+    if (selectedDateCell) {
+      selectedDateCell.classList.add('selected-date');
+    }
+  }
+
   async uploadFile() : Promise<string | null>{
     return new Promise((resolve) => {
       const formData = new FormData();
@@ -244,4 +286,32 @@ export class CreatePostComponent {
       resolve(uploadFile);
     })
   }
+
+  //async chooseDate() {
+    // const modal = await this.modalController.create({
+    //   component: calendarModal,
+    //   cssClass: 'custom-modal', // Replace with the component or template for your popup
+    //   componentProps: {
+    //     // Add any input properties or data you want to pass to the popup component
+    //   }
+    // });
+  
+    
+
+    // async openCalendarPopup() {
+    //   const popOver = await this.popOverController.create({
+    //     component: calendarPopoverComponent,
+    //     cssClass: 'custom-modal', // Replace with the component or template for your popup
+    //     componentProps: {
+    //       id:  'popOverActivate'
+    //       // Add any input properties or data you want to pass to the popup component
+    //     }
+    //   });
+    
+    //   return await popOver.present();
+    // }
+
+    // closeCalendarPopup() {
+    //   this.popOverController.dismiss();
+    // }
 }

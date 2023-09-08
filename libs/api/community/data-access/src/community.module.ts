@@ -8,9 +8,9 @@ import { CommunityEntityRepository } from "./db/community-entity.repository";
 import { CommunityDtoRepository } from "./db/community-dto.repository";
 import { CommunitySchemaFactory } from "./db/community-schema.factory";
 import { CommunityFactory } from "./community.factory";
-import { CreateCommunityHandler, DeleteCommunityHandler, RemoveUserHandler, UpdateCommunityHandler} from "./commands";
+import { AddCoinsHandler, CreateCommunityHandler, DeleteCommunityHandler, RemoveUserHandler, UpdateCommunityHandler, RemoveCoinsHandler, AddEventHandler} from "./commands";
 import { CommunityCreatedHandler } from "./events";
-import { DoesExistHandler, GetByNameHandler, GetCommunitiesByKeywordHandler, GetCommunityHandler, GetRecommendedCommunitiesHandler, GetAllCommunitiesHandler} from "./queries";
+import { DoesExistHandler, GetByNameHandler, GetCommunitiesByKeywordHandler, GetCommunityHandler, GetRecommendedCommunitiesHandler, GetAllCommunitiesHandler, GetLeaderboardHandler} from "./queries";
 import { AddPostHandler } from "./commands/add-post/add-post.handler";
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
@@ -48,7 +48,11 @@ import { RemovePostHandler } from "./commands/remove-post/remove-post.handler";
     RemovePostHandler,
     RemoveUserHandler,
     GetCommunitiesByKeywordHandler,
-    GetAllCommunitiesHandler
+    GetAllCommunitiesHandler,
+    AddCoinsHandler,
+    RemoveCoinsHandler,
+    AddEventHandler,
+    GetLeaderboardHandler,
   ],
 })
 

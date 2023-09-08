@@ -15,6 +15,21 @@ export class RemoveCommunityHandler implements ICommandHandler<RemoveCommunityCo
     );
 
     profile.removeCommunity(communityName);
+
+    if(profile.communities !== null){
+      if(profile.communities?.length < 5){
+        profile.removeAward('join5');
+      }
+
+      if(profile.communities?.length < 15){
+        profile.removeAward('join15');
+      }
+
+      if(profile.communities?.length < 50){
+        profile.removeAward('join50');
+      }
+    }
+
     await this.profileEntityRepository.findOneAndReplaceById(profile._id, profile);
     profile.commit();
 
