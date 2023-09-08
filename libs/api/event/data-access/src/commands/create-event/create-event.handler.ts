@@ -24,6 +24,8 @@ export class CreateEventHandler implements ICommandHandler<CreateEventCommand> {
       members,
       prompt,
       categories,
+      numberOfQuestions,
+      quizDescription,
     } = createEventRequest;
 
     const event = this.eventPublisher.mergeObjectContext(
@@ -36,7 +38,9 @@ export class CreateEventHandler implements ICommandHandler<CreateEventCommand> {
         endDate,
         members,
         prompt,
-        categories
+        categories,
+        numberOfQuestions,
+        quizDescription
       )
     );
 

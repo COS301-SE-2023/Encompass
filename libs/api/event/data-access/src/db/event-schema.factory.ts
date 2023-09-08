@@ -20,6 +20,7 @@ export class EventSchemaFactory
         quiz: event.getQuiz(),
         prompt: event.getPrompt(),
         categories: event.getCategories(),
+        quizDescription: event.getQuizDescription(),
       };
     }
 
@@ -36,6 +37,7 @@ export class EventSchemaFactory
         entitySchema.quiz,
         entitySchema.prompt,
         entitySchema.categories,
+        entitySchema.quizDescription,
       )
     }
   }

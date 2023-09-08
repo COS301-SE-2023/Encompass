@@ -1000,10 +1000,8 @@ export class FeedPage {
   async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
-      cssClass: 'custom-modal', // Replace with the component or template for your popup
-      componentProps: {
-        // Add any input properties or data you want to pass to the popup component
-      },
+      cssClass: 'custom-modal', 
+      componentProps: {},
     });
 
     return await modal.present();
@@ -1012,10 +1010,8 @@ export class FeedPage {
   async openPopup2() {
     const modal = await this.modalController.create({
       component: CreateCommunityComponent,
-      cssClass: 'custom-modal', // Replace with the component or template for your popup
-      componentProps: {
-        // Add any input properties or data you want to pass to the popup component
-      },
+      cssClass: 'custom-modal', 
+      componentProps: {},
     });
 
     return await modal.present();

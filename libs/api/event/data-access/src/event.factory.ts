@@ -21,12 +21,14 @@ export class EventFactory implements EntityFactory<Event>{
     description: string | null,
     startDate: Date | null,
     endDate: Date | null,
-    members: string[] | null,
+    members: string[],
     prompt: string[] | null,
     categories: string[] | null,
+    numberOfQuestions: number,
+    quizDescription: string | null,
   ) : Promise<Event>{
     
-    const questions = await this.getQuestions();
+    const questions = await this.getQuestions(numberOfQuestions);
     
     const event = new Event(
       new ObjectId().toHexString(),
@@ -40,14 +42,15 @@ export class EventFactory implements EntityFactory<Event>{
       questions,
       prompt,
       categories,
+      quizDescription
     );
     await this.eventEntityRepository.create(event);
     event.apply(new EventCreatedEvent(event.getId()))
     return event;
   }
 
-  async getQuestions(){
+  async getQuestions(numberOfQuestions: number){
     const questions = await this.questionsGenerator.getQuestions();
-    return questions
+    return questions.splice(0, numberOfQuestions);
   }
 }
