@@ -111,6 +111,10 @@ export class EventPage {
     return await modal.present();
   }
 
+  async goToEvent(id: string){
+    this.router.navigate(['home/challenge-description/' + id]);
+  }
+
   messageForm = this.formBuilder.group({
     messageInput: ['', Validators.maxLength(150)],
   });

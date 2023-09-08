@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventDto } from '@encompass/api/event/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import {
@@ -14,6 +14,7 @@ import {
 } from '@encompass/app/event/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { ToastController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
@@ -34,7 +35,7 @@ export class QuizPage {
   userEvents!: UserEventsDto | null;
   currentEvent!: UpdateEventRequest;
 
-  userAnswers!: string[];
+  userAnswers: string[] = [];
 
   numberOfQuestions!: number;
   numberOfParticipants!: number;
@@ -50,11 +51,32 @@ export class QuizPage {
   isProfileFetched = false;
   isProfileEventFetched = false;
 
-  constructor(private route: ActivatedRoute, private store: Store) {
+  isComplete = false;
+
+  constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
     const quizId = this.route.snapshot.paramMap.get('id');
 
     if (quizId == null) {
       return;
+    }
+
+    if (!this.isQuizFetched) {
+      this.isQuizFetched = true;
+
+      this.store.dispatch(new GetEventById(quizId));
+      this.event$.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
+        if (event) {
+          console.log(event);
+          this.event = event;
+
+          this.numberOfQuestions = event.quiz.length;
+          this.numberOfParticipants = event.members.length;
+          this.userAnswers = new Array(this.numberOfQuestions).fill(null);
+         
+
+          this.totalNumber = event.quiz.length;
+        }
+      });
     }
 
     if (!this.isProfileFetched) {
@@ -80,33 +102,27 @@ export class QuizPage {
                   userEvents.events.forEach((element) => {
                     if (element.eventId === quizId) {
                       this.currentEvent = element;
-                      this.userAnswers = element.userAnswers;
+                      element.userAnswers.forEach((answer, index) => {
+                        this.userAnswers[index] = answer;
+
+                        if (answer === this.event?.quiz[index].answer) {
+                          this.fillCircle();
+                        }
+                      })
                     }
                   });
                 }
               });
           }
-        }
-      });
-    }
 
-    if (!this.isQuizFetched) {
-      this.isQuizFetched = true;
-
-      this.store.dispatch(new GetEventById(quizId));
-      this.event$.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
-        if (event) {
-          console.log(event);
-          this.event = event;
-
-          this.numberOfQuestions = event.quiz.length;
-          this.numberOfParticipants = event.members.length;
-          if (this.userAnswers === null) {
-            this.userAnswers = new Array(this.numberOfQuestions).fill(null);
+          if(!this.event?.members.includes(profile.username)){
+            this.presentToast()
           }
         }
       });
     }
+
+    
   }
 
   ngOnDestroy() {
@@ -115,9 +131,20 @@ export class QuizPage {
     this.unsubscribe$.complete();
   }
 
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'You are not a member of this event',
+      duration: 2000,
+      color: 'danger'
+    });
+
+    await toast.present();
+
+    this.router.navigate(['']);
+  }
+
   answerQuestion(questionIndex: number, answer: string) {
     let numCorrect = this.currentEvent.numCorrect;
-    let isComplete = false;
 
     if (this.event === null || this.event === undefined) {
       return;
@@ -131,15 +158,18 @@ export class QuizPage {
 
     if (answer === this.event.quiz[questionIndex].answer) {
       numCorrect++;
-    }
 
-    isComplete = !this.userAnswers.some((el) => el === null);
+      this.fillCircle();
+    }
+    
+
+    this.isComplete = !this.userAnswers.some((el) => el === null);
 
     const updateEvent: UpdateEventRequest = {
       eventId: this.event._id,
       userAnswers: this.userAnswers,
       numCorrect: numCorrect,
-      quizComplete: isComplete,
+      quizComplete: this.isComplete,
     };
 
     if (this.profile === null || this.profile === undefined) {

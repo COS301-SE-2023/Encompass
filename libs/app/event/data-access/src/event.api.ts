@@ -36,6 +36,20 @@ export class EventApi{
     }
   }
 
+  async getEventsByUsername(username: string){
+    try{
+      const response = await this.httpClient.get<EventDto[]>('/api/event/get-by-user/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
   async getEventById(id: string){
     try{
       const response = await this.httpClient.get<EventDto>('/api/event/' + id).toPromise();
@@ -67,6 +81,32 @@ export class EventApi{
   async updateUserEvent(userId: string, updateRequest: UpdateEventRequest){
     try{
       const response = await this.httpClient.patch<UserEventsDto>('/api/user-events/update-event/' + userId, updateRequest).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async addUser(eventId: string, username: string){
+    try{
+      const response = await this.httpClient.patch<EventDto>('/api/event/add-user/' + eventId + '/' + username, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async addToUserEvents(userId: string, eventId: string){
+    try{
+      const response = await this.httpClient.patch<UserEventsDto>('/api/user-events/add-event/' + userId + "/" + eventId, {}).toPromise();
 
       return response;
     }

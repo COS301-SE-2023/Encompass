@@ -10,7 +10,6 @@ describe('Login', () => {
       _id: '123456789abc', // Mock user ID
       email: 'valid@example.com',
       password: 'validpassword',
-      // Other account information...
     };
     cy.intercept('POST', '/api/account/login', {
       statusCode: 200,
@@ -31,7 +30,6 @@ describe('Login', () => {
       _id: '123456789abc', // Mock user ID
       email: 'invalid@example.com',
       password: 'invalidpassword',
-      // Other account information...
     };
 
     cy.intercept('POST', '/api/account/login', {

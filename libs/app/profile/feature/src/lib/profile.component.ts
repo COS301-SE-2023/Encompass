@@ -25,6 +25,9 @@ import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { PostsState } from '@encompass/app/posts/data-access';
+import { GetByUsername } from '@encompass/app/event/util';
+import { EventState } from '@encompass/app/event/data-access';
+import { EventDto } from '@encompass/api/event/data-access';
 // import { GetUserPosts, UpdateProfilePost } from '@encompass/app/posts/util';
 
 @Component({
@@ -44,6 +47,7 @@ export class ProfilePage {
     ProfileDto[] | null
   >;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
+  @Select(EventState.profileEvents) events$!: Observable<EventDto[] | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -52,6 +56,7 @@ export class ProfilePage {
   fileName!: string;
   fileNameBanner!: string;
   profile!: ProfileDto | null;
+  events!: EventDto[] | null;
   otherUsers!: ProfileDto[] | null;
   posts!: PostDto[] | null;
   commentsList!: CommentDto[] | null;
@@ -63,6 +68,7 @@ export class ProfilePage {
   sharing: boolean[] = [];
   seePosts = true;
   seeComments = false;
+  seeEvents = false;
   viewreplies: boolean[] = [];
   replies: number[] = [];
   size = 0;
@@ -81,6 +87,7 @@ export class ProfilePage {
   isCommentsFetched = false;
   isSettingsFetched = false;
   isProfileFetching = false;
+  isEventsFetched = false;
 
   ViewCommunities = false;
 
@@ -235,6 +242,21 @@ export class ProfilePage {
     // }
   }
 
+
+  getEvents(profile: ProfileDto) {
+    if(!this.isEventsFetched){
+      this.isEventsFetched = true;
+
+      this.store.dispatch(new GetByUsername(profile.username));
+      this.events$.subscribe((events) => {
+        if(events){
+          console.log(events);
+          this.events = events;
+        }
+      })
+    }
+  }
+
   get FirstName() {
     return this.postForm.get('FirstName');
   }
@@ -385,6 +407,7 @@ export class ProfilePage {
 
     this.seePosts = true;
     this.seeComments = false;
+    this.seeEvents = false;
 
     if (this.profile === null) {
       return;
@@ -415,18 +438,30 @@ export class ProfilePage {
 
     this.seePosts = false;
     this.seeComments = true;
+    this.seeEvents = false;
   }
 
-  eventChange() {
+  async eventChange() {
+    if(this.profile === null){
+      return;
+    }
+
     const PostBtn = document.getElementById('PostBtn');
     const CommentsBtn = document.getElementById('CommentsBtn');
     const eventBtn = document.getElementById('eventBtn');
+
+    this.isEventsFetched = false;
+    await this.getEvents(this.profile);
 
     if (PostBtn && CommentsBtn && eventBtn) {
       PostBtn.classList.remove('active-button');
       CommentsBtn.classList.remove('active-button');
       eventBtn.classList.add('active-button');
     }
+
+    this.seePosts = false;
+    this.seeComments = false;
+    this.seeEvents = true;
   }
 
   GoToComments(postId: string) {
@@ -473,6 +508,18 @@ export class ProfilePage {
     }
   }
 
+  async goToEvent(id: string){
+    this.router.navigate(['home/challenge-description/' + id]);
+  }
+
+  daysLeft(targetDateStr: Date): number {
+    const currentDate = new Date();
+    const targetDate = new Date(targetDateStr);
+    const timeDifference = targetDate.getTime() - currentDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    return daysDifference >= 0 ? daysDifference : 0;
+  }
+  
   async onSubmit() {
     if (this.profile == null) {
       return;

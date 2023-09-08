@@ -12,7 +12,7 @@ export class EventDto {
     options: string[];
     answer: string;
   }[];
-  readonly memo!: string[];
   readonly prompt!: string[];
   readonly categories!: string[];
+  readonly quizDescription!: string;
 }

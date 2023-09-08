@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ChallengeDescriptionComponent } from './challenge-description.component';
@@ -10,6 +10,6 @@ import { NgxsModule } from '@ngxs/store';
 @NgModule({
   imports: [CommonModule, IonicModule, ChallengeDescriptionRouting], 
   declarations: [ChallengeDescriptionComponent],
-  providers: [],
+  providers: [DatePipe],
 })
 export class ChallengeDescriptionModule {}
