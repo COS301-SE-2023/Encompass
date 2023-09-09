@@ -279,4 +279,20 @@ export class MessagesPage implements OnDestroy {
       this.isValid = true;
     }
   }
+
+  mobileview = false;
+  openChats = true;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  closeChats(value: boolean) {
+    this.openChats = value;
+  }
 }

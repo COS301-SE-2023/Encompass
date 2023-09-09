@@ -163,3 +163,55 @@ span {
 ion-button:hover {
   --border-radius: 50px;
 }
+
+//========================================================mobile===============================================
+.Signin1-mobile {
+  background-color: #f0efef;
+  height: 110vh;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 70px 20px 50px 20px;
+}
+
+.Topic-mobile > span {
+    font-family: CustomFont;
+    font-size: 15px;
+    flex: 1; /* Allow the span to grow and shrink to fit its content */
+    overflow: hidden; /* Hide any content overflow */
+  }
+  // 100% {
+    // transform: translatex(0px) translatey(0px);
+  // }
+// }
+
+.Topic-mobile > img {
+  width: 20px;
+  height: 20px;
+  max-width: 100%;
+  height: auto;
+  margin-right: 3px;
+  vertical-align: middle;
+//   white-space: nowrap;
+}
+
+.Topic-mobile:hover {
+  background-color: #8231dd;
+}
+
+.Topic-mobile:active {
+  background-color: #f0efef;
+  color: #231942;
+}
+
+.Topic-mobile {
+  height: 90%;
+  border-radius: 20px;
+  background-color: #cecae3;
+  display: inline-flex; 
+  align-items: center; 
+  white-space: nowrap; 
+  padding: 8px; 
+  margin: 4px;
+
+}

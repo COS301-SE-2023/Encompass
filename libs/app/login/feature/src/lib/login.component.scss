@@ -139,3 +139,25 @@ btn1:hover {
   margin: 10px;
   font-size: 300%;
 }
+
+//================================================================mobile======================================================================
+
+.login-mobile {
+  background-color: #f0efef;
+  height: 110vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  background-image: url('../Images/WelcomeImg2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 110vh;
+  width: 100vw;
+  position: absolute;
+  transform: scale(1.2) translateY(-90px);
+}

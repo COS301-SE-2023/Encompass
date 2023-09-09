@@ -97,3 +97,81 @@ object-position: center 59%; /* Adjust the position here */
 a {
 font-weight: bold;
 }
+
+
+  //=======================================================mobile=======================================================
+  .custom-title-mobile {
+    font-family: CustomFont;
+    font-size: 250%;
+    font-weight: bold;
+    position: absolute;
+    left: 2%;
+    top: 1%;
+    color: var(--ion-color-primary-contrast);
+    display: flex;
+    flex-direction: column;
+    
+    .sub-mobile {
+        font-size: 40%;
+        margin-left: 5px;
+    }
+    }
+    
+  //header
+
+  .image-container-mobile {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    
+  }
+
+  .cropped-image-mobile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.7) translateX(60px);;
+  }
+//footer
+
+.lnkMobile {
+    color: white;
+    font-size: 8vw;
+  }
+  
+  .gitMobile {
+    color: white;
+    font-size: 8vw;
+  }
+  
+  .footerMobile {
+    height: 20vh;
+    background-color: #130e27;
+  }
+  
+  .info-options {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .info-options-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .footer-textMobile {
+    color: white;
+    font-size: 3vw;
+  }
+  
+  .teamText {
+    color: white;
+    font-family: CustomFont;
+    font-size: 2.5vw;
+  }
+  
+
+  

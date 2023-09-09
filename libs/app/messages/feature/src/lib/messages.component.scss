@@ -13,15 +13,11 @@
 }
 
 .container {
-  // background-color: var(--ion-color-background);
   display: flex;
-  height: 100vh;
   font-family: CustomFont;
-  // margin-left: 20px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  // color: var(--ion-color-text);
 }
 
 .chat-list {
@@ -30,7 +26,6 @@
   padding: 10px;
   overflow-y: auto;
   height: 100vh;
-  margin-left: 20px;
   color: var(--ion-color-text);
 }
 
@@ -94,6 +89,8 @@
   justify-content: flex-end;
   margin-bottom: 5px;
   margin-top: 5px;
+  width: auto;
+  height: auto;
 }
 
 .messages {
@@ -209,4 +206,113 @@
   border-bottom: 2px solid var(--border-color);
   background-color: var(--ion-color-background-menu);
   box-shadow: 0px 0px 5px 0px var(--ion-color-background);
+}
+
+// ================================mobile======================================
+.list-background-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  background-color: var(--ion-color-background);
+  // display: none;
+  border-radius: 0px 20px 20px 0px;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s;
+
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  overflow: auto;
+
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+}
+
+.inputbox-mobile {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 65px;
+}
+
+.messages-mobile {
+  overflow-y: auto;
+  height: 80%;
+  width: 100%;
+}
+
+.chat-area-mobile {
+  // background-color: #F8F8F8;
+  flex: 3;
+}
+
+.input-box-mobile {
+  background-color: var(--ion-color-secondary);
+  width: 100vw;
+  padding: 0px 10px 1px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--ion-color-secondary-tint);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Typer-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+@media (max-width: 991px) {
+  .container {
+    height: 75vh;
+  }
+}
+
+@media (min-width: 991px) {
+  .container {
+    height: 100vh;
+  }
+
+  .chat-list {
+    margin-left: 20px;
+  }
+}
+
+.padding-msg {
+  margin: 10px;
+}
+
+.msg-mobile {
+  background-color: var(--ion-color-primary-shade);
+  color: white;
+  border-radius: 25px;
+  padding: 2% 3% 2% 3%;
+  max-width: 70%;
+}
+
+.msg2-mobile {
+  background-color: #d8d8d8;
+  color: black;
+  border-radius: 25px;
+  padding: 2% 3% 2% 3%;
+  max-width: 70%;
+}
+
+.messageInput-mobile {
+  margin-top: 3px;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

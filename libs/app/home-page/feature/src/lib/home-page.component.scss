@@ -42,9 +42,7 @@
 
 .buttons-menu-container {
   --background: var(--ion-color-background-menu);
-  
 }
-
 
 .notifications-card,
 .search-card {
@@ -80,7 +78,6 @@ ion-button {
 }
 
 ion-split-pane {
-
   &.split-pane-visible {
     .menu-pane {
       min-width: 72px !important;
@@ -106,16 +103,13 @@ ion-button {
   font-size: inherit;
 }
 
-
 .menu-pane {
-
   .logoButton {
     margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left: 2px;
-
   }
 
   .centeredButton {
@@ -151,17 +145,15 @@ ion-button {
     display: none;
   }
 
-
-  .MenuButton{
+  .MenuButton {
     font-size: 30px;
     position: relative;
     font-family: CustomFont;
-     height: 7% ;
-     display: flex;
-     align-items: left;
+    height: 7%;
+    display: flex;
+    align-items: left;
     margin-top: 10px;
   }
-
 
   .top-button {
     margin-top: 80px;
@@ -181,20 +173,17 @@ ion-button {
     bottom: 0;
     left: 10px;
   }
-
-
 }
 
 .custom-list {
   background-color: var(--ion-color-background);
-  color: var(--ion-color-text)
+  color: var(--ion-color-text);
 }
 
 .custom-background {
   height: 100%;
   background-color: var(--ion-color-background);
 }
-
 
 .notifications-card {
   left: 72px;
@@ -219,9 +208,6 @@ ion-button {
   p {
     color: var(--ion-color-text);
   }
-
-  
-
 }
 
 ion-searchbar {
@@ -245,7 +231,6 @@ ion-searchbar {
   border: 2px solid var(--border-color);
   transition: all 0.3s;
 }
-
 
 .noti-header {
   // display: flex;
@@ -271,8 +256,6 @@ ion-searchbar {
   }
 }
 
-
-
 .search-text {
   margin-left: 20px;
   font-size: 30px;
@@ -282,7 +265,6 @@ ion-searchbar {
   display: flex;
   align-items: center;
 }
-
 
 .notifications-card,
 .search-card {
@@ -297,7 +279,6 @@ ion-searchbar {
 .search-content {
   height: 100%;
 }
-
 
 .user {
   display: flex;
@@ -367,7 +348,6 @@ ion-searchbar {
 }
 
 .search-footer {
-
   flex-shrink: 0;
   position: sticky;
   bottom: 0;
@@ -377,7 +357,6 @@ ion-searchbar {
   background-color: var(--ion-color-background);
 
   .search-toolbar {
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -415,19 +394,20 @@ ion-router-outlet {
   transform: translateX(50px); /* Move the content 72 pixels to the right */
 }
 
-.search-card, .notifications-card {
+.search-card,
+.notifications-card {
   position: absolute;
   display: flex;
   flex-direction: column;
   transition: all 0.3s;
-  
 }
 
 .list-item {
   cursor: pointer;
 }
 
-.search-content, .notification-content {
+.search-content,
+.notification-content {
   position: relative;
   flex: 1;
   background-color: var(--ion-color-background);
@@ -458,21 +438,21 @@ ion-router-outlet {
 // }
 
 ::-webkit-scrollbar {
-  width: 8px; 
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #1c2154; 
-  border-radius: 4px; 
+  background-color: #1c2154;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #8231DD;
+  background-color: #8231dd;
 }
 
 ::-webkit-scrollbar-button:start {
   display: block;
-  height: 8px; 
+  height: 8px;
 }
 
 ::-webkit-scrollbar-button:end {
@@ -481,11 +461,11 @@ ion-router-outlet {
 }
 
 ::-webkit-scrollbar-button:start:decrement:hover {
-  background-color: #aaa; 
+  background-color: #aaa;
 }
 
 ::-webkit-scrollbar-button:end:increment:hover {
-  background-color: #aaa; 
+  background-color: #aaa;
 }
 
 .delete-icon {
@@ -514,11 +494,193 @@ ion-router-outlet {
   }
 }
 
-
 .visible {
   display: none;
 }
 
 .personUsername {
   margin-left: 5px;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+//Scalability
+
+//menu
+@media (min-width: 992px) {
+  .mobile {
+    display: none;
+  }
+
+  .square-image {
+    width: 120px; /* Set your desired width here */
+    height: 120px; /* Set your desired height here */
+    overflow: hidden;
+  }
+  
+}
+
+.menumb {
+  height: 100vh;
+  width: 90vw;
+  background-color: var(--ion-color-background-menu);
+}
+
+.headermb {
+  --background: var(--ion-color-background-menu);
+  height: fit-content;
+
+  ion-button {
+    width: 50px;
+    font-size: 28px;
+
+    ion-icon {
+      margin-left: 0px;
+      margin-right: 0px;
+      color: var(--ion-color-text);
+    }
+  }
+}
+
+.footer {
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+
+  ion-toolbar.mobile-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    --background: var(--ion-color-background-menu);
+    bottom: 0;
+
+    ion-segment {
+      flex: 1;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      ion-segment-button {
+        min-width: auto;
+        color: var(--ion-color-text);
+      }
+    }
+  }
+}
+
+.mobileContent {
+  max-height: 86vh;
+  position: fixed;
+  top: 7vh;
+  bottom: 7vh;
+  --background: transparent;
+}
+
+.mobileFooter {
+  position: fixed;
+  bottom: 10px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  // margin-left: 10%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.posts {
+  border: 1px solid var(--ion-color-primary);
+  border-radius: 50px;
+  // padding: 10px 20px;
+  color: white;
+  background-color: var(--ion-color-primary);
+  font-family: CustomFont;
+}
+
+.comms {
+  border: 1px solid var(--hover-color);
+  border-radius: 50px;
+  // padding: 10px 20px;
+  font-family: CustomFont;
+}
+
+.header-icon {
+  position: fixed;
+  right: 0;
+}
+
+.mobileLogo {
+  height: 100px;
+  width: 100px;
+  margin-left: 25vw;
+}
+
+.mobileLogobigger {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  height: fit-content;
+  height: fit-content;
+  margin-left: 19vw;
+} 
+
+.mobilemenu {
+  ion-button {
+    color: var(--ion-color-text);
+  }
+
+  span {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+}
+
+.optionalbuttons {
+  margin-top: 15px;
+}
+
+.logomobile {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+
+.search-card-mobile, .notifications-card-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  background-color: var(--ion-color-background);
+  // display: none;
+  border-radius: 0px 20px 20px 0px;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s;
+
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  overflow: auto;
+
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10px;
+  margin-top: 10px;
+  text-transform: lowercase;
+  font-size: 22px;
 }

@@ -101,6 +101,7 @@ export class FeedPage {
   sharing: boolean[] = [];
   size = 0;
   themeName!: string;
+  colSize=0;
   // type = "recommended";
 
   communitiesIsFetched = false;
@@ -110,6 +111,7 @@ export class FeedPage {
   settingsIsFetched = false;
   ShowBooks = true;
   ShowMovies = true;
+  mobileview = false;
 
   type = 'recommended';
 
@@ -123,6 +125,20 @@ export class FeedPage {
     private toastController: ToastController
   ) {
     this.load();
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    if (this.mobileview) {
+      this.colSize = 12.5;
+    }else{
+      this.colSize = 5;
+    }
   }
 
   ngOnDestroy() {

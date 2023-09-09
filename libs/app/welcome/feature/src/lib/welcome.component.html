@@ -1,24 +1,34 @@
-<ion-content>
+<ion-content *ngIf="!mobileview">
   <div class="overlay-container">
-    <img src="assets/WelcomeImg.png" class="full-screen-image" alt="Encompass Logo">
-    <img src="assets/icon/Planet.png" class="Overlay1" alt="Encompass Logo">
-    <img src="assets/icon/Swirl.png" class="Overlay2" alt="Encompass Logo">
-    <img src="assets/icon/Planet.png" class="Overlay3" alt="Encompass Logo">
-    <img src="assets/icon/Logo.png" class="Overlay4" alt="Encompass Logo">
-    
+    <img
+      src="assets/WelcomeImg.png"
+      class="full-screen-image"
+      alt="Encompass Logo"
+    />
+    <img src="assets/icon/Planet.png" class="Overlay1" alt="Encompass Logo" />
+    <img src="assets/icon/Swirl.png" class="Overlay2" alt="Encompass Logo" />
+    <img src="assets/icon/Planet.png" class="Overlay3" alt="Encompass Logo" />
+    <img src="assets/icon/Logo.png" class="Overlay4" alt="Encompass Logo" />
+
     <div class="welcome-text">
       <div class="Overlayt">encompass</div>
       <div class="Overlayt2">exploring beyond</div>
     </div>
-    
-    <ion-button fill="clear" class="btn1" size="large" (click)="LogIn()">Log in</ion-button>
-    <ion-button fill="clear" class="btn2" size="large" (click)="SignUp()">Sign up</ion-button>
+
+    <ion-button fill="clear" class="btn1" size="large" (click)="LogIn()"
+      >Log in</ion-button
+    >
+    <ion-button fill="clear" class="btn2" size="large" (click)="SignUp()"
+      >Sign up</ion-button
+    >
   </div>
 
   <div id="tagline" class="tagline">
-    <h1><a>Discover</a> communities, people, and media tailored to your <a>interests</a>.</h1>
+    <h1>
+      <a>Discover</a> communities, people, and media tailored to your
+      <a>interests</a>.
+    </h1>
   </div>
-
 
   <div class="features">
     <div class="part1">
@@ -26,12 +36,15 @@
         <div class="icon-block">
           <ion-icon name="star-outline" class="block-icon"></ion-icon>
         </div>
-        <h2>Get personalized recommendations</h2><br>
-        <span>Our 
-          <a>Machine Learning algorithm</a> will bring you specially 
-          <a>tailored content</a><br> right to your home page.</span>
+        <h2>Get personalized recommendations</h2>
+        <br />
+        <span
+          >Our <a>Machine Learning algorithm</a> will bring you specially
+          <a>tailored content</a><br />
+          right to your home page.</span
+        >
       </div>
-    
+
       <!-- <img src="https://marine.weathersa.co.za/Under_Construction.png" class="screenshots" alt="Feature Screenshot"> -->
       <div class="temp"></div>
     </div>
@@ -39,37 +52,39 @@
     <div class="part2">
       <!-- <img src="https://marine.weathersa.co.za/Under_Construction.png" class="screenshots" alt="Feature Screenshot"> -->
       <div class="temp-left"></div>
-    
+
       <div class="right-align">
         <div class="icon-block block-right">
           <ion-icon name="happy-outline" class="block-icon"></ion-icon>
         </div>
-        <h2>Join communities</h2><br>
-        <span><a>Connect</a> with like-minded communities and friends.<br><br>
-        <a>Make your own</a> community, or <a>join</a> one celebrating your beloved interests.</span>
+        <h2>Join communities</h2>
+        <br />
+        <span
+          ><a>Connect</a> with like-minded communities and friends.<br /><br />
+          <a>Make your own</a> community, or <a>join</a> one celebrating your
+          beloved interests.</span
+        >
       </div>
     </div>
-     
+
     <div class="part3">
       <div class="left-align">
         <div class="icon-block">
           <ion-icon name="trophy-outline" class="block-icon"></ion-icon>
         </div>
-        <h2>Check out events and challenges</h2><br>
-        <span><a>Explore</a> our <a>Events</a> page, featuring quizzes, meetups, challenges, and more!
-          <br><br>
-          Win <a>awards</a> and <a>level up</a> your profile!</span>
+        <h2>Check out events and challenges</h2>
+        <br />
+        <span
+          ><a>Explore</a> our <a>Events</a> page, featuring quizzes, meetups,
+          challenges, and more! <br /><br />
+          Win <a>awards</a> and <a>level up</a> your profile!</span
+        >
       </div>
-    
+
       <!-- <img src="https://marine.weathersa.co.za/Under_Construction.png" class="screenshots" alt="Feature Screenshot"> -->
       <div class="temp"></div>
     </div>
   </div>
-  
-
-  
-
-  
 
   <ion-footer>
     <ion-toolbar class="footer" color="tertiary">
@@ -86,17 +101,30 @@
             </ion-button>
           </ion-col>
           <ion-col size="1">
-            <ion-button fill="clear" class="footer-text" (click)="openPrivacy()">
+            <ion-button
+              fill="clear"
+              class="footer-text"
+              (click)="openPrivacy()"
+            >
               Privacy
             </ion-button>
           </ion-col>
         </ion-row>
         <ion-row class="footer-row">
           <ion-col size="1">
-            <ion-icon id="click-trigger" name="logo-linkedin" class="lnk"></ion-icon>
+            <ion-icon
+              id="click-trigger"
+              name="logo-linkedin"
+              class="lnk"
+            ></ion-icon>
           </ion-col>
           <ion-col size="1">
-              <a href="https://github.com/COS301-SE-2023/Encompass/" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" class="git"></ion-icon></a>
+            <a
+              href="https://github.com/COS301-SE-2023/Encompass/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><ion-icon name="logo-github" class="git"></ion-icon
+            ></a>
           </ion-col>
         </ion-row>
         <ion-row class="footer-row footer-row-text">
@@ -128,5 +156,119 @@
     </ion-content>
     </ng-template>
   </ion-popover>
-  
+</ion-content>
+
+<!-- ================================================================Mobile View============================================================================== -->
+
+<ion-content *ngIf="mobileview" class="mobilewindow">
+  <div class="overlay-container background-image">
+    <!-- <img src="assets/WelcomeImg.png" class="full-screen-imageMobile" alt="Encompass Logo"> -->
+    <!--<img src="assets/icon/Planet.png" class="planetIcon" alt="Encompass Logo">
+    <img src="assets/icon/Swirl.png" class="swirlIcon" alt="Encompass Logo">
+    <img src="assets/icon/Planet.png" class="PlanetIcon2" alt="Encompass Logo"> -->
+
+    <div class="header-stuff">
+      <div class="logodiv">
+        <img src="assets/icon/Logo.png" class="LogoIcon" alt="Encompass Logo" />
+      </div>
+
+      <div class="welcome-textMobile">
+        <div class="siteText">encompass</div>
+        <div class="slogan">exploring beyond</div>
+      </div>
+    </div>
+    <div class="optionBtns">
+      <ion-button fill="clear" class="loginBtn" size="large" (click)="LogIn()"
+        >Log in</ion-button
+      >
+      <ion-button fill="clear" class="signupBtn" size="large" (click)="SignUp()"
+        >Sign up</ion-button
+      >
+    </div>
+  </div>
+
+  <ion-footer>
+    <ion-toolbar class="footerMobile" color="tertiary">
+      <div class="info-options">
+        <ion-button fill="clear" class="footer-textMobile" (click)="openTeam()">
+          Team
+        </ion-button>
+
+        <ion-button fill="clear" class="footer-textMobile" (click)="openTCs()">
+          T&amp;Cs
+        </ion-button>
+
+        <ion-button
+          fill="clear"
+          class="footer-textMobile"
+          (click)="openPrivacy()"
+        >
+          Privacy
+        </ion-button>
+      </div>
+      <div class="info-options-icons">
+        <ion-icon
+          id="click-trigger"
+          name="logo-linkedin"
+          class="lnkMobile"
+        ></ion-icon>
+
+        <a
+          href="https://github.com/COS301-SE-2023/Encompass/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><ion-icon name="logo-github" class="gitMobile"></ion-icon
+        ></a>
+      </div>
+      <div class="info-options" style="margin-top: 10px">
+        <div class="teamText">PerfectStrangers Capstone 2023</div>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+
+  <ion-popover
+    trigger="click-trigger"
+    triggerAction="click"
+    side="top"
+    alignment="center"
+  >
+    <ng-template>
+      <ion-content style="margin-bottom: 280px">
+        <ion-list>
+          <ion-item>
+            <a
+              href="https://www.linkedin.com/in/julianna-venter-3b4841232/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Julianna Venter</a
+            >
+          </ion-item>
+          <ion-item>
+            <a
+              href="https://www.linkedin.com/in/morgan-bentley-0bb21a149/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Morgan Bentley</a
+            >
+          </ion-item>
+          <ion-item>
+            <a
+              href="https://www.linkedin.com/in/ronin-brookes/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Ronin Brookes</a
+            >
+          </ion-item>
+          <ion-item>
+            <a
+              href="https://www.linkedin.com/in/sameetkeshav/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Sameet Keshav</a
+            >
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
 </ion-content>

@@ -95,13 +95,47 @@ export class CommunityProfileComponent {
     private communityApi: CommunityApi,
     private toastController: ToastController
   ) {
+    const page = document.getElementById('home-page');
     const communityName = this.route.snapshot.paramMap.get('name');
 
     if (communityName == null) {
       return;
     }
 
-    this.load();
+    this.store.dispatch(new SubscribeToProfile());
+    this.profile$.subscribe((profile) => {
+      if (profile) {
+        this.profile = profile;
+
+        this.store.dispatch(new GetUserSettings(this.profile._id));
+
+        this.settings$.subscribe((settings) => {
+          if (settings) {
+            this.settings = settings;
+
+            this.document.body.setAttribute(
+              'color-theme',
+              this.settings.themes.themeColor
+            );
+            if (this.settings.themes.themeColor.startsWith('dark')) {
+              const icons = document.getElementById('genreicons');
+
+              if (icons) {
+                icons.style.filter = 'invert(1)';
+              }
+            }
+
+            if (page) {
+              console.log('testing the feed page');
+              console.log('hello ' + this.settings.themes.themeImage);
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+            } else {
+              console.log('page is null');
+            }
+          }
+        });
+      }
+    });
 
     this.store.dispatch(new GetCommunity(communityName));
     this.community$.subscribe((community) => {
@@ -158,110 +192,115 @@ export class CommunityProfileComponent {
         }
       }
     });
+
+    this.load();
   }
 
   load() {
     const page = document.getElementById('home-page');
 
     this.store.dispatch(new SubscribeToProfile());
+    // this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if (profile) {
         console.log('Profile CALLED');
         console.log(profile);
         this.profile = profile;
+        // this.addPosts("recommended");
+        // this.newChange();
 
-        if (!this.isSettingsFetched) {
-          this.isSettingsFetched = true;
-          this.store.dispatch(new GetUserSettings(this.profile._id));
-          this.settings$.subscribe((settings) => {
-            if (settings) {
-              this.settings = settings;
+        this.store.dispatch(new GetUserSettings(this.profile._id));
 
-              this.document.body.setAttribute(
-                'color-theme',
-                this.settings.themes.themeColor
-              );
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
+        this.settings$.subscribe((settings) => {
+          if (settings) {
+            this.settings = settings;
 
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
-                }
-              }
+            this.document.body.setAttribute(
+              'color-theme',
+              this.settings.themes.themeColor
+            );
+            if (this.settings.themes.themeColor.startsWith('dark')) {
+              const icons = document.getElementById('genreicons');
 
-              this.themeName = this.settings.themes.themeColor;
-
-              console.log(this.themeName);
-
-              const defaultcloud = document.getElementById('cloud-default');
-              const redcloud = document.getElementById('cloud-red');
-              const bluecloud = document.getElementById('cloud-blue');
-              const greencloud = document.getElementById('cloud-green');
-              const orangecloud = document.getElementById('cloud-orange');
-
-              if (
-                defaultcloud &&
-                redcloud &&
-                bluecloud &&
-                greencloud &&
-                orangecloud
-              ) {
-                console.log(this.themeName);
-                if (
-                  this.themeName == 'light-red' ||
-                  this.themeName == 'dark-red'
-                ) {
-                  redcloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-blue' ||
-                  this.themeName == 'dark-blue'
-                ) {
-                  bluecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-green' ||
-                  this.themeName == 'dark-green'
-                ) {
-                  greencloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-orange' ||
-                  this.themeName == 'dark-orange'
-                ) {
-                  orangecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                } else {
-                  defaultcloud.classList.remove('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                }
-              }
-
-              if (page) {
-                console.log('testing the feed page');
-                console.log('hello ' + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              } else {
-                console.log('page is null');
+              if (icons) {
+                icons.style.filter = 'invert(1)';
               }
             }
-          });
-        }
+
+            this.themeName = this.settings.themes.themeColor;
+
+            console.log(this.themeName);
+
+            const defaultcloud = document.getElementById('cloud-default');
+            const redcloud = document.getElementById('cloud-red');
+            const bluecloud = document.getElementById('cloud-blue');
+            const greencloud = document.getElementById('cloud-green');
+            const orangecloud = document.getElementById('cloud-orange');
+
+            if (
+              defaultcloud &&
+              redcloud &&
+              bluecloud &&
+              greencloud &&
+              orangecloud
+            ) {
+              // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+              console.log(this.themeName);
+              if (
+                this.themeName == 'light-red' ||
+                this.themeName == 'dark-red'
+              ) {
+                redcloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                greencloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+              } else if (
+                this.themeName == 'light-blue' ||
+                this.themeName == 'dark-blue'
+              ) {
+                // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                bluecloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                redcloud.classList.add('visible');
+                greencloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+              } else if (
+                this.themeName == 'light-green' ||
+                this.themeName == 'dark-green'
+              ) {
+                greencloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                redcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+              } else if (
+                this.themeName == 'light-orange' ||
+                this.themeName == 'dark-orange'
+              ) {
+                orangecloud.classList.remove('visible');
+                defaultcloud.classList.add('visible');
+                redcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                greencloud.classList.add('visible');
+              } else {
+                defaultcloud.classList.remove('visible');
+                redcloud.classList.add('visible');
+                bluecloud.classList.add('visible');
+                greencloud.classList.add('visible');
+                orangecloud.classList.add('visible');
+              }
+            }
+
+            if (page) {
+              console.log('testing the feed page');
+              console.log('hello ' + this.settings.themes.themeImage);
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+            } else {
+              console.log('page is null');
+            }
+          }
+        });
       }
     });
   }
@@ -787,5 +826,16 @@ export class CommunityProfileComponent {
     };
 
     this.store.dispatch(new UpdatePostArray(post._id, data));
+  }
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
   }
 }

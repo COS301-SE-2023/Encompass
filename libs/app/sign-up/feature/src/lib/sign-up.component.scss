@@ -207,3 +207,25 @@ btn1:hover {
   cursor: pointer;
   color: #8231dd;
 }
+
+//================================================================mobile======================================================================
+
+.login-mobile {
+  background-color: #f0efef;
+  height: 110vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  background-image: url('../Images/WelcomeImg2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 110vh;
+  width: 100vw;
+  position: absolute;
+  transform: scale(1.2) translateY(-90px);
+}
