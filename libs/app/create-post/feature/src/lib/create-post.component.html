@@ -3,9 +3,6 @@
     <div class="head">
       <button type="button" class="btn1">Post</button>
       <button type="button" class="btn2">Event</button>
-      <ion-button fill="clear" class="closeBtn search-text">
-        <ion-icon name="close-outline"></ion-icon>
-      </ion-button>
     </div>
     <div class="Subhead">
       <div class="SelectCommunity">
@@ -112,6 +109,15 @@
       </button>
 
       <button
+        class="btns"
+        style="background-color: var(--ion-color-secondary); color: white"
+        (click)="closePopup()"
+        type="button"
+      >
+        Cancel
+      </button>
+
+      <button
         *ngIf="isValid"
         type="submit"
         class="btns validPost"
@@ -120,7 +126,6 @@
       >
         Post
       </button>
-
       <button
         *ngIf="!isValid"
         type="submit"
