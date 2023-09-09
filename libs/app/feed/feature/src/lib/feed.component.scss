@@ -714,18 +714,13 @@ ion-button:hover {
 
 ion-segment {
   border: none;
-  
+  background-color: var(--ion-color-background-menu);
 }
 
 ion-segment-button {
   --indicator-color : transparent!important;
   --indicator-box-shadow : none!important;
   margin: 10px 0px 10px 0px;
-}
-
-ion-segment-button::part(indicator-background) {
-  border: 1px solid var(--ion-color-warning);
-  border-radius: 25px;
 }
 
 @media (max-width: 992px) {
