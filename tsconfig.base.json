@@ -18,6 +18,9 @@
       "@encompass/api/account/data-access": [
         "libs/api/account/data-access/src/index.ts"
       ],
+      "@encompass/api/ai-test/data-access": [
+        "libs/api/ai-test/data-access/src/index.ts"
+      ],
       "@encompass/api/challenge-description/data-access": [
         "libs/api/challenge-description/data-access/src/index.ts"
       ],

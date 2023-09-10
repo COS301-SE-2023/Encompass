@@ -2,7 +2,10 @@ export class UpdateProfileRequest{
   username!: string;
   name!: string;
   lastName!: string;
-  categories!: string [];
+  categories!:{
+    category: string;
+    score: number;
+  } [];
   communities!: string [];
   awards!: string [];
   events!: string [];
