@@ -34,10 +34,29 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
                 updatedPost = true;
             }
 
-            //update post in database
+            
+            const userCategories = user.categories;
+            const postCategories = post.categories;
             if (updatedPost) {
-                await this.postEntityRepository.findOnePostAndReplaceById(postId, post);
+                //update post in database
+                this.postEntityRepository.findOnePostAndReplaceById(postId, post);
+
+                postCategories.forEach((postCategory: any) => {
+                    const userCategory = userCategories.find((userCategory: any) => userCategory.category === postCategory);
+                    if (userCategory) {
+                        //if an increase in score would make it less than 0, set it to 0
+                        if (userCategory.score - 0.1 < 0) {
+                            userCategory.score = 0;
+                        } else {
+                            userCategory.score -= 0.1;
+                        }
+                    }
+                });
+
+                //update user in database
+                await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
             }
+
             return post;
         } catch (error) {
             console.log(error);

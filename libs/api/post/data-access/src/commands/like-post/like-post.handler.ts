@@ -34,32 +34,29 @@ export class LikePostHandler implements ICommandHandler<LikePostCommand> {
                 updatedPost = true;
             }
 
-            //update post in database
-            if (updatedPost) {
-                await this.postEntityRepository.findOnePostAndReplaceById(postId, post);
-            }
-
-            //for each category adjust user's category scores, if user category == post category just add 0.1 to score, if not create category and set score to 0.1
-            //user categories field looks like:"categories": [{"category": "Action","score": 0.5},{"category": "Romance","score": 0.5},]
             const userCategories = user.categories;
             const postCategories = post.categories;
+            if (updatedPost) {
+                //update post in database
+                this.postEntityRepository.findOnePostAndReplaceById(postId, post);
 
-            postCategories.forEach((postCategory: any) => {
-                const userCategory = userCategories.find((userCategory: any) => userCategory.category === postCategory);
-                if (userCategory) {
-                    //if an increase in score would make it greater than 1, set it to 1
-                    if (userCategory.score + 0.1 > 1) {
-                        userCategory.score = 1;
+                postCategories.forEach((postCategory: any) => {
+                    const userCategory = userCategories.find((userCategory: any) => userCategory.category === postCategory);
+                    if (userCategory) {
+                        //if an increase in score would make it greater than 1, set it to 1
+                        if (userCategory.score + 0.1 > 1) {
+                            userCategory.score = 1;
+                        } else {
+                            userCategory.score += 0.1;
+                        }
                     } else {
-                        userCategory.score += 0.1;
+                        userCategories.push({ category: postCategory, score: 0.1 });
                     }
-                } else {
-                    userCategories.push({ category: postCategory, score: 0.1 });
-                }
-            });
-
-            //update user in database
-            await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+                });
+    
+                //update user in database
+                await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+            }
 
             return post;
         } catch (error) {
