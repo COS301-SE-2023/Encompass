@@ -27,6 +27,7 @@ export class CreatePostHandler
         communityImageUrl,
         categories,
         likes,
+        dislikes,
         spoiler,
         ageRestricted
       } = createPostRequest;
@@ -54,6 +55,7 @@ export class CreatePostHandler
           communityImageUrl,
           categories,
           likes,
+          dislikes,
           spoiler,
           ageRestricted,
           isPrivate
