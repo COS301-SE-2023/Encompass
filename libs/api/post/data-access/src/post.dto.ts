@@ -8,6 +8,7 @@ export class PostDto{
   readonly communityImageUrl!: string | null;
   readonly categories!: string [];
   readonly likes!: string [];
+  readonly dislikes!: string [];
   readonly dateAdded!: string;
   readonly spoiler!: boolean;
   readonly ageRestricted!: boolean;

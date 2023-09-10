@@ -20,6 +20,7 @@ import { GetPopularPostsQuery } from "./queries/get-popular/getPopularPosts.quer
 import { GetLatestPostsQuery } from "./queries/get-latest/getLatestPosts.query";
 import { GetPostsByKeywordQuery } from "./queries/search-posts/get-posts-by-keyword.query";
 import { GetRecommendedPostsQuery } from "./queries/get-recommended-posts/getRecommendedPosts.query";
+import { DislikePostCommand } from "./commands/dislike-post/dislike-post.command";
 
 @Controller('post')
 export class PostController {
@@ -65,6 +66,26 @@ export class PostController {
   ){
     return await this.commandBus.execute<UpdatePostCommand, PostDto>(
       new UpdatePostCommand(id, updatePostRequest),
+    );
+  }
+
+  /*@Patch('like/:userId/:postId')
+  async likePost(
+    @Param('userId') userId: string,
+    @Param('postId') postId: string,
+  ){
+    return await this.commandBus.execute<LikePostCommand, PostDto>(
+      new LikePostCommand(userId, postId),
+    );
+  }*/
+
+  @Patch('dislike/:userId/:postId')
+  async dislikePost(
+    @Param('userId') userId: string,
+    @Param('postId') postId: string,
+  ){
+    return await this.commandBus.execute<DislikePostCommand, PostDto>(
+      new DislikePostCommand(userId, postId),
     );
   }
 
