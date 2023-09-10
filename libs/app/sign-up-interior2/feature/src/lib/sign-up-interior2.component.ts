@@ -14,6 +14,13 @@ import {
   UpdateCommunityRequest,
 } from '@encompass/api/community/data-access';
 import { GetCommunities } from '@encompass/app/sign-up-interior2/util';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 import { UpdateProfileRequest } from '@encompass/api/profile/data-access';
 
 @Component({
@@ -133,5 +140,16 @@ export class SignUpInterior2Component {
       });
     }
     this.router.navigate(['/home']);
+  }
+
+  mobileview = false;
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
   }
 }

@@ -10,12 +10,13 @@ import {
   ClearAllNotifications,
   ClearNotification,
   GetNotifications,
+  getHome,
 } from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { ModalController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { CreatePostComponent } from '@encompass/app/create-post/feature';
 import { PostDto } from '@encompass/api/post/data-access';
 import { CreateCommunityComponent } from '@encompass/app/create-community/feature';
@@ -68,17 +69,94 @@ export class HomePage {
   keyword = 'term';
   searchprofiles!: ProfileDto[];
   peopleExists = false;
+  mobileview = false;
+  default = false;
+  red = false;
+  blue = false;
+  green = false;
+  orange = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private router: Router,
+    private modalController: ModalController,
     private store: Store,
     private datePipe: DatePipe,
-    private searchApi: SearchApi
+    private searchApi: SearchApi,
+    public menuCtrl: MenuController
   ) {
     const storedKeyword = localStorage.getItem('keyword');
     console.log('STORED KEYWORD: ' + storedKeyword);
     this.load();
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    console.log(window.innerWidth);
+  }
+
+  openFirstMenu() {
+    // Open the menu by menu-id
+    this.menuCtrl.enable(true, 'first-menu');
+    this.menuCtrl.open('first-menu');
+  }
+
+  menuOpened() {
+    console.log('Menu opened ' + this.themeName);
+
+    this.default = false;
+    this.red = false;
+    this.blue = false;
+    this.green = false;
+    this.orange = false;
+
+    if (this.themeName == 'dark-red' || this.themeName == 'light-red') {
+      this.red = true;
+    } else if (
+      this.themeName == 'dark-blue' ||
+      this.themeName == 'light-blue'
+    ) {
+      this.blue = true;
+    } else if (
+      this.themeName == 'dark-green' ||
+      this.themeName == 'light-green'
+    ) {
+      this.green = true;
+    } else if (
+      this.themeName == 'dark-orange' ||
+      this.themeName == 'light-orange'
+    ) {
+      this.orange = true;
+    } else {
+      this.default = true;
+    }
+  }
+
+  async openPopup() {
+    this.menuCtrl.close('first-menu');
+    const modal = await this.modalController.create({
+      component: CreatePostComponent,
+      cssClass: 'custom-modal',
+      componentProps: {},
+    });
+
+    return await modal.present();
+  }
+
+  async openPopup2() {
+    this.menuCtrl.close('first-menu');
+    const modal = await this.modalController.create({
+      component: CreateCommunityComponent,
+      cssClass: 'custom-modal',
+      componentProps: {},
+    });
+
+    return await modal.present();
   }
 
   async search(event: any) {
@@ -140,103 +218,87 @@ export class HomePage {
   load() {
     const page = document.getElementById('home-page');
 
-    if (!this.profileIsFetched) {
-      // this.profileIsFetched = true;
-      this.store.dispatch(new SubscribeToProfile());
-      this.profile$.subscribe((profile) => {
-        if (profile) {
-          console.log(profile);
-          this.profile = profile;
+    this.store.dispatch(new SubscribeToProfile());
+    this.profile$.subscribe((profile) => {
+      if (profile) {
+        console.log(profile);
+        this.profile = profile;
 
-          if (!this.settingsIsFetched) {
-            this.settingsIsFetched = true;
-            this.store.dispatch(new GetUserSettings(this.profile._id));
-            this.settings$
-              .pipe(takeUntil(this.unsubscribe$))
-              .subscribe((settings) => {
-                if (settings) {
-                  this.settings = settings;
+        this.store.dispatch(new GetUserSettings(this.profile._id));
+        this.settings$.subscribe((settings) => {
+          if (settings) {
+            this.settings = settings;
 
-                  this.document.body.setAttribute(
-                    'color-theme',
-                    this.settings.themes.themeColor
-                  );
+            this.document.body.setAttribute(
+              'color-theme',
+              this.settings.themes.themeColor
+            );
 
-                  this.themeName = this.settings.themes.themeColor;
+            this.themeName = this.settings.themes.themeColor;
 
-                  console.log(this.themeName);
+            console.log(this.themeName);
 
-                  const defaultLogo = document.getElementById('logo-default');
-                  const redLogo = document.getElementById('logo-red');
-                  const blueLogo = document.getElementById('logo-blue');
-                  const greenLogo = document.getElementById('logo-green');
-                  const orangeLogo = document.getElementById('logo-orange');
+            const defaultLogo = document.getElementById('logo-default');
+            const redLogo = document.getElementById('logo-red');
+            const blueLogo = document.getElementById('logo-blue');
+            const greenLogo = document.getElementById('logo-green');
+            const orangeLogo = document.getElementById('logo-orange');
 
-                  if (
-                    defaultLogo &&
-                    redLogo &&
-                    blueLogo &&
-                    greenLogo &&
-                    orangeLogo
-                  ) {
-                    // console.log('default logosssssssssssssssssssssssssssssssss1');
-                    console.log(this.themeName);
-                    if (
-                      this.themeName == 'light-red' ||
-                      this.themeName == 'dark-red'
-                    ) {
-                      redLogo.classList.remove('visible');
-                      defaultLogo.classList.add('visible');
-                      blueLogo.classList.add('visible');
-                      greenLogo.classList.add('visible');
-                      orangeLogo.classList.add('visible');
-                    } else if (
-                      this.themeName == 'light-blue' ||
-                      this.themeName == 'dark-blue'
-                    ) {
-                      // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-                      blueLogo.classList.remove('visible');
-                      defaultLogo.classList.add('visible');
-                      redLogo.classList.add('visible');
-                      greenLogo.classList.add('visible');
-                      orangeLogo.classList.add('visible');
-                    } else if (
-                      this.themeName == 'light-green' ||
-                      this.themeName == 'dark-green'
-                    ) {
-                      greenLogo.classList.remove('visible');
-                      defaultLogo.classList.add('visible');
-                      redLogo.classList.add('visible');
-                      blueLogo.classList.add('visible');
-                      orangeLogo.classList.add('visible');
-                    } else if (
-                      this.themeName == 'light-orange' ||
-                      this.themeName == 'dark-orange'
-                    ) {
-                      orangeLogo.classList.remove('visible');
-                      defaultLogo.classList.add('visible');
-                      redLogo.classList.add('visible');
-                      blueLogo.classList.add('visible');
-                      greenLogo.classList.add('visible');
-                    } else {
-                      defaultLogo.classList.remove('visible');
-                      redLogo.classList.add('visible');
-                      blueLogo.classList.add('visible');
-                      greenLogo.classList.add('visible');
-                      orangeLogo.classList.add('visible');
-                    }
-                  }
+            if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo) {
+              console.log(this.themeName);
+              if (
+                this.themeName == 'light-red' ||
+                this.themeName == 'dark-red'
+              ) {
+                redLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+              } else if (
+                this.themeName == 'light-blue' ||
+                this.themeName == 'dark-blue'
+              ) {
+                blueLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                redLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+              } else if (
+                this.themeName == 'light-green' ||
+                this.themeName == 'dark-green'
+              ) {
+                greenLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                redLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+              } else if (
+                this.themeName == 'light-orange' ||
+                this.themeName == 'dark-orange'
+              ) {
+                orangeLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                redLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+              } else {
+                defaultLogo.classList.remove('visible');
+                redLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+              }
+            }
 
-                  if (page) {
-                    page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-                    // page.style.backgroundImage = "blue";
-                  }
-                }
-              });
+            if (page) {
+              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              // page.style.backgroundImage = "blue";
+            }
           }
-        }
-      });
-    }
+        });
+      }
+    });
   }
 
   goToProfile() {
@@ -247,6 +309,7 @@ export class HomePage {
   goHome() {
     this.routerClick();
     this.router.navigate(['/home/feed']);
+    this.menuCtrl.close('first-menu');
   }
 
   GoToComments() {
@@ -267,16 +330,19 @@ export class HomePage {
   goToSettings() {
     this.routerClick();
     this.router.navigate(['/home/settings']);
+    this.menuCtrl.close('first-menu');
   }
 
   goToThemes() {
     this.routerClick();
     this.router.navigate(['/home/themes']);
+    this.menuCtrl.close('first-menu');
   }
 
   goToEvent() {
     this.routerClick();
-     this.router.navigate(['/home/event']);
+    this.router.navigate(['/home/event']);
+    this.menuCtrl.close('first-menu');
   }
 
   clearNotification(id: string) {

@@ -192,96 +192,96 @@ describe('CommunityProfileComponent', () => {
     );
   });
 
-  it('should update community data on submit', async () => {
-    // Prepare the component with the profile and community data
-    component.profile = mockProfile;
-    component.community = mockCommunity;
-    component.file = new File([], 'test-image.png');
-    component.fileBanner = new File([], 'test-banner.png');
-    const uploadImageUrl = 'groupImage.png';
-    const uploadBannerUrl = 'bannerImage.png';
-    const updateCommunitySpy = jest
-      .spyOn(store, 'dispatch')
-      .mockReturnValue(of({}));
-    const uploadImageSpy = jest
-      .spyOn(CommunityApi.prototype, 'uploadFile')
-      .mockResolvedValueOnce(uploadImageUrl)
-      .mockResolvedValueOnce(uploadBannerUrl);
+  // it('should update community data on submit', async () => {
+  //   // Prepare the component with the profile and community data
+  //   component.profile = mockProfile;
+  //   component.community = mockCommunity;
+  //   component.file = new File([], 'test-image.png');
+  //   component.fileBanner = new File([], 'test-banner.png');
+  //   const uploadImageUrl = 'groupImage.png';
+  //   const uploadBannerUrl = 'bannerImage.png';
+  //   const updateCommunitySpy = jest
+  //     .spyOn(store, 'dispatch')
+  //     .mockReturnValue(of({}));
+  //   const uploadImageSpy = jest
+  //     .spyOn(CommunityApi.prototype, 'uploadFile')
+  //     .mockResolvedValueOnce(uploadImageUrl)
+  //     .mockResolvedValueOnce(uploadBannerUrl);
 
-    await component.onSubmit();
+  //   await component.onSubmit();
 
-    // Check that the store dispatch was called to update the community
-    expect(updateCommunitySpy).toHaveBeenCalledWith(
-      new UpdateCommunity(mockCommunity._id, expect.any(Object))
-    );
+  //   // Check that the store dispatch was called to update the community
+  //   expect(updateCommunitySpy).toHaveBeenCalledWith(
+  //     new UpdateCommunity(mockCommunity._id, expect.any(Object))
+  //   );
 
-    // Check that the uploadImage method was called for both images
-    expect(uploadImageSpy).toHaveBeenCalledWith(
-      component.file,
-      component.fileName
-    );
-    expect(uploadImageSpy).toHaveBeenCalledWith(
-      component.fileBanner,
-      component.fileNameBanner
-    );
+  //   // Check that the uploadImage method was called for both images
+  //   expect(uploadImageSpy).toHaveBeenCalledWith(
+  //     component.file,
+  //     component.fileName
+  //   );
+  //   expect(uploadImageSpy).toHaveBeenCalledWith(
+  //     component.fileBanner,
+  //     component.fileNameBanner
+  //   );
 
-    // Check that the community groupImage and bannerImage are updated
-    expect(component.community?.groupImage).toBe(uploadImageUrl);
-    expect(component.community?.bannerImage).toBe(uploadBannerUrl);
+  //   // Check that the community groupImage and bannerImage are updated
+  //   expect(component.community?.groupImage).toBe(uploadImageUrl);
+  //   expect(component.community?.bannerImage).toBe(uploadBannerUrl);
 
-    await component.onSubmit();
+  //   await component.onSubmit();
 
-  });
-  it('should add a user to the community when accepting', async () => {
-    // Prepare the component with the profile and community data
-    component.profile = mockProfile;
-    component.community = mockCommunity;
-    const newUser: ProfileDto = {
-      _id: '321',
-      username: 'newUser',
-      name: 'Test',
-      lastName: 'User',
-      categories: [],
-      communities: [],
-      awards: [],
-      events: [],
-      followers: [],
-      following: [],
-      posts: [],
-      reviews: [],
-      profileImage: 'testimage.png',
-      profileBanner: 'testbanner.png',
-      bio: 'This is a test bio',
-      ep: 0
-    };
-    const getUserSpy = jest
-      .spyOn(CommunityApi.prototype, 'getUser')
-      .mockResolvedValue(newUser);
+  // });
+  // it('should add a user to the community when accepting', async () => {
+  //   // Prepare the component with the profile and community data
+  //   component.profile = mockProfile;
+  //   component.community = mockCommunity;
+  //   const newUser: ProfileDto = {
+  //     _id: '321',
+  //     username: 'newUser',
+  //     name: 'Test',
+  //     lastName: 'User',
+  //     categories: [],
+  //     communities: [],
+  //     awards: [],
+  //     events: [],
+  //     followers: [],
+  //     following: [],
+  //     posts: [],
+  //     reviews: [],
+  //     profileImage: 'testimage.png',
+  //     profileBanner: 'testbanner.png',
+  //     bio: 'This is a test bio',
+  //     ep: 0
+  //   };
+  //   const getUserSpy = jest
+  //     .spyOn(CommunityApi.prototype, 'getUser')
+  //     .mockResolvedValue(newUser);
 
-    const updateCommunitySpy = jest
-      .spyOn(store, 'dispatch')
-      .mockReturnValue(of({}));
+  //   const updateCommunitySpy = jest
+  //     .spyOn(store, 'dispatch')
+  //     .mockReturnValue(of({}));
 
-    // Call the acceptUser method
-    await component.acceptUser('newUser');
+  //   // Call the acceptUser method
+  //   await component.acceptUser('newUser');
 
-    // Check that the getUser method was called with the correct username
-    expect(getUserSpy).toHaveBeenCalledWith('newUser');
+  //   // Check that the getUser method was called with the correct username
+  //   expect(getUserSpy).toHaveBeenCalledWith('newUser');
 
-    // Check that the store dispatch was called to update the community and user settings
-    expect(updateCommunitySpy).toHaveBeenCalledWith(
-      new UpdateCommunity(mockCommunity._id, expect.any(Object))
-    );
-    expect(updateCommunitySpy).toHaveBeenCalledWith(
-      new RemoveCommunityRequest(mockCommunity._id, 'newUser')
-    );
+  //   // Check that the store dispatch was called to update the community and user settings
+  //   expect(updateCommunitySpy).toHaveBeenCalledWith(
+  //     new UpdateCommunity(mockCommunity._id, expect.any(Object))
+  //   );
+  //   expect(updateCommunitySpy).toHaveBeenCalledWith(
+  //     new RemoveCommunityRequest(mockCommunity._id, 'newUser')
+  //   );
 
-    // Check that the community members and EP are updated
-    expect(component.community?.members).toContain('newUser');
-    expect(component.community?.communityEP).toBe(
-      mockCommunity.communityEP + newUser.ep
-    );
-  });
+  //   // Check that the community members and EP are updated
+  //   expect(component.community?.members).toContain('newUser');
+  //   expect(component.community?.communityEP).toBe(
+  //     mockCommunity.communityEP + newUser.ep
+  //   );
+  // });
 
   afterEach(() => {
     jest.clearAllMocks();

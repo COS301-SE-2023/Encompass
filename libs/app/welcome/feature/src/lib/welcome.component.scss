@@ -1,12 +1,10 @@
 .overlay-container {
-  
   background-color: #f8f8f8;
-  width: 100%;
-  height: 100%;
+  width: 100VW;
+  height: 100vh;
   object-fit: cover;
   z-index: 1;
 }
-
 
 .full-screen-image {
   width: 100%;
@@ -14,7 +12,6 @@
   position: relative;
   z-index: 2;
   object-fit: cover;
-
 }
 
 .Overlay1 {
@@ -22,10 +19,8 @@
   top: 80%;
   left: 10%;
   z-index: 3;
-  width: 7%; 
+  width: 7%;
   height: auto;
-  
-
 }
 
 .Overlay2 {
@@ -33,37 +28,28 @@
   top: 20%;
   left: 70%;
   z-index: 3;
-  width: 10%; 
+  width: 10%;
   height: auto;
-  
-
 }
 
 .Overlay3 {
-  
   position: absolute;
   top: 15%;
   left: 90%;
   z-index: 3;
-  width: 2%; 
+  width: 2%;
   height: auto;
- 
-  
-  
-
 }
 
 .Overlay4 {
-  
   position: absolute;
   top: 22%;
   left: 12%;
   z-index: 3;
-  width: 15%; 
+  width: 15%;
   height: auto;
   transform: translate(-50%, -50%);
   //
-
 }
 
 @media screen and (max-width: 450px) {
@@ -80,11 +66,11 @@
 
 .welcome-text {
   position: absolute;
-    z-index: 1;
-    // top: 23%;
-    left: 20%;
-    color: #231942;
-    font-family: CustomFont;
+  z-index: 1;
+  // top: 23%;
+  left: 20%;
+  color: #231942;
+  font-family: CustomFont;
 }
 
 .Overlayt3 {
@@ -93,148 +79,85 @@
   top: 95%;
   color: white;
   font-family: CustomFont;
-  left: 20%
+  left: 20%;
 }
 
-  .welcome-text {
-      top: 23%;
-  }
+.welcome-text {
+  top: 23%;
+}
 
-  .Overlayt {
-    font-size: 330%;
-  }
-  
-  .Overlayt2 {
-    // margin-top: 2px;
-    font-size: 150%;
-  }
-  
-  .Overlayt3 {
-    font-size: 100%;
-  }
+.Overlayt {
+  font-size: 330%;
+}
 
-  .btn1{
-    border: 2px solid #231942;
-    border-radius: 30px;
-    background-color: #20173F;
-    color:white;
-    position: relative;
-    bottom:63%;
-    left:5%;
-    z-index: 3;
-    width: 15%;
-    height: 7%;
-    font-family: CustomFont2;
-    text-transform: none;
-    font-size: 150%;
-  }
-  
-  .btn2{
-    border: 2px solid #231942;
-    border-radius: 30px;
-    background-color: #CECAE3;
-    color:#231942;
-    position: relative;
-    bottom:63%;
-    z-index: 3;
-    left:7%;
-    width:15%;
-    height: 7%; 
-    font-family: CustomFont2;
-    text-transform: none;
-    font-size: 150%;
-  }
+.Overlayt2 {
+  // margin-top: 2px;
+  font-size: 150%;
+}
 
+.Overlayt3 {
+  font-size: 100%;
+}
 
-
-
-
-.btn3{
+.btn1 {
   border: 2px solid #231942;
   border-radius: 30px;
-  background-color: white;
-  color:#231942;
+  background-color: #20173f;
+  color: white;
   position: relative;
-  bottom:97%;
-  left:12%;
+  bottom: 63%;
+  left: 5%;
   z-index: 3;
-  width: 18%;
+  width: 15%;
   height: 7%;
   font-family: CustomFont2;
   text-transform: none;
-  
-
+  font-size: 150%;
 }
-.btn4{
+
+.btn2 {
   border: 2px solid #231942;
   border-radius: 30px;
-  background-color: white;
-  color:#231942;
+  background-color: #cecae3;
+  color: #231942;
   position: relative;
-  bottom:97%;
-  left:12%;
+  bottom: 63%;
   z-index: 3;
-  width:22%;
-  height: 7%; 
+  left: 7%;
+  width: 15%;
+  height: 7%;
   font-family: CustomFont2;
   text-transform: none;
-  
-
-}
-.btn5{
-  border: 2px solid #231942;
-  border-radius: 30px;
-  background-color: white;
-  color:#231942;
-  position: relative;
-  bottom:97%;
-  left:12%;
-  z-index: 3;
-  width:13%;
-  height: 7%; 
-  font-family: CustomFont2;
-  text-transform: none;
-  
-  
-
-
+  font-size: 150%;
 }
 
-// .trade{
-//   position: relative;
-//   top:50%;
-//   z-index: 4;
-//   color: #231942;
-// }
+//footer 
 
-.lnk{
+.lnk {
   position: absolute;
-  top:90%;
+  top: 90%;
   left: 52%;
   z-index: 4;
   color: white;
-  font-size: 300%; 
-   transform: translate(-50%, -50%);
-   //
-
+  font-size: 300%;
+  transform: translate(-50%, -50%);
+  //
 }
 
-.git{
+.git {
   position: absolute;
-  top:90%;
+  top: 90%;
   left: 48%;
   z-index: 4;
   color: white;
-  font-size: 300%; 
-   transform: translate(-50%, -50%);
-  // 
-
+  font-size: 300%;
+  transform: translate(-50%, -50%);
+  //
 }
 
 span {
   font-size: 20px;
 }
-
 
 .left-align {
   text-align: left;
@@ -251,7 +174,6 @@ span {
   display: flex;
   align-items: center;
 }
-
 
 .tagline {
   text-align: center;
@@ -270,7 +192,6 @@ span {
   margin-left: 40px;
 }
 
-
 .part1,
 .part2,
 .part3 {
@@ -278,18 +199,18 @@ span {
 }
 
 .screenshots {
- height: 400px;
- width: 550px;
+  height: 400px;
+  width: 550px;
 }
 
 .temp {
-  border: #20173F 2px solid;
+  border: #20173f 2px solid;
   height: 400px;
   width: 600px;
 }
 
 .temp-left {
-  border: #20173F 2px solid;
+  border: #20173f 2px solid;
   height: 400px;
   width: 600px;
 }
@@ -305,7 +226,6 @@ span {
   display: inline-block;
   vertical-align: top;
 }
-
 
 .image-row {
   margin-left: 10%;
@@ -329,7 +249,6 @@ span {
 
 .footer-row-text {
   text-align: left;
- 
 }
 
 .footer-text {
@@ -355,7 +274,7 @@ a {
 .icon-block {
   height: 80px;
   width: 80px;
-  background-color: #8231DD;
+  background-color: #8231dd;
   border-radius: 25%;
   display: flex;
   justify-content: center;
@@ -378,20 +297,19 @@ a {
 }
 
 @media (max-width: 1300px) {
-
   .welcome-text {
     top: 21%;
-  } 
+  }
 
   .Overlayt {
     font-size: 300%;
   }
-  
+
   .Overlayt2 {
     // margin-top: 2px;
     font-size: 120%;
   }
-  
+
   .Overlayt3 {
     font-size: 80%;
   }
@@ -403,25 +321,22 @@ a {
   .btn2 {
     font-size: 120%;
   }
-
-  
 }
 
 @media (max-width: 900px) {
-
   .welcome-text {
     top: 18%;
-  } 
+  }
 
   .Overlayt {
     font-size: 280%;
   }
-  
+
   .Overlayt2 {
     // margin-top: 2px;
     font-size: 100%;
   }
-  
+
   .Overlayt3 {
     font-size: 60%;
   }
@@ -433,4 +348,146 @@ a {
   .btn2 {
     font-size: 100%;
   }
+}
+
+
+
+
+
+//=============================================================================mobile view=====================================================================================
+
+//main
+.mobilewindow{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+//pictures
+.planetIcon {
+  position: absolute;
+  top: 80%;
+  left: 10%;
+  z-index: 3;
+  width: 7%;
+  height: auto;
+}
+
+.swirlIcon {
+  position: absolute;
+  top: 20%;
+  left: 70%;
+  z-index: 3;
+  width: 10%;
+  height: auto;
+}
+
+.planetIcon2 {
+  position: absolute;
+  top: 15%;
+  left: 90%;
+  z-index: 3;
+  width: 2%;
+  height: auto;
+}
+
+.LogoIcon {
+  width: 250px;
+}
+
+//text
+
+.welcome-textMobile {
+  color: #231942;
+  font-family: CustomFont;
+  text-align: center;
+}
+
+
+.siteText {
+  font-size: 55px;
+}
+
+.slogan {
+  font-size: 25px;
+}
+
+.logodiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10%;
+}
+
+.optionBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loginBtn {
+  border: 2px solid #231942;
+  border-radius: 30px;
+  background-color: #20173f;
+  color: white;
+  font-family: CustomFont2;
+  padding-left: 24.5px;
+  padding-right: 24.5px;
+}
+
+.signupBtn {
+  border: 1px solid #231942;
+  border-radius: 30px;
+  background-color: #cecae3;
+  color: #231942;
+  font-family: CustomFont2;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+//footer
+
+.lnkMobile {
+  color: white;
+  font-size: 8vw;
+}
+
+.gitMobile {
+  color: white;
+  font-size: 8vw;
+}
+
+.footerMobile {
+  height: 20vh;
+  background-color: #130e27;
+}
+
+.info-options {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.info-options-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-textMobile {
+  color: white;
+  font-size: 3vw;
+}
+
+.teamText {
+  color: white;
+  font-family: CustomFont;
+  font-size: 2.5vw;
+}
+
+.background-image {
+  background-image: url('WelcomeImg.png');
+  background-size: cover;
+  background-position: center left;
 }

@@ -89,7 +89,15 @@ export class LoginComponent {
     return emailRegex.test(email);
   }
 
-  back() {
-    this.router.navigate(['welcome']);
-  }
+
+    mobileview = false;
+
+    ngOnInit() {
+      this.updateMobileView();
+      window.addEventListener('resize', this.updateMobileView.bind(this));
+    }
+    
+    updateMobileView() {
+      this.mobileview = window.innerWidth <= 992;
+    }
 }

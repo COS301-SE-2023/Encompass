@@ -756,4 +756,22 @@ export class ProfilePage {
       this.router.navigate(['home/profile']);
     }
   }
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  isModal2Open = false;
+
+  setOpen2(isOpen: boolean) {
+    this.isModal2Open = isOpen;
+  }
 }
