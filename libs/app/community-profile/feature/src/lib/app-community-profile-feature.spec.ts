@@ -18,6 +18,7 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProfileState } from '@encompass/app/profile/data-access';
+import { ProfileDto } from '@encompass/api/profile/data-access';
 
 describe('CommunityProfileComponent', () => {
   let component: CommunityProfileComponent;
@@ -82,6 +83,7 @@ describe('CommunityProfileComponent', () => {
           provide: CommunityApi,
           useValue: {
             uploadFile: jest.fn(),
+            getUser: jest.fn(),
           },
         },
       ],
@@ -196,8 +198,8 @@ describe('CommunityProfileComponent', () => {
   //   component.community = mockCommunity;
   //   component.file = new File([], 'test-image.png');
   //   component.fileBanner = new File([], 'test-banner.png');
-  //   const uploadImageUrl = 'uploaded-image-url';
-  //   const uploadBannerUrl = 'uploaded-banner-url';
+  //   const uploadImageUrl = 'groupImage.png';
+  //   const uploadBannerUrl = 'bannerImage.png';
   //   const updateCommunitySpy = jest
   //     .spyOn(store, 'dispatch')
   //     .mockReturnValue(of({}));
@@ -229,24 +231,6 @@ describe('CommunityProfileComponent', () => {
 
   //   await component.onSubmit();
 
-  //   // Check that the store dispatch was called to update the community
-  //   expect(updateCommunitySpy).toHaveBeenCalledWith(
-  //     new UpdateCommunity(mockCommunity._id, expect.any(Object))
-  //   );
-
-  //   // Check that the uploadImage method was called for both images
-  //   expect(uploadImageSpy).toHaveBeenCalledWith(
-  //     component.file,
-  //     component.fileName
-  //   );
-  //   expect(uploadImageSpy).toHaveBeenCalledWith(
-  //     component.fileBanner,
-  //     component.fileNameBanner
-  //   );
-
-  //   // Check that the community groupImage and bannerImage are updated
-  //   expect(component.community?.groupImage).toBe(uploadImageUrl);
-  //   expect(component.community?.bannerImage).toBe(uploadBannerUrl);
   // });
   // it('should add a user to the community when accepting', async () => {
   //   // Prepare the component with the profile and community data

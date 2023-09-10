@@ -14,6 +14,7 @@ import { CreateEventHandler } from "./commands/create-event/create-event.handler
 import { GetByCommunityHandler } from "./queries/get-by-community/get-by-community.handler";
 import { GetByIdHandler } from "./queries/get-by-id/get-by-id.handler";
 import { GetByUsernameHandler } from "./queries/get-by-username/get-by-username.handler";
+import { AddUserHandler } from "./commands/add-user/add-user.handler";
   
 @Module({
   imports: [
@@ -37,8 +38,8 @@ import { GetByUsernameHandler } from "./queries/get-by-username/get-by-username.
     EventCreateHandler,
     GetByCommunityHandler,
     GetByIdHandler,
-    GetByUsernameHandler
-
+    GetByUsernameHandler,
+    AddUserHandler
   ],
 })
 

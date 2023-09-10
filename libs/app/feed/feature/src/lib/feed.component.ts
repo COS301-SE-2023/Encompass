@@ -55,7 +55,7 @@ export class FeedPage {
 
 
   @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(HomeState.posts) homePosts$! : Observable<PostDto[] | null>;
+  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
   @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
   @Select(HomeState.getMovies) movies$! : Observable<MovieDto[] | null>;
@@ -101,6 +101,7 @@ export class FeedPage {
   sharing: boolean[] = [];
   size = 0;
   themeName!: string;
+  colSize=0;
   // type = "recommended";
 
   communitiesIsFetched = false;
@@ -110,6 +111,7 @@ export class FeedPage {
   settingsIsFetched = false;
   ShowBooks = true;
   ShowMovies = true;
+  mobileview = false;
 
   type = 'recommended';
 
@@ -123,6 +125,20 @@ export class FeedPage {
     private toastController: ToastController
   ) {
     this.load();
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    if (this.mobileview) {
+      this.colSize = 12.5;
+    }else{
+      this.colSize = 5;
+    }
   }
 
   ngOnDestroy() {
@@ -1000,10 +1016,8 @@ export class FeedPage {
   async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
-      cssClass: 'custom-modal', // Replace with the component or template for your popup
-      componentProps: {
-        // Add any input properties or data you want to pass to the popup component
-      },
+      cssClass: 'custom-modal', 
+      componentProps: {},
     });
 
     return await modal.present();
@@ -1012,10 +1026,8 @@ export class FeedPage {
   async openPopup2() {
     const modal = await this.modalController.create({
       component: CreateCommunityComponent,
-      cssClass: 'custom-modal', // Replace with the component or template for your popup
-      componentProps: {
-        // Add any input properties or data you want to pass to the popup component
-      },
+      cssClass: 'custom-modal', 
+      componentProps: {},
     });
 
     return await modal.present();
@@ -1185,6 +1197,19 @@ export class FeedPage {
       this.router.navigate(['home/profile']);
     }
   }
+
+  selectedSegment = 'recommended';
+
+segmentChanged(event: any) {
+  this.selectedSegment = event.detail.value;
+  if (this.selectedSegment === 'recommended') {
+    this.recChange();
+  } else if (this.selectedSegment === 'new') {
+    this.newChange();
+  } else if (this.selectedSegment === 'popular') {
+    this.popChange();
+  }
+}
 
   recChange() {
     for (let k = 0; k < this.reports.length; k++) {

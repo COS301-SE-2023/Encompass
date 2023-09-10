@@ -85,4 +85,15 @@ export class SignUpInterior1Component {
     this.store.dispatch(new UpdateProfile(data, this.profile._id));
     this.router.navigate(['sign-up-communities']);
   }
+
+  mobileview = false;
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
 }

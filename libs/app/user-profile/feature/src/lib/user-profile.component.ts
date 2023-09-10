@@ -326,6 +326,8 @@ export class UserProfile {
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
     this.presentingElement2 = document.querySelector('.ion-page');
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
   }
   Follow() {
     if (this.profile == null || this.userProfile == null) {
@@ -546,4 +548,22 @@ export class UserProfile {
   //   await this.modalController.dismiss();
   //   this.router.navigate(['home/user-profile/' + username]);
   // }
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  isModal2Open = false;
+
+  setOpen2(isOpen: boolean) {
+    this.isModal2Open = isOpen;
+  }
 }

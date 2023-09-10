@@ -89,7 +89,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'challenge-description',
+        path: 'challenge-description/:id',
         pathMatch: 'full',
         loadChildren: () => 
           import('@encompass/app/challenge-description/feature').then((m) => m.ChallengeDescriptionModule), 

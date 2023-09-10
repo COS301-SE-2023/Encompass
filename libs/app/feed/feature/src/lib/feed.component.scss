@@ -383,7 +383,7 @@
 //filter
 
 .Filter {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .active-button {
@@ -668,9 +668,6 @@ ion-button:hover {
   }
 }
 
-//filter content
-.filter-row-content {
-}
 
 .filter-content {
   margin-top: 5px;
@@ -702,4 +699,39 @@ ion-button:hover {
   color: var(--ion-color-warning);
   font-family: CustomFont;
   font-size: larger;
+}
+
+
+
+.Filtermobile {
+  margin-top: 25px;
+}
+
+.card-stylesmobile {
+  background-color: var(--card-color);
+  border-radius: 15px;
+}
+
+ion-segment {
+  border: none;
+  background-color: var(--ion-color-background-menu);
+}
+
+ion-segment-button {
+  --indicator-color : transparent!important;
+  --indicator-box-shadow : none!important;
+  margin: 10px 0px 10px 0px;
+}
+
+@media (max-width: 992px) {
+  ion-segment-button {
+    max-font-size: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  ion-segment-button {
+    font-size: 19px;
+    margin: 10px 0px 10px 0px;
+  }
 }

@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main" *ngIf="!mobileview">
   <ion-card class="RecomCommunities">
     <div class="RecomHeader">
       <div style="font-size: 18px; margin-top: 10px">
@@ -160,4 +160,170 @@
       <button class="next" (click)="done()">Done</button>
     </div>
   </ion-card>
+</div>
+
+
+<!-- ==================================================================mobile===================================================== -->
+<div class="main" *ngIf="mobileview">
+  <div class="RecomCommunities-mobile">
+    <div class="RecomHeader">
+      <div style="font-size: 18px; margin-top: 10px">
+        Top Recommended Communities:
+      </div>
+    </div>
+
+    <ion-grid *ngIf="myCommunities">
+      <ion-row class="content-row">
+        <ion-col size="11">
+          <ion-card class="CommunityCard-mobile">
+            <div class="CommunityHeader">
+              <img
+                src="{{ myCommunities[0].groupImage }}"
+                onerror="this.src='assets/icon/Group.png';"
+                class="CommunityIcon"
+              />
+              <div class="CommunityDetails">
+                <div class="CommunityName">{{ myCommunities[0].name }}</div>
+                <div class="CommunityMembers">
+                  Members: {{ myCommunities[0].members.length }}
+                </div>
+                <div class="CommunityGenres">
+                  <img
+                    *ngFor="let category of myCommunities[0].categories"
+                    src="assets/icon/{{ category }}.png"
+                    class="imgDiv"
+                  />
+                </div>
+              </div>
+              <div class="CommunityAdd">
+                <button
+                  id="toggleButton1"
+                  class="cta"
+                  [ngClass]="{ clicked: buttonStates['toggleButton1'] }"
+                  (click)="
+                    handleButtonClick('toggleButton1', myCommunities[0].name)
+                  "
+                >
+                  <i
+                    id="icon1"
+                    class="icon fas"
+                    [ngClass]="
+                      buttonStates['toggleButton1']
+                        ? 'fa-check'
+                        : 'fa-plus-circle'
+                    "
+                  ></i>
+                </button>
+              </div>
+            </div>
+            <div class="CommunityBody">
+              <div class="CommunityDesc">{{ myCommunities[0].about }}</div>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row class="content-row">
+        <ion-col size="11">
+          <ion-card class="CommunityCard-mobile">
+            <div class="CommunityHeader">
+              <img
+                src="{{ myCommunities[1].groupImage }}"
+                onerror="this.src='assets/icon/Group.png';"
+                class="CommunityIcon"
+              />
+              <div class="CommunityDetails">
+                <div class="CommunityName">{{ myCommunities[1].name }}</div>
+                <div class="CommunityMembers">
+                  Members: {{ myCommunities[1].members.length }}
+                </div>
+                <div class="CommunityGenres">
+                  <img
+                    *ngFor="let category of myCommunities[1].categories"
+                    src="assets/icon/{{ category }}.png"
+                    class="imgDiv"
+                  />
+                </div>
+              </div>
+              <div class="CommunityAdd">
+                <button
+                  id="toggleButton2"
+                  class="cta"
+                  [ngClass]="{ clicked: buttonStates['toggleButton2'] }"
+                  (click)="
+                    handleButtonClick('toggleButton2', myCommunities[1].name)
+                  "
+                >
+                  <i
+                    id="icon2"
+                    class="icon fas"
+                    [ngClass]="
+                      buttonStates['toggleButton2']
+                        ? 'fa-check'
+                        : 'fa-plus-circle'
+                    "
+                  ></i>
+                </button>
+              </div>
+            </div>
+            <div class="CommunityBody">
+              <div class="CommunityDesc">{{ myCommunities[1].about }}</div>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row class="content-row">
+        <ion-col size="11">
+          <ion-card class="CommunityCard-mobile">
+            <div class="CommunityHeader">
+              <img
+                src="{{ myCommunities[2].groupImage }}"
+                onerror="this.src='assets/icon/Group.png';"
+                class="CommunityIcon"
+              />
+              <div class="CommunityDetails">
+                <div class="CommunityName">{{ myCommunities[2].name }}</div>
+                <div class="CommunityMembers">
+                  Members: {{ myCommunities[2].members.length }}
+                </div>
+                <div class="CommunityGenres">
+                  <img
+                    *ngFor="let category of myCommunities[2].categories"
+                    src="assets/icon/{{ category }}.png"
+                    class="imgDiv"
+                  />
+                </div>
+              </div>
+              <div class="CommunityAdd">
+                <button
+                  id="toggleButton3"
+                  class="cta"
+                  [ngClass]="{ clicked: buttonStates['toggleButton3'] }"
+                  (click)="
+                    handleButtonClick('toggleButton3', myCommunities[2].name)
+                  "
+                >
+                  <i
+                    id="icon3"
+                    class="icon fas"
+                    [ngClass]="
+                      buttonStates['toggleButton3']
+                        ? 'fa-check'
+                        : 'fa-plus-circle'
+                    "
+                  ></i>
+                </button>
+              </div>
+            </div>
+            <div class="CommunityBody">
+              <div class="CommunityDesc">{{ myCommunities[2].about }}</div>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="RecomFooter">
+      <button class="next" (click)="done()">Done</button>
+    </div>
+  </div>
 </div>

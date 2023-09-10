@@ -1,305 +1,505 @@
 <div class="settings-page">
+  <ion-toolbar>
+    <div class="ion-button-group">
+      <ion-button
+        id="accBtn"
+        class="active-button buttonStyle"
+        fill="clear"
+        (click)="eventChange('accBtn'); scrollTo('account-settings')"
+      >
+        <ion-icon
+          name="lock-closed"
+          aria-hidden="true"
+          class="ion-padding-end"
+        ></ion-icon>
+        <ion-label>Account</ion-label>
+      </ion-button>
 
+      <ion-button
+        id="proBtn"
+        class="none buttonStyle"
+        fill="clear"
+        (click)="eventChange('proBtn'); scrollTo('profile-settings')"
+      >
+        <ion-icon
+          name="person"
+          aria-hidden="true"
+          class="ion-padding-end"
+        ></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-button>
 
-<ion-toolbar>
+      <ion-button
+        id="notBtn"
+        class="none buttonStyle"
+        fill="clear"
+        (click)="eventChange('notBtn'); scrollTo('notifications-settings')"
+      >
+        <ion-icon
+          name="notifications"
+          aria-hidden="true"
+          class="ion-padding-end"
+        ></ion-icon>
+        <ion-label>Notifications</ion-label>
+      </ion-button>
 
-  <div class="ion-button-group">
-    <ion-button id="accBtn" class="active-button buttonStyle" fill="clear" (click)="eventChange('accBtn'); scrollTo('account-settings')">
-      <ion-icon name="lock-closed" aria-hidden="true" class="ion-padding-end"></ion-icon>
-      <ion-label>Account</ion-label>
-    </ion-button>
-
-    <ion-button id="proBtn" class="none buttonStyle" fill="clear" (click)="eventChange('proBtn');scrollTo('profile-settings')">
-      <ion-icon name="person" aria-hidden="true" class="ion-padding-end"></ion-icon>
-      <ion-label>Profile</ion-label>
-    </ion-button>
-
-    <ion-button  id="notBtn" class="none buttonStyle" fill="clear" (click)="eventChange('notBtn'); scrollTo('notifications-settings')">
-      <ion-icon name="notifications" aria-hidden="true" class="ion-padding-end"></ion-icon>
-      <ion-label>Notifications</ion-label>
-    </ion-button>
-
-    <!-- <ion-button id="messBtn" class="none buttonStyle" fill="clear" (click)="eventChange('messBtn'); scrollTo('messaging-settings')">
+      <!-- <ion-button id="messBtn" class="none buttonStyle" fill="clear" (click)="eventChange('messBtn'); scrollTo('messaging-settings')">
       <ion-icon name="chatbubble" aria-hidden="true" class="ion-padding-end"></ion-icon>
       <ion-label>Messaging</ion-label>
     </ion-button> -->
-  </div>
-</ion-toolbar>
-
-<ion-content>
-
-  <div id="account-settings" class="account-settings settings">
-    <ion-header class="header">Account Settings
-        <div class="edit-icons">
-          <ion-icon id="account-editButton" class="default" name="create-outline" (click)="edit('account')"></ion-icon>
-          <ion-button id="account-saveButton" fill="clear" class="active-button saveBtn onClick" (click)="save('account')">Save</ion-button>
-        </div>
-    </ion-header>
-    <div id="account-default" class="content" *ngIf="settings != null">
-      <ion-list class="custom-list">
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Name</ion-label>
-          <ion-label class="info-text">{{profile?.name}}</ion-label>
-          <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Surname</ion-label>
-          <ion-label class="info-text">{{profile?.lastName}}</ion-label>
-          <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Email</ion-label>
-          <ion-label class="info-text">{{loginModel?.email}}</ion-label>
-          
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Username</ion-label>
-          <ion-label class="info-text">@{{profile?.username}}</ion-label>
-          
-        </ion-item>
-        
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <label class="info-label">Password <br> <a>Passwords must be at least 8 characters long</a></label>
-          <ion-label class="info-text">*******</ion-label> 
-          <!-- //this does not change -->
-          
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">NSFW <br> <a>Allow Not Safe For Work contet to show on your feed</a></ion-label>
-          <ion-toggle [checked]=settings.profile.nsfw labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'nsfw')"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">People Blocked</ion-label>
-          <ion-icon id="open-modal" name="chevron-forward" color="dark" class="edit-icons blocked-arrow"></ion-icon>
-        </ion-item>
-      </ion-list>
     </div>
+  </ion-toolbar>
 
-    <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Modal</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="modal.dismiss()">Close</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content>
-          <ion-list>
-            <ion-item color="var(--ion-color-background)">
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Connor Smith</h2>
-                <p>Sales Rep</p>
-              </ion-label>
-            </ion-item>
-            <ion-item color="var(--ion-color-background)">
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Daniel Smith</h2>
-                <p>Product Designer</p>
-              </ion-label>
-            </ion-item>
-            <ion-item color="var(--ion-color-background)">
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Greg Smith</h2>
-                <p>Director of Operations</p>
-              </ion-label>
-            </ion-item>
-            <ion-item color="var(--ion-color-background)">
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Zoey Smith</h2>
-                <p>CEO</p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
+  <ion-content>
+    <div id="account-settings" class="account-settings settings">
+      <ion-header class="header"
+        >Account Settings
+        <div class="edit-icons">
+          <ion-icon
+            id="account-editButton"
+            class="default"
+            name="create-outline"
+            (click)="edit('account')"
+          ></ion-icon>
+          <ion-button
+            id="account-saveButton"
+            fill="clear"
+            class="active-button saveBtn onClick"
+            (click)="save('account')"
+            >Save</ion-button
+          >
+        </div>
+      </ion-header>
+      <div id="account-default" class="content" *ngIf="settings != null">
+        <ion-list class="custom-list">
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label">Name</ion-label>
+            <ion-label class="info-text">{{ profile?.name }}</ion-label>
+            <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label">Surname</ion-label>
+            <ion-label class="info-text">{{ profile?.lastName }}</ion-label>
+            <!-- <ion-icon name="pencil" color="dark" class="edit-icons"></ion-icon> -->
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label">Email</ion-label>
+            <ion-label class="info-text">{{ loginModel?.email }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label">Username</ion-label>
+            <ion-label class="info-text">@{{ profile?.username }}</ion-label>
+          </ion-item>
 
-    <div id="account-click" class="content onClick" *ngIf="settings != null">
-      <ion-list class="custom-list">
-            <ion-item lines="none" color="var(--ion-color-background)">
-          <div class="label-box">
-          <ion-label class="info-label">Name</ion-label>
-        </div>
-          <ion-input value={{profile?.name}} [(ngModel)]="nameEdit" class="info"></ion-input>
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <div class="label-box">
-          <ion-label class="info-label">Surname</ion-label>
-        </div>
-          <ion-input [(ngModel)]="lastNameEdit" class="info" value={{profile?.lastName}}></ion-input>
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <div class="label-box">
-          <ion-label class="info-label">Email</ion-label>
-        </div>
-          <ion-input [(ngModel)]="emailEdit" class="info" value="{{loginModel?.email}}"></ion-input>
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <div class="label-box">
-          <ion-label class="info-label">Username</ion-label>
-        </div>
-          <ion-label class="info-text">@{{profile?.username}}</ion-label>
-        </ion-item>
-        <ion-item class="info-box" lines="none" color="var(--ion-color-background)">
-          <div class="label-box">
-            <label class="info-label">
-              Password <br>
-              <a>Passwords must be at least 8 characters long</a>
-            </label>
-          </div>
-          <ion-label class="info-text pass">*******</ion-label> 
-          <ion-icon id="present-alert" name="pencil" class="info-text edit-icons" (click)="presentAlert()"></ion-icon>
-          <!-- <ion-alert 
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <label class="info-label"
+              >Password <br />
+              <a>Passwords must be at least 8 characters long</a></label
+            >
+            <ion-label class="info-text">*******</ion-label>
+            <!-- //this does not change -->
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >NSFW <br />
+              <a
+                >Allow Not Safe For Work contet to show on your feed</a
+              ></ion-label
+            >
+            <ion-toggle
+              [checked]="settings.profile.nsfw"
+              labelPlacement="start"
+              class="edit-icons-toggle"
+              (ionChange)="toggleChangedProfile($event, 'nsfw')"
+            ></ion-toggle
+            ><br /><br />
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label">People Blocked</ion-label>
+            <ion-icon
+              id="open-modal"
+              name="chevron-forward"
+              color="dark"
+              class="edit-icons blocked-arrow"
+            ></ion-icon>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <ion-modal
+        #modal
+        trigger="open-modal"
+        [presentingElement]="presentingElement"
+      >
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Modal</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="modal.dismiss()">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-list>
+              <ion-item color="var(--ion-color-background)">
+                <ion-avatar slot="start">
+                  <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <h2>Connor Smith</h2>
+                  <p>Sales Rep</p>
+                </ion-label>
+              </ion-item>
+              <ion-item color="var(--ion-color-background)">
+                <ion-avatar slot="start">
+                  <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <h2>Daniel Smith</h2>
+                  <p>Product Designer</p>
+                </ion-label>
+              </ion-item>
+              <ion-item color="var(--ion-color-background)">
+                <ion-avatar slot="start">
+                  <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <h2>Greg Smith</h2>
+                  <p>Director of Operations</p>
+                </ion-label>
+              </ion-item>
+              <ion-item color="var(--ion-color-background)">
+                <ion-avatar slot="start">
+                  <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <h2>Zoey Smith</h2>
+                  <p>CEO</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+
+      <div id="account-click" class="content onClick" *ngIf="settings != null">
+        <ion-list class="custom-list">
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <div class="label-box">
+              <ion-label class="info-label">Name</ion-label>
+            </div>
+            <ion-input
+              value="{{ profile?.name }}"
+              [(ngModel)]="nameEdit"
+              class="info"
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <div class="label-box">
+              <ion-label class="info-label">Surname</ion-label>
+            </div>
+            <ion-input
+              [(ngModel)]="lastNameEdit"
+              class="info"
+              value="{{ profile?.lastName }}"
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <div class="label-box">
+              <ion-label class="info-label">Email</ion-label>
+            </div>
+            <ion-input
+              [(ngModel)]="emailEdit"
+              class="info"
+              value="{{ loginModel?.email }}"
+            ></ion-input>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <div class="label-box">
+              <ion-label class="info-label">Username</ion-label>
+            </div>
+            <ion-label class="info-text">@{{ profile?.username }}</ion-label>
+          </ion-item>
+          <ion-item
+            class="info-box"
+            lines="none"
+            color="var(--ion-color-background)"
+          >
+            <div class="label-box">
+              <label class="info-label">
+                Password <br />
+                <a>Passwords must be at least 8 characters long</a>
+              </label>
+            </div>
+            <ion-label class="info-text pass">*******</ion-label>
+            <ion-icon
+              id="present-alert"
+              name="pencil"
+              class="info-text edit-icons"
+              (click)="presentAlert()"
+            ></ion-icon>
+            <!-- <ion-alert 
             (ionAlertDidDismiss)="handleDismiss($event)"
             trigger="present-alert"
             header="Enter new Password"
             [buttons]="alertButtons"
             [inputs]="alertInputs"
           ></ion-alert> -->
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">NSFW <br> <a>Allow Not Safe For Work contet to show on your feed</a></ion-label>
-          <ion-toggle [checked]=settings.profile.nsfw labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'nsfw')"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">People Blocked</ion-label>
-          <ion-icon id="open-modal" name="chevron-forward" color="dark" class="edit-icons blocked-arrow"></ion-icon>
-        </ion-item>
-        
-      </ion-list>
-    </div>
-    
-  </div>
-
-  
-
-  <div id="profile-settings" class="profile-settings settings">
-    <ion-header class="header">Profile Customization Settings
-      <div class="edit-icons">
-        <ion-icon id="profile-editButton" name="create-outline" (click)="edit('profile')"></ion-icon>
-        <ion-button id="profile-saveButton" fill="clear" class="active-button saveBtn onClick" (click)="save('profile')">Save</ion-button>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >NSFW <br />
+              <a
+                >Allow Not Safe For Work contet to show on your feed</a
+              ></ion-label
+            >
+            <ion-toggle
+              [checked]="settings.profile.nsfw"
+              labelPlacement="start"
+              class="edit-icons-toggle"
+              (ionChange)="toggleChangedProfile($event, 'nsfw')"
+            ></ion-toggle
+            ><br /><br />
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label">People Blocked</ion-label>
+            <ion-icon
+              id="open-modal"
+              name="chevron-forward"
+              color="dark"
+              class="edit-icons blocked-arrow"
+            ></ion-icon>
+          </ion-item>
+        </ion-list>
       </div>
-    </ion-header>
-    
-    <div id="profile-default" class="content" *ngIf="settings != null">
-      <ion-list class="custom-list">
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Bio
-            <br>
-            <a>{{profile?.bio}}</a>
-          </ion-label>
-          
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label" style="height: 100px;">Profile Picture 
-          <ion-avatar>
-            <img src={{profile?.profileImage}} alt="Avatar" class="avatar">
-          </ion-avatar>
-        </ion-label>
-          
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Banner <br>
-          <img style="margin-top: 10px;" src={{profile?.profileBanner}} alt="Avatar" class="banner"></ion-label>
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
-          <ion-toggle [checked]=settings.profile.followPermission labelPlacement="start" class="edit--toggle edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
-        </ion-item>
-      </ion-list>
     </div>
-  
 
-    <div id="profile-click" class="content onClick" *ngIf="settings != null">
-      <ion-list class="custom-list">
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Bio
-            <br>
-            <ion-input [(ngModel)]="bioEdit" class="info" value={{profile?.bio}}></ion-input>
-          </ion-label>
-        </ion-item>
-        <ion-item class="profile-image-container" lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label" style="height: 100px;">Profile Picture 
-            <ion-avatar>
-              <img src={{profile?.profileImage}} alt="Avatar" class="avatar">
-              <div class="overlay-image">
-                <input id="file-input" type="file" [accept]=requiredFileType (change)="onProfilePictureSelected($event)" class="file-input">
-                <label for="file-input" class="file-label">
+    <div id="profile-settings" class="profile-settings settings">
+      <ion-header class="header"
+        >Profile Customization Settings
+        <div class="edit-icons">
+          <ion-icon
+            id="profile-editButton"
+            name="create-outline"
+            (click)="edit('profile')"
+          ></ion-icon>
+          <ion-button
+            id="profile-saveButton"
+            fill="clear"
+            class="active-button saveBtn onClick"
+            (click)="save('profile')"
+            >Save</ion-button
+          >
+        </div>
+      </ion-header>
+
+      <div id="profile-default" class="content" *ngIf="settings != null">
+        <ion-list class="custom-list">
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >Bio
+              <br />
+              <a>{{ profile?.bio }}</a>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label" style="height: 100px"
+              >Profile Picture
+              <ion-avatar>
+                <img
+                  src="{{ profile?.profileImage }}"
+                  alt="Avatar"
+                  class="avatar"
+                />
+              </ion-avatar>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >Banner <br />
+              <img
+                style="margin-top: 10px"
+                src="{{ profile?.profileBanner }}"
+                alt="Avatar"
+                class="banner"
+            /></ion-label>
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >Follow Permissions <br />
+              <a>Allow other users to follow your account</a></ion-label
+            >
+            <ion-toggle
+              [checked]="settings.profile.followPermission"
+              labelPlacement="start"
+              class="edit--toggle edit-icons-toggle"
+              (ionChange)="toggleChangedProfile($event, 'followPermission')"
+            ></ion-toggle
+            ><br /><br />
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div id="profile-click" class="content onClick" *ngIf="settings != null">
+        <ion-list class="custom-list">
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >Bio
+              <br />
+              <ion-input
+                [(ngModel)]="bioEdit"
+                class="info"
+                value="{{ profile?.bio }}"
+              ></ion-input>
+            </ion-label>
+          </ion-item>
+          <ion-item
+            class="profile-image-container"
+            lines="none"
+            color="var(--ion-color-background)"
+          >
+            <ion-label class="info-label" style="height: 100px"
+              >Profile Picture
+              <ion-avatar>
+                <img
+                  src="{{ profile?.profileImage }}"
+                  alt="Avatar"
+                  class="avatar"
+                />
+                <div class="overlay-image">
+                  <input
+                    id="file-input"
+                    type="file"
+                    [accept]="requiredFileType"
+                    (change)="onProfilePictureSelected($event)"
+                    class="file-input"
+                  />
+                  <label for="file-input" class="file-label">
+                    <ion-icon
+                      name="create-outline"
+                      class="edit-icon"
+                    ></ion-icon>
+                  </label>
+                </div>
+              </ion-avatar>
+            </ion-label>
+          </ion-item>
+
+          <ion-item
+            class="profile-banner-container"
+            lines="none"
+            color="var(--ion-color-background)"
+          >
+            <ion-label class="info-label"
+              >Banner <br />
+              <img
+                style="margin-top: 10px"
+                src="{{ profile?.profileBanner }}"
+                alt="Avatar"
+                class="banner"
+              />
+              <div class="overlay-banner">
+                <input
+                  id="banner-input"
+                  type="file"
+                  [accept]="requiredFileType"
+                  (change)="onBannerPictureSelected($event)"
+                  class="file-input"
+                />
+                <label for="banner-input" class="file-label">
                   <ion-icon name="create-outline" class="edit-icon"></ion-icon>
                 </label>
               </div>
-            </ion-avatar>
-          </ion-label>
-        </ion-item>
-        
-        <ion-item class="profile-banner-container" lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Banner <br>
-            <img style="margin-top: 10px;" src={{profile?.profileBanner}} alt="Avatar" class="banner">
-            <div class="overlay-banner">
-              <input id="banner-input" type="file" [accept]=requiredFileType (change)="onBannerPictureSelected($event)" class="file-input">
-              <label for="banner-input" class="file-label">
-                <ion-icon name="create-outline" class="edit-icon"></ion-icon>
-              </label>
-            </div>
-          </ion-label>
-        </ion-item>
-        
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Follow Permissions <br> <a>Allow other users to follow your account</a></ion-label>
-          <ion-toggle [checked]=settings.profile.followPermission labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedProfile($event, 'followPermission')"></ion-toggle><br /><br />
-        </ion-item>
-      </ion-list>
+            </ion-label>
+          </ion-item>
+
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >Follow Permissions <br />
+              <a>Allow other users to follow your account</a></ion-label
+            >
+            <ion-toggle
+              [checked]="settings.profile.followPermission"
+              labelPlacement="start"
+              class="edit-icons-toggle"
+              (ionChange)="toggleChangedProfile($event, 'followPermission')"
+            ></ion-toggle
+            ><br /><br />
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
 
-</div>
-
-
-
-  <div id="notifications-settings" class="notification-settings settings" *ngIf="settings != null">
-    <ion-header class="header">Notifications Settings</ion-header>
-    <div class="content">
-      <ion-list class="custom-list">
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">DMs <br> <a>Send notifications if you've received a personal message</a></ion-label>
-          <ion-toggle [checked]=settings.notifications.dms labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'dms')"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Follows <br> <a>Send notifications if someone has followed you</a></ion-label>
-          <ion-toggle [checked]=settings.notifications.follows labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'follows')"></ion-toggle><br /><br />
-        </ion-item>
-        <ion-item lines="none" color="var(--ion-color-background)">
-          <ion-label class="info-label">Comment Replies <br> <a>Send notifications if there was a reply to a comment</a></ion-label>
-          <ion-toggle [checked]=settings.notifications.commentReplies labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'commentReplies')"></ion-toggle><br /><br />
-        </ion-item>
-        <!-- <ion-item lines="none" color="var(--ion-color-background)">
+    <div
+      id="notifications-settings"
+      class="notification-settings settings"
+      *ngIf="settings != null"
+    >
+      <ion-header class="header">Notifications Settings</ion-header>
+      <div class="content">
+        <ion-list class="custom-list">
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >DMs <br />
+              <a
+                >Send notifications if you've received a personal message</a
+              ></ion-label
+            >
+            <ion-toggle
+              [checked]="settings.notifications.dms"
+              labelPlacement="start"
+              class="edit-icons-toggle"
+              (ionChange)="toggleChangedNotifications($event, 'dms')"
+            ></ion-toggle
+            ><br /><br />
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >Follows <br />
+              <a>Send notifications if someone has followed you</a></ion-label
+            >
+            <ion-toggle
+              [checked]="settings.notifications.follows"
+              labelPlacement="start"
+              class="edit-icons-toggle"
+              (ionChange)="toggleChangedNotifications($event, 'follows')"
+            ></ion-toggle
+            ><br /><br />
+          </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)">
+            <ion-label class="info-label"
+              >Comment Replies <br />
+              <a
+                >Send notifications if there was a reply to a comment</a
+              ></ion-label
+            >
+            <ion-toggle
+              [checked]="settings.notifications.commentReplies"
+              labelPlacement="start"
+              class="edit-icons-toggle"
+              (ionChange)="toggleChangedNotifications($event, 'commentReplies')"
+            ></ion-toggle
+            ><br /><br />
+          </ion-item>
+          <!-- <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Recommended Posts <br> <a>Send notifications of new Recommended posts</a></ion-label>
           <ion-toggle [checked]=settings.notifications.recomPosts labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'recomPosts')"></ion-toggle><br /><br />
         </ion-item> -->
-        <!-- <ion-item lines="none" color="var(--ion-color-background)">
+          <!-- <ion-item lines="none" color="var(--ion-color-background)">
           <ion-label class="info-label">Recommended Content and Communities <br> <a>Send notifications of new recommended content or communities</a></ion-label>
           <ion-toggle [checked]=settings.notifications.recomCC labelPlacement="start" class="edit-icons-toggle" (ionChange)="toggleChangedNotifications($event, 'recomCC')"></ion-toggle><br /><br />
         </ion-item> -->
-      </ion-list>
+        </ion-list>
+      </div>
     </div>
-  </div>
 
-  <div id="messaging-settings" class="messaging-settings settings" *ngIf="settings != null" >
-
-    <ion-header class="header">Messaging Settings</ion-header>
+    <div
+      id="messaging-settings"
+      class="messaging-settings settings"
+      style="height: 50px"
+    >
+      <!-- <ion-header class="header">Messaging Settings</ion-header>
     <div class="content">
       <ion-list class="custom-list">
         <ion-item lines="none" color="var(--ion-color-background)">
@@ -311,9 +511,7 @@
         </ion-item>
         <ion-item></ion-item>     
       </ion-list>
-    </div> 
-
-   </div>
-</ion-content>
-
+    </div> -->
+    </div>
+  </ion-content>
 </div>

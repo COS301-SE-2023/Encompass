@@ -1,12 +1,11 @@
 <div class="overlay-container">
+  <!-- Welcome Home header -->
   <ion-grid>
     <ion-row class="row-filter">
       <ion-col size="10">
-        <ion-card id="header" class="header card-styles">
-          <!-- <ion-card-header class="header-header"> -->
+        <ion-card id="header" class="header card-styles" *ngIf="!mobileview">
           <div class="image-container">
             <div color="dark" class="custom-title">Welcome Home</div>
-
             <img
               id="cloud-default"
               src="assets/WelcomeImg.png"
@@ -37,15 +36,12 @@
               class="cropped-image visible"
               alt="Encompass Logo"
             />
-
             <img
               class="rocket"
               src="assets/icon/rocket-planet.png"
               alt="Rocket"
             />
           </div>
-          <!-- </ion-card-header> -->
-
           <ion-card-content>
             <div class="container">
               <div class="content-container">
@@ -70,62 +66,639 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
-    <ion-row class="row-filter">
-      <ion-col size="5">
-        <ion-card class="Filter card-styles">
+  <!-- ===============================================================Main Feed content==============================================================================================-->
+
+  <!-- mobile content -->
+
+  <div *ngIf="mobileview">
+    <!-- recommended communities and content -->
+    <ion-card class="recomcard card-styles">
+      <div class="RecomCommunities" *ngIf="!collapse1" (click)="Collapse1()">
+        <div class="RecomHeader">
           <ion-grid>
-            <ion-row class="row-filter">
-              <ion-col size="5">
-                <div style="display: flex; justify-content: center">
-                  <ion-button
-                    id="recommendedBtn"
-                    fill="clear"
-                    class="active-button"
-                    (click)="recChange()"
-                  >
-                    <ion-icon
-                      name="alert-circle-outline"
-                      style="margin-right: 5px"
-                    ></ion-icon>
-                    Recommended
-                  </ion-button>
+            <ion-row class="recomRow">
+              <ion-col size="10">
+                <div
+                  class="headtext"
+                  style="font-size: 18px; margin-top: 10px; margin-left: 10px"
+                >
+                  Recommended Communities
                 </div>
               </ion-col>
-              <ion-col size="3">
-                <div style="display: flex; justify-content: center">
-                  <ion-button
-                    id="newBtn"
-                    fill="clear"
-                    class="none"
-                    (click)="newChange()"
-                  >
-                    <ion-icon
-                      name="arrow-up-circle"
-                      style="margin-right: 5px"
-                    ></ion-icon>
-                    New
-                  </ion-button>
-                </div>
-              </ion-col>
-              <ion-col size="4">
-                <div style="display: flex; justify-content: center">
-                  <ion-button
-                    id="popularBtn"
-                    fill="clear"
-                    class="none"
-                    (click)="popChange()"
-                  >
-                    <ion-icon
-                      name="star-outline"
-                      style="margin-right: 5px; margin-bottom: 3px"
-                    ></ion-icon>
-                    Popular
-                  </ion-button>
-                </div>
+              <ion-col size="1">
+                <ion-button fill="clear" style="width: 80px; margin-top: 3px">
+                  <ion-icon
+                    name="arrow-down-circle-outline"
+                    size="large"
+                  ></ion-icon>
+                </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
+        </div>
+      </div>
+
+      <div *ngIf="collapse1">
+        <div class="RecomCommunities" (click)="Collapse1()">
+          <div class="RecomHeader">
+            <ion-grid>
+              <ion-row class="recomRow">
+                <ion-col size="10">
+                  <div style="font-size: 18px; margin-top: 10px">
+                    Top Recommended Communities:
+                  </div>
+                </ion-col>
+                <ion-col size="1">
+                  <ion-button fill="clear" style="width: 80px; margin-top: 3px">
+                    <ion-icon
+                      class="arrow"
+                      name="arrow-up-circle-outline"
+                      size="large"
+                    ></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+
+        <!-- communities -->
+
+        <ion-grid *ngIf="myCommunities">
+          <ion-row class="content-row">
+            <ion-col size="11">
+              <ion-card class="CommunityCard">
+                <div class="card-color">
+                  <div class="CommunityHeader">
+                    <img
+                      src="{{ myCommunities[0].groupImage }}"
+                      onerror="this.src='assets/icon/Group.png';"
+                      class="CommunityIcon"
+                      (click)="GoToCommunity(myCommunities[0].name)"
+                    />
+                    <div class="CommunityDetails">
+                      <div
+                        class="CommunityName"
+                        (click)="GoToCommunity(myCommunities[0].name)"
+                      >
+                        {{ myCommunities[0].name }}
+                      </div>
+                      <div
+                        class="CommunityMembers"
+                        (click)="GoToCommunity(myCommunities[0].name)"
+                      >
+                        Members: {{ myCommunities[0].members.length }}
+                      </div>
+                      <div class="CommunityGenres">
+                        <div
+                          *ngFor="let category of myCommunities[0].categories"
+                          class="tooltip"
+                        >
+                          <img
+                            src="assets/icon/{{ category }}.png"
+                            class="imgDiv"
+                          />
+                          <span class="tooltiptext">{{ category }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="CommunityAdd">
+                      <button
+                        id="toggleButton1"
+                        class="cta"
+                        [ngClass]="{ clicked: buttonStates['toggleButton1'] }"
+                        (click)="
+                          handleButtonClick(
+                            'toggleButton1',
+                            myCommunities[0].name
+                          )
+                        "
+                      >
+                        <i
+                          id="icon1"
+                          class="icon fas"
+                          [ngClass]="
+                            buttonStates['toggleButton1']
+                              ? 'fa-check'
+                              : 'fa-plus-circle'
+                          "
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="CommunityBody">
+                    <div class="CommunityDesc">
+                      {{ myCommunities[0].about }}
+                    </div>
+                  </div>
+                </div>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="content-row">
+            <ion-col size="11">
+              <ion-card class="CommunityCard">
+                <div class="card-color">
+                  <div class="CommunityHeader">
+                    <img
+                      src="{{ myCommunities[1].groupImage }}"
+                      onerror="this.src='assets/icon/Group.png';"
+                      class="CommunityIcon"
+                      (click)="GoToCommunity(myCommunities[1].name)"
+                    />
+                    <div class="CommunityDetails">
+                      <div
+                        class="CommunityName"
+                        (click)="GoToCommunity(myCommunities[1].name)"
+                      >
+                        {{ myCommunities[1].name }}
+                      </div>
+                      <div
+                        class="CommunityMembers"
+                        (click)="GoToCommunity(myCommunities[1].name)"
+                      >
+                        Members: {{ myCommunities[1].members.length }}
+                      </div>
+                      <div class="CommunityGenres">
+                        <div
+                          *ngFor="let category of myCommunities[1].categories"
+                          class="tooltip"
+                        >
+                          <img
+                            src="assets/icon/{{ category }}.png"
+                            class="imgDiv"
+                          />
+                          <span class="tooltiptext">{{ category }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="CommunityAdd">
+                      <button
+                        id="toggleButton2"
+                        class="cta"
+                        [ngClass]="{ clicked: buttonStates['toggleButton2'] }"
+                        (click)="
+                          handleButtonClick(
+                            'toggleButton2',
+                            myCommunities[1].name
+                          )
+                        "
+                      >
+                        <i
+                          id="icon2"
+                          class="icon fas"
+                          [ngClass]="
+                            buttonStates['toggleButton2']
+                              ? 'fa-check'
+                              : 'fa-plus-circle'
+                          "
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="CommunityBody">
+                    <div class="CommunityDesc">
+                      {{ myCommunities[1].about }}
+                    </div>
+                  </div>
+                </div>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card>
+
+    <ion-card class="recomcard card-styles">
+      <div class="RecomCommunities" *ngIf="!collapse2" (click)="Collapse2()">
+        <div class="RecomHeader">
+          <ion-grid>
+            <ion-row class="recomRow">
+              <ion-col size="10">
+                <div
+                  class="headtext"
+                  style="font-size: 18px; margin-top: 10px; margin-left: 10px"
+                >
+                  Recommended Content
+                </div>
+              </ion-col>
+              <ion-col size="1">
+                <ion-button
+                  class="arrow"
+                  fill="clear"
+                  style="width: 80px; margin-top: 3px"
+                >
+                  <ion-icon
+                    name="arrow-down-circle-outline"
+                    size="large"
+                  ></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+
+      <div *ngIf="collapse2">
+        <div class="RecomCommunities" (click)="Collapse2()">
+          <div class="RecomHeader">
+            <ion-grid>
+              <ion-row class="recomRow">
+                <ion-col size="10">
+                  <div style="font-size: 18px; margin-top: 10px">
+                    We think you'd like:
+                  </div>
+                </ion-col>
+                <ion-col size="1">
+                  <ion-button fill="clear" style="width: 80px; margin-top: 3px">
+                    <ion-icon
+                      name="arrow-up-circle-outline"
+                      size="large"
+                    ></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+        <div class="filter-content">
+          <ion-button
+            id="all"
+            fill="clear"
+            class="select active-select"
+            (click)="changeFilter('all')"
+            >All</ion-button
+          >
+          <ion-button
+            id="movies"
+            fill="clear"
+            class="select"
+            (click)="changeFilter('movies')"
+            >Movies</ion-button
+          >
+          <ion-button
+            id="books"
+            fill="clear"
+            class="select"
+            (click)="changeFilter('books')"
+            >Books</ion-button
+          >
+          <!-- <ion-button fill="clear" class="select" (click)="changeFilter('all')>Series</ion-button> -->
+        </div>
+
+        <!-- content -->
+
+        <div class="contentrecs">
+          <div class="media-item" *ngIf="books && ShowBooks">
+            <div class="imges">
+              <img
+                src="{{ books[0].coverImg }}"
+                class="MediaImage"
+                onerror="this.src='assets/icon/Books.png';"
+              />
+            </div>
+            <div class="media-info">
+              <div class="MediaTitle">{{ BookTitle1.slice(0, 45) }}</div>
+              <div class="MediaAuthor">{{ BookAuthor1 }}</div>
+              <div class="MediaGenres">
+                <div
+                  *ngFor="let category of myBookGenres1; let k = index"
+                  class="tooltip"
+                >
+                  <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  <span class="tooltiptext">{{ category }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="media-item" *ngIf="books && ShowBooks">
+            <div class="imges">
+              <img
+                src="{{ books[1].coverImg }}"
+                class="MediaImage"
+                onerror="this.src='assets/icon/Books.png';"
+              />
+            </div>
+            <div class="media-info">
+              <div class="MediaTitle">{{ BookTitle2.slice(0, 45) }}</div>
+              <div class="MediaAuthor">{{ BookAuthor2 }}</div>
+              <div class="MediaGenres">
+                <div
+                  *ngFor="let category of myBookGenres2; let k = index"
+                  class="tooltip"
+                >
+                  <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  <span class="tooltiptext">{{ category }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-item" *ngIf="movies && ShowMovies">
+            <div class="imges">
+              <img
+                src="{{ movies[0].Poster_Url }}"
+                class="MediaImage"
+                onerror="this.src='assets/icon/Movies.png';"
+              />
+            </div>
+            <div class="media-info">
+              <div class="MediaTitle">{{ MovieTitle1.slice(0, 45) }}</div>
+              <div class="MediaGenres">
+                <div
+                  *ngFor="let category of myMovieGenres1; let k = index"
+                  class="tooltip"
+                >
+                  <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  <span class="tooltiptext">{{ category }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="media-item" *ngIf="movies && ShowMovies">
+            <div class="imges">
+              <img
+                src="{{ movies[1].Poster_Url }}"
+                class="MediaImage"
+                onerror="this.src='assets/icon/Movies.png';"
+              />
+            </div>
+            <div class="media-info">
+              <div class="MediaTitle">{{ MovieTitle2.slice(0, 45) }}</div>
+              <div class="MediaGenres">
+                <div
+                  *ngFor="let category of myMovieGenres2; let k = index"
+                  class="tooltip"
+                >
+                  <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  <span class="tooltiptext">{{ category }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-card>
+
+    <!-- filter bar mobile -->
+
+    <ion-card class="Filter card-styles Filtermobile">
+      <ion-segment mode="ios" (ionChange)="segmentChanged($event)">
+        <ion-segment-button
+          style="margin-left: 5px; padding: 0px 3px 0px 3px"
+          value="recommended"
+          [ngStyle]="{
+            color:
+              selectedSegment === 'recommended'
+                ? 'var(--hover-color)'
+                : 'black'
+          }"
+        >
+          <ion-icon
+            name="alert-circle-outline"
+            style="margin-bottom: 3px"
+          ></ion-icon>
+          Recommended
+        </ion-segment-button>
+        <ion-segment-button
+          value="new"
+          [ngStyle]="{
+            color:
+              selectedSegment === 'new' ? 'var(--hover-color)' : 'black'
+          }"
+        >
+          <ion-icon
+            name="arrow-up-circle"
+            style="margin-bottom: 3px"
+          ></ion-icon>
+          New
+        </ion-segment-button>
+        <ion-segment-button
+          style="margin-right: 5px"
+          value="popular"
+          [ngStyle]="{
+            color:
+              selectedSegment === 'popular'
+                ? 'var(--hover-color)'
+                : 'black'
+          }"
+        >
+          <ion-icon name="star-outline" style="margin-bottom: 3px"></ion-icon>
+          Popular
+        </ion-segment-button>
+      </ion-segment>
+    </ion-card>
+
+    <!-- posts mobile -->
+
+    <div *ngFor="let post of posts; let i = index">
+      <ion-card
+        class="PostCard card-styles"
+        *ngIf="
+          settings != null &&
+          !(post.ageRestricted == true && settings.profile.nsfw == true)
+        "
+      >
+        <div class="PostCardHeader">
+          <div class="PostImageContainer">
+            <img
+              src="{{ post.communityImageUrl }}"
+              class="postImage"
+              onerror="this.src='assets/icon/Group.png';"
+              (click)="GoToCommunity(post.community)"
+            />
+          </div>
+          <div class="PostDetails">
+            <div class="TitleNameOptions">
+              <div style="display: flex; margin-left: 1.5%">
+                <div class="Title" (click)="GoToCommunity(post.community)">
+                  {{ post.community }}
+                </div>
+                <div class="Name" (click)="GoToProfile(post.username)">
+                  @{{ post.username }}
+                </div>
+              </div>
+              <div style="display: flex; margin-right: 1.5%">
+                <label
+                  class="report"
+                  *ngIf="reports[i]"
+                  (click)="ReportPost(i, post)"
+                  >Report Post</label
+                >
+
+                <label class="report" *ngIf="post.reported" style="color: red"
+                  >Post Reported.</label
+                >
+
+                <button
+                  class="Options"
+                  *ngIf="!post.reported"
+                  (click)="Report(i)"
+                >
+                  <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="GenreIcons">
+              <div
+                style="width: 30%; display: flex; justify-content: space-around"
+              >
+                <div
+                  *ngFor="let category of post.categories; let k = index"
+                  class="tooltip"
+                >
+                  <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  <span class="tooltiptext">{{ category }}</span>
+                </div>
+              </div>
+              <div
+                style="width: 70%; display: flex; justify-content: space-evenly"
+              >
+                <button *ngIf="post.spoiler" class="specialBtn">Spoiler</button>
+                <button *ngIf="post.ageRestricted" class="specialBtn">
+                  NSFW
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="PostBody" (click)="GoToComments(post._id)">
+          <div class="text">
+            <h5>{{ post.title }}</h5>
+            <div style="display: flex; justify-content: center">
+              <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
+            </div>
+            <br />
+            {{ post.text }}
+          </div>
+        </div>
+        <div class="PostFooter">
+          <div class="date" *ngIf="post.dateAdded.length == 21">
+            {{ post.dateAdded.slice(0, 9) }}
+          </div>
+          <div class="date" *ngIf="post.dateAdded.length != 21">
+            {{ post.dateAdded.slice(0, 10) }}
+          </div>
+
+          <div class="icons">
+            <div style="text-align: center">
+              <ion-icon
+                name="share-social-outline"
+                id="icons2"
+                *ngIf="!sharing[i]"
+                (click)="Share(i, post)"
+              ></ion-icon>
+              <ion-icon
+                name="share-social-outline"
+                id="icons2"
+                style="color: purple"
+                *ngIf="sharing[i]"
+              ></ion-icon>
+              <div *ngIf="!sharing[i]">{{ post.shares }}</div>
+              <div *ngIf="sharing[i]" style="font-family: CustomFont">
+                Link Copied!
+              </div>
+            </div>
+            <div style="text-align: center">
+              <ion-icon
+                name="chatbubble-outline"
+                id="icons2"
+                (click)="GoToComments(post._id)"
+              ></ion-icon>
+              <div>{{ post.comments }}</div>
+            </div>
+            <div style="text-align: center">
+              <div *ngIf="profile != null">
+                <ion-icon
+                  name="heart"
+                  *ngIf="post.likes.includes(profile.username)"
+                  id="icons2"
+                  style="color: red"
+                  (click)="Dislike(i, post)"
+                ></ion-icon>
+                <ion-icon
+                  name="heart-outline"
+                  id="icons2"
+                  *ngIf="!post.likes.includes(profile.username)"
+                  (click)="Like(i, post)"
+                ></ion-icon>
+                <div>{{ post.likes.length }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- =========================================================================================================================================================================== -->
+
+  <!-- Desktop View -->
+
+  <!-- filter bar  -->
+
+  <ion-grid *ngIf="!mobileview">
+    <ion-row class="row-filter">
+      <ion-col size="{{ colSize }}">
+        <ion-card class="Filter card-styles">
+          <ion-segment mode="ios" (ionChange)="segmentChanged($event)">
+            <ion-segment-button
+              style="margin-left: 10px"
+              value="recommended"
+              [ngStyle]="{
+                color:
+                  selectedSegment === 'recommended'
+                    ? 'var(--ion-color-primary)'
+                    : 'black'
+              }"
+            >
+              <div style="display: flex; align-items: center">
+                <ion-icon
+                  name="alert-circle-outline"
+                  style="margin-right: 5px"
+                ></ion-icon>
+                <span>Recommended</span>
+              </div>
+            </ion-segment-button>
+            <ion-segment-button
+              value="new"
+              [ngStyle]="{
+                color:
+                  selectedSegment === 'new'
+                    ? 'var(--ion-color-primary)'
+                    : 'black'
+              }"
+            >
+              <div style="display: flex; align-items: center">
+                <ion-icon
+                  name="arrow-up-circle"
+                  style="margin-right: 5px"
+                ></ion-icon>
+                <span>New</span>
+              </div>
+            </ion-segment-button>
+            <ion-segment-button
+              style="margin-right: 10px"
+              value="popular"
+              [ngStyle]="{
+                color:
+                  selectedSegment === 'popular'
+                    ? 'var(--ion-color-primary)'
+                    : 'black'
+              }"
+            >
+              <div style="display: flex; align-items: center">
+                <ion-icon
+                  name="star-outline"
+                  style="margin-right: 5px"
+                ></ion-icon>
+                <span>Popular</span>
+              </div>
+            </ion-segment-button>
+          </ion-segment>
         </ion-card>
 
         <!-- posts -->
@@ -290,7 +863,7 @@
 
       <!-- recommendations -->
 
-      <ion-col size="4">
+      <ion-col size="4" *ngIf="!mobileview">
         <ion-card class="recomcard card-styles">
           <div
             class="RecomCommunities"

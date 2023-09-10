@@ -6,6 +6,7 @@ transform: translate(-50%, -50%);
 width: 100%;
 height: 100%;
 background-color: var(--ion-color-background);
+
 }
 .head{
 height: 10%;
@@ -338,24 +339,25 @@ ion-datetime-button{
    
 }
 
-ion-radio-group.level
+.level
 {
     font-size: 15px;
     font-family: CustomFont;
-    width: 97%;
-    display: inline-block;
-    --background: var(--card-color);
+    width: 100%;
     margin-top:2%;
-    --padding-bottom: 10px;
-    --padding-end: 10px;
-    --padding-start: 10px;
-    --padding-top: 10px;
-    --border-radius: 10px;
-    --border-width: 1px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
+
 
 .Quiz
 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     h3{
         font-size: 20px;
         font-weight: bold;
@@ -366,18 +368,14 @@ ion-radio-group.level
         font-size: 15px;
         font-family: CustomFont;
         text-align:left;
-        padding-bottom: 0%;
-        margin-left: 0.5%;
-        margin-bottom:0.5%;
     };
+    
     --background: var(--card-color-contrast);
-    margin-left: 1%;
     margin-top: 1%;
     --padding-bottom: 10px;
     --padding-end: 10px;
     --padding-start: 10px;
     --padding-top: 10px;
-   // width: 97%;
 }
 
 .validPostEvent {
@@ -462,8 +460,13 @@ font-family: customFont;
 }
 
 .file-input{
-margin-left: 2%;
-// font-family: CustomFont;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
 }
 
 .icon:hover{
@@ -494,5 +497,54 @@ color: var(--hover-color);
     border-radius: 15px;
     margin-top: 2%;
     padding:2%;
+    font-family: CustomFont;
+
 
 }
+
+.icon1 {
+    font-size: 25px;
+
+  }
+  
+  .icon2 {
+    font-size: 25px;
+  }
+  
+  .icon1:hover {
+    cursor: pointer;
+    border-radius: 50px;
+  }
+
+  .input {
+    font-family: CustomFont;
+    width: 100%;
+
+  }
+  
+  .input-box {
+     background-color: var(--ion-color-secondary);
+    width: 95%;
+    padding: 0px 30px 1px 30px;
+    border-radius: 25px;
+    border: 1px solid var(--ion-color-secondary-tint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .radio{
+    text-align: center;
+  }
+
+  
+.closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    text-transform: lowercase;
+    font-size: 22px;
+  }

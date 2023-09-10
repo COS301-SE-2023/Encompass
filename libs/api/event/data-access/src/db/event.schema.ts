@@ -23,7 +23,7 @@ export class EventSchema extends IdentifiableEntitySchema{
   readonly endDate!: Date | null;
 
   @Prop()
-  readonly members!: string[] | null;
+  readonly members!: string[];
 
   @Prop({type: Object})
   readonly quiz!: {
@@ -37,4 +37,7 @@ export class EventSchema extends IdentifiableEntitySchema{
   
   @Prop()
   readonly categories!: string[] | null;
+
+  @Prop()
+  readonly quizDescription!: string | null;
 }

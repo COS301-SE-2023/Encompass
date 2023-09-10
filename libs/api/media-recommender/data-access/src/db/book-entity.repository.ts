@@ -64,7 +64,7 @@ export class BookEntityRepository extends BaseEntityRepository<BookSchema, Book>
     
         // Extract and deduplicate genres from the books
         const allGenres = books
-            .flatMap(book => book.genres.split(',').map(g => g.trim()))
+            .flatMap(book => book.genres.split(',').map((g: string) => g.trim()))
             .filter((value, index, self) => self.indexOf(value) === index);
     
         return allGenres;

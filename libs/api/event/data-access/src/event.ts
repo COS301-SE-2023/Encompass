@@ -10,7 +10,7 @@ export class Event extends AggregateRoot{
     public description: string | null,
     public startDate: Date | null,
     public endDate: Date | null,
-    public members: string[] | null,
+    public members: string[],
     public quiz:  {
       question: string;
       options: string[];
@@ -18,6 +18,7 @@ export class Event extends AggregateRoot{
     }[] | null,
     public prompt: string[] | null,
     public categories: string[] | null,
+    public quizDescription: string | null,
   ){
     super();
   }
@@ -50,7 +51,7 @@ export class Event extends AggregateRoot{
     return this.endDate;
   }
 
-  getMembers(): string [] | null{
+  getMembers(): string []{
     return this.members;
   }
 
@@ -69,5 +70,12 @@ export class Event extends AggregateRoot{
   getCategories(): string [] | null{
     return this.categories;
   }
+
+  getQuizDescription(): string | null{
+    return this.quizDescription;
+  }
   
+  addUser(username: string){
+    this.members = [...this.members, username];
+  }
 }
