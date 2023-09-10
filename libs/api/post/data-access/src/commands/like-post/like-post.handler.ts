@@ -1,17 +1,17 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { DislikePostCommand } from "./dislike-post.command";
+import { LikePostCommand } from "./like-post.command";
 import { PostEntityRepository } from "../../db/post-entity.repository";
 import { HttpService } from "@nestjs/axios";
 
-@CommandHandler(DislikePostCommand)
-export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
+@CommandHandler(LikePostCommand)
+export class LikePostHandler implements ICommandHandler<LikePostCommand> {
     constructor(
         private readonly postEntityRepository: PostEntityRepository,
         private readonly eventPublisher: EventPublisher,
         private readonly httpService: HttpService,
     ){}
     
-    async execute({ userId, postId }: DislikePostCommand) {
+    async execute({ userId, postId }: LikePostCommand) {
         const url = process.env["BASE_URL"];
         
         try {
@@ -22,15 +22,15 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
             const user = userResponse?.data;
             let updatedPost = false;
 
-            //add user's username to post's dislikes if user hasn't disliked the post yet
-            if (!post.dislikes.includes(user.username)) {
-                post.dislikes.push(user.username);
+            //add user's username to post's likes if user hasn't liked the post yet
+            if (!post.likes.includes(user.username)) {
+                post.likes.push(user.username);
                 updatedPost = true;
             }
 
-            //remove user's username from post's likes if user has liked the post
-            if (post.likes.includes(user.username)) {
-                post.likes = post.likes.filter((username: any) => username !== user.username);
+            //remove user's username from post's dislikes if user has disliked the post
+            if (post.dislikes.includes(user.username)) {
+                post.dislikes = post.dislikes.filter((username: any) => username !== user.username);
                 updatedPost = true;
             }
 

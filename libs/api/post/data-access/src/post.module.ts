@@ -13,6 +13,7 @@ import { GetAllPostsHandler, GetByCommunityHandler, GetByIdHandler, GetLatestPos
 import { UploadImage } from "./upload-image.service";
 import { HttpModule } from "@nestjs/axios";
 import { DislikePostHandler } from "./commands/dislike-post/dislike-post.handler";
+import { LikePostHandler } from "./commands/like-post/like-post.handler";
 // import { GetPosts } from "@encompass/app/profile/util";
 
 @Module({
@@ -45,6 +46,7 @@ import { DislikePostHandler } from "./commands/dislike-post/dislike-post.handler
     GetPostsByKeywordHandler,
     GetRecommendedPostsHandler,
     DislikePostHandler,
+    LikePostHandler,
   ],
 })
 
