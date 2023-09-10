@@ -9,5 +9,5 @@ export class CreateEventRequest {
   prompt!: string[] | null;
   categories!: string[] | null;
   numberOfQuestions!: number;
-  quizDescription!: string | null;
+  quizDescription!: string;
 }
