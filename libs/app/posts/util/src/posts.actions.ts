@@ -5,6 +5,16 @@ export class UpdatePost{
   constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
 }
 
+export class DislikePost{
+  static readonly type = '[Comments] Dislike Post';
+  constructor(public readonly postId: string, public readonly userId: string){}
+}
+
+export class LikePost{
+  static readonly type = '[Comments] Like Post';
+  constructor(public readonly postId: string, public readonly userId: string){}
+}
+
 export class UpdatePostArray{
   static readonly type = '[Comments] Update Post Array';
   constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
