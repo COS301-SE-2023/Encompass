@@ -303,7 +303,7 @@
           <br />
         </div>
         <div *ngIf="seeEvents">
-          <ion-card *ngFor="let event of events" class="Event" (click)="goToEvent(event._id)">
+          <ion-card *ngFor="let event of events?.slice()?.reverse()" class="Event" (click)="goToEvent(event._id)">
             <div class="EventHead">
               <label class="EventName">{{event.name}}</label>
               <label class="Host">Hosted by @{{event.host}}</label>
