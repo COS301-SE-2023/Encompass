@@ -10,7 +10,8 @@ import { Observable } from 'rxjs';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { EventState } from '@encompass/app/event/data-access';
 import { EventDto } from '@encompass/api/event/data-access';
-import { AddUser, AddUserEvent, GetEventById } from '@encompass/app/event/util';
+import { AddUser, AddUserEvent, GetEventById, GetUserEvents } from '@encompass/app/event/util';
+import { UserEventsDto } from '@encompass/api/user-events/data-access';
 
 
 @Component({
@@ -25,8 +26,10 @@ import { AddUser, AddUserEvent, GetEventById } from '@encompass/app/event/util';
 
     @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
     @Select(EventState.singleEvent) event$!: Observable<EventDto | null>;
+    @Select(EventState.userEvents) userEvents$!: Observable<UserEventsDto | null>;
 
     profile!: ProfileDto | null;
+    userEvents!: UserEventsDto | null;
     event!: EventDto | null;
 
     hasExpired = false;
@@ -35,6 +38,10 @@ import { AddUser, AddUserEvent, GetEventById } from '@encompass/app/event/util';
 
     isProfileFetched = false;
     isEventFetched = false;
+    isUserEventsFetched = false;
+
+    isFound = false;
+    hasCompleted = false;
 
     constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
       const challengeId = this.route.snapshot.paramMap.get('id');
@@ -70,6 +77,24 @@ import { AddUser, AddUserEvent, GetEventById } from '@encompass/app/event/util';
                   if(profile.communities.includes(event.community)){
                     this.isPartOfCommunity = true;
                   }
+                }
+              })
+            }
+
+            if(!this.isUserEventsFetched){
+              this.isEventFetched = true;
+
+              this.store.dispatch(new GetUserEvents(profile._id));
+              this.userEvents$.subscribe((userEvents) => {
+                if(userEvents){
+                  this.userEvents = userEvents;
+
+                  userEvents.events.forEach((event) => {
+                    if(event.eventId === challengeId){
+                      this.isFound = true;
+                      this.hasCompleted = event.quizComplete;
+                    }
+                  })
                 }
               })
             }
