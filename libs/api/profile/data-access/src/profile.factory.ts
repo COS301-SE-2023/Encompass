@@ -16,7 +16,10 @@ export class ProfileFactory implements EntityFactory<Profile>{
     username: string,
     name: string | null,
     lastName: string | null,
-    categories: string[] | null,
+    categories: {
+      category: string;
+      score: number;
+    }[] | null,
     communities: string[] | null,
     awards: string[] | null,
     events: string[] | null,

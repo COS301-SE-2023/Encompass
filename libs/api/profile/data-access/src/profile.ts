@@ -7,7 +7,10 @@ export class Profile extends AggregateRoot{
     public username: string,
     public name: string | null,
     public lastName: string | null,
-    public categories: string [] | null,
+    public categories: {
+      category: string;
+      score: number;
+    } [] | null,
     public communities: string [] | null,
     public awards: string [] | null,
     public events: string [] | null,
@@ -39,7 +42,10 @@ export class Profile extends AggregateRoot{
     return this.lastName;
   }
 
-  getCategories(): string [] | null{
+  getCategories(): {
+    category: string;
+    score: number;
+  } [] | null{
     return this.categories;
   }
 

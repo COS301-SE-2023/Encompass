@@ -45,6 +45,35 @@ export class PostsApi{
     }
   }
 
+  async dislikePost(postId: string, userId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/dislike/' + postId + '/' + userId, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async likePost(postId: string, userId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/like/' + postId + '/' + userId, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+
   // async getCommunityPosts(name: string) {
   //   try{
   //     const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-community/' + name).toPromise();

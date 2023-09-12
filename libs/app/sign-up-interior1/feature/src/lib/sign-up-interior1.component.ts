@@ -9,6 +9,11 @@ import {
 } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
 
+type Categories = {
+  category: string;
+  score: number;
+};
+
 @Component({
   selector: 'sign-up-interior1',
   templateUrl: './sign-up-interior1.component.html',
@@ -19,6 +24,7 @@ export class SignUpInterior1Component {
 
   profile!: ProfileDto | null;
   categories: string[] = [];
+  usableCategories: Categories[] = [];
   isValid = false;
   selectedButtonId: string | undefined;
 
@@ -64,12 +70,17 @@ export class SignUpInterior1Component {
     if (!this.profile) {
       return;
     }
+    //add categories to usableCategories
+    this.usableCategories = [];
+    this.categories.forEach((categoryInstance) => {
+      this.usableCategories.push({ category: categoryInstance, score: 0.5 });
+    });
 
     const data: UpdateProfileRequest = {
       username: this.profile.username,
       name: this.profile.name,
       lastName: this.profile.lastName,
-      categories: this.categories,
+      categories: this.usableCategories,
       communities: this.profile.communities,
       awards: this.profile.awards,
       events: this.profile.events,

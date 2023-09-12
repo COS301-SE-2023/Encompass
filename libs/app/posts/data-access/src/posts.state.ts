@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { PostsApi } from "./posts.api";
-import { GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
+import { DislikePost, GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, LikePost, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
 
 export interface PostStateModel {
   PostForm: {
@@ -68,6 +68,40 @@ export class PostsState {
   @Action(UpdatePost)
   async updatePost(ctx: StateContext<PostStateModel>, { postId, postUpdateRequest }: UpdatePost) {
     const response = await this.postsApi.updatePost(postId, postUpdateRequest);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    ctx.setState({
+      PostForm: {
+        model: {
+          post: response,
+        },
+      },
+    });
+  }
+
+  @Action(DislikePost)
+  async dislikePost(ctx: StateContext<PostStateModel>, { postId, userId }: DislikePost) {
+    const response = await this.postsApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    ctx.setState({
+      PostForm: {
+        model: {
+          post: response,
+        },
+      },
+    });
+  }
+
+  @Action(LikePost)
+  async likePost(ctx: StateContext<PostStateModel>, { postId, userId }: LikePost) {
+    const response = await this.postsApi.likePost(postId, userId);
 
     if (response == null || response == undefined) {
       return;

@@ -5,6 +5,7 @@ export class UpdatePostRequest{
   communityImageUrl!: string | null;
   categories!: string [];
   likes!: string [];
+  dislikes!: string [];
   spoiler!: boolean;
   ageRestricted!: boolean;
   shares!: number;

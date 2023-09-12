@@ -27,6 +27,9 @@ export class PostSchema extends IdentifiableEntitySchema{
   @Prop( { type: [String] } )
   readonly likes!: string[];
 
+  @Prop( { type: [String] } )
+  readonly dislikes!: string[];
+
   @Prop( { type: String } )
   readonly dateAdded!: string;
 

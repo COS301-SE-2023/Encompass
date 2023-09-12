@@ -79,7 +79,7 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
         for(let i = 0; i < allProfiles.length; i++){
             for(let j = 0; j < allProfiles[i].categories?.length; j++){
                 if(categories.length < 1 || !categories.includes(allProfiles[i].categories[j])){
-                    categories.push(allProfiles[i].categories[j]);
+                    categories.push(allProfiles[i].categories[j].category);
                 }
             }
         }
@@ -118,13 +118,11 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
                 }
             }
 
-            //for each category add 0 or one to tempProfile if profile has category
+            //for each category string match add profile's score to tempProfile if profile has category
+            //allProfiles[i].categories is like this { category: string, score: number } []
             for(let j = 0; j < categories?.length; j++){
-                if(allProfiles[i].categories?.includes(categories[j])){
-                    tempProfile.push(1);
-                } else {
-                    tempProfile.push(0);
-                }
+                const score = searchCategory(allProfiles[i].categories, categories[j]);
+                tempProfile.push(score);
             }
             //for each profile add 0 or 1 to tempProfile if profile is following user
             for(let j = 0; j < following.length; j++){
@@ -142,10 +140,18 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
                     tempProfile.push(0);
                 }
             }
-            
             profiles.push({ profile: Object.values(tempProfile), profileId: profileIds[i], postIds: posts });
         }
         return profiles;
+    }
+
+    function searchCategory(categories: any[], targetCategory: string): number {
+        for (const category of categories) {
+            if (category.category === targetCategory) {
+                return category.score;
+            }
+        }
+        return 0;
     }
 
     function kmeans(allProfiles: ProfileDto[], profiles: profileType, k: number ){
@@ -388,31 +394,38 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
     function calculateDistance(profile1: number[], profile2: number[]): number {
         return Math.sqrt(profile1.reduce((sum, value, index) => sum + (value - profile2[index]) ** 2, 0));
     }
-    
+
     function findElbowPoint(distortions: number[]): number {
         // Use the elbow method to find the optimal K value
         const distortionsDelta: number[] = [];
         distortions.forEach((distortion, i) => {
-            if (i === 0) {
-                distortionsDelta.push(0);
-            } else {
-                const delta = distortions[i - 1] - distortion;
-                distortionsDelta.push(delta);
-            }
+          if (i === 0) {
+            distortionsDelta.push(0);
+          } else {
+            const delta = distortions[i - 1] - distortion;
+            distortionsDelta.push(delta);
+          }
         });
-    
+      
         let elbowK = 1;
-        let maxDelta = distortionsDelta[0];
-    
+        const maxDelta = distortionsDelta[1];
+        //console.log(`Max Delta: ${maxDelta}`);
+        const threshold = 0.11 * maxDelta; // 15% of the maximum delta
+        //console.log(`Threshold: ${threshold}`);
+
         for (let k = 1; k < distortionsDelta.length; k++) {
-            if (distortionsDelta[k] > maxDelta) {
-                maxDelta = distortionsDelta[k];
-                elbowK = k + 1; // Index starts from 0, so we need to add 1 to get the actual K value
-            }
+          //console.log(`K: ${k}, Delta: ${distortionsDelta[k]}, Threshold: ${threshold}`);
+          if (Math.abs(distortionsDelta[k]) >= threshold) {
+            elbowK = k + 1; // Index starts from 0, so we need to add 1 to get the actual K value
+            //break; // Exit the loop when the condition is met
+          }
         }
-    
+      
+        //console.log(`Elbow K: ${elbowK}`);
         return elbowK;
-    }
+      }
+    
+    
     
   }
 
