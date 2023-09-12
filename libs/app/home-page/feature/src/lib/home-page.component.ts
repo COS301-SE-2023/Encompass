@@ -48,13 +48,13 @@ export class HomePage {
   notifications$!: Observable<NotificationDto | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
   // @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
-  @Select(SearchState.searchPosts) searchPosts$!: Observable<PostDto[] | null>;
-  @Select(SearchState.searchProfiles) searchProfiles$!: Observable<
-    ProfileDto[] | null
-  >;
-  @Select(SearchState.searchCommunities) searchCommunities$!: Observable<
-    CommunityDto[] | null
-  >;
+  // @Select(SearchState.searchPosts) searchPosts$!: Observable<PostDto[] | null>;
+  // @Select(SearchState.searchProfiles) searchProfiles$!: Observable<
+  //   ProfileDto[] | null
+  // >;
+  // @Select(SearchState.searchCommunities) searchCommunities$!: Observable<
+  //   CommunityDto[] | null
+  // >;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -184,33 +184,33 @@ export class HomePage {
       return;
     }
 
-    if (!this.peopleIsFetched) {
-      this.peopleIsFetched = true;
-      this.searchProfiles$
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((profiles) => {
-          if (profiles) {
-            // console.log("POSTS:")
-            this.searchprofiles = [];
-            const profileCount = profiles;
-            const temp = profiles;
-            temp.forEach((person) => {
-              this.searchprofiles.push(person);
-              if (
-                person.name.toLowerCase().includes(this.keyword.toLowerCase())
-              ) {
-                profileCount.push(person);
-              }
-            });
+    // if (!this.peopleIsFetched) {
+    //   this.peopleIsFetched = true;
+    //   this.searchProfiles$
+    //     .pipe(takeUntil(this.unsubscribe$))
+    //     .subscribe((profiles) => {
+    //       if (profiles) {
+    //         // console.log("POSTS:")
+    //         this.searchprofiles = [];
+    //         const profileCount = profiles;
+    //         const temp = profiles;
+    //         temp.forEach((person) => {
+    //           this.searchprofiles.push(person);
+    //           if (
+    //             person.name.toLowerCase().includes(this.keyword.toLowerCase())
+    //           ) {
+    //             profileCount.push(person);
+    //           }
+    //         });
 
-            if (profileCount.length !== 0) {
-              this.peopleExists = true;
-            } else {
-              this.peopleExists = false;
-            }
-          }
-        });
-    }
+    //         if (profileCount.length !== 0) {
+    //           this.peopleExists = true;
+    //         } else {
+    //           this.peopleExists = false;
+    //         }
+    //       }
+    //     });
+    // }
 
     // console.log("profiles: " + this.peopleVisible);
   }
