@@ -106,4 +106,17 @@ export class UserProfileApi{
       return null
     }
   }
+
+  async getProfile(username: string){
+    try{
+      const response = await this.httpClient.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
 }
