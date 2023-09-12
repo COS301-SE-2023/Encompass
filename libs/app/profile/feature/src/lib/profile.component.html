@@ -302,7 +302,7 @@
           </div>
           <br />
         </div>
-        <div *ngIf="seeEvents">
+        <div *ngIf="seeEvents" class ="EventList">
           <ion-card *ngFor="let event of events?.slice()?.reverse()" class="Event" (click)="goToEvent(event._id)">
             <div class="EventHead">
               <label class="EventName">{{event.name}}</label>
