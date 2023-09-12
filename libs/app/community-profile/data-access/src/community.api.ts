@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -171,6 +172,19 @@ export class CommunityApi {
   async addCoins(username: string, amount: number){
     try{
       const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-coins/' + username + '/' + amount, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async getRanking(){
+    try{
+      const response = await this.httpClient.get<CommunityLeaderboardDto[]>('/api/community-leaderboard/leaderboard').toPromise();
 
       return response;
     }

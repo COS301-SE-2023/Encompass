@@ -1,12 +1,13 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts } from '@encompass/app/community-profile/util';
+import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts, GetRanking } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { PostDto } from '@encompass/api/post/data-access';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
+import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
 
 
 export interface CommunityStateModel{
@@ -21,6 +22,14 @@ export interface CommunityPostsModel{
   CommunityPostForm: {
     model:{
       posts: PostDto[] | null
+    }
+  }
+}
+
+export interface CommunityLeaderboardModel{
+  CommunityLeaderboardForm: {
+    model:{
+      leaderboard: CommunityLeaderboardDto[] | null
     }
   }
 }
@@ -220,6 +229,23 @@ export class CommunityState{
     await this.communityApi.addCommunity(username, communityName);
   }
 
+  @Action(GetRanking)
+  async getRanking(ctx: StateContext<CommunityLeaderboardModel>){
+    const response = await this.communityApi.getRanking();
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunityLeaderboardForm:{
+        model:{
+          leaderboard: response
+        }
+      }
+    })
+  }
+
   @Selector()
   static community(state: CommunityStateModel){
     return state.CommunityStateForm.model.community
@@ -233,5 +259,10 @@ export class CommunityState{
   @Selector()
   static communityRequest(state: CommunityRequestModel){
     return state.CommunityRequestForm.model.communityRequest
+  }
+
+  @Selector()
+  static leaderboard(state: CommunityLeaderboardModel){
+    return state.CommunityLeaderboardForm.model.leaderboard
   }
 }
