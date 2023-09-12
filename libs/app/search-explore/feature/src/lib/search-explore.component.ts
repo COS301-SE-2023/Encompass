@@ -486,7 +486,17 @@ export class SearchExploreComponent {
   
     let likesArr = [...post.likes];
     likesArr = likesArr.filter((like) => like !== this.profile?.username);
-  
+
+    let dislikesArr = [...post.dislikes];
+    if(this.profile?.username == null){
+      return;
+    }
+
+    if(!dislikesArr.includes(this.profile?.username)){
+      dislikesArr = [...post.dislikes, this.profile?.username];
+    }
+
+
     const data : UpdatePostRequest = {
       title: post.title,
       text: post.text,
@@ -494,6 +504,7 @@ export class SearchExploreComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: dislikesArr,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -562,6 +573,7 @@ export class SearchExploreComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: post.dislikes.filter((dislike) => dislike !== this.profile?.username),
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -595,6 +607,7 @@ export class SearchExploreComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -638,6 +651,7 @@ ViewPostofComment(postId: string){
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,

@@ -333,6 +333,7 @@ export class CreatePostComponent {
       communityImageUrl: null,
       categories: categoryData,
       likes: emptyArray,
+      dislikes: emptyArray,
       spoiler: this.spoilers,
       ageRestricted: this.agerestricted,
     };
