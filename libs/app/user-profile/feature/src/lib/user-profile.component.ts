@@ -26,7 +26,7 @@ import { AddNotificationRequest } from '@encompass/api/notifications/data-access
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'user-profile',
@@ -48,6 +48,7 @@ export class UserProfile {
 
   userProfile!: ProfileDto | null;
   profile!: ProfileDto | null;
+  otherUsers!: ProfileDto[] | null;
   userPosts: PostDto[] = [];
   userProfileSettings!: SettingsDto | null;
   seePosts = true;
@@ -70,6 +71,7 @@ export class UserProfile {
     private store: Store,
     private router: Router,
     private route: ActivatedRoute,
+    private modalController: ModalController,
     private userProfileState: UserProfileState,
     private userProfileApi: UserProfileApi,
     private toastController: ToastController
@@ -514,6 +516,46 @@ export class UserProfile {
     this.ViewCommunities = !this.ViewCommunities;
   }
 
+  async loadFollowers() {
+    this.otherUsers = [];
+    if (this.userProfile == null) {
+      return;
+    }
+    console.log('here');
+    console.log(this.userProfile.followers);
+    this.otherUsers = await this.userProfileState.getFollowers(
+      this.userProfile.followers
+    );
+
+    // this.store.dispatch(new GetFollowers(this.profile.followers));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     console.log(users);
+    //     this.otherUsers = users;
+    //   }
+    // })
+  }
+
+  async loadFollowing() {
+    this.otherUsers = [];
+
+    if (this.userProfile == null) {
+      return;
+    }
+
+    console.log('here as well');
+    console.log(this.userProfile.following);
+    this.otherUsers = await this.userProfileState.getFollowing(
+      this.userProfile.following
+    );
+
+    // this.store.dispatch(new GetFollowing(this.profile.following));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     this.otherUsers = users;
+    //   }
+    // })
+  }
   // loadFollowers(){
   //   if(this.profile == null){
   //     return;
@@ -543,11 +585,11 @@ export class UserProfile {
   //   })
   // }
 
-  // async goToProfile(username : string | undefined){
-  //   console.log("Route is " + username);
-  //   await this.modalController.dismiss();
-  //   this.router.navigate(['home/user-profile/' + username]);
-  // }
+  async goToProfile(username : string | undefined){
+    console.log("Route is " + username);
+    await this.modalController.dismiss();
+    this.router.navigate(['home/user-profile/' + username]);
+  }
 
   mobileview = false;
 

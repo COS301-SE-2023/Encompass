@@ -179,6 +179,42 @@ export class UserProfileState{
     })
   }
 
+  async getFollowers(followerList: string[]){
+    const followers: ProfileDto[] = [];
+  
+    await Promise.all(
+      followerList.map(async (element) => {
+        const item = await this.userProfileApi.getProfile(element);
+  
+        if (item != null && item != undefined) {
+          followers.push(item);
+        }
+      })
+    );
+  
+    console.log(followers);
+  
+    return followers;
+  }
+
+  async getFollowing(followingList: string[]): Promise<ProfileDto[]> {
+    const following: ProfileDto[] = [];
+  
+    await Promise.all(
+      followingList.map(async (element) => {
+        const item = await this.userProfileApi.getProfile(element);
+  
+        if (item != null && item != undefined) {
+          following.push(item);
+        }
+      })
+    );
+  
+    console.log(following);
+  
+    return following;
+  }
+
   @Selector()
   static userProfile(state: UserProfileStateModel){
     return state.UserProfileStateForm.model.userProfile
