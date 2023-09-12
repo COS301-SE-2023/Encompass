@@ -222,6 +222,13 @@ ion-card {
   --border-radius: 50px;
   color: white;
 }
+
+.EventList{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .Event {
   width: 350px;
   height: 150px;
