@@ -45,3 +45,7 @@ export class RemoveOtherUserCommunity{
     static readonly type = '[Profile] Add Community';
     constructor(public readonly communityName: string, public readonly username: string){}
   }
+
+  export class GetRanking{
+    static readonly type = '[Community] Get Ranking';
+  }
