@@ -63,6 +63,7 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
             return post;
         } catch (error) {
             console.log(error);
+            return null;
         }
     }
 }
