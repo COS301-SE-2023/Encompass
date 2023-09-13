@@ -200,4 +200,8 @@ export class QuizPage {
       this.MoreThanHalf = true;
     }
   }
+
+  backToEvents(){
+    this.router.navigate(['home/event']);
+  }
 }

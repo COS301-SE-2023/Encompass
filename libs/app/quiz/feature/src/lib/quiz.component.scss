@@ -187,3 +187,18 @@ button {
 .points {
   font-size: 20px;
 }
+
+.finish {
+  background-color: var(--hover-color);
+  color: var(--ion-color-background);
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: CustomFont2;
+  font-size: 20px;
+  border-radius: 25px;
+  padding: 1%;
+  transition: all 0.3s;
+}
+.finish:hover {
+  transform: translateY(-10px);
+}
