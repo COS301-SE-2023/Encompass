@@ -115,7 +115,11 @@ export class QuizPage {
               });
           }
 
-          if(!this.event?.members.includes(profile.username)){
+          if(this.event === null){
+            return;
+          }
+
+          if(!this.event.members.includes(profile.username)){
             this.presentToast()
           }
         }
