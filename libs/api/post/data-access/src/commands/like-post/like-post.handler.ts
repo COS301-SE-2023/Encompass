@@ -63,7 +63,9 @@ export class LikePostHandler implements ICommandHandler<LikePostCommand> {
 
             return post;
         } catch (error) {
+        
             console.log(error);
+            return null;
         }
     }
 }
