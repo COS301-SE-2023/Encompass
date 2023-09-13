@@ -15,10 +15,13 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
         const url = process.env["BASE_URL"];
         
         try {
-            const postPromise = this.httpService.get(url + '/api/post/' + postId).toPromise();
+            const post = this.eventPublisher.mergeObjectContext(
+                await this.postEntityRepository.findOneById(postId),
+            )
+            // const postPromise = this.httpService.get(url + '/api/post/' + postId).toPromise();
             const userPromise = this.httpService.get(url + '/api/profile/get/' + userId).toPromise();
-            const [postResponse, userResponse] = await Promise.all([postPromise, userPromise]);
-            const post = postResponse?.data;
+            const userResponse = await Promise.resolve(userPromise);
+            // const post = postResponse?.data;
             const user = userResponse?.data;
             let updatedPost = false;
 
