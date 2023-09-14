@@ -26,26 +26,10 @@ export interface SearchModel {
   };
 }
 
-export interface SearchPostModel{
-    SearchPostForm: {
-      model:{
-        posts: PostDto[] | null
-      }
-    }
-  }
-
 export interface GetAllCommunitiesModel {
   GetAllCommunitiesForm: {
     model: {
       communities: CommunityDto[] | null | undefined;
-    };
-  };
-}
-
-export interface SearchPostsByCategoryModel {
-  SearchPostsForm: {
-    model: {
-      posts: PostDto[] | null | undefined;
     };
   };
 }
@@ -84,7 +68,7 @@ export interface getAllProfilesModel {
     },
   },
 })
-@State<SearchPostsByCategoryModel>({
+@State<SearchModel>({
   name: 'searchPostsByCategory',
   defaults: {
     SearchPostsForm: {
@@ -191,7 +175,7 @@ export class SearchState {
 
   @Action(SearchPostsByCategory)
   async searchPostsByCategory(
-    ctx: StateContext<SearchPostsByCategoryModel>,
+    ctx: StateContext<SearchModel>,
     { category }: SearchPostsByCategory
   ) {
     const response = await this.searchApi.getPostsByCategory(category);
@@ -250,7 +234,7 @@ export class SearchState {
   }
 
   @Action(UpdatePost)
-  async updatePost(ctx: StateContext<SearchPostModel>, {postId, updateRequest}: UpdatePost){
+  async updatePost(ctx: StateContext<SearchModel>, {postId, updateRequest}: UpdatePost){
     const response = await this.searchApi.updatePost(postId, updateRequest);
 
     if(response == null || response == undefined){
@@ -258,7 +242,7 @@ export class SearchState {
     }
 
     try{
-      const posts = await ctx.getState().SearchPostForm.model.posts;
+      const posts = await ctx.getState().SearchPostsForm.model.posts;
 
       if(posts == null ){
         console.log("POSTS IS NULL")
@@ -274,7 +258,7 @@ export class SearchState {
       console.log(posts[index])
 
       ctx.patchState({
-        SearchPostForm: {
+        SearchPostsForm: {
           model: {
             posts: posts
           }
@@ -299,7 +283,7 @@ export class SearchState {
   }
 
   @Selector()
-  static searchPostsByCategory(state: SearchPostsByCategoryModel) {
+  static searchPostsByCategory(state: SearchModel) {
     return state.SearchPostsForm.model.posts;
   }
 
@@ -319,7 +303,7 @@ export class SearchState {
   }
 
   @Selector()
-  static posts(state: SearchPostModel){
-    return state.SearchPostForm.model.posts;
+  static posts(state: SearchModel){
+    return state.SearchPostsForm.model.posts;
   }
 }
