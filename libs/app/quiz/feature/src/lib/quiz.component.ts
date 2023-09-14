@@ -161,8 +161,8 @@ export class QuizPage {
     this.userAnswers[questionIndex] = answer;
 
     if (answer === this.event.quiz[questionIndex].answer) {
+      console.log("correct");
       numCorrect++;
-
       this.fillCircle();
     }
     
@@ -184,6 +184,8 @@ export class QuizPage {
   }
 
   fillCircle() {
+    console.log("Fill circle Called");
+    console.log("Points: "+this.points);
     this.fillPercentage += 1 / this.totalNumber; // Increase by 1/totalNumber
     this.fillNumber += 1;
     this.points += 50;
