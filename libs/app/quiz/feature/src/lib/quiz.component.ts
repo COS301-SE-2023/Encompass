@@ -194,7 +194,7 @@ export class QuizPage {
     console.log("Points: "+this.points);
     this.fillPercentage += 1 / this.totalNumber; // Increase by 1/totalNumber
     this.fillNumber += 1;
-    this.points += 50;
+    this.points += 20;
     if (this.fillPercentage >= 1) {
       this.fillPercentage = 0;
       this.fillNumber = 0;
