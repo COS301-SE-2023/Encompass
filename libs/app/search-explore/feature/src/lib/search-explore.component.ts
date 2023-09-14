@@ -164,9 +164,6 @@ export class SearchExploreComponent {
   //=========================================================================post things=========================================================================================
 
   async searchPosts() {
-    if (this.profile == null) {
-      return;
-    }
 
     // console.log('searching profiles');
     
@@ -411,5 +408,9 @@ export class SearchExploreComponent {
     } else {
       this.router.navigate(['home/profile']);
     }
+  }
+
+  GoToComments(postId: string) {
+    this.router.navigate(['home/app-comments-feature/' + postId]);
   }
 }

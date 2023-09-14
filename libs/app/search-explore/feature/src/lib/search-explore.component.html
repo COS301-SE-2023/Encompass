@@ -30,28 +30,28 @@
     </ion-toolbar>
   </ion-header>
 
-  <!--<div class="overlay-container">
+  <div class="overlay-container">
     <ion-grid>
       <ion-row class="row-filter">
-        <ion-col size="5" *ngIf="postsVisible">
+        <ion-col size="5" >
 
-          <div class="emptySpace" *ngIf="noSearch || noResult">
-          <div *ngIf="noSearch">
+          <!-- <div class="emptySpace">
+          <div >
             <div class="note">
               <span class="noSearch">Enter a Search Term</span>
             </div>
           </div>
 
-           <div *ngIf="noResult">
+           <div >
             <div class="note">
               <span class="noResult">No Results Matching Your Search</span>
             </div>
           </div> 
-        </div>
+        </div> -->
   
-          <!-- posts 
-          <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)" 
-          <div *ngIf="PostsExists">
+          <!-- posts -->
+          <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)"  -->
+          <div >
           <div  *ngFor="let post of posts?.slice()?.reverse();let i = index">
             <div>
             <ion-card *ngIf="post.text && post.text.toLowerCase().includes((keyword ?? '').toLowerCase()) || post.title && post.title.toLowerCase().includes((keyword ?? '').toLowerCase())" class = "PostCard card-styles" >
@@ -145,8 +145,8 @@
           </div>
   
         </ion-col>
-         <ion-col size="4" *ngIf="PostsExists && postsVisible">
-          <ion-card class="recomcard" >
+         <ion-col size="4" >
+          <ion-card class="recomcard" *ngIf="isCommunitiesFetched">
           <div>
               <div class = "RecomCommunities" >
               <div class = "RecomHeader">
@@ -203,10 +203,10 @@
 
             
    
-             <!-- </div>
-              <!-- <br> 
+              </div>
+              <br> 
           </ion-card>
-          <ion-card class="recomcard">
+          <ion-card class="recomcard" *ngIf="isProfilesFetched">
             <div>
                 <div class = "RecomCommunities" >
                 <div class = "RecomHeader">
@@ -220,7 +220,7 @@
                 </div>
               </div>
               
-              <!-- communities 
+              <!-- communities -->
     
           <ion-grid >
           <ion-row class="content-row" >
@@ -240,7 +240,7 @@
                   <span class="personDesc">{{people?.bio}}</span>
                 </div>
                 <ion-button slot="end" class="followButton">Follow</ion-button>
-                 <ion-button *ngIf="" slot="end" class="followButton">Unfollow</ion-button> 
+                 <ion-button slot="end" class="followButton">Unfollow</ion-button> 
               </ion-item>
             </ion-list>
            </ion-card>
@@ -257,23 +257,23 @@
 
 
 
-        <!-- communities 
-            <ion-col size="8" class="fullSearch" *ngIf="communityVisible">
-              <div class="emptySpace">
-                <div *ngIf="noSearch">
+        <!-- communities -->
+            <ion-col size="8" class="fullSearch">
+              <!-- <div class="emptySpace">
+                <div>
                   <div class="note">
                     <span class="noSearch">Enter a Search Term</span>
                   </div>
                 </div>
       
-                <div *ngIf="noResult">
+                <div >
                   <div class="note">
                     <span class="noResult">No Results Matching Your Search</span>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
-              <div *ngIf="CommunityExists">
+              <div>
               <div class="communitiesSearch">
                 <div>
 
@@ -294,9 +294,9 @@
                     <img *ngFor="let category of community.categories;" src = "assets/icon/{{category}}.png" class="SearchimgDiv">
                   </div>
                    <div class = "SearchCommunityAdd">
-                    <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',community.name)">
+                    <!-- <button id="toggleButton2" class="cta" [ngClass]="{ 'clicked': buttonStates['toggleButton2'] }" (click)="handleButtonClick('toggleButton2',community.name)">
                       <i id="icon2" class="icon fas" [ngClass]="buttonStates['toggleButton2'] ? 'fa-check' : 'fa-plus-circle'"></i>
-                    </button>
+                    </button> -->
                    </div>
                    </div>
                    <div class = "SearchCommunityBody">
@@ -313,23 +313,23 @@
 
 
 
-                <ion-col size="8" class="fullSearch" *ngIf="peopleVisible">
-                  <div class="emptySpace">
-                    <div *ngIf="noSearch">
+                <ion-col size="8" class="fullSearch" >
+                  <!-- <div class="emptySpace">
+                    <div >
                       <div class="note">
                         <span class="noSearch">Enter a Search Term</span>
                       </div>
                     </div>
           
-                    <div *ngIf="noResult">
+                    <div >
                       <div class="note">
                         <span class="noResult">No Results Matching Your Search</span>
                       </div>
                     </div>
-                  </div>
-                 <!-- people 
+                  </div> -->
+                 <!-- people -->
                  <div>
-                 <div class="peopleSearch" *ngIf="peopleExists">
+                 <div class="peopleSearch">
 
                   <ion-card class="peopleCard">
                   <ion-list class="peopleList" >
@@ -346,7 +346,7 @@
                         <span class="personDesc">{{people?.bio}}</span>
                       </div>
                       <ion-button slot="end" class="followButton">Follow</ion-button>
-                       <ion-button *ngIf="" slot="end" class="followButton">Unfollow</ion-button> 
+                       <ion-button slot="end" class="followButton">Unfollow</ion-button> 
 
                     </ion-item>
                   </ion-list>
@@ -366,13 +366,12 @@
   
   
   
-        <!-- recommendations -->
-        <!-- style="display: none;" 
+        
        
       </ion-row>
     </ion-grid>
   
   </div>
-  <ion-button class="backtotop">Back To Top</ion-button> -->
+  <ion-button class="backtotop">Back To Top</ion-button> 
 
 </div>
