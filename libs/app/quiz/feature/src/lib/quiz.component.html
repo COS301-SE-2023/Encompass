@@ -44,16 +44,16 @@
       </div>
 
       <div class="Options" *ngIf="userAnswers[i] !== null">
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">A.</label><label class="questionDesc">{{ question.options[0] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">B.</label><label class="questionDesc">{{ question.options[1] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">C.</label><label class="questionDesc">{{ question.options[2] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">D.</label><label class="questionDesc">{{ question.options[3] }}</label>
         </div>
       </div>
