@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CommunityDto } from "@encompass/api/community/data-access";
-import { PostDto } from "@encompass/api/post/data-access";
+import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { ProfileDto } from "@encompass/api/profile/data-access";
 
 @Injectable({
@@ -81,5 +81,19 @@ export class SearchApi {
             return null;
         }
     }
+
+    async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
+        try{
+          const response = await this.http.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
+    
+          return response;
+        }
+    
+        catch(error){
+          console.log(error);
+    
+          return null;
+        }
+      }
 }
 

@@ -24,7 +24,10 @@ import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { MovieDto, PodcastDto } from '@encompass/api/media-recommender/data-access';
+import {
+  MovieDto,
+  PodcastDto,
+} from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
 import { ViewChild } from '@angular/core';
@@ -53,15 +56,15 @@ export class FeedPage {
     }
   }
 
-
-  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
-  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
-  @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
-  @Select(HomeState.getMovies) movies$! : Observable<MovieDto[] | null>;
-  @Select(HomeState.getBooks) books$! : Observable<BookDto[] | null>;
-  @Select(HomeState.getPodcasts) podcasts$! : Observable<PodcastDto[] | null>; 
-
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(PostsState.posts) homePosts$!: Observable<PostDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
+  @Select(HomeState.getCommunities) communities$!: Observable<
+    CommunityDto[] | null
+  >;
+  @Select(HomeState.getMovies) movies$!: Observable<MovieDto[] | null>;
+  @Select(HomeState.getBooks) books$!: Observable<BookDto[] | null>;
+  @Select(HomeState.getPodcasts) podcasts$!: Observable<PodcastDto[] | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -101,7 +104,7 @@ export class FeedPage {
   sharing: boolean[] = [];
   size = 0;
   themeName!: string;
-  colSize=0;
+  colSize = 0;
   // type = "recommended";
 
   communitiesIsFetched = false;
@@ -136,7 +139,7 @@ export class FeedPage {
     this.mobileview = window.innerWidth <= 992;
     if (this.mobileview) {
       this.colSize = 12.5;
-    }else{
+    } else {
       this.colSize = 5;
     }
   }
@@ -165,96 +168,98 @@ export class FeedPage {
 
           this.store.dispatch(new GetUserSettings(this.profile._id));
 
-          this.settings$.pipe(takeUntil(this.unsubscribe$)).subscribe((settings) => {
-            if (settings) {
-              this.settings = settings;
+          this.settings$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((settings) => {
+              if (settings) {
+                this.settings = settings;
 
-              this.document.body.setAttribute(
-                'color-theme',
-                this.settings.themes.themeColor
-              );
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
+                this.document.body.setAttribute(
+                  'color-theme',
+                  this.settings.themes.themeColor
+                );
+                if (this.settings.themes.themeColor.startsWith('dark')) {
+                  const icons = document.getElementById('genreicons');
 
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
+                  if (icons) {
+                    icons.style.filter = 'invert(1)';
+                  }
                 }
-              }
 
-              this.themeName = this.settings.themes.themeColor;
+                this.themeName = this.settings.themes.themeColor;
 
-              console.log(this.themeName);
-
-              const defaultcloud = document.getElementById('cloud-default');
-              const redcloud = document.getElementById('cloud-red');
-              const bluecloud = document.getElementById('cloud-blue');
-              const greencloud = document.getElementById('cloud-green');
-              const orangecloud = document.getElementById('cloud-orange');
-
-              if (
-                defaultcloud &&
-                redcloud &&
-                bluecloud &&
-                greencloud &&
-                orangecloud
-              ) {
-                // console.log('default cloudsssssssssssssssssssssssssssssssss1');
                 console.log(this.themeName);
+
+                const defaultcloud = document.getElementById('cloud-default');
+                const redcloud = document.getElementById('cloud-red');
+                const bluecloud = document.getElementById('cloud-blue');
+                const greencloud = document.getElementById('cloud-green');
+                const orangecloud = document.getElementById('cloud-orange');
+
                 if (
-                  this.themeName == 'light-red' ||
-                  this.themeName == 'dark-red'
+                  defaultcloud &&
+                  redcloud &&
+                  bluecloud &&
+                  greencloud &&
+                  orangecloud
                 ) {
-                  redcloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-blue' ||
-                  this.themeName == 'dark-blue'
-                ) {
-                  // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-                  bluecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-green' ||
-                  this.themeName == 'dark-green'
-                ) {
-                  greencloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-orange' ||
-                  this.themeName == 'dark-orange'
-                ) {
-                  orangecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
+                  // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+                  console.log(this.themeName);
+                  if (
+                    this.themeName == 'light-red' ||
+                    this.themeName == 'dark-red'
+                  ) {
+                    redcloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-blue' ||
+                    this.themeName == 'dark-blue'
+                  ) {
+                    // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                    bluecloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-green' ||
+                    this.themeName == 'dark-green'
+                  ) {
+                    greencloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-orange' ||
+                    this.themeName == 'dark-orange'
+                  ) {
+                    orangecloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                  } else {
+                    defaultcloud.classList.remove('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  }
+                }
+
+                if (page) {
+                  console.log('testing the feed page');
+                  console.log('hello ' + this.settings.themes.themeImage);
+                  page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
                 } else {
-                  defaultcloud.classList.remove('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
+                  console.log('page is null');
                 }
               }
-
-              if (page) {
-                console.log('testing the feed page');
-                console.log('hello ' + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              } else {
-                console.log('page is null');
-              }
-            }
-          });
+            });
         }
 
         if (!this.communitiesIsFetched) {
@@ -879,6 +884,8 @@ export class FeedPage {
     });
   }
 
+
+  
   async addPosts() {
     if (this.profile == null) {
       return;
@@ -1016,7 +1023,7 @@ export class FeedPage {
   async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
-      cssClass: 'custom-modal', 
+      cssClass: 'custom-modal',
       componentProps: {},
     });
 
@@ -1026,7 +1033,7 @@ export class FeedPage {
   async openPopup2() {
     const modal = await this.modalController.create({
       component: CreateCommunityComponent,
-      cssClass: 'custom-modal', 
+      cssClass: 'custom-modal',
       componentProps: {},
     });
 
@@ -1076,7 +1083,9 @@ export class FeedPage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
-      dislikes: post.dislikes.filter((dislike) => dislike !== this.profile?.username),
+      dislikes: post.dislikes.filter(
+        (dislike) => dislike !== this.profile?.username
+      ),
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -1103,7 +1112,7 @@ export class FeedPage {
 
     let dislikesArr = [...post.dislikes];
 
-    if(this.profile?.username == null){
+    if (this.profile?.username == null) {
       return;
     }
 
@@ -1214,16 +1223,16 @@ export class FeedPage {
 
   selectedSegment = 'recommended';
 
-segmentChanged(event: any) {
-  this.selectedSegment = event.detail.value;
-  if (this.selectedSegment === 'recommended') {
-    this.recChange();
-  } else if (this.selectedSegment === 'new') {
-    this.newChange();
-  } else if (this.selectedSegment === 'popular') {
-    this.popChange();
+  segmentChanged(event: any) {
+    this.selectedSegment = event.detail.value;
+    if (this.selectedSegment === 'recommended') {
+      this.recChange();
+    } else if (this.selectedSegment === 'new') {
+      this.newChange();
+    } else if (this.selectedSegment === 'popular') {
+      this.popChange();
+    }
   }
-}
 
   recChange() {
     for (let k = 0; k < this.reports.length; k++) {
