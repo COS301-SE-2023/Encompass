@@ -47,6 +47,8 @@ export class QuizPage {
   MoreThanHalf = false;
   points = 0;
 
+  numFill = 0;
+
   isQuizFetched = false;
   isProfileFetched = false;
   isProfileEventFetched = false;
@@ -99,6 +101,9 @@ export class QuizPage {
                   console.log(userEvents);
                   this.userEvents = userEvents;
 
+                  this.fillNumber = 0;
+                          this.fillPercentage = 0;
+                          
                   userEvents.events.forEach((element) => {
                     if (element.eventId === quizId) {
                       this.currentEvent = element;
@@ -125,8 +130,6 @@ export class QuizPage {
         }
       });
     }
-
-    
   }
 
   ngOnDestroy() {
@@ -163,7 +166,7 @@ export class QuizPage {
     if (answer === this.event.quiz[questionIndex].answer) {
       console.log("correct");
       numCorrect++;
-      this.fillCircle();
+      // this.fillCircle();
     }
     
 
