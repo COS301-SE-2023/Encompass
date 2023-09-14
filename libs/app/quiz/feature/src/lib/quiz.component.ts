@@ -54,6 +54,9 @@ export class QuizPage {
   isProfileEventFetched = false;
 
   isComplete = false;
+  mobileview = false;
+  colSize=0;
+
 
   constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
     const quizId = this.route.snapshot.paramMap.get('id');
@@ -209,4 +212,19 @@ export class QuizPage {
   backToEvents(){
     this.router.navigate(['home/event']);
   }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    if (this.mobileview) {
+      this.colSize = 12.5;
+    }else{
+      this.colSize = 5;
+    }
+  }
+
 }
