@@ -39,6 +39,9 @@ import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { ToastController } from '@ionic/angular';
 import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
+import { EventState } from '@encompass/app/event/data-access';
+import { EventDto } from '@encompass/api/event/data-access';
+import { GetByCommunity } from '@encompass/app/event/util';
 // import { PostsState } from '@encompass/app/posts/data-access';
 // import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
@@ -60,6 +63,7 @@ export class CommunityProfileComponent {
   @Select(CommunityState.leaderboard) communityLeaderboard$!: Observable<
     CommunityLeaderboardDto[] | null
   >;
+  @Select(EventState.communityEvents) events$!: Observable<EventDto[] | null>;
 
   file!: File;
   fileBanner!: File;
@@ -68,6 +72,7 @@ export class CommunityProfileComponent {
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
+  events!: EventDto[] | null;
   communityLeaderboard!: CommunityLeaderboardDto[] | null;
   communityRequest!: CommunityRequestDto | null;
 
@@ -189,6 +194,14 @@ export class CommunityProfileComponent {
         });
       }
     });
+
+    this.store.dispatch(new GetByCommunity(communityName));
+    this.events$.subscribe((events) => {
+      if(events){
+        console.log(events)
+        this.events = events
+      }
+    })
 
     if (this.profile === null) {
       return;
