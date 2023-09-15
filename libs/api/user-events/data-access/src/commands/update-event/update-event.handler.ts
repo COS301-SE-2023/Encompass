@@ -19,24 +19,9 @@ export class UpdateEventHandler implements ICommandHandler<UpdateEventCommand>{
       await this.userEventsEntityRepository.findOneById(userId)
     )
 
-    const eventIndex = userEvent.events.findIndex(event => event.eventId === updateEventRequest.eventId);
-    const amountCorrect = updateEventRequest.numCorrect - userEvent.events[eventIndex].numCorrect;
-
     userEvent.updateEvent(updateEventRequest);
     this.userEventsEntityRepository.findOneAndReplaceById(userEvent._id, userEvent);
     userEvent.commit();
-
-    const amount = amountCorrect * 20
-
-    if(amount > 0){
-      try{
-        this.httpService.patch(`${url}/api/profile/add-coins-by-userId/${userId}/${amount}`).toPromise()
-      }
-
-      catch(error){
-        console.log(error)
-      }
-    }
      
 
     userEvent.events.forEach(event => {

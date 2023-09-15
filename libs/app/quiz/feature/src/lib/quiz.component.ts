@@ -6,7 +6,7 @@ import {
   UpdateEventRequest,
   UserEventsDto,
 } from '@encompass/api/user-events/data-access';
-import { EventState } from '@encompass/app/event/data-access';
+import { EventApi, EventState } from '@encompass/app/event/data-access';
 import {
   GetEventById,
   GetUserEvents,
@@ -58,7 +58,7 @@ export class QuizPage {
   colSize=0;
 
 
-  constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
+  constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController, private eventApi: EventApi) {
     const quizId = this.route.snapshot.paramMap.get('id');
 
     if (quizId == null) {
@@ -156,6 +156,10 @@ export class QuizPage {
   answerQuestion(questionIndex: number, answer: string) {
     let numCorrect = this.currentEvent.numCorrect;
 
+    if(this.profile === null){
+      return
+    }
+
     if (this.event === null || this.event === undefined) {
       return;
     }
@@ -169,7 +173,7 @@ export class QuizPage {
     if (answer === this.event.quiz[questionIndex].answer) {
       console.log("correct");
       numCorrect++;
-      // this.fillCircle();
+      this.eventApi.addCoins(this.profile.username, 20);
     }
     
 
