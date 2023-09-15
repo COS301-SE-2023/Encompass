@@ -93,6 +93,8 @@ export class CommunityProfileComponent {
   isSettingsFetched = false;
   isCommunityRequestFetched = false;
   position!: number;
+  showPosts = true;
+  showEvents = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -700,6 +702,9 @@ export class CommunityProfileComponent {
       recBtn.classList.remove('active-button');
       eventBtn.classList.add('active-button');
     }
+
+    this.showPosts = false;
+    this.showEvents = true;
   }
 
   GoToProfile(username: string) {
@@ -830,5 +835,17 @@ export class CommunityProfileComponent {
   ngOnInit() {
     this.updateMobileView();
     window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  async goToEvent(id: string){
+    this.router.navigate(['home/challenge-description/' + id]);
+  }
+
+  daysLeft(targetDateStr: Date): number {
+    const currentDate = new Date();
+    const targetDate = new Date(targetDateStr);
+    const timeDifference = targetDate.getTime() - currentDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    return daysDifference >= 0 ? daysDifference : 0;
   }
 }
