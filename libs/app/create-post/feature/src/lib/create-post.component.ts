@@ -389,7 +389,7 @@ export class CreatePostComponent {
       prompt: this.prompts,
       categories: this.eventCategory?.value,
       numberOfQuestions: this.eventSelectedOption.value,
-      quizDescription: this.quizDescription?.value,
+      quizDescription: [this.quizDescription?.value],
     }
 
     this.store.dispatch(new CreateEvent(data, this.profile));
