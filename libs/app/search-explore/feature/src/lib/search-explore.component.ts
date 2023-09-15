@@ -26,9 +26,7 @@ import {
   SearchProfiles,
 } from '@encompass/app/search-explore/util';
 import { PostsState } from '@encompass/app/posts/data-access';
-import {
-  UpdatePost,
-} from '@encompass/app/search-explore/util';
+import { UpdatePost } from '@encompass/app/search-explore/util';
 import { HomeApi } from '@encompass/app/home-page/data-access';
 
 @Component({
@@ -70,8 +68,8 @@ export class SearchExploreComponent {
   // settings!: SettingsDto | null;
 
   keyword = '';
-  communities: CommunityDto[] | null = null;
-  profiles: ProfileDto[] | null = null;
+  communities: CommunityDto[] = [];
+  profiles: ProfileDto[] = [];
   posts: PostDto[] = [];
   communityMentions: string[] = [];
   postsIsFetched = false;
@@ -88,6 +86,15 @@ export class SearchExploreComponent {
   isCommunitiesFetched = false;
   isProfilesFetched = false;
   isPostsFetched = false;
+  postsExists = false;
+  commsExists = false;
+  profilesExists = false;
+  communitiesIsFetched = false;
+  profilesIsFetched = false;
+  cardExists: boolean | undefined;
+  profileHasContent: boolean | undefined;
+  commsHasContent: boolean | undefined;
+  postsHasContent: boolean | undefined;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -103,13 +110,12 @@ export class SearchExploreComponent {
   async search(event: any) {
     this.keyword = event.detail.value;
     console.log(this.keyword);
+    this.postsTab();
     if (this.keyword == '') {
-      this.communities = null;
-      this.profiles = null;
-      this.posts = [];
-      this.postsIsFetched = false;
+      this.clearSearch();
       return;
-    }else {
+    } else {
+      this.postsExists = true;
       this.searchCommunities();
       this.searchProfiles();
       this.searchPosts();
@@ -118,67 +124,119 @@ export class SearchExploreComponent {
 
   clearSearch() {
     this.keyword = '';
-    this.search({ detail: { value: '' } });
+    this.communities = [];
+    this.profiles = [];
+    this.posts = [];
+    this.postsIsFetched = false;
+    this.communitiesIsFetched = false;
+    this.profilesIsFetched = false;
+    this.postsHasContent = false;
+    this.commsHasContent = false;
+    this.profileHasContent = false;
+    this.postsExists = false;
+    this.commsExists = false;
+    this.profilesExists = false;
   }
 
-  searchCommunities() {
-    // console.log('searching communities');
-    
-    if (!this.isCommunitiesFetched) {
-      this.isCommunitiesFetched = true;
+  async searchCommunities() {
+    const type = 'communities';
+
+    if (type === 'communities') {
       this.store.dispatch(new SearchCommunities(this.keyword));
+    } else {
+      return;
+    }
 
-      this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
-        if (communities) {
-          
-          // console.log('communities', communities);
-          this.communities = communities;
+    if (!this.communitiesIsFetched) {
+      this.communitiesIsFetched = true;
 
-        }
-      });
+      this.searchCommunities$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((communities) => {
+          if (communities) {
+            this.commsHasContent = true;
+            // console.log("POSTS:")
+            this.communities = [];
+            const communityCount = communities;
+            const temp = communities;
+            temp.forEach((community) => {
+              this.communities.push(community);
+
+              if (
+                community.name
+                  .toLowerCase()
+                  .includes(this.keyword.toLowerCase())
+              ) {
+                communityCount.push(community);
+              }
+            });
+          }
+        });
     }
   }
 
-  
-  
+  async searchProfiles() {
+    const type = 'profiles';
 
-  searchProfiles() {
-
-     // console.log('searching profiles');
-    
-     if (!this.isProfilesFetched) {
-      this.isProfilesFetched = true;
+    if (type === 'profiles') {
       this.store.dispatch(new SearchProfiles(this.keyword));
+    } else {
+      return;
+    }
 
-      this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
-        if (profiles) {
-          
-          // console.log('profiles', profiles);
-          this.profiles = profiles;
+    if (!this.profilesIsFetched) {
+      this.profilesIsFetched = true;
+      this.searchProfiles$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((profiles) => {
+          if (profiles) {
+            this.profileHasContent = true;
+            // console.log("POSTS:")
+            this.profiles = [];
+            const profileCount = profiles;
+            const temp = profiles;
+            temp.forEach((profile) => {
+              this.profiles.push(profile);
 
-        }
-      });
+              if (
+                profile.name.toLowerCase().includes(this.keyword.toLowerCase())
+              ) {
+                profileCount.push(profile);
+              }
+            });
+          }
+        });
     }
   }
 
   //=========================================================================post things=========================================================================================
 
   async searchPosts() {
+    const type = 'profiles';
 
-    // console.log('searching profiles');
-    
-    if (!this.isPostsFetched) {
-      this.isPostsFetched = true;
+    if (type === 'profiles') {
       this.store.dispatch(new SearchPosts(this.keyword));
+    } else {
+      return;
+    }
 
-      this.searchPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-        if (posts) {
-          
-          // console.log('posts', posts);
-          this.posts = posts;
-
-        }
-      });
+    if (!this.postsIsFetched) {
+      this.postsIsFetched = true;
+      this.searchPosts$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((posts) => {
+          if (posts) {
+            this.postsHasContent = true;
+            // console.log("POSTS:")
+            this.posts = [];
+            const postsCount = posts;
+            const temp = posts;
+            temp.forEach((post) => {
+              this.posts.push(post);
+              postsCount.push(post);
+            });
+          }
+        });
     }
     await this.updatePosts();
   }
@@ -412,5 +470,23 @@ export class SearchExploreComponent {
 
   GoToComments(postId: string) {
     this.router.navigate(['home/app-comments-feature/' + postId]);
+  }
+
+  postsTab() {
+    this.postsExists = true;
+    this.commsExists = false;
+    this.profilesExists = false;
+  }
+
+  commsTab() {
+    this.postsExists = false;
+    this.commsExists = true;
+    this.profilesExists = false;
+  }
+
+  profilesTab() {
+    this.postsExists = false;
+    this.commsExists = false;
+    this.profilesExists = true;
   }
 }
