@@ -219,6 +219,7 @@
               community.members.includes(profile.username)
             "
           >
+          <div *ngIf="showPosts&&!showEvents">
             <div
               *ngFor="
                 let post of communityPosts?.slice()?.reverse();
@@ -241,31 +242,6 @@
                         <div class="Name" (click)="GoToProfile(post.username)">
                           @{{ post.username }}
                         </div>
-                      </div>
-                      <div style="display: flex; margin-right: 1.5%">
-                        <label
-                          class="report"
-                          *ngIf="reports[i]"
-                          (click)="ReportPost(i, post)"
-                          >Report Post</label
-                        >
-
-                        <label
-                          class="report"
-                          *ngIf="post.reported"
-                          style="color: red"
-                          >Post Reported.</label
-                        >
-
-                        <button
-                          class="Options"
-                          *ngIf="!post.reported"
-                          (click)="Report(i)"
-                        >
-                          <ion-icon
-                            name="ellipsis-horizontal-outline"
-                          ></ion-icon>
-                        </button>
                       </div>
                     </div>
 
@@ -379,6 +355,33 @@
                 </div>
               </ion-card>
             </div>
+          </div>
+          <div *ngIf="!showPosts&&showEvents" class="EventList">
+            <ion-card *ngFor="let event of events?.slice()?.reverse()" class="Event" (click)="goToEvent(event._id)">
+              <div class="EventHead">
+                <label class="EventName">{{event.name}}</label>
+                <label class="Host">Hosted by @{{event.host}}</label>
+              </div>
+              <div class="border"></div>
+              <div class="EventBody">
+                {{event.description}}
+              </div>
+              <div class="EventFooter">
+                <div class="EventDetails">
+                  <div
+                    *ngFor="let category of event.categories; let k = index"
+                    class="Eventtooltip"
+                  >
+                    <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  </div>
+                  <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
+                  <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
+                </div>
+                <ion-icon class="EventLock" name="lock-closed"></ion-icon>
+              </div>
+            </ion-card>
+           
+          </div>
           </div>
         </div>
       </ion-col>
@@ -900,26 +903,6 @@
                     @{{ post.username }}
                   </div>
                 </div>
-                <div style="display: flex; margin-right: 1.5%">
-                  <label
-                    class="report"
-                    *ngIf="reports[i]"
-                    (click)="ReportPost(i, post)"
-                    >Report Post</label
-                  >
-
-                  <label class="report" *ngIf="post.reported" style="color: red"
-                    >Post Reported.</label
-                  >
-
-                  <button
-                    class="Options"
-                    *ngIf="!post.reported"
-                    (click)="Report(i)"
-                  >
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                  </button>
-                </div>
               </div>
 
               <div class="GenreIcons">
@@ -1013,31 +996,6 @@
                         <div class="Name" (click)="GoToProfile(post.username)">
                           @{{ post.username }}
                         </div>
-                      </div>
-                      <div style="display: flex; margin-right: 1.5%">
-                        <label
-                          class="report"
-                          *ngIf="reports[i]"
-                          (click)="ReportPost(i, post)"
-                          >Report Post</label
-                        >
-
-                        <label
-                          class="report"
-                          *ngIf="post.reported"
-                          style="color: red"
-                          >Post Reported.</label
-                        >
-
-                        <button
-                          class="Options"
-                          *ngIf="!post.reported"
-                          (click)="Report(i)"
-                        >
-                          <ion-icon
-                            name="alert-circle-outline"
-                          ></ion-icon>
-                        </button>
                       </div>
                     </div>
 
