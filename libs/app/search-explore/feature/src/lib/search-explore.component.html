@@ -272,7 +272,7 @@
               <ion-grid>
                 <ion-row class="content-row">
                   <ion-col size="11">
-                    <div *ngFor="let community of communities.slice(0, 5)">
+                    <div *ngFor="let community of communities.slice(0, 3)">
                       <ion-card class="CommunityCard">
                         <div class="card-color">
                           <div class="CommunityHeader">
@@ -369,12 +369,12 @@
                               </div>
                               <span class="personDesc">{{ people?.bio }}</span>
                             </div>
-                            <ion-button slot="end" class="followButton"
+                            <!-- <ion-button slot="end" class="followButton"
                               >Follow</ion-button
                             >
                             <ion-button slot="end" class="followButton"
                               >Unfollow</ion-button
-                            >
+                            > -->
                           </ion-item>
                         </ion-list>
                         
@@ -483,7 +483,7 @@
           <!-- people -->
           <div>
             <div class="peopleSearch" *ngIf="profilesExists">
-              <ion-card class="peopleCard">
+              <ion-card class="peopleCard" *ngIf="profileHasContent">
                 <ion-list class="peopleList">
                   <ion-item class="peopleItem" *ngFor="let people of profiles">
                     <ion-avatar class="peopleAvatar">

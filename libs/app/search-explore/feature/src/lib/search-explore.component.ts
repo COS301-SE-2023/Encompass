@@ -124,9 +124,6 @@ export class SearchExploreComponent {
 
   clearSearch() {
     this.keyword = '';
-    this.communities = [];
-    this.profiles = [];
-    this.posts = [];
     this.postsIsFetched = false;
     this.communitiesIsFetched = false;
     this.profilesIsFetched = false;
@@ -139,13 +136,9 @@ export class SearchExploreComponent {
   }
 
   async searchCommunities() {
-    const type = 'communities';
 
-    if (type === 'communities') {
-      this.store.dispatch(new SearchCommunities(this.keyword));
-    } else {
-      return;
-    }
+    this.store.dispatch(new SearchCommunities(this.keyword));
+
 
     if (!this.communitiesIsFetched) {
       this.communitiesIsFetched = true;
@@ -173,16 +166,19 @@ export class SearchExploreComponent {
           }
         });
     }
+
+    this.searchCommunities$.subscribe((communities) => {
+      if (communities) {
+        if (this.communities.length <= 0) {
+          this.commsHasContent = false;
+        }
+      }
+    });
   }
 
   async searchProfiles() {
-    const type = 'profiles';
 
-    if (type === 'profiles') {
-      this.store.dispatch(new SearchProfiles(this.keyword));
-    } else {
-      return;
-    }
+    this.store.dispatch(new SearchProfiles(this.keyword));
 
     if (!this.profilesIsFetched) {
       this.profilesIsFetched = true;
@@ -207,37 +203,41 @@ export class SearchExploreComponent {
           }
         });
     }
+
+    this.searchProfiles$.subscribe((profiles) => {
+      if (profiles) {
+        if (this.profiles.length <= 0) {
+          this.profileHasContent = false;
+        }
+      }
+    });
   }
 
   //=========================================================================post things=========================================================================================
 
   async searchPosts() {
-    const type = 'profiles';
 
-    if (type === 'profiles') {
-      this.store.dispatch(new SearchPosts(this.keyword));
-    } else {
-      return;
-    }
+    this.store.dispatch(new SearchPosts(this.keyword));
 
-    if (!this.postsIsFetched) {
-      this.postsIsFetched = true;
-      this.searchPosts$
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((posts) => {
-          if (posts) {
-            this.postsHasContent = true;
-            // console.log("POSTS:")
-            this.posts = [];
-            const postsCount = posts;
-            const temp = posts;
-            temp.forEach((post) => {
-              this.posts.push(post);
-              postsCount.push(post);
-            });
-          }
-        });
-    }
+
+    // if (!this.postsIsFetched) {
+    //   this.postsIsFetched = true;
+    //   this.searchPosts$
+    //     .pipe(takeUntil(this.unsubscribe$))
+    //     .subscribe((posts) => {
+    //       if (posts) {
+    //         this.postsHasContent = true;
+    //         // console.log("POSTS:")
+    //         this.posts = [];
+    //         const postsCount = posts;
+    //         const temp = posts;
+    //         temp.forEach((post) => {
+    //           this.posts.push(post);
+    //           postsCount.push(post);
+    //         });
+    //       }
+    //     });
+    // }
     await this.updatePosts();
   }
 
@@ -251,7 +251,7 @@ export class SearchExploreComponent {
             return true;
           }
         });
-
+        
         this.posts = temp;
 
         this.size = this.posts.length - 1;
@@ -282,6 +282,10 @@ export class SearchExploreComponent {
               this.likedComments[i] = true;
             }
           }
+        }
+
+        if (this.posts.length <= 0) {
+          this.postsHasContent = false;
         }
       }
     });
