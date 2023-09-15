@@ -493,4 +493,26 @@ export class SearchExploreComponent {
     this.commsExists = false;
     this.profilesExists = true;
   }
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+
+    this.store.dispatch(new SubscribeToProfile());
+
+    this.profile$.subscribe((profile) => {
+      if (profile) {
+        console.log('Profile CALLED');
+        console.log(profile);
+        this.profile = profile;
+      }
+    });
+  
+  }
 }
