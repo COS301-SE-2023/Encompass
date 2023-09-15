@@ -25,7 +25,7 @@ export class EventFactory implements EntityFactory<Event>{
     prompt: string[] | null,
     categories: string[] | null,
     numberOfQuestions: number,
-    quizDescription: string,
+    quizDescription: string[],
   ) : Promise<Event>{
     
     const questions = await this.getQuestions(quizDescription, numberOfQuestions);
@@ -49,7 +49,7 @@ export class EventFactory implements EntityFactory<Event>{
     return event;
   }
 
-  async getQuestions(topic:string, numberOfQuestions: number){
+  async getQuestions(topic:string[], numberOfQuestions: number){
     const questions = await this.questionsGenerator.getQuestions(topic, numberOfQuestions);
     return questions.splice(0, numberOfQuestions);
   }

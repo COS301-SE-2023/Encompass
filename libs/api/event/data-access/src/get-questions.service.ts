@@ -106,7 +106,7 @@ export class GetQuestions {
   }
 
   async getQuestions(
-    topic: string,
+    topic: string[],
     numQuestions: number
   ): Promise<
     {
@@ -149,7 +149,7 @@ export class GetQuestions {
   }
 
   async generateQuestions(
-    topic: string,
+    topic: string[],
     numQuestions: number
   ): Promise<string> {
     const apiKey = process.env['OPENAI_API_KEY'];
