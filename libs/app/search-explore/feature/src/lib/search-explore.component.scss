@@ -1,3 +1,6 @@
+// Import FontAwesome styles
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
 ion-card {
   background-color: var(--card-color);
   border-radius: 15px;
@@ -9,7 +12,7 @@ ion-card {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  z-index: 1;
+  // z-index: 1;
   // background-color: var(--ion-color-background);
   color: var(--ion-color-text);
   background-repeat: no-repeat;
@@ -21,13 +24,22 @@ ion-card {
   --background: var(--ion-color-secondary);
   height: 140px;
   display: flex;
+  position: sticky;
 }
 
 .toolbar-content {
-  flex: 1;
   display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+  flex-direction: column; 
+  align-items: center; 
+  // text-align: center;
+  margin-top: 20px;
+}
+
+.searchButtons {
+  margin-top: 10px; 
+  display: flex;
+  justify-content: space-evenly;
+  gap: 100%;
 }
 
 .row-filter {
@@ -80,7 +92,7 @@ ion-card {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  z-index: 1;
+  // z-index: 1;
   margin-top: 10px;
 }
 
@@ -756,7 +768,7 @@ ion-button:hover {
 
   /* Position the tooltip */
   position: absolute;
-  z-index: 1;
+  // z-index: 1;
   top: 100%;
   left: 50%;
   margin-left: -20px;
@@ -767,88 +779,201 @@ ion-button:hover {
 }
 
 //related communities
-.categoryImages {
-  width: 30px;
-  height: 30px;
-  object-fit: fill;
-}
 
-.CommunityGenres {
-  display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.CommunityIcon {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.CommunityHeader {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 30px;
-}
-
-.card-color {
-  padding-top: 20px;
-  background-color: var(--card-color-contrast);
-  // display: grid;
-  // place-items: center;
-  height: inherit;
-  height: 180px;
+.headtext {
+  color: #000;
 }
 
 .CommunityCard {
+  left: 2.5%;
   width: 100%;
-  margin-left: 20px;
-  height: 180px;
+  border-radius: 15px;
 }
 
-.CommunityName {
-  font-family: CustomFont;
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--ion-color-primary-contrast);
-  margin-bottom: 10px;
+.RecomHeader {
+  width: 150%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.CommunityMembers {
-  font-family: CustomFont;
-  font-size: 15px;
+.arrow {
+  pointer-events: none;
+}
+
+ion-button:hover {
+  --border-radius: 50px;
+}
+
+//community
+
+.CommunityHeader {
+  display: flex;
+  justify-content: left;
+  gap: 15px;
+  height: 50%;
+  width: 100%;
+}
+
+.CommunityIcon {
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  border-radius: 15px;
+}
+
+.CommunityIcon:hover {
+  cursor: pointer;
 }
 
 .CommunityDetails {
   display: flex;
+  height: 100%;
+  width: 50%;
   flex-direction: column;
-  justify-content: space-evenly;
-  gap: 10px;
-  width: 40%;
-  // margin-left: 40px;
+  margin-top: 10px;
+}
+
+.CommunityName {
+  display: flex;
+  height: 50%;
+  width: 100%;
+  color: #000;
+  font-family: CustomFont;
+  font-size: 20px;
+}
+
+.CommunityName:hover {
+  cursor: pointer;
+}
+
+.CommunityMembers {
+  display: flex;
+  height: 50%;
+  width: 100%;
+  color: #000;
+  font-family: CustomFont;
+}
+
+.CommunityMembers:hover {
+  cursor: pointer;
+}
+.CommunityGenres {
+  display: flex;
+  justify-content: space-between;
+  height: 50%;
+  width: 50%;
+  color: #000;
+  font-family: CustomFont;
+  margin-top: 10px;
+}
+
+.CommunityAdd {
+  margin-top: 10px;
 }
 
 .CommunityBody {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 10px 30px 10px 30px;
+  font-family: CustomFont2;
+  color: #000;
+  margin-top: 15px;
+  margin-left: 20px;
+  height: 50%;
+  width: 80%;
 }
 
 .CommunityDesc {
+  display: flex;
   font-family: CustomFont2;
-  font-size: 15px;
-  color: black;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  height: 90%;
+  width: 95%;
 }
 
+.card-color {
+  background-color: var(--card-color-contrast);
+  height: 100%;
+  padding-bottom: 15px;
+}
+
+.FollowPerson {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10px;
+  
+}
+
+// Button styles
+.cta {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.icon {
+  transition: all 0.3s ease;
+}
+
+.fa-plus-circle {
+  font-size: 25px;
+  color: var(--ion-color-primary); // Blue color for the "add" icon
+}
+
+.fa-user-plus {
+  font-size: 20px;
+  color: var(--ion-color-primary); // Blue color for the "add" icon
+}
+
+.fa-check {
+  font-size: 23px;
+  color: var(--ion-color-warning); // Green color for the "check" icon
+}
+
+.fa-user-check {
+  font-size: 20px;
+  color: var(--ion-color-warning); // Green color for the "check" icon
+}
+
+.larger-icons {
+  .fa-plus-circle {
+    font-size: 35px;
+    color: var(--ion-color-primary); // Blue color for the "add" icon
+  }
+  
+  .fa-user-plus {
+    font-size: 25px;
+    color: var(--ion-color-primary); // Blue color for the "add" icon
+  }
+  
+  .fa-check {
+    font-size: 33px;
+    color: var(--ion-color-warning); // Green color for the "check" icon
+  }
+  
+  .fa-user-check {
+    font-size: 25px;
+    color: var(--ion-color-warning); // Green color for the "check" icon
+  }
+
+  .FollowPerson {
+    margin-right: 30px;
+    margin-top: 30px;
+  }
+}
+
+
+// Button animation on click
+.cta.clicked {
+  transform: scale(1.1);
+}
+
+.icon.clicked {
+  transform: rotate(45deg);
+}
 //search communities
 .SearchCommunityCard {
   // left: 2.5%;
@@ -875,13 +1000,7 @@ ion-button:hover {
   border-radius: 5px;
 }
 
-.SearchCommunityDetails {
-  display: flex;
-  height: 100%;
-  width: 50%;
-  // flex-direction: column;
-  margin-top: 10px;
-}
+
 
 .nameAndMembers {
   display: flex;
@@ -910,30 +1029,22 @@ ion-button:hover {
   color: rgb(87, 87, 87);
   font-family: CustomFont;
   font-size: 20px;
-  margin-top: 20px;
+  // margin-top: 20px;
 }
 
 .SearchCommunityGenres {
   display: flex;
-  // justify-content: center;
-  // align-items: center;
-  justify-content: right;
-  height: 50%;
-  width: 50%;
+  justify-content: center;
   color: black;
   font-family: CustomFont;
-  margin-top: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 250px;
+  margin-top: 20px;
   gap: 50px;
 }
 
-.SearchCommunityAdd {
-  display: flex;
-  // justify-content: center;
-  // align-items: center;
-  margin-top: 10px;
-  height: 70%;
-  width: 8%;
-}
 
 .SearchCommunityBody {
   // display: flex;
@@ -941,51 +1052,15 @@ ion-button:hover {
   // align-items: center;
   font-family: CustomFont2;
   color: black;
-  margin: 10px 30px 30px 30px;
-  margin-top: 30px;
+  margin: 50px 30px 10px 30px;
   height: 50%;
   width: 100%;
 }
 
 .SearchCommunityDesc {
-  display: flex;
-
   font-family: CustomFont2;
   color: black;
-  height: 90%;
-  width: 95%;
   font-size: 18px;
-}
-
-.cta {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 10px;
-}
-
-.icon {
-  transition: all 0.3s ease;
-}
-
-.fa-plus-circle {
-  font-size: 30px;
-  color: var(--ion-color-primary); // Blue color for the "add" icon
-}
-
-.fa-check {
-  font-size: 26px;
-  color: var(--ion-color-warning); // Green color for the "check" icon
-}
-
-// Button animation on click
-.cta.clicked {
-  transform: scale(1.1);
-}
-
-.icon.clicked {
-  transform: rotate(45deg);
 }
 
 .SearchimgDiv {
@@ -998,16 +1073,16 @@ ion-button:hover {
 
 .peopleCard {
   width: 100%;
-
+  
   margin-left: 20px;
 }
 
 .peopleList {
-  background-color: var(--card-color);
+  background-color: var(--card-color-contrast);
 }
 
 .peopleItem {
-  --background: var(--card-color);
+  --background: var(--card-color-contrast);
   // display: flex;
 }
 
@@ -1026,6 +1101,8 @@ ion-button:hover {
 
 .nameAndUsername {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   font-size: 18px;
 }
 
@@ -1034,7 +1111,6 @@ ion-button:hover {
 }
 
 .personUsername {
-  margin-left: 8px; /* Adjust the spacing between name and username */
   color: gray;
 }
 

@@ -59,7 +59,7 @@ export class SearchExploreComponent {
   private unsubscribe$: Subject<void> = new Subject<void>();
   // myCommunities!: CommunityDto[] | null;
 
-  profile!: ProfileDto | null;
+  profile!: ProfileDto;
   // posts: PostDto[] = [];
   // relatedCommunities: string[] = [];
   // communities!: CommunityDto[];
@@ -95,6 +95,9 @@ export class SearchExploreComponent {
   profileHasContent: boolean | undefined;
   commsHasContent: boolean | undefined;
   postsHasContent: boolean | undefined;
+  showMoreCommunities = false;
+  showMoreProfiles = false;
+  noSearch = true;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -111,6 +114,7 @@ export class SearchExploreComponent {
     this.keyword = event.detail.value;
     console.log(this.keyword);
     this.postsTab();
+    this.noSearch = false;
     if (this.keyword == '') {
       this.clearSearch();
       return;
@@ -120,6 +124,7 @@ export class SearchExploreComponent {
       this.searchProfiles();
       this.searchPosts();
     }
+
   }
 
   clearSearch() {
@@ -133,6 +138,7 @@ export class SearchExploreComponent {
     this.postsExists = false;
     this.commsExists = false;
     this.profilesExists = false;
+    this.noSearch = true;
   }
 
   async searchCommunities() {
@@ -169,8 +175,12 @@ export class SearchExploreComponent {
 
     this.searchCommunities$.subscribe((communities) => {
       if (communities) {
+        console.log("commlengths:" + this.communities.length);
         if (this.communities.length <= 0) {
           this.commsHasContent = false;
+        }
+        if (this.communities.length >= 4){
+          this.showMoreCommunities = true;
         }
       }
     });
@@ -209,6 +219,9 @@ export class SearchExploreComponent {
         if (this.profiles.length <= 0) {
           this.profileHasContent = false;
         }
+        if  (this.profiles.length >= 6){
+          this.showMoreProfiles = true;
+        }
       }
     });
   }
@@ -218,7 +231,7 @@ export class SearchExploreComponent {
   async searchPosts() {
 
     this.store.dispatch(new SearchPosts(this.keyword));
-
+    this.postsHasContent = true;
 
     // if (!this.postsIsFetched) {
     //   this.postsIsFetched = true;
@@ -245,6 +258,7 @@ export class SearchExploreComponent {
     this.searchPosts$.subscribe((posts) => {
       if (posts) {
         const temp = posts.filter((post) => {
+          
           if (post.isPrivate) {
             return this.profile?.communities.includes(post.community);
           } else {
@@ -514,5 +528,38 @@ export class SearchExploreComponent {
       }
     });
   
+  }
+
+  buttonStates: { [key: string]: boolean } = {};
+
+  handleButtonClick(buttonId: string, communityName: string) {
+    // Toggle the state of the button
+    this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+    // Implement your logic here (e.g., adding or removing the community)
+    if (this.buttonStates[buttonId]) {
+      // Community is added
+      console.log(`Added ${communityName}`);
+    } else {
+      // Community is removed
+      console.log(`Removed ${communityName}`);
+    }
+  }
+
+  buttonStatesPeople: { [key: string]: boolean } = {};
+
+  // Function to handle following/unfollowing a person
+  handleFollowButtonClick(buttonId: string, username: string) {
+    // Toggle the state of the button
+    this.buttonStatesPeople[buttonId] = !this.buttonStatesPeople[buttonId];
+
+    // Implement your logic here for following/unfollowing the person
+    if (this.buttonStatesPeople[buttonId]) {
+      // Person is followed
+      console.log(`You are now following ${username}`);
+    } else {
+      // Person is unfollowed
+      console.log(`You have unfollowed ${username}`);
+    }
   }
 }
