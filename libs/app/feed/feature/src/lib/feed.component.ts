@@ -114,6 +114,7 @@ export class FeedPage {
   settingsIsFetched = false;
   ShowBooks = true;
   ShowMovies = true;
+  showPodcasts = true;
   mobileview = false;
 
   type = 'recommended';
@@ -1321,11 +1322,13 @@ export class FeedPage {
     const all = document.getElementById('all');
     const books = document.getElementById('books');
     const movies = document.getElementById('movies');
+    const podcasts = document.getElementById('podcasts');
     // const series = document.getElementById('series');
-    if (all && books && movies) {
+    if (all && books && movies && podcasts) {
       if (btnname == 'all') {
         this.ShowMovies = true;
         this.ShowBooks = true;
+        this.showPodcasts = true;
         all.classList.add('active-select');
         books.classList.remove('active-select');
         movies.classList.remove('active-select');
@@ -1333,6 +1336,7 @@ export class FeedPage {
       } else if (btnname == 'books') {
         this.ShowMovies = false;
         this.ShowBooks = true;
+        this.showPodcasts = false;
         all.classList.remove('active-select');
         books.classList.add('active-select');
         movies.classList.remove('active-select');
@@ -1340,15 +1344,19 @@ export class FeedPage {
       } else if (btnname == 'movies') {
         this.ShowMovies = true;
         this.ShowBooks = false;
+        this.showPodcasts = false;
         all.classList.remove('active-select');
         books.classList.remove('active-select');
         movies.classList.add('active-select');
         // series.classList.remove('active-select');
-      } else if (btnname == 'series') {
+      } else if (btnname == 'podcasts') {
+        this.ShowMovies = false;
+        this.ShowBooks = false;
+        this.showPodcasts = true;
         all.classList.remove('active-select');
         books.classList.remove('active-select');
         movies.classList.remove('active-select');
-        // series.classList.add('active-select');
+        podcasts.classList.add('active-select');
       }
     }
   }

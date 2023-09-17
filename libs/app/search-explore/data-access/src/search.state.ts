@@ -23,14 +23,6 @@ export interface SearchModel {
   };
 }
 
-export interface GetAllCommunitiesModel {
-  GetAllCommunitiesForm: {
-    model: {
-      communities: CommunityDto[] | null | undefined;
-    };
-  };
-}
-
 export interface SearchProfilesModel {
   SearchProfilesForm: {
     model: {
@@ -55,16 +47,6 @@ export interface getAllProfilesModel {
   };
 }
 
-@State<getAllProfilesModel>({
-  name: 'getAllProfiles',
-  defaults: {
-    GetAllProfilesForm: {
-      model: {
-        profiles: null,
-      },
-    },
-  },
-})
 @State<SearchModel>({
   name: 'searchPostsByCategory',
   defaults: {
@@ -105,54 +87,12 @@ export interface getAllProfilesModel {
     },
   },
 })
-@State<GetAllCommunitiesModel>({
-  name: 'getAllCommunities',
-  defaults: {
-    GetAllCommunitiesForm: {
-      model: {
-        communities: null,
-      },
-    },
-  },
-})
+
 @Injectable()
 export class SearchState {
   constructor(private searchApi: SearchApi) {}
 
-  @Action(GetAllProfiles)
-  async getAllProfiles(ctx: StateContext<getAllProfilesModel>) {
-    const response = await this.searchApi.getAllProfiles();
-
-    if (response == null || response == undefined) {
-      return;
-    }
-
-    ctx.setState({
-      GetAllProfilesForm: {
-        model: {
-          profiles: response,
-        },
-      },
-    });
-  }
-
-  @Action(GetAllCommunities)
-  async getAllCommunities(ctx: StateContext<GetAllCommunitiesModel>) {
-    const response = await this.searchApi.getAllCommunities();
-
-    if (response == null || response == undefined) {
-      return;
-    }
-
-    ctx.setState({
-      GetAllCommunitiesForm: {
-        model: {
-          communities: response,
-        },
-      },
-    });
-  }
-
+  
   @Action(SearchPosts)
   async searchPosts(ctx: StateContext<SearchModel>, { keyword }: SearchPosts) {
     const response = await this.searchApi.getPostsByKeyword(keyword);
@@ -248,16 +188,6 @@ export class SearchState {
     }
   }
 
-
-  @Selector()
-  static getAllProfiles(state: getAllProfilesModel) {
-    return state.GetAllProfilesForm.model.profiles;
-  }
-
-  @Selector()
-  static getAllCommunities(state: GetAllCommunitiesModel) {
-    return state.GetAllCommunitiesForm.model.communities;
-  }
 
   @Selector()
   static searchPosts(state: SearchModel) {

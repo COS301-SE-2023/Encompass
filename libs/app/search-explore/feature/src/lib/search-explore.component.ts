@@ -47,12 +47,6 @@ export class SearchExploreComponent {
   @Select(SearchState.searchCommunities) searchCommunities$!: Observable<
     CommunityDto[] | null
   >; //get communities by keyword
-  @Select(SearchState.getAllCommunities) allCommunities$!: Observable<
-    CommunityDto[] | null
-  >; //get all communities
-  @Select(SearchState.getAllProfiles) allProfiles$!: Observable<
-    ProfileDto[] | null
-  >; //get all profiles
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   // myCommunities!: CommunityDto[] | null;
@@ -106,7 +100,55 @@ export class SearchExploreComponent {
     private searchApi: SearchApi,
     private toastController: ToastController,
     private homeApi: HomeApi
-  ) {}
+  ) {
+
+    this.searchCommunities$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((communities) => {
+          if (communities) {
+            this.commsHasContent = true;
+            // console.log("POSTS:")
+            this.communities = [];
+            const communityCount = communities;
+            const temp = communities;
+            temp.forEach((community) => {
+              this.communities.push(community);
+
+              if (
+                community.name
+                  .toLowerCase()
+                  .includes(this.keyword.toLowerCase())
+              ) {
+                communityCount.push(community);
+              }
+            });
+          }
+        });
+
+        if (!this.profilesIsFetched) {
+          this.profilesIsFetched = true;
+          this.searchProfiles$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((profiles) => {
+              if (profiles) {
+                this.profileHasContent = true;
+                // console.log("POSTS:")
+                this.profiles = [];
+                const profileCount = profiles;
+                const temp = profiles;
+                temp.forEach((profile) => {
+                  this.profiles.push(profile);
+    
+                  if (
+                    profile.name.toLowerCase().includes(this.keyword.toLowerCase())
+                  ) {
+                    profileCount.push(profile);
+                  }
+                });
+              }
+            });
+        }
+  }
 
   async search(event: any) {
     this.keyword = event.detail.value;
@@ -137,6 +179,9 @@ export class SearchExploreComponent {
     this.commsExists = false;
     this.profilesExists = false;
     this.noSearch = true;
+    this.communities = [];
+    this.profiles = [];
+    this.posts = [];
   }
 
   async searchCommunities() {
@@ -147,28 +192,7 @@ export class SearchExploreComponent {
     if (!this.communitiesIsFetched) {
       this.communitiesIsFetched = true;
 
-      this.searchCommunities$
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((communities) => {
-          if (communities) {
-            this.commsHasContent = true;
-            // console.log("POSTS:")
-            this.communities = [];
-            const communityCount = communities;
-            const temp = communities;
-            temp.forEach((community) => {
-              this.communities.push(community);
-
-              if (
-                community.name
-                  .toLowerCase()
-                  .includes(this.keyword.toLowerCase())
-              ) {
-                communityCount.push(community);
-              }
-            });
-          }
-        });
+      
     }
 
     this.searchCommunities$.subscribe((communities) => {
@@ -188,29 +212,7 @@ export class SearchExploreComponent {
 
     this.store.dispatch(new SearchProfiles(this.keyword));
 
-    if (!this.profilesIsFetched) {
-      this.profilesIsFetched = true;
-      this.searchProfiles$
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((profiles) => {
-          if (profiles) {
-            this.profileHasContent = true;
-            // console.log("POSTS:")
-            this.profiles = [];
-            const profileCount = profiles;
-            const temp = profiles;
-            temp.forEach((profile) => {
-              this.profiles.push(profile);
-
-              if (
-                profile.name.toLowerCase().includes(this.keyword.toLowerCase())
-              ) {
-                profileCount.push(profile);
-              }
-            });
-          }
-        });
-    }
+    
 
     this.searchProfiles$.subscribe((profiles) => {
       if (profiles) {

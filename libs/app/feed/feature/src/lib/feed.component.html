@@ -1171,6 +1171,14 @@
                 >Books</ion-button
               >
 
+              <ion-button
+                id="podcasts"
+                fill="clear"
+                class="select"
+                (click)="changeFilter('podcasts')"
+                >Books</ion-button
+              >
+
               <!-- <ion-button fill="clear" class="select" (click)="changeFilter('all')>Series</ion-button> -->
             </div>
 
@@ -1276,6 +1284,83 @@
                   </div>
                 </div>
               </div>
+
+              <div class="media-item" *ngIf="movies && ShowMovies">
+                <div class="imges">
+                  <img
+                    src="{{ movies[0].Poster_Url }}"
+                    class="MediaImage"
+                    onerror="this.src='assets/icon/Movies.png';"
+                  />
+                </div>
+                <div class="media-info">
+                  <div class="MediaTitle">{{ MovieTitle1.slice(0, 45) }}</div>
+                  <div class="MediaGenres">
+                    <div
+                      *ngFor="let category of myMovieGenres1; let k = index"
+                      class="tooltip"
+                    >
+                      <img
+                        src="assets/icon/{{ category }}.png"
+                        class="imgDiv"
+                      />
+                      <span class="tooltiptext">{{ category }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- ===========================podcats=============================== -->
+              <!-- <div class="media-item" *ngIf="podcasts && showPodcasts">
+                <div class="imges">
+                  <img
+                    src="{{ podcasts[0].Poster_Url }}"
+                    class="MediaImage"
+                    onerror="this.src='assets/icon/Movies.png';"
+                  />
+                </div>
+                <div class="media-info">
+                  <div class="MediaTitle">{{ PodcastTitle1.slice(0, 45) }}</div>
+                  <div class="MediaGenres">
+                    <div
+                      *ngFor="let category of myPodcastGenres1; let k = index"
+                      class="tooltip"
+                    >
+                      <img
+                        src="assets/icon/{{ category }}.png"
+                        class="imgDiv"
+                      />
+                      <span class="tooltiptext">{{ category }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="media-item" *ngIf="podcasts && showPodcasts">
+                <div class="imges">
+                  <img
+                    src="{{ podcasts[0].Poster_Url }}"
+                    class="MediaImage"
+                    onerror="this.src='assets/icon/Movies.png';"
+                  />
+                </div>
+                <div class="media-info">
+                  <div class="MediaTitle">{{ PodcastTitle1.slice(0, 45) }}</div>
+                  <div class="MediaGenres">
+                    <div
+                      *ngFor="let category of myPodcastGenres1; let k = index"
+                      class="tooltip"
+                    >
+                      <img
+                        src="assets/icon/{{ category }}.png"
+                        class="imgDiv"
+                      />
+                      <span class="tooltiptext">{{ category }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
             </div>
           </div>
         </ion-card>
