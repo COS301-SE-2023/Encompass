@@ -9,10 +9,11 @@ import {
   GetRecommendedCommunities,
   GetRecommendedBooks,
   GetRecommendedMovies,
+  UpdateCommunity,
 } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { ProfileDto } from '@encompass/api/profile/data-access';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { ProfileDto, UpdateProfileRequest } from '@encompass/api/profile/data-access';
+import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CreatePostComponent } from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -23,7 +24,7 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
-import { CommunityDto } from '@encompass/api/community/data-access';
+import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { MovieDto, PodcastDto } from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
@@ -1303,6 +1304,8 @@ segmentChanged(event: any) {
 
   handleButtonClick(buttonId: string, CommunityName: string) {
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+    this.joinCommunity(CommunityName);
   }
 
   activebutton = 'all';
@@ -1341,6 +1344,56 @@ segmentChanged(event: any) {
         movies.classList.remove('active-select');
         // series.classList.add('active-select');
       }
+    }
+  }
+
+  joinCommunity(communityName: string) {
+    if(this.profile === null){
+      return;
+    }
+
+    const data: UpdateProfileRequest = {
+      username: this.profile.username,
+      name: this.profile.name,
+      lastName: this.profile.lastName,
+      categories: this.profile.categories,
+      communities: [...this.profile.communities, communityName],
+      awards: this.profile.awards,
+      events: this.profile.events,
+      followers: this.profile.followers,
+      following: this.profile.following,
+      posts: this.profile.posts,
+      reviews: this.profile.reviews,
+      profileImage: this.profile.profileImage,
+      profileBanner: this.profile.profileBanner,
+      bio: this.profile.bio,
+    };
+
+    this.store.dispatch(new UpdateProfile(data, this.profile._id));
+
+    const community = this.myCommunities?.find((comm) => comm.name === communityName);
+
+    if(community){
+      const members = [...community.members, this.profile.username];
+      const newEP = community.communityEP + this.profile.ep;
+
+      const data2: UpdateCommunityRequest = {
+        name: community.name,
+        type: community.type,
+        admin: community.admin,
+        about: community.about,
+        rules: community.rules,
+        groupImage: community.groupImage,
+        bannerImage: community.bannerImage,
+        categories: community.categories,
+        events: community.events,
+        posts: community.posts,
+        members: members,
+        ageRestricted: community.ageRestricted,
+        communityEP: newEP,
+      };
+
+      this.store.dispatch(new UpdateCommunity(community._id, data2));
     }
   }
 

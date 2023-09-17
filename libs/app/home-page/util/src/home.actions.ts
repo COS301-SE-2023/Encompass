@@ -1,3 +1,4 @@
+import { UpdateCommunityRequest } from "@encompass/api/community/data-access";
 import { AddNotificationRequest } from "@encompass/api/notifications/data-access";
 import { UpdatePostRequest } from "@encompass/api/post/data-access";
 
@@ -67,4 +68,9 @@ export class GetRecommendedBooks{
 export class GetRecommendedPodcasts{
   static readonly type = '[Home] Get Recommended Podcasts';
   constructor(public readonly userId: string){}
+}
+
+export class UpdateCommunity{
+  static readonly type = '[Community] Update Community';
+  constructor(public communityId: string, public updateCommunityRequest: UpdateCommunityRequest){}
 }
