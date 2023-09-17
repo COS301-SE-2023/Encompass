@@ -672,7 +672,7 @@ ion-button:hover {
 
 .filter-content {
   margin-top: 5px;
-  background-color: var(--ion-color-background-menu);
+  background-color: var(--card-color-contrast);
   box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.411);
   width: 91%;
   margin-left: 4.5%;
@@ -686,9 +686,9 @@ ion-button:hover {
 
 .select {
   --border-radius: 25px;
-  color: var(--ion-color-primary);
+  color: var(--ion-color-secondary);
   --background: none;
-  border: 1px solid var(--ion-color-primary);
+  border: 1px solid var(--ion-color-secondary);
   border-radius: 25px;
   font-family: CustomFont;
   font-size: larger;
@@ -696,8 +696,8 @@ ion-button:hover {
 
 .active-select {
   border-radius: 25px;
-  border: 1px solid var(--ion-color-warning);
-  color: var(--ion-color-warning);
+  border: 1px solid var(--ion-color-primary);
+  color: var(--ion-color-primary);
   font-family: CustomFont;
   font-size: larger;
 }
