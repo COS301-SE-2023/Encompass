@@ -47,8 +47,6 @@ export class SearchExploreComponent {
   @Select(SearchState.searchCommunities) searchCommunities$!: Observable<
     CommunityDto[] | null
   >; //get communities by keyword
-  @Select(SearchState.searchPostsByCategory)
-  searchPostsByCategory$!: Observable<PostDto[] | null>; //get posts by category
   @Select(SearchState.getAllCommunities) allCommunities$!: Observable<
     CommunityDto[] | null
   >; //get all communities

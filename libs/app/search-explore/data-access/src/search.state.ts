@@ -9,14 +9,11 @@ import {
   GetAllProfiles,
   SearchCommunities,
   SearchPosts,
-  SearchPostsByCategory,
   SearchProfiles,
 } from '@encompass/app/search-explore/util';
 import {
   UpdatePost,
 } from '@encompass/app/search-explore/util';
-import { Get } from '@nestjs/common';
-import { GetAccount } from '@encompass/app/settings/util';
 
 export interface SearchModel {
   SearchPostsForm: {
@@ -173,26 +170,6 @@ export class SearchState {
     });
   }
 
-  @Action(SearchPostsByCategory)
-  async searchPostsByCategory(
-    ctx: StateContext<SearchModel>,
-    { category }: SearchPostsByCategory
-  ) {
-    const response = await this.searchApi.getPostsByCategory(category);
-
-    if (response == null || response == undefined) {
-      return;
-    }
-
-    ctx.setState({
-      SearchPostsForm: {
-        model: {
-          posts: response,
-        },
-      },
-    });
-  }
-
   @Action(SearchProfiles)
   async searchProfiles(
     ctx: StateContext<SearchProfilesModel>,
@@ -280,11 +257,6 @@ export class SearchState {
   @Selector()
   static getAllCommunities(state: GetAllCommunitiesModel) {
     return state.GetAllCommunitiesForm.model.communities;
-  }
-
-  @Selector()
-  static searchPostsByCategory(state: SearchModel) {
-    return state.SearchPostsForm.model.posts;
   }
 
   @Selector()
