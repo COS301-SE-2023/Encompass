@@ -19,15 +19,6 @@ export class SearchApi {
         }
     }
 
-    async getPostsByCategory(category: string){
-        try{
-            return await this.http.get<PostDto[]>('/api/post/get-posts-by-category/' + category).toPromise();
-        } catch(error){
-            console.log(error);
-            return null;
-        }
-    }
-
     async getProfilesByKeyword(keyword: string){
         try{
             return await this.http.get<ProfileDto[]>('/api/profile/get-users-by-keyword/' + keyword).toPromise();
