@@ -52,7 +52,7 @@
               class="full"
               fill="clear"
               id="popover-button"
-              (click)="toggleSearch()"
+              (click)="goToExplore()"
             >
               <ion-icon
                 name="search"
@@ -64,12 +64,12 @@
           </div>
 
           <div class="MenuButton">
-            <ion-button fill="clear" (click)="goToExplore()">
+            <ion-button fill="clear" (click)="goToEvent()">
               <ion-icon
                 name="rocket"
                 style="font-size: larger; position: relative"
               ></ion-icon>
-              <span>Explore</span>
+              <span>Events</span>
             </ion-button>
           </div>
 
@@ -243,83 +243,6 @@
       </div>
     </div>
 
-    <div
-      class="search-card custom-list"
-      *ngIf="showSearch && !mobileview"
-      id="search-card"
-    >
-      <div class="search-header search-text">Search</div>
-      <ion-searchbar
-        placeholder="Search"
-        (ionChange)="search($event)"
-      ></ion-searchbar>
-
-      <ion-content class="custom-list">
-        <div class="custom-background">
-          <!-- people -->
-          <div>
-            <div class="peopleSearch" *ngIf="peopleExists">
-              <ion-list class="custom-list list-item">
-                <ion-item
-                  class="peopleItem"
-                  *ngFor="let people of searchprofiles"
-                  color="var(--ion-color-background)"
-                  (click)="GoToProfile(people.username)"
-                >
-                  <div class="search-item" id="search-person">
-                    <ion-avatar class="peopleAvatar" slot="start">
-                      <img
-                        src="{{ people?.profileImage }}"
-                        onerror="this.src='assets/icon/Profile.png';"
-                        class="peopleIcon"
-                      />
-                    </ion-avatar>
-                  </div>
-                  <ion-label>
-                    <div class="search-title">
-                      <span class="personName bold-text"
-                        >{{ people?.name }} {{ people?.lastName }}</span
-                      >
-                      <span class="personUsername"
-                        >@{{ people?.username }}</span
-                      >
-                    </div>
-                    <p class="personDesc">{{ people?.bio }}</p>
-                  </ion-label>
-                  <ion-button fill="clear" slot="end" class="followButton"
-                    ><ion-icon name="person-add"></ion-icon
-                  ></ion-button>
-                  <ion-button
-                    fill="clear"
-                    *ngIf=""
-                    slot="end"
-                    class="followButton"
-                    ><ion-icon name="person-remove"></ion-icon
-                  ></ion-button>
-                </ion-item>
-              </ion-list>
-            </div>
-            <div class="tempNoResult" *ngIf="!peopleExists">
-              <span>No Search Results</span>
-            </div>
-          </div>
-        </div>
-
-        <ion-footer class="search-footer">
-          <ion-toolbar class="search-toolbar">
-            <div class="footer-text">
-              <ion-icon name="search"></ion-icon>
-              <div>
-                <span
-                  >Search for
-                  <a href="/home/search-explore">"{{ keyword }}"</a></span
-                >
-              </div>
-            </div>
-          </ion-toolbar>
-        </ion-footer>
-      </ion-content>
-    </div>
 
     <!-- ========================================================================================================================================================== -->
 
@@ -402,21 +325,7 @@
 
         <div class="optionalbuttons">
           <div class="MenuButton top-button">
-            <ion-button
-              class="full"
-              fill="clear"
-              id="popover-button"
-              (click)="toggleSearch()"
-            >
-              <ion-icon
-                name="megaphone-outline"
-                style="font-size: 28px; position: relative; margin-right: 10px"
-              ></ion-icon>
-              <span>Events</span>
-            </ion-button>
-          </div>
-
-          <div class="MenuButton">
+            
             <ion-button fill="clear" (click)="goToThemes()">
               <ion-icon
                 name="color-palette-outline"
@@ -462,7 +371,7 @@
             <ion-button
               fill="clear"
               id="popover-button"
-              (click)="toggleSearch()"
+              (click)="goToExplore()"
             >
               <ion-icon
                 name="search"
@@ -519,7 +428,7 @@
             <ion-segment-button value="homeButton" (click)="goHome()">
               <ion-icon name="home"></ion-icon>
             </ion-segment-button>
-            <ion-segment-button value="searchButton" (click)="goToExplore()">
+            <ion-segment-button value="searchButton" (click)="goToEvent()">
               <ion-icon name="rocket"></ion-icon>
             </ion-segment-button>
 
@@ -597,84 +506,5 @@
   </div>
 </div>
 
-<div
-  class="search-card-mobile custom-list"
-  *ngIf="showSearch && mobileview"
-  id="search-card"
->
-  <div class="search-header search-text">
-    Search
 
-    <ion-button
-      fill="clear"
-      class="closeBtn search-text"
-      (click)="toggleSearch()"
-    >
-      <ion-icon name="close-outline"></ion-icon>
-    </ion-button>
-  </div>
-  <ion-searchbar
-    placeholder="Search"
-    (ionChange)="search($event)"
-  ></ion-searchbar>
 
-  <ion-content class="custom-list">
-    <div class="custom-background">
-      <!-- people -->
-      <div>
-        <div class="peopleSearch" *ngIf="peopleExists">
-          <ion-list class="custom-list list-item">
-            <ion-item
-              class="peopleItem"
-              *ngFor="let people of searchprofiles"
-              color="var(--ion-color-background)"
-              (click)="GoToProfile(people.username)"
-            >
-              <div class="search-item" id="search-person">
-                <ion-avatar class="peopleAvatar" slot="start">
-                  <img
-                    src="{{ people?.profileImage }}"
-                    onerror="this.src='assets/icon/Profile.png';"
-                    class="peopleIcon"
-                  />
-                </ion-avatar>
-              </div>
-              <ion-label>
-                <div class="search-title">
-                  <span class="personName bold-text"
-                    >{{ people?.name }} {{ people?.lastName }}</span
-                  >
-                  <span class="personUsername">@{{ people?.username }}</span>
-                </div>
-                <p class="personDesc">{{ people?.bio }}</p>
-              </ion-label>
-              <ion-button fill="clear" slot="end" class="followButton"
-                ><ion-icon name="person-add"></ion-icon
-              ></ion-button>
-              <ion-button fill="clear" *ngIf="" slot="end" class="followButton"
-                ><ion-icon name="person-remove"></ion-icon
-              ></ion-button>
-            </ion-item>
-          </ion-list>
-        </div>
-        <div class="tempNoResult" *ngIf="!peopleExists">
-          <span>No Search Results</span>
-        </div>
-      </div>
-    </div>
-
-    <ion-footer class="search-footer">
-      <ion-toolbar class="search-toolbar">
-        <div class="footer-text">
-          <ion-icon name="search"></ion-icon>
-          <div>
-            <span
-              >Search for
-              <a href="/home/search-explore">"{{ keyword }}"</a></span
-            >
-          </div>
-        </div>
-      </ion-toolbar>
-    </ion-footer>
-  </ion-content>
-</div>
