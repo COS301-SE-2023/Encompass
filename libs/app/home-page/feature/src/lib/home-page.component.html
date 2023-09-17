@@ -5,7 +5,7 @@
       <div class="menu-container">
         <ion-content class="ion-padding buttons-menu-container">
           <div class="logoButton" (click)="goHome()">
-            <ion-button fill="clear" class="centeredButton">
+            <ion-button fill="clear" class="centeredButton widthStyling">
               <div class="square-image">
                 <img
                   id="logo-default"
@@ -49,47 +49,55 @@
 
           <div class="MenuButton top-button">
             <ion-button
-              class="full"
+              class="full widthStyling"
               fill="clear"
               id="popover-button"
               (click)="goToExplore()"
             >
+            <div class="button-content">
               <ion-icon
                 name="search"
                 style="font-size: larger; position: relative"
               ></ion-icon>
               <span>Search</span>
-              <!-- <ion-tooltip *ngIf="showTooltip">Tooltip text here</ion-tooltip> -->
+            </div>
             </ion-button>
           </div>
 
           <div class="MenuButton">
-            <ion-button fill="clear" (click)="goToEvent()">
-              <ion-icon
-                name="rocket"
-                style="font-size: larger; position: relative"
-              ></ion-icon>
-              <span>Events</span>
+            <ion-button fill="clear" class="widthStyling">
+              <div class="button-content">
+                <ion-icon
+                  name="rocket"
+                  style="font-size: larger; position: relative"
+                ></ion-icon>
+                <span>Events</span>
+              </div>
             </ion-button>
           </div>
+          
 
           <div class="MenuButton">
-            <ion-button fill="clear" (click)="goToChat()">
+            <ion-button fill="clear" class="widthStyling" (click)="goToChat()">
+              <div class="button-content">
               <ion-icon
                 name="chatbubbles"
                 style="font-size: larger; position: relative"
               ></ion-icon>
               <span>Messages</span>
+            </div>
             </ion-button>
           </div>
 
           <div class="MenuButton">
-            <ion-button fill="clear" (click)="toggleNotifications()">
+            <ion-button fill="clear" class="widthStyling" (click)="toggleNotifications()">
+              <div class="button-content">
               <ion-icon
                 name="notifications"
                 style="font-size: larger; position: relative"
               ></ion-icon>
               <span>Notifications</span>
+            </div>
             </ion-button>
           </div>
 
@@ -98,19 +106,25 @@
               id="profile-trigger"
               fill="clear"
               (click)="goToProfile()"
+              class="widthStyling"
             >
+            <div class="button-content">
               <ion-icon
                 name="person-circle"
                 style="font-size: larger; position: relative"
               ></ion-icon>
               <span>Profile</span>
+            </div>
             </ion-button>
           </div>
 
           <div class="menuFooter">
-            <ion-button id="menu-pop" fill="clear">
+            <ion-button id="menu-pop" fill="clear" class="widthStyling">
+              <div class="button-content">
               <ion-icon id="menu-pop" name="menu"></ion-icon>
+              
               <span>More Options</span>
+            </div>
             </ion-button>
           </div>
 

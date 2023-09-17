@@ -226,6 +226,16 @@ export class MessagesPage implements OnDestroy {
             if (chatProfiles) {
               console.log(chatProfiles);
               this.chatProfiles = chatProfiles;
+              if (chatProfiles.length > 0) {
+                const lastProfile = chatProfiles[chatProfiles.length - 1]; 
+                this.fetchMessages(
+                  lastProfile.chatId,
+                  lastProfile.name,
+                  lastProfile.lastName,
+                  lastProfile.profilePicture,
+                  lastProfile.username
+                );
+              }
               
             }
           });
