@@ -107,6 +107,7 @@ export class GetQuestions {
 
   async getQuestions(
     topic: string[],
+    categories: string[],
     numQuestions: number
   ): Promise<
     {
@@ -121,6 +122,7 @@ export class GetQuestions {
     } else {
       const generatedQuestions = await this.generateQuestions(
         topic,
+        categories,
         numQuestions
       );
 
@@ -150,11 +152,17 @@ export class GetQuestions {
 
   async generateQuestions(
     topic: string[],
+    categories: string[],
     numQuestions: number
   ): Promise<string> {
     const apiKey = process.env['OPENAI_API_KEY'];
 
-    const prompt = `Generate ${numQuestions} questions based on ${topic}. Only give the output in the JSON format {"question": string, "options": string[4], "answer": string}. Do not provide anything else.`;
+    // const prompt = `Generate ${numQuestions} questions based on ${topic}. Only give the output in the JSON format {"question": string, "options": string[4], "answer": string}. Do not provide anything else.`;
+
+    const prompt = `Act as a JSON Object Generate ${numQuestions} quesions based on ${topic} and ${categories} as the categories with the following format: {"question": string, "options": string[4], "answer": string}.`
+
+    console.log('Prompt:\n' + prompt);
+
     try {
       const response = await axios.post(
         'https://api.openai.com/v1/engines/text-davinci-002/completions',
