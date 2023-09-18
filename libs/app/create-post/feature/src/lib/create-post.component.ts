@@ -94,10 +94,7 @@ export class CreatePostComponent {
 
   eventForm: FormGroup;
 
-  quizWords=['','',''];
-  term1!: string;
-  term2!: string;
-  term3!: string;
+   quizWords!: string[];
 
   constructor(
     private modalController: ModalController,
@@ -126,7 +123,9 @@ export class CreatePostComponent {
       category: [[] as string[], Validators.required],
       challenges: ['', Validators.required],
       endDate: [this.datePickerdate, Validators.required],
-      quizDescription: [['','',''] as string[], Validators.required],
+      quiz1: ['', Validators.required],
+      quiz2: ['', Validators.required],
+      quiz3: ['', Validators.required],
       selectedOption: ['5', Validators.required],
     });
 
@@ -184,8 +183,17 @@ export class CreatePostComponent {
     return this.eventForm.get('selectedOption');
   }
 
-  get quizDescription() {
-    return this.eventForm.get('quizDescription');
+  
+  get quiz1() {
+    return this.eventForm.get('quiz1');
+  }
+
+  get quiz2() {
+    return this.eventForm.get('quiz2');
+  }
+
+  get quiz3() {
+    return this.eventForm.get('quiz3');
   }
 
   async closePopover() {
@@ -263,7 +271,6 @@ export class CreatePostComponent {
 
     console.log(this.eventCommunity?.value);
     console.log(this.eventTitle?.value);
-    console.log(this.quizDescription?.value);
     console.log(this.prompts.length);
    
     if (
@@ -273,9 +280,6 @@ export class CreatePostComponent {
       this.eventTitle?.value == undefined ||
       this.eventCommunity?.value == '' ||
       this.eventTitle?.value == '' ||
-      this.quizDescription?.value == null ||
-      this.quizDescription?.value == undefined ||
-      this.quizDescription?.value == ''||
       this.prompts.length == 0
     ) {
       this.isEventValid = false;
@@ -346,6 +350,7 @@ export class CreatePostComponent {
   }
 
   async onSubmitEvent() {
+
     if(this.profile == null || this.profile == undefined) {
       return;
     }
@@ -374,13 +379,23 @@ export class CreatePostComponent {
       return;
     }
 
-    if(this.quizDescription?.value == null || this.quizDescription?.value == undefined) {
-      return;
-    }
+   
 
     if(this.eventSelectedOption?.value == null || this.eventSelectedOption?.value == undefined) {
       return;
     }
+
+    if(this.quiz1?.value == null || this.quiz1?.value == undefined || this.quiz1?.value==""
+      || this.quiz2?.value == null || this.quiz2?.value == undefined || this.quiz2?.value==""
+      || this.quiz3?.value == null || this.quiz3?.value == undefined || this.quiz3?.value=="") {
+      return;
+    }else{
+      this.quizWords.push(this.quiz1?.value);
+      this.quizWords.push(this.quiz2?.value);
+      this.quizWords.push(this.quiz3?.value);
+    }
+
+
 
     const data: CreateEventRequest = {
       name: this.eventTitle?.value,
@@ -489,13 +504,15 @@ export class CreatePostComponent {
     }
   }
 
-  AddWord(n:number){
-    if(n===1){
-      this.quizWords[0] = this.quizWords[0] + this.term1;
-    }else if(n==2){
-      this.quizWords[1] = this.quizWords[1] + this.term2;
-    }else{
-      this.quizWords[2] = this.quizWords[2] + this.term3;
-    }
-  }
+  // AddWord(n:number){
+  //   if(n===1){
+  //     this.quizWords[0] = this.quizWords[0] + this.term1;
+  //   }else if(n==2){
+  //     this.quizWords[1] = this.quizWords[1] + this.term2;
+  //   }else{
+  //     this.quizWords[2] = this.quizWords[2] + this.term3;
+  //   }
+
+  //   console.log(this.quizWords);
+  // }
 }
