@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { error } from 'console';
 import * as dotenv from 'dotenv';
 
 export class GetQuestions {
@@ -108,7 +109,8 @@ export class GetQuestions {
   async getQuestions(
     topic: string[],
     categories: string[],
-    numQuestions: number
+    numQuestions: number,
+    count = 0
   ): Promise<
     {
       question: string;
@@ -131,7 +133,12 @@ export class GetQuestions {
       // Check if generatedQuestions is a string
     if (typeof generatedQuestions !== 'string') {
       console.log('Unexpected response format: generatedQuestions is not a string.');
-      return this.getQuestions(topic, categories, numQuestions)
+
+      if(count < 5)
+        return this.getQuestions(topic, categories, numQuestions, count + 1)
+
+      else
+        throw error('Failed to generate questions.');
     }
 
     // Define a regular expression pattern to match JSON objects
@@ -142,7 +149,12 @@ export class GetQuestions {
 
     if (!jsonMatches) {
       console.log("No JSON Data")
-      return this.getQuestions(topic, categories, numQuestions)
+
+      if(count < 5)
+        return this.getQuestions(topic, categories, numQuestions, count + 1)
+
+      else
+        throw error('Failed to generate questions.');
     }
 
     // Parse the extracted JSON objects
