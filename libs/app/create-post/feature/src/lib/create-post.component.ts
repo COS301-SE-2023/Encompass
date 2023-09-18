@@ -84,7 +84,6 @@ export class CreatePostComponent {
   isValid = false;
   isEventValid = false;
   inputValue!: string;
-  inputValue2!: string;
 
   createPost = true;
   createEvent = false;
@@ -94,6 +93,11 @@ export class CreatePostComponent {
   adminCommunities!: string[];
 
   eventForm: FormGroup;
+
+  quizWords=['','',''];
+  term1!: string;
+  term2!: string;
+  term3!: string;
 
   constructor(
     private modalController: ModalController,
@@ -122,7 +126,7 @@ export class CreatePostComponent {
       category: [[] as string[], Validators.required],
       challenges: ['', Validators.required],
       endDate: [this.datePickerdate, Validators.required],
-      quizDescription: ['', Validators.maxLength(1000)],
+      quizDescription: [['','',''] as string[], Validators.required],
       selectedOption: ['5', Validators.required],
     });
 
@@ -389,7 +393,7 @@ export class CreatePostComponent {
       prompt: this.prompts,
       categories: this.eventCategory?.value,
       numberOfQuestions: this.eventSelectedOption.value,
-      quizDescription: [this.quizDescription?.value],
+      quizDescription: this.quizWords,
     }
 
     this.store.dispatch(new CreateEvent(data, this.profile));
@@ -482,6 +486,16 @@ export class CreatePostComponent {
     }
     else{
       this.Added = true;
+    }
+  }
+
+  AddWord(n:number){
+    if(n===1){
+      this.quizWords[0] = this.quizWords[0] + this.term1;
+    }else if(n==2){
+      this.quizWords[1] = this.quizWords[1] + this.term2;
+    }else{
+      this.quizWords[2] = this.quizWords[2] + this.term3;
     }
   }
 }
