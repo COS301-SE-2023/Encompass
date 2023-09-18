@@ -1,12 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CommunityDto, UpdateCommunityRequest } from "@encompass/api/community/data-access";
-import { HomeDto } from "@encompass/api/home/data-access";
 import { AddNotificationRequest, NotificationDto } from "@encompass/api/notifications/data-access";
 import { BookDto } from "@encompass/api/media-recommender/data-access";
 // import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 import { MovieDto } from "@encompass/api/media-recommender/data-access";
 import { PodcastDto } from "@encompass/api/media-recommender/data-access";
+import { ProfileDto } from "@encompass/api/profile/data-access";
 
 @Injectable()
 export class HomeApi{
@@ -174,7 +174,7 @@ export class HomeApi{
 
   async addCoins(username: string, coins: number){
     try{
-      return await this.httpClient.patch<HomeDto>('/api/profile/add-coins/' + username + '/' + coins, null).toPromise();
+      return await this.httpClient.patch<ProfileDto>('/api/profile/add-coins/' + username + '/' + coins, null).toPromise();
     } catch(error){
       console.log(error);
       return null;

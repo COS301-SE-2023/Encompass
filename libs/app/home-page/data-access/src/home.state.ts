@@ -4,7 +4,6 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 // import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 // import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
 import { ClearNotification, SendNotification, GetNotifications, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, ClearAllNotifications, GetRecommendedPodcasts, UpdateCommunity } from "@encompass/app/home-page/util";
-import { HomeDto } from "@encompass/api/home/data-access";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
 import { CommunityDto } from "@encompass/api/community/data-access";
