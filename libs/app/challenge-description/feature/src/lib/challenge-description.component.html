@@ -21,7 +21,7 @@
       {{event?.quizDescription}}
     </p>
     <div class="Join">
-      <button class="JoinChallenge" *ngIf="hasJoined || hasExpired || !isPartOfCommunity" [disabled]="true">Join Challenge</button>
+      <button class="JoinChallenge1" *ngIf="hasJoined || hasExpired || !isPartOfCommunity" [disabled]="true">Join Challenge</button>
       <button class="JoinChallenge" *ngIf="!hasJoined && !hasExpired && isPartOfCommunity" (click)="joinChallenge()">Join Challenge</button>
       <ion-text class="CommunityQues">Not Part of this community?</ion-text>
       <ion-text
