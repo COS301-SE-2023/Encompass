@@ -329,31 +329,26 @@
         <p>Describe your quiz in three simple terms:</p>
         <div style="width:100%;display:flex;justify-content:space-around;">
           <ion-textarea
+          formControlName="quiz1"
           class="custom5"
           placeholder = "Term 1"
           [counter]="true"
           [maxlength]="15"
-          [ngModel]="term1"
-          (ionChange)="AddWord(1)"
           ></ion-textarea>
             <ion-textarea
+            formControlName="quiz2"
             class="custom5"
             placeholder = "Term 2"
             [counter]="true"
             [maxlength]="15"
-            [ngModel]="term2"
-            (ionChange)="AddWord(2)"
             ></ion-textarea>
               <ion-textarea
+              formControlName="quiz3"
               class="custom5"
               placeholder = "Term 3"
               [counter]="true"
               [maxlength]="15"
-              [ngModel]="term3"
-              (ionChange)="AddWord(3)"
               ></ion-textarea>
-          
-        
         </div>
         <ion-radio-group formControlName="selectedOption" class="level">
           <div class="radio">
