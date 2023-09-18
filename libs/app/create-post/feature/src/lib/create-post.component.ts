@@ -390,6 +390,7 @@ export class CreatePostComponent {
       || this.quiz3?.value == null || this.quiz3?.value == undefined || this.quiz3?.value=="") {
       return;
     }else{
+      this.quizWords = [];
       this.quizWords.push(this.quiz1?.value);
       this.quizWords.push(this.quiz2?.value);
       this.quizWords.push(this.quiz3?.value);
