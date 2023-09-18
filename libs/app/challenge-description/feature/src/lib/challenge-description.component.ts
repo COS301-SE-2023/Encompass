@@ -68,14 +68,17 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
       
                   if(this.daysLeft(event.endDate) == 0){
                     this.hasExpired = true;
+                    console.log("IS Expired")
                   }
       
                   if(event.members.includes(profile.username)){
                     this.hasJoined = true;
+                    console.log("IS joined")
                   }
 
                   if(profile.communities.includes(event.community)){
                     this.isPartOfCommunity = true;
+                    console.log("IS part of the community")
                   }
                 }
               })
