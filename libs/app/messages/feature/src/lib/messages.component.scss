@@ -153,8 +153,10 @@
 }
 
 .select {
-  width: 10%;
-  color: transparent;
+  width: 40px;
+  // color: transparent;
+  position: relative;
+  left:0;
 }
 .Typer {
   height: 15%;
@@ -206,6 +208,15 @@
   border-bottom: 2px solid var(--border-color);
   background-color: var(--ion-color-background-menu);
   box-shadow: 0px 0px 5px 0px var(--ion-color-background);
+}
+
+.newChat{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  overflow: hidden;
+  margin-left: 10px;
 }
 
 // ================================mobile======================================

@@ -5,20 +5,23 @@
         <ul>
           <li class="UserName">
             @{{ profile?.username }}
-            <ion-icon
-              style="font-size: 50px"
-              name="chatbubble-ellipses-outline"
-              id="icon"
-              (click)="toggleSelect()"
-            >
-            </ion-icon>
+            <div class="newChat">
             <ion-select
-              class="select"
-              [(ngModel)]="selectedValue"
+            class="select"
+            [(ngModel)]="selectedValue"
               (ionChange)="onSelectChange()"
               interface="popover"
               (click)="getUsers()"
+              
             >
+              <div slot="label">
+                <ion-icon
+                  style="font-size: 40px;"
+                  name="chatbubble-ellipses-outline"
+                  id="icon"
+                  (click)="toggleSelect()"
+                ></ion-icon>
+              </div>
               <ion-select-option
                 *ngFor="let c of messagesProfile"
                 [value]="c"
@@ -27,6 +30,7 @@
                 {{ c.name }} {{ c.lastName }}</ion-select-option
               >
             </ion-select>
+          </div>
           </li>
           <li class="AddChat">
             <label>Chats</label>
@@ -63,28 +67,32 @@
         <ul>
           <li class="UserName">
             @{{ profile?.username }}
-            <ion-icon
-              style="font-size: 50px"
-              name="chatbubble-ellipses-outline"
-              id="icon"
-              (click)="toggleSelect()"
-            >
-            </ion-icon>
-            <ion-select
+            <div class="newChat">
+              <ion-select
               class="select"
               [(ngModel)]="selectedValue"
-              (ionChange)="onSelectChange()"
-              interface="popover"
-              (click)="getUsers()"
-            >
-              <ion-select-option
-                *ngFor="let c of messagesProfile"
-                [value]="c"
-                class="option"
+                (ionChange)="onSelectChange()"
+                interface="popover"
+                (click)="getUsers()"
+                
               >
-                {{ c.name }} {{ c.lastName }}</ion-select-option
-              >
-            </ion-select>
+                <div slot="label">
+                  <ion-icon
+                    style="font-size: 40px;"
+                    name="chatbubble-ellipses-outline"
+                    id="icon"
+                    (click)="toggleSelect()"
+                  ></ion-icon>
+                </div>
+                <ion-select-option
+                  *ngFor="let c of messagesProfile"
+                  [value]="c"
+                  class="option"
+                >
+                  {{ c.name }} {{ c.lastName }}</ion-select-option
+                >
+              </ion-select>
+            </div>
           </li>
           <li class="AddChat">
             <label>Chats</label>
