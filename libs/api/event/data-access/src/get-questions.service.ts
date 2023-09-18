@@ -130,7 +130,8 @@ export class GetQuestions {
 
       // Check if generatedQuestions is a string
     if (typeof generatedQuestions !== 'string') {
-      throw new Error('Unexpected response format: generatedQuestions is not a string.');
+      console.log('Unexpected response format: generatedQuestions is not a string.');
+      return this.getQuestions(topic, categories, numQuestions)
     }
 
     // Define a regular expression pattern to match JSON objects
@@ -140,7 +141,8 @@ export class GetQuestions {
     const jsonMatches = generatedQuestions.match(jsonPattern);
 
     if (!jsonMatches) {
-      throw new Error('No JSON objects found in the response.');
+      console.log("No JSON Data")
+      return this.getQuestions(topic, categories, numQuestions)
     }
 
     // Parse the extracted JSON objects
