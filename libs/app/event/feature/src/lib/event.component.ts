@@ -37,6 +37,12 @@ export class EventPage {
   isLeaderboardFetched = false;
   isEventsFetched = false;
 
+  hasExpired = false;
+  hasJoined = false;
+  isPartOfCommunity = false;
+  hasCompleted = false;
+
+
   constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store, private router: Router) {
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
@@ -50,6 +56,17 @@ export class EventPage {
             if(events){
               console.log(events)
               this.events = events;
+              for(let i =0;i<events.length;i++){
+                if(events[i].members.includes(profile.username)){
+                  this.hasJoined = true;
+                }
+                if(this.daysLeft(events[i].endDate) == 0){
+                  this.hasExpired = true;
+                }
+                if(profile.communities.includes(events[i].community)){
+                  this.isPartOfCommunity = true;
+                }
+              }
             }
           })
         }

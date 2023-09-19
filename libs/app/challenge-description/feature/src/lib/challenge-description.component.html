@@ -40,13 +40,13 @@
       {{i + 1}}. {{instruction }}
     
     </div>
-    <button class="completeQuizLock" *ngIf="!hasJoined||hasCompleted">
+    <button class="completeQuizLock" *ngIf="!hasJoined||!isPartOfCommunity||hasExpired||hasCompleted">
       <p>Complete the Quiz!</p>
       <ion-icon name="lock-closed" class="lock"></ion-icon>
       <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p>
     </button>
 
-    <button class="completeQuiz" *ngIf="hasJoined&&!hasCompleted" (click)="goToQuiz()">
+    <button class="completeQuiz" *ngIf="hasJoined&&isPartOfCommunity&&!hasExpired&&!hasCompleted" (click)="goToQuiz()">
       Complete the Quiz!
       <!-- <ion-icon name="lock-closed" class="lock"></ion-icon> -->
       <!-- <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p> -->
