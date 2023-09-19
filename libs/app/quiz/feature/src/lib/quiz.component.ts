@@ -9,6 +9,7 @@ import {
 import { EventApi, EventState } from '@encompass/app/event/data-access';
 import {
   GetEventById,
+  GetLeaderboard,
   GetUserEvents,
   UpdateUserEvent,
 } from '@encompass/app/event/util';
@@ -218,6 +219,8 @@ export class QuizPage {
   }
 
   backToEvents() {
+    this.store.dispatch(new SubscribeToProfile());
+    this.store.dispatch(new GetLeaderboard());
     this.router.navigate(['home/event']);
   }
 
