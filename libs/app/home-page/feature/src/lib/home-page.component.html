@@ -43,13 +43,13 @@
                   alt="Encompass Logo"
                 />
               </div>
-              <span class="logo-span">Home</span>
+              <span class="logo-span buttonSpan">Home</span>
             </ion-button>
           </div>
 
           <div class="MenuButton top-button">
             <ion-button
-              class="full widthStyling"
+              class="widthStyling"
               fill="clear"
               id="popover-button"
               (click)="goToExplore()"
@@ -57,9 +57,9 @@
             <div class="button-content">
               <ion-icon
                 name="search"
-                style="font-size: larger; position: relative"
+                class="menuIcon"
               ></ion-icon>
-              <span>Search</span>
+              <span class="buttonSpan">Search</span>
             </div>
             </ion-button>
           </div>
@@ -69,9 +69,9 @@
               <div class="button-content">
                 <ion-icon
                   name="rocket"
-                  style="font-size: larger; position: relative"
+                  class="menuIcon"
                 ></ion-icon>
-                <span>Events</span>
+                <span class="buttonSpan">Events</span>
               </div>
             </ion-button>
           </div>
@@ -82,9 +82,9 @@
               <div class="button-content">
               <ion-icon
                 name="chatbubbles"
-                style="font-size: larger; position: relative"
+                class="menuIcon"
               ></ion-icon>
-              <span>Messages</span>
+              <span class="buttonSpan">Messages</span>
             </div>
             </ion-button>
           </div>
@@ -94,9 +94,9 @@
               <div class="button-content">
               <ion-icon
                 name="notifications"
-                style="font-size: larger; position: relative"
+                class="menuIcon"
               ></ion-icon>
-              <span>Notifications</span>
+              <span class="buttonSpan">Notifications</span>
             </div>
             </ion-button>
           </div>
@@ -111,19 +111,19 @@
             <div class="button-content">
               <ion-icon
                 name="person-circle"
-                style="font-size: larger; position: relative"
+                class="menuIcon"
               ></ion-icon>
-              <span>Profile</span>
+              <span class="buttonSpan">Profile</span>
             </div>
             </ion-button>
           </div>
 
-          <div class="menuFooter">
+          <div class="MenuButton menuFooter">
             <ion-button id="menu-pop" fill="clear" class="widthStyling">
-              <div class="button-content">
-              <ion-icon id="menu-pop" name="menu"></ion-icon>
+              <div class="button-content" style="margin-left: 15px;">
+              <ion-icon id="menu-pop" name="menu" class="menuIcon"></ion-icon>
               
-              <span>More Options</span>
+              <span class="buttonSpan">More Options</span>
             </div>
             </ion-button>
           </div>

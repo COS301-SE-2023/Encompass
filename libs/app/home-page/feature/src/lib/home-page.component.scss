@@ -80,7 +80,17 @@ ion-button {
   width: 300px;
 }  
 
+.buttonSpan {
+  display: inline-block;
+  vertical-align: middle;
+}
 
+.menuIcon {
+  font-size: larger; 
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+}
 
 ion-split-pane {
   &.split-pane-visible {
@@ -168,10 +178,6 @@ ion-button {
     width: fit-content;
     position: fixed;
     left: 0;
-
-    span {
-      margin-bottom: 50px !important;
-    }
   }
 
   .top-button {
@@ -179,18 +185,10 @@ ion-button {
   }
 
   .menuFooter {
-    font-size: 30px;
     position: absolute;
-    bottom: 0;
     right: 0;
-    left: 15%;
     width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: absolute;
     bottom: 0;
-    left: 10px;
   }
 }
 
