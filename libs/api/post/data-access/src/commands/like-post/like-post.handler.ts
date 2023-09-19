@@ -24,16 +24,21 @@ export class LikePostHandler implements ICommandHandler<LikePostCommand> {
             //const post = postResponse?.data;
             const user = userResponse?.data;
             let updatedPost = false;
+            let unlikedPost = false;
 
-            //add user's username to post's likes if user hasn't liked the post yet
+            //add user's username to post's likes if user hasn't liked the post yet, otherwise remove the username from the likes
             if (!post.likes.includes(user.username)) {
                 post.likes.push(user.username);
                 updatedPost = true;
+            } else {
+                post.likes = post.likes.filter((username: string) => username !== user.username);
+                unlikedPost = true;
             }
+
 
             //remove user's username from post's dislikes if user has disliked the post
             if (post.dislikes.includes(user.username)) {
-                post.dislikes = post.dislikes.filter((username: any) => username !== user.username);
+                post.dislikes = post.dislikes.filter((username: string) => username !== user.username);
                 updatedPost = true;
             }
 
@@ -57,6 +62,26 @@ export class LikePostHandler implements ICommandHandler<LikePostCommand> {
                     }
                 });
     
+                //update user in database
+                await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+            }
+
+            if (unlikedPost) {
+                //update post in database
+                this.postEntityRepository.findOnePostAndReplaceById(postId, post);
+
+                postCategories.forEach((postCategory: any) => {
+                    const userCategory = userCategories.find((userCategory: any) => userCategory.category === postCategory);
+                    if (userCategory) {
+                        //if a decrease in score would make it less than 0, set it to 0
+                        if (userCategory.score - 0.1 < 0) {
+                            userCategory.score = 0;
+                        } else {
+                            userCategory.score -= 0.1;
+                        }
+                    }
+                });
+
                 //update user in database
                 await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
             }
