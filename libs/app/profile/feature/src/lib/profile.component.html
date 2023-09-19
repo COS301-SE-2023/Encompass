@@ -242,12 +242,7 @@
                     >Delete Comment</label
                   >
 
-                  <label
-                    class="report"
-                    *ngIf="deleteComment[i] && !MarkedForCommentDeletion[i]"
-                    style="color: red"
-                    >Comment Deleted</label
-                  >
+                
 
                   <button class="Options2" (click)="Delete2(i)">
                     <ion-icon name="close-circle-outline"></ion-icon>
@@ -1009,13 +1004,6 @@
                 *ngIf="deleteComment[i] && MarkedForCommentDeletion[i]"
                 (click)="DeleteComment(i, comment)"
                 >Delete Comment</label
-              >
-
-              <label
-                class="report"
-                *ngIf="deleteComment[i] && !MarkedForCommentDeletion[i]"
-                style="color: red"
-                >Comment Deleted</label
               >
 
               <button class="Options2" (click)="Delete2(i)">
