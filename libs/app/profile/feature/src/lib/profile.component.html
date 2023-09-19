@@ -84,7 +84,7 @@
                       >
 
                       <button class="Options" (click)="Delete(i)">
-                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                        <ion-icon name="close-circle-outline"></ion-icon>
                       </button>
                     </div>
                   </div>
@@ -237,7 +237,7 @@
                   >
 
                   <button class="Options2" (click)="Delete2(i)">
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
 
                   <ion-icon
@@ -409,22 +409,19 @@
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder="First Name"
-                  formControlName="FirstName"
+                  placeholder={{profile?.name}}                  formControlName="FirstName"
                 ></ion-textarea>
 
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder="Last Name"
-                  formControlName="LastName"
+                  placeholder={{profile?.lastName}}                  formControlName="LastName"
                 ></ion-textarea>
               </div>
               <ion-textarea
                 [maxlength]="150"
                 class="DescInput2"
-                placeholder="Bio"
-                formControlName="Bio"
+                placeholder={{profile?.bio}}                formControlName="Bio"
               ></ion-textarea>
 
               <button
@@ -469,13 +466,19 @@
         </ion-card>
         <ion-card *ngIf="!ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
-          </div>
+            <ion-chip class="Button3" (click)="OpenView()">
+            <ion-label>Communities</ion-label>
+            <ion-icon style="color:var(--ion-color-background);"name="chevron-down-outline"></ion-icon>
+          </ion-chip>          
+        </div>
         </ion-card>
         <ion-card *ngIf="ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
-          </div>
+            <ion-chip class="Button3" (click)="OpenView()">
+            <ion-label>Communities</ion-label>
+            <ion-icon style="color:var(--ion-color-background);"name="chevron-up-outline"></ion-icon>
+          </ion-chip>          
+        </div>
           <div
             class="ViewCommunity"
             *ngFor="let community of profile?.communities; let i = index"
@@ -718,22 +721,20 @@
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder="First Name"
+              placeholder={{profile?.name}} 
               formControlName="FirstName"
             ></ion-textarea>
 
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder="Last Name"
-              formControlName="LastName"
+              placeholder={{profile?.lastName}}              formControlName="LastName"
             ></ion-textarea>
           </div>
           <ion-textarea
             [maxlength]="150"
             class="DescInput2"
-            placeholder="Bio"
-            formControlName="Bio"
+            placeholder={{profile?.bio}}            formControlName="Bio"
           ></ion-textarea>
 
           <button [hidden]="hasImage" (click)="insertImage()" class="EditBtn">
@@ -769,13 +770,19 @@
       </div>
     </ion-card>
     <ion-card *ngIf="!ViewCommunities">
-      <div class="CommunityHead">
-        <button (click)="OpenView()" class="Button3">Communities:</button>
-      </div>
+    <div class="CommunityHead">
+      <ion-chip class="Button3" (click)="OpenView()">
+        <ion-label>Communities</ion-label>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-chip>
+    </div>
     </ion-card>
     <ion-card *ngIf="ViewCommunities">
       <div class="CommunityHead">
-        <button (click)="OpenView()" class="Button3">Communities:</button>
+        <ion-chip class="Button3" (click)="OpenView()">
+          <ion-label>Communities</ion-label>
+          <ion-icon name="chevron-up-outline"></ion-icon>
+        </ion-chip>
       </div>
       <div
         class="ViewCommunity"
@@ -837,7 +844,7 @@
                   >
 
                   <button class="Options" (click)="Delete(i)">
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
                 </div>
               </div>
@@ -981,7 +988,7 @@
               >
 
               <button class="Options2" (click)="Delete2(i)">
-                <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                <ion-icon name="close-circle-outline"></ion-icon>
               </button>
 
               <ion-icon
