@@ -35,7 +35,7 @@ export abstract class EntityRepository<
       throw new NotFoundException('Unable to find the entity.');
     }
 
-    return this.entitySchemaFactory.createFromSchema(entityDocument);
+    return this.entitySchemaFactory.createFromSchema(entityDocument as TSchema);
   }
 
   protected async find(
@@ -44,7 +44,7 @@ export abstract class EntityRepository<
     return (
       await this.entityModel.find(entityFilterQuery, {}, { lean: true })
     ).map(entityDocument =>
-      this.entitySchemaFactory.createFromSchema(entityDocument),
+      this.entitySchemaFactory.createFromSchema(entityDocument as TSchema),
     );
   }
 
