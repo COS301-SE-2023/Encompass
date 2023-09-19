@@ -649,7 +649,8 @@
         </div>
         <div class="PostFooter">
           <div class="date">
-            {{ post.dateAdded }}
+            
+            {{ post.dateAdded | date: 'yyyy-MM-dd' }}
           </div>
           <div class="icons">
             <div style="text-align: center">
@@ -872,7 +873,7 @@
             </div>
             <div class="PostFooter">
               <div class="date">
-                {{ post.dateAdded }}
+                {{ post.dateAdded | date: 'yyyy-MM-dd' }}
               </div>
 
               <div class="icons">

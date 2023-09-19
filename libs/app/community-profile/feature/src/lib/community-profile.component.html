@@ -299,11 +299,8 @@
                   </div>
                 </div>
                 <div class="PostFooter">
-                  <div class="date" *ngIf="post.dateAdded.length === 21">
-                    {{ post.dateAdded.slice(0, 9) }}
-                  </div>
-                  <div class="date" *ngIf="post.dateAdded.length !== 21">
-                    {{ post.dateAdded.slice(0, 10) }}
+                  <div class="date">
+                    {{ post.dateAdded | date: 'yyyy-MM-dd' }}
                   </div>
 
                   <div class="icons">
@@ -1053,11 +1050,8 @@
                   </div>
                 </div>
                 <div class="PostFooter">
-                  <div class="date" *ngIf="post.dateAdded.length === 21">
-                    {{ post.dateAdded.slice(0, 9) }}
-                  </div>
-                  <div class="date" *ngIf="post.dateAdded.length !== 21">
-                    {{ post.dateAdded.slice(0, 10) }}
+                  <div class="date">
+                    {{ post.dateAdded | date: 'yyyy-MM-dd' }}
                   </div>
 
                   <div class="icons">
@@ -1221,11 +1215,8 @@
             </div>
           </div>
           <div class="PostFooter">
-            <div class="date" *ngIf="post.dateAdded.length === 21">
-              {{ post.dateAdded.slice(0, 9) }}
-            </div>
-            <div class="date" *ngIf="post.dateAdded.length !== 21">
-              {{ post.dateAdded.slice(0, 10) }}
+            <div class="date">
+              {{ post.dateAdded | date: 'yyyy-MM-dd' }}
             </div>
 
             <div class="icons">
