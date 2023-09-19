@@ -65,7 +65,11 @@
                   <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
                   <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
                 </div>
-                <ion-icon class="Lock" name="lock-open"></ion-icon>
+                
+                <ion-icon *ngIf="!hasJoined||!isPartOfCommunity||hasExpired||hasCompleted"
+                class="Lock" name="lock"></ion-icon>
+                <ion-icon *ngIf="hasJoined&&isPartOfCommunity&&!hasExpired&&!hasCompleted"
+                class="Lock" name="lock-open"></ion-icon>
               </div>
             </ion-card>
           </div>
