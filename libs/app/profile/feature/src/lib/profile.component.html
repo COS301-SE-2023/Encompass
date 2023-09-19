@@ -69,23 +69,18 @@
                       </div>
                       <div class="Name">@{{ post.username }}</div>
                     </div>
-                    <div style="display: flex; margin-right: 1.5%">
+                    <div style="display: flex; margin-right: 1.5%;">
                       <label
                         class="report"
                         *ngIf="deletePost[i] && MarkedForPostDeletion[i]"
                         (click)="DeletePost(i, post)"
                         >Delete Post</label
                       >
-                      <label
-                        class="report"
-                        *ngIf="deletePost[i] && !MarkedForPostDeletion[i]"
-                        style="color: red"
-                        >Post Deleted</label
-                      >
-
+                     
                       <button class="Options" (click)="Delete(i)">
                         <ion-icon name="close-circle-outline"></ion-icon>
                       </button>
+
                     </div>
                   </div>
 
@@ -383,7 +378,7 @@
                 <ion-icon name="pencil"></ion-icon>
               </ion-button>
 
-              <ion-card-subtitle style="margin-top: 5px"
+              <ion-card-subtitle style="margin-top: 5px;font-size: medium;"
                 >@{{ profile?.username }}</ion-card-subtitle
               >
             </ion-card-title>
@@ -391,7 +386,7 @@
 
           <ion-card-content
             *ngIf="!edit"
-            style="font-size: 15px; margin-bottom: 15px"
+            style="font-size: 15px; margin-bottom: 15px;font-size: medium;"
           >
             <div>{{ profile?.bio }}</div>
             <div class="profile-info-container">
@@ -477,7 +472,7 @@
               </div>
 
               <button type="submit" class="EditBtn" (click)="FinishEdit()">
-                <ion-icon name="checkmark"></ion-icon>
+                <ion-icon class="checkmark" name="checkmark"></ion-icon>
               </button>
             </form>
           </div>
@@ -860,10 +855,10 @@
                     style="color: red"
                     >Post Deleted</label
                   >
-
                   <button class="Options" (click)="Delete(i)">
                     <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
+
                 </div>
               </div>
 
