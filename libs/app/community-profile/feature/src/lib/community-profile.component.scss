@@ -730,10 +730,10 @@ ion-card {
   margin-left: 2%;
   margin-right: 2%;
 }
-.EditButtons Button:hover {
-  color: white;
-  background-color: var(--hover-color);
-}
+// .EditButtons Button:hover {
+//   color: white;
+//   background-color: var(--hover-color);
+// }
 
 .Image {
   width: 15%;
@@ -1121,4 +1121,22 @@ ion-card {
 
 .visible {
   display: none;
+}
+
+.file-input {
+  position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  width: 150px;
 }

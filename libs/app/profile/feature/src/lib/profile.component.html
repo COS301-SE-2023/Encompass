@@ -752,29 +752,28 @@
             formControlName="Bio"
           ></ion-textarea>
 
-          <button [hidden]="hasImage" (click)="insertImage()" class="EditBtn">
-            Change Photo
-          </button>
-          <div [hidden]="!hasImage" class="Image">
+          <button class="EditBtn">Change Photo</button>
+
+          <div class="Image">
             <input
               type="file"
               class="file-input"
               [accept]="requiredFileType"
               (change)="onFileSelected($event)"
               #fileUpload
+              style="margin-bottom: 115px; margin-left: 130px"
             />
           </div>
 
-          <button [hidden]="hasBanner" (click)="insertBanner()" class="EditBtn">
-            Change Banner
-          </button>
-          <div [hidden]="!hasBanner" class="Image">
+          <button class="EditBtn">Change Banner</button>
+          <div class="ImageBanner">
             <input
               type="file"
               class="file-input"
               [accept]="requiredFileType"
               (change)="onFileBannerSelected($event)"
               #fileUpload
+              style="margin-bottom: 68px; margin-left: 130px"
             />
           </div>
 
