@@ -54,9 +54,6 @@
       "@encompass/api/event/data-access": [
         "libs/api/event/data-access/src/index.ts"
       ],
-      "@encompass/api/home/data-access": [
-        "libs/api/home/data-access/src/index.ts"
-      ],
       "@encompass/api/media-recommender/data-access": [
         "libs/api/media-recommender/data-access/src/index.ts"
       ],

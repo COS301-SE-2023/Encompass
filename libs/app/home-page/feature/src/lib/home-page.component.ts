@@ -4,7 +4,6 @@ import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
-import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import {
   ClearAllNotifications,
@@ -184,35 +183,6 @@ export class HomePage {
       return;
     }
 
-    // if (!this.peopleIsFetched) {
-    //   this.peopleIsFetched = true;
-    //   this.searchProfiles$
-    //     .pipe(takeUntil(this.unsubscribe$))
-    //     .subscribe((profiles) => {
-    //       if (profiles) {
-    //         // console.log("POSTS:")
-    //         this.searchprofiles = [];
-    //         const profileCount = profiles;
-    //         const temp = profiles;
-    //         temp.forEach((person) => {
-    //           this.searchprofiles.push(person);
-    //           if (
-    //             person.name.toLowerCase().includes(this.keyword.toLowerCase())
-    //           ) {
-    //             profileCount.push(person);
-    //           }
-    //         });
-
-    //         if (profileCount.length !== 0) {
-    //           this.peopleExists = true;
-    //         } else {
-    //           this.peopleExists = false;
-    //         }
-    //       }
-    //     });
-    // }
-
-    // console.log("profiles: " + this.peopleVisible);
   }
 
   load() {
@@ -363,6 +333,7 @@ export class HomePage {
 
   logout() {
     localStorage.removeItem('UserID');
+    this.clearAllCookies()
     this.router.navigate(['/']);
   }
 
@@ -405,6 +376,23 @@ export class HomePage {
       this.router.navigate(['home/user-profile/' + username]);
     } else {
       this.router.navigate(['home/profile']);
+    }
+  }
+
+  clearAllCookies() {
+    const cookies = document.cookie.split(';');
+    
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf('=');
+      const cookieName = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      
+      // Set the expiration date to a past date
+      const pastDate = new Date(0);
+      const formattedPastDate = pastDate.toUTCString();
+      
+      // Clear the cookie
+      document.cookie = `${cookieName}=; expires=${formattedPastDate}; path=/`;
     }
   }
 }

@@ -69,23 +69,18 @@
                       </div>
                       <div class="Name">@{{ post.username }}</div>
                     </div>
-                    <div style="display: flex; margin-right: 1.5%">
+                    <div style="display: flex; margin-right: 1.5%;">
                       <label
                         class="report"
                         *ngIf="deletePost[i] && MarkedForPostDeletion[i]"
                         (click)="DeletePost(i, post)"
                         >Delete Post</label
                       >
-                      <label
-                        class="report"
-                        *ngIf="deletePost[i] && !MarkedForPostDeletion[i]"
-                        style="color: red"
-                        >Post Deleted</label
-                      >
-
+                     
                       <button class="Options" (click)="Delete(i)">
-                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                        <ion-icon name="close-circle-outline"></ion-icon>
                       </button>
+
                     </div>
                   </div>
 
@@ -140,11 +135,8 @@
                 </div>
               </div>
               <div class="PostFooter">
-                <div class="date" *ngIf="post.dateAdded.length == 21">
-                  {{ post.dateAdded.slice(0, 9) }}
-                </div>
-                <div class="date" *ngIf="post.dateAdded.length != 21">
-                  {{ post.dateAdded.slice(0, 10) }}
+                <div class="date">
+                  {{ post.dateAdded | date: 'yyyy-MM-dd'}}
                 </div>
 
                 <div class="icons">
@@ -181,7 +173,7 @@
                         *ngIf="post.likes.includes(profile.username)"
                         id="icons2"
                         style="color: red"
-                        (click)="Dislike(i, post)"
+                        (click)="Like(i, post)"
                       ></ion-icon>
                       <ion-icon
                         name="heart-outline"
@@ -190,6 +182,24 @@
                         (click)="Like(i, post)"
                       ></ion-icon>
                       <div>{{ post.likes.length }}</div>
+                    </div>
+                  </div>
+                  <div style="text-align: center">
+                    <div *ngIf="profile != null">
+                      <ion-icon
+                        name="heart-dislike"
+                        *ngIf="post.dislikes.includes(profile.username)"
+                        id="icons2"
+                        style="color: red"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <ion-icon
+                        name="heart-dislike-outline"
+                        id="icons2"
+                        *ngIf="!post.dislikes.includes(profile.username)"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <div>{{ post.dislikes.length }}</div>
                     </div>
                   </div>
                 </div>
@@ -229,15 +239,10 @@
                     >Delete Comment</label
                   >
 
-                  <label
-                    class="report"
-                    *ngIf="deleteComment[i] && !MarkedForCommentDeletion[i]"
-                    style="color: red"
-                    >Comment Deleted</label
-                  >
+                
 
                   <button class="Options2" (click)="Delete2(i)">
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
 
                   <ion-icon
@@ -365,7 +370,7 @@
                 <ion-icon name="pencil"></ion-icon>
               </ion-button>
 
-              <ion-card-subtitle style="margin-top: 5px"
+              <ion-card-subtitle style="margin-top: 5px;font-size: medium;"
                 >@{{ profile?.username }}</ion-card-subtitle
               >
             </ion-card-title>
@@ -373,7 +378,7 @@
 
           <ion-card-content
             *ngIf="!edit"
-            style="font-size: 15px; margin-bottom: 15px"
+            style="font-size: 15px; margin-bottom: 15px;font-size: medium;"
           >
             <div>{{ profile?.bio }}</div>
             <div class="profile-info-container">
@@ -409,22 +414,19 @@
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder="First Name"
-                  formControlName="FirstName"
+                  placeholder={{profile?.name}}                  formControlName="FirstName"
                 ></ion-textarea>
 
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder="Last Name"
-                  formControlName="LastName"
+                  placeholder={{profile?.lastName}}                  formControlName="LastName"
                 ></ion-textarea>
               </div>
               <ion-textarea
                 [maxlength]="150"
                 class="DescInput2"
-                placeholder="Bio"
-                formControlName="Bio"
+                placeholder={{profile?.bio}}                formControlName="Bio"
               ></ion-textarea>
 
               <button
@@ -462,20 +464,26 @@
               </div>
 
               <button type="submit" class="EditBtn" (click)="FinishEdit()">
-                <ion-icon name="checkmark"></ion-icon>
+                <ion-icon class="checkmark" name="checkmark"></ion-icon>
               </button>
             </form>
           </div>
         </ion-card>
         <ion-card *ngIf="!ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
-          </div>
+            <ion-chip class="Button3" (click)="OpenView()">
+            <ion-label>Communities</ion-label>
+            <ion-icon style="color:var(--ion-color-background);"name="chevron-down-outline"></ion-icon>
+          </ion-chip>          
+        </div>
         </ion-card>
         <ion-card *ngIf="ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
-          </div>
+            <ion-chip class="Button3" (click)="OpenView()">
+            <ion-label>Communities</ion-label>
+            <ion-icon style="color:var(--ion-color-background);"name="chevron-up-outline"></ion-icon>
+          </ion-chip>          
+        </div>
           <div
             class="ViewCommunity"
             *ngFor="let community of profile?.communities; let i = index"
@@ -718,22 +726,20 @@
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder="First Name"
+              placeholder={{profile?.name}} 
               formControlName="FirstName"
             ></ion-textarea>
 
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder="Last Name"
-              formControlName="LastName"
+              placeholder={{profile?.lastName}}              formControlName="LastName"
             ></ion-textarea>
           </div>
           <ion-textarea
             [maxlength]="150"
             class="DescInput2"
-            placeholder="Bio"
-            formControlName="Bio"
+            placeholder={{profile?.bio}}            formControlName="Bio"
           ></ion-textarea>
 
           <button [hidden]="hasImage" (click)="insertImage()" class="EditBtn">
@@ -769,13 +775,19 @@
       </div>
     </ion-card>
     <ion-card *ngIf="!ViewCommunities">
-      <div class="CommunityHead">
-        <button (click)="OpenView()" class="Button3">Communities:</button>
-      </div>
+    <div class="CommunityHead">
+      <ion-chip class="Button3" (click)="OpenView()">
+        <ion-label>Communities</ion-label>
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-chip>
+    </div>
     </ion-card>
     <ion-card *ngIf="ViewCommunities">
       <div class="CommunityHead">
-        <button (click)="OpenView()" class="Button3">Communities:</button>
+        <ion-chip class="Button3" (click)="OpenView()">
+          <ion-label>Communities</ion-label>
+          <ion-icon name="chevron-up-outline"></ion-icon>
+        </ion-chip>
       </div>
       <div
         class="ViewCommunity"
@@ -835,10 +847,10 @@
                     style="color: red"
                     >Post Deleted</label
                   >
-
                   <button class="Options" (click)="Delete(i)">
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
+
                 </div>
               </div>
 
@@ -887,11 +899,8 @@
             </div>
           </div>
           <div class="PostFooter">
-            <div class="date" *ngIf="post.dateAdded.length == 21">
-              {{ post.dateAdded.slice(0, 9) }}
-            </div>
-            <div class="date" *ngIf="post.dateAdded.length != 21">
-              {{ post.dateAdded.slice(0, 10) }}
+            <div class="date">
+              {{ post.dateAdded | date: 'yyyy-MM-dd'}}
             </div>
 
             <div class="icons">
@@ -928,7 +937,7 @@
                     *ngIf="post.likes.includes(profile.username)"
                     id="icons2"
                     style="color: red"
-                    (click)="Dislike(i, post)"
+                    (click)="Like(i, post)"
                   ></ion-icon>
                   <ion-icon
                     name="heart-outline"
@@ -937,6 +946,24 @@
                     (click)="Like(i, post)"
                   ></ion-icon>
                   <div>{{ post.likes.length }}</div>
+                </div>
+              </div>
+              <div style="text-align: center">
+                <div *ngIf="profile != null">
+                  <ion-icon
+                    name="heart-dislike"
+                    *ngIf="post.dislikes.includes(profile.username)"
+                    id="icons2"
+                    style="color: red"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <ion-icon
+                    name="heart-dislike-outline"
+                    id="icons2"
+                    *ngIf="!post.dislikes.includes(profile.username)"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <div>{{ post.dislikes.length }}</div>
                 </div>
               </div>
             </div>
@@ -973,15 +1000,8 @@
                 >Delete Comment</label
               >
 
-              <label
-                class="report"
-                *ngIf="deleteComment[i] && !MarkedForCommentDeletion[i]"
-                style="color: red"
-                >Comment Deleted</label
-              >
-
               <button class="Options2" (click)="Delete2(i)">
-                <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                <ion-icon name="close-circle-outline"></ion-icon>
               </button>
 
               <ion-icon

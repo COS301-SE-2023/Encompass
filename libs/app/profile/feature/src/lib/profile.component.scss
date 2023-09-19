@@ -797,6 +797,12 @@ ion-card {
   // padding-right: 35px;
 }
 
+.info-post:hover{
+  cursor: default;
+  color: var(--ion-color-medium);
+  background-color: var(--ion-color-secondary-contrast);
+}
+
 .profile-info-row {
   justify-content: space-evenly;
   margin-left: 15px;
@@ -818,7 +824,7 @@ ion-card {
 .report {
   font-size: small;
   position: relative;
-  right: 10%;
+  // right: 10%;
 }
 .report:hover {
   cursor: pointer;
@@ -1296,7 +1302,7 @@ ion-button:hover {
   margin-bottom: 2%;
   // width:60%;
   padding: 10px 20px 10px 20px;
-  color: white;
+  color: var(--ion-color-background);
   background-color: var(--ion-color-primary-contrast);
 }
 

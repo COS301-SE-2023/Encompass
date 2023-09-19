@@ -2,8 +2,10 @@ import { NotFoundException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import {
   FilterQuery,
+  FlattenMaps,
   // LeanDocument,
   Model,
+  Require_id,
   // _AllowStringsForIds,
 } from 'mongoose';
 
@@ -19,32 +21,38 @@ export abstract class EntityRepository<
     protected readonly entitySchemaFactory: EntitySchemaFactory<
       TSchema,
       TEntity
-    >,
+    >
   ) {}
 
   protected async findOne(
-    entityFilterQuery?: FilterQuery<TSchema>,
+    entityFilterQuery?: FilterQuery<TSchema>
   ): Promise<TEntity> {
     const entityDocument = await this.entityModel.findOne(
       entityFilterQuery,
       {},
-      { lean: true },
+      { lean: true }
     );
 
     if (!entityDocument) {
       throw new NotFoundException('Unable to find the entity.');
     }
 
-    return this.entitySchemaFactory.createFromSchema(entityDocument as TSchema);
+    return this.entitySchemaFactory.createFromSchema(entityDocument as TSchema) as TEntity;
   }
 
   protected async find(
-    entityFilterQuery: FilterQuery<TSchema>,
+    entityFilterQuery: FilterQuery<TSchema>
   ): Promise<TEntity[]> {
-    return (
-      await this.entityModel.find(entityFilterQuery, {}, { lean: true })
-    ).map(entityDocument =>
-      this.entitySchemaFactory.createFromSchema(entityDocument as TSchema),
+    const entityDocuments = await this.entityModel.find(
+      entityFilterQuery,
+      {},
+      { lean: true }
+    );
+
+    // Assuming that entitySchemaFactory.createFromSchema returns TEntity
+    return entityDocuments.map(
+      (entityDocument: Require_id<FlattenMaps<TSchema>>): TEntity =>
+        this.entitySchemaFactory.createFromSchema(entityDocument as TSchema) as TEntity
     );
   }
 
@@ -54,19 +62,17 @@ export abstract class EntityRepository<
 
   protected async findOneAndReplace(
     entityFilterQuery: FilterQuery<TSchema>,
-    entity: TEntity,
+    entity: TEntity
   ): Promise<void> {
     console.log("findoneandreplace");
     const updatedEntityDocument = await this.entityModel.findOneAndReplace(
       entityFilterQuery,
-      (this.entitySchemaFactory.create(
-        entity,
-      )),
+      this.entitySchemaFactory.create(entity),
       {
         new: true,
         useFindAndModify: false,
         lean: true,
-      },
+      }
     );
       console.log("updatedEntityDocument", updatedEntityDocument);
     if (!updatedEntityDocument) {
@@ -75,13 +81,13 @@ export abstract class EntityRepository<
   }
 
   protected async findOneAndDelete(
-    entityFilterQuery: FilterQuery<TSchema>,
+    entityFilterQuery: FilterQuery<TSchema>
   ): Promise<void> {
     const deletedEntityDocument = await this.entityModel.findOneAndDelete(
       entityFilterQuery,
       {
         lean: true,
-      },
+      }
     );
 
     if (!deletedEntityDocument) {
@@ -90,13 +96,13 @@ export abstract class EntityRepository<
   }
 
   protected async findAndDeleteByPost(
-    entityFilterQuery: FilterQuery<TSchema>,
+    entityFilterQuery: FilterQuery<TSchema>
   ): Promise<void> {
     const deletedEntityDocument = await this.entityModel.deleteMany(
       entityFilterQuery,
       {
         lean: true,
-      },
+      }
     );
 
     if (!deletedEntityDocument) {

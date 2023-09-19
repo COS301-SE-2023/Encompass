@@ -15,17 +15,25 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
         const url = process.env["BASE_URL"];
         
         try {
-            const postPromise = this.httpService.get(url + '/api/post/' + postId).toPromise();
+            const post = this.eventPublisher.mergeObjectContext(
+                await this.postEntityRepository.findOneById(postId),
+            )
+            // const postPromise = this.httpService.get(url + '/api/post/' + postId).toPromise();
             const userPromise = this.httpService.get(url + '/api/profile/get/' + userId).toPromise();
-            const [postResponse, userResponse] = await Promise.all([postPromise, userPromise]);
-            const post = postResponse?.data;
+            const userResponse = await Promise.resolve(userPromise);
+            // const post = postResponse?.data;
             const user = userResponse?.data;
             let updatedPost = false;
+            let unDislikedPost = false;
 
             //add user's username to post's dislikes if user hasn't disliked the post yet
             if (!post.dislikes.includes(user.username)) {
                 post.dislikes.push(user.username);
                 updatedPost = true;
+            } else {
+                //remove user's username from post's dislikes if user has disliked the post
+                post.dislikes = post.dislikes.filter((username: any) => username !== user.username);
+                unDislikedPost = true;
             }
 
             //remove user's username from post's likes if user has liked the post
@@ -57,9 +65,30 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
                 await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
             }
 
+            if (unDislikedPost) {
+                //update post in database
+                this.postEntityRepository.findOnePostAndReplaceById(postId, post);
+
+                postCategories.forEach((postCategory: any) => {
+                    const userCategory = userCategories.find((userCategory: any) => userCategory.category === postCategory);
+                    if (userCategory) {
+                        //if an increase in score would make it greater than 1, set it to 1
+                        if (userCategory.score + 0.1 > 1) {
+                            userCategory.score = 1;
+                        } else {
+                            userCategory.score += 0.1;
+                        }
+                    }
+                });
+
+                //update user in database
+                await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+            }
+
             return post;
         } catch (error) {
             console.log(error);
+            return null;
         }
     }
 }

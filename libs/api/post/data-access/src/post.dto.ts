@@ -9,7 +9,7 @@ export class PostDto{
   readonly categories!: string [];
   readonly likes!: string [];
   readonly dislikes!: string [];
-  readonly dateAdded!: string;
+  readonly dateAdded!: Date;
   readonly spoiler!: boolean;
   readonly ageRestricted!: boolean;
   readonly shares!: number;

@@ -9,746 +9,557 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
 // import { GetAllPosts, UpdatePost } from '@encompass/app/home-page/util';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SearchApi, SearchState } from '@encompass/app/search-explore/data-access';
+import {
+  SearchApi,
+  SearchState,
+} from '@encompass/app/search-explore/data-access';
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
 import { CommunityDto } from '@encompass/api/community/data-access';
-import { GetAllCommunities, SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
-import { HomeState } from '@encompass/app/home-page/data-access';
+import {
+  GetAllCommunities,
+  SearchCommunities,
+  SearchPosts,
+  SearchProfiles,
+} from '@encompass/app/search-explore/util';
 import { PostsState } from '@encompass/app/posts/data-access';
-import { UpdatePostArray } from '@encompass/app/posts/util';
-
-
+import { UpdatePost } from '@encompass/app/search-explore/util';
+import { HomeApi } from '@encompass/app/home-page/data-access';
 
 @Component({
   selector: 'search-explore',
   templateUrl: './search-explore.component.html',
-  styleUrls: ['./search-explore.component.scss']
+  styleUrls: ['./search-explore.component.scss'],
 })
 export class SearchExploreComponent {
-
-
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>; //get current profile
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>; //get current settings
 
-  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
-  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
-
-  @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
-  @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
-  @Select(SearchState.searchCommunities) searchCommunities$! : Observable<CommunityDto[] | null>;
-  @Select(SearchState.searchPostsByCategory) searchPostsByCategory$! : Observable<PostDto[] | null>;
-  @Select(SearchState.getAllCommunities) allCommunities$! : Observable<CommunityDto[] | null>;
-  @Select(SearchState.getAllProfiles) allProfiles$! : Observable<ProfileDto[] | null>;
+  @Select(SearchState.searchPosts) searchPosts$!: Observable<PostDto[] | null>; //get posts by keyword
+  @Select(SearchState.searchProfiles) searchProfiles$!: Observable<
+    ProfileDto[] | null
+  >; //get profiles by keyword
+  @Select(SearchState.searchCommunities) searchCommunities$!: Observable<
+    CommunityDto[] | null
+  >; //get communities by keyword
 
   private unsubscribe$: Subject<void> = new Subject<void>();
-  myCommunities! : CommunityDto[] | null;
-  
+  // myCommunities!: CommunityDto[] | null;
 
-  profile! : ProfileDto | null;
-  posts : PostDto[] = [];
-  relatedCommunities : string[] = [];
-  communities! : CommunityDto[];
-  relatedCommunitiesArray : CommunityDto[] = [];
-  profiles! : ProfileDto[];
-  settings!: SettingsDto | null;
-  datesAdded : string[] = [];
-  comments  : number[] = [];
-  shares : number[] = [];
-  likes: number[] =[] ;
-  likedComments: boolean[] = [];
-  sharing: boolean[] = [];
-  size=0;
-  postsIsFetched = false
-  communitiesIsFetched = false
-  peopleIsFetched = false
+  profile!: ProfileDto;
+  // posts: PostDto[] = [];
+  // relatedCommunities: string[] = [];
+  // communities!: CommunityDto[];
+  // relatedCommunitiesArray: CommunityDto[] = [];
+  // profiles!: ProfileDto[];
+  // settings!: SettingsDto | null;
 
   keyword = '';
-
-  postsVisible = true;
-  communityVisible = false;
-  peopleVisible = false;
+  communities: CommunityDto[] = [];
+  profiles: ProfileDto[] = [];
+  posts: PostDto[] = [];
+  communityMentions: string[] = [];
+  postsIsFetched = false;
+  datesAdded: Date[] = [];
+  comments: number[] = [];
+  shares: number[] = [];
+  likes: number[] = [];
+  likedComments: boolean[] = [];
+  sharing: boolean[] = [];
+  size = 0;
+  themeName!: string;
+  reports: boolean[] = [];
+  postReported: boolean[] = [];
+  isCommunitiesFetched = false;
+  isProfilesFetched = false;
+  isPostsFetched = false;
+  postsExists = false;
+  commsExists = false;
+  profilesExists = false;
+  communitiesIsFetched = false;
+  profilesIsFetched = false;
+  cardExists: boolean | undefined;
+  profileHasContent: boolean | undefined;
+  commsHasContent: boolean | undefined;
+  postsHasContent: boolean | undefined;
+  showMoreCommunities = false;
+  showMoreProfiles = false;
   noSearch = true;
-  noResult = false;
-  peopleExists = false;
-  CommunityExists = false;
-  PostsExists = false;
-  removed=false;
 
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private router: Router,
+    private store: Store,
+    private modalController: ModalController,
+    private formBuilder: FormBuilder,
+    private searchApi: SearchApi,
+    private toastController: ToastController,
+    private homeApi: HomeApi
+  ) {
 
-  postReported : boolean[] = [];
-  reports : boolean[] =[];
-  selectedCommunity: string | undefined;
-  selectedCommunities : string[]=[];
+    this.searchCommunities$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((communities) => {
+          if (communities) {
+            this.commsHasContent = true;
+            // console.log("POSTS:")
+            this.communities = [];
+            const communityCount = communities;
+            const temp = communities;
+            temp.forEach((community) => {
+              this.communities.push(community);
 
+              if (
+                community.name
+                  .toLowerCase()
+                  .includes(this.keyword.toLowerCase())
+              ) {
+                communityCount.push(community);
+              }
+            });
+          }
+        });
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private modalController: ModalController
-    ,private formBuilder: FormBuilder, private searchApi: SearchApi, private toastController: ToastController) {
-
-    this.load();
-    // this.addInitialPosts();
-    // const searchBar = document.getElementById('search-bar');
+        if (!this.profilesIsFetched) {
+          this.profilesIsFetched = true;
+          this.searchProfiles$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((profiles) => {
+              if (profiles) {
+                this.profileHasContent = true;
+                // console.log("POSTS:")
+                this.profiles = [];
+                const profileCount = profiles;
+                const temp = profiles;
+                temp.forEach((profile) => {
+                  this.profiles.push(profile);
     
-   }
+                  if (
+                    profile.name.toLowerCase().includes(this.keyword.toLowerCase())
+                  ) {
+                    profileCount.push(profile);
+                  }
+                });
+              }
+            });
+        }
+  }
 
-
-   async search(event: any) {
+  async search(event: any) {
     this.keyword = event.detail.value;
-    console.log("KEYWORD: " + this.keyword);
-    this.noSearch=false;
-
-    if (!this.keyword) {
-      // If the search keyword is empty, return
+    console.log(this.keyword);
+    this.postsTab();
+    this.noSearch = false;
+    if (this.keyword == '') {
+      this.clearSearch();
       return;
-    }else {
-      this.postChange();
-      // this.addCommunities("communities", this.keyword);
+    } else {
+      this.postsExists = true;
+      this.searchCommunities();
+      this.searchProfiles();
+      this.searchPosts();
     }
 
-   
   }
 
   clearSearch() {
-    this.peopleExists=false;
-    this.CommunityExists=false;
-    this.PostsExists=false;
-    this.noSearch=true;
-    this.noResult=false;
     this.keyword = '';
-    this.postChange();
-  }
-
-
-
-   load(){
-
-    const storedKeyword = localStorage.getItem('keyword');
-    console.log("stored keyword: " + storedKeyword);
-    if (storedKeyword) {
-      // searchBar.setAttribute('value', storedKeyword);
-      this.keyword = storedKeyword;
-      localStorage.removeItem('keyword');
-      this.postChange();
-    }
-
-    const page = document.getElementById('home-page');
-  
-      this.store.dispatch(new SubscribeToProfile())
-      // this.store.dispatch(new SubscribeToProfile())
-      this.profile$.subscribe((profile) => {
-        if(profile){
-          
-          console.log("Profile CALLED")
-          console.log(profile); 
-          this.profile = profile;
-          // this.addPosts("recommended");
-          this.postChange();
-  
-          this.store.dispatch(new GetUserSettings(this.profile._id))
-          
-          this.settings$.subscribe(settings => {
-            if(settings){
-              this.settings = settings;
-              
-              this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
-  
-                // if (icons) {
-                //   icons.style.filter = 'invert(1)';
-                // }
-              }
-              
-              if(page){
-                console.log("testing the feed page")
-                console.log("hello " + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              }else {
-                console.log("page is null")
-              }
-            }
-          })
-          
-        }
-      });
-  }
-
-  ngOnDestroy() {
-    // Unsubscribe to avoid memory leaks
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
-  async addPosts(type: string, keyword: string) {
-    this.communityVisible = false;
-    this.peopleVisible = false;
-  
-    if (this.profile == null) {
-      return;
-    }
-  
-    if (type === "posts") {
-      this.store.dispatch(new SearchPosts(keyword));
-      // this.store.dispatch(new GetAllCommunities());
-      this.store.dispatch(new SearchCommunities(keyword));
-      this.store.dispatch(new SearchProfiles(keyword));
-    } else {
-      return;
-    }
-  
-    if (!this.postsIsFetched) {
-      this.postsIsFetched = true;
-      this.searchPosts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
-        if (posts) {
-          this.posts = [];
-          this.relatedCommunities = [];
-          this.relatedCommunitiesArray = [];
-          const filteredPosts = [];
-          for (const post of posts) {
-            this.posts.push(post);
-            if (
-              post.text.toLowerCase().includes(keyword.toLowerCase()) ||
-              post.title.toLowerCase().includes(keyword.toLowerCase())
-            ) {
-              filteredPosts.push(post);
-              this.relatedCommunities.push(post.community);
-            }
-          }
-  
-          // this.allCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((relatedCommunities) => {
-          //   if (relatedCommunities) {
-          //     this.relatedCommunitiesArray = [];
-          //     const temp = relatedCommunities;
-          //     temp.forEach((community) => {
-          //       console.log("community: " + community.name);
-          //       if (this.relatedCommunities.includes(community.name)) {
-          //         this.relatedCommunitiesArray.push(community);
-          //       }
-          //     });
-  
-          //     // Here, you can process the data related to communities.
-          //     console.log("Related Communities Array:", this.relatedCommunitiesArray);
-          //   }
-          // });
-
-          if(!this.communitiesIsFetched){
-        
-            this.communitiesIsFetched = true; 
-            this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
-            if(communities){
-              // console.log("POSTS:")
-              this.communities = [];
-              const communityCount = communities;
-              const temp = communities;
-              temp.forEach((community) => {
-               
-                  this.communities.push(community);
-    
-                  if (community.name.toLowerCase().includes(this.keyword.toLowerCase())) {
-                    communityCount.push(community);
-                  }
-                
-              })
-    
-              this.noSearch=true;
-              if(communityCount.length!==0){
-                this.CommunityExists=true;
-                this.noSearch=false;
-                this.noResult=false;
-              }else{
-                this.CommunityExists=false;
-                this.noResult=true;
-                this.noSearch=false;
-              }
-              
-            }
-          })
-        }
-
-        if(!this.peopleIsFetched){
-        
-          this.peopleIsFetched = true; 
-          this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
-          if(profiles){
-            // console.log("POSTS:")
-            this.profiles = [];
-            const profileCount = profiles;
-            const temp = profiles;
-            temp.forEach((person) => {
-             
-                this.profiles.push(person);
-                if (person.name.toLowerCase().includes(this.keyword.toLowerCase())) {
-                  profileCount.push(person);
-                }
-              
-            })
-            this.noSearch=true;
-          if(profileCount.length!==0){
-            this.peopleExists=true;
-            this.noResult=false;
-            this.noSearch=false;
-          }else{
-            this.peopleExists=false;
-            this.noResult=true;
-            this.noSearch=false;
-          }
-          }
-        })
-        
-      }
-  
-          this.noSearch = true;
-          if (filteredPosts.length !== 0) {
-            this.PostsExists = true;
-            this.noSearch = false;
-            this.noResult = false;
-          } else {
-            this.PostsExists = false;
-            this.noResult = true;
-            this.noSearch = false;
-          }
-  
-  
-          // this.posts = posts;
-          this.size=posts.length-1;
-          // console.log("SIZE: " + this.size)
-          for(let i =0;i<posts.length;i++){
-            this.likedComments.push(false);
-            this.sharing.push(false);
-  
-            this.reports.push(false);
-            this.postReported.push(false);
-  
-            if(posts[i].dateAdded!=null&&posts[i].comments!=null
-              &&posts[i].shares!=null){
-              this.datesAdded.push(posts[i].dateAdded);
-              this.comments.push(posts[i].comments);
-              this.shares.push(posts[i].shares);
-            }
-  
-            if(posts!=null&&posts[i].likes!=null){
-              this.likes.push(posts[i].likes?.length);
-              
-  
-              if(this.profile==undefined){
-                return;
-              }
-              if(posts[i].likes.includes(this.profile.username)){
-                this.likedComments[i]=true;
-              } 
-            }
-  
-          }
-  }
-  })
-
-  
-}
-
-    
-}
-
-
-  async addCommunities(type: string, keyword: string){
-
-    this.postsVisible=false;
-    this.peopleVisible=false;
-    
-
-    if(this.profile == null){
-      return;
-    }
-  
-      if (type === "communities") {
-        this.store.dispatch(new SearchCommunities(keyword));
-      }else {
-        return;
-      }
-
-      if(!this.communitiesIsFetched){
-        
-        this.communitiesIsFetched = true; 
-        this.searchCommunities$.pipe(takeUntil(this.unsubscribe$)).subscribe((communities) => {
-        if(communities){
-          // console.log("POSTS:")
-          this.communities = [];
-          const communityCount = communities;
-          const temp = communities;
-          temp.forEach((community) => {
-           
-              this.communities.push(community);
-
-              if (community.name.toLowerCase().includes(this.keyword.toLowerCase())) {
-                communityCount.push(community);
-              }
-            
-          })
-
-          this.noSearch=true;
-          if(communityCount.length!==0){
-            this.CommunityExists=true;
-            this.noSearch=false;
-            this.noResult=false;
-          }else{
-            this.CommunityExists=false;
-            this.noResult=true;
-            this.noSearch=false;
-          }
-          
-        }
-      })
-    }
-  }
-
-  async addPeople(type: string, keyword: string){
-    console.log("add people called")
+    this.postsIsFetched = false;
+    this.communitiesIsFetched = false;
+    this.profilesIsFetched = false;
+    this.postsHasContent = false;
+    this.commsHasContent = false;
+    this.profileHasContent = false;
+    this.postsExists = false;
+    this.commsExists = false;
+    this.profilesExists = false;
+    this.noSearch = true;
+    this.communities = [];
     this.profiles = [];
-    this.postsVisible=false;
-    this.communityVisible=false;
-    
-    
-    if(this.profile == null){
-      return;
-    }
-  
-      if (type === "people") {
-        this.store.dispatch(new SearchProfiles(keyword));
-      }else {
-        return;
-      }
+    this.posts = [];
+  }
 
-      if(!this.peopleIsFetched){
-        
-        this.peopleIsFetched = true; 
-        this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
-        if(profiles){
-          console.log("PROFILES:")
-          this.profiles = [];
-          const profileCount = profiles;
-          const temp = profiles;
-          temp.forEach((person) => {
-           
-              this.profiles.push(person);
-              if (person.name.toLowerCase().includes(this.keyword.toLowerCase())) {
-                profileCount.push(person);
-              }
-            
-          })
+  async searchCommunities() {
 
-          
-          // console.log("profiles: " + this.profiles.length);
-          this.noSearch=true;
-          if(profileCount.length!==0){
-            this.peopleExists=true;
-            this.noResult=false;
-            this.noSearch=false;
-          }else{
-            this.peopleExists=false;
-            this.noResult=true;
-            this.noSearch=false;
-          }
-  
-        }
-      })
+    this.store.dispatch(new SearchCommunities(this.keyword));
+
+
+    if (!this.communitiesIsFetched) {
+      this.communitiesIsFetched = true;
+
       
     }
 
-    // console.log("profiles: " + this.peopleVisible);
+    this.searchCommunities$.subscribe((communities) => {
+      if (communities) {
+        console.log("commlengths:" + this.communities.length);
+        if (this.communities.length <= 0) {
+          this.commsHasContent = false;
+        }
+        if (this.communities.length >= 4){
+          this.showMoreCommunities = true;
+        }
+      }
+    });
   }
 
-  buttonStates: { [key: string]: boolean } = {}; // Object to track state for each button
+  async searchProfiles() {
 
-  handleButtonClick(buttonId: string, CommunityName: string) {
-    this.selectedCommunity = CommunityName;
+    this.store.dispatch(new SearchProfiles(this.keyword));
 
-    this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+    
 
-    if(!this.selectedCommunities.includes(CommunityName))
-    {
+    this.searchProfiles$.subscribe((profiles) => {
+      if (profiles) {
+        if (this.profiles.length <= 0) {
+          this.profileHasContent = false;
+        }
+        if  (this.profiles.length >= 6){
+          this.showMoreProfiles = true;
+        }
+      }
+    });
+  }
 
-      this.selectedCommunities.push(this.selectedCommunity);
+  //=========================================================================post things=========================================================================================
 
-    }else{
-      this.selectedCommunities=this.selectedCommunities.filter((community) => community !== this.selectedCommunity);
+  async searchPosts() {
 
+    this.store.dispatch(new SearchPosts(this.keyword));
+    this.postsHasContent = true;
+
+    // if (!this.postsIsFetched) {
+    //   this.postsIsFetched = true;
+    //   this.searchPosts$
+    //     .pipe(takeUntil(this.unsubscribe$))
+    //     .subscribe((posts) => {
+    //       if (posts) {
+    //         this.postsHasContent = true;
+    //         // console.log("POSTS:")
+    //         this.posts = [];
+    //         const postsCount = posts;
+    //         const temp = posts;
+    //         temp.forEach((post) => {
+    //           this.posts.push(post);
+    //           postsCount.push(post);
+    //         });
+    //       }
+    //     });
+    // }
+    await this.updatePosts();
+  }
+
+  async updatePosts() {
+    this.searchPosts$.subscribe((posts) => {
+      if (posts) {
+        const temp = posts.filter((post) => {
+          
+          if (post.isPrivate) {
+            return this.profile?.communities.includes(post.community);
+          } else {
+            return true;
+          }
+        });
+        
+        this.posts = temp;
+
+        this.size = this.posts.length - 1;
+
+        for (let i = 0; i < this.posts.length; i++) {
+          this.likedComments.push(false);
+          this.sharing.push(false);
+          this.reports.push(false);
+          this.postReported.push(false);
+
+          if (
+            this.posts[i].dateAdded != null &&
+            this.posts[i].comments != null &&
+            this.posts[i].shares != null
+          ) {
+            this.datesAdded.push(this.posts[i].dateAdded);
+            this.comments.push(this.posts[i].comments);
+            this.shares.push(this.posts[i].shares);
+          }
+
+          if (this.posts[i].likes != null) {
+            this.likes.push(this.posts[i].likes?.length);
+
+            if (this.profile == undefined) {
+              return;
+            }
+            if (this.posts[i].likes.includes(this.profile.username)) {
+              this.likedComments[i] = true;
+            }
+          }
+        }
+
+        if (this.posts.length <= 0) {
+          this.postsHasContent = false;
+        }
+      }
+    });
+  }
+
+  Report(n: number) {
+    if (this.posts?.length == null) {
+      return;
     }
 
-    console.log(this.selectedCommunities);
+    if (this.reports[n] == true) {
+      this.reports[n] = false;
+      return;
+    } else {
+      for (let k = 0; k < this.reports.length; k++) {
+        this.reports[k] = false;
+      }
+      this.reports[n] = true;
+    }
   }
 
-  Dislike(n:number, post: PostDto){
-    this.likedComments[n]=false;
+  Like(n: number, post: PostDto) {
+    let likesArr: string[];
+
+    console.log(this.profile?.username + ' LIKED POST');
+    const emptyArray: string[] = [];
+
+    if (this.profile?.username == null) {
+      return;
+    }
+
+    if (post.likes == emptyArray) {
+      likesArr = [this.profile?.username];
+    } else {
+      likesArr = [...post.likes, this.profile.username];
+    }
+
+    const data: UpdatePostRequest = {
+      title: post.title,
+      text: post.text,
+      imageUrl: post.imageUrl,
+      communityImageUrl: post.communityImageUrl,
+      categories: post.categories,
+      likes: likesArr,
+      dislikes: post.dislikes.filter(
+        (dislike) => dislike !== this.profile?.username
+      ),
+      spoiler: post.spoiler,
+      ageRestricted: post.ageRestricted,
+      shares: post.shares,
+      comments: post.comments,
+      reported: post.reported,
+    };
+    if (this.profile == null) {
+      return;
+    }
+
+    this.store.dispatch(new UpdatePost(post._id, data));
+    this.homeApi.addCoins(post.username, 1);
+  }
+
+  Dislike(n: number, post: PostDto) {
+    console.log('dislike');
+    this.likedComments[n] = false;
     this.likes[n]--;
-  
+
     let likesArr = [...post.likes];
     likesArr = likesArr.filter((like) => like !== this.profile?.username);
-  
-    const data : UpdatePostRequest = {
+
+    let dislikesArr = [...post.dislikes];
+
+    if (this.profile?.username == null) {
+      return;
+    }
+
+    if (!dislikesArr.includes(this.profile?.username)) {
+      dislikesArr = [...post.dislikes, this.profile?.username];
+    }
+
+    const data: UpdatePostRequest = {
       title: post.title,
       text: post.text,
       imageUrl: post.imageUrl,
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: dislikesArr,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
       comments: post.comments,
-      reported: post.reported
+      reported: post.reported,
+    };
+
+    if (this.profile == null) {
+      return;
     }
-  
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.searchApi.removeCoins(post.username, 1);
+
+    this.store.dispatch(new UpdatePost(post._id, data));
+    this.homeApi.removeCoins(post.username, 1);
+
+    // this.addPosts();
   }
 
-  Report(n:number){
+  ReportPost(n: number, post: PostDto) {
+    if (this.posts?.length == null) {
+      return;
+    }
 
-  
-    if(this.posts?.length==null){
-      return;
-    }
-    const i = this.posts?.length-n-1;
-  
-    // console.log("n: " + n);
-    // console.log("i: " + i);
-  
-    
-    if(this.posts[i].reported==true){
-      return;
-    }
-  
-    if(this.reports[i]==true){
-      for(let k = 0;k<this.reports.length;k++){
-        this.reports[k]=false;
-     }
-    }
-    else{
-      for(let k = 0;k<this.reports.length;k++){
-        this.reports[k]=false;
-     }
-     this.reports[i]=true;
-    }
-  
-  }
+    this.reports[n] = false;
 
-  Like(n:number, post: PostDto){
-    this.likedComments[n]=true;
-    this.likes[n]++;
-  
-    let likesArr : string[];
-  
-    const emptyArray : string[] = [];
-  
-    if(this.profile?.username == null){
-      return;
-    }
-    
-    if(post.likes == emptyArray){
-      likesArr = [this.profile?.username];
-    }
-  
-    else{
-      likesArr = [...post.likes, this.profile?.username];
-    }
-  
-    const data : UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported
-    }
-  
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.searchApi.addCoins(post.username, 1);
-  }
-
-  ReportPost(n:number, post: PostDto){
-    // console.log("reporting post");
-  
-    if(this.posts?.length==null){
-      return;
-    }
-    
-    const i = this.posts?.length-n-1;
-  
-  
-  for(let k = 0;k<this.postReported.length;k++){
-        this.postReported[k]=false;
-     }
-     this.postReported[i]=true;  
-  
-    const data : UpdatePostRequest = {
+    const data: UpdatePostRequest = {
       title: post.title,
       text: post.text,
       imageUrl: post.imageUrl,
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
       comments: post.comments,
-      reported: true
-    }
-  
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.searchApi.removeCoins(post.username, 1);
-  }
-  
+      reported: true,
+    };
 
-  GoToCommunity(communityName:string){
-    this.router.navigate(['home/community-profile/' + communityName]);
+    this.store.dispatch(new UpdatePost(post._id, data));
+    this.homeApi.removeCoins(post.username, 1);
   }
 
-  GoToProfile(username: string){
-    this.router.navigate(['home/user-profile/' + username]);
-  }
-
-ViewPostofComment(postId: string){
-    this.router.navigate(['home/app-comments-feature/' + postId]);
-  }
-  
-  async Share(n:number, post: PostDto){
+  async Share(n: number, post: PostDto) {
     this.shares[n]++;
-    for(let i =0;i<this.sharing.length;i++){
-      this.sharing[i]=false;
+    for (let i = 0; i < this.sharing.length; i++) {
+      this.sharing[i] = false;
     }
-    this.sharing[n]=true;
-  
-    const obj = location.origin
-    if(obj == undefined){
+    this.sharing[n] = true;
+
+    const obj = location.origin;
+    if (obj == undefined) {
       return;
     }
-  
-    const data : UpdatePostRequest = {
+
+    const data: UpdatePostRequest = {
       title: post.title,
       text: post.text,
       imageUrl: post.imageUrl,
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
       comments: post.comments,
-      reported: post.reported
-    }
-  
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.searchApi.addCoins(post.username, 1);
-    const link : string = obj + '/home/app-comments-feature/' + post._id;
-  
-    await navigator.clipboard.writeText(link)
+      reported: post.reported,
+    };
+
+    this.store.dispatch(new UpdatePost(post._id, data));
+
+    const link: string = obj + '/home/app-comments-feature/' + post._id;
+
+    await navigator.clipboard.writeText(link);
 
     const toast = await this.toastController.create({
       message: 'Url Copied to Clipboard',
       duration: 2000,
-      color: 'success'
-    })
+      color: 'success',
+    });
 
     await toast.present();
   }
-  
-  postChange(){
-    this.postsVisible=true;
-    if (this.PostsExists === false){
-      this.noSearch=true;
-    }
-    // this.noSearch=true;
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-    const PeopleBtn = document.getElementById('PeopleBtn');
 
-    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
-      PostBtn.classList.add('active-button');
-      CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
-      PeopleBtn.classList.remove('active-button');
-    }
-    
-    this.addPosts("posts", this.keyword);
-    
+  //==============================================================navigation=====================================================
+
+  GoToCommunity(communityName: string) {
+    this.router.navigate(['home/community-profile/' + communityName]);
   }
 
-  commChange(){
-    this.communityVisible=true;
-    if (this.CommunityExists === false){
-      this.noSearch=true;
+  GoToProfile(username: string) {
+    if (this.profile?.username !== username) {
+      this.router.navigate(['home/user-profile/' + username]);
+    } else {
+      this.router.navigate(['home/profile']);
     }
-    // this.noSearch=true;
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-    const PeopleBtn = document.getElementById('PeopleBtn');
-
-    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
-      PostBtn.classList.remove('active-button');
-      CommentsBtn.classList.add('active-button');
-      eventBtn.classList.remove('active-button');
-      PeopleBtn.classList.remove('active-button');
-    }
-
-
-    this.addCommunities("communities", this.keyword);
   }
 
-  peopleChange(){
-    this.peopleVisible=true;
-    if (this.peopleExists === false){
-      this.noSearch=true;
-    }
-    // this.noSearch=true;
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-    const PeopleBtn = document.getElementById('PeopleBtn');
-    console.log("people change")
-
-    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
-      PostBtn.classList.remove('active-button');
-      CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
-      PeopleBtn.classList.add('active-button');
-    }
-    
-
-    this.addPeople("people", this.keyword);
-  }
-
-  eventChange(){
-    
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-    const PeopleBtn = document.getElementById('PeopleBtn');
-
-    if (PostBtn && CommentsBtn && eventBtn && PeopleBtn) {
-      PostBtn.classList.remove('active-button');
-      CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.add('active-button');
-      PeopleBtn.classList.remove('active-button');
-    }
-
-    
-  }
-
-  
-
-  GoToComments(postId : string){
+  GoToComments(postId: string) {
     this.router.navigate(['home/app-comments-feature/' + postId]);
   }
 
+  postsTab() {
+    this.postsExists = true;
+    this.commsExists = false;
+    this.profilesExists = false;
+  }
 
+  commsTab() {
+    this.postsExists = false;
+    this.commsExists = true;
+    this.profilesExists = false;
+  }
+
+  profilesTab() {
+    this.postsExists = false;
+    this.commsExists = false;
+    this.profilesExists = true;
+  }
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+
+    this.store.dispatch(new SubscribeToProfile());
+
+    this.profile$.subscribe((profile) => {
+      if (profile) {
+        console.log('Profile CALLED');
+        console.log(profile);
+        this.profile = profile;
+      }
+    });
+  
+  }
+
+  buttonStates: { [key: string]: boolean } = {};
+
+  handleButtonClick(buttonId: string, communityName: string) {
+    // Toggle the state of the button
+    this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+    // Implement your logic here (e.g., adding or removing the community)
+    if (this.buttonStates[buttonId]) {
+      // Community is added
+      console.log(`Added ${communityName}`);
+    } else {
+      // Community is removed
+      console.log(`Removed ${communityName}`);
+    }
+  }
+
+  buttonStatesPeople: { [key: string]: boolean } = {};
+
+  // Function to handle following/unfollowing a person
+  handleFollowButtonClick(buttonId: string, username: string) {
+    // Toggle the state of the button
+    this.buttonStatesPeople[buttonId] = !this.buttonStatesPeople[buttonId];
+
+    // Implement your logic here for following/unfollowing the person
+    if (this.buttonStatesPeople[buttonId]) {
+      // Person is followed
+      console.log(`You are now following ${username}`);
+    } else {
+      // Person is unfollowed
+      console.log(`You have unfollowed ${username}`);
+    }
+  }
 }

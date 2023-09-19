@@ -32,8 +32,9 @@ export class GetLatestPostHandler implements IQueryHandler<GetLatestPostsQuery> 
         }
 
         async function orderbyLatest(allPosts: PostSchema[]) {
+            //reorder posts by date
             const latestPosts = allPosts.sort((a, b) => {
-                return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
+                return b.dateAdded.getTime() - a.dateAdded.getTime();
             });
             return latestPosts;
         }

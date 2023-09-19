@@ -1,4 +1,4 @@
-<div class="overlay-container">
+<div class="overlay-container" *ngIf="!mobileview">
   <h1 class="ChallengeName">{{event?.name}}</h1>
   <h3 class="HostDetails">
     Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text> from
@@ -44,16 +44,16 @@
       </div>
 
       <div class="Options" *ngIf="userAnswers[i] !== null">
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">A.</label><label class="questionDesc">{{ question.options[0] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">B.</label><label class="questionDesc">{{ question.options[1] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">C.</label><label class="questionDesc">{{ question.options[2] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'background-color': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? 'green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? 'red' : ''}">
+        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
           <label class="Letter">D.</label><label class="questionDesc">{{ question.options[3] }}</label>
         </div>
       </div>
@@ -77,5 +77,91 @@
       </div>
     </div>
   </div>
-  <!-- <button (click)="fillCircle()">click me before you doubt me</button> -->
+  <button class = "finish" (click)="backToEvents()">Return to Events</button>
+
+</div>
+
+<div class="overlay-container_mobile" *ngIf="mobileview">
+  <h1 class="ChallengeName">{{event?.name}}</h1>
+  <h3 class="HostDetails_mobile">
+    Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text> from <br>
+    <ion-text class="HostCommunity"> {{event?.community}}</ion-text>
+  </h3>
+  <h5 class="ChallengeDetails">
+    <ion-text class="partNum"> {{numberOfParticipants}} </ion-text>Particicpants |
+    <ion-text class="QuesNum">{{numberOfQuestions}} </ion-text> MCQs
+  </h5>
+  <div class="border"></div>
+  <div
+    *ngFor="let question of event?.quiz; let i = index"
+    class="QuestionContainer"
+  >
+    <ion-card class="Question_mobile">
+      <div class="QuestionHeader_mobile">
+        <label style="width: 50%"
+          ><b>Question {{ i + 1 }}</b></label
+        >
+        <label style="width: 25%; text-align: center"
+          ><b>{{ i + 1 }}</b> of <b>{{ numberOfQuestions }}</b></label
+        >
+        <label style="width: 25%; text-align: end">Score: <b>20</b></label>
+      </div>
+      <div class="Text">{{question.question}}</div>
+      <div class="Options_mobile" *ngIf='userAnswers[i] === null'>
+        <div class="Option_mobile" (click)="answerQuestion(i, question.options[0])">
+          <label class="Letter">A.</label
+          ><label class="questionDesc">{{question.options[0]}}</label>
+        </div>
+        <div class="Option_mobile" (click)="answerQuestion(i, question.options[1])">
+          <label class="Letter">B.</label
+          ><label class="questionDesc">{{question.options[1]}}</label>
+        </div>
+        <div class="Option_mobile" (click)="answerQuestion(i, question.options[2])">
+          <label class="Letter">C.</label
+          ><label class="questionDesc">{{question.options[2]}}</label>
+        </div>
+        <div class="Option_mobile" (click)="answerQuestion(i, question.options[3])">
+          <label class="Letter">D.</label
+          ><label class="questionDesc">{{question.options[3]}}</label>
+        </div>
+      </div>
+
+      <div class="Options_mobile" *ngIf="userAnswers[i] !== null">
+        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
+          <label class="Letter">A.</label>
+          <label class="questionDesc">{{ question.options[0] }}</label>
+        </div>
+        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
+          <label class="Letter">B.</label>
+          <label class="questionDesc">{{ question.options[1] }}</label>
+        </div>
+        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
+          <label class="Letter">C.</label><label class="questionDesc">{{ question.options[2] }}</label>
+        </div>
+        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
+          <label class="Letter">D.</label><label class="questionDesc">{{ question.options[3] }}</label>
+        </div>
+      </div>
+      
+    </ion-card>
+  </div>
+
+  <div class="circle-container">
+    <div class="glass">
+      <div
+        class="water"
+        [style.transform]="'scaleY(' + fillPercentage + ')'"
+      ></div>
+      <div class="score1" *ngIf="LessThanHalf">
+        <label class="score">{{ fillNumber }} / {{ totalNumber }}</label>
+        <label class="points">{{ points }} points</label>
+      </div>
+      <div class="score2" *ngIf="MoreThanHalf">
+        <label class="score">{{ fillNumber }} / {{ totalNumber }}</label>
+        <label class="points">{{ points }} points</label>
+      </div>
+    </div>
+  </div>
+  <button class = "finish" (click)="backToEvents()">Finish Quiz</button>
+
 </div>

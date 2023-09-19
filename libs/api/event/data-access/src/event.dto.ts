@@ -14,5 +14,5 @@ export class EventDto {
   }[];
   readonly prompt!: string[];
   readonly categories!: string[];
-  readonly quizDescription!: string;
+  readonly quizDescription!: string[];
 }

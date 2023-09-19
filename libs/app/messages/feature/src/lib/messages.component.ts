@@ -98,6 +98,9 @@ export class MessagesPage implements OnDestroy {
                       if (chatProfiles) {
                         console.log(chatProfiles);
                         this.chatProfiles = chatProfiles;
+                        if (chatProfiles[0]){
+                          this.fetchMessages(chatProfiles[0].chatId, chatProfiles[0].name, chatProfiles[0].lastName, chatProfiles[0].profilePicture, chatProfiles[0].username);
+                        }
                       }
                     });
                 });
@@ -206,23 +209,16 @@ export class MessagesPage implements OnDestroy {
         this.profile.username
       )
     );
-    // this.store.dispatch(new GetChatList(this.profile.username))
-    // this.chatList$.subscribe((chatList) => {
-    //   if(chatList){
-    //     console.log(chatList)
-    //     this.chatList = chatList
-    //   }
-    // })
+
     this.isGetNewChatsDispatched = false;
     this.store.dispatch(new GetChatList(this.profile.username));
     this.chatList$.subscribe((chatList) => {
       if (chatList) {
-        // this.chatList = chatList
+
         console.log(chatList);
-        // if(this.chatList?.chatList.length != chatList.chatList.length){
+
         this.chatList = chatList;
-        // if(!this.isGetUserInformationDispatched){
-        // this.isGetUserInformationDispatched = true;
+
         this.store.dispatch(new GetUserInformation(chatList));
         this.chatProfiles$
           .pipe(takeUntil(this.unsubscribe$))
@@ -230,10 +226,20 @@ export class MessagesPage implements OnDestroy {
             if (chatProfiles) {
               console.log(chatProfiles);
               this.chatProfiles = chatProfiles;
+              if (chatProfiles.length > 0) {
+                const lastProfile = chatProfiles[chatProfiles.length - 1]; 
+                this.fetchMessages(
+                  lastProfile.chatId,
+                  lastProfile.name,
+                  lastProfile.lastName,
+                  lastProfile.profilePicture,
+                  lastProfile.username
+                );
+              }
+              
             }
           });
-        // }
-        // }
+
       }
     });
   }
@@ -295,4 +301,6 @@ export class MessagesPage implements OnDestroy {
   closeChats(value: boolean) {
     this.openChats = value;
   }
+
+  
 }

@@ -3,16 +3,16 @@ import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable, takeUntil, pipe, Subject, take } from 'rxjs';
-import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import {
   GetRecommendedCommunities,
   GetRecommendedBooks,
   GetRecommendedMovies,
+  UpdateCommunity,
 } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { ProfileDto } from '@encompass/api/profile/data-access';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
+import { ProfileDto, UpdateProfileRequest } from '@encompass/api/profile/data-access';
+import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CreatePostComponent } from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -23,7 +23,7 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
-import { CommunityDto } from '@encompass/api/community/data-access';
+import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
 import { MovieDto, PodcastDto } from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
@@ -53,15 +53,15 @@ export class FeedPage {
     }
   }
 
-
-  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
-  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
-  @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
-  @Select(HomeState.getMovies) movies$! : Observable<MovieDto[] | null>;
-  @Select(HomeState.getBooks) books$! : Observable<BookDto[] | null>;
-  @Select(HomeState.getPodcasts) podcasts$! : Observable<PodcastDto[] | null>; 
-
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(PostsState.posts) homePosts$!: Observable<PostDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
+  @Select(HomeState.getCommunities) communities$!: Observable<
+    CommunityDto[] | null
+  >;
+  @Select(HomeState.getMovies) movies$!: Observable<MovieDto[] | null>;
+  @Select(HomeState.getBooks) books$!: Observable<BookDto[] | null>;
+  @Select(HomeState.getPodcasts) podcasts$!: Observable<PodcastDto[] | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -93,7 +93,7 @@ export class FeedPage {
   reports: boolean[] = [];
   postReported: boolean[] = [];
 
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   shares: number[] = [];
   likes: number[] = [];
@@ -101,7 +101,9 @@ export class FeedPage {
   sharing: boolean[] = [];
   size = 0;
   themeName!: string;
-  colSize=0;
+  colSize = 0;
+
+  isNewFetched = false;
   // type = "recommended";
 
   communitiesIsFetched = false;
@@ -111,6 +113,7 @@ export class FeedPage {
   settingsIsFetched = false;
   ShowBooks = true;
   ShowMovies = true;
+  showPodcasts = true;
   mobileview = false;
 
   type = 'recommended';
@@ -136,7 +139,7 @@ export class FeedPage {
     this.mobileview = window.innerWidth <= 992;
     if (this.mobileview) {
       this.colSize = 12.5;
-    }else{
+    } else {
       this.colSize = 5;
     }
   }
@@ -158,103 +161,108 @@ export class FeedPage {
         console.log(profile);
         this.profile = profile;
         // this.addPosts("recommended");
-        this.newChange();
+        if(!this.isNewFetched){
+          this.isNewFetched = true;
+          this.newChange();
+        }
 
         if (!this.settingsIsFetched) {
           this.settingsIsFetched = true;
 
           this.store.dispatch(new GetUserSettings(this.profile._id));
 
-          this.settings$.pipe(takeUntil(this.unsubscribe$)).subscribe((settings) => {
-            if (settings) {
-              this.settings = settings;
+          this.settings$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((settings) => {
+              if (settings) {
+                this.settings = settings;
 
-              this.document.body.setAttribute(
-                'color-theme',
-                this.settings.themes.themeColor
-              );
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
+                this.document.body.setAttribute(
+                  'color-theme',
+                  this.settings.themes.themeColor
+                );
+                if (this.settings.themes.themeColor.startsWith('dark')) {
+                  const icons = document.getElementById('genreicons');
 
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
+                  if (icons) {
+                    icons.style.filter = 'invert(1)';
+                  }
                 }
-              }
 
-              this.themeName = this.settings.themes.themeColor;
+                this.themeName = this.settings.themes.themeColor;
 
-              console.log(this.themeName);
-
-              const defaultcloud = document.getElementById('cloud-default');
-              const redcloud = document.getElementById('cloud-red');
-              const bluecloud = document.getElementById('cloud-blue');
-              const greencloud = document.getElementById('cloud-green');
-              const orangecloud = document.getElementById('cloud-orange');
-
-              if (
-                defaultcloud &&
-                redcloud &&
-                bluecloud &&
-                greencloud &&
-                orangecloud
-              ) {
-                // console.log('default cloudsssssssssssssssssssssssssssssssss1');
                 console.log(this.themeName);
+
+                const defaultcloud = document.getElementById('cloud-default');
+                const redcloud = document.getElementById('cloud-red');
+                const bluecloud = document.getElementById('cloud-blue');
+                const greencloud = document.getElementById('cloud-green');
+                const orangecloud = document.getElementById('cloud-orange');
+
                 if (
-                  this.themeName == 'light-red' ||
-                  this.themeName == 'dark-red'
+                  defaultcloud &&
+                  redcloud &&
+                  bluecloud &&
+                  greencloud &&
+                  orangecloud
                 ) {
-                  redcloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-blue' ||
-                  this.themeName == 'dark-blue'
-                ) {
-                  // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-                  bluecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-green' ||
-                  this.themeName == 'dark-green'
-                ) {
-                  greencloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-orange' ||
-                  this.themeName == 'dark-orange'
-                ) {
-                  orangecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
+                  // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+                  console.log(this.themeName);
+                  if (
+                    this.themeName == 'light-red' ||
+                    this.themeName == 'dark-red'
+                  ) {
+                    redcloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-blue' ||
+                    this.themeName == 'dark-blue'
+                  ) {
+                    // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                    bluecloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-green' ||
+                    this.themeName == 'dark-green'
+                  ) {
+                    greencloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-orange' ||
+                    this.themeName == 'dark-orange'
+                  ) {
+                    orangecloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                  } else {
+                    defaultcloud.classList.remove('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  }
+                }
+
+                if (page) {
+                  console.log('testing the feed page');
+                  console.log('hello ' + this.settings.themes.themeImage);
+                  page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
                 } else {
-                  defaultcloud.classList.remove('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
+                  console.log('page is null');
                 }
               }
-
-              if (page) {
-                console.log('testing the feed page');
-                console.log('hello ' + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              } else {
-                console.log('page is null');
-              }
-            }
-          });
+            });
         }
 
         if (!this.communitiesIsFetched) {
@@ -879,6 +887,8 @@ export class FeedPage {
     });
   }
 
+
+  
   async addPosts() {
     if (this.profile == null) {
       return;
@@ -1016,7 +1026,7 @@ export class FeedPage {
   async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
-      cssClass: 'custom-modal', 
+      cssClass: 'custom-modal',
       componentProps: {},
     });
 
@@ -1026,7 +1036,7 @@ export class FeedPage {
   async openPopup2() {
     const modal = await this.modalController.create({
       component: CreateCommunityComponent,
-      cssClass: 'custom-modal', 
+      cssClass: 'custom-modal',
       componentProps: {},
     });
 
@@ -1076,6 +1086,9 @@ export class FeedPage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: post.dislikes.filter(
+        (dislike) => dislike !== this.profile?.username
+      ),
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -1100,6 +1113,16 @@ export class FeedPage {
     let likesArr = [...post.likes];
     likesArr = likesArr.filter((like) => like !== this.profile?.username);
 
+    let dislikesArr = [...post.dislikes];
+
+    if (this.profile?.username == null) {
+      return;
+    }
+
+    if (!dislikesArr.includes(this.profile?.username)) {
+      dislikesArr = [...post.dislikes, this.profile?.username];
+    }
+
     const data: UpdatePostRequest = {
       title: post.title,
       text: post.text,
@@ -1107,6 +1130,7 @@ export class FeedPage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: dislikesArr,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -1138,6 +1162,7 @@ export class FeedPage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -1168,6 +1193,7 @@ export class FeedPage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
@@ -1200,16 +1226,16 @@ export class FeedPage {
 
   selectedSegment = 'recommended';
 
-segmentChanged(event: any) {
-  this.selectedSegment = event.detail.value;
-  if (this.selectedSegment === 'recommended') {
-    this.recChange();
-  } else if (this.selectedSegment === 'new') {
-    this.newChange();
-  } else if (this.selectedSegment === 'popular') {
-    this.popChange();
+  segmentChanged(event: any) {
+    this.selectedSegment = event.detail.value;
+    if (this.selectedSegment === 'recommended') {
+      this.recChange();
+    } else if (this.selectedSegment === 'new') {
+      this.newChange();
+    } else if (this.selectedSegment === 'popular') {
+      this.popChange();
+    }
   }
-}
 
   recChange() {
     for (let k = 0; k < this.reports.length; k++) {
@@ -1289,6 +1315,8 @@ segmentChanged(event: any) {
 
   handleButtonClick(buttonId: string, CommunityName: string) {
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+    this.joinCommunity(CommunityName);
   }
 
   activebutton = 'all';
@@ -1298,11 +1326,13 @@ segmentChanged(event: any) {
     const all = document.getElementById('all');
     const books = document.getElementById('books');
     const movies = document.getElementById('movies');
+    const podcasts = document.getElementById('podcasts');
     // const series = document.getElementById('series');
-    if (all && books && movies) {
+    if (all && books && movies && podcasts) {
       if (btnname == 'all') {
         this.ShowMovies = true;
         this.ShowBooks = true;
+        this.showPodcasts = true;
         all.classList.add('active-select');
         books.classList.remove('active-select');
         movies.classList.remove('active-select');
@@ -1310,6 +1340,7 @@ segmentChanged(event: any) {
       } else if (btnname == 'books') {
         this.ShowMovies = false;
         this.ShowBooks = true;
+        this.showPodcasts = false;
         all.classList.remove('active-select');
         books.classList.add('active-select');
         movies.classList.remove('active-select');
@@ -1317,16 +1348,70 @@ segmentChanged(event: any) {
       } else if (btnname == 'movies') {
         this.ShowMovies = true;
         this.ShowBooks = false;
+        this.showPodcasts = false;
         all.classList.remove('active-select');
         books.classList.remove('active-select');
         movies.classList.add('active-select');
         // series.classList.remove('active-select');
-      } else if (btnname == 'series') {
+      } else if (btnname == 'podcasts') {
+        this.ShowMovies = false;
+        this.ShowBooks = false;
+        this.showPodcasts = true;
         all.classList.remove('active-select');
         books.classList.remove('active-select');
         movies.classList.remove('active-select');
-        // series.classList.add('active-select');
+        podcasts.classList.add('active-select');
       }
+    }
+  }
+
+  joinCommunity(communityName: string) {
+    if(this.profile === null){
+      return;
+    }
+
+    const data: UpdateProfileRequest = {
+      username: this.profile.username,
+      name: this.profile.name,
+      lastName: this.profile.lastName,
+      categories: this.profile.categories,
+      communities: [...this.profile.communities, communityName],
+      awards: this.profile.awards,
+      events: this.profile.events,
+      followers: this.profile.followers,
+      following: this.profile.following,
+      posts: this.profile.posts,
+      reviews: this.profile.reviews,
+      profileImage: this.profile.profileImage,
+      profileBanner: this.profile.profileBanner,
+      bio: this.profile.bio,
+    };
+
+    this.store.dispatch(new UpdateProfile(data, this.profile._id));
+
+    const community = this.myCommunities?.find((comm) => comm.name === communityName);
+
+    if(community){
+      const members = [...community.members, this.profile.username];
+      const newEP = community.communityEP + this.profile.ep;
+
+      const data2: UpdateCommunityRequest = {
+        name: community.name,
+        type: community.type,
+        admin: community.admin,
+        about: community.about,
+        rules: community.rules,
+        groupImage: community.groupImage,
+        bannerImage: community.bannerImage,
+        categories: community.categories,
+        events: community.events,
+        posts: community.posts,
+        members: members,
+        ageRestricted: community.ageRestricted,
+        communityEP: newEP,
+      };
+
+      this.store.dispatch(new UpdateCommunity(community._id, data2));
     }
   }
 

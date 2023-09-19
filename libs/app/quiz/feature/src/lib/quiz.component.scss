@@ -87,11 +87,11 @@
   border-radius: 25px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 2%;
   margin-bottom: 2%;
   color: var(--ion-color-medium-shade);
   font-size: 15px;
-  // box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
   cursor: pointer;
@@ -110,12 +110,12 @@
 }
 
 .Letter {
-  width: 10%;
+  width: 13%;
   cursor: pointer;
 }
 
 .questionDesc {
-  width: 90%;
+  width: 87%;
   text-align: center;
   overflow: nowrap;
   cursor: pointer;
@@ -186,4 +186,84 @@ button {
 }
 .points {
   font-size: 20px;
+}
+
+.finish {
+  background-color: var(--hover-color);
+  color: var(--ion-color-background);
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: CustomFont2;
+  font-size: 20px;
+  border-radius: 25px;
+  padding: 1%;
+  transition: all 0.3s;
+}
+.finish:hover {
+  transform: translateY(-10px);
+}
+
+.overlay-container_mobile {
+  object-fit: fill;
+  z-index: 1;
+  color: var(--ion-color-text);
+  overflow: auto;
+  max-height: 100vh;
+  background-color: var(--ion-color-background);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.HostDetails_mobile {
+  font-family: CustomFont;
+  color: var(--ion-color-medium-shade);
+  padding: 1%;
+  text-align: center;
+}
+
+.QuestionHeader_mobile {
+  width: 100%;
+  display: flex;
+  padding: 3%;
+  background-color: var(--ion-color-secondary-contrast);
+  color: var(--ion-color-medium-shade);
+  font-size: 20px;
+  margin-bottom: 2%;
+}
+
+.Question_mobile {
+  width: 95%;
+  font-family: CustomFont2;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.Options_mobile {
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.Option_mobile {
+  overflow: nowrap;
+  width: 45%;
+  background-color: var(--ion-color-secondary-tint);
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  margin-bottom: 2%;
+  color: var(--ion-color-medium-shade);
+  font-size: 15px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+  cursor: pointer;
 }

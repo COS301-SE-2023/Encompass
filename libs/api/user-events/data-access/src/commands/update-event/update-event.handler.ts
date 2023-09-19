@@ -22,16 +22,7 @@ export class UpdateEventHandler implements ICommandHandler<UpdateEventCommand>{
     userEvent.updateEvent(updateEventRequest);
     this.userEventsEntityRepository.findOneAndReplaceById(userEvent._id, userEvent);
     userEvent.commit();
-
-    const amount = updateEventRequest.numCorrect * 20
-
-    try{
-      this.httpService.patch(`${url}/api/profile/add-coins-by-userId/${userId}/${amount}`).toPromise()
-    }
-
-    catch(error){
-      console.log(error)
-    }
+     
 
     userEvent.events.forEach(event => {
       if(event.quizComplete){

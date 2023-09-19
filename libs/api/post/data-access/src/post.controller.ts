@@ -7,8 +7,6 @@ import { UpdatePostCommand } from "./commands/update-post/update-post.command";
 import { DeletePostCommand } from "./commands/delete-post/delete-post.command";
 import { UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { Request } from "express";
-import { Multer } from "multer";
 import { UploadedFile } from "@nestjs/common";
 import { UploadImage } from "./upload-image.service";
 import { GetAllPostsQuery } from "./queries/getAllPosts.query";
@@ -22,6 +20,7 @@ import { GetPostsByKeywordQuery } from "./queries/search-posts/get-posts-by-keyw
 import { GetRecommendedPostsQuery } from "./queries/get-recommended-posts/getRecommendedPosts.query";
 import { DislikePostCommand } from "./commands/dislike-post/dislike-post.command";
 import { LikePostCommand } from "./commands/like-post/like-post.command";
+import { Multer } from 'multer';
 
 @Controller('post')
 export class PostController {
@@ -53,12 +52,12 @@ export class PostController {
       );
   }
 
-  @Get('get-posts-by-category/:category')
+  /*@Get('get-posts-by-category/:category')
   async getPostsByCategory(@Param('category') category: string){
       return await this.queryBus.execute<GetPostsByKeywordQuery, PostDto[]>(
           new GetPostsByKeywordQuery(category),
       );
-  }
+  }*/
 
   @Patch(':id')
   async updatePost(

@@ -39,6 +39,9 @@ import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { ToastController } from '@ionic/angular';
 import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
+import { EventState } from '@encompass/app/event/data-access';
+import { EventDto } from '@encompass/api/event/data-access';
+import { GetByCommunity } from '@encompass/app/event/util';
 // import { PostsState } from '@encompass/app/posts/data-access';
 // import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
@@ -60,6 +63,7 @@ export class CommunityProfileComponent {
   @Select(CommunityState.leaderboard) communityLeaderboard$!: Observable<
     CommunityLeaderboardDto[] | null
   >;
+  @Select(EventState.communityEvents) events$!: Observable<EventDto[] | null>;
 
   file!: File;
   fileBanner!: File;
@@ -68,6 +72,7 @@ export class CommunityProfileComponent {
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
+  events!: EventDto[] | null;
   communityLeaderboard!: CommunityLeaderboardDto[] | null;
   communityRequest!: CommunityRequestDto | null;
 
@@ -93,6 +98,8 @@ export class CommunityProfileComponent {
   isSettingsFetched = false;
   isCommunityRequestFetched = false;
   position!: number;
+  showPosts = true;
+  showEvents = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -187,6 +194,14 @@ export class CommunityProfileComponent {
         });
       }
     });
+
+    this.store.dispatch(new GetByCommunity(communityName));
+    this.events$.subscribe((events) => {
+      if(events){
+        console.log(events)
+        this.events = events
+      }
+    })
 
     if (this.profile === null) {
       return;
@@ -319,6 +334,7 @@ export class CommunityProfileComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
@@ -699,6 +715,9 @@ export class CommunityProfileComponent {
       recBtn.classList.remove('active-button');
       eventBtn.classList.add('active-button');
     }
+
+    this.showPosts = false;
+    this.showEvents = true;
   }
 
   GoToProfile(username: string) {
@@ -739,6 +758,7 @@ export class CommunityProfileComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -772,6 +792,7 @@ export class CommunityProfileComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: post.dislikes.filter((dislike) => dislike !== this.profile?.username),
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -790,6 +811,16 @@ export class CommunityProfileComponent {
     let likesArr = [...post.likes];
     likesArr = likesArr.filter((like) => like !== this.profile?.username);
 
+    let dislikesArr = [...post.dislikes];
+
+    if(this.profile === null){
+      return;
+    }
+
+    if(!dislikesArr.includes(this.profile?.username)){
+      dislikesArr = [...post.dislikes, this.profile?.username];
+    }
+
     const data: UpdatePostRequest = {
       title: post.title,
       text: post.text,
@@ -797,6 +828,7 @@ export class CommunityProfileComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: dislikesArr,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -816,5 +848,17 @@ export class CommunityProfileComponent {
   ngOnInit() {
     this.updateMobileView();
     window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  async goToEvent(id: string){
+    this.router.navigate(['home/challenge-description/' + id]);
+  }
+
+  daysLeft(targetDateStr: Date): number {
+    const currentDate = new Date();
+    const targetDate = new Date(targetDateStr);
+    const timeDifference = targetDate.getTime() - currentDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    return daysDifference >= 0 ? daysDifference : 0;
   }
 }

@@ -13,7 +13,7 @@ export class Post extends AggregateRoot{
     public categories: string [],
     public likes: string [],
     public dislikes: string [],
-    public dateAdded: string,
+    public dateAdded: Date,
     public spoiler: boolean,
     public ageRestricted: boolean,
     public shares: number,
@@ -64,7 +64,7 @@ export class Post extends AggregateRoot{
     return this.dislikes;
   }
 
-  getDateAdded(): string {
+  getDateAdded(): Date {
     return this.dateAdded;
   }
   

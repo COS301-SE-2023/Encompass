@@ -57,7 +57,7 @@ export class UserProfile {
   sharing: boolean[] = [];
   likes: number[] = [];
   likedComments: boolean[] = [];
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   reports: boolean[] = [];
   posts!: PostDto[] | null;
@@ -232,6 +232,7 @@ export class UserProfile {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
@@ -428,6 +429,7 @@ export class UserProfile {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -468,6 +470,7 @@ export class UserProfile {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: post.dislikes.filter((dislike) => dislike !== this.profile?.username),
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -482,7 +485,7 @@ export class UserProfile {
   }
 
   Dislike(n: number, post: PostDto) {
-    if (this.userProfile == null) {
+    if (this.userProfile === null) {
       return;
     }
 
@@ -492,6 +495,16 @@ export class UserProfile {
     let likesArr = [...post.likes];
     likesArr = likesArr.filter((like) => like !== this.profile?.username);
 
+    let dislikesArr = [...post.dislikes];
+
+    if (this.profile === null) {
+      return;
+    }
+
+    if (!dislikesArr.includes(this.profile.username)) {
+      dislikesArr = [...post.dislikes, this.profile.username];
+    }
+
     const data: UpdatePostRequest = {
       title: post.title,
       text: post.text,
@@ -499,6 +512,7 @@ export class UserProfile {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: likesArr,
+      dislikes: dislikesArr,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,

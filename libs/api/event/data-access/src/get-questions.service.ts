@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { error } from 'console';
 import * as dotenv from 'dotenv';
 
 export class GetQuestions {
@@ -106,8 +107,10 @@ export class GetQuestions {
   }
 
   async getQuestions(
-    topic: string,
-    numQuestions: number
+    topic: string[],
+    categories: string[],
+    numQuestions: number,
+    count = 0
   ): Promise<
     {
       question: string;
@@ -121,6 +124,7 @@ export class GetQuestions {
     } else {
       const generatedQuestions = await this.generateQuestions(
         topic,
+        categories,
         numQuestions
       );
 
@@ -128,7 +132,13 @@ export class GetQuestions {
 
       // Check if generatedQuestions is a string
     if (typeof generatedQuestions !== 'string') {
-      throw new Error('Unexpected response format: generatedQuestions is not a string.');
+      console.log('Unexpected response format: generatedQuestions is not a string.');
+
+      if(count < 5)
+        return this.getQuestions(topic, categories, numQuestions, count + 1)
+
+      else
+        throw error('Failed to generate questions.');
     }
 
     // Define a regular expression pattern to match JSON objects
@@ -138,7 +148,13 @@ export class GetQuestions {
     const jsonMatches = generatedQuestions.match(jsonPattern);
 
     if (!jsonMatches) {
-      throw new Error('No JSON objects found in the response.');
+      console.log("No JSON Data " + count)
+
+      if(count < 5)
+        return this.getQuestions(topic, categories, numQuestions, count + 1)
+
+      else
+        throw error('Failed to generate questions.');
     }
 
     // Parse the extracted JSON objects
@@ -149,12 +165,18 @@ export class GetQuestions {
   }
 
   async generateQuestions(
-    topic: string,
+    topic: string[],
+    categories: string[],
     numQuestions: number
   ): Promise<string> {
     const apiKey = process.env['OPENAI_API_KEY'];
 
-    const prompt = `Generate ${numQuestions} questions based on ${topic}. Only give the output in the JSON format {"question": string, "options": string[4], "answer": string}. Do not provide anything else.`;
+    // const prompt = `Generate ${numQuestions} questions based on ${topic}. Only give the output in the JSON format {"question": string, "options": string[4], "answer": string}. Do not provide anything else.`;
+
+    const prompt = `Act as a JSON Object Generate ${numQuestions} quesions based on ${topic} and ${categories} as the categories with the following format: {"question": string, "options": string[4], "answer": string}.`
+
+    console.log('Prompt:\n' + prompt);
+
     try {
       const response = await axios.post(
         'https://api.openai.com/v1/engines/text-davinci-002/completions',
