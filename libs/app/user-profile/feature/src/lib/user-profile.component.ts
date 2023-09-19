@@ -57,7 +57,7 @@ export class UserProfile {
   sharing: boolean[] = [];
   likes: number[] = [];
   likedComments: boolean[] = [];
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   reports: boolean[] = [];
   posts!: PostDto[] | null;

@@ -60,7 +60,7 @@ export class ProfilePage {
   otherUsers!: ProfileDto[] | null;
   posts!: PostDto[] | null;
   commentsList!: CommentDto[] | null;
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   shares: number[] = [];
   likes: number[] = [];

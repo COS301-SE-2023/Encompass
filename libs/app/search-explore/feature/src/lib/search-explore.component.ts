@@ -65,7 +65,7 @@ export class SearchExploreComponent {
   posts: PostDto[] = [];
   communityMentions: string[] = [];
   postsIsFetched = false;
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   shares: number[] = [];
   likes: number[] = [];
