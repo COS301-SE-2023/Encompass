@@ -69,18 +69,17 @@
                       </div>
                       <div class="Name">@{{ post.username }}</div>
                     </div>
-                    <div style="display: flex; margin-right: 1.5%;">
+                    <div style="display: flex; margin-right: 1.5%">
                       <label
                         class="report"
                         *ngIf="deletePost[i] && MarkedForPostDeletion[i]"
                         (click)="DeletePost(i, post)"
                         >Delete Post</label
                       >
-                     
+
                       <button class="Options" (click)="Delete(i)">
                         <ion-icon name="close-circle-outline"></ion-icon>
                       </button>
-
                     </div>
                   </div>
 
@@ -242,8 +241,6 @@
                     >Delete Comment</label
                   >
 
-                
-
                   <button class="Options2" (click)="Delete2(i)">
                     <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
@@ -310,15 +307,19 @@
           </div>
           <br />
         </div>
-        <div *ngIf="seeEvents" class ="EventList">
-          <ion-card *ngFor="let event of events?.slice()?.reverse()" class="Event" (click)="goToEvent(event._id)">
+        <div *ngIf="seeEvents" class="EventList">
+          <ion-card
+            *ngFor="let event of events?.slice()?.reverse()"
+            class="Event"
+            (click)="goToEvent(event._id)"
+          >
             <div class="EventHead">
-              <label class="EventName">{{event.name}}</label>
-              <label class="Host">Hosted by @{{event.host}}</label>
+              <label class="EventName">{{ event.name }}</label>
+              <label class="Host">Hosted by @{{ event.host }}</label>
             </div>
             <div class="border"></div>
             <div class="EventBody">
-              {{event.description}}
+              {{ event.description }}
             </div>
             <div class="EventFooter">
               <div class="EventDetails">
@@ -328,8 +329,12 @@
                 >
                   <img src="assets/icon/{{ category }}.png" class="imgDiv" />
                 </div>
-                <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
-                <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
+                <label style="color: var(--ion-color-primary)"
+                  >{{ event.quiz.length }} MCQ</label
+                >
+                <label style="color: var(--ion-color-primary)"
+                  >{{ daysLeft(event.endDate) }} days left</label
+                >
               </div>
               <ion-icon class="EventLock" name="lock-closed"></ion-icon>
             </div>
@@ -373,7 +378,7 @@
                 <ion-icon name="pencil"></ion-icon>
               </ion-button>
 
-              <ion-card-subtitle style="margin-top: 5px;font-size: medium;"
+              <ion-card-subtitle style="margin-top: 5px; font-size: medium"
                 >@{{ profile?.username }}</ion-card-subtitle
               >
             </ion-card-title>
@@ -381,7 +386,7 @@
 
           <ion-card-content
             *ngIf="!edit"
-            style="font-size: 15px; margin-bottom: 15px;font-size: medium;"
+            style="font-size: 15px; margin-bottom: 15px; font-size: medium"
           >
             <div>{{ profile?.bio }}</div>
             <div class="profile-info-container">
@@ -417,52 +422,46 @@
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder={{profile?.name}}                  formControlName="FirstName"
+                  placeholder="{{ profile?.name }}"
+                  formControlName="FirstName"
                 ></ion-textarea>
 
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder={{profile?.lastName}}                  formControlName="LastName"
+                  placeholder="{{ profile?.lastName }}"
+                  formControlName="LastName"
                 ></ion-textarea>
               </div>
               <ion-textarea
                 [maxlength]="150"
                 class="DescInput2"
-                placeholder={{profile?.bio}}                formControlName="Bio"
+                placeholder="{{ profile?.bio }}"
+                formControlName="Bio"
               ></ion-textarea>
 
-              <button
-                [hidden]="hasImage"
-                (click)="insertImage()"
-                class="EditBtn"
-              >
-                Change Photo
-              </button>
-              <div [hidden]="!hasImage" class="Image">
+              <button class="EditBtn">Change Photo</button>
+
+              <div class="Image">
                 <input
                   type="file"
                   class="file-input"
                   [accept]="requiredFileType"
                   (change)="onFileSelected($event)"
                   #fileUpload
+                  style="margin-bottom: 115px; margin-left: 130px"
                 />
               </div>
 
-              <button
-                [hidden]="hasBanner"
-                (click)="insertBanner()"
-                class="EditBtn"
-              >
-                Change Banner
-              </button>
-              <div [hidden]="!hasBanner" class="Image">
+              <button class="EditBtn">Change Banner</button>
+              <div class="ImageBanner">
                 <input
                   type="file"
                   class="file-input"
                   [accept]="requiredFileType"
                   (change)="onFileBannerSelected($event)"
                   #fileUpload
+                  style="margin-bottom: 68px; margin-left: 130px"
                 />
               </div>
 
@@ -475,18 +474,24 @@
         <ion-card *ngIf="!ViewCommunities">
           <div class="CommunityHead">
             <ion-chip class="Button3" (click)="OpenView()">
-            <ion-label>Communities</ion-label>
-            <ion-icon style="color:var(--ion-color-background);"name="chevron-down-outline"></ion-icon>
-          </ion-chip>          
-        </div>
+              <ion-label>Communities</ion-label>
+              <ion-icon
+                style="color: var(--ion-color-background)"
+                name="chevron-down-outline"
+              ></ion-icon>
+            </ion-chip>
+          </div>
         </ion-card>
         <ion-card *ngIf="ViewCommunities">
           <div class="CommunityHead">
             <ion-chip class="Button3" (click)="OpenView()">
-            <ion-label>Communities</ion-label>
-            <ion-icon style="color:var(--ion-color-background);"name="chevron-up-outline"></ion-icon>
-          </ion-chip>          
-        </div>
+              <ion-label>Communities</ion-label>
+              <ion-icon
+                style="color: var(--ion-color-background)"
+                name="chevron-up-outline"
+              ></ion-icon>
+            </ion-chip>
+          </div>
           <div
             class="ViewCommunity"
             *ngFor="let community of profile?.communities; let i = index"
@@ -729,20 +734,22 @@
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder={{profile?.name}} 
+              placeholder="{{ profile?.name }}"
               formControlName="FirstName"
             ></ion-textarea>
 
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder={{profile?.lastName}}              formControlName="LastName"
+              placeholder="{{ profile?.lastName }}"
+              formControlName="LastName"
             ></ion-textarea>
           </div>
           <ion-textarea
             [maxlength]="150"
             class="DescInput2"
-            placeholder={{profile?.bio}}            formControlName="Bio"
+            placeholder="{{ profile?.bio }}"
+            formControlName="Bio"
           ></ion-textarea>
 
           <button [hidden]="hasImage" (click)="insertImage()" class="EditBtn">
@@ -778,12 +785,12 @@
       </div>
     </ion-card>
     <ion-card *ngIf="!ViewCommunities">
-    <div class="CommunityHead">
-      <ion-chip class="Button3" (click)="OpenView()">
-        <ion-label>Communities</ion-label>
-        <ion-icon name="chevron-down-outline"></ion-icon>
-      </ion-chip>
-    </div>
+      <div class="CommunityHead">
+        <ion-chip class="Button3" (click)="OpenView()">
+          <ion-label>Communities</ion-label>
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </ion-chip>
+      </div>
     </ion-card>
     <ion-card *ngIf="ViewCommunities">
       <div class="CommunityHead">
@@ -853,7 +860,6 @@
                   <button class="Options" (click)="Delete(i)">
                     <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
-
                 </div>
               </div>
 

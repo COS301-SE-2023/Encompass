@@ -782,4 +782,5 @@ export class ProfilePage {
   setOpen2(isOpen: boolean) {
     this.isModal2Open = isOpen;
   }
+  
 }

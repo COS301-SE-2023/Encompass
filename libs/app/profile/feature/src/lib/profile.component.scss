@@ -583,7 +583,7 @@ ion-card {
   bottom: 0;
   left: 0;
   margin-bottom: 10px;
-  border: 2px solid black;
+  border: 2px solid grey;
   margin-left: 10px;
   object-fit: cover;
 }
@@ -596,7 +596,6 @@ ion-card {
 .edit-button ion-icon {
   font-size: 25px;
   color: black;
-  margin-left: 15px;
 }
 
 .banner {
@@ -877,15 +876,10 @@ ion-card {
   padding: 2%;
   margin-bottom: 2%;
 }
-.EditBtn:hover {
-  color: white;
-  background-color: var(--hover-color);
-}
-
-.Image {
-  // width: 15%;
-  padding: 2%;
-}
+// .EditBtn:hover {
+//   color: white;
+//   background-color: var(--hover-color);
+// }
 
 .DescInput {
   text-align: center;
@@ -1326,4 +1320,89 @@ ion-button:hover {
   span {
     color: var(--ion-color-text);
   }
+}
+
+.avatar {
+  // height: 100%;
+  // width: 100%;
+  // object-fit: cover;
+  // margin-top: 10px;
+  // padding-left: 2px;
+}
+
+.overlay-image,
+.overlay-banner {
+  position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  z-index: 3;
+  // width: inherit;
+}
+
+.overlay-image {
+  height: 150px;
+  width: 150px;
+  border-radius: 100px;
+}
+
+.overlay-banner {
+  height: 100px;
+  width: 160px;
+  border-radius: 5px;
+  margin-top: 45px;
+}
+
+.profile-image-container .overlay-image,
+.profile-banner-container .overlay-banner {
+  opacity: 1;
+}
+
+.edit-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.file-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.file-input {
+  position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+}
+
+.edit-icon {
+  color: white;
+  font-size: 24px;
 }
