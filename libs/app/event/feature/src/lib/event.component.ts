@@ -6,12 +6,13 @@ import { Select, Store } from '@ngxs/store';
 import { ProfileLeaderboardDto } from '@encompass/api/profile-leaderboard/data-access';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EventState } from '@encompass/app/event/data-access';
-import { GetEvents, GetLeaderboard } from '@encompass/app/event/util';
+import { GetEvents, GetLeaderboard, GetUserEvents } from '@encompass/app/event/util';
 import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
 import { EventDto } from '@encompass/api/event/data-access';
+import { UserEventsDto } from '@encompass/api/user-events/data-access';
 
 
 @Component({
@@ -23,11 +24,13 @@ export class EventPage {
   @Select(EventState.leaderboard) leaderboard$!: Observable<ProfileLeaderboardDto[] | null>;
   @Select(EventState.events) events$!: Observable<EventDto[] | null>;
   @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(EventState.userEvents) userEvents$!: Observable<UserEventsDto | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   
   profile!: ProfileDto | null;
   events!: EventDto[] | null;
+  userEvents!: UserEventsDto | null;
   leaderboard!: ProfileLeaderboardDto[] | null;
   topFive!: ProfileLeaderboardDto[] | null;
 
@@ -50,6 +53,17 @@ export class EventPage {
             }
           })
         }
+      }
+    })
+
+    if(this.profile === null){
+      return;
+    }
+
+    this.store.dispatch(new GetUserEvents(this.profile._id));
+    this.userEvents$.pipe(takeUntil(this.unsubscribe$)).subscribe((userEvents) => {
+      if(userEvents){
+        this.userEvents = userEvents;
       }
     })
   }

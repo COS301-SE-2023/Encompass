@@ -148,7 +148,7 @@ export class GetQuestions {
     const jsonMatches = generatedQuestions.match(jsonPattern);
 
     if (!jsonMatches) {
-      console.log("No JSON Data")
+      console.log("No JSON Data " + count)
 
       if(count < 5)
         return this.getQuestions(topic, categories, numQuestions, count + 1)
