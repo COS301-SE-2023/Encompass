@@ -161,9 +161,6 @@ export class SearchExploreComponent {
       this.searchProfiles();
       this.searchPosts();
       this.noSearch = false;
-      
-      
-      
     }
   }
 
@@ -205,7 +202,7 @@ export class SearchExploreComponent {
           this.showMoreCommunities = true;
         }
         // console.log("commsHasContent: " + this.commsHasContent);
-      } 
+      }
     });
   }
 
@@ -229,7 +226,7 @@ export class SearchExploreComponent {
           this.showMoreProfiles = true;
         }
         // console.log("profilehascontent: " + this.profileHasContent);
-      } 
+      }
     });
   }
 
