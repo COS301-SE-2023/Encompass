@@ -162,7 +162,7 @@
                         *ngIf="post.likes.includes(profile.username)"
                         id="icons2"
                         style="color: red"
-                        (click)="Dislike(i, post)"
+                        (click)="Like(i, post)"
                       ></ion-icon>
                       <ion-icon
                         name="heart-outline"
@@ -171,6 +171,24 @@
                         (click)="Like(i, post)"
                       ></ion-icon>
                       <div>{{ post.likes.length }}</div>
+                    </div>
+                  </div>
+                  <div style="text-align: center">
+                    <div *ngIf="profile != null">
+                      <ion-icon
+                        name="heart-dislike"
+                        *ngIf="post.dislikes.includes(profile.username)"
+                        id="icons2"
+                        style="color: red"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <ion-icon
+                        name="heart-dislike-outline"
+                        id="icons2"
+                        *ngIf="!post.dislikes.includes(profile.username)"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <div>{{ post.dislikes.length }}</div>
                     </div>
                   </div>
                 </div>
@@ -676,7 +694,7 @@
                     *ngIf="post.likes.includes(profile.username)"
                     id="icons2"
                     style="color: red"
-                    (click)="Dislike(i, post)"
+                    (click)="Like(i, post)"
                   ></ion-icon>
                   <ion-icon
                     name="heart-outline"
@@ -685,6 +703,24 @@
                     (click)="Like(i, post)"
                   ></ion-icon>
                   <div>{{ post.likes.length }}</div>
+                </div>
+              </div>
+              <div style="text-align: center">
+                <div *ngIf="profile != null">
+                  <ion-icon
+                    name="heart-dislike"
+                    *ngIf="post.dislikes.includes(profile.username)"
+                    id="icons2"
+                    style="color: red"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <ion-icon
+                    name="heart-dislike-outline"
+                    id="icons2"
+                    *ngIf="!post.dislikes.includes(profile.username)"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <div>{{ post.dislikes.length }}</div>
                 </div>
               </div>
             </div>

@@ -13,9 +13,11 @@ import {
   UserProfileState,
 } from '@encompass/app/user-profile/data-access';
 import {
+  DislikeUserProfilePost,
   GetUserProfile,
   GetUserProfilePosts,
   GetUserSettings,
+  LikeUserProfilePost,
   UpdateUserPost,
 } from '@encompass/app/user-profile/util';
 import { Select, Store } from '@ngxs/store';
@@ -89,6 +91,7 @@ export class UserProfile {
         console.log('Userprofile', this.userProfile);
         // if(!this.isPostsFetched){
         this.isPostsFetched = true;
+
         this.store.dispatch(new GetUserProfilePosts(this.userProfile.username));
         this.userPosts$
           .pipe(takeUntil(this.unsubscribe$))
@@ -135,13 +138,12 @@ export class UserProfile {
             }
           });
         // }
-        this.store.dispatch(new GetUserSettings(this.userProfile._id));
-        this.profileSettings$.subscribe((profileSettings) => {
-          if (profileSettings) {
-            this.userProfileSettings = profileSettings;
+        this.userProfileState.getUserProfileSettings(userProfile._id)?.then((settings) => {
+          if(settings){
+            this.userProfileSettings = settings;
             console.log(this.userProfileSettings);
           }
-        });
+        })
       }
     });
 
@@ -444,86 +446,19 @@ export class UserProfile {
   }
 
   Like(n: number, post: PostDto) {
-    if (this.userProfile == null) {
+    if (this.profile == null) {
       return;
     }
 
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: post.dislikes.filter((dislike) => dislike !== this.profile?.username),
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(
-      new UpdateUserPost(post._id, data, this.userProfile.username)
-    );
-    this.userProfileApi.addCoins(post.username, 1);
+    this.store.dispatch(new LikeUserProfilePost(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
-    if (this.userProfile === null) {
+    if (this.profile == null) {
       return;
     }
 
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    let dislikesArr = [...post.dislikes];
-
-    if (this.profile === null) {
-      return;
-    }
-
-    if (!dislikesArr.includes(this.profile.username)) {
-      dislikesArr = [...post.dislikes, this.profile.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: dislikesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(
-      new UpdateUserPost(post._id, data, this.userProfile.username)
-    );
-    this.userProfileApi.removeCoins(post.username, 1);
+    this.store.dispatch(new DislikeUserProfilePost(post._id, this.profile._id));
   }
 
   OpenView() {
