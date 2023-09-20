@@ -37,10 +37,10 @@ export class EventPage {
   isLeaderboardFetched = false;
   isEventsFetched = false;
 
-  hasExpired!: boolean[];
-  hasJoined!: boolean[];
-  isPartOfCommunity!: boolean[];
-  hasCompleted!: boolean[];
+  hasExpired: boolean[] = [];
+  hasJoined: boolean[] = [];
+  isPartOfCommunity: boolean[] = [];
+  hasCompleted: boolean[] = [];
   found = false;
 
 
@@ -60,40 +60,42 @@ export class EventPage {
           this.userEvents$.pipe(takeUntil(this.unsubscribe$)).subscribe((userEvents) => {
             if(userEvents){
               this.userEvents = userEvents;
-            }
-          })
 
-          this.store.dispatch(new GetEvents(profile.communities));
-          this.events$.pipe(takeUntil(this.unsubscribe$)).subscribe((events) => {
-            if(events){
-              console.log(events)
-              this.events = events;
-
-
-              for(let i =0;i<events.length;i++){
-                if(events[i].members.includes(profile.username)){
-                  this.hasJoined.push(true);
-                }else{
-                  this.hasJoined.push(false);}
-                if(this.daysLeft(events[i].endDate) == 0){
-                  this.hasExpired.push(true);
-                }else{
-                  this.hasExpired.push(false);
-                }
-               
-                 this.userEvents?.events.forEach((event) => {
-                    if(event.eventId === events[i]._id){
-                      this.hasCompleted.push(event.quizComplete);
-                      this.found=true;
+              this.store.dispatch(new GetEvents(profile.communities));
+              this.events$.pipe(takeUntil(this.unsubscribe$)).subscribe((events) => {
+                if(events){
+                  console.log(events)
+                  this.events = events;
+    
+    
+                  for(let i =0;i<events.length;i++){
+                    if(events[i].members.includes(profile.username)){
+                      this.hasJoined.push(true);
+                    }else{
+                      this.hasJoined.push(false);}
+                    if(this.daysLeft(events[i].endDate) == 0){
+                      this.hasExpired.push(true);
+                    }else{
+                      this.hasExpired.push(false);
                     }
-                  })
-                  if(!this.found){
-                    this.hasCompleted.push(false);
-                  }
-                  this.found=false;
+                   
+                     userEvents.events.forEach((event) => {
+                        if(event.eventId === events[i]._id){
+                          this.hasCompleted.push(event.quizComplete);
+                          this.found=true;
+                        }
+                      })
+                      if(!this.found){
+                        this.hasCompleted.push(false);
+                      }
+                      this.found=false;
+                    }
                 }
+              })
             }
           })
+
+         
         }
       }
     })
