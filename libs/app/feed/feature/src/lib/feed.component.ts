@@ -11,7 +11,10 @@ import {
   UpdateCommunity,
 } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { ProfileDto, UpdateProfileRequest } from '@encompass/api/profile/data-access';
+import {
+  ProfileDto,
+  UpdateProfileRequest,
+} from '@encompass/api/profile/data-access';
 import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CreatePostComponent } from '@encompass/app/create-post/feature';
@@ -23,8 +26,14 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
-import { CommunityDto, UpdateCommunityRequest } from '@encompass/api/community/data-access';
-import { MovieDto, PodcastDto } from '@encompass/api/media-recommender/data-access';
+import {
+  CommunityDto,
+  UpdateCommunityRequest,
+} from '@encompass/api/community/data-access';
+import {
+  MovieDto,
+  PodcastDto,
+} from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
 import { ViewChild } from '@angular/core';
@@ -887,8 +896,6 @@ export class FeedPage {
     });
   }
 
-
-  
   async addPosts() {
     if (this.profile == null) {
       return;
@@ -1224,7 +1231,7 @@ export class FeedPage {
     }
   }
 
-  selectedSegment = 'recommended';
+  selectedSegment = 'new';
 
   segmentChanged(event: any) {
     this.selectedSegment = event.detail.value;
@@ -1246,15 +1253,6 @@ export class FeedPage {
 
     this.type = 'recommended';
     this.addPosts();
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-
-    if (recBtn && newBtn && popBtn) {
-      recBtn.classList.add('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.remove('active-button');
-    }
   }
 
   newChange() {
@@ -1266,15 +1264,6 @@ export class FeedPage {
 
     this.type = 'latest';
     this.addPosts();
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-
-    if (recBtn && newBtn && popBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.add('active-button');
-      popBtn.classList.remove('active-button');
-    }
   }
 
   popChange() {
@@ -1286,15 +1275,6 @@ export class FeedPage {
 
     this.type = 'popular';
     this.addPosts();
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-
-    if (recBtn && newBtn && popBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.add('active-button');
-    }
   }
 
   GoToComments(postId: string) {
@@ -1366,7 +1346,7 @@ export class FeedPage {
   }
 
   joinCommunity(communityName: string) {
-    if(this.profile === null){
+    if (this.profile === null) {
       return;
     }
 
@@ -1389,9 +1369,11 @@ export class FeedPage {
 
     this.store.dispatch(new UpdateProfile(data, this.profile._id));
 
-    const community = this.myCommunities?.find((comm) => comm.name === communityName);
+    const community = this.myCommunities?.find(
+      (comm) => comm.name === communityName
+    );
 
-    if(community){
+    if (community) {
       const members = [...community.members, this.profile.username];
       const newEP = community.communityEP + this.profile.ep;
 
@@ -1416,4 +1398,12 @@ export class FeedPage {
   }
 
   showTooltip = false;
+
+  getAuthorName(fullName: string): string {
+    const commaIndex = fullName.indexOf(',');
+    if (commaIndex !== -1) {
+      return fullName.substring(0, commaIndex).trim();
+    }
+    return fullName;
+  }
 }

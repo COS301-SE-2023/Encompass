@@ -604,7 +604,7 @@
                 >
 
                 <button
-                  class="Options"
+                  class="Options tooltip"
                   *ngIf="!post.reported"
                   (click)="Report(i)"
                 >
@@ -1261,7 +1261,7 @@
                 </div>
                 <div class="media-info">
                   <div class="MediaTitle">{{ BookTitle1.slice(0, 45) }}</div>
-                  <div class="MediaAuthor" style="font-style: italic;">{{ books[0].author }}</div>
+                  <div class="MediaAuthor" style="font-style: italic;">{{ getAuthorName(books[0].author) }}</div>
                   <div class="MediaGenres">
                     <div
                       *ngFor="let category of myBookGenres1; let k = index"
@@ -1286,7 +1286,7 @@
                 </div>
                 <div class="media-info">
                   <div class="MediaTitle">{{ BookTitle2.slice(0, 45) }}</div>
-                  <div class="MediaAuthor" style="font-style: italic;">{{ books[1].author }}</div>
+                  <div class="MediaAuthor" style="font-style: italic;">{{ getAuthorName(books[1].author) }}</div>
                   <div class="MediaGenres">
                     <div
                       *ngFor="let category of myBookGenres2; let k = index"

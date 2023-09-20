@@ -68,7 +68,7 @@ ion-button {
   }
 
   .logo-span {
-    margin-top:15px;
+    // margin-top:15px;
     text-transform: capitalize;
     font-family: customFont;
     font-size: 24px;
@@ -80,7 +80,17 @@ ion-button {
   width: 300px;
 }  
 
+.buttonSpan {
+  display: inline-block;
+  vertical-align: middle;
+}
 
+.menuIcon {
+  font-size: larger; 
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+}
 
 ion-split-pane {
   &.split-pane-visible {
@@ -122,10 +132,11 @@ ion-button {
   }
 
   .centeredButton {
-    height: 60px;
+    height: 80px;
     position: absolute;
     top: 0;
     left: 0;
+    padding-left: 5px;
   }
 
   .square-image {
@@ -168,10 +179,6 @@ ion-button {
     width: fit-content;
     position: fixed;
     left: 0;
-
-    span {
-      margin-bottom: 50px !important;
-    }
   }
 
   .top-button {
@@ -179,18 +186,10 @@ ion-button {
   }
 
   .menuFooter {
-    font-size: 30px;
     position: absolute;
-    bottom: 0;
     right: 0;
-    left: 15%;
     width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: absolute;
     bottom: 0;
-    left: 10px;
   }
 }
 

@@ -3,9 +3,10 @@
     <div class="ion-button-group">
       <ion-button
         id="accBtn"
-        class="active-button buttonStyle"
+        class="buttonStyle"
         fill="clear"
         (click)="eventChange('accBtn'); scrollTo('account-settings')"
+        *ngIf="!accBtn"
       >
         <ion-icon
           name="lock-closed"
@@ -16,10 +17,28 @@
       </ion-button>
 
       <ion-button
+        id="accBtn"
+        class="active-button buttonStyle"
+        fill="clear"
+        (click)="eventChange('accBtn'); scrollTo('account-settings')"
+        *ngIf="accBtn"
+      >
+        <ion-icon
+          name="lock-closed"
+          aria-hidden="true"
+          class="ion-padding-end"
+        ></ion-icon>
+        <ion-label>Account</ion-label>
+      </ion-button>
+
+
+
+      <ion-button
         id="proBtn"
-        class="none buttonStyle"
+        class="buttonStyle"
         fill="clear"
         (click)="eventChange('proBtn'); scrollTo('profile-settings')"
+        *ngIf="!proBtn"
       >
         <ion-icon
           name="person"
@@ -30,10 +49,45 @@
       </ion-button>
 
       <ion-button
+        id="proBtn"
+        class="active-button buttonStyle"
+        fill="clear"
+        (click)="eventChange('proBtn'); scrollTo('profile-settings')"
+        *ngIf="proBtn"
+      >
+        <ion-icon
+          name="person"
+          aria-hidden="true"
+          class="ion-padding-end"
+        ></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-button>
+
+
+
+
+
+      <ion-button
         id="notBtn"
         class="none buttonStyle"
         fill="clear"
         (click)="eventChange('notBtn'); scrollTo('notifications-settings')"
+        *ngIf="!notBtn"
+      >
+        <ion-icon
+          name="notifications"
+          aria-hidden="true"
+          class="ion-padding-end"
+        ></ion-icon>
+        <ion-label>Notifications</ion-label>
+      </ion-button>
+
+      <ion-button
+        id="notBtn"
+        class="active-button buttonStyle"
+        fill="clear"
+        (click)="eventChange('notBtn'); scrollTo('notifications-settings')"
+        *ngIf="notBtn"
       >
         <ion-icon
           name="notifications"
@@ -103,7 +157,7 @@
             <ion-label class="info-label"
               >NSFW <br />
               <a
-                >Allow Not Safe For Work contet to show on your feed</a
+                >Block Not Safe For Work contet from showing on your feed</a
               ></ion-label
             >
             <ion-toggle

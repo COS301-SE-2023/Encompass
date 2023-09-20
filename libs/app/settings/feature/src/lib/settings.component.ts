@@ -163,51 +163,30 @@ export class SettingsPage {
     this.labelHidden = !show;
   }
 
-  eventChange(btnName: string) {
-    const accBtn = document.getElementById('accBtn');
-    const proBtn = document.getElementById('proBtn');
-    const notBtn = document.getElementById('notBtn');
-    const messBtn = document.getElementById('messBtn');
+  accBtn= true;
+  proBtn= false;
+  notBtn= false;
 
-    if (accBtn && proBtn && notBtn && messBtn) {
+  eventChange(btnName: string) {
+   
       if (btnName == 'accBtn') {
-        accBtn.classList.add('active-button');
-        proBtn.classList.remove('active-button');
-        notBtn.classList.remove('active-button');
-        messBtn.classList.remove('active-button');
+        this.accBtn = true;
+        this.proBtn = false;
+        this.notBtn = false;
       }
 
       if (btnName == 'proBtn') {
-        accBtn.classList.remove('active-button');
-        proBtn.classList.add('active-button');
-        notBtn.classList.remove('active-button');
-        messBtn.classList.remove('active-button');
+        this.accBtn = false;
+        this.proBtn = true;
+        this.notBtn = false;
       }
 
       if (btnName == 'notBtn') {
-        accBtn.classList.remove('active-button');
-        proBtn.classList.remove('active-button');
-        notBtn.classList.add('active-button');
-        messBtn.classList.remove('active-button');
+        this.accBtn = false;
+        this.proBtn = false;
+        this.notBtn = true;
       }
 
-      if (btnName == 'messBtn') {
-        accBtn.classList.remove('active-button');
-        proBtn.classList.remove('active-button');
-        notBtn.classList.remove('active-button');
-        messBtn.classList.add('active-button');
-      }
-    } else {
-      if (accBtn == null) {
-        console.log('accBtn is null');
-      } else if (proBtn == null) {
-        console.log('proBtn is null');
-      } else if (notBtn == null) {
-        console.log('notBtn is null');
-      } else if (messBtn == null) {
-        console.log('messBtn is null');
-      }
-    }
   }
 
   edit(fieldName: string) {
