@@ -40,9 +40,11 @@ import { ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { PostsState } from '@encompass/app/posts/data-access';
 import {
+  DislikePostArray,
   GetAllPosts,
   GetLatestPosts,
   GetPopularPosts,
+  LikePostArray,
   UpdatePostArray,
 } from '@encompass/app/posts/util';
 
@@ -1071,88 +1073,19 @@ export class FeedPage {
   }
 
   Like(n: number, post: PostDto) {
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: post.dislikes.filter(
-        (dislike) => dislike !== this.profile?.username
-      ),
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
     if (this.profile == null) {
       return;
     }
 
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.homeApi.addCoins(post.username, 1);
-    // this.updatePosts();
-    // this.addPosts();
+    this.store.dispatch(new LikePostArray(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
-    console.log('dislike');
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    let dislikesArr = [...post.dislikes];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (!dislikesArr.includes(this.profile?.username)) {
-      dislikesArr = [...post.dislikes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: dislikesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
     if (this.profile == null) {
       return;
     }
 
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.homeApi.removeCoins(post.username, 1);
-
-    // this.addPosts();
+    this.store.dispatch(new DislikePostArray(post._id, this.profile._id));
   }
 
   ReportPost(n: number, post: PostDto) {

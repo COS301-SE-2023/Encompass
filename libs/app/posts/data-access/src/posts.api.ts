@@ -47,7 +47,7 @@ export class PostsApi{
 
   async dislikePost(postId: string, userId: string){
     try{
-      const response = await this.httpClient.patch<PostDto>('/api/post/dislike/' + postId + '/' + userId, null).toPromise();
+      const response = await this.httpClient.patch<PostDto>('/api/post/dislike/' + userId + '/' + postId, null).toPromise();
 
       return response;
     }
@@ -61,7 +61,7 @@ export class PostsApi{
 
   async likePost(postId: string, userId: string){
     try{
-      const response = await this.httpClient.patch<PostDto>('/api/post/like/' + postId + '/' + userId, null).toPromise();
+      const response = await this.httpClient.patch<PostDto>('/api/post/like/' + userId + '/' + postId, null).toPromise();
 
       return response;
     }
