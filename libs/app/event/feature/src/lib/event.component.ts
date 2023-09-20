@@ -37,10 +37,11 @@ export class EventPage {
   isLeaderboardFetched = false;
   isEventsFetched = false;
 
-  hasExpired = false;
-  hasJoined = false;
-  isPartOfCommunity = false;
-  hasCompleted = false;
+  hasExpired!: boolean[];
+  hasJoined!: boolean[];
+  isPartOfCommunity!: boolean[];
+  hasCompleted!: boolean[];
+  found = false;
 
 
   constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store, private router: Router) {
@@ -51,38 +52,53 @@ export class EventPage {
 
         if(!this.isEventsFetched){
           this.isEventsFetched = true;
+
+          if(this.profile === null){
+            return;
+          }
+          this.store.dispatch(new GetUserEvents(this.profile._id));
+          this.userEvents$.pipe(takeUntil(this.unsubscribe$)).subscribe((userEvents) => {
+            if(userEvents){
+              this.userEvents = userEvents;
+            }
+          })
+
           this.store.dispatch(new GetEvents(profile.communities));
           this.events$.pipe(takeUntil(this.unsubscribe$)).subscribe((events) => {
             if(events){
               console.log(events)
               this.events = events;
+
+
               for(let i =0;i<events.length;i++){
                 if(events[i].members.includes(profile.username)){
-                  this.hasJoined = true;
-                }
+                  this.hasJoined.push(true);
+                }else{
+                  this.hasJoined.push(false);}
                 if(this.daysLeft(events[i].endDate) == 0){
-                  this.hasExpired = true;
+                  this.hasExpired.push(true);
+                }else{
+                  this.hasExpired.push(false);
                 }
-                if(profile.communities.includes(events[i].community)){
-                  this.isPartOfCommunity = true;
+               
+                 this.userEvents?.events.forEach((event) => {
+                    if(event.eventId === events[i]._id){
+                      this.hasCompleted.push(event.quizComplete);
+                      this.found=true;
+                    }
+                  })
+                  if(!this.found){
+                    this.hasCompleted.push(false);
+                  }
+                  this.found=false;
                 }
-              }
             }
           })
         }
       }
     })
 
-    if(this.profile === null){
-      return;
-    }
-
-    this.store.dispatch(new GetUserEvents(this.profile._id));
-    this.userEvents$.pipe(takeUntil(this.unsubscribe$)).subscribe((userEvents) => {
-      if(userEvents){
-        this.userEvents = userEvents;
-      }
-    })
+    
   }
   ngOnInit() {
     if(!this.isLeaderboardFetched){
