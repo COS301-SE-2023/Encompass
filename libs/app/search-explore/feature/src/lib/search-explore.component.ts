@@ -101,60 +101,57 @@ export class SearchExploreComponent {
     private toastController: ToastController,
     private homeApi: HomeApi
   ) {
-
     this.searchCommunities$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((communities) => {
+        if (communities) {
+          this.commsHasContent = true;
+          // console.log("POSTS:")
+          this.communities = [];
+          const communityCount = communities;
+          const temp = communities;
+          temp.forEach((community) => {
+            this.communities.push(community);
+
+            if (
+              community.name.toLowerCase().includes(this.keyword.toLowerCase())
+            ) {
+              communityCount.push(community);
+            }
+          });
+        }
+      });
+
+    if (!this.profilesIsFetched) {
+      this.profilesIsFetched = true;
+      this.searchProfiles$
         .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((communities) => {
-          if (communities) {
-            this.commsHasContent = true;
+        .subscribe((profiles) => {
+          if (profiles) {
+            this.profileHasContent = true;
             // console.log("POSTS:")
-            this.communities = [];
-            const communityCount = communities;
-            const temp = communities;
-            temp.forEach((community) => {
-              this.communities.push(community);
+            this.profiles = [];
+            const profileCount = profiles;
+            const temp = profiles;
+            temp.forEach((profile) => {
+              this.profiles.push(profile);
 
               if (
-                community.name
-                  .toLowerCase()
-                  .includes(this.keyword.toLowerCase())
+                profile.name.toLowerCase().includes(this.keyword.toLowerCase())
               ) {
-                communityCount.push(community);
+                profileCount.push(profile);
               }
             });
           }
         });
-
-        if (!this.profilesIsFetched) {
-          this.profilesIsFetched = true;
-          this.searchProfiles$
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((profiles) => {
-              if (profiles) {
-                this.profileHasContent = true;
-                // console.log("POSTS:")
-                this.profiles = [];
-                const profileCount = profiles;
-                const temp = profiles;
-                temp.forEach((profile) => {
-                  this.profiles.push(profile);
-    
-                  if (
-                    profile.name.toLowerCase().includes(this.keyword.toLowerCase())
-                  ) {
-                    profileCount.push(profile);
-                  }
-                });
-              }
-            });
-        }
+    }
   }
 
   async search(event: any) {
     this.keyword = event.detail.value;
-    console.log(this.keyword);
+    // console.log(this.keyword);
     this.postsTab();
-    this.noSearch = false;
+
     if (this.keyword == '') {
       this.clearSearch();
       return;
@@ -163,8 +160,8 @@ export class SearchExploreComponent {
       this.searchCommunities();
       this.searchProfiles();
       this.searchPosts();
+      this.noSearch = false;
     }
-
   }
 
   clearSearch() {
@@ -179,49 +176,56 @@ export class SearchExploreComponent {
     this.commsExists = false;
     this.profilesExists = false;
     this.noSearch = true;
-    this.communities = [];
-    this.profiles = [];
-    this.posts = [];
+    // this.communities = [];
+    // this.profiles = [];
+    // this.posts = [];
   }
 
   async searchCommunities() {
-
     this.store.dispatch(new SearchCommunities(this.keyword));
-
 
     if (!this.communitiesIsFetched) {
       this.communitiesIsFetched = true;
-
-      
     }
 
     this.searchCommunities$.subscribe((communities) => {
+      // this.commsHasContent = false;
       if (communities) {
-        console.log("commlengths:" + this.communities.length);
+        // console.log('commlengths:' + this.communities.length);
         if (this.communities.length <= 0) {
           this.commsHasContent = false;
         }
-        if (this.communities.length >= 4){
+        if (this.communities.length > 0) {
+          this.commsHasContent = true;
+        }
+        if (this.communities.length >= 4) {
           this.showMoreCommunities = true;
         }
+        // console.log("commsHasContent: " + this.commsHasContent);
       }
     });
   }
 
   async searchProfiles() {
-
     this.store.dispatch(new SearchProfiles(this.keyword));
 
-    
+    if (!this.profilesIsFetched) {
+      this.profilesIsFetched = true;
+    }
 
     this.searchProfiles$.subscribe((profiles) => {
+      // this.profileHasContent = false;
       if (profiles) {
         if (this.profiles.length <= 0) {
           this.profileHasContent = false;
         }
-        if  (this.profiles.length >= 6){
+        if (this.profiles.length > 0) {
+          this.profileHasContent = true;
+        }
+        if (this.profiles.length >= 6) {
           this.showMoreProfiles = true;
         }
+        // console.log("profilehascontent: " + this.profileHasContent);
       }
     });
   }
@@ -229,9 +233,8 @@ export class SearchExploreComponent {
   //=========================================================================post things=========================================================================================
 
   async searchPosts() {
-
     this.store.dispatch(new SearchPosts(this.keyword));
-    this.postsHasContent = true;
+    // this.postsHasContent = true;
 
     // if (!this.postsIsFetched) {
     //   this.postsIsFetched = true;
@@ -258,14 +261,13 @@ export class SearchExploreComponent {
     this.searchPosts$.subscribe((posts) => {
       if (posts) {
         const temp = posts.filter((post) => {
-          
           if (post.isPrivate) {
             return this.profile?.communities.includes(post.community);
           } else {
             return true;
           }
         });
-        
+
         this.posts = temp;
 
         this.size = this.posts.length - 1;
@@ -301,6 +303,10 @@ export class SearchExploreComponent {
         if (this.posts.length <= 0) {
           this.postsHasContent = false;
         }
+        if (this.posts.length > 0) {
+          this.postsHasContent = true;
+        }
+        // console.log("postsHasContent: " + this.postsHasContent);
       }
     });
   }
@@ -324,7 +330,7 @@ export class SearchExploreComponent {
   Like(n: number, post: PostDto) {
     let likesArr: string[];
 
-    console.log(this.profile?.username + ' LIKED POST');
+    // console.log(this.profile?.username + ' LIKED POST');
     const emptyArray: string[] = [];
 
     if (this.profile?.username == null) {
@@ -362,7 +368,7 @@ export class SearchExploreComponent {
   }
 
   Dislike(n: number, post: PostDto) {
-    console.log('dislike');
+    // console.log('dislike');
     this.likedComments[n] = false;
     this.likes[n]--;
 
@@ -522,12 +528,11 @@ export class SearchExploreComponent {
 
     this.profile$.subscribe((profile) => {
       if (profile) {
-        console.log('Profile CALLED');
-        console.log(profile);
+        // console.log('Profile CALLED');
+        // console.log(profile);
         this.profile = profile;
       }
     });
-  
   }
 
   buttonStates: { [key: string]: boolean } = {};

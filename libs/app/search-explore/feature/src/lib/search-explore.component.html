@@ -214,7 +214,7 @@
                   </div>
                   <div class="PostFooter">
                     <div class="date">
-                      {{ post.dateAdded | date: 'yyyy-MM-dd' }}
+                      {{ post.dateAdded | date : 'yyyy-MM-dd' }}
                     </div>
 
                     <div class="icons">
@@ -333,7 +333,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="CommunityAdd FollowPerson">
+                            <!-- <div class="CommunityAdd FollowPerson">
                               <button
                                 id="toggleButton2"
                                 class="cta"
@@ -357,7 +357,7 @@
                                   "
                                 ></i>
                               </button>
-                            </div>
+                            </div> -->
                           </div>
                           <div class="CommunityBody">
                             <div class="CommunityDesc">
@@ -388,6 +388,7 @@
                       <ion-col size="10">
                         <div style="font-size: 18px; margin-top: 10px">
                           Relavant Profiles:
+                          <span *ngIf="profileHasContent">HI</span>
                         </div>
                       </ion-col>
                     </ion-row>
@@ -430,7 +431,10 @@
                                 >
                               </div>
 
-                              <div class="FollowPerson" *ngIf="!(people.username === profile.username)">
+                              <!-- <div
+                                class="FollowPerson"
+                                *ngIf="!(people.username === profile.username)"
+                              >
                                 <button
                                   id="toggleButton3"
                                   class="cta"
@@ -454,7 +458,7 @@
                                     "
                                   ></i>
                                 </button>
-                              </div>
+                              </div> -->
 
                               <span class="personDesc">{{ people?.bio }}</span>
                             </div>
@@ -535,10 +539,10 @@
                               src="assets/icon/{{ category }}.png"
                               class="SearchimgDiv"
                             />
-                            <span class="tooltiptext">{{ category }}</span>
+                            <span class="tooltiptextcomm">{{ category }}</span>
                           </div>
                         </div>
-                        <div class="CommunityAdd FollowPerson larger-icons">
+                        <!-- <div class="CommunityAdd FollowPerson larger-icons">
                           <button
                             id="toggleButton2"
                             class="cta"
@@ -559,7 +563,7 @@
                               "
                             ></i>
                           </button>
-                        </div>
+                        </div> -->
                       </div>
                       <div class="SearchCommunityBody">
                         <div class="SearchCommunityDesc">
@@ -621,7 +625,10 @@
                       </div>
                       <span class="personDesc">{{ people?.bio }}</span>
                     </div>
-                    <div class="FollowPerson larger-icons" *ngIf="!(people.username === profile.username)">
+                    <!-- <div
+                      class="FollowPerson larger-icons"
+                      *ngIf="!(people.username === profile.username)"
+                    >
                       <button
                         id="toggleButton3"
                         class="cta"
@@ -645,7 +652,7 @@
                           "
                         ></i>
                       </button>
-                    </div>
+                    </div> -->
                   </ion-item>
                 </ion-list>
               </ion-card>
@@ -865,7 +872,7 @@
               </div>
               <div class="PostFooter">
                 <div class="date">
-                  {{ post.dateAdded | date: 'yyyy-MM-dd'}}
+                  {{ post.dateAdded | date : 'yyyy-MM-dd' }}
                 </div>
 
                 <div class="icons">
@@ -980,10 +987,10 @@
                           src="assets/icon/{{ category }}.png"
                           class="SearchimgDiv"
                         />
-                        <span class="tooltiptext">{{ category }}</span>
+                        <span class="tooltiptextcomm">{{ category }}</span>
                       </div>
                     </div>
-                    <div class="CommunityAdd FollowPerson larger-icons">
+                    <!-- <div class="CommunityAdd FollowPerson larger-icons">
                       <button
                         id="toggleButton2"
                         class="cta"
@@ -1004,7 +1011,7 @@
                           "
                         ></i>
                       </button>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="SearchCommunityBody">
                     <div class="SearchCommunityDesc">
@@ -1064,7 +1071,10 @@
                   </div>
                   <span class="personDesc">{{ people?.bio }}</span>
                 </div>
-                <div class="FollowPerson larger-icons" *ngIf="!(people.username === profile.username)">
+                <!-- <div
+                  class="FollowPerson larger-icons"
+                  *ngIf="!(people.username === profile.username)"
+                >
                   <button
                     id="toggleButton3"
                     class="cta"
@@ -1085,7 +1095,7 @@
                       "
                     ></i>
                   </button>
-                </div>
+                </div> -->
               </ion-item>
             </ion-list>
           </ion-card>
