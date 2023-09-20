@@ -22,8 +22,9 @@ export class CreateAccountHandler
 
   async execute({ createAccountRequest }: CreateAccountCommand){
     const { email, password } = createAccountRequest;
+    const emailL = email.toLowerCase();
     const account = this.eventPublisher.mergeObjectContext(
-      await this.accountFactory.create(email, password),
+      await this.accountFactory.create(emailL, password),
     );
     account.commit();
     

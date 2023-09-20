@@ -23,6 +23,8 @@ export class GetAccountHandler implements ICommandHandler<GetAccountCommand>{
 
   async execute({email, password}: GetAccountCommand)
   {
+    email = email.toLowerCase();
+
     const account = this.eventPublisher.mergeObjectContext(
       await this.accountEntityRepository.findOneByEmail(email),
     );
