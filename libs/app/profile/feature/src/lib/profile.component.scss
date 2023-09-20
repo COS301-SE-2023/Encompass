@@ -1406,3 +1406,15 @@ ion-button:hover {
   color: white;
   font-size: 24px;
 }
+
+.pointsBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: var(--card-color);
+  border-radius: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  color: var(--hover-color);
+  font-weight: bold;
+}

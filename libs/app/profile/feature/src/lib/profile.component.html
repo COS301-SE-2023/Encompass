@@ -352,6 +352,9 @@
               src="{{ profile?.profileBanner }}"
               onerror="this.src='assets/icon/Banner.png';"
             />
+            <ion-button fill="clear" class="pointsBtn">
+              {{profile?.ep}} EP
+            </ion-button>
           </div>
           <ion-card-header *ngIf="!edit">
             <ion-card-title
@@ -664,6 +667,9 @@
           src="{{ profile?.profileBanner }}"
           onerror="this.src='assets/icon/Banner.png';"
         />
+        <ion-button fill="clear" class="pointsBtn">
+          {{profile?.ep}} EP
+        </ion-button>
       </div>
       <ion-card-header *ngIf="!edit">
         <ion-card-title

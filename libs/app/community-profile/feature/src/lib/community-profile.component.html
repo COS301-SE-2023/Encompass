@@ -50,34 +50,38 @@
             ></ion-textarea>
           </div>
 
-          <div class="EditButtons">
-            <button [hidden]="hasImage" (click)="insertImage()">
-              Change Photo
-            </button>
-            <div [hidden]="!hasImage" class="Image">
+          <div class="EditButtons" style="margin-left: 20px;">
+            
+            
               <input
                 type="file"
                 class="file-input"
                 [accept]="requiredFileType"
                 (change)="onFileSelected($event)"
                 #fileUpload
+                style="margin-right: 580px;"
               />
-            </div>
+              <button style="margin-left: 20px;" class="editBtn" (click)="insertImage()">
+                Change Photo
+              </button>
+            
 
-            <button [hidden]="hasBanner" (click)="insertBanner()">
-              Change Banner
-            </button>
-            <div [hidden]="!hasBanner" class="Image">
+            
+           
               <input
                 type="file"
                 class="file-input"
                 [accept]="requiredFileType"
                 (change)="onFileBannerSelected($event)"
                 #fileUpload
+                style="margin-right: 40px;"
               />
-            </div>
+              <button class="editBtn" (click)="insertBanner()" >
+                Change Banner
+              </button>
+            
 
-            <button type="submit" class="FinishEdit" (click)="FinishEdit()">
+            <button type="submit" class="FinishEdit editBtn" (click)="FinishEdit()" style="margin-right: 50px;">
               <ion-icon name="checkmark"></ion-icon>
             </button>
           </div>
@@ -422,6 +426,7 @@
             Date Created: {{ community?.createdAt }}
           </div>
           <div class="Rules">
+            <div class="RulesTitle">Community EP: {{community?.communityEP}}</div>
             <div class="RulesTitle">Community Rules:</div>
             <div class="RulesDescr">{{ community?.rules }}</div>
           </div>
@@ -517,12 +522,12 @@
             class="RemoveFooter"
             *ngIf="community?.admin === profile?.username"
           >
-            <button (click)="CancelUpdate()">
+            <ion-button class="memberBtn" fill="clear" (click)="CancelUpdate()">
               <ion-icon class="reject2" name="close-circle"></ion-icon>
-            </button>
-            <button (click)="UpdateCommunity()">
+            </ion-button>
+            <ion-button class="memberBtn2" fill="clear" (click)="UpdateCommunity()">
               <ion-icon class="accept2" name="checkmark-circle"></ion-icon>
-            </button>
+            </ion-button>
           </div>
         </ion-card>
       </ion-col>
@@ -585,37 +590,41 @@
             ></ion-textarea>
           </div>
 
-          <div class="EditButtons">
-            <button [hidden]="hasImage" (click)="insertImage()">
+          <div class="EditButtons" style="margin-left: 20px;">
+            
+            
+            <input
+              type="file"
+              class="file-input"
+              [accept]="requiredFileType"
+              (change)="onFileSelected($event)"
+              #fileUpload
+              style="margin-right: 580px;"
+            />
+            <button style="margin-left: 20px;" class="editBtn" (click)="insertImage()">
               Change Photo
             </button>
-            <div [hidden]="!hasImage" class="Image">
-              <input
-                type="file"
-                class="file-input"
-                [accept]="requiredFileType"
-                (change)="onFileSelected($event)"
-                #fileUpload
-              />
-            </div>
+          
 
-            <button [hidden]="hasBanner" (click)="insertBanner()">
+          
+         
+            <input
+              type="file"
+              class="file-input"
+              [accept]="requiredFileType"
+              (change)="onFileBannerSelected($event)"
+              #fileUpload
+              style="margin-right: 40px;"
+            />
+            <button class="editBtn" (click)="insertBanner()" >
               Change Banner
             </button>
-            <div [hidden]="!hasBanner" class="Image">
-              <input
-                type="file"
-                class="file-input"
-                [accept]="requiredFileType"
-                (change)="onFileBannerSelected($event)"
-                #fileUpload
-              />
-            </div>
+          
 
-            <button type="submit" class="FinishEdit" (click)="FinishEdit()">
-              <ion-icon name="checkmark"></ion-icon>
-            </button>
-          </div>
+          <button type="submit" class="FinishEdit editBtn" (click)="FinishEdit()" style="margin-right: 50px;">
+            <ion-icon name="checkmark"></ion-icon>
+          </button>
+        </div>
         </form>
       </div>
 
@@ -727,6 +736,7 @@
     <div class="About">About this Community</div>
     <div class="DateCreated">Date Created: {{ community?.createdAt }}</div>
     <div class="Rules">
+      <div class="RulesTitle">Community Encompass Points: {{community?.communityEP}}</div>
       <div class="RulesTitle">Community Rules:</div>
       <div class="RulesDescr">{{ community?.rules }}</div>
     </div>
