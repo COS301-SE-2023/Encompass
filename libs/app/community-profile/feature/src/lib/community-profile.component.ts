@@ -16,10 +16,12 @@ import {
 import { CommunityDto } from '@encompass/api/community/data-access';
 import {
   AddCommunityRequest,
+  DislikePostArray,
   GetCommunity,
   GetCommunityPosts,
   GetCommunityRequest,
   GetRanking,
+  LikePostArray,
   RemoveCommunityRequest,
   UpdatePostArray,
 } from '@encompass/app/community-profile/util';
@@ -770,73 +772,19 @@ export class CommunityProfileComponent {
   }
 
   Like(n: number, post: PostDto) {
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
+    if (this.profile == null) {
       return;
     }
 
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: post.dislikes.filter((dislike) => dislike !== this.profile?.username),
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.communityApi.addCoins(post.username, 1);
+    this.store.dispatch(new LikePostArray(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    let dislikesArr = [...post.dislikes];
-
-    if(this.profile === null){
+    if (this.profile == null) {
       return;
     }
 
-    if(!dislikesArr.includes(this.profile?.username)){
-      dislikesArr = [...post.dislikes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: dislikesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.store.dispatch(new DislikePostArray(post._id, this.profile._id));
   }
 
   mobileview = false;

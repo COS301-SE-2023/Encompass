@@ -1,6 +1,6 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts, GetRanking } from '@encompass/app/community-profile/util';
+import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts, GetRanking, LikePostArray, DislikePostArray } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
@@ -244,6 +244,77 @@ export class CommunityState{
         }
       }
     })
+  }
+
+  @Action(DislikePostArray)
+  async dislikedPostArray(ctx: StateContext<CommunityPostsModel>, { postId, userId }: DislikePostArray){
+    const response = await this.communityApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().CommunityPostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        CommunityPostForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+    
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  @Action(LikePostArray)
+  async likedProfilePost(ctx: StateContext<CommunityPostsModel>, { postId, userId }: LikePostArray){
+    const response = await this.communityApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().CommunityPostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        CommunityPostForm: {
+          model: {
+            posts: posts
+          }
+
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
   }
 
   @Selector()
