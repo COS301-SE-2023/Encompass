@@ -20,6 +20,7 @@ import { GetPostsByKeywordQuery } from "./queries/search-posts/get-posts-by-keyw
 import { GetRecommendedPostsQuery } from "./queries/get-recommended-posts/getRecommendedPosts.query";
 import { DislikePostCommand } from "./commands/dislike-post/dislike-post.command";
 import { LikePostCommand } from "./commands/like-post/like-post.command";
+import { Multer } from 'multer';
 
 @Controller('post')
 export class PostController {

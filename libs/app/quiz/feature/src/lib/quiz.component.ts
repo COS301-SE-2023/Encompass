@@ -9,6 +9,7 @@ import {
 import { EventApi, EventState } from '@encompass/app/event/data-access';
 import {
   GetEventById,
+  GetLeaderboard,
   GetUserEvents,
   UpdateUserEvent,
 } from '@encompass/app/event/util';
@@ -55,10 +56,15 @@ export class QuizPage {
 
   isComplete = false;
   mobileview = false;
-  colSize=0;
+  colSize = 0;
 
-
-  constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController, private eventApi: EventApi) {
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+    private router: Router,
+    private toastController: ToastController,
+    private eventApi: EventApi
+  ) {
     const quizId = this.route.snapshot.paramMap.get('id');
 
     if (quizId == null) {
@@ -77,7 +83,6 @@ export class QuizPage {
           this.numberOfQuestions = event.quiz.length;
           this.numberOfParticipants = event.members.length;
           this.userAnswers = new Array(this.numberOfQuestions).fill(null);
-         
 
           this.totalNumber = event.quiz.length;
         }
@@ -105,8 +110,9 @@ export class QuizPage {
                   this.userEvents = userEvents;
 
                   this.fillNumber = 0;
-                          this.fillPercentage = 0;
-                          
+                  this.fillPercentage = 0;
+                  this.points = 0;
+
                   userEvents.events.forEach((element) => {
                     if (element.eventId === quizId) {
                       this.currentEvent = element;
@@ -116,19 +122,19 @@ export class QuizPage {
                         if (answer === this.event?.quiz[index].answer) {
                           this.fillCircle();
                         }
-                      })
+                      });
                     }
                   });
                 }
               });
           }
 
-          if(this.event === null){
+          if (this.event === null) {
             return;
           }
 
-          if(!this.event.members.includes(profile.username)){
-            this.presentToast()
+          if (!this.event.members.includes(profile.username)) {
+            this.presentToast();
           }
         }
       });
@@ -145,7 +151,7 @@ export class QuizPage {
     const toast = await this.toastController.create({
       message: 'You are not a member of this event',
       duration: 2000,
-      color: 'danger'
+      color: 'danger',
     });
 
     await toast.present();
@@ -156,8 +162,8 @@ export class QuizPage {
   answerQuestion(questionIndex: number, answer: string) {
     let numCorrect = this.currentEvent.numCorrect;
 
-    if(this.profile === null){
-      return
+    if (this.profile === null) {
+      return;
     }
 
     if (this.event === null || this.event === undefined) {
@@ -171,11 +177,10 @@ export class QuizPage {
     this.userAnswers[questionIndex] = answer;
 
     if (answer === this.event.quiz[questionIndex].answer) {
-      console.log("correct");
+      console.log('correct');
       numCorrect++;
       this.eventApi.addCoins(this.profile.username, 20);
     }
-    
 
     this.isComplete = !this.userAnswers.some((el) => el === null);
 
@@ -194,8 +199,8 @@ export class QuizPage {
   }
 
   fillCircle() {
-    console.log("Fill circle Called");
-    console.log("Points: "+this.points);
+    console.log('Fill circle Called');
+    console.log('Points: ' + this.points);
     this.fillPercentage += 1 / this.totalNumber; // Increase by 1/totalNumber
     this.fillNumber += 1;
     this.points += 20;
@@ -213,7 +218,9 @@ export class QuizPage {
     }
   }
 
-  backToEvents(){
+  backToEvents() {
+    this.store.dispatch(new SubscribeToProfile());
+    this.store.dispatch(new GetLeaderboard());
     this.router.navigate(['home/event']);
   }
 
@@ -226,9 +233,8 @@ export class QuizPage {
     this.mobileview = window.innerWidth <= 992;
     if (this.mobileview) {
       this.colSize = 12.5;
-    }else{
+    } else {
       this.colSize = 5;
     }
   }
-
 }

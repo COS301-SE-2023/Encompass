@@ -102,7 +102,7 @@ export class FeedPage {
   reports: boolean[] = [];
   postReported: boolean[] = [];
 
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   shares: number[] = [];
   likes: number[] = [];
@@ -111,6 +111,8 @@ export class FeedPage {
   size = 0;
   themeName!: string;
   colSize = 0;
+
+  isNewFetched = false;
   // type = "recommended";
 
   communitiesIsFetched = false;
@@ -168,7 +170,10 @@ export class FeedPage {
         console.log(profile);
         this.profile = profile;
         // this.addPosts("recommended");
-        this.newChange();
+        if(!this.isNewFetched){
+          this.isNewFetched = true;
+          this.newChange();
+        }
 
         if (!this.settingsIsFetched) {
           this.settingsIsFetched = true;

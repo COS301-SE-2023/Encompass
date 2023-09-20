@@ -36,7 +36,7 @@ export class PostFactory implements EntityFactory<Post>{
       categories,
       likes,
       dislikes,
-      this.createDateTimeAsString(),
+      new Date(),
       spoiler,
       ageRestricted,
       0,

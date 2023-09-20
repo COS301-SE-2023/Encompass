@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import {
+  DislikeProfilePost,
   GetComments,
   GetPosts,
+  LikeProfilePost,
   SubscribeToProfile,
   UpdatePost,
 } from '@encompass/app/profile/util';
@@ -60,7 +62,7 @@ export class ProfilePage {
   otherUsers!: ProfileDto[] | null;
   posts!: PostDto[] | null;
   commentsList!: CommentDto[] | null;
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   shares: number[] = [];
   likes: number[] = [];
@@ -686,37 +688,7 @@ export class ProfilePage {
       return;
     }
 
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: post.dislikes.filter((dislikes) => dislikes !== this.profile?.username),
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new LikeProfilePost(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
@@ -724,34 +696,9 @@ export class ProfilePage {
       return;
     }
 
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    let dislikesArr = [...post.dislikes];
-    if (!dislikesArr.includes(this.profile.username)) {
-      dislikesArr = [...post.dislikes, this.profile.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: dislikesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new DislikeProfilePost(post._id, this.profile._id));
   }
+
 
   OpenView() {
     this.ViewCommunities = !this.ViewCommunities;

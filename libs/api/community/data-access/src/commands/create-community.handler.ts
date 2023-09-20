@@ -50,6 +50,7 @@ export class CreateCommunityHandler implements ICommandHandler<CreateCommunityCo
         
         try{
             this.httpService.patch(url + '/api/profile/add-award/' + admin + '/commAdmin').toPromise();
+            this.httpService.patch(url + '/api/community-leaderboard/leaderboard').toPromise();
         }
     
         catch(error){
