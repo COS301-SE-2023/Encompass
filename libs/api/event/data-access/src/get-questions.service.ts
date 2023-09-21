@@ -160,6 +160,14 @@ export class GetQuestions {
     // Parse the extracted JSON objects
     const formattedQuestions = jsonMatches.map((match) => JSON.parse(match));
 
+      if(formattedQuestions.length < numQuestions) {
+        if(count < 5)
+          return this.getQuestions(topic, categories, numQuestions, count + 1)
+
+        else
+          throw error('Failed to generate questions.');
+      }
+
       return formattedQuestions;
     }
   }
