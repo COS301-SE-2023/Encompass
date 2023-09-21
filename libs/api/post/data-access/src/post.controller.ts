@@ -59,15 +59,7 @@ export class PostController {
       );
   }*/
 
-  @Patch(':id')
-  async updatePost(
-    @Param('id') id: string,
-    @Body() updatePostRequest: UpdatePostRequest,
-  ){
-    return await this.commandBus.execute<UpdatePostCommand, PostDto>(
-      new UpdatePostCommand(id, updatePostRequest),
-    );
-  }
+  
 
   @Patch('like/:userId/:postId')
   async likePost(
@@ -137,12 +129,13 @@ export class PostController {
   
 
 
-  @Get('get-by-user/:username')
+  @Get('get-by-user/:queriedUsername/:userId')
   async getPostsByUserId(
-    @Param('username') username: string,
+    @Param('queriedUsername') queriedUsername: string,
+    @Param('userId') userId: string,
   ){
     return await this.queryBus.execute<UserIdGetPostQuery, PostDto[]>(
-      new UserIdGetPostQuery(username),
+      new UserIdGetPostQuery(queriedUsername, userId),
     );
   }
 
@@ -152,6 +145,16 @@ export class PostController {
   ){
     return await this.queryBus.execute<GetByCommunityQuery, PostDto[]>(
       new GetByCommunityQuery(communityName),
+    );
+  }
+
+  @Patch(':id')
+  async updatePost(
+    @Param('id') id: string,
+    @Body() updatePostRequest: UpdatePostRequest,
+  ){
+    return await this.commandBus.execute<UpdatePostCommand, PostDto>(
+      new UpdatePostCommand(id, updatePostRequest),
     );
   }
 
