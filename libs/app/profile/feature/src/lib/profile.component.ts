@@ -93,6 +93,9 @@ export class ProfilePage {
 
   ViewCommunities = false;
 
+  isModalOpen = false;
+  isModal2Open = false;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private router: Router,
@@ -718,15 +721,15 @@ export class ProfilePage {
     this.mobileview = window.innerWidth <= 992;
   }
 
-  isModalOpen = false;
 
   setOpen(isOpen: boolean) {
+    this.modalController.dismiss;
     this.isModalOpen = isOpen;
   }
 
-  isModal2Open = false;
 
   setOpen2(isOpen: boolean) {
+    this.modalController.dismiss;
     this.isModal2Open = isOpen;
   }
   
