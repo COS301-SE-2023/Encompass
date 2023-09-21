@@ -397,7 +397,7 @@
               <div
                 id="follow-trigger"
                 class="profile-info"
-                (click)="loadFollowers()"
+                (click)="loadFollowers() ; setOpen(true)"
               >
                 {{ profile.followers.length }} <br />
                 Followers
@@ -405,7 +405,7 @@
               <div
                 id="following-trigger"
                 class="profile-info"
-                (click)="loadFollowing()"
+                (click)="loadFollowing() ; setOpen2(true)"
               >
                 {{ profile.following.length }} <br />
                 Following
@@ -506,11 +506,15 @@
           #modal
           trigger="follow-trigger"
           [presentingElement]="presentingElement"
+          [isOpen]="isModalOpen"
         >
           <ng-template>
             <ion-header>
               <ion-toolbar>
                 <ion-title>Followers</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setOpen(false)">Close</ion-button>
+                </ion-buttons>
               </ion-toolbar>
             </ion-header>
             <ion-content>
@@ -538,11 +542,16 @@
           #modal
           trigger="following-trigger"
           [presentingElement]="presentingElement2"
+          [isOpen]="isModal2Open"
+
         >
           <ng-template>
             <ion-header>
               <ion-toolbar>
                 <ion-title>Following</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setOpen2(false)">Close</ion-button>
+                </ion-buttons>
               </ion-toolbar>
             </ion-header>
             <ion-content>
@@ -1143,85 +1152,5 @@
         </ion-content>
       </ng-template>
     </ion-modal>
-
-    <!-- <div class="awards">
-        <ion-title class="awards-header">
-          Awards
-        </ion-title>
-        <div class="badges">
-          <img src="assets/icon/Award1.jpg" class="badge">
-          <img src="assets/icon/Award2.JPG" class="badge">
-        </div>
-      </div>
-
-
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title class="topComms" color="grey">Top Communities</ion-card-title>
-        </ion-card-header>
-        <div class="community-card-container">
-
-          <ion-grid>
-            <ion-row class="content-row">
-              <ion-col size="11">
-                <ion-card class = "CommunityCard">
-                  <div class="card-color">
-                  <div class = "CommunityHeader"> 
-                    <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
-                     <div class = "CommunityDetails" >
-                       <div class = "CommunityName">XenoMorffs</div>
-                       <div class = "CommunityMembers">92 Members</div>
-                       <div class = "CommunityGenres">
-                       <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
-                       <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
-                       <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
-                    
-                   </div>
-                   <div class = "CommunityAdd">
-                    
-                   </div>
-                   </div>
-                   <div class = "CommunityBody">
-                       <div class = "CommunityDesc">
-                        Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       
-                      </div>
-                      </div>
-                    </div>
-                 </ion-card>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="content-row">
-              <ion-col size="11">
-                <ion-card class = "CommunityCard">
-                  <div class="card-color">
-                  <div class = "CommunityHeader"> 
-                    <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
-                     <div class = "CommunityDetails" >
-                       <div class = "CommunityName">Potterheads</div>
-                       <div class = "CommunityMembers">105 Members</div>
-                       <div class = "CommunityGenres">
-                       <img src = "assets/icon/Fantasy.png" class="imgDiv">
-                       <img src = "assets/icon/Adventure.png"  class="imgDiv">
-                       <img src = "assets/icon/Movies.png"  class="imgDiv">
-                      
-                      </div>
-                   </div>
-                   <div class = "CommunityAdd">
-                    
-                   </div>
-                   </div>
-                   <div class = "CommunityBody">
-                       <div class = "CommunityDesc">
-                        Join in on all things Potterverse!
-                      </div>
-                      </div>
-                    </div>
-                 </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-card> -->
   </div>
 </div>
