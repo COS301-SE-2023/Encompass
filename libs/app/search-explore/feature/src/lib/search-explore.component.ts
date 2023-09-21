@@ -20,7 +20,9 @@ import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import {
+  DislikeArray,
   GetAllCommunities,
+  LikeArray,
   SearchCommunities,
   SearchPosts,
   SearchProfiles,
@@ -260,52 +262,16 @@ export class SearchExploreComponent {
   async updatePosts() {
     this.searchPosts$.subscribe((posts) => {
       if (posts) {
-        const temp = posts.filter((post) => {
-          if (post.isPrivate) {
-            return this.profile?.communities.includes(post.community);
-          } else {
-            return true;
-          }
-        });
+        this.posts = posts
+        // const temp = posts.filter((post) => {
+        //   if (post.isPrivate) {
+        //     return this.profile?.communities.includes(post.community);
+        //   } else {
+        //     return true;
+        //   }
+        // });
 
-        this.posts = temp;
-
-        this.size = this.posts.length - 1;
-
-        for (let i = 0; i < this.posts.length; i++) {
-          this.likedComments.push(false);
-          this.sharing.push(false);
-          this.reports.push(false);
-          this.postReported.push(false);
-
-          if (
-            this.posts[i].dateAdded != null &&
-            this.posts[i].comments != null &&
-            this.posts[i].shares != null
-          ) {
-            this.datesAdded.push(this.posts[i].dateAdded);
-            this.comments.push(this.posts[i].comments);
-            this.shares.push(this.posts[i].shares);
-          }
-
-          if (this.posts[i].likes != null) {
-            this.likes.push(this.posts[i].likes?.length);
-
-            if (this.profile == undefined) {
-              return;
-            }
-            if (this.posts[i].likes.includes(this.profile.username)) {
-              this.likedComments[i] = true;
-            }
-          }
-        }
-
-        if (this.posts.length <= 0) {
-          this.postsHasContent = false;
-        }
-        if (this.posts.length > 0) {
-          this.postsHasContent = true;
-        }
+        // this.posts = temp;
         // console.log("postsHasContent: " + this.postsHasContent);
       }
     });
@@ -327,87 +293,71 @@ export class SearchExploreComponent {
     }
   }
 
-  Like(n: number, post: PostDto) {
-    let likesArr: string[];
-
-    // console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: post.dislikes.filter(
-        (dislike) => dislike !== this.profile?.username
-      ),
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
+  async Like(n: number, post: PostDto) {
     if (this.profile == null) {
       return;
     }
 
-    this.store.dispatch(new UpdatePost(post._id, data));
-    this.homeApi.addCoins(post.username, 1);
+    await this.store.dispatch(new LikeArray(post._id, this.profile._id));
+    // this.posts = []
+    // this.updatePosts();
+    // this.searchPosts$.subscribe((posts) => {
+    //   if (posts) {
+    //     const temp = posts.filter((post) => {
+    //       if (post.isPrivate) {
+    //         return this.profile?.communities.includes(post.community);
+    //       } else {
+    //         return true;
+    //       }
+    //     });
+
+    //     this.posts = temp;
+
+    //     this.size = this.posts.length - 1;
+
+    //     if (this.posts.length <= 0) {
+    //       this.postsHasContent = false;
+    //     }
+    //     if (this.posts.length > 0) {
+    //       this.postsHasContent = true;
+    //     }
+    //     // console.log("postsHasContent: " + this.postsHasContent);
+    //   }
+    // });
   }
 
-  Dislike(n: number, post: PostDto) {
-    // console.log('dislike');
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    let dislikesArr = [...post.dislikes];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (!dislikesArr.includes(this.profile?.username)) {
-      dislikesArr = [...post.dislikes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      dislikes: dislikesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
+  async Dislike(n: number, post: PostDto) {
     if (this.profile == null) {
       return;
     }
 
-    this.store.dispatch(new UpdatePost(post._id, data));
-    this.homeApi.removeCoins(post.username, 1);
+    await this.store.dispatch(new DislikeArray(post._id, this.profile._id));
+    // this.posts = []
+    // this.updatePosts();
 
-    // this.addPosts();
+    // this.searchPosts$.subscribe((posts) => {
+    //   if (posts) {
+    //     const temp = posts.filter((post) => {
+    //       if (post.isPrivate) {
+    //         return this.profile?.communities.includes(post.community);
+    //       } else {
+    //         return true;
+    //       }
+    //     });
+
+    //     this.posts = temp;
+
+    //     this.size = this.posts.length - 1;
+
+    //     if (this.posts.length <= 0) {
+    //       this.postsHasContent = false;
+    //     }
+    //     if (this.posts.length > 0) {
+    //       this.postsHasContent = true;
+    //     }
+    //     // console.log("postsHasContent: " + this.postsHasContent);
+    //   }
+    // });
   }
 
   ReportPost(n: number, post: PostDto) {

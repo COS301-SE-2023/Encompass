@@ -5,8 +5,10 @@ import { ProfileDto } from '@encompass/api/profile/data-access';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { SearchApi } from './search.api';
 import {
+  DislikeArray,
   GetAllCommunities,
   GetAllProfiles,
+  LikeArray,
   SearchCommunities,
   SearchPosts,
   SearchProfiles,
@@ -188,6 +190,88 @@ export class SearchState {
     }
   }
 
+  @Action(LikeArray)
+  async likedPostArray(ctx: StateContext<SearchModel>, { postId, userId }: LikeArray){
+    console.log("HEREWEE")
+    const response = await this.searchApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      console.log("state")
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().SearchPostsForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      console.log(posts[index])
+
+      posts[index] = response;
+
+      console.log(posts[index])
+
+      ctx.patchState({
+        SearchPostsForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+
+  @Action(DislikeArray)
+  async dislikedPostArray(ctx: StateContext<SearchModel>, { postId, userId }: DislikeArray){
+    const response = await this.searchApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().SearchPostsForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      console.log(posts[index])
+
+      posts[index] = response;
+
+      console.log(posts[index])
+
+      ctx.patchState({
+        SearchPostsForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+
+      console.log(await ctx.getState().SearchPostsForm.model.posts)
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
 
   @Selector()
   static searchPosts(state: SearchModel) {

@@ -31,3 +31,13 @@ export class UpdatePost {
   ) {}
 }
 
+export class LikeArray{
+  static readonly type = '[Search] Like Post Array';
+  constructor(public readonly postId: string, public readonly userId: string){}
+}
+
+export class DislikeArray{
+  static readonly type = '[Search] Dislike Post Array';
+  constructor(public readonly postId: string, public readonly userId: string){}
+}
+
