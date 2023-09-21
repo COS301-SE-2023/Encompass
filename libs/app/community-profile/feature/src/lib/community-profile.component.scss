@@ -716,11 +716,14 @@ ion-card {
 
 .EditButtons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 90px;
   width: 100%;
 }
 
-.EditButtons Button {
+.editBtn {
+  position: relative;
+  z-index: 1;
   width: 20%;
   color: black;
   background-color: #dadada;
@@ -736,8 +739,8 @@ ion-card {
 // }
 
 .Image {
-  width: 15%;
-  padding: 2%;
+  position: relative;
+  display: inline-block;
 }
 
 .textInput {
@@ -819,30 +822,29 @@ ion-card {
 }
 
 .RmvBtn {
+  color: var(--ion-color-text);
   margin-right: 5%;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 25px;
-  border: 1px solid var(--ion-color-primary-contrast);
-  padding: 1%;
+  padding: 2%;
+  background-color: var(--ion-color-secondary);
 }
 
 .RmvBtn:hover {
-  color: red;
-  border-color: red;
+  color: var(--hover-color);
 }
 
 .RmvBtn2 {
+  color: var(--ion-color-text);
   margin-right: 5%;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 25px;
-  border: 1px solid var(--ion-color-primary-contrast);
-  padding: 1%;
-  color: red;
+  padding: 2%;
+  background-color: var(--ion-color-secondary);
 }
 
 .RmvBtn:hover {
-  color: red;
-  border-color: red;
+  color: var(--hover-color);
 }
 
 .Button3 {
@@ -864,6 +866,7 @@ ion-card {
   display: flex;
   justify-content: center;
   margin-top: 2%;
+  background-color: none;
 }
 
 .reject2 {
@@ -871,10 +874,7 @@ ion-card {
   color: var(--ion-color-primary);
   margin: 1%;
 }
-.reject2:hover {
-  color: red;
-  cursor: pointer;
-}
+
 
 .accept2 {
   font-size: 40px;
@@ -882,11 +882,19 @@ ion-card {
   margin: 1%;
 }
 
-.accept2:hover {
-  color: green;
-  cursor: pointer;
+.memberBtn:hover {
+  .reject2 {
+    color: red;
+    cursor: pointer;
+  }
 }
 
+.memberBtn2:hover {
+  .accept2 {
+    color: green;
+    cursor: pointer;
+  }
+}
 //posts
 .imgDiv {
   width: 25px;
@@ -1127,16 +1135,16 @@ ion-card {
   position: absolute;
   // top: 0;
   // left: 0;
-  // right: 0;
-  bottom: 0;
-  left: 0;
-  margin-bottom: 10px;
+  // width: 100%;
+  // height: 100%;
+  margin-top: 10px;
   margin-left: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   cursor: pointer;
   z-index: 3;
   opacity: 0;
-  width: 150px;
+  width: 135px;
+  height: 30px;
 }
