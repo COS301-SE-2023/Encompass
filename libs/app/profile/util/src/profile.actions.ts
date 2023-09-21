@@ -17,7 +17,7 @@ export class UpdateProfile{
 
 export class GetPosts{
   static readonly type = '[Profile] GetPosts';
-  constructor(public username: string){}
+  constructor(public username: string, public userId: string){}
 }
 
 export class UpdatePost{

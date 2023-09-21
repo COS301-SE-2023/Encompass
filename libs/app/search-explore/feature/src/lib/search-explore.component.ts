@@ -235,7 +235,7 @@ export class SearchExploreComponent {
   //=========================================================================post things=========================================================================================
 
   async searchPosts() {
-    this.store.dispatch(new SearchPosts(this.keyword));
+    this.store.dispatch(new SearchPosts(this.keyword, this.profile._id));
     // this.postsHasContent = true;
 
     // if (!this.postsIsFetched) {

@@ -7,7 +7,7 @@ export class GetUserProfile{
 
 export class GetUserProfilePosts{
   static readonly type = '[User-Profile] Get User Profile Posts'
-  constructor(public readonly username: string){}
+  constructor(public readonly username: string, public readonly userId: string){}
 }
 
 export class GetUserSettings{

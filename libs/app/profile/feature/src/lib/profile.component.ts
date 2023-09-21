@@ -185,7 +185,7 @@ export class ProfilePage {
     if (!this.isPostsFetched) {
       this.isPostsFetched = true;
       console.log('getPosts', profile);
-      this.store.dispatch(new GetPosts(profile.username));
+      this.store.dispatch(new GetPosts(profile.username, profile._id));
       this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
         if (posts) {
           console.log('posts', posts);

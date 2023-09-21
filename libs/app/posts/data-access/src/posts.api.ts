@@ -19,9 +19,9 @@ export class PostsApi{
     }
   }
   
-  async getPosts(username: string){
+  async getPosts(username: string, userId: string){
     try{
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username).toPromise();
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username + '/' + userId).toPromise();
 
       return response;
     }

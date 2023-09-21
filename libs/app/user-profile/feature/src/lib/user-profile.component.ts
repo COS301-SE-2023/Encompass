@@ -86,6 +86,7 @@ export class UserProfile {
     if (username == null) {
       return;
     }
+    this.load();
     // this.store.dispatch(new GetUserProfile(username))
     // this.userProfile$.subscribe((userProfile) =>{
     this.userProfileState.getUserProfile(username).then((userProfile) => {
@@ -95,7 +96,11 @@ export class UserProfile {
         // if(!this.isPostsFetched){
         this.isPostsFetched = true;
 
-        this.store.dispatch(new GetUserProfilePosts(this.userProfile.username));
+        if(this.profile == null){
+          return
+        }
+
+        this.store.dispatch(new GetUserProfilePosts(this.userProfile.username, this.profile._id));
         this.userPosts$
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((userPosts) => {
@@ -162,7 +167,7 @@ export class UserProfile {
     //   }
     // })
 
-    this.load();
+    
   }
 
   load() {

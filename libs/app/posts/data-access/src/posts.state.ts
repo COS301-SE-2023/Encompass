@@ -117,8 +117,8 @@ export class PostsState {
   }
 
   @Action(GetUserPosts)
-  async getPosts(ctx: StateContext<ProfilePostsStateModel>, {username}: GetUserPosts){
-    const response = await this.postsApi.getPosts(username);
+  async getPosts(ctx: StateContext<ProfilePostsStateModel>, {username, userId}: GetUserPosts){
+    const response = await this.postsApi.getPosts(username, userId);
     
     if(response == null || response == undefined){
       return;

@@ -21,9 +21,9 @@ export class UserProfileApi{
     }
   }
 
-  async getUserProfilePosts(username: string){
+  async getUserProfilePosts(username: string, userId: string){
     try{
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username).toPromise();
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username + '/' + userId).toPromise();
 
       return response
     }

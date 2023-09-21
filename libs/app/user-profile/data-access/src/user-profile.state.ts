@@ -118,8 +118,8 @@ export class UserProfileState{
   }
   
   @Action(GetUserProfilePosts)
-  async getUserProfilePosts(ctx: StateContext<UserProfilePostModel>, {username}: GetUserProfilePosts){
-    const response = await this.userProfileApi.getUserProfilePosts(username)
+  async getUserProfilePosts(ctx: StateContext<UserProfilePostModel>, {username, userId}: GetUserProfilePosts){
+    const response = await this.userProfileApi.getUserProfilePosts(username, userId)
 
     if(response == null && response == undefined){
       return;

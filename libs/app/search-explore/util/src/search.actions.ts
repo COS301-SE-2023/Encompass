@@ -2,7 +2,7 @@ import { UpdatePostRequest } from '@encompass/api/post/data-access';
 
 export class SearchPosts {
   static readonly type = '[Search] Search Posts';
-  constructor(public readonly keyword: string) {}
+  constructor(public readonly keyword: string, public readonly userId: string) {}
 }
 
 export class SearchProfiles {

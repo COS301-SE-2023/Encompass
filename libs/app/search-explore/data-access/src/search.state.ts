@@ -96,8 +96,8 @@ export class SearchState {
 
   
   @Action(SearchPosts)
-  async searchPosts(ctx: StateContext<SearchModel>, { keyword }: SearchPosts) {
-    const response = await this.searchApi.getPostsByKeyword(keyword);
+  async searchPosts(ctx: StateContext<SearchModel>, { keyword, userId }: SearchPosts) {
+    const response = await this.searchApi.getPostsByKeyword(keyword, userId);
 
     if (response == null || response == undefined) {
       return;

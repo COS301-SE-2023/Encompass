@@ -57,7 +57,7 @@ export class GetPost{
 
 export class GetUserPosts{
   static readonly type = '[Profile] GetUserPosts';
-  constructor(public username: string){}
+  constructor(public username: string, public userId: string){}
 }
 
 export class GetLatestPosts{

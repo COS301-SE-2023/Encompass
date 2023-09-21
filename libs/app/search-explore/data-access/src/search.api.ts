@@ -46,9 +46,9 @@ export class SearchApi {
         }
     }
 
-    async getPostsByKeyword(keyword: string){
+    async getPostsByKeyword(keyword: string, userId: string){
         try{
-            return await this.http.get<PostDto[]>('/api/post/get-posts-by-keyword/' + keyword).toPromise();
+            return await this.http.get<PostDto[]>('/api/post/get-posts-by-keyword/' + keyword + '/' + userId).toPromise();
         } catch(error){
             console.log(error);
             return null;
