@@ -131,44 +131,42 @@ export class GetQuestions {
       console.log('Generated Questions:\n' + generatedQuestions);
 
       // Check if generatedQuestions is a string
-    if (typeof generatedQuestions !== 'string') {
-      console.log('Unexpected response format: generatedQuestions is not a string.');
+      if (typeof generatedQuestions !== 'string') {
+        console.log(
+          'Unexpected response format: generatedQuestions is not a string.'
+        );
 
-      if(count < 5)
-        return this.getQuestions(topic, categories, numQuestions, count + 1)
-
-      else
-        throw error('Failed to generate questions.');
-    }
-
-    // Define a regular expression pattern to match JSON objects
-    const jsonPattern = /{[^{}]*}/g;
-
-    // Extract JSON objects from the response
-    const jsonMatches = generatedQuestions.match(jsonPattern);
-
-    if (!jsonMatches) {
-      console.log("No JSON Data " + count)
-
-      if(count < 5)
-        return this.getQuestions(topic, categories, numQuestions, count + 1)
-
-      else
-        throw error('Failed to generate questions.');
-    }
-
-    // Parse the extracted JSON objects
-    const formattedQuestions = jsonMatches.map((match) => JSON.parse(match));
-
-      if(formattedQuestions.length < numQuestions) {
-        if(count < 5)
-          return this.getQuestions(topic, categories, numQuestions, count + 1)
-
-        else
-          throw error('Failed to generate questions.');
+        if (count < 5)
+          return this.getQuestions(topic, categories, numQuestions, count + 1);
+        else throw error('Failed to generate questions.');
       }
 
-      return formattedQuestions;
+      // Define a regular expression pattern to match JSON objects
+      const jsonPattern = /{[^{}]*}/g;
+
+      // Extract JSON objects from the response
+      const jsonMatches = generatedQuestions.match(jsonPattern);
+
+      if (!jsonMatches) {
+        console.log('No JSON Data ' + count);
+
+        if (count < 5)
+          return this.getQuestions(topic, categories, numQuestions, count + 1);
+        else throw error('Failed to generate questions.');
+      }
+
+      // Parse the extracted JSON objects
+      try {
+        const formattedQuestions = jsonMatches.map((match) =>
+          JSON.parse(match)
+        );
+
+        return formattedQuestions;
+      } catch (err) {
+        if (count < 5)
+          return this.getQuestions(topic, categories, numQuestions, count + 1);
+        else throw error('Failed to generate questions.\n' + err);
+      }
     }
   }
 
@@ -181,16 +179,16 @@ export class GetQuestions {
 
     // const prompt = `Generate ${numQuestions} questions based on ${topic}. Only give the output in the JSON format {"question": string, "options": string[4], "answer": string}. Do not provide anything else.`;
 
-    const prompt = `Act as a JSON Object Generate ${numQuestions} quesions based on ${topic} and ${categories} as the categories with the following format: {"question": string, "options": string[4], "answer": string}.`
+    const prompt = `Act as an JSON Object. Now Generate ${numQuestions} quesions based on ${topic} and ${categories} as the categories with the following format: {"question": string, "options": string[4], "answer": string}.`;
 
     console.log('Prompt:\n' + prompt);
 
     try {
       const response = await axios.post(
-        'https://api.openai.com/v1/engines/text-davinci-002/completions',
+        'https://api.openai.com/v1/engines/text-davinci-003/completions',
         {
           prompt,
-          max_tokens: 1500,
+          max_tokens: 1750,
         },
         {
           headers: {
@@ -205,11 +203,10 @@ export class GetQuestions {
       console.log(response.data.choices[0]);
       console.log(response.data.choices[0].text);
       const generatedQuestions = await response.data.choices[0].text;
-      const lines = generatedQuestions.split('\n').filter(Boolean);
 
       return generatedQuestions;
     } catch (error: any) {
-      throw new Error(`Failed to generate questions: ${error.message}`);
+      return "No Matches";
     }
   }
 }

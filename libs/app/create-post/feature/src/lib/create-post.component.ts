@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController, ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { CreateEvent, CreatePost, UploadFile } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
@@ -102,7 +102,8 @@ export class CreatePostComponent {
     private store: Store,
     private createPostApi: CreatePostApi,
     private popoverController: PopoverController,
-    private createPostState: CreatePostState
+    private createPostState: CreatePostState,
+    private toastController: ToastController
   ) {
     if (!this.profile) {
       this.store.dispatch(new SubscribeToProfile());
@@ -413,6 +414,8 @@ export class CreatePostComponent {
     }
 
     this.store.dispatch(new CreateEvent(data, this.profile));
+
+    
   }
 
   closePopup() {
