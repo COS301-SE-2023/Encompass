@@ -21,6 +21,16 @@ export class PostEntityRepository extends BaseEntityRepository<
     super(postModel, postSchemaFactory);
   }
 
+  async getAllowedPosts(communities: string[], posts: PostDto[]){
+    //get all posts except private posts not from same community as user
+    const filteredPosts = posts.filter(post => {
+      const isPrivate = post.isPrivate;
+      const isFromSameCommunity = communities.includes(post.community);
+      return !isPrivate || isFromSameCommunity;
+    });
+    return filteredPosts;
+  }
+
   async findPostsByKeyword(keyword: string): Promise<PostDto[]> {
     const lowerCaseKeyword = keyword.toLowerCase();
     const allPosts = await this.findAll();

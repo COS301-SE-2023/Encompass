@@ -58,9 +58,9 @@ export class ProfileController {
   }
 
   @Get('get-users-by-keyword/:keyword')
-    async getUsersByKeyword(@Param('keyword') keyword: string){
+    async getUsersByKeyword(@Param('keyword') keyword: string, @Body() userId: string){
         return await this.queryBus.execute<GetUsersByKeywordQuery, ProfileDto[]>(
-            new GetUsersByKeywordQuery(keyword),
+            new GetUsersByKeywordQuery(keyword)
         );
     }
 

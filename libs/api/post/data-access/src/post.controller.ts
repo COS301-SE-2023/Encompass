@@ -45,10 +45,10 @@ export class PostController {
     );
   }
 
-  @Get('get-posts-by-keyword/:keyword')
-  async getPostsByKeyword(@Param('keyword') keyword: string){
+  @Get('get-posts-by-keyword/:keyword/:userId')
+  async getPostsByKeyword(@Param('keyword') keyword: string, @Param('userId') userId: string){
       return await this.queryBus.execute<GetPostsByKeywordQuery, PostDto[]>(
-          new GetPostsByKeywordQuery(keyword),
+          new GetPostsByKeywordQuery(keyword, userId),
       );
   }
 
