@@ -263,6 +263,13 @@ export class SearchExploreComponent {
     this.searchPosts$.subscribe((posts) => {
       if (posts) {
         this.posts = posts
+
+        if (this.posts.length <= 0) {
+          this.postsHasContent = false;
+        }
+        if (this.posts.length > 0) {
+          this.postsHasContent = true;
+        }
         // const temp = posts.filter((post) => {
         //   if (post.isPrivate) {
         //     return this.profile?.communities.includes(post.community);
