@@ -81,8 +81,8 @@
               </button>
             
 
-            <button type="submit" class="FinishEdit editBtn" (click)="FinishEdit()" style="margin-right: 50px;">
-              <ion-icon name="checkmark"></ion-icon>
+            <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="FinishEdit editBtn" (click)="FinishEdit()">
+              Confirm
             </button>
           </div>
         </form>
@@ -335,7 +335,7 @@
                       <div>{{ post.comments }}</div>
                     </div>
                     <div style="text-align: center">
-                      <div *ngIf="profile != null">
+                      <div *ngIf="profile !== null">
                         <ion-icon
                           name="heart"
                           *ngIf="post.likes.includes(profile.username)"
@@ -353,7 +353,7 @@
                       </div>
                     </div>
                     <div style="text-align: center">
-                      <div *ngIf="profile != null">
+                      <div *ngIf="profile !== null">
                         <ion-icon
                           name="heart-dislike"
                           *ngIf="post.dislikes.includes(profile.username)"
@@ -639,9 +639,9 @@
             </button>
           
 
-          <button type="submit" class="FinishEdit editBtn" (click)="FinishEdit()" style="margin-right: 50px;">
-            <ion-icon name="checkmark"></ion-icon>
-          </button>
+            <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="FinishEdit editBtn" (click)="FinishEdit()">
+              Confirm
+            </button>
         </div>
         </form>
       </div>
@@ -1110,7 +1110,7 @@
                       <div>{{ post.comments }}</div>
                     </div>
                     <div style="text-align: center">
-                      <div *ngIf="profile != null">
+                      <div *ngIf="profile !== null">
                         <ion-icon
                           name="heart"
                           *ngIf="post.likes.includes(profile.username)"
@@ -1128,7 +1128,7 @@
                       </div>
                     </div>
                     <div style="text-align: center">
-                      <div *ngIf="profile != null">
+                      <div *ngIf="profile !== null">
                         <ion-icon
                           name="heart-dislike"
                           *ngIf="post.dislikes.includes(profile.username)"

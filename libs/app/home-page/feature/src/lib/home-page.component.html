@@ -5,15 +5,14 @@
       <div class="menu-container">
         <ion-content class="ion-padding buttons-menu-container">
           <div class="logoButton" (click)="goHome()">
-            <ion-button fill="clear" class="centeredButton widthStyling" >
-              <div class="square-image" >
+            <ion-button fill="clear" class="centeredButton widthStyling">
+              <div class="square-image">
                 <img
                   id="logo-default"
                   #logoDefault
                   src="assets/icon/Logo.png"
                   class="logo"
                   alt="Encompass Logo"
-                  
                 />
                 <img
                   id="logo-red"
@@ -28,7 +27,6 @@
                   src="assets/logos/logo-blue.png"
                   class="logo2 logo-blue visible"
                   alt="Encompass Logo"
-                  
                 />
                 <img
                   id="logo-green"
@@ -56,50 +54,41 @@
               id="popover-button"
               (click)="goToExplore()"
             >
-            <div class="button-content">
-              <ion-icon
-                name="search"
-                class="menuIcon"
-              ></ion-icon>
-              <span class="buttonSpan">Search</span>
-            </div>
+              <div class="button-content">
+                <ion-icon name="search" class="menuIcon"></ion-icon>
+                <span class="buttonSpan">Search</span>
+              </div>
             </ion-button>
           </div>
 
           <div class="MenuButton">
             <ion-button fill="clear" class="widthStyling" (click)="goToEvent()">
               <div class="button-content">
-                <ion-icon
-                  name="rocket"
-                  class="menuIcon"
-                ></ion-icon>
+                <ion-icon name="rocket" class="menuIcon"></ion-icon>
                 <span class="buttonSpan">Events</span>
               </div>
             </ion-button>
           </div>
-          
 
           <div class="MenuButton">
             <ion-button fill="clear" class="widthStyling" (click)="goToChat()">
               <div class="button-content">
-              <ion-icon
-                name="chatbubbles"
-                class="menuIcon"
-              ></ion-icon>
-              <span class="buttonSpan">Messages</span>
-            </div>
+                <ion-icon name="chatbubbles" class="menuIcon"></ion-icon>
+                <span class="buttonSpan">Messages</span>
+              </div>
             </ion-button>
           </div>
 
           <div class="MenuButton">
-            <ion-button fill="clear" class="widthStyling" (click)="toggleNotifications()">
+            <ion-button
+              fill="clear"
+              class="widthStyling"
+              (click)="toggleNotifications()"
+            >
               <div class="button-content">
-              <ion-icon
-                name="notifications"
-                class="menuIcon"
-              ></ion-icon>
-              <span class="buttonSpan">Notifications</span>
-            </div>
+                <ion-icon name="notifications" class="menuIcon"></ion-icon>
+                <span class="buttonSpan">Notifications</span>
+              </div>
             </ion-button>
           </div>
 
@@ -110,23 +99,20 @@
               (click)="goToProfile()"
               class="widthStyling"
             >
-            <div class="button-content">
-              <ion-icon
-                name="person-circle"
-                class="menuIcon"
-              ></ion-icon>
-              <span class="buttonSpan">Profile</span>
-            </div>
+              <div class="button-content">
+                <ion-icon name="person-circle" class="menuIcon"></ion-icon>
+                <span class="buttonSpan">Profile</span>
+              </div>
             </ion-button>
           </div>
 
           <div class="MenuButton menuFooter">
             <ion-button id="menu-pop" fill="clear" class="widthStyling">
-              <div class="button-content" style="margin-left: 15px;">
-              <ion-icon id="menu-pop" name="menu" class="menuIcon"></ion-icon>
-              
-              <span class="buttonSpan">More Options</span>
-            </div>
+              <div class="button-content" style="margin-left: 15px">
+                <ion-icon id="menu-pop" name="menu" class="menuIcon"></ion-icon>
+
+                <span class="buttonSpan">More Options</span>
+              </div>
             </ion-button>
           </div>
 
@@ -237,12 +223,12 @@
           </div>
         </ion-list>
       </ion-content>
+      <div style="margin-bottom: 60px"></div>
       <div class="deleteAll" (click)="clearAllNotifications()">
         <ion-icon name="trash-bin-outline"></ion-icon>
         <span>Delete All</span>
       </div>
     </div>
-
 
     <!-- ========================================================================================================================================================== -->
 
@@ -325,7 +311,6 @@
 
         <div class="optionalbuttons">
           <div class="MenuButton top-button">
-            
             <ion-button fill="clear" (click)="goToThemes()">
               <ion-icon
                 name="color-palette-outline"
@@ -432,7 +417,10 @@
               <ion-icon name="rocket"></ion-icon>
             </ion-segment-button>
 
-            <ion-segment-button value="notiButton" (click)="toggleNotifications()">
+            <ion-segment-button
+              value="notiButton"
+              (click)="toggleNotifications()"
+            >
               <ion-icon name="notifications"></ion-icon>
             </ion-segment-button>
             <ion-segment-button value="chatButton" (click)="goToChat()">
@@ -500,11 +488,9 @@
       </div>
     </ion-list>
   </ion-content>
+  <div style="margin-bottom: 60px"></div>
   <div class="deleteAll" (click)="clearAllNotifications()">
     <ion-icon name="trash-bin-outline"></ion-icon>
     <span>Delete All</span>
   </div>
 </div>
-
-
-

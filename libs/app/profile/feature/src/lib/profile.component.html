@@ -465,8 +465,8 @@
                 />
               </div>
 
-              <button type="submit" class="EditBtn" (click)="FinishEdit()">
-                <ion-icon class="checkmark" name="checkmark"></ion-icon>
+              <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="EditBtn" (click)="FinishEdit()">
+                Confirm
               </button>
             </form>
           </div>
@@ -773,7 +773,7 @@
               [accept]="requiredFileType"
               (change)="onFileSelected($event)"
               #fileUpload
-              style="margin-bottom: 115px; margin-left: 130px"
+              style="margin-bottom: 16%; margin-left: 24.63%"
             />
           </div>
 
@@ -785,12 +785,12 @@
               [accept]="requiredFileType"
               (change)="onFileBannerSelected($event)"
               #fileUpload
-              style="margin-bottom: 68px; margin-left: 130px"
+              style="margin-bottom: 8%; margin-left: 24.63%"
             />
           </div>
 
-          <button type="submit" class="EditBtn" (click)="FinishEdit()">
-            <ion-icon name="checkmark"></ion-icon>
+          <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="EditBtn" (click)="FinishEdit()">
+            Confirm
           </button>
         </form>
       </div>

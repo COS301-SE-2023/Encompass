@@ -236,26 +236,7 @@ export class SearchExploreComponent {
 
   async searchPosts() {
     this.store.dispatch(new SearchPosts(this.keyword, this.profile._id));
-    // this.postsHasContent = true;
 
-    // if (!this.postsIsFetched) {
-    //   this.postsIsFetched = true;
-    //   this.searchPosts$
-    //     .pipe(takeUntil(this.unsubscribe$))
-    //     .subscribe((posts) => {
-    //       if (posts) {
-    //         this.postsHasContent = true;
-    //         // console.log("POSTS:")
-    //         this.posts = [];
-    //         const postsCount = posts;
-    //         const temp = posts;
-    //         temp.forEach((post) => {
-    //           this.posts.push(post);
-    //           postsCount.push(post);
-    //         });
-    //       }
-    //     });
-    // }
     await this.updatePosts();
   }
 
@@ -263,7 +244,6 @@ export class SearchExploreComponent {
     this.searchPosts$.subscribe((posts) => {
       if (posts) {
         this.posts = posts
-
         if (this.posts.length <= 0) {
           this.postsHasContent = false;
         }

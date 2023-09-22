@@ -391,9 +391,11 @@ ion-router-outlet {
 .delete-icon {
   color: var(--ion-color-warning);
   font-size: 22px;
-  position: fixed;
-  top: 15%;
-  right: 5%;
+  position: relative;
+  top: 0;
+  left: 78%;
+  z-index: 5;
+  cursor: pointer;
 }
 
 .deleteAll {
@@ -408,7 +410,7 @@ ion-router-outlet {
   justify-content: center;
   padding: 10px 20px 10px 20px;
   border-radius: 25px;
-
+  background-color: var(--card-color);
   span {
     margin-left: 10px;
   }
