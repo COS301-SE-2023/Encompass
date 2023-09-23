@@ -28,7 +28,6 @@
     </div>
     <div class="Subhead">
       <div class="SelectCommunity">
-        <div class="title">Community:</div>
         <div class="select">
           <ion-select
             formControlName="community"
@@ -46,7 +45,6 @@
         </div>
       </div>
       <div class="SelectCategory">
-        <div class="title">Categories:</div>
         <div class="select">
           <ion-select
             multiple
@@ -64,7 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="TextHead">
+    <div class="TextHead" style="margin-bottom: 10px;">
       <ion-textarea
         (input)="checkInput()"
         formControlName="title"
@@ -185,7 +183,6 @@
 
     <div class="Subhead">
       <div class="SelectCommunity">
-        <div class="title">Community:</div>
         <div class="select">
           <ion-select
             formControlName="community"
@@ -203,7 +200,6 @@
         </div>
       </div>
       <div class="SelectCategory">
-        <div class="title">Categories:</div>
         <div class="select">
           <ion-select
             multiple
@@ -222,7 +218,7 @@
       </div>
     </div>
 
-      <div class="TextHead">
+      <div class="TextHead" style="margin-bottom: 20px;">
         <ion-textarea
           formControlName="title"
           placeholder="Add a title"
@@ -255,17 +251,17 @@
             type="submit"
             (click)="addTask()"
           >
-            <ion-icon name="send" class="icon1"></ion-icon>
+            <ion-icon name="add-circle" class="icon1"></ion-icon>
           </ion-button>
           <ion-button
             id="sendBtn"
             fill="clear"
             *ngIf="!Added"
-            disabled="true"
             type="submit"
             (click)="addTask()"
+            class="addBtn"
           >
-            <ion-icon name="send" class="icon2"></ion-icon>
+            <ion-icon name="add-circle" class="icon2"></ion-icon>
           </ion-button>
         </div>
       </div>
@@ -286,14 +282,14 @@
       </div>
       <div class="TaskDatesLabels">
         <ion-row>
-          <ion-col> <ion-text>Start Date</ion-text> </ion-col>
-          <ion-col> <ion-text>End Date</ion-text> </ion-col>
+          <ion-col> <ion-text style="color: var(--ion-color-text);">Start Date</ion-text> </ion-col>
+          <ion-col> <ion-text style="color: var(--ion-color-text);">End Date</ion-text> </ion-col>
         </ion-row>
       </div>
       <!--DATE PICKER CODE-->
       <div>
         <ion-row>
-          <ion-col class="picker">
+          <ion-col class="picker" style="color: var(--ion-color-text);">
             {{ formattedDate }}
           </ion-col>
 
@@ -324,7 +320,7 @@
           </ng-template>
         </ion-popover>
       </div>
-      <div class="Quiz">
+      <div class="Quiz" style="color: var(--ion-color-text);">
         <h3>Quiz</h3>
         <p>Describe your quiz in three simple terms:</p>
         <div style="width:100%;display:flex;justify-content:space-around;">
@@ -334,6 +330,7 @@
           placeholder = "Term 1"
           [counter]="true"
           [maxlength]="15"
+          style="padding: 10px;"
           ></ion-textarea>
             <ion-textarea
             formControlName="quiz2"
@@ -341,6 +338,7 @@
             placeholder = "Term 2"
             [counter]="true"
             [maxlength]="15"
+            style="padding: 10px;"
             ></ion-textarea>
               <ion-textarea
               formControlName="quiz3"
@@ -348,9 +346,10 @@
               placeholder = "Term 3"
               [counter]="true"
               [maxlength]="15"
+              style="padding: 10px;"
               ></ion-textarea>
         </div>
-        <ion-radio-group formControlName="selectedOption" class="level">
+        <ion-radio-group formControlName="selectedOption" class="level" style="margin-top: 40px; margin-bottom: 40px;">
           <div class="radio">
             <ion-radio
               value="5"

@@ -869,7 +869,7 @@ ion-card {
 
 .EditBtn {
   width: 50%;
-  color: black;
+  // color: black;
   // background-color: #DADADA;
   border-radius: 30px;
   font-size: 15px;
@@ -1400,6 +1400,7 @@ ion-button:hover {
   cursor: pointer;
   z-index: 3;
   opacity: 0;
+  height: 30px;
 }
 
 .edit-icon {
