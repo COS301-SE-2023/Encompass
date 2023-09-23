@@ -100,39 +100,54 @@
         NSFW
       </div>
     </div>
-
-    <div class="Footer textSection">
-      <span class="image-span" (click)="insertImage()"
-        ><ion-icon name="image-outline" style="font-size: 25px"></ion-icon
-        ><span class="image-text">Select Community Avatar</span></span
-      >
-      <button
-        class="createbtn btn1"
-        style="background-color: var(--ion-color-secondary); color: white"
-        (click)="closePopup()"
-        type="button"
-      >
-        Cancel
-      </button>
-      <Button
-        *ngIf="!isValid"
-        type="submit"
-        class="btn1 createbtn"
-        disabled="true"
-        >Create</Button
-      >
-      <Button *ngIf="isValid" type="submit" class="btn2 createbtn"
-        >Create</Button
-      >
-    </div>
+    
+      <div class="Footer textSection">
+        <ion-item class="img">
+        <span class="image-span" (click)="insertImage()"
+          >
+          <input
+          id="file-input"
+          type="file"
+          class="file-input"
+          [accept]="requiredFileType"
+          (change)="onFileSelected($event)"
+          #fileUpload
+        />
+          <label for="file-input">
+          <ion-icon name="image-outline" style="font-size: 25px"></ion-icon
+          ><span class="image-text">Select Community Avatar</span></label></span
+        >
+      </ion-item>
+        
+        <button
+          class="createbtn btn1"
+          style="background-color: var(--ion-color-secondary); color: white"
+          (click)="closePopup()"
+          type="button"
+        >
+          Cancel
+        </button>
+        <Button
+          *ngIf="!isValid"
+          type="submit"
+          class="btn1 createbtn"
+          disabled="true"
+          >Create</Button
+        >
+        <Button *ngIf="isValid" type="submit" class="btn2 createbtn"
+          >Create</Button
+        >
+      </div>
+    
     <div *ngIf="hasImage" class="Image textSection">
-      <input
+      <!-- <input
+        id="file-input"
         type="file"
         class="file-input"
         [accept]="requiredFileType"
         (change)="onFileSelected($event)"
         #fileUpload
-      />
+      /> -->
 
       <!-- <div class="file-upload">
 
