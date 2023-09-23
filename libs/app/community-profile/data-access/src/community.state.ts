@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { PostDto } from '@encompass/api/post/data-access';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
 import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
+import { ToastController } from '@ionic/angular';
 
 
 export interface CommunityStateModel{
@@ -77,7 +78,7 @@ export interface CommunityRequestModel{
 
 @Injectable()
 export class CommunityState{
-  constructor(private communityApi: CommunityApi){}
+  constructor(private communityApi: CommunityApi, private toastController: ToastController){}
   @Action(GetCommunity)
   async getCommunity(ctx: StateContext<CommunityStateModel>, {name}: GetCommunity){
     const response = await this.communityApi.getCommunity(name);
@@ -135,6 +136,14 @@ export class CommunityState{
       posts[index] = response;
 
       console.log(posts[index])
+
+      const toast = await this.toastController.create({
+        message: 'Community updated successfully',
+        duration: 2000,
+        color: 'success'
+      })
+
+      await toast.present();
 
       ctx.patchState({
         CommunityPostForm: {
