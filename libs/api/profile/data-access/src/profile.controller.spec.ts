@@ -14,7 +14,7 @@ describe('ProfileController', () => {
         username: 'test',
         name: 'test',
         lastName: 'test',
-        categories: ['test'],
+        categories: [{category: 'test', score: 0.5}],
         communities: ['test'],
         awards: ['test'],
         events: ['test'],
