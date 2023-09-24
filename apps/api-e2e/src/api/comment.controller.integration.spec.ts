@@ -124,7 +124,7 @@ describe('CommentController (Integration with MongoDB)', () => {
       const response = await request(app.getHttpServer()).delete(`/comment/delete/${_id.toString()}`);
       expect(response.status).toBe(200);
 
-      expect(response.text).toBe(_id.toString());
+      expect(response.body._id.toString()).toBe(_id.toString());
     });
 });
 
