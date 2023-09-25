@@ -3,6 +3,7 @@
     <ion-toolbar class="profileToolbar">
       <div class="ion-button-group">
         <ion-button
+        *ngIf="seePosts"
           id="PostBtn"
           fill="clear"
           class="active-button buttonStyle"
@@ -12,9 +13,30 @@
         </ion-button>
 
         <ion-button
+        *ngIf="!seePosts"
+          id="PostBtn"
+          fill="clear"
+          class="buttonStyle"
+          (click)="postChange()"
+        >
+          <span>Posts</span>
+        </ion-button>
+
+        <ion-button
+        *ngIf="seeComments"
           id="CommentsBtn"
           fill="clear"
-          class="none buttonStyle"
+          class="active-button buttonStyle"
+          (click)="commChange()"
+        >
+          <span>Comments</span>
+        </ion-button>
+
+        <ion-button
+        *ngIf="!seeComments"
+          id="CommentsBtn"
+          fill="clear"
+          class="buttonStyle"
           (click)="commChange()"
         >
           <span>Comments</span>

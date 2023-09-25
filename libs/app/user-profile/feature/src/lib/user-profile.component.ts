@@ -289,31 +289,11 @@ export class UserProfile {
   }
 
   postChange() {
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-    if (PostBtn && CommentsBtn && eventBtn) {
-      PostBtn.classList.add('active-button');
-      CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
-    }
-
     this.seePosts = true;
     this.seeComments = false;
   }
 
   commChange() {
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-    if (PostBtn && CommentsBtn && eventBtn) {
-      PostBtn.classList.remove('active-button');
-      CommentsBtn.classList.add('active-button');
-      eventBtn.classList.remove('active-button');
-    }
-
     this.seePosts = false;
     this.seeComments = true;
   }
