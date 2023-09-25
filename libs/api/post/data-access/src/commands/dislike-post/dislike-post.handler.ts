@@ -63,6 +63,7 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
 
                 //update user in database
                 await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+                await this.httpService.patch(url + '/api/profile/remove-coins/' + post.username + '/1').toPromise();
             }
 
             if (unDislikedPost) {
@@ -83,6 +84,7 @@ export class DislikePostHandler implements ICommandHandler<DislikePostCommand> {
 
                 //update user in database
                 await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+                await this.httpService.patch(url + '/api/profile/add-coins/' + post.username + '/1').toPromise();
             }
 
             return post;

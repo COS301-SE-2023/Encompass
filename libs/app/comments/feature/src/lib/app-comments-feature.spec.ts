@@ -8,12 +8,13 @@ import { IonicModule } from '@ionic/angular';
 import { AddNotificationRequest } from '@encompass/api/notifications/data-access';
 import { SendNotification } from '@encompass/app/comments/util';
 import { CommentsApi, CommentsState } from '@encompass/app/comments/data-access';
+import { PostDto } from '@encompass/api/post/data-access';
 
 describe('CommentsComponent', () => {
   let component: CommentsComponent;
   let fixture: ComponentFixture<CommentsComponent>;
 
-  const mockPost = {
+  const mockPost : PostDto = {
     _id: '123',
     community: 'testcommunity',
     title: 'Test Post',
@@ -23,7 +24,8 @@ describe('CommentsComponent', () => {
     communityImageUrl: null,
     categories: [],
     likes: [],
-    dateAdded: new Date().toLocaleString(),
+    dislikes: [],
+    dateAdded: new Date(),
     spoiler: false,
     ageRestricted: false,
     shares: 0,

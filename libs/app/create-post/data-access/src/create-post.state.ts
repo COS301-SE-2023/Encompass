@@ -96,14 +96,6 @@ export class CreatePostState{
 
   @Action(CreateEvent)
   async createEvent(ctx: StateContext<PostStateModel>, {createEventRequest, profile}: CreateEvent){
-    const toast1 = await this.toastController.create({
-      message: 'Creating Event',
-      duration: 6000,
-      color: 'success'
-    })
-
-    toast1.present();
-
     const event = await this.createPostApi.createEvent(createEventRequest);
 
     console.log(event);
@@ -147,7 +139,7 @@ export class CreatePostState{
 
     const toast = await this.toastController.create({
       message: 'Event Created',
-      duration: 5000,
+      duration: 2000,
       color: 'success'
     })
 

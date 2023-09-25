@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 // import './create-post.component.scss';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -68,7 +68,8 @@ export class CreateCommunityComponent {
     private modalController: ModalController,
     private formBuilder: FormBuilder,
     private store: Store,
-    private createCommunityApi: CreateCommunityApi
+    private createCommunityApi: CreateCommunityApi,
+    private toastController: ToastController
   ) {
     if (!this.profile) {
       this.store.dispatch(new SubscribeToProfile());
@@ -159,6 +160,14 @@ export class CreateCommunityComponent {
     let categoryData: string[] | null;
     let imageUrl: string | null;
 
+
+    const toast = await this.toastController.create({
+      message: 'Creating Community',
+      color: 'success'
+    })
+
+    toast.present();
+
     if (this.file) {
       imageUrl = await this.uploadFile();
 
@@ -198,6 +207,8 @@ export class CreateCommunityComponent {
     };
 
     this.store.dispatch(new CreateCommunity(data, this.profile));
+
+    toast.dismiss();
     this.closePopup();
   }
 

@@ -25,7 +25,7 @@ import {
   UpdateProfileSettings,
 } from '@encompass/app/settings/util';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { AlertController, AlertInput, IonContent } from '@ionic/angular';
+import { AlertController, AlertInput, IonContent, ToastController } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { AccountDto } from '@encompass/api/account/data-access';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
@@ -57,7 +57,7 @@ export class SettingsPage {
   newPassword!: string;
   confirmNewPassword!: string;
 
-  selectedOption = "option"
+  selectedOption = 'option';
 
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
@@ -78,7 +78,8 @@ export class SettingsPage {
     private store: Store,
     private animationCtrl: AnimationController,
     private settingsApi: SettingsApi,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
@@ -163,30 +164,28 @@ export class SettingsPage {
     this.labelHidden = !show;
   }
 
-  accBtn= true;
-  proBtn= false;
-  notBtn= false;
+  accBtn = true;
+  proBtn = false;
+  notBtn = false;
 
   eventChange(btnName: string) {
-   
-      if (btnName == 'accBtn') {
-        this.accBtn = true;
-        this.proBtn = false;
-        this.notBtn = false;
-      }
+    if (btnName == 'accBtn') {
+      this.accBtn = true;
+      this.proBtn = false;
+      this.notBtn = false;
+    }
 
-      if (btnName == 'proBtn') {
-        this.accBtn = false;
-        this.proBtn = true;
-        this.notBtn = false;
-      }
+    if (btnName == 'proBtn') {
+      this.accBtn = false;
+      this.proBtn = true;
+      this.notBtn = false;
+    }
 
-      if (btnName == 'notBtn') {
-        this.accBtn = false;
-        this.proBtn = false;
-        this.notBtn = true;
-      }
-
+    if (btnName == 'notBtn') {
+      this.accBtn = false;
+      this.proBtn = false;
+      this.notBtn = true;
+    }
   }
 
   edit(fieldName: string) {
@@ -277,6 +276,13 @@ export class SettingsPage {
       let imageUrl: string | null;
       let bannerUrl: string | null;
 
+      const toast = await this.toastController.create({
+        message: 'Updating Profile',
+        color: 'success',
+      });
+
+      toast.present();
+
       if (this.profileFile) {
         imageUrl = await this.uploadImage(this.profileFile, this.profileName);
 
@@ -317,6 +323,7 @@ export class SettingsPage {
       };
 
       this.store.dispatch(new UpdateProfile(data, this.profile._id));
+      toast.dismiss();
     }
   }
 

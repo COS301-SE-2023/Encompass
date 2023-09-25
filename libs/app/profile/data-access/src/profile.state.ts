@@ -7,6 +7,7 @@ import { tap } from "rxjs"
 import { produce } from "immer"
 import { PostDto } from "@encompass/api/post/data-access"
 import { CommentDto } from "@encompass/api/comment/data-access"
+import { ToastController } from "@ionic/angular"
 
 export interface ProfileStateModel{
   profile: ProfileDto | null
@@ -78,7 +79,7 @@ export interface ProfileCommentModel{
 
 @Injectable()
 export class ProfileState{
-  constructor(private profileApi: ProfileApi, private readonly store: Store){}
+  constructor(private profileApi: ProfileApi, private readonly store: Store, private toastController: ToastController){}
 
   @Action(SubscribeToProfile)
   subscribeToProfile(ctx: StateContext<ProfileStateModel>){
@@ -114,6 +115,14 @@ export class ProfileState{
     if(response == null || response == undefined){
       return;
     }
+
+    const toast = await this.toastController.create({
+      message: 'Profile successfully updated',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
 
     await ctx.patchState({
       profile: response

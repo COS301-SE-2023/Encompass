@@ -409,6 +409,13 @@ export class CommunityProfileComponent {
     let imageUrl: string | null;
     let bannerUrl: string | null;
 
+    const toast = await this.toastController.create({
+      message: 'Updating Community',
+      color: 'success'
+    })
+
+    toast.present();
+
     if (this.file) {
       imageUrl = await this.uploadImage(this.file, this.fileName);
 
@@ -466,6 +473,8 @@ export class CommunityProfileComponent {
     };
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    toast.dismiss();
+
     this.postForm.reset();
   }
 

@@ -7,6 +7,7 @@ import { commentDtoStub } from './stubs/comment.dto.stub';
 import mongoose, { Schema, Document, Connection } from 'mongoose';
 import { commentStub } from './stubs/comment.stub';
 import { commentWithReplyStub } from './stubs/commentWithReply.stub';
+import e from 'express';
 
 
 export interface Reply {
@@ -47,15 +48,15 @@ const dbUrl = process.env['NX_MONGO_DB_TEST'];
 
 const connectToDatabase = async () => {
   try {
-    // Connect to the MongoDB database
+    //Connect to the MongoDB database
     await mongoose.connect(dbUrl);
 
     console.log('Connected to the database!');
 
-    // Get the Mongoose connection
+    //Get the Mongoose connection
     const dbConnection = mongoose.connection;
 
-    // Optional: You can add event listeners to handle connection events
+    //Optional: You can add event listeners to handle connection events
     dbConnection.on('error', (error) => {
       console.error('Database connection error:', error);
     });
@@ -64,7 +65,7 @@ const connectToDatabase = async () => {
       console.log('Disconnected from the database');
     });
 
-    // Return the Mongoose connection so you can use it in other parts of your application
+    //Return the Mongoose connection so you can use it in other parts of your application
     return dbConnection;
   } catch (error) {
     console.error('Error connecting to the database:', error);
@@ -124,24 +125,27 @@ describe('CommentController (Integration with MongoDB)', () => {
       const response = await request(app.getHttpServer()).delete(`/comment/delete/${_id.toString()}`);
       expect(response.status).toBe(200);
 
-      expect(response.text).toBe(_id.toString());
+      expect(response.body._id.toString()).toBe(_id.toString());
     });
 });
 
-// describe('addReply', () => {
-//     it('should return comment with added reply', async () => {
-//         const { _id } = commentDtoStub();
+describe('addReply', () => {
+    it('should return comment with added reply', async () => {
+        const { _id } = commentDtoStub();
 
-//         await dbConnection.collection('comment').insertOne(commentDtoStub());
-//         const response = await request(app.getHttpServer())
-//             .patch(`/comment/add-reply/${_id.toString()}`)
-//             .send(replyStub());
+        await dbConnection.collection('comment').insertOne(commentDtoStub());
+        const response = await request(app.getHttpServer())
+            .patch(`/comment/add-reply/${_id.toString()}`)
+            .send(replyStub());
 
-//         expect(response.status).toBe(200);
-//         expect(response.body).not.toEqual(commentDtoStub());
-//         expect(response.body.replies[0]).toMatchObject(replyStub());
-//     }); 
-// });
+        expect(response.status).toBe(200);
+        expect(response.body).not.toEqual(commentDtoStub());
+        console.log("Here is the response body");
+        console.log(response.body.replies[0]);
+        expect(response.body.replies[0].text).toBe(replyStub().text);
+        expect(response.body.replies[0].username).toBe(replyStub().username);
+    }); 
+});
 
   describe('deleteReply', () => {
     it('should return true when Comment is found', async () => {
@@ -157,4 +161,13 @@ describe('CommentController (Integration with MongoDB)', () => {
     });
   });
 });
+
+const replyStub = () => {
+  return {
+      _id: new mongoose.Types.ObjectId('65118d129d7bdeb38c64811c'),
+      username: 'username',
+      text: 'text',
+      dateAdded: "2021-04-20T20:00:00.000Z",
+  };
+}
 

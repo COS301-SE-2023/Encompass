@@ -509,6 +509,13 @@ export class ProfilePage {
     let imageUrl: string | null;
     let bannerUrl: string | null;
 
+    const toast = await this.toastController.create({
+      message: 'Updating Profile',
+      color: 'success'
+    })
+
+    toast.present();
+
     if (this.file) {
       imageUrl = await this.uploadImage(this.file, this.fileName);
 
@@ -577,6 +584,8 @@ export class ProfilePage {
     };
 
     this.store.dispatch(new UpdateProfile(data, this.profile?._id));
+    toast.dismiss();
+
     this.postForm.reset();
   }
 

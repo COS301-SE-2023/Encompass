@@ -6,7 +6,6 @@
     *ngIf="createPost"
   >
     <div class="head">
-      
       <button
         type="button"
         class="btn1"
@@ -62,7 +61,7 @@
         </div>
       </div>
     </div>
-    <div class="TextHead" style="margin-bottom: 10px;">
+    <div class="TextHead" style="margin-bottom: 10px">
       <ion-textarea
         (input)="checkInput()"
         formControlName="title"
@@ -80,12 +79,24 @@
       ></ion-textarea>
     </div>
     <div class="TextFooter">
-      <ion-icon
-        name="image-outline"
-        class="icon imageIcon"
-        style="font-size: 25px"
-        (click)="insertImage()"
-      ></ion-icon>
+      <ion-item>
+        <input
+      id="file-input"
+      type="file"
+      [accept]="requiredFileType"
+      (change)="onFileSelected($event)"
+      class="file-input"
+    />
+      <label for="file-input">
+        <ion-icon
+          name="image-outline"
+          class="icon imageIcon"
+          style="font-size: 25px"
+          (click)="insertImage()"
+        ></ion-icon>
+      </label>
+      </ion-item>
+      
 
       <button
         *ngIf="spoilers"
@@ -161,64 +172,64 @@
     class="form"
     *ngIf="createEvent"
   >
-  <div class = "eventClass">
-    <div class="head">
-      <button
-        type="button"
-        class="btn2"
-        value="postBtn"
-        (click)="change('Post')"
-      >
-        Post
-      </button>
-      <button
-        type="button"
-        class="btn3"
-        value="eventBtn"
-        (click)="change('Event')"
-      >
-        Event
-      </button>
-    </div>
+    <div class="eventClass">
+      <div class="head">
+        <button
+          type="button"
+          class="btn2"
+          value="postBtn"
+          (click)="change('Post')"
+        >
+          Post
+        </button>
+        <button
+          type="button"
+          class="btn3"
+          value="eventBtn"
+          (click)="change('Event')"
+        >
+          Event
+        </button>
+      </div>
 
-    <div class="Subhead">
-      <div class="SelectCommunity">
-        <div class="select">
-          <ion-select
-            formControlName="community"
-            placeholder="Add a community"
-            (ionChange)="checkEventInput()"
-          >
-            <ion-select-option
-              *ngFor="let community of adminCommunities"
-              [value]="community"
-              class="option"
+      <div class="Subhead">
+        <div class="SelectCommunity">
+          <div class="select">
+            <ion-select
+              formControlName="community"
+              placeholder="Add a community"
+              (ionChange)="checkEventInput()"
             >
-              {{ community }}</ion-select-option
+              <ion-select-option
+                *ngFor="let community of adminCommunities"
+                [value]="community"
+                class="option"
+              >
+                {{ community }}</ion-select-option
+              >
+            </ion-select>
+          </div>
+        </div>
+        <div class="SelectCategory">
+          <div class="select">
+            <ion-select
+              multiple
+              formControlName="category"
+              placeholder="Add categories"
+              (ionChange)="limitSelection2()"
             >
-          </ion-select>
+              <ion-select-option
+                *ngFor="let category of categories"
+                [value]="category"
+              >
+                {{ category }}</ion-select-option
+              >
+            </ion-select>
+          </div>
         </div>
       </div>
-      <div class="SelectCategory">
-        <div class="select">
-          <ion-select
-            multiple
-            formControlName="category"
-            placeholder="Add categories"
-            (ionChange)="limitSelection2()"
-          >
-            <ion-select-option
-              *ngFor="let category of categories"
-              [value]="category"
-            >
-              {{ category }}</ion-select-option
-            >
-          </ion-select>
-        </div>
-      </div>
-    </div>
 
-      <div class="TextHead" style="margin-bottom: 20px;">
+      <div class="TextHead" style="margin-bottom: 20px">
         <ion-textarea
           formControlName="title"
           placeholder="Add a title"
@@ -227,7 +238,7 @@
           [maxlength]="100"
           (ionChange)="checkEventInput()"
         ></ion-textarea>
-      </div>   
+      </div>
       <div class="TextBody2">
         <ion-textarea
           formControlName="text"
@@ -282,14 +293,18 @@
       </div>
       <div class="TaskDatesLabels">
         <ion-row>
-          <ion-col> <ion-text style="color: var(--ion-color-text);">Start Date</ion-text> </ion-col>
-          <ion-col> <ion-text style="color: var(--ion-color-text);">End Date</ion-text> </ion-col>
+          <ion-col>
+            <ion-text style="color: var(--ion-color-text)">Start Date</ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text style="color: var(--ion-color-text)">End Date</ion-text>
+          </ion-col>
         </ion-row>
       </div>
       <!--DATE PICKER CODE-->
       <div>
         <ion-row>
-          <ion-col class="picker" style="color: var(--ion-color-text);">
+          <ion-col class="picker" style="color: var(--ion-color-text)">
             {{ formattedDate }}
           </ion-col>
 
@@ -320,36 +335,40 @@
           </ng-template>
         </ion-popover>
       </div>
-      <div class="Quiz" style="color: var(--ion-color-text);">
+      <div class="Quiz" style="color: var(--ion-color-text)">
         <h3>Quiz</h3>
         <p>Describe your quiz in three simple terms:</p>
-        <div style="width:100%;display:flex;justify-content:space-around;">
+        <div style="width: 100%; display: flex; justify-content: space-around">
           <ion-textarea
-          formControlName="quiz1"
-          class="custom5"
-          placeholder = "Term 1"
-          [counter]="true"
-          [maxlength]="15"
-          style="padding: 10px;"
-          ></ion-textarea>
-            <ion-textarea
-            formControlName="quiz2"
+            formControlName="quiz1"
             class="custom5"
-            placeholder = "Term 2"
+            placeholder="Term 1"
             [counter]="true"
             [maxlength]="15"
-            style="padding: 10px;"
-            ></ion-textarea>
-              <ion-textarea
-              formControlName="quiz3"
-              class="custom5"
-              placeholder = "Term 3"
-              [counter]="true"
-              [maxlength]="15"
-              style="padding: 10px;"
-              ></ion-textarea>
+            style="padding: 10px"
+          ></ion-textarea>
+          <ion-textarea
+            formControlName="quiz2"
+            class="custom5"
+            placeholder="Term 2"
+            [counter]="true"
+            [maxlength]="15"
+            style="padding: 10px"
+          ></ion-textarea>
+          <ion-textarea
+            formControlName="quiz3"
+            class="custom5"
+            placeholder="Term 3"
+            [counter]="true"
+            [maxlength]="15"
+            style="padding: 10px"
+          ></ion-textarea>
         </div>
-        <ion-radio-group formControlName="selectedOption" class="level" style="margin-top: 40px; margin-bottom: 40px;">
+        <ion-radio-group
+          formControlName="selectedOption"
+          class="level"
+          style="margin-top: 40px; margin-bottom: 40px"
+        >
           <div class="radio">
             <ion-radio
               value="5"
@@ -381,13 +400,13 @@
       </div>
       <div class="TextFooterEvent">
         <button
-        class="btns"
-        style="background-color: var(--ion-color-secondary); color: white"
-        (click)="closePopup()"
-        type="button"
-      >
-        Cancel
-      </button>
+          class="btns"
+          style="background-color: var(--ion-color-secondary); color: white"
+          (click)="closePopup()"
+          type="button"
+        >
+          Cancel
+        </button>
         <button
           *ngIf="isEventValid"
           type="submit"
@@ -409,6 +428,6 @@
           Create
         </button>
       </div>
-  </div>
+    </div>
   </form>
 </div>

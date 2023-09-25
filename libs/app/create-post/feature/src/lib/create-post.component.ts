@@ -1,7 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PopoverController, ModalController, ToastController } from '@ionic/angular';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { CreateEvent, CreatePost, UploadFile } from '@encompass/app/create-post/util';
+import {
+  PopoverController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
+import {
+  CreateEvent,
+  CreatePost,
+  UploadFile,
+} from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
@@ -94,7 +108,7 @@ export class CreatePostComponent {
 
   eventForm: FormGroup;
 
-   quizWords!: string[];
+  quizWords!: string[];
 
   constructor(
     private modalController: ModalController,
@@ -112,7 +126,10 @@ export class CreatePostComponent {
           console.log(profile);
           this.profile = profile;
 
-          this.adminCommunities = this.createPostState.getAdminCommunities(profile.communities, profile.username);
+          this.adminCommunities = this.createPostState.getAdminCommunities(
+            profile.communities,
+            profile.username
+          );
         }
       });
     }
@@ -184,7 +201,6 @@ export class CreatePostComponent {
     return this.eventForm.get('selectedOption');
   }
 
-  
   get quiz1() {
     return this.eventForm.get('quiz1');
   }
@@ -269,11 +285,10 @@ export class CreatePostComponent {
   }
 
   checkEventInput() {
-
     console.log(this.eventCommunity?.value);
     console.log(this.eventTitle?.value);
     console.log(this.prompts.length);
-   
+
     if (
       this.eventCommunity?.value == null ||
       this.eventCommunity?.value == undefined ||
@@ -297,6 +312,13 @@ export class CreatePostComponent {
     let textData: string;
     let categoryData: string[] | null;
     let imageUrl: string | null = null;
+
+    const toast = await this.toastController.create({
+      message: 'Creating Post',
+      color: 'success',
+    });
+
+    toast.present();
 
     if (this.file && this.hasImage) {
       imageUrl = await this.uploadFile();
@@ -348,56 +370,91 @@ export class CreatePostComponent {
     };
     console.log(data.imageUrl);
     this.store.dispatch(new CreatePost(data, this.profile));
+
+    toast.dismiss();
+
+    // const toast1 = await this.toastController.create({
+    //   message: 'Post Created',
+    //   duration: 2000,
+    //   color: 'success',
+    // });
+
+    // await toast1.present();
   }
 
   async onSubmitEvent() {
-
-    if(this.profile == null || this.profile == undefined) {
+    if (this.profile == null || this.profile == undefined) {
       return;
     }
 
-    if(this.eventTitle?.value == null || this.eventTitle?.value == undefined) {
+    if (this.eventTitle?.value == null || this.eventTitle?.value == undefined) {
       return;
     }
 
-    if(this.eventCommunity?.value == null || this.eventCommunity?.value == undefined) {
+    if (
+      this.eventCommunity?.value == null ||
+      this.eventCommunity?.value == undefined
+    ) {
       return;
     }
 
-    if(this.eventText?.value == null || this.eventText?.value == undefined) {
+    if (this.eventText?.value == null || this.eventText?.value == undefined) {
       return;
     }
 
-    if(this.eventEndDate?.value == null || this.eventEndDate?.value == undefined) {
+    if (
+      this.eventEndDate?.value == null ||
+      this.eventEndDate?.value == undefined
+    ) {
       return;
     }
 
-    if(this.eventChallenge?.value == null || this.eventChallenge?.value == undefined) {
+    if (
+      this.eventChallenge?.value == null ||
+      this.eventChallenge?.value == undefined
+    ) {
       return;
     }
 
-    if(this.eventCategory?.value == null || this.eventCategory?.value == undefined) {
+    if (
+      this.eventCategory?.value == null ||
+      this.eventCategory?.value == undefined
+    ) {
       return;
     }
 
-   
-
-    if(this.eventSelectedOption?.value == null || this.eventSelectedOption?.value == undefined) {
+    if (
+      this.eventSelectedOption?.value == null ||
+      this.eventSelectedOption?.value == undefined
+    ) {
       return;
     }
 
-    if(this.quiz1?.value == null || this.quiz1?.value == undefined || this.quiz1?.value==""
-      || this.quiz2?.value == null || this.quiz2?.value == undefined || this.quiz2?.value==""
-      || this.quiz3?.value == null || this.quiz3?.value == undefined || this.quiz3?.value=="") {
+    if (
+      this.quiz1?.value == null ||
+      this.quiz1?.value == undefined ||
+      this.quiz1?.value == '' ||
+      this.quiz2?.value == null ||
+      this.quiz2?.value == undefined ||
+      this.quiz2?.value == '' ||
+      this.quiz3?.value == null ||
+      this.quiz3?.value == undefined ||
+      this.quiz3?.value == ''
+    ) {
       return;
-    }else{
+    } else {
       this.quizWords = [];
       this.quizWords.push(this.quiz1?.value);
       this.quizWords.push(this.quiz2?.value);
       this.quizWords.push(this.quiz3?.value);
     }
 
+    const toast = await this.toastController.create({
+      message: 'Creating Event',
+      color: 'success',
+    });
 
+    toast.present();
 
     const data: CreateEventRequest = {
       name: this.eventTitle?.value,
@@ -411,11 +468,10 @@ export class CreatePostComponent {
       categories: this.eventCategory?.value,
       numberOfQuestions: this.eventSelectedOption.value,
       quizDescription: this.quizWords,
-    }
+    };
 
     this.store.dispatch(new CreateEvent(data, this.profile));
-
-    
+    toast.dismiss();
   }
 
   closePopup() {
@@ -468,42 +524,43 @@ export class CreatePostComponent {
   //   return this.challenges.controls[index] as FormControl;
   // }
 
+  addTask() {
+    console.log('adding task');
 
-  addTask(){
-    console.log("adding task");
-
-    if(this.eventChallenge?.value == null 
-      || this.eventChallenge?.value == undefined 
-      || this.eventChallenge?.value == '\n') {
+    if (
+      this.eventChallenge?.value == null ||
+      this.eventChallenge?.value == undefined ||
+      this.eventChallenge?.value == '\n'
+    ) {
       return;
     }
     console.log(this.eventChallenge?.value);
 
     this.prompts.push(this.eventChallenge?.value);
     this.inputValue = '';
-    const newCategoryValues = "";
+    const newCategoryValues = '';
     const categoryControl = this.eventForm.get('challenges');
     if (categoryControl) {
       categoryControl.patchValue(newCategoryValues);
     }
     this.Added = false;
     this.checkEventInput();
-
   }
 
-  RemoveTask(){
-    console.log("removing task");
+  RemoveTask() {
+    console.log('removing task');
     this.prompts.pop();
     this.checkEventInput();
   }
 
-  checkChallenge(){
-    if(this.eventChallenge?.value == null 
-      || this.eventChallenge?.value == undefined 
-      || this.eventChallenge?.value == '\n') {
+  checkChallenge() {
+    if (
+      this.eventChallenge?.value == null ||
+      this.eventChallenge?.value == undefined ||
+      this.eventChallenge?.value == '\n'
+    ) {
       this.Added = false;
-    }
-    else{
+    } else {
       this.Added = true;
     }
   }
