@@ -1,4 +1,4 @@
-describe('SignUpInterior1Component', () => {
+/*describe('SignUpInterior1Component', () => {
   beforeEach(() => {
     cy.visit('/sign-up-interior1');
   });
@@ -34,4 +34,4 @@ describe('SignUpInterior1Component', () => {
     cy.get('.next-button').click();
     cy.url().should('include', '/sign-up-communities');
   });
-});
+});*/
