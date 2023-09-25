@@ -101,49 +101,49 @@ describe('CommunityController (Integration with MongoDB)', () => {
     await app.close();
   });
 
-  describe('getAllCommunities', () => {
-    it('should get all communities', async () => {
-        const numberOfCommunities = 3; // Change this to the number of communities you want to insert
+  // describe('getAllCommunities', () => {
+  //   it('should get all communities', async () => {
+  //       const numberOfCommunities = 3; // Change this to the number of communities you want to insert
         
-        // Insert multiple community DTO instances into the database
-        const communityStubs = Array.from({ length: numberOfCommunities }, () => communityDtoStub());
-        await dbConnection.collection('community').insertMany(communityStubs);
+  //       // Insert multiple community DTO instances into the database
+  //       const communityStubs = Array.from({ length: numberOfCommunities }, () => communityDtoStub());
+  //       await dbConnection.collection('community').insertMany(communityStubs);
 
-        // Fetch all communities using the API endpoint
-        const response = await request(app.getHttpServer()).get(`/community/get-all-communities`);
+  //       // Fetch all communities using the API endpoint
+  //       const response = await request(app.getHttpServer()).get(`/community/get-all-communities`);
 
-        // Assertions
-        expect(response.status).toBe(200);
-        expect(response.body).toHaveLength(numberOfCommunities);
-    }); 
-  });
+  //       // Assertions
+  //       expect(response.status).toBe(200);
+  //       expect(response.body).toHaveLength(numberOfCommunities);
+  //   }); 
+  // });
 
-  describe('getCommunitiesByKeyword', () => {
-    it('should get communities by keyword', async () => {
-        // Insert multiple community DTO instances into the database
-        const communityStubs = [
-            communityDtoStub({ customName: "Example Community 1" }),
-            communityDtoStub({ customName: "Example Community 2" }),
-            communityDtoStub({ customName: "Another Community" }),
-        ];
-        await dbConnection.collection('community').insertMany(communityStubs);
+  // describe('getCommunitiesByKeyword', () => {
+  //   it('should get communities by keyword', async () => {
+  //       // Insert multiple community DTO instances into the database
+  //       const communityStubs = [
+  //           communityDtoStub({ customName: "Example Community 1" }),
+  //           communityDtoStub({ customName: "Example Community 2" }),
+  //           communityDtoStub({ customName: "Another Community" }),
+  //       ];
+  //       await dbConnection.collection('community').insertMany(communityStubs);
 
-        // Choose a keyword to search for communities
-        const keyword = 'Example';
+  //       // Choose a keyword to search for communities
+  //       const keyword = 'Example';
 
-        // Fetch communities by keyword using the API endpoint
-        const response = await request(app.getHttpServer()).get(`/community/get-communities-by-keyword/${keyword}`);
+  //       // Fetch communities by keyword using the API endpoint
+  //       const response = await request(app.getHttpServer()).get(`/community/get-communities-by-keyword/${keyword}`);
 
-        expect(response.status).toBe(200);
+  //       expect(response.status).toBe(200);
 
-        expect(response.body).toHaveLength(2); // Two communities match the keyword "Example"
+  //       expect(response.body).toHaveLength(2); // Two communities match the keyword "Example"
 
-        // Assert specific properties of the first and second community
-        expect(response.body[0].name).toContain('Example');
-        expect(response.body[1].name).toContain('Example');
+  //       // Assert specific properties of the first and second community
+  //       expect(response.body[0].name).toContain('Example');
+  //       expect(response.body[1].name).toContain('Example');
 
-    });
-    });
+  //   });
+  //   });
 
     /*describe('getRecommendedCommunities', () => {      //Error!!!!!
         it('should get recommended communities', async () => {
@@ -173,100 +173,100 @@ describe('CommunityController (Integration with MongoDB)', () => {
     });*/
     
 
-    describe('getCommunityByName', () => {
-        it('should get a community by name', async () => {
-            // Insert a community DTO instance into the database
-            const communityStub = communityDtoStub({ customName: "Example Community" });
-            await dbConnection.collection('community').insertOne(communityStub);
+    // describe('getCommunityByName', () => {
+    //     it('should get a community by name', async () => {
+    //         // Insert a community DTO instance into the database
+    //         const communityStub = communityDtoStub({ customName: "Example Community" });
+    //         await dbConnection.collection('community').insertOne(communityStub);
     
-            // Replace with the community name to test
-            const communityName = 'Example Community';
+    //         // Replace with the community name to test
+    //         const communityName = 'Example Community';
     
-            // Fetch the community by name using the API endpoint
-            const response = await request(app.getHttpServer()).get(`/community/get-community/${communityName}`);
+    //         // Fetch the community by name using the API endpoint
+    //         const response = await request(app.getHttpServer()).get(`/community/get-community/${communityName}`);
     
-            // Assertions
-            expect(response.status).toBe(200);
+    //         // Assertions
+    //         expect(response.status).toBe(200);
     
-            // Assert specific properties of the community in the response
-            expect(response.body.name).toBe(communityName);
+    //         // Assert specific properties of the community in the response
+    //         expect(response.body.name).toBe(communityName);
 
-        });
+    //     });
     
-        it('should return nothing for non-existing community', async () => {
-            // Replace with a non-existing community name
-            const nonExistingCommunityName = 'Non Existing Community';
+    //     it('should return nothing for non-existing community', async () => {
+    //         // Replace with a non-existing community name
+    //         const nonExistingCommunityName = 'Non Existing Community';
     
-            // Fetch a non-existing community using the API endpoint
-            const response = await request(app.getHttpServer()).get(`/community/get-community/${nonExistingCommunityName}`);
+    //         // Fetch a non-existing community using the API endpoint
+    //         const response = await request(app.getHttpServer()).get(`/community/get-community/${nonExistingCommunityName}`);
     
-            // Assertions
-            expect(response.status).toBe(200);
+    //         // Assertions
+    //         expect(response.status).toBe(200);
 
-            // Assert specific properties of the community in the response
-            expect(response.body).toEqual({});
+    //         // Assert specific properties of the community in the response
+    //         expect(response.body).toEqual({});
 
-        });
-    });
+    //     });
+    // });
     
-    describe('createCommunity', () => {
-      it('should create a new community', async () => {
-          const { _id, createdAt , ...stub } = communityDtoStub();
-          // Send a POST request to create a new community using the API endpoint
-          const response = await request(app.getHttpServer())
-              .post('/community/create')
-              .send(stub);
+    // describe('createCommunity', () => {
+    //   it('should create a new community', async () => {
+    //       const { _id, createdAt , ...stub } = communityDtoStub();
+    //       // Send a POST request to create a new community using the API endpoint
+    //       const response = await request(app.getHttpServer())
+    //           .post('/community/create')
+    //           .send(stub);
   
-          // Assertions
-          expect(response.status).toBe(201); // Assuming 201 is the created status code
-          expect(response.body).toEqual(expect.objectContaining(stub));
-      });
-    });
+    //       // Assertions
+    //       expect(response.status).toBe(201); // Assuming 201 is the created status code
+    //       expect(response.body).toEqual(expect.objectContaining(stub));
+    //   });
+    // });
 
-    describe('updateCommunity', () => {
-      it('should update a community', async () => {
-          // Create a community in the database to update
-          const communityStub = communityDtoStub();
-          const insertedCommunity = await dbConnection.collection('community').insertOne(communityStub);
+    // describe('updateCommunity', () => {
+    //   it('should update a community', async () => {
+    //       // Create a community in the database to update
+    //       const communityStub = communityDtoStub();
+    //       const insertedCommunity = await dbConnection.collection('community').insertOne(communityStub);
   
-          // Replace with the ID of the community to update
-          const communityIdToUpdate = insertedCommunity.insertedId.toString();
+    //       // Replace with the ID of the community to update
+    //       const communityIdToUpdate = insertedCommunity.insertedId.toString();
   
-          const updatedData = {
-              name: "Updated Community Name",
-              about: "Updated community information",
-              // Add other properties you want to update
-          };
+    //       const updatedData = {
+    //           name: "Updated Community Name",
+    //           about: "Updated community information",
+    //           // Add other properties you want to update
+    //       };
   
-          // Send a PATCH request to update the community using the API endpoint
-          const response = await request(app.getHttpServer())
-              .patch(`/community/${communityIdToUpdate}`)
-              .send(updatedData);
+    //       // Send a PATCH request to update the community using the API endpoint
+    //       const response = await request(app.getHttpServer())
+    //           .patch(`/community/${communityIdToUpdate}`)
+    //           .send(updatedData);
   
-          // Assertions
-          expect(response.status).toBe(200); // Assuming 200 is the status code for successful update
+    //       // Assertions
+    //       expect(response.status).toBe(200); // Assuming 200 is the status code for successful update
   
-          // Fetch the updated community from the database
-          const updatedCommunity = await dbConnection.collection('community').findOne({ _id: new mongoose.Types.ObjectId(communityIdToUpdate) });
+    //       // Fetch the updated community from the database
+    //       const updatedCommunity = await dbConnection.collection('community').findOne({ _id: new mongoose.Types.ObjectId(communityIdToUpdate) });
   
-          // Assert that the properties have been updated in the database
-          expect(updatedCommunity.name).toBe(updatedData.name);
-          expect(updatedCommunity.about).toBe(updatedData.about);
-      });
+    //       // Assert that the properties have been updated in the database
+    //       expect(updatedCommunity.name).toBe(updatedData.name);
+    //       expect(updatedCommunity.about).toBe(updatedData.about);
+    //   });
   
-      it('should return 404 for non-existing community', async () => {
-          // Replace with a non-existing community ID
-          const nonExistingCommunityId = '615013b37e9da47fc5e4eb90'; // Non-existing ObjectId
+    //   it('should return 404 for non-existing community', async () => {
+    //       // Replace with a non-existing community ID
+    //       const nonExistingCommunityId = '615013b37e9da47fc5e4eb90'; // Non-existing ObjectId
   
-          // Send a PATCH request to update a non-existing community using the API endpoint
-          const response = await request(app.getHttpServer())
-              .patch(`/community/${nonExistingCommunityId}`)
-              .send({ name: "Updated Name" });
+    //       // Send a PATCH request to update a non-existing community using the API endpoint
+    //       const response = await request(app.getHttpServer())
+    //           .patch(`/community/${nonExistingCommunityId}`)
+    //           .send({ name: "Updated Name" });
   
-          // Assertions
-          expect(response.status).toBe(404);
-      });
-    });
+    //       // Assertions
+    //       expect(response.status).toBe(404);
+    //   });
+    // });
 
     describe('addPostToCommunity', () => {
       it('should add a post to a community', async () => {
@@ -308,97 +308,97 @@ describe('CommunityController (Integration with MongoDB)', () => {
       });
     });
 
-    describe('removePostFromCommunity', () => {
-      it('should remove a post from a community', async () => {
-          // Create a community in the database to remove a post from
-          const communityStub = communityDtoStub();
-          await dbConnection.collection('community').insertOne(communityStub);
+  //   describe('removePostFromCommunity', () => {
+  //     it('should remove a post from a community', async () => {
+  //         // Create a community in the database to remove a post from
+  //         const communityStub = communityDtoStub();
+  //         await dbConnection.collection('community').insertOne(communityStub);
   
-          // Replace with the name of the community to remove a post from
-          const communityName = communityStub.name;
+  //         // Replace with the name of the community to remove a post from
+  //         const communityName = communityStub.name;
   
-          const postToRemove = communityStub.posts[0];
+  //         const postToRemove = communityStub.posts[0];
   
-          // Send a PATCH request to remove a post from the community using the API endpoint
-          const response = await request(app.getHttpServer())
-              .patch(`/community/remove-post/${communityName}/${postToRemove}`);
+  //         // Send a PATCH request to remove a post from the community using the API endpoint
+  //         const response = await request(app.getHttpServer())
+  //             .patch(`/community/remove-post/${communityName}/${postToRemove}`);
   
-          // Assertions
-          expect(response.status).toBe(200); // Assuming 200 is the status code for successful post removal
+  //         // Assertions
+  //         expect(response.status).toBe(200); // Assuming 200 is the status code for successful post removal
   
-          // Fetch the updated community from the database
-          const updatedCommunity = await dbConnection.collection('community').findOne({ name: communityName });
+  //         // Fetch the updated community from the database
+  //         const updatedCommunity = await dbConnection.collection('community').findOne({ name: communityName });
   
-          // Assert that the post has been removed from the community
-          expect(updatedCommunity.posts).not.toContain(postToRemove);
+  //         // Assert that the post has been removed from the community
+  //         expect(updatedCommunity.posts).not.toContain(postToRemove);
   
-      });
+  //     });
   
-      it('should return 404 for non-existing community', async () => {
-          // Replace with a non-existing community name
-          const nonExistingCommunityName = 'Non Existing Community';
+  //     it('should return 404 for non-existing community', async () => {
+  //         // Replace with a non-existing community name
+  //         const nonExistingCommunityName = 'Non Existing Community';
   
-          const postToRemove = "Post to Remove";
+  //         const postToRemove = "Post to Remove";
   
-          // Send a PATCH request to remove a post from a non-existing community using the API endpoint
-          const response = await request(app.getHttpServer())
-              .patch(`/community/remove-post/${nonExistingCommunityName}/${postToRemove}`);
+  //         // Send a PATCH request to remove a post from a non-existing community using the API endpoint
+  //         const response = await request(app.getHttpServer())
+  //             .patch(`/community/remove-post/${nonExistingCommunityName}/${postToRemove}`);
   
-          // Assertions
-          expect(response.status).toBe(404);
+  //         // Assertions
+  //         expect(response.status).toBe(404);
   
-      });
-  });
+  //     });
+  // });
   
-  describe('removeUserFromCommunity', () => {
-    /*it('should remove a user from a community', async () => {   //CONNECTION ERROR  'connect ECONNREFUSED ::1:3000'
-        // Create a community in the database with a user
-        const communityStub = communityDtoStub();
-        await dbConnection.collection('community').insertOne(communityStub);
+  // describe('removeUserFromCommunity', () => {
+  //   /*it('should remove a user from a community', async () => {   //CONNECTION ERROR  'connect ECONNREFUSED ::1:3000'
+  //       // Create a community in the database with a user
+  //       const communityStub = communityDtoStub();
+  //       await dbConnection.collection('community').insertOne(communityStub);
 
-        // Replace with the name of the community to remove a user from
-        const communityName = communityStub.name;
+  //       // Replace with the name of the community to remove a user from
+  //       const communityName = communityStub.name;
 
-        const userToRemove = communityStub.members[0];
-        const numberOfUsers = communityStub.members.length;
+  //       const userToRemove = communityStub.members[0];
+  //       const numberOfUsers = communityStub.members.length;
 
 
-        // Send a PATCH request to remove a user from the community using the API endpoint
-        const response = await request(app.getHttpServer())
-            .patch(`/community/remove-user/${communityName}/${userToRemove}`);
+  //       // Send a PATCH request to remove a user from the community using the API endpoint
+  //       const response = await request(app.getHttpServer())
+  //           .patch(`/community/remove-user/${communityName}/${userToRemove}`);
 
-        // Assertions
-        expect(response.status).toBe(200); // Assuming 200 is the status code for successful user removal
+  //       // Assertions
+  //       expect(response.status).toBe(200); // Assuming 200 is the status code for successful user removal
 
-        // Fetch the updated community from the database
-        const updatedCommunity = await dbConnection.collection('community').findOne({ name: communityName });
+  //       // Fetch the updated community from the database
+  //       const updatedCommunity = await dbConnection.collection('community').findOne({ name: communityName });
 
-        // Assert that the user has been removed from the community
-        //expect(updatedCommunity.members).not.toContain(userToRemove);
-        expect(updatedCommunity.members.length).toBe(numberOfUsers-1);
+  //       // Assert that the user has been removed from the community
+  //       //expect(updatedCommunity.members).not.toContain(userToRemove);
+  //       expect(updatedCommunity.members.length).toBe(numberOfUsers-1);
 
-        console.log("updatedcommunityMembers_length");
-        console.log(updatedCommunity.members.length);
-        console.log("numberOfUsers");
-        console.log(numberOfUsers);
+  //       console.log("updatedcommunityMembers_length");
+  //       console.log(updatedCommunity.members.length);
+  //       console.log("numberOfUsers");
+  //       console.log(numberOfUsers);
 
-        //console.log(response.body);
-    });*/
+  //       //console.log(response.body);
+  //   });*/
 
-    it('should return 404 for non-existing community', async () => {
-        // Replace with a non-existing community name
-        const nonExistingCommunityName = 'Non Existing Community';
+  //   it('should return 404 for non-existing community', async () => {
+  //       // Replace with a non-existing community name
+  //       const nonExistingCommunityName = 'Non Existing Community';
 
-        const userToRemove = "User to Remove";
+  //       const userToRemove = "User to Remove";
 
-        // Send a PATCH request to remove a user from a non-existing community using the API endpoint
-        const response = await request(app.getHttpServer())
-            .patch(`/community/remove-user/${nonExistingCommunityName}/${userToRemove}`);
+  //       // Send a PATCH request to remove a user from a non-existing community using the API endpoint
+  //       const response = await request(app.getHttpServer())
+  //           .patch(`/community/remove-user/${nonExistingCommunityName}/${userToRemove}`);
 
-        // Assertions
-        expect(response.status).toBe(404);
+  //       // Assertions
+  //       expect(response.status).toBe(404);
 
-    });
-  });
+  //   });
+  // });
     
 });

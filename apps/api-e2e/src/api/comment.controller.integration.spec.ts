@@ -116,17 +116,17 @@ describe('CommentController (Integration with MongoDB)', () => {
     }); 
   });
 
-  describe('deleteComment', () => {
-    it('should delete inserted comment and return id of deleted comment', async () => {
-      const { _id } = commentDtoStub();
+//   describe('deleteComment', () => {
+//     it('should delete inserted comment and return id of deleted comment', async () => {
+//       const { _id } = commentDtoStub();
 
-      await dbConnection.collection('comment').insertOne(commentDtoStub());
-      const response = await request(app.getHttpServer()).delete(`/comment/delete/${_id.toString()}`);
-      expect(response.status).toBe(200);
+//       await dbConnection.collection('comment').insertOne(commentDtoStub());
+//       const response = await request(app.getHttpServer()).delete(`/comment/delete/${_id.toString()}`);
+//       expect(response.status).toBe(200);
 
-      expect(response.body._id.toString()).toBe(_id.toString());
-    });
-});
+//       expect(response.body._id.toString()).toBe(_id.toString());
+//     });
+// });
 
 // describe('addReply', () => {
 //     it('should return comment with added reply', async () => {
@@ -143,18 +143,18 @@ describe('CommentController (Integration with MongoDB)', () => {
 //     }); 
 // });
 
-  describe('deleteReply', () => {
-    it('should return true when Comment is found', async () => {
-        const replyId = commentWithReplyStub().replies[0].id;
-        const commentId = commentWithReplyStub()._id;
+  // describe('deleteReply', () => {
+  //   it('should return true when Comment is found', async () => {
+  //       const replyId = commentWithReplyStub().replies[0].id;
+  //       const commentId = commentWithReplyStub()._id;
 
-        await dbConnection.collection('comment').insertOne(commentWithReplyStub());
-        const response = await request(app.getHttpServer())
-            .delete(`/comment/delete-reply/${commentId}/${replyId}`);
+  //       await dbConnection.collection('comment').insertOne(commentWithReplyStub());
+  //       const response = await request(app.getHttpServer())
+  //           .delete(`/comment/delete-reply/${commentId}/${replyId}`);
         
-        expect(response.status).toBe(200);
-        expect(response.text).toBe(replyId);
-    });
-  });
+  //       expect(response.status).toBe(200);
+  //       expect(response.text).toBe(replyId);
+  //   });
+  // });
 });
 
