@@ -13,5 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "../../../../apps/encompass-e2e/src/e2e/sign-up-interior1.component.test.ts"]
 }
