@@ -458,18 +458,17 @@
               </div>
             </div>
           </div>
-
-          <!-- ===========================podcats=============================== -->
-          <!-- <div class="media-item" *ngIf="podcasts && showPodcasts">
+          <div class="media-item" *ngIf="podcasts && showPodcasts">
             <div class="imges">
               <img
-                src="{{ podcasts[0].Poster_Url }}"
+                src="{{ podcasts[0].image}}"
                 class="MediaImage"
                 onerror="this.src='assets/icon/Movies.png';"
               />
             </div>
             <div class="media-info">
               <div class="MediaTitle">{{ PodcastTitle1.slice(0, 45) }}</div>
+              <div class="MediaAuthor" style="font-style: italic;">({{ podcasts[0].author }})</div>
               <div class="MediaGenres">
                 <div
                   *ngFor="let category of myPodcastGenres1; let k = index"
@@ -484,20 +483,20 @@
               </div>
             </div>
           </div>
-
           <div class="media-item" *ngIf="podcasts && showPodcasts">
             <div class="imges">
               <img
-                src="{{ podcasts[0].Poster_Url }}"
+                src="{{ podcasts[1].image}}"
                 class="MediaImage"
                 onerror="this.src='assets/icon/Movies.png';"
               />
             </div>
             <div class="media-info">
-              <div class="MediaTitle">{{ PodcastTitle1.slice(0, 45) }}</div>
+              <div class="MediaTitle">{{ PodcastTitle2.slice(0, 45) }}</div>
+              <div class="MediaAuthor" style="font-style: italic;">({{ podcasts[1].author }})</div>
               <div class="MediaGenres">
                 <div
-                  *ngFor="let category of myPodcastGenres1; let k = index"
+                  *ngFor="let category of myPodcastGenres2; let k = index"
                   class="tooltip"
                 >
                   <img
@@ -508,7 +507,8 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
+
         </div>
       </div>
     </ion-card>
@@ -1337,7 +1337,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="media-item" *ngIf="movies && ShowMovies">
                 <div class="imges">
                   <img
@@ -1388,18 +1387,17 @@
                   </div>
                 </div>
               </div>
-
-              <!-- ===========================podcats=============================== -->
-              <!-- <div class="media-item" *ngIf="podcasts && showPodcasts">
+              <div class="media-item" *ngIf="podcasts && showPodcasts">
                 <div class="imges">
                   <img
-                    src="{{ podcasts[0].Poster_Url }}"
+                    src="{{ podcasts[0].image}}"
                     class="MediaImage"
                     onerror="this.src='assets/icon/Movies.png';"
                   />
                 </div>
                 <div class="media-info">
                   <div class="MediaTitle">{{ PodcastTitle1.slice(0, 45) }}</div>
+                  <div class="MediaAuthor" style="font-style: italic;">({{ podcasts[0].author }})</div>
                   <div class="MediaGenres">
                     <div
                       *ngFor="let category of myPodcastGenres1; let k = index"
@@ -1414,20 +1412,20 @@
                   </div>
                 </div>
               </div>
-
               <div class="media-item" *ngIf="podcasts && showPodcasts">
                 <div class="imges">
                   <img
-                    src="{{ podcasts[0].Poster_Url }}"
+                    src="{{ podcasts[1].image}}"
                     class="MediaImage"
                     onerror="this.src='assets/icon/Movies.png';"
                   />
                 </div>
                 <div class="media-info">
-                  <div class="MediaTitle">{{ PodcastTitle1.slice(0, 45) }}</div>
+                  <div class="MediaTitle">{{ PodcastTitle2.slice(0, 45) }}</div>
+                  <div class="MediaAuthor" style="font-style: italic;">({{ podcasts[1].author }})</div>
                   <div class="MediaGenres">
                     <div
-                      *ngFor="let category of myPodcastGenres1; let k = index"
+                      *ngFor="let category of myPodcastGenres2; let k = index"
                       class="tooltip"
                     >
                       <img
@@ -1438,7 +1436,9 @@
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
+
+             
             </div>
           </div>
         </ion-card>

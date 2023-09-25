@@ -207,7 +207,7 @@ export class HomeState{
       return;
     }
 
-    let communities = ctx.getState().CommunitiesForm.model.communities;
+    const communities = ctx.getState().CommunitiesForm.model.communities;
 
     if(communities == null){
       return;

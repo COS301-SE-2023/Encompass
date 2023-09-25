@@ -10,6 +10,7 @@ import {
   GetRecommendedMovies,
   UpdateCommunity,
 } from '@encompass/app/home-page/util';
+import { GetRecommendedPodcasts } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import {
   ProfileDto,
@@ -48,6 +49,7 @@ import {
   UpdatePostArray,
 } from '@encompass/app/posts/util';
 
+
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
@@ -82,6 +84,7 @@ export class FeedPage {
   myCommunities!: CommunityDto[] | null;
   movies!: MovieDto[] | null;
   books!: BookDto[] | null;
+  podcasts!: PodcastDto[] | null;
 
   BookTitle1!: string;
   BookTitle2!: string;
@@ -92,14 +95,23 @@ export class FeedPage {
   BookGenres2!: string[];
   myBookGenres1: string[] = [];
   myBookGenres2: string[] = [];
+  
 
   MovieTitle1!: string;
   MovieTitle2!: string;
+
+  PodcastTitle1!: string;
+  PodcastTitle2!: string;
 
   MovieGenres1!: string[];
   MovieGenres2!: string[];
   myMovieGenres1: string[] = [];
   myMovieGenres2: string[] = [];
+
+  PodcastGenres1!: string[];
+  PodcastGenres2!: string[];
+  myPodcastGenres1: string[] = [];
+  myPodcastGenres2: string[] = [];
 
   reports: boolean[] = [];
   postReported: boolean[] = [];
@@ -120,6 +132,7 @@ export class FeedPage {
   communitiesIsFetched = false;
   moviesIsFetched = false;
   booksIsFetched = false;
+  podcastsIsFetched = false;
   postsIsFetched = false;
   settingsIsFetched = false;
   ShowBooks = true;
@@ -793,8 +806,7 @@ export class FeedPage {
                     }
                   }
 
-                  console.log('NEW GENRES AFTER REPLACING (1):');
-                  console.log(this.MovieGenres1);
+                 
 
                   this.MovieGenres1 = Array.from(new Set(this.MovieGenres1));
 
@@ -831,9 +843,6 @@ export class FeedPage {
                     }
                   }
 
-                  console.log('NEW GENRES AFTER FILTERING (1):');
-                  console.log(this.myMovieGenres1);
-
                   for (let i = 0; i < this.MovieGenres2.length; i++) {
                     if (
                       this.MovieGenres2[i] == 'Mystery' ||
@@ -845,9 +854,6 @@ export class FeedPage {
                       this.MovieGenres2[i] = 'Science-Fiction';
                     }
                   }
-
-                  console.log('NEW GENRES AFTER REPLACING (2):');
-                  console.log(this.MovieGenres2);
 
                   this.MovieGenres2 = Array.from(new Set(this.MovieGenres2));
 
@@ -883,16 +889,300 @@ export class FeedPage {
                       }
                     }
                   }
-                  console.log('NEW GENRES AFTER FILTERING (2):');
-                  console.log(this.myMovieGenres2);
-
-                  console.log('REFINED GENRES:');
-                  console.log(this.myMovieGenres1);
-                  console.log(this.myMovieGenres2);
+                 
                 }
               }
             }
           });
+        }
+
+        if(!this.podcastsIsFetched){
+            this.podcastsIsFetched=true;
+            this.store.dispatch(new GetRecommendedPodcasts(this.profile._id));
+            this.podcasts$.pipe().subscribe((podcasts) => {
+              if (podcasts) {
+                if (podcasts.length == undefined) {
+                  this.podcastsIsFetched = false;
+                } else {
+                  console.log(podcasts);
+                  this.podcasts = podcasts;
+                  console.log('My Podcasts:');
+                  console.log(this.podcasts);
+                  if (this.podcasts) {
+                    this.PodcastTitle1 = this.podcasts[0].title;
+                    this.PodcastTitle2 = this.podcasts[1].title;
+  
+                    console.log('Podcast Titles:');
+                    console.log(this.PodcastTitle1);
+                    console.log(this.PodcastTitle2);
+  
+                    if (this.podcasts[0].categories) {
+                      const newString = this.podcasts[0].categories.replace(/\s/g, '');
+                      this.PodcastGenres1 = newString.split('|');
+                      console.log('New String: ' + newString);
+                    }
+  
+                    if (this.podcasts[1].categories) {
+                      const newString = this.podcasts[1].categories.replace(/\s/g, '');
+                      this.PodcastGenres2 = newString.split('|');
+                      console.log('New String2: ' + newString);
+                    }
+  
+                    console.log('GENRES AGAIN:');
+                    console.log(this.PodcastGenres1);
+                    console.log(this.PodcastGenres2);
+  
+                    for (let i = 0; i < this.PodcastGenres1.length; i++) {
+                      if (
+                        this.PodcastGenres1[i] == "Places&Travel"||
+                        this.PodcastGenres1[i] == "Regional"||
+                        this.PodcastGenres1[i] == "Hobbies"||
+                        this.PodcastGenres1[i] == "Games&Hobbies"||
+                        this.PodcastGenres1[i] == "Outdoor"||
+                        this.PodcastGenres1[i] == "Sports&Recreation")
+                       {
+                        this.PodcastGenres1[i] = 'Adventure';
+                      } else if (
+                        this.PodcastGenres1[i] == "PerformingArts" || 
+                        this.PodcastGenres1[i] == "VisualArts" || 
+                        this.PodcastGenres1[i] == "Arts" || 
+                        this.PodcastGenres1[i] == "Literature" || 
+                        this.PodcastGenres1[i] == "Design") 
+                        {
+                        this.PodcastGenres1[i] = 'Arts';
+                      } else if (
+                        this.PodcastGenres1[i] == "Professional" || 
+                        this.PodcastGenres1[i] == "Management&Marketing" || 
+                        this.PodcastGenres1[i] == "Government&Organizations" || 
+                        this.PodcastGenres1[i] == "Self-Help" || 
+                        this.PodcastGenres1[i] == "Business" || 
+                        this.PodcastGenres1[i] == "BusinessNews" || 
+                        this.PodcastGenres1[i] == "Careers" || 
+                        this.PodcastGenres1[i] == "News&Politics" || 
+                        this.PodcastGenres1[i] == "Training" || 
+                        this.PodcastGenres1[i] == "Investing" || 
+                        this.PodcastGenres1[i] == "Non-Profit"
+                      ){
+                        this.PodcastGenres1[i] == 'Business';
+                      } else if (
+                        this.PodcastGenres1[i] == "History"||
+                        this.PodcastGenres1[i] == "Podcasting"||
+                        this.PodcastGenres1[i] == "HigherEducation"||
+                        this.PodcastGenres1[i] == "News&Politics"
+                      ){
+                        this.PodcastGenres1[i] == 'Documentary';
+
+                      }else if (
+                        this.PodcastGenres1[i] == "College&High School"||
+                        this.PodcastGenres1[i] == "Society&Culture"
+                      ){
+                        this.PodcastGenres1[i] == 'Drama';
+                      
+                      }else if (
+            
+                        this.PodcastGenres1[i] == "EducationalTechnology"||
+                        this.PodcastGenres1[i] == "Literature"
+                      ){
+                        this.PodcastGenres1[i] = 'Fantasy';
+                      }else if (
+                        this.PodcastGenres1[i] == "Food"
+                      ){
+                        this.PodcastGenres1[i] = 'Food';
+                      }
+                      else if(this.PodcastGenres1[i] == "Science&Medicine"||
+                        this.PodcastGenres1[i] == "NaturalSciences"||
+                        this.PodcastGenres1[i] == "Medicine")
+                        {
+                          this.PodcastGenres1[i] = 'Life-Science';
+                        }
+                        else if(this.PodcastGenres1[i] == "Music"){
+                          this.PodcastGenres1[i] = 'Musical';
+                        }
+                        else if(this.PodcastGenres1[i] == "TechNews"||
+                          this.PodcastGenres1[i] == "EducationalTechnology"||
+                          this.PodcastGenres1[i] == "HigherEducation"||
+                          this.PodcastGenres1[i] == "Technology"||
+                          this.PodcastGenres1[i] == "Gadgets")
+                        {
+                          this.PodcastGenres1[i] = 'Physics';
+                        }
+                        else if(this.PodcastGenres1[i] == "TechNews"||
+                          this.PodcastGenres1[i] == "EducationalTechnology"||
+                          this.PodcastGenres1[i] == "Gadgets"||
+                          this.PodcastGenres1[i] == "Technology"||
+                          this.PodcastGenres1[i] == "SoftwareHow-To"){
+                          this.PodcastGenres1[i] = 'Science-Fiction';
+                          }
+                       
+                      
+                    }
+  
+                
+  
+                    this.PodcastGenres1 = Array.from(new Set(this.PodcastGenres1));
+  
+                    for (let i = 0; i < this.PodcastGenres1.length; i++) {
+                      if (
+                        this.PodcastGenres1[i] == 'Animation' ||
+                        this.PodcastGenres1[i] == 'Anime' ||
+                        this.PodcastGenres1[i] == 'Arts' ||
+                        this.PodcastGenres1[i] == 'Business' ||
+                        this.PodcastGenres1[i] == 'Comedy' ||
+                        this.PodcastGenres1[i] == 'Documentary' ||
+                        this.PodcastGenres1[i] == 'Fantasy' ||
+                        this.PodcastGenres1[i] == 'History' ||
+                        this.PodcastGenres1[i] == 'Horror' ||
+                        this.PodcastGenres1[i] == 'Hospitality' ||
+                        this.PodcastGenres1[i] == 'Life-Science' ||
+                        this.PodcastGenres1[i] == 'Musical' ||
+                        this.PodcastGenres1[i] == 'Mystery' ||
+                        this.PodcastGenres1[i] == 'Physics' ||
+                        this.PodcastGenres1[i] == 'Romance' ||
+                        this.PodcastGenres1[i] == 'Science-Fiction' ||
+                        this.PodcastGenres1[i] == 'War' ||
+                        this.PodcastGenres1[i] == 'Western' ||
+                        this.PodcastGenres1[i] == 'Drama' ||
+                        this.PodcastGenres1[i] == 'Action' ||
+                        this.PodcastGenres1[i] == 'Geography' ||
+                        this.PodcastGenres1[i] == 'Mathematics' ||
+                        this.PodcastGenres1[i] == 'Adventure'
+                      ) {
+                        this.myPodcastGenres1.push(this.PodcastGenres1[i]);
+                        if (this.myPodcastGenres1.length == 3) {
+                          break;
+                        }
+                      }
+                    }
+  
+                    
+  
+                    for (let i = 0; i < this.PodcastGenres2.length; i++) {
+                      if (
+                        this.PodcastGenres2[i] == "Places & Travel"||
+                        this.PodcastGenres2[i] == "Regional"||
+                        this.PodcastGenres2[i] == "Hobbies"||
+                        this.PodcastGenres2[i] == "Games & Hobbies"||
+                        this.PodcastGenres2[i] == "Outdoor"||
+                        this.PodcastGenres2[i] == "Sports & Recreation")
+                       {
+                        this.PodcastGenres2[i] = 'Adventure';
+                      } else if (
+                        this.PodcastGenres2[i] == "Performing Arts" || 
+                        this.PodcastGenres2[i] == "Visual Arts" || 
+                        this.PodcastGenres2[i] == "Arts" || 
+                        this.PodcastGenres2[i] == "Literature" || 
+                        this.PodcastGenres2[i] == "Design") 
+                        {
+                        this.PodcastGenres2[i] = 'Arts';
+                      } else if (
+                        this.PodcastGenres2[i] == "Professional" || 
+                        this.PodcastGenres2[i] == "Management & Marketing" || 
+                        this.PodcastGenres2[i] == "Government & Organizations" || 
+                        this.PodcastGenres2[i] == "Self-Help" || 
+                        this.PodcastGenres2[i] == "Business" || 
+                        this.PodcastGenres2[i] == "Business News" || 
+                        this.PodcastGenres2[i] == "Careers" || 
+                        this.PodcastGenres2[i] == "News & Politics" || 
+                        this.PodcastGenres2[i] == "Training" || 
+                        this.PodcastGenres2[i] == "Investing" || 
+                        this.PodcastGenres2[i] == "Non-Profit"
+                      ){
+                        this.PodcastGenres2[i] == 'Business';
+                      } else if (
+                        this.PodcastGenres2[i] == "History"||
+                        this.PodcastGenres2[i] == "Podcasting"||
+                        this.PodcastGenres2[i] == "Higher Education"||
+                        this.PodcastGenres2[i] == "News & Politics"
+                      ){
+                        this.PodcastGenres2[i] == 'Documentary';
+
+                      }else if (
+                        this.PodcastGenres2[i] == "College & High School"||
+                        this.PodcastGenres2[i] == "Society & Culture"
+                      ){
+                        this.PodcastGenres2[i] == 'Drama';
+                      
+                      }else if (
+            
+                        this.PodcastGenres2[i] == "Educational Technology"||
+                        this.PodcastGenres2[i] == "Literature"
+                      ){
+                        this.PodcastGenres2[i] = 'Fantasy';
+                      }else if (
+                        this.PodcastGenres2[i] == "Food"
+                      ){
+                        this.PodcastGenres2[i] = 'Food';
+                      }
+                      else if(this.PodcastGenres2[i] == "Science & Medicine"||
+                        this.PodcastGenres2[i] == "Natural Sciences"||
+                        this.PodcastGenres2[i] == "Medicine")
+                        {
+                          this.PodcastGenres2[i] = 'Life-Science';
+                        }
+                        else if(this.PodcastGenres2[i] == "Music"){
+                          this.PodcastGenres2[i] = 'Musical';
+                        }
+                        else if(this.PodcastGenres2[i] == "Tech News"||
+                          this.PodcastGenres2[i] == "Educational Technology"||
+                          this.PodcastGenres2[i] == "Higher Education"||
+                          this.PodcastGenres2[i] == "Technology"||
+                          this.PodcastGenres2[i] == "Gadgets")
+                        {
+                          this.PodcastGenres2[i] = 'Physics';
+                        }
+                        else if(this.PodcastGenres2[i] == "Tech News"||
+                          this.PodcastGenres2[i] == "Educational Technology"||
+                          this.PodcastGenres2[i] == "Gadgets"||
+                          this.PodcastGenres2[i] == "Technology"||
+                          this.PodcastGenres2[i] == "Software How-To"){
+                          this.PodcastGenres2[i] = 'Science-Fiction';
+                          }
+                       
+                      
+                    }
+  
+                
+  
+                    this.PodcastGenres2 = Array.from(new Set(this.PodcastGenres2));
+  
+                    for (let i = 0; i < this.PodcastGenres2.length; i++) {
+                      if (
+                        this.PodcastGenres2[i] == 'Animation' ||
+                        this.PodcastGenres2[i] == 'Anime' ||
+                        this.PodcastGenres2[i] == 'Arts' ||
+                        this.PodcastGenres2[i] == 'Business' ||
+                        this.PodcastGenres2[i] == 'Comedy' ||
+                        this.PodcastGenres2[i] == 'Documentary' ||
+                        this.PodcastGenres2[i] == 'Fantasy' ||
+                        this.PodcastGenres2[i] == 'History' ||
+                        this.PodcastGenres2[i] == 'Horror' ||
+                        this.PodcastGenres2[i] == 'Hospitality' ||
+                        this.PodcastGenres2[i] == 'Life-Science' ||
+                        this.PodcastGenres2[i] == 'Musical' ||
+                        this.PodcastGenres2[i] == 'Mystery' ||
+                        this.PodcastGenres2[i] == 'Physics' ||
+                        this.PodcastGenres2[i] == 'Romance' ||
+                        this.PodcastGenres2[i] == 'Science-Fiction' ||
+                        this.PodcastGenres2[i] == 'War' ||
+                        this.PodcastGenres2[i] == 'Western' ||
+                        this.PodcastGenres2[i] == 'Drama' ||
+                        this.PodcastGenres2[i] == 'Action' ||
+                        this.PodcastGenres2[i] == 'Geography' ||
+                        this.PodcastGenres2[i] == 'Mathematics' ||
+                        this.PodcastGenres2[i] == 'Adventure'
+                      ) {
+                        this.myPodcastGenres2.push(this.PodcastGenres2[i]);
+                        if (this.myPodcastGenres2.length == 3) {
+                          break;
+                        }
+                      }
+                    }
+                   
+                   
+                  }
+                }
+              }
+            });
         }
       }
     });
@@ -1249,7 +1539,7 @@ export class FeedPage {
         all.classList.add('active-select');
         books.classList.remove('active-select');
         movies.classList.remove('active-select');
-        // series.classList.remove('active-select');
+        podcasts.classList.remove('active-select');
       } else if (btnname == 'books') {
         this.ShowMovies = false;
         this.ShowBooks = true;
@@ -1257,7 +1547,7 @@ export class FeedPage {
         all.classList.remove('active-select');
         books.classList.add('active-select');
         movies.classList.remove('active-select');
-        // series.classList.remove('active-select');
+        podcasts.classList.remove('active-select');
       } else if (btnname == 'movies') {
         this.ShowMovies = true;
         this.ShowBooks = false;
@@ -1265,7 +1555,7 @@ export class FeedPage {
         all.classList.remove('active-select');
         books.classList.remove('active-select');
         movies.classList.add('active-select');
-        // series.classList.remove('active-select');
+        podcasts.classList.remove('active-select'); 
       } else if (btnname == 'podcasts') {
         this.ShowMovies = false;
         this.ShowBooks = false;
