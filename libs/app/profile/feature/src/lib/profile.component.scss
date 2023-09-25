@@ -207,8 +207,6 @@ ion-card {
 
 ///////////////////////////////////////////////////////////////////////
 
-
-
 .active-button {
   background-color: var(--ion-color-secondary-contrast);
   font-weight: bold;
@@ -223,7 +221,7 @@ ion-card {
   color: white;
 }
 
-.EventList{
+.EventList {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -796,7 +794,7 @@ ion-card {
   // padding-right: 35px;
 }
 
-.info-post:hover{
+.info-post:hover {
   cursor: default;
   color: var(--ion-color-medium);
   background-color: var(--ion-color-secondary-contrast);
@@ -868,18 +866,25 @@ ion-card {
 }
 
 .EditBtn {
-  width: 50%;
+  width: 24%;
   // color: black;
   // background-color: #DADADA;
   border-radius: 30px;
   font-size: 15px;
   padding: 2%;
   margin-bottom: 2%;
+  background-color: var(--ion-color-primary);
+  color: white;
 }
-// .EditBtn:hover {
-//   color: white;
-//   background-color: var(--hover-color);
-// }
+.EditBtn:hover {
+  background-color: var(--hover-color);
+}
+
+.chnageBtns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 
 .DescInput {
   text-align: center;
@@ -1200,6 +1205,23 @@ ion-button:hover {
   margin-bottom: 10px;
 }
 
+.Image {
+  --background: lightgrey;
+  width: 16%;
+  // color: black;
+  // background-color: #DADADA;
+  --border-radius: 30px;
+  --font-size: 15px;
+
+  margin-bottom: 2%;
+
+  cursor: pointer;
+
+  span {
+    cursor: pointer;
+  }
+}
+
 .PostImageContainer {
   width: 15%;
   height: 100%;
@@ -1316,7 +1338,6 @@ ion-button:hover {
 }
 
 .buttonStyle {
-
   span {
     color: var(--ion-color-text);
   }
@@ -1386,21 +1407,12 @@ ion-button:hover {
 }
 
 .file-input {
-  position: absolute;
-  // top: 0;
-  // left: 0;
-  // right: 0;
-  bottom: 0;
-  left: 0;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   z-index: 3;
   opacity: 0;
-  height: 30px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .edit-icon {

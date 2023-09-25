@@ -13,7 +13,7 @@
         </ion-button>
 
         <ion-button
-        *ngIf="!seePosts"
+          *ngIf="!seePosts"
           id="PostBtn"
           fill="clear"
           class="buttonStyle"
@@ -23,7 +23,7 @@
         </ion-button>
 
         <ion-button
-        *ngIf="seeComments"
+          *ngIf="seeComments"
           id="CommentsBtn"
           fill="clear"
           class="active-button buttonStyle"
@@ -33,7 +33,7 @@
         </ion-button>
 
         <ion-button
-        *ngIf="!seeComments"
+          *ngIf="!seeComments"
           id="CommentsBtn"
           fill="clear"
           class="buttonStyle"
@@ -43,7 +43,7 @@
         </ion-button>
 
         <ion-button
-        *ngIf="seeEvents"
+          *ngIf="seeEvents"
           id="eventBtn"
           fill="clear"
           class="active-button buttonStyle"
@@ -53,7 +53,7 @@
         </ion-button>
 
         <ion-button
-        *ngIf="!seeEvents"
+          *ngIf="!seeEvents"
           id="eventBtn"
           fill="clear"
           class="none buttonStyle"
@@ -168,7 +168,7 @@
               </div>
               <div class="PostFooter">
                 <div class="date">
-                  {{ post.dateAdded | date: 'yyyy-MM-dd'}}
+                  {{ post.dateAdded | date : 'yyyy-MM-dd' }}
                 </div>
 
                 <div class="icons">
@@ -386,7 +386,7 @@
               onerror="this.src='assets/icon/Banner.png';"
             />
             <ion-button fill="clear" class="pointsBtn">
-              {{profile?.ep}} EP
+              {{ profile?.ep }} EP
             </ion-button>
           </div>
           <ion-card-header *ngIf="!edit">
@@ -430,7 +430,7 @@
               <div
                 id="follow-trigger"
                 class="profile-info"
-                (click)="loadFollowers() ; setOpen(true)"
+                (click)="loadFollowers(); setOpen(true)"
               >
                 {{ profile.followers.length }} <br />
                 Followers
@@ -438,7 +438,7 @@
               <div
                 id="following-trigger"
                 class="profile-info"
-                (click)="loadFollowing() ; setOpen2(true)"
+                (click)="loadFollowing(); setOpen2(true)"
               >
                 {{ profile.following.length }} <br />
                 Following
@@ -473,32 +473,42 @@
                 formControlName="Bio"
               ></ion-textarea>
 
-              <button class="EditBtn">Change Photo</button>
+              <div class="chnageBtns">
+                <ion-item class="Image" style="paddling-left: 1%">
+                  <span class="image-span">
+                    <input
+                      id="file-input"
+                      type="file"
+                      class="file-input"
+                      [accept]="requiredFileType"
+                      (change)="onFileSelected($event)"
+                      #fileUpload
+                      style="margin-bottom: 115px; margin-left: 130px"
+                    />
+                    <label for="file-input">
+                      <span>Change Profile</span></label
+                    ></span
+                  >
+                </ion-item>
 
-              <div class="Image">
-                <input
-                  type="file"
-                  class="file-input"
-                  [accept]="requiredFileType"
-                  (change)="onFileSelected($event)"
-                  #fileUpload
-                  style="margin-bottom: 115px; margin-left: 130px"
-                />
+                <ion-item class="Image">
+                  <span class="image-span">
+                    <input
+                      id="file-input-banner"
+                      type="file"
+                      class="file-input"
+                      [accept]="requiredFileType"
+                      (change)="onFileBannerSelected($event)"
+                      #fileUpload
+                    />
+                    <label for="file-input-banner">
+                      <span class="full-width-label">Change Banner</span></label
+                    ></span
+                  >
+                </ion-item>
               </div>
 
-              <button class="EditBtn">Change Banner</button>
-              <div class="ImageBanner">
-                <input
-                  type="file"
-                  class="file-input"
-                  [accept]="requiredFileType"
-                  (change)="onFileBannerSelected($event)"
-                  #fileUpload
-                  style="margin-bottom: 68px; margin-left: 130px"
-                />
-              </div>
-
-              <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="EditBtn" (click)="FinishEdit()">
+              <button type="submit" class="EditBtn" (click)="FinishEdit()">
                 Confirm
               </button>
             </form>
@@ -576,7 +586,6 @@
           trigger="following-trigger"
           [presentingElement]="presentingElement2"
           [isOpen]="isModal2Open"
-
         >
           <ng-template>
             <ion-header>
@@ -710,7 +719,7 @@
           onerror="this.src='assets/icon/Banner.png';"
         />
         <ion-button fill="clear" class="pointsBtn">
-          {{profile?.ep}} EP
+          {{ profile?.ep }} EP
         </ion-button>
       </div>
       <ion-card-header *ngIf="!edit">
@@ -797,32 +806,42 @@
             formControlName="Bio"
           ></ion-textarea>
 
-          <button class="EditBtn">Change Photo</button>
+          <div class="chnageBtns">
+            <ion-item class="Image" style="paddling-left: 1%">
+              <span class="image-span">
+                <input
+                  id="file-input"
+                  type="file"
+                  class="file-input"
+                  [accept]="requiredFileType"
+                  (change)="onFileSelected($event)"
+                  #fileUpload
+                  style="margin-bottom: 115px; margin-left: 130px"
+                />
+                <label for="file-input">
+                  <span>Change Profile</span></label
+                ></span
+              >
+            </ion-item>
 
-          <div class="Image">
-            <input
-              type="file"
-              class="file-input"
-              [accept]="requiredFileType"
-              (change)="onFileSelected($event)"
-              #fileUpload
-              style="margin-bottom: 16%; margin-left: 24.63%"
-            />
+            <ion-item class="Image">
+              <span class="image-span">
+                <input
+                  id="file-input-banner"
+                  type="file"
+                  class="file-input"
+                  [accept]="requiredFileType"
+                  (change)="onFileBannerSelected($event)"
+                  #fileUpload
+                />
+                <label for="file-input-banner">
+                  <span class="full-width-label">Change Banner</span></label
+                ></span
+              >
+            </ion-item>
           </div>
 
-          <button class="EditBtn">Change Banner</button>
-          <div class="ImageBanner">
-            <input
-              type="file"
-              class="file-input"
-              [accept]="requiredFileType"
-              (change)="onFileBannerSelected($event)"
-              #fileUpload
-              style="margin-bottom: 8%; margin-left: 24.63%"
-            />
-          </div>
-
-          <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="EditBtn" (click)="FinishEdit()">
+          <button type="submit" class="EditBtn" (click)="FinishEdit()">
             Confirm
           </button>
         </form>
@@ -953,7 +972,7 @@
           </div>
           <div class="PostFooter">
             <div class="date">
-              {{ post.dateAdded | date: 'yyyy-MM-dd'}}
+              {{ post.dateAdded | date : 'yyyy-MM-dd' }}
             </div>
 
             <div class="icons">
