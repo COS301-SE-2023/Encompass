@@ -21,9 +21,9 @@ export class UserProfileApi{
     }
   }
 
-  async getUserProfilePosts(username: string){
+  async getUserProfilePosts(username: string, userId: string){
     try{
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username).toPromise();
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username + '/' + userId).toPromise();
 
       return response
     }
@@ -104,6 +104,47 @@ export class UserProfileApi{
 
     catch(error){
       return null
+    }
+  }
+
+  async getProfile(username: string){
+    try{
+      const response = await this.httpClient.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async dislikePost(postId: string, userId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/dislike/' + userId + '/' + postId, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async likePost(postId: string, userId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/like/' + userId + '/' + postId, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
     }
   }
 }

@@ -13,9 +13,11 @@ import {
   UserProfileState,
 } from '@encompass/app/user-profile/data-access';
 import {
+  DislikeUserProfilePost,
   GetUserProfile,
   GetUserProfilePosts,
   GetUserSettings,
+  LikeUserProfilePost,
   UpdateUserPost,
 } from '@encompass/app/user-profile/util';
 import { Select, Store } from '@ngxs/store';
@@ -26,7 +28,7 @@ import { AddNotificationRequest } from '@encompass/api/notifications/data-access
 import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'user-profile',
@@ -48,6 +50,7 @@ export class UserProfile {
 
   userProfile!: ProfileDto | null;
   profile!: ProfileDto | null;
+  otherUsers!: ProfileDto[] | null;
   userPosts: PostDto[] = [];
   userProfileSettings!: SettingsDto | null;
   seePosts = true;
@@ -56,7 +59,7 @@ export class UserProfile {
   sharing: boolean[] = [];
   likes: number[] = [];
   likedComments: boolean[] = [];
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   reports: boolean[] = [];
   posts!: PostDto[] | null;
@@ -65,11 +68,15 @@ export class UserProfile {
   isPostsFetched = false;
   ViewCommunities = false;
 
+  isModalOpen = false;
+  isModal2Open = false;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private store: Store,
     private router: Router,
     private route: ActivatedRoute,
+    private modalController: ModalController,
     private userProfileState: UserProfileState,
     private userProfileApi: UserProfileApi,
     private toastController: ToastController
@@ -79,6 +86,7 @@ export class UserProfile {
     if (username == null) {
       return;
     }
+    this.load();
     // this.store.dispatch(new GetUserProfile(username))
     // this.userProfile$.subscribe((userProfile) =>{
     this.userProfileState.getUserProfile(username).then((userProfile) => {
@@ -87,7 +95,12 @@ export class UserProfile {
         console.log('Userprofile', this.userProfile);
         // if(!this.isPostsFetched){
         this.isPostsFetched = true;
-        this.store.dispatch(new GetUserProfilePosts(this.userProfile.username));
+
+        if(this.profile == null){
+          return
+        }
+
+        this.store.dispatch(new GetUserProfilePosts(this.userProfile.username, this.profile._id));
         this.userPosts$
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((userPosts) => {
@@ -133,13 +146,12 @@ export class UserProfile {
             }
           });
         // }
-        this.store.dispatch(new GetUserSettings(this.userProfile._id));
-        this.profileSettings$.subscribe((profileSettings) => {
-          if (profileSettings) {
-            this.userProfileSettings = profileSettings;
+        this.userProfileState.getUserProfileSettings(userProfile._id)?.then((settings) => {
+          if(settings){
+            this.userProfileSettings = settings;
             console.log(this.userProfileSettings);
           }
-        });
+        })
       }
     });
 
@@ -155,7 +167,7 @@ export class UserProfile {
     //   }
     // })
 
-    this.load();
+    
   }
 
   load() {
@@ -230,6 +242,7 @@ export class UserProfile {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
@@ -426,6 +439,7 @@ export class UserProfile {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -440,80 +454,65 @@ export class UserProfile {
   }
 
   Like(n: number, post: PostDto) {
-    if (this.userProfile == null) {
+    if (this.profile == null) {
       return;
     }
 
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(
-      new UpdateUserPost(post._id, data, this.userProfile.username)
-    );
-    this.userProfileApi.addCoins(post.username, 1);
+    this.store.dispatch(new LikeUserProfilePost(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
-    if (this.userProfile == null) {
+    if (this.profile == null) {
       return;
     }
 
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(
-      new UpdateUserPost(post._id, data, this.userProfile.username)
-    );
-    this.userProfileApi.removeCoins(post.username, 1);
+    this.store.dispatch(new DislikeUserProfilePost(post._id, this.profile._id));
   }
 
   OpenView() {
     this.ViewCommunities = !this.ViewCommunities;
   }
 
+  async loadFollowers() {
+    this.otherUsers = [];
+    if (this.userProfile == null) {
+      return;
+    }
+    console.log('here');
+    console.log(this.userProfile.followers);
+    this.otherUsers = await this.userProfileState.getFollowers(
+      this.userProfile.followers
+    );
+
+    // this.store.dispatch(new GetFollowers(this.profile.followers));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     console.log(users);
+    //     this.otherUsers = users;
+    //   }
+    // })
+  }
+
+  async loadFollowing() {
+    this.otherUsers = [];
+
+    if (this.userProfile == null) {
+      return;
+    }
+
+    console.log('here as well');
+    console.log(this.userProfile.following);
+    this.otherUsers = await this.userProfileState.getFollowing(
+      this.userProfile.following
+    );
+
+    // this.store.dispatch(new GetFollowing(this.profile.following));
+    // this.otherUsers$.subscribe((users) => {
+    //   if(users){
+    //     this.otherUsers = users;
+    //   }
+    // })
+  }
   // loadFollowers(){
   //   if(this.profile == null){
   //     return;
@@ -543,11 +542,11 @@ export class UserProfile {
   //   })
   // }
 
-  // async goToProfile(username : string | undefined){
-  //   console.log("Route is " + username);
-  //   await this.modalController.dismiss();
-  //   this.router.navigate(['home/user-profile/' + username]);
-  // }
+  async goToProfile(username : string | undefined){
+    console.log("Route is " + username);
+    await this.modalController.dismiss();
+    this.router.navigate(['home/user-profile/' + username]);
+  }
 
   mobileview = false;
 
@@ -555,15 +554,17 @@ export class UserProfile {
     this.mobileview = window.innerWidth <= 992;
   }
 
-  isModalOpen = false;
+  
 
   setOpen(isOpen: boolean) {
+     this.modalController.dismiss();
     this.isModalOpen = isOpen;
   }
 
-  isModal2Open = false;
+  
 
   setOpen2(isOpen: boolean) {
+    this.modalController.dismiss();
     this.isModal2Open = isOpen;
   }
 }

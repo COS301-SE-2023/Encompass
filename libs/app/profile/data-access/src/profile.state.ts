@@ -1,12 +1,13 @@
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, RemoveCommunity, AddCommunity } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, RemoveCommunity, AddCommunity, DislikeProfilePost, LikeProfilePost } from "@encompass/app/profile/util"
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { tap } from "rxjs"
 import { produce } from "immer"
 import { PostDto } from "@encompass/api/post/data-access"
 import { CommentDto } from "@encompass/api/comment/data-access"
+import { ToastController } from "@ionic/angular"
 
 export interface ProfileStateModel{
   profile: ProfileDto | null
@@ -78,7 +79,7 @@ export interface ProfileCommentModel{
 
 @Injectable()
 export class ProfileState{
-  constructor(private profileApi: ProfileApi, private readonly store: Store){}
+  constructor(private profileApi: ProfileApi, private readonly store: Store, private toastController: ToastController){}
 
   @Action(SubscribeToProfile)
   subscribeToProfile(ctx: StateContext<ProfileStateModel>){
@@ -115,14 +116,22 @@ export class ProfileState{
       return;
     }
 
+    const toast = await this.toastController.create({
+      message: 'Profile successfully updated',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
+
     await ctx.patchState({
       profile: response
     })
   }
 
   @Action(GetPosts)
-  async getPosts(ctx: StateContext<ProfilePostModel>, {username}: GetPosts){
-    const response = await this.profileApi.getPosts(username);
+  async getPosts(ctx: StateContext<ProfilePostModel>, {username, userId}: GetPosts){
+    const response = await this.profileApi.getPosts(username, userId);
     
     if(response == null || response == undefined){
       return;
@@ -177,6 +186,76 @@ export class ProfileState{
     }
   }
 
+  @Action(LikeProfilePost)
+  async likedProfilePost(ctx: StateContext<ProfilePostModel>, { postId, userId }: LikeProfilePost){
+    const response = await this.profileApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().ProfilePostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        ProfilePostForm: {
+          model: {
+            posts: posts
+          }
+
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  @Action(DislikeProfilePost)
+  async dislikedProfilePost(ctx: StateContext<ProfilePostModel>, { postId, userId }: DislikeProfilePost){
+    const response = await this.profileApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().ProfilePostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        ProfilePostForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
   @Action(GetComments)
   async getComments(ctx: StateContext<ProfileCommentModel>, {username}: GetComments){
     const response = await this.profileApi.getComments(username);

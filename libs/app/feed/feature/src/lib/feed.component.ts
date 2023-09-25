@@ -3,16 +3,20 @@ import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable, takeUntil, pipe, Subject, take } from 'rxjs';
-import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
 import {
   GetRecommendedCommunities,
   GetRecommendedBooks,
   GetRecommendedMovies,
+  UpdateCommunity,
 } from '@encompass/app/home-page/util';
+import { GetRecommendedPodcasts } from '@encompass/app/home-page/util';
 import { ProfileState } from '@encompass/app/profile/data-access';
-import { ProfileDto } from '@encompass/api/profile/data-access';
-import { SubscribeToProfile } from '@encompass/app/profile/util';
+import {
+  ProfileDto,
+  UpdateProfileRequest,
+} from '@encompass/api/profile/data-access';
+import { SubscribeToProfile, UpdateProfile } from '@encompass/app/profile/util';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CreatePostComponent } from '@encompass/app/create-post/feature';
 import { PostDto, UpdatePostRequest } from '@encompass/api/post/data-access';
@@ -23,19 +27,28 @@ import { SettingsDto } from '@encompass/api/settings/data-access';
 import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { DatePipe } from '@angular/common';
-import { CommunityDto } from '@encompass/api/community/data-access';
-import { MovieDto, PodcastDto } from '@encompass/api/media-recommender/data-access';
+import {
+  CommunityDto,
+  UpdateCommunityRequest,
+} from '@encompass/api/community/data-access';
+import {
+  MovieDto,
+  PodcastDto,
+} from '@encompass/api/media-recommender/data-access';
 import { BookDto } from '@encompass/api/media-recommender/data-access';
 import { strict } from 'assert';
 import { ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { PostsState } from '@encompass/app/posts/data-access';
 import {
+  DislikePostArray,
   GetAllPosts,
   GetLatestPosts,
   GetPopularPosts,
+  LikePostArray,
   UpdatePostArray,
 } from '@encompass/app/posts/util';
+
 
 @Component({
   selector: 'feed',
@@ -53,15 +66,15 @@ export class FeedPage {
     }
   }
 
-
-  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(PostsState.posts) homePosts$! : Observable<PostDto[] | null>;
-  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
-  @Select(HomeState.getCommunities) communities$! : Observable<CommunityDto[] | null>;
-  @Select(HomeState.getMovies) movies$! : Observable<MovieDto[] | null>;
-  @Select(HomeState.getBooks) books$! : Observable<BookDto[] | null>;
-  @Select(HomeState.getPodcasts) podcasts$! : Observable<PodcastDto[] | null>; 
-
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(PostsState.posts) homePosts$!: Observable<PostDto[] | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
+  @Select(HomeState.getCommunities) communities$!: Observable<
+    CommunityDto[] | null
+  >;
+  @Select(HomeState.getMovies) movies$!: Observable<MovieDto[] | null>;
+  @Select(HomeState.getBooks) books$!: Observable<BookDto[] | null>;
+  @Select(HomeState.getPodcasts) podcasts$!: Observable<PodcastDto[] | null>;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -71,6 +84,7 @@ export class FeedPage {
   myCommunities!: CommunityDto[] | null;
   movies!: MovieDto[] | null;
   books!: BookDto[] | null;
+  podcasts!: PodcastDto[] | null;
 
   BookTitle1!: string;
   BookTitle2!: string;
@@ -81,19 +95,28 @@ export class FeedPage {
   BookGenres2!: string[];
   myBookGenres1: string[] = [];
   myBookGenres2: string[] = [];
+  
 
   MovieTitle1!: string;
   MovieTitle2!: string;
+
+  PodcastTitle1!: string;
+  PodcastTitle2!: string;
 
   MovieGenres1!: string[];
   MovieGenres2!: string[];
   myMovieGenres1: string[] = [];
   myMovieGenres2: string[] = [];
 
+  PodcastGenres1!: string[];
+  PodcastGenres2!: string[];
+  myPodcastGenres1: string[] = [];
+  myPodcastGenres2: string[] = [];
+
   reports: boolean[] = [];
   postReported: boolean[] = [];
 
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   shares: number[] = [];
   likes: number[] = [];
@@ -101,16 +124,20 @@ export class FeedPage {
   sharing: boolean[] = [];
   size = 0;
   themeName!: string;
-  colSize=0;
+  colSize = 0;
+
+  isNewFetched = false;
   // type = "recommended";
 
   communitiesIsFetched = false;
   moviesIsFetched = false;
   booksIsFetched = false;
+  podcastsIsFetched = false;
   postsIsFetched = false;
   settingsIsFetched = false;
   ShowBooks = true;
   ShowMovies = true;
+  showPodcasts = true;
   mobileview = false;
 
   type = 'recommended';
@@ -136,7 +163,7 @@ export class FeedPage {
     this.mobileview = window.innerWidth <= 992;
     if (this.mobileview) {
       this.colSize = 12.5;
-    }else{
+    } else {
       this.colSize = 5;
     }
   }
@@ -158,103 +185,108 @@ export class FeedPage {
         console.log(profile);
         this.profile = profile;
         // this.addPosts("recommended");
-        this.newChange();
+        if(!this.isNewFetched){
+          this.isNewFetched = true;
+          this.newChange();
+        }
 
         if (!this.settingsIsFetched) {
           this.settingsIsFetched = true;
 
           this.store.dispatch(new GetUserSettings(this.profile._id));
 
-          this.settings$.pipe(takeUntil(this.unsubscribe$)).subscribe((settings) => {
-            if (settings) {
-              this.settings = settings;
+          this.settings$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((settings) => {
+              if (settings) {
+                this.settings = settings;
 
-              this.document.body.setAttribute(
-                'color-theme',
-                this.settings.themes.themeColor
-              );
-              if (this.settings.themes.themeColor.startsWith('dark')) {
-                const icons = document.getElementById('genreicons');
+                this.document.body.setAttribute(
+                  'color-theme',
+                  this.settings.themes.themeColor
+                );
+                if (this.settings.themes.themeColor.startsWith('dark')) {
+                  const icons = document.getElementById('genreicons');
 
-                if (icons) {
-                  icons.style.filter = 'invert(1)';
+                  if (icons) {
+                    icons.style.filter = 'invert(1)';
+                  }
                 }
-              }
 
-              this.themeName = this.settings.themes.themeColor;
+                this.themeName = this.settings.themes.themeColor;
 
-              console.log(this.themeName);
-
-              const defaultcloud = document.getElementById('cloud-default');
-              const redcloud = document.getElementById('cloud-red');
-              const bluecloud = document.getElementById('cloud-blue');
-              const greencloud = document.getElementById('cloud-green');
-              const orangecloud = document.getElementById('cloud-orange');
-
-              if (
-                defaultcloud &&
-                redcloud &&
-                bluecloud &&
-                greencloud &&
-                orangecloud
-              ) {
-                // console.log('default cloudsssssssssssssssssssssssssssssssss1');
                 console.log(this.themeName);
+
+                const defaultcloud = document.getElementById('cloud-default');
+                const redcloud = document.getElementById('cloud-red');
+                const bluecloud = document.getElementById('cloud-blue');
+                const greencloud = document.getElementById('cloud-green');
+                const orangecloud = document.getElementById('cloud-orange');
+
                 if (
-                  this.themeName == 'light-red' ||
-                  this.themeName == 'dark-red'
+                  defaultcloud &&
+                  redcloud &&
+                  bluecloud &&
+                  greencloud &&
+                  orangecloud
                 ) {
-                  redcloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-blue' ||
-                  this.themeName == 'dark-blue'
-                ) {
-                  // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-                  bluecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-green' ||
-                  this.themeName == 'dark-green'
-                ) {
-                  greencloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
-                } else if (
-                  this.themeName == 'light-orange' ||
-                  this.themeName == 'dark-orange'
-                ) {
-                  orangecloud.classList.remove('visible');
-                  defaultcloud.classList.add('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
+                  // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+                  console.log(this.themeName);
+                  if (
+                    this.themeName == 'light-red' ||
+                    this.themeName == 'dark-red'
+                  ) {
+                    redcloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-blue' ||
+                    this.themeName == 'dark-blue'
+                  ) {
+                    // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                    bluecloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-green' ||
+                    this.themeName == 'dark-green'
+                  ) {
+                    greencloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  } else if (
+                    this.themeName == 'light-orange' ||
+                    this.themeName == 'dark-orange'
+                  ) {
+                    orangecloud.classList.remove('visible');
+                    defaultcloud.classList.add('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                  } else {
+                    defaultcloud.classList.remove('visible');
+                    redcloud.classList.add('visible');
+                    bluecloud.classList.add('visible');
+                    greencloud.classList.add('visible');
+                    orangecloud.classList.add('visible');
+                  }
+                }
+
+                if (page) {
+                  console.log('testing the feed page');
+                  console.log('hello ' + this.settings.themes.themeImage);
+                  page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
                 } else {
-                  defaultcloud.classList.remove('visible');
-                  redcloud.classList.add('visible');
-                  bluecloud.classList.add('visible');
-                  greencloud.classList.add('visible');
-                  orangecloud.classList.add('visible');
+                  console.log('page is null');
                 }
               }
-
-              if (page) {
-                console.log('testing the feed page');
-                console.log('hello ' + this.settings.themes.themeImage);
-                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-              } else {
-                console.log('page is null');
-              }
-            }
-          });
+            });
         }
 
         if (!this.communitiesIsFetched) {
@@ -774,8 +806,7 @@ export class FeedPage {
                     }
                   }
 
-                  console.log('NEW GENRES AFTER REPLACING (1):');
-                  console.log(this.MovieGenres1);
+                 
 
                   this.MovieGenres1 = Array.from(new Set(this.MovieGenres1));
 
@@ -812,9 +843,6 @@ export class FeedPage {
                     }
                   }
 
-                  console.log('NEW GENRES AFTER FILTERING (1):');
-                  console.log(this.myMovieGenres1);
-
                   for (let i = 0; i < this.MovieGenres2.length; i++) {
                     if (
                       this.MovieGenres2[i] == 'Mystery' ||
@@ -826,9 +854,6 @@ export class FeedPage {
                       this.MovieGenres2[i] = 'Science-Fiction';
                     }
                   }
-
-                  console.log('NEW GENRES AFTER REPLACING (2):');
-                  console.log(this.MovieGenres2);
 
                   this.MovieGenres2 = Array.from(new Set(this.MovieGenres2));
 
@@ -864,16 +889,300 @@ export class FeedPage {
                       }
                     }
                   }
-                  console.log('NEW GENRES AFTER FILTERING (2):');
-                  console.log(this.myMovieGenres2);
-
-                  console.log('REFINED GENRES:');
-                  console.log(this.myMovieGenres1);
-                  console.log(this.myMovieGenres2);
+                 
                 }
               }
             }
           });
+        }
+
+        if(!this.podcastsIsFetched){
+            this.podcastsIsFetched=true;
+            this.store.dispatch(new GetRecommendedPodcasts(this.profile._id));
+            this.podcasts$.pipe().subscribe((podcasts) => {
+              if (podcasts) {
+                if (podcasts.length == undefined) {
+                  this.podcastsIsFetched = false;
+                } else {
+                  console.log(podcasts);
+                  this.podcasts = podcasts;
+                  console.log('My Podcasts:');
+                  console.log(this.podcasts);
+                  if (this.podcasts) {
+                    this.PodcastTitle1 = this.podcasts[0].title;
+                    this.PodcastTitle2 = this.podcasts[1].title;
+  
+                    console.log('Podcast Titles:');
+                    console.log(this.PodcastTitle1);
+                    console.log(this.PodcastTitle2);
+  
+                    if (this.podcasts[0].categories) {
+                      const newString = this.podcasts[0].categories.replace(/\s/g, '');
+                      this.PodcastGenres1 = newString.split('|');
+                      console.log('New String: ' + newString);
+                    }
+  
+                    if (this.podcasts[1].categories) {
+                      const newString = this.podcasts[1].categories.replace(/\s/g, '');
+                      this.PodcastGenres2 = newString.split('|');
+                      console.log('New String2: ' + newString);
+                    }
+  
+                    console.log('GENRES AGAIN:');
+                    console.log(this.PodcastGenres1);
+                    console.log(this.PodcastGenres2);
+  
+                    for (let i = 0; i < this.PodcastGenres1.length; i++) {
+                      if (
+                        this.PodcastGenres1[i] == "Places&Travel"||
+                        this.PodcastGenres1[i] == "Regional"||
+                        this.PodcastGenres1[i] == "Hobbies"||
+                        this.PodcastGenres1[i] == "Games&Hobbies"||
+                        this.PodcastGenres1[i] == "Outdoor"||
+                        this.PodcastGenres1[i] == "Sports&Recreation")
+                       {
+                        this.PodcastGenres1[i] = 'Adventure';
+                      } else if (
+                        this.PodcastGenres1[i] == "PerformingArts" || 
+                        this.PodcastGenres1[i] == "VisualArts" || 
+                        this.PodcastGenres1[i] == "Arts" || 
+                        this.PodcastGenres1[i] == "Literature" || 
+                        this.PodcastGenres1[i] == "Design") 
+                        {
+                        this.PodcastGenres1[i] = 'Arts';
+                      } else if (
+                        this.PodcastGenres1[i] == "Professional" || 
+                        this.PodcastGenres1[i] == "Management&Marketing" || 
+                        this.PodcastGenres1[i] == "Government&Organizations" || 
+                        this.PodcastGenres1[i] == "Self-Help" || 
+                        this.PodcastGenres1[i] == "Business" || 
+                        this.PodcastGenres1[i] == "BusinessNews" || 
+                        this.PodcastGenres1[i] == "Careers" || 
+                        this.PodcastGenres1[i] == "News&Politics" || 
+                        this.PodcastGenres1[i] == "Training" || 
+                        this.PodcastGenres1[i] == "Investing" || 
+                        this.PodcastGenres1[i] == "Non-Profit"
+                      ){
+                        this.PodcastGenres1[i] == 'Business';
+                      } else if (
+                        this.PodcastGenres1[i] == "History"||
+                        this.PodcastGenres1[i] == "Podcasting"||
+                        this.PodcastGenres1[i] == "HigherEducation"||
+                        this.PodcastGenres1[i] == "News&Politics"
+                      ){
+                        this.PodcastGenres1[i] == 'Documentary';
+
+                      }else if (
+                        this.PodcastGenres1[i] == "College&High School"||
+                        this.PodcastGenres1[i] == "Society&Culture"
+                      ){
+                        this.PodcastGenres1[i] == 'Drama';
+                      
+                      }else if (
+            
+                        this.PodcastGenres1[i] == "EducationalTechnology"||
+                        this.PodcastGenres1[i] == "Literature"
+                      ){
+                        this.PodcastGenres1[i] = 'Fantasy';
+                      }else if (
+                        this.PodcastGenres1[i] == "Food"
+                      ){
+                        this.PodcastGenres1[i] = 'Food';
+                      }
+                      else if(this.PodcastGenres1[i] == "Science&Medicine"||
+                        this.PodcastGenres1[i] == "NaturalSciences"||
+                        this.PodcastGenres1[i] == "Medicine")
+                        {
+                          this.PodcastGenres1[i] = 'Life-Science';
+                        }
+                        else if(this.PodcastGenres1[i] == "Music"){
+                          this.PodcastGenres1[i] = 'Musical';
+                        }
+                        else if(this.PodcastGenres1[i] == "TechNews"||
+                          this.PodcastGenres1[i] == "EducationalTechnology"||
+                          this.PodcastGenres1[i] == "HigherEducation"||
+                          this.PodcastGenres1[i] == "Technology"||
+                          this.PodcastGenres1[i] == "Gadgets")
+                        {
+                          this.PodcastGenres1[i] = 'Physics';
+                        }
+                        else if(this.PodcastGenres1[i] == "TechNews"||
+                          this.PodcastGenres1[i] == "EducationalTechnology"||
+                          this.PodcastGenres1[i] == "Gadgets"||
+                          this.PodcastGenres1[i] == "Technology"||
+                          this.PodcastGenres1[i] == "SoftwareHow-To"){
+                          this.PodcastGenres1[i] = 'Science-Fiction';
+                          }
+                       
+                      
+                    }
+  
+                
+  
+                    this.PodcastGenres1 = Array.from(new Set(this.PodcastGenres1));
+  
+                    for (let i = 0; i < this.PodcastGenres1.length; i++) {
+                      if (
+                        this.PodcastGenres1[i] == 'Animation' ||
+                        this.PodcastGenres1[i] == 'Anime' ||
+                        this.PodcastGenres1[i] == 'Arts' ||
+                        this.PodcastGenres1[i] == 'Business' ||
+                        this.PodcastGenres1[i] == 'Comedy' ||
+                        this.PodcastGenres1[i] == 'Documentary' ||
+                        this.PodcastGenres1[i] == 'Fantasy' ||
+                        this.PodcastGenres1[i] == 'History' ||
+                        this.PodcastGenres1[i] == 'Horror' ||
+                        this.PodcastGenres1[i] == 'Hospitality' ||
+                        this.PodcastGenres1[i] == 'Life-Science' ||
+                        this.PodcastGenres1[i] == 'Musical' ||
+                        this.PodcastGenres1[i] == 'Mystery' ||
+                        this.PodcastGenres1[i] == 'Physics' ||
+                        this.PodcastGenres1[i] == 'Romance' ||
+                        this.PodcastGenres1[i] == 'Science-Fiction' ||
+                        this.PodcastGenres1[i] == 'War' ||
+                        this.PodcastGenres1[i] == 'Western' ||
+                        this.PodcastGenres1[i] == 'Drama' ||
+                        this.PodcastGenres1[i] == 'Action' ||
+                        this.PodcastGenres1[i] == 'Geography' ||
+                        this.PodcastGenres1[i] == 'Mathematics' ||
+                        this.PodcastGenres1[i] == 'Adventure'
+                      ) {
+                        this.myPodcastGenres1.push(this.PodcastGenres1[i]);
+                        if (this.myPodcastGenres1.length == 3) {
+                          break;
+                        }
+                      }
+                    }
+  
+                    
+  
+                    for (let i = 0; i < this.PodcastGenres2.length; i++) {
+                      if (
+                        this.PodcastGenres2[i] == "Places & Travel"||
+                        this.PodcastGenres2[i] == "Regional"||
+                        this.PodcastGenres2[i] == "Hobbies"||
+                        this.PodcastGenres2[i] == "Games & Hobbies"||
+                        this.PodcastGenres2[i] == "Outdoor"||
+                        this.PodcastGenres2[i] == "Sports & Recreation")
+                       {
+                        this.PodcastGenres2[i] = 'Adventure';
+                      } else if (
+                        this.PodcastGenres2[i] == "Performing Arts" || 
+                        this.PodcastGenres2[i] == "Visual Arts" || 
+                        this.PodcastGenres2[i] == "Arts" || 
+                        this.PodcastGenres2[i] == "Literature" || 
+                        this.PodcastGenres2[i] == "Design") 
+                        {
+                        this.PodcastGenres2[i] = 'Arts';
+                      } else if (
+                        this.PodcastGenres2[i] == "Professional" || 
+                        this.PodcastGenres2[i] == "Management & Marketing" || 
+                        this.PodcastGenres2[i] == "Government & Organizations" || 
+                        this.PodcastGenres2[i] == "Self-Help" || 
+                        this.PodcastGenres2[i] == "Business" || 
+                        this.PodcastGenres2[i] == "Business News" || 
+                        this.PodcastGenres2[i] == "Careers" || 
+                        this.PodcastGenres2[i] == "News & Politics" || 
+                        this.PodcastGenres2[i] == "Training" || 
+                        this.PodcastGenres2[i] == "Investing" || 
+                        this.PodcastGenres2[i] == "Non-Profit"
+                      ){
+                        this.PodcastGenres2[i] == 'Business';
+                      } else if (
+                        this.PodcastGenres2[i] == "History"||
+                        this.PodcastGenres2[i] == "Podcasting"||
+                        this.PodcastGenres2[i] == "Higher Education"||
+                        this.PodcastGenres2[i] == "News & Politics"
+                      ){
+                        this.PodcastGenres2[i] == 'Documentary';
+
+                      }else if (
+                        this.PodcastGenres2[i] == "College & High School"||
+                        this.PodcastGenres2[i] == "Society & Culture"
+                      ){
+                        this.PodcastGenres2[i] == 'Drama';
+                      
+                      }else if (
+            
+                        this.PodcastGenres2[i] == "Educational Technology"||
+                        this.PodcastGenres2[i] == "Literature"
+                      ){
+                        this.PodcastGenres2[i] = 'Fantasy';
+                      }else if (
+                        this.PodcastGenres2[i] == "Food"
+                      ){
+                        this.PodcastGenres2[i] = 'Food';
+                      }
+                      else if(this.PodcastGenres2[i] == "Science & Medicine"||
+                        this.PodcastGenres2[i] == "Natural Sciences"||
+                        this.PodcastGenres2[i] == "Medicine")
+                        {
+                          this.PodcastGenres2[i] = 'Life-Science';
+                        }
+                        else if(this.PodcastGenres2[i] == "Music"){
+                          this.PodcastGenres2[i] = 'Musical';
+                        }
+                        else if(this.PodcastGenres2[i] == "Tech News"||
+                          this.PodcastGenres2[i] == "Educational Technology"||
+                          this.PodcastGenres2[i] == "Higher Education"||
+                          this.PodcastGenres2[i] == "Technology"||
+                          this.PodcastGenres2[i] == "Gadgets")
+                        {
+                          this.PodcastGenres2[i] = 'Physics';
+                        }
+                        else if(this.PodcastGenres2[i] == "Tech News"||
+                          this.PodcastGenres2[i] == "Educational Technology"||
+                          this.PodcastGenres2[i] == "Gadgets"||
+                          this.PodcastGenres2[i] == "Technology"||
+                          this.PodcastGenres2[i] == "Software How-To"){
+                          this.PodcastGenres2[i] = 'Science-Fiction';
+                          }
+                       
+                      
+                    }
+  
+                
+  
+                    this.PodcastGenres2 = Array.from(new Set(this.PodcastGenres2));
+  
+                    for (let i = 0; i < this.PodcastGenres2.length; i++) {
+                      if (
+                        this.PodcastGenres2[i] == 'Animation' ||
+                        this.PodcastGenres2[i] == 'Anime' ||
+                        this.PodcastGenres2[i] == 'Arts' ||
+                        this.PodcastGenres2[i] == 'Business' ||
+                        this.PodcastGenres2[i] == 'Comedy' ||
+                        this.PodcastGenres2[i] == 'Documentary' ||
+                        this.PodcastGenres2[i] == 'Fantasy' ||
+                        this.PodcastGenres2[i] == 'History' ||
+                        this.PodcastGenres2[i] == 'Horror' ||
+                        this.PodcastGenres2[i] == 'Hospitality' ||
+                        this.PodcastGenres2[i] == 'Life-Science' ||
+                        this.PodcastGenres2[i] == 'Musical' ||
+                        this.PodcastGenres2[i] == 'Mystery' ||
+                        this.PodcastGenres2[i] == 'Physics' ||
+                        this.PodcastGenres2[i] == 'Romance' ||
+                        this.PodcastGenres2[i] == 'Science-Fiction' ||
+                        this.PodcastGenres2[i] == 'War' ||
+                        this.PodcastGenres2[i] == 'Western' ||
+                        this.PodcastGenres2[i] == 'Drama' ||
+                        this.PodcastGenres2[i] == 'Action' ||
+                        this.PodcastGenres2[i] == 'Geography' ||
+                        this.PodcastGenres2[i] == 'Mathematics' ||
+                        this.PodcastGenres2[i] == 'Adventure'
+                      ) {
+                        this.myPodcastGenres2.push(this.PodcastGenres2[i]);
+                        if (this.myPodcastGenres2.length == 3) {
+                          break;
+                        }
+                      }
+                    }
+                   
+                   
+                  }
+                }
+              }
+            });
         }
       }
     });
@@ -1016,7 +1325,7 @@ export class FeedPage {
   async openPopup() {
     const modal = await this.modalController.create({
       component: CreatePostComponent,
-      cssClass: 'custom-modal', 
+      cssClass: 'custom-modal',
       componentProps: {},
     });
 
@@ -1026,7 +1335,7 @@ export class FeedPage {
   async openPopup2() {
     const modal = await this.modalController.create({
       component: CreateCommunityComponent,
-      cssClass: 'custom-modal', 
+      cssClass: 'custom-modal',
       componentProps: {},
     });
 
@@ -1054,74 +1363,19 @@ export class FeedPage {
   }
 
   Like(n: number, post: PostDto) {
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
     if (this.profile == null) {
       return;
     }
 
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.homeApi.addCoins(post.username, 1);
-    // this.updatePosts();
-    // this.addPosts();
+    this.store.dispatch(new LikePostArray(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
-    console.log('dislike');
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
     if (this.profile == null) {
       return;
     }
 
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.homeApi.removeCoins(post.username, 1);
-
-    // this.addPosts();
+    this.store.dispatch(new DislikePostArray(post._id, this.profile._id));
   }
 
   ReportPost(n: number, post: PostDto) {
@@ -1138,6 +1392,7 @@ export class FeedPage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -1168,6 +1423,7 @@ export class FeedPage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
@@ -1198,18 +1454,18 @@ export class FeedPage {
     }
   }
 
-  selectedSegment = 'recommended';
+  selectedSegment = 'new';
 
-segmentChanged(event: any) {
-  this.selectedSegment = event.detail.value;
-  if (this.selectedSegment === 'recommended') {
-    this.recChange();
-  } else if (this.selectedSegment === 'new') {
-    this.newChange();
-  } else if (this.selectedSegment === 'popular') {
-    this.popChange();
+  segmentChanged(event: any) {
+    this.selectedSegment = event.detail.value;
+    if (this.selectedSegment === 'recommended') {
+      this.recChange();
+    } else if (this.selectedSegment === 'new') {
+      this.newChange();
+    } else if (this.selectedSegment === 'popular') {
+      this.popChange();
+    }
   }
-}
 
   recChange() {
     for (let k = 0; k < this.reports.length; k++) {
@@ -1220,15 +1476,6 @@ segmentChanged(event: any) {
 
     this.type = 'recommended';
     this.addPosts();
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-
-    if (recBtn && newBtn && popBtn) {
-      recBtn.classList.add('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.remove('active-button');
-    }
   }
 
   newChange() {
@@ -1240,15 +1487,6 @@ segmentChanged(event: any) {
 
     this.type = 'latest';
     this.addPosts();
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-
-    if (recBtn && newBtn && popBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.add('active-button');
-      popBtn.classList.remove('active-button');
-    }
   }
 
   popChange() {
@@ -1260,15 +1498,6 @@ segmentChanged(event: any) {
 
     this.type = 'popular';
     this.addPosts();
-    const recBtn = document.getElementById('recommendedBtn');
-    const newBtn = document.getElementById('newBtn');
-    const popBtn = document.getElementById('popularBtn');
-
-    if (recBtn && newBtn && popBtn) {
-      recBtn.classList.remove('active-button');
-      newBtn.classList.remove('active-button');
-      popBtn.classList.add('active-button');
-    }
   }
 
   GoToComments(postId: string) {
@@ -1289,6 +1518,8 @@ segmentChanged(event: any) {
 
   handleButtonClick(buttonId: string, CommunityName: string) {
     this.buttonStates[buttonId] = !this.buttonStates[buttonId];
+
+    this.joinCommunity(CommunityName);
   }
 
   activebutton = 'all';
@@ -1298,37 +1529,104 @@ segmentChanged(event: any) {
     const all = document.getElementById('all');
     const books = document.getElementById('books');
     const movies = document.getElementById('movies');
+    const podcasts = document.getElementById('podcasts');
     // const series = document.getElementById('series');
-    if (all && books && movies) {
+    if (all && books && movies && podcasts) {
       if (btnname == 'all') {
         this.ShowMovies = true;
         this.ShowBooks = true;
+        this.showPodcasts = true;
         all.classList.add('active-select');
         books.classList.remove('active-select');
         movies.classList.remove('active-select');
-        // series.classList.remove('active-select');
+        podcasts.classList.remove('active-select');
       } else if (btnname == 'books') {
         this.ShowMovies = false;
         this.ShowBooks = true;
+        this.showPodcasts = false;
         all.classList.remove('active-select');
         books.classList.add('active-select');
         movies.classList.remove('active-select');
-        // series.classList.remove('active-select');
+        podcasts.classList.remove('active-select');
       } else if (btnname == 'movies') {
         this.ShowMovies = true;
         this.ShowBooks = false;
+        this.showPodcasts = false;
         all.classList.remove('active-select');
         books.classList.remove('active-select');
         movies.classList.add('active-select');
-        // series.classList.remove('active-select');
-      } else if (btnname == 'series') {
+        podcasts.classList.remove('active-select'); 
+      } else if (btnname == 'podcasts') {
+        this.ShowMovies = false;
+        this.ShowBooks = false;
+        this.showPodcasts = true;
         all.classList.remove('active-select');
         books.classList.remove('active-select');
         movies.classList.remove('active-select');
-        // series.classList.add('active-select');
+        podcasts.classList.add('active-select');
       }
     }
   }
 
+  joinCommunity(communityName: string) {
+    if (this.profile === null) {
+      return;
+    }
+
+    const data: UpdateProfileRequest = {
+      username: this.profile.username,
+      name: this.profile.name,
+      lastName: this.profile.lastName,
+      categories: this.profile.categories,
+      communities: [...this.profile.communities, communityName],
+      awards: this.profile.awards,
+      events: this.profile.events,
+      followers: this.profile.followers,
+      following: this.profile.following,
+      posts: this.profile.posts,
+      reviews: this.profile.reviews,
+      profileImage: this.profile.profileImage,
+      profileBanner: this.profile.profileBanner,
+      bio: this.profile.bio,
+    };
+
+    this.store.dispatch(new UpdateProfile(data, this.profile._id));
+
+    const community = this.myCommunities?.find(
+      (comm) => comm.name === communityName
+    );
+
+    if (community) {
+      const members = [...community.members, this.profile.username];
+      const newEP = community.communityEP + this.profile.ep;
+
+      const data2: UpdateCommunityRequest = {
+        name: community.name,
+        type: community.type,
+        admin: community.admin,
+        about: community.about,
+        rules: community.rules,
+        groupImage: community.groupImage,
+        bannerImage: community.bannerImage,
+        categories: community.categories,
+        events: community.events,
+        posts: community.posts,
+        members: members,
+        ageRestricted: community.ageRestricted,
+        communityEP: newEP,
+      };
+
+      this.store.dispatch(new UpdateCommunity(community._id, data2));
+    }
+  }
+
   showTooltip = false;
+
+  getAuthorName(fullName: string): string {
+    const commaIndex = fullName.indexOf(',');
+    if (commaIndex !== -1) {
+      return fullName.substring(0, commaIndex).trim();
+    }
+    return fullName;
+  }
 }

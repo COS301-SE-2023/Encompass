@@ -310,6 +310,83 @@ ion-button:hover {
   width: 97%;
 }
 
+.EventList{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Event {
+  width: 350px;
+  height: 150px;
+  border-radius: 25px;
+  background-color: var(--ion-color-secondary-tint);
+  z-index: 1;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.EventHead {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-family: CustomFont;
+}
+.EventName {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+  color: var(--hover-color);
+}
+.Host {
+  font-size: 15px;
+  margin-left: 10px;
+  color: var(--ion-color-medium);
+}
+.EventBody {
+  width: 100%;
+  height: 40%;
+  color: var(--ion-color-medium);
+  font-family: CustomFont2;
+  padding: 2%;
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+.EventFooter {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: CustomFont2;
+}
+.EventDetails {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+}
+.Eventtooltip {
+  position: relative;
+  display: inline-block;
+}
+.EventLock {
+  margin-right: 5%;
+  font-size: 20px;
+  color: var(--ion-color-medium);
+}
+
 .active-button {
   color: var(--hover-color);
   font-weight: bold;
@@ -478,16 +555,22 @@ ion-card {
 }
 
 .CommunityOptions {
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: right;
   width: 25%;
   height: 100%;
+  margin-top:50px;
+  padding-left: 120px;
 }
 
 .ListOfOptions {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  // justify-content: space-evenly;
+  gap: 35px;
+  position: relative;
+  right: 0%;
+  // top: 50%;
 }
 .Join {
   padding: 10px 20px 10px 20px;
@@ -633,11 +716,14 @@ ion-card {
 
 .EditButtons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 90px;
   width: 100%;
 }
 
-.EditButtons Button {
+.editBtn {
+  position: relative;
+  z-index: 1;
   width: 20%;
   color: black;
   background-color: #dadada;
@@ -647,14 +733,14 @@ ion-card {
   margin-left: 2%;
   margin-right: 2%;
 }
-.EditButtons Button:hover {
-  color: white;
-  background-color: var(--hover-color);
-}
+// .EditButtons Button:hover {
+//   color: white;
+//   background-color: var(--hover-color);
+// }
 
 .Image {
-  width: 15%;
-  padding: 2%;
+  position: relative;
+  display: inline-block;
 }
 
 .textInput {
@@ -664,8 +750,8 @@ ion-card {
 }
 
 .icon {
-  margin-left: 5%;
-  margin-right: 5%;
+  // margin-left: 5%;
+  // margin-right: 5%;
   font-size: 25px;
 }
 
@@ -736,30 +822,29 @@ ion-card {
 }
 
 .RmvBtn {
+  color: var(--ion-color-text);
   margin-right: 5%;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 25px;
-  border: 1px solid var(--ion-color-primary-contrast);
-  padding: 1%;
+  padding: 2%;
+  background-color: var(--ion-color-secondary);
 }
 
 .RmvBtn:hover {
-  color: red;
-  border-color: red;
+  color: var(--hover-color);
 }
 
 .RmvBtn2 {
+  color: var(--ion-color-text);
   margin-right: 5%;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 25px;
-  border: 1px solid var(--ion-color-primary-contrast);
-  padding: 1%;
-  color: red;
+  padding: 2%;
+  background-color: var(--ion-color-secondary);
 }
 
 .RmvBtn:hover {
-  color: red;
-  border-color: red;
+  color: var(--hover-color);
 }
 
 .Button3 {
@@ -781,6 +866,7 @@ ion-card {
   display: flex;
   justify-content: center;
   margin-top: 2%;
+  background-color: none;
 }
 
 .reject2 {
@@ -788,10 +874,7 @@ ion-card {
   color: var(--ion-color-primary);
   margin: 1%;
 }
-.reject2:hover {
-  color: red;
-  cursor: pointer;
-}
+
 
 .accept2 {
   font-size: 40px;
@@ -799,11 +882,19 @@ ion-card {
   margin: 1%;
 }
 
-.accept2:hover {
-  color: green;
-  cursor: pointer;
+.memberBtn:hover {
+  .reject2 {
+    color: red;
+    cursor: pointer;
+  }
 }
 
+.memberBtn2:hover {
+  .accept2 {
+    color: green;
+    cursor: pointer;
+  }
+}
 //posts
 .imgDiv {
   width: 25px;
@@ -1038,4 +1129,22 @@ ion-card {
 
 .visible {
   display: none;
+}
+
+.file-input {
+  position: absolute;
+  // top: 0;
+  // left: 0;
+  // width: 100%;
+  // height: 100%;
+  margin-top: 10px;
+  margin-left: 10px;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  width: 135px;
+  height: 30px;
 }

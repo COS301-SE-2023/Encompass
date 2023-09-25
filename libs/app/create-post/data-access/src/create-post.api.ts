@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { CommunityDto } from "@encompass/api/community/data-access";
 import { CreateEventRequest, EventDto } from "@encompass/api/event/data-access";
 import { CreatePostRequest, PostDto } from "@encompass/api/post/data-access";
+import { UserEventsDto } from "@encompass/api/user-events/data-access";
 
 export interface fileReturn{
   key: string,
@@ -70,7 +71,7 @@ export class CreatePostApi{
 
   async addToUserEvents(userId: string, eventId: string){
     try{
-      const response = await this.httpClient.patch<CommunityDto>('/api/user-events/add-event/' + userId + "/" + eventId, {}).toPromise();
+      const response = await this.httpClient.patch<UserEventsDto>('/api/user-events/add-event/' + userId + "/" + eventId, {}).toPromise();
 
       return response;
     }

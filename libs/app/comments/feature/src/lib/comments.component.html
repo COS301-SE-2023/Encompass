@@ -48,15 +48,8 @@
       </div>
     </div>
     <div class="PostFooter" *ngIf="post !== null">
-      <!-- <div class="date" *ngIf="post.dateAdded.length === 21">
-        {{ post.dateAdded.slice(0, 9) }}
-      </div>
-      <div class="date" *ngIf="post.dateAdded.length !== 21">
-        {{ post.dateAdded.slice(0, 10) }}
-      </div> -->
-
       <div class="date">
-        {{post?.dateAdded}}
+        {{post?.dateAdded | date: 'yyyy-MM-dd'}}
       </div>
 
       <div class="icons">
@@ -86,7 +79,7 @@
       </div>
     </div>
     <br />
-    <div class="CommentAddition" *ngIf="!commentBool">
+    <!-- <div class="CommentAddition" *ngIf="!commentBool">
       <button class="AddCommentBtn" (click)="CancelComment()">
         Add Comment
       </button>
@@ -129,7 +122,6 @@
       <br />
       <div class="TextHead">
         <ion-textarea
-          [(ngModel)]="inputValue"
           (input)="checkInput()"
           placeholder="Add a Comment"
           formControlName="comment"
@@ -139,8 +131,37 @@
         >
         </ion-textarea>
       </div>
-    </form>
+    </form> -->
+   
+   <form [formGroup]="commentForm" style="display: flex;justify-content: center;">
+    <div class="input-box">
+      <ion-input
+        class="input"
+        placeholder="Add a new comment..."
+        (keyup.enter)="AddComment()"
+        formControlName="comment"
+      ></ion-input>
 
+      <ion-button
+        fill="clear"
+        *ngIf="isValid"
+        type="submit"
+        (click)="AddComment()"
+      >
+        <ion-icon name="send" class="icon1"></ion-icon>
+      </ion-button>
+      <ion-button
+        id="sendBtn"
+        fill="clear"
+        *ngIf="!isValid"
+        disabled="true"
+        type="submit"
+        (click)="AddComment()"
+      >
+        <ion-icon name="send" class="icon2"></ion-icon>
+      </ion-button>
+    </div>
+   </form> 
     <br />
     <div class="lineBreakers" *ngFor="let comment of comments; let i = index">
       <div class="Comment">
@@ -255,6 +276,7 @@
             </div>
           </div>
         </div>
+        <div *ngIf="i!==comments.length-1"class = "border"></div>
       </div>
     </div>
   </ion-card>
@@ -311,8 +333,7 @@
           </div>
         </div>
         <div class = "PostFooter" *ngIf="post !== null">
-          <div class = "date" *ngIf="post.dateAdded.length === 21">{{post.dateAdded.slice(0, 9)}}</div>
-          <div class = "date" *ngIf="post.dateAdded.length !== 21">{{post.dateAdded.slice(0, 10)}}</div>
+          <div class = "date">{{post?.dateAdded | date: 'yyyy-MM-dd'}}</div>
          
             <div class = "icons">
               <div style = "text-align: center;">

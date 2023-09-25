@@ -20,6 +20,7 @@ export class PostFactory implements EntityFactory<Post>{
     communityImageUrl: string | null,
     categories: string[],
     likes: string[],
+    dislikes: string[],
     spoiler: boolean,
     ageRestricted: boolean,
     isPrivate: boolean
@@ -34,7 +35,8 @@ export class PostFactory implements EntityFactory<Post>{
       communityImageUrl,
       categories,
       likes,
-      this.createDateTimeAsString(),
+      dislikes,
+      new Date(),
       spoiler,
       ageRestricted,
       0,

@@ -25,7 +25,7 @@ import {
   UpdateProfileSettings,
 } from '@encompass/app/settings/util';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { AlertController, AlertInput, IonContent } from '@ionic/angular';
+import { AlertController, AlertInput, IonContent, ToastController } from '@ionic/angular';
 import { AnimationController } from '@ionic/angular';
 import { AccountDto } from '@encompass/api/account/data-access';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
@@ -57,7 +57,7 @@ export class SettingsPage {
   newPassword!: string;
   confirmNewPassword!: string;
 
-  selectedOption = "option"
+  selectedOption = 'option';
 
   requiredFileType = ['image/png', 'image/jpg', 'image/jpeg'];
 
@@ -78,7 +78,8 @@ export class SettingsPage {
     private store: Store,
     private animationCtrl: AnimationController,
     private settingsApi: SettingsApi,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
@@ -163,50 +164,27 @@ export class SettingsPage {
     this.labelHidden = !show;
   }
 
+  accBtn = true;
+  proBtn = false;
+  notBtn = false;
+
   eventChange(btnName: string) {
-    const accBtn = document.getElementById('accBtn');
-    const proBtn = document.getElementById('proBtn');
-    const notBtn = document.getElementById('notBtn');
-    const messBtn = document.getElementById('messBtn');
+    if (btnName == 'accBtn') {
+      this.accBtn = true;
+      this.proBtn = false;
+      this.notBtn = false;
+    }
 
-    if (accBtn && proBtn && notBtn && messBtn) {
-      if (btnName == 'accBtn') {
-        accBtn.classList.add('active-button');
-        proBtn.classList.remove('active-button');
-        notBtn.classList.remove('active-button');
-        messBtn.classList.remove('active-button');
-      }
+    if (btnName == 'proBtn') {
+      this.accBtn = false;
+      this.proBtn = true;
+      this.notBtn = false;
+    }
 
-      if (btnName == 'proBtn') {
-        accBtn.classList.remove('active-button');
-        proBtn.classList.add('active-button');
-        notBtn.classList.remove('active-button');
-        messBtn.classList.remove('active-button');
-      }
-
-      if (btnName == 'notBtn') {
-        accBtn.classList.remove('active-button');
-        proBtn.classList.remove('active-button');
-        notBtn.classList.add('active-button');
-        messBtn.classList.remove('active-button');
-      }
-
-      if (btnName == 'messBtn') {
-        accBtn.classList.remove('active-button');
-        proBtn.classList.remove('active-button');
-        notBtn.classList.remove('active-button');
-        messBtn.classList.add('active-button');
-      }
-    } else {
-      if (accBtn == null) {
-        console.log('accBtn is null');
-      } else if (proBtn == null) {
-        console.log('proBtn is null');
-      } else if (notBtn == null) {
-        console.log('notBtn is null');
-      } else if (messBtn == null) {
-        console.log('messBtn is null');
-      }
+    if (btnName == 'notBtn') {
+      this.accBtn = false;
+      this.proBtn = false;
+      this.notBtn = true;
     }
   }
 
@@ -298,6 +276,13 @@ export class SettingsPage {
       let imageUrl: string | null;
       let bannerUrl: string | null;
 
+      const toast = await this.toastController.create({
+        message: 'Updating Profile',
+        color: 'success',
+      });
+
+      toast.present();
+
       if (this.profileFile) {
         imageUrl = await this.uploadImage(this.profileFile, this.profileName);
 
@@ -338,6 +323,7 @@ export class SettingsPage {
       };
 
       this.store.dispatch(new UpdateProfile(data, this.profile._id));
+      toast.dismiss();
     }
   }
 

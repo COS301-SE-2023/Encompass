@@ -124,11 +124,8 @@
                 </div>
               </div>
               <div class="PostFooter">
-                <div class="date" *ngIf="post.dateAdded.length == 21">
-                  {{ post.dateAdded.slice(0, 9) }}
-                </div>
-                <div class="date" *ngIf="post.dateAdded.length != 21">
-                  {{ post.dateAdded.slice(0, 10) }}
+                <div class="date">
+                  {{ post.dateAdded | date: 'yyyy-MM-dd' }}
                 </div>
 
                 <div class="icons">
@@ -165,7 +162,7 @@
                         *ngIf="post.likes.includes(profile.username)"
                         id="icons2"
                         style="color: red"
-                        (click)="Dislike(i, post)"
+                        (click)="Like(i, post)"
                       ></ion-icon>
                       <ion-icon
                         name="heart-outline"
@@ -174,6 +171,24 @@
                         (click)="Like(i, post)"
                       ></ion-icon>
                       <div>{{ post.likes.length }}</div>
+                    </div>
+                  </div>
+                  <div style="text-align: center">
+                    <div *ngIf="profile != null">
+                      <ion-icon
+                        name="heart-dislike"
+                        *ngIf="post.dislikes.includes(profile.username)"
+                        id="icons2"
+                        style="color: red"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <ion-icon
+                        name="heart-dislike-outline"
+                        id="icons2"
+                        *ngIf="!post.dislikes.includes(profile.username)"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <div>{{ post.dislikes.length }}</div>
                     </div>
                   </div>
                 </div>
@@ -204,6 +219,9 @@
                 src="{{ userProfile?.profileBanner }}"
                 onerror="this.src='assets/icon/Banner.png';"
               />
+              <ion-button fill="clear" class="pointsBtn">
+                {{userProfile?.ep}} EP
+              </ion-button>
             </div>
             <ion-card-header>
               <ion-card-title
@@ -254,11 +272,11 @@
                   {{ userPosts?.length }} <br />
                   Posts
                 </div>
-                <div id="follow-trigger" class="profile-info">
+                <div id="follow-trigger" class="profile-info" (click)="loadFollowers()">
                   {{ userProfile.followers.length }}<br />
                   Followers
                 </div>
-                <div id="following-trigger" class="profile-info">
+                <div id="following-trigger" class="profile-info" (click)="loadFollowing()">
                   {{ userProfile.following.length }} <br />
                   Following
                 </div>
@@ -267,12 +285,24 @@
           </ion-card>
           <ion-card *ngIf="!ViewCommunities">
             <div class="CommunityHead">
-              <button (click)="OpenView()" class="Button3">Communities:</button>
+              <ion-chip class="Button3" (click)="OpenView()">
+                <ion-label>Communities</ion-label>
+                <ion-icon
+                  style="color: var(--ion-color-background)"
+                  name="chevron-down-outline"
+                ></ion-icon>
+              </ion-chip>
             </div>
           </ion-card>
           <ion-card *ngIf="ViewCommunities">
             <div class="CommunityHead">
-              <button (click)="OpenView()" class="Button3">Communities:</button>
+              <ion-chip class="Button3" (click)="OpenView()">
+                <ion-label>Communities</ion-label>
+                <ion-icon
+                  style="color: var(--ion-color-background)"
+                  name="chevron-up-outline"
+                ></ion-icon>
+              </ion-chip>
             </div>
             <div
               class="ViewCommunity"
@@ -288,112 +318,76 @@
         </div>
 
         <ion-modal
-          #modal
-          trigger="follow-trigger"
-          [presentingElement]="presentingElement"
-        >
-          <ng-template>
-            <ion-header>
-              <ion-toolbar>
-                <ion-title>Followers</ion-title>
-              </ion-toolbar>
-            </ion-header>
-            <ion-content>
-              <ion-list>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Connor Smith</h2>
-                    <p>Sales Rep</p>
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Daniel Smith</h2>
-                    <p>Product Designer</p>
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Greg Smith</h2>
-                    <p>Director of Operations</p>
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Zoey Smith</h2>
-                    <p>CEO</p>
-                  </ion-label>
-                </ion-item>
-              </ion-list>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
+      #modal
+      trigger="follow-trigger"
+      [isOpen]="isModalOpen"
+      [presentingElement]="presentingElement"
+    >
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Followers</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <div *ngFor="let user of otherUsers">
+              <ion-item (click)="goToProfile(user?.username)" class="User">
+                <ion-avatar slot="start">
+                  <img
+                    src="{{ user?.profileImage }}"
+                    onerror="this.src='assets/icon/Profile.png';"
+                  />
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ user?.name }} {{ user?.lastName }}</h2>
+                  <p>@{{ user?.username }}</p>
+                </ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
 
-        <ion-modal
-          #modal
-          trigger="following-trigger"
-          [presentingElement]="presentingElement2"
-        >
-          <ng-template>
-            <ion-header>
-              <ion-toolbar>
-                <ion-title>Following</ion-title>
-              </ion-toolbar>
-            </ion-header>
-            <ion-content>
-              <ion-list>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Connor Smith</h2>
-                    <p>Sales Rep</p>
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Daniel Smith</h2>
-                    <p>Product Designer</p>
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Greg Smith</h2>
-                    <p>Director of Operations</p>
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-avatar slot="start">
-                    <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>Zoey Smith</h2>
-                    <p>CEO</p>
-                  </ion-label>
-                </ion-item>
-              </ion-list>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
+    <ion-modal
+      #modal
+      trigger="following-trigger"
+      [isOpen]="isModal2Open"
+      [presentingElement]="presentingElement2"
+    >
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Following</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen2(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <div *ngFor="let user of otherUsers">
+              <ion-item (click)="goToProfile(user?.username)" class="User">
+                <ion-avatar slot="start">
+                  <img
+                    src="{{ user?.profileImage }}"
+                    onerror="this.src='assets/icon/Profile.png';"
+                  />
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ user?.name }} {{ user?.lastName }}</h2>
+                  <p>@{{ user?.username }}</p>
+                </ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
 
         <!-- <div class="awards">
           <ion-title class="awards-header">
@@ -500,6 +494,9 @@
             src="{{ userProfile?.profileBanner }}"
             onerror="this.src='assets/icon/Banner.png';"
           />
+          <ion-button fill="clear" class="pointsBtn">
+            {{userProfile?.ep}} EP
+          </ion-button>
         </div>
         <ion-card-header>
           <ion-card-title
@@ -677,11 +674,8 @@
             </div>
           </div>
           <div class="PostFooter">
-            <div class="date" *ngIf="post.dateAdded.length == 21">
-              {{ post.dateAdded.slice(0, 9) }}
-            </div>
-            <div class="date" *ngIf="post.dateAdded.length != 21">
-              {{ post.dateAdded.slice(0, 10) }}
+            <div class="date">
+              {{ post.dateAdded | date: 'yyyy-MM-dd' }}
             </div>
 
             <div class="icons">
@@ -718,7 +712,7 @@
                     *ngIf="post.likes.includes(profile.username)"
                     id="icons2"
                     style="color: red"
-                    (click)="Dislike(i, post)"
+                    (click)="Like(i, post)"
                   ></ion-icon>
                   <ion-icon
                     name="heart-outline"
@@ -727,6 +721,24 @@
                     (click)="Like(i, post)"
                   ></ion-icon>
                   <div>{{ post.likes.length }}</div>
+                </div>
+              </div>
+              <div style="text-align: center">
+                <div *ngIf="profile != null">
+                  <ion-icon
+                    name="heart-dislike"
+                    *ngIf="post.dislikes.includes(profile.username)"
+                    id="icons2"
+                    style="color: red"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <ion-icon
+                    name="heart-dislike-outline"
+                    id="icons2"
+                    *ngIf="!post.dislikes.includes(profile.username)"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <div>{{ post.dislikes.length }}</div>
                 </div>
               </div>
             </div>
@@ -739,8 +751,8 @@
     <ion-modal
       #modal
       trigger="follow-trigger"
-      [presentingElement]="presentingElement"
       [isOpen]="isModalOpen"
+      [presentingElement]="presentingElement"
     >
       <ng-template>
         <ion-header>
@@ -753,48 +765,61 @@
         </ion-header>
         <ion-content>
           <ion-list>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Connor Smith</h2>
-                <p>Sales Rep</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Daniel Smith</h2>
-                <p>Product Designer</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Greg Smith</h2>
-                <p>Director of Operations</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Zoey Smith</h2>
-                <p>CEO</p>
-              </ion-label>
-            </ion-item>
+            <div *ngFor="let user of otherUsers">
+              <ion-item (click)="goToProfile(user?.username)" class="User">
+                <ion-avatar slot="start">
+                  <img
+                    src="{{ user?.profileImage }}"
+                    onerror="this.src='assets/icon/Profile.png';"
+                  />
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ user?.name }} {{ user?.lastName }}</h2>
+                  <p>@{{ user?.username }}</p>
+                </ion-label>
+              </ion-item>
+            </div>
           </ion-list>
         </ion-content>
       </ng-template>
     </ion-modal>
 
     <ion-modal
+      #modal
+      trigger="following-trigger"
+      [isOpen]="isModal2Open"
+      [presentingElement]="presentingElement2"
+    >
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Following</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen2(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <div *ngFor="let user of otherUsers">
+              <ion-item (click)="goToProfile(user?.username)" class="User">
+                <ion-avatar slot="start">
+                  <img
+                    src="{{ user?.profileImage }}"
+                    onerror="this.src='assets/icon/Profile.png';"
+                  />
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ user?.name }} {{ user?.lastName }}</h2>
+                  <p>@{{ user?.username }}</p>
+                </ion-label>
+              </ion-item>
+            </div>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    <!-- <ion-modal
       #modal
       trigger="following-trigger"
       [presentingElement]="presentingElement2"
@@ -850,7 +875,7 @@
           </ion-list>
         </ion-content>
       </ng-template>
-    </ion-modal>
+    </ion-modal> -->
 
     <!-- =========================================for integration=============================================== -->
     <!-- <ion-modal

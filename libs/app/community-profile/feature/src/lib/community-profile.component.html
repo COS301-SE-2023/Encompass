@@ -50,35 +50,39 @@
             ></ion-textarea>
           </div>
 
-          <div class="EditButtons">
-            <button [hidden]="hasImage" (click)="insertImage()">
-              Change Photo
-            </button>
-            <div [hidden]="!hasImage" class="Image">
+          <div class="EditButtons" style="margin-left: 20px;">
+            
+            
               <input
                 type="file"
                 class="file-input"
                 [accept]="requiredFileType"
                 (change)="onFileSelected($event)"
                 #fileUpload
+                style="margin-right: 580px;"
               />
-            </div>
+              <button style="margin-left: 20px;" class="editBtn" (click)="insertImage()">
+                Change Photo
+              </button>
+            
 
-            <button [hidden]="hasBanner" (click)="insertBanner()">
-              Change Banner
-            </button>
-            <div [hidden]="!hasBanner" class="Image">
+            
+           
               <input
                 type="file"
                 class="file-input"
                 [accept]="requiredFileType"
                 (change)="onFileBannerSelected($event)"
                 #fileUpload
+                style="margin-right: 40px;"
               />
-            </div>
+              <button class="editBtn" (click)="insertBanner()" >
+                Change Banner
+              </button>
+            
 
-            <button type="submit" class="FinishEdit" (click)="FinishEdit()">
-              <ion-icon name="checkmark"></ion-icon>
+            <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="FinishEdit editBtn" (click)="FinishEdit()">
+              Confirm
             </button>
           </div>
         </form>
@@ -219,6 +223,7 @@
               community.members.includes(profile.username)
             "
           >
+          <div *ngIf="showPosts&&!showEvents">
             <div
               *ngFor="
                 let post of communityPosts?.slice()?.reverse();
@@ -241,31 +246,6 @@
                         <div class="Name" (click)="GoToProfile(post.username)">
                           @{{ post.username }}
                         </div>
-                      </div>
-                      <div style="display: flex; margin-right: 1.5%">
-                        <label
-                          class="report"
-                          *ngIf="reports[i]"
-                          (click)="ReportPost(i, post)"
-                          >Report Post</label
-                        >
-
-                        <label
-                          class="report"
-                          *ngIf="post.reported"
-                          style="color: red"
-                          >Post Reported.</label
-                        >
-
-                        <button
-                          class="Options"
-                          *ngIf="!post.reported"
-                          (click)="Report(i)"
-                        >
-                          <ion-icon
-                            name="ellipsis-horizontal-outline"
-                          ></ion-icon>
-                        </button>
                       </div>
                     </div>
 
@@ -323,11 +303,8 @@
                   </div>
                 </div>
                 <div class="PostFooter">
-                  <div class="date" *ngIf="post.dateAdded.length === 21">
-                    {{ post.dateAdded.slice(0, 9) }}
-                  </div>
-                  <div class="date" *ngIf="post.dateAdded.length !== 21">
-                    {{ post.dateAdded.slice(0, 10) }}
+                  <div class="date">
+                    {{ post.dateAdded | date: 'yyyy-MM-dd' }}
                   </div>
 
                   <div class="icons">
@@ -364,7 +341,7 @@
                           *ngIf="post.likes.includes(profile.username)"
                           id="icons2"
                           style="color: red"
-                          (click)="Dislike(i, post)"
+                          (click)="Like(i, post)"
                         ></ion-icon>
                         <ion-icon
                           name="heart-outline"
@@ -375,10 +352,55 @@
                         <div>{{ post.likes.length }}</div>
                       </div>
                     </div>
+                    <div style="text-align: center">
+                      <div *ngIf="profile !== null">
+                        <ion-icon
+                          name="heart-dislike"
+                          *ngIf="post.dislikes.includes(profile.username)"
+                          id="icons2"
+                          style="color: red"
+                          (click)="Dislike(i, post)"
+                        ></ion-icon>
+                        <ion-icon
+                          name="heart-dislike-outline"
+                          id="icons2"
+                          *ngIf="!post.dislikes.includes(profile.username)"
+                          (click)="Dislike(i, post)"
+                        ></ion-icon>
+                        <div>{{ post.dislikes.length }}</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </ion-card>
             </div>
+          </div>
+          <div *ngIf="!showPosts&&showEvents" class="EventList">
+            <ion-card *ngFor="let event of events?.slice()?.reverse()" class="Event" (click)="goToEvent(event._id)">
+              <div class="EventHead">
+                <label class="EventName">{{event.name}}</label>
+                <label class="Host">Hosted by @{{event.host}}</label>
+              </div>
+              <div class="border"></div>
+              <div class="EventBody">
+                {{event.description}}
+              </div>
+              <div class="EventFooter">
+                <div class="EventDetails">
+                  <div
+                    *ngFor="let category of event.categories; let k = index"
+                    class="Eventtooltip"
+                  >
+                    <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  </div>
+                  <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
+                  <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
+                </div>
+                <ion-icon class="EventLock" name="lock-closed"></ion-icon>
+              </div>
+            </ion-card>
+           
+          </div>
           </div>
         </div>
       </ion-col>
@@ -422,12 +444,13 @@
             Date Created: {{ community?.createdAt }}
           </div>
           <div class="Rules">
+            <div class="RulesTitle">Community EP: {{community?.communityEP}}</div>
             <div class="RulesTitle">Community Rules:</div>
             <div class="RulesDescr">{{ community?.rules }}</div>
           </div>
           <div class="Statistics">
             <div>
-              #2<br />
+              #{{position}}<br />
               Rank
             </div>
             <div>
@@ -517,12 +540,12 @@
             class="RemoveFooter"
             *ngIf="community?.admin === profile?.username"
           >
-            <button (click)="CancelUpdate()">
+            <ion-button class="memberBtn" fill="clear" (click)="CancelUpdate()">
               <ion-icon class="reject2" name="close-circle"></ion-icon>
-            </button>
-            <button (click)="UpdateCommunity()">
+            </ion-button>
+            <ion-button class="memberBtn2" fill="clear" (click)="UpdateCommunity()">
               <ion-icon class="accept2" name="checkmark-circle"></ion-icon>
-            </button>
+            </ion-button>
           </div>
         </ion-card>
       </ion-col>
@@ -585,37 +608,41 @@
             ></ion-textarea>
           </div>
 
-          <div class="EditButtons">
-            <button [hidden]="hasImage" (click)="insertImage()">
+          <div class="EditButtons" style="margin-left: 20px;">
+            
+            
+            <input
+              type="file"
+              class="file-input"
+              [accept]="requiredFileType"
+              (change)="onFileSelected($event)"
+              #fileUpload
+              style="margin-right: 580px;"
+            />
+            <button style="margin-left: 20px;" class="editBtn" (click)="insertImage()">
               Change Photo
             </button>
-            <div [hidden]="!hasImage" class="Image">
-              <input
-                type="file"
-                class="file-input"
-                [accept]="requiredFileType"
-                (change)="onFileSelected($event)"
-                #fileUpload
-              />
-            </div>
+          
 
-            <button [hidden]="hasBanner" (click)="insertBanner()">
+          
+         
+            <input
+              type="file"
+              class="file-input"
+              [accept]="requiredFileType"
+              (change)="onFileBannerSelected($event)"
+              #fileUpload
+              style="margin-right: 40px;"
+            />
+            <button class="editBtn" (click)="insertBanner()" >
               Change Banner
             </button>
-            <div [hidden]="!hasBanner" class="Image">
-              <input
-                type="file"
-                class="file-input"
-                [accept]="requiredFileType"
-                (change)="onFileBannerSelected($event)"
-                #fileUpload
-              />
-            </div>
+          
 
-            <button type="submit" class="FinishEdit" (click)="FinishEdit()">
-              <ion-icon name="checkmark"></ion-icon>
+            <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="FinishEdit editBtn" (click)="FinishEdit()">
+              Confirm
             </button>
-          </div>
+        </div>
         </form>
       </div>
 
@@ -727,6 +754,7 @@
     <div class="About">About this Community</div>
     <div class="DateCreated">Date Created: {{ community?.createdAt }}</div>
     <div class="Rules">
+      <div class="RulesTitle">Community Encompass Points: {{community?.communityEP}}</div>
       <div class="RulesTitle">Community Rules:</div>
       <div class="RulesDescr">{{ community?.rules }}</div>
     </div>
@@ -900,26 +928,6 @@
                     @{{ post.username }}
                   </div>
                 </div>
-                <div style="display: flex; margin-right: 1.5%">
-                  <label
-                    class="report"
-                    *ngIf="reports[i]"
-                    (click)="ReportPost(i, post)"
-                    >Report Post</label
-                  >
-
-                  <label class="report" *ngIf="post.reported" style="color: red"
-                    >Post Reported.</label
-                  >
-
-                  <button
-                    class="Options"
-                    *ngIf="!post.reported"
-                    (click)="Report(i)"
-                  >
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                  </button>
-                </div>
               </div>
 
               <div class="GenreIcons">
@@ -1014,31 +1022,6 @@
                           @{{ post.username }}
                         </div>
                       </div>
-                      <div style="display: flex; margin-right: 1.5%">
-                        <label
-                          class="report"
-                          *ngIf="reports[i]"
-                          (click)="ReportPost(i, post)"
-                          >Report Post</label
-                        >
-
-                        <label
-                          class="report"
-                          *ngIf="post.reported"
-                          style="color: red"
-                          >Post Reported.</label
-                        >
-
-                        <button
-                          class="Options"
-                          *ngIf="!post.reported"
-                          (click)="Report(i)"
-                        >
-                          <ion-icon
-                            name="alert-circle-outline"
-                          ></ion-icon>
-                        </button>
-                      </div>
                     </div>
 
                     <div class="GenreIcons">
@@ -1095,11 +1078,8 @@
                   </div>
                 </div>
                 <div class="PostFooter">
-                  <div class="date" *ngIf="post.dateAdded.length === 21">
-                    {{ post.dateAdded.slice(0, 9) }}
-                  </div>
-                  <div class="date" *ngIf="post.dateAdded.length !== 21">
-                    {{ post.dateAdded.slice(0, 10) }}
+                  <div class="date">
+                    {{ post.dateAdded | date: 'yyyy-MM-dd' }}
                   </div>
 
                   <div class="icons">
@@ -1136,7 +1116,7 @@
                           *ngIf="post.likes.includes(profile.username)"
                           id="icons2"
                           style="color: red"
-                          (click)="Dislike(i, post)"
+                          (click)="Like(i, post)"
                         ></ion-icon>
                         <ion-icon
                           name="heart-outline"
@@ -1145,6 +1125,24 @@
                           (click)="Like(i, post)"
                         ></ion-icon>
                         <div>{{ post.likes.length }}</div>
+                      </div>
+                    </div>
+                    <div style="text-align: center">
+                      <div *ngIf="profile !== null">
+                        <ion-icon
+                          name="heart-dislike"
+                          *ngIf="post.dislikes.includes(profile.username)"
+                          id="icons2"
+                          style="color: red"
+                          (click)="Dislike(i, post)"
+                        ></ion-icon>
+                        <ion-icon
+                          name="heart-dislike-outline"
+                          id="icons2"
+                          *ngIf="!post.dislikes.includes(profile.username)"
+                          (click)="Dislike(i, post)"
+                        ></ion-icon>
+                        <div>{{ post.dislikes.length }}</div>
                       </div>
                     </div>
                   </div>
@@ -1263,11 +1261,8 @@
             </div>
           </div>
           <div class="PostFooter">
-            <div class="date" *ngIf="post.dateAdded.length === 21">
-              {{ post.dateAdded.slice(0, 9) }}
-            </div>
-            <div class="date" *ngIf="post.dateAdded.length !== 21">
-              {{ post.dateAdded.slice(0, 10) }}
+            <div class="date">
+              {{ post.dateAdded | date: 'yyyy-MM-dd' }}
             </div>
 
             <div class="icons">

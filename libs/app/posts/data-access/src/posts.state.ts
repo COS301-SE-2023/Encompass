@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { PostsApi } from "./posts.api";
-import { GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
+import { DislikePost, DislikePostArray, DislikeProfilePost, GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, LikePost, LikePostArray, LikeProfilePost, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
 
 export interface PostStateModel {
   PostForm: {
@@ -82,9 +82,43 @@ export class PostsState {
     });
   }
 
+  @Action(DislikePost)
+  async dislikePost(ctx: StateContext<PostStateModel>, { postId, userId }: DislikePost) {
+    const response = await this.postsApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    ctx.setState({
+      PostForm: {
+        model: {
+          post: response,
+        },
+      },
+    });
+  }
+
+  @Action(LikePost)
+  async likePost(ctx: StateContext<PostStateModel>, { postId, userId }: LikePost) {
+    const response = await this.postsApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    ctx.setState({
+      PostForm: {
+        model: {
+          post: response,
+        },
+      },
+    });
+  }
+
   @Action(GetUserPosts)
-  async getPosts(ctx: StateContext<ProfilePostsStateModel>, {username}: GetUserPosts){
-    const response = await this.postsApi.getPosts(username);
+  async getPosts(ctx: StateContext<ProfilePostsStateModel>, {username, userId}: GetUserPosts){
+    const response = await this.postsApi.getPosts(username, userId);
     
     if(response == null || response == undefined){
       return;
@@ -222,6 +256,148 @@ export class PostsState {
     catch(error){
       console.log(error)
     }
+  }
+
+  @Action(LikePostArray)
+  async likedPostArray(ctx: StateContext<PostArrayStateModel>, { postId, userId }: LikePostArray){
+    const response = await this.postsApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().PostArrayForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+      
+      posts[index] = response;
+
+      ctx.patchState({
+        PostArrayForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+
+  @Action(DislikePostArray)
+  async dislikedPostArray(ctx: StateContext<PostArrayStateModel>, { postId, userId }: DislikePostArray){
+    const response = await this.postsApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().PostArrayForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        PostArrayForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+    
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  @Action(LikeProfilePost)
+  async likedProfilePost(ctx: StateContext<ProfilePostsStateModel>, { postId, userId }: LikeProfilePost){
+    const response = await this.postsApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().ProfilePostsForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        ProfilePostsForm: {
+          model: {
+            posts: posts
+          }
+
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  @Action(DislikeProfilePost)
+  async dislikedProfilePost(ctx: StateContext<ProfilePostsStateModel>, { postId, userId }: DislikeProfilePost){
+    const response = await this.postsApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().ProfilePostsForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        ProfilePostsForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
   }
 
   @Action(UpdateProfilePost)

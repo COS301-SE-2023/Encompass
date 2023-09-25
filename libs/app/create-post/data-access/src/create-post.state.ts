@@ -104,7 +104,7 @@ export class CreatePostState{
       return;
     }
 
-    ctx.dispatch(new AddEvent(event.community, event._id));
+    ctx.dispatch(new AddEvent(event._id, event.community));
 
     this.createPostApi.addToUserEvents(profile._id, event._id);
 

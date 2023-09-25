@@ -6,6 +6,7 @@ import { Post } from "../post";
 import { BaseEntityRepository } from "@encompass/api/database/data-access";
 import { PostSchemaFactory } from "./post-schema.factory";
 import { PostDto } from "../post.dto";
+import { ObjectId } from "mongodb";
 
 @Injectable()
 export class PostEntityRepository extends BaseEntityRepository<
@@ -14,10 +15,20 @@ export class PostEntityRepository extends BaseEntityRepository<
 > {
   constructor(
     @InjectModel(PostSchema.name)
-    postModel: Model<PostSchema>,
+    private readonly postModel: Model<PostSchema>,
     postSchemaFactory: PostSchemaFactory,
   ) {
     super(postModel, postSchemaFactory);
+  }
+
+  async getAllowedPosts(communities: string[], posts: PostDto[]){
+    //get all posts except private posts not from same community as user
+    const filteredPosts = posts.filter(post => {
+      const isPrivate = post.isPrivate;
+      const isFromSameCommunity = communities.includes(post.community);
+      return !isPrivate || isFromSameCommunity;
+    });
+    return filteredPosts;
   }
 
   async findPostsByKeyword(keyword: string): Promise<PostDto[]> {
@@ -52,6 +63,24 @@ export class PostEntityRepository extends BaseEntityRepository<
       return isCategoryMatch;
     });
     return filteredPosts;
+  }
+
+  async findOnePostAndReplaceById(id: string, post: Post): Promise<void> {
+    try {
+      // Convert the provided ID to an ObjectId
+      const objectId = new ObjectId(id);
+
+      /// Exclude the _id field from the post object
+      const updatedPost = {
+        ...post,
+        _id: undefined,
+      };
+
+      // Replace the post document in the database
+      await this.postModel.findOneAndReplace({ _id: objectId }, updatedPost);
+    } catch (error) {
+      throw new Error("Error updating post: " + error);
+    }
   }
 
 }

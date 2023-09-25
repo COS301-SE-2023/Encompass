@@ -3,8 +3,7 @@ import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 // import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 // import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
-import { ClearNotification, SendNotification, GetNotifications, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, ClearAllNotifications, GetRecommendedPodcasts } from "@encompass/app/home-page/util";
-import { HomeDto } from "@encompass/api/home/data-access";
+import { ClearNotification, SendNotification, GetNotifications, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, ClearAllNotifications, GetRecommendedPodcasts, UpdateCommunity } from "@encompass/app/home-page/util";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
 import { CommunityDto } from "@encompass/api/community/data-access";
@@ -200,6 +199,32 @@ export class HomeState{
     })
   }
 
+  @Action(UpdateCommunity)
+  async updateCommunity(ctx: StateContext<CommunitiesModel>, {communityId, updateCommunityRequest}: UpdateCommunity){
+    const response = await this.homeApi.updateCommunity(communityId, updateCommunityRequest);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const communities = ctx.getState().CommunitiesForm.model.communities;
+
+    if(communities == null){
+      return;
+    }
+
+    const index = communities?.findIndex(x => x._id === response._id)
+
+    communities[index] = response;
+
+    ctx.setState({
+      CommunitiesForm: {
+        model: {
+          communities: communities
+        }
+      }
+    })
+  }
 
   @Action(GetNotifications)
   async getNotifications(ctx: StateContext<HomeNotificationsModel>, {userId}: GetNotifications){

@@ -1,276 +1,269 @@
-.container{
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 100%;
-height: 100%;
-background-color: var(--ion-color-background);
-
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--ion-color-background);
 }
-.head{
-height: 10%;
-width: 100%;
-display: flex;
-background-color: var(--ion-color-secondary-contrast);
-
+.head {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  background-color: var(--ion-color-secondary-contrast);
 }
 
-.Subhead{
-// height:10%;
-width: 100%;
-display: flex;
-height: 15%;
-
+.Subhead {
+  // height:10%;
+  width: 100%;
+  display: flex;
+  height: 15%;
 }
 
-.form{
-width: 100%;
-height: 100%;
-
+.form {
+  width: 100%;
+  height: 100%;
 }
-.btn1{
-width: 50%;
-background-color: var(--ion-color-secondary-contrast);
-font-family: CustomFont;
-font-size: 25px;
-border-bottom: 2px solid var(--ion-color-text);
-border-right: 1px solid var(--ion-color-text);
-color: var(--ion-color-text);
-border-radius: 0px 0px 10px 0px;
+.btn1 {
+  width: 50%;
+  background-color: var(--ion-color-secondary-contrast);
+  font-family: CustomFont;
+  font-size: 25px;
+  border-bottom: 2px solid var(--ion-color-text);
+  border-right: 1px solid var(--ion-color-text);
+  color: var(--ion-color-text);
+  border-radius: 0px 0px 10px 0px;
 }
-.btn2{
-width: 50%;
-background-color: var(--ion-color-secondary-contrast);
-font-family: CustomFont;
-font-size: 25px;
-color: var(--ion-color-text);
-
+.btn2 {
+  width: 50%;
+  background-color: var(--ion-color-secondary-contrast);
+  font-family: CustomFont;
+  font-size: 25px;
+  color: var(--ion-color-text);
 }
-.btn3{
-    width: 50%;
-    background-color: var(--ion-color-secondary-contrast);
-    font-family: CustomFont;
-    font-size: 25px;
-    border-bottom: 2px solid var(--ion-color-text);
-    border-left: 1px solid var(--ion-color-text);
-    color: var(--ion-color-text);
-    border-radius: 0px 0px 0px 10px;
+.btn3 {
+  width: 50%;
+  background-color: var(--ion-color-secondary-contrast);
+  font-family: CustomFont;
+  font-size: 25px;
+  border-bottom: 2px solid var(--ion-color-text);
+  border-left: 1px solid var(--ion-color-text);
+  color: var(--ion-color-text);
+  border-radius: 0px 0px 0px 10px;
 }
-.SelectCommunity{
-width: 50%;
-background-color: var(--ion-color-secondary);
-text-align: center;
-color: var(--ion-color-text);
-padding-top: 10px;
-border-radius: 0px 0px 0px 15px;
-height: 65px;
+.SelectCommunity {
+  width: 50%;
+  background-color: var(--ion-color-secondary);
+  text-align: center;
+  color: var(--ion-color-text);
+  padding-top: 5px;
+  border-radius: 0px 0px 0px 15px;
+  height: 65px;
 }
-.title{
-font-size: 12px;
-font-family: CustomFont;
-margin-top: 1% ;
-height: 2%;
+.title {
+  font-size: 12px;
+  font-family: CustomFont;
+  margin-top: 1%;
+  height: 2%;
 }
-.Comm{
-height: 50%;
-max-width: 45%;
-font-size: 15px;
-border: 1px solid var(--ion-color-secondary-contrast);
-font-family: CustomFont;
-overflow: hidden;
-display: inline-block;
+.Comm {
+  height: 50%;
+  max-width: 45%;
+  font-size: 15px;
+  border: 1px solid var(--ion-color-secondary-contrast);
+  font-family: CustomFont;
+  overflow: hidden;
+  display: inline-block;
 }
 
-.SelectCategory{
-width: 50%;
-background-color: var(--ion-color-secondary);
-text-align: center;
-color: var(--ion-color-text);
-padding-top: 10px;
-border-radius: 0px 0px 15px 0px;
-height: 65px;
-
+.SelectCategory {
+  width: 50%;
+  background-color: var(--ion-color-secondary);
+  text-align: center;
+  color: var(--ion-color-text);
+  padding-top: 5px;
+  border-radius: 0px 0px 15px 0px;
+  height: 65px;
 }
-.SelectCommunity >span{
-font-family: CustomFont;
-display: inline-block;
-vertical-align: middle;
-white-space: nowrap;
-font-size: 15px;
-border: 1px solid var(--ion-color-secondary-contrast);
-border-radius: 5px;
-overflow: hidden;
-
+.SelectCommunity > span {
+  font-family: CustomFont;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 15px;
+  border: 1px solid var(--ion-color-secondary-contrast);
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-.SelectCategory >span{
-font-family: CustomFont;
-display: inline-block;
-vertical-align: middle;
-white-space: nowrap;
-font-size: 15px;
-border: 1px solid var(--ion-color-secondary-contrast);
-border-radius: 5px;
-overflow: hidden;
+.SelectCategory > span {
+  font-family: CustomFont;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 15px;
+  border: 1px solid var(--ion-color-secondary-contrast);
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-.select{
-display: inline-block;
-vertical-align: middle;
-white-space: nowrap;
-max-width: 95%;
-overflow: hidden;
-font-size: 15px;
+.select {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  max-width: 95%;
+  overflow: hidden;
+  font-size: 15px;
 }
 
-ion-select{
-font-family: CustomFont;
-font-size: 15px;
-display: flex;
-justify-content: right;
+ion-select {
+  font-family: CustomFont;
+  font-size: 18px;
+  display: flex;
+  justify-content: right;
 }
 
-.TextHead{
-display: flex;
-justify-content: center;
-align-items: center;
-padding-top: 3%;
-height: 20%;
+.TextHead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3%;
+  height: 20%;
 }
 
-.TextBody{
-display: flex;
-justify-content: center;
-align-items: center;
-height: 40%;
-position: relative;
-
+.TextBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  position: relative;
 }
 
-.TextBody2
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-    position: relative;
+.TextBody2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  position: relative;
 }
 
-.TaskBody
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    //height: 20%;
-    position: relative;
-    padding-top: 2%; 
-    //padding-bottom: 2%;
-    box-shadow: none;
+.TaskBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //height: 20%;
+  position: relative;
+  padding-top: 2%;
+  //padding-bottom: 2%;
+  box-shadow: none;
+//   background-color: var(--card-color);
 }
 
-.eventClass
-{
-    overflow-x: hidden;
-    overflow-y: show;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-    position: relative;
+.eventClass {
+  overflow-x: hidden;
+  overflow-y: show;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-.removeTask
-{
-    size:larger;
-   // position: floating;
-    vertical-align: right;
-    box-shadow: none !important;
-    border-bottom-color: transparent !important;
-    --padding-top: 0px;
-    --padding-bottom: 0px;
-    --padding-end: 0px;
-    --padding-start: 0px;
-    fill: var(--ion-color-secondary-contrast); 
+.removeTask {
+  size: larger;
+  // position: floating;
+  vertical-align: right;
+  box-shadow: none !important;
+  border-bottom-color: transparent !important;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  --padding-end: 0px;
+  --padding-start: 0px;
+  fill: var(--ion-color-secondary-contrast);
 }
 
+ion-textarea.custom3 {
+  border: 1px solid var(--ion-color-secondary-contrast);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: CustomFont;
+  width: 97%;
+  height: 100%;
+  --background: var(--card-color);
+  --padding-bottom: 8px;
+  --padding-end: 8px;
+  --padding-start: 8px;
+  --padding-top: 8px;
+  --border-radius: 10px;
+  --border-width: 1px;
+}
 
-ion-textarea.custom3
-{
-    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-    border-radius: 10px;
+ion-textarea.custom4 {
+  font-size: 15px;
+  font-family: CustomFont;
+  box-shadow: none !important;
+  border-bottom-color: transparent !important;
+  --padding-start: 8px;
+}
+
+ion-textarea.custom5 {
+  font-size: 15px;
+  font-family: CustomFont;
+  width: 100%;
+  text-align: center;
+  border-width: 0;
+  width: 25%;
+  background-color: var(--ion-color-secondary);
+  border-radius: 10px;
+}
+
+.TaskBody2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-top: 1%;
+  box-shadow: none;
+  // --color:var(--ion-color-primary);
+}
+
+.addMoreTask {
+  display: flex;
+  //color: var(--ion-color-primary);
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 15%;
+  width: 97%;
+  border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+  border-radius: 5px;
+  --background: var(--ion-color-secondary-contrast);
+  --background-opacity: 80%;
+  --border-radius: 5px;
+  --border-width: 1px;
+  --padding-bottom: 1px;
+  --padding-top: 1px;
+}
+
+.addTask {
+  color: rgba(237, 235, 235, 0.711);
+}
+
+.TaskDatesLabels {
+  ion-text {
     font-size: 15px;
     font-family: CustomFont;
-    width: 97%;
-    height:  100%;
-    --background: var(--card-color);
-    --padding-bottom: 8px;
-    --padding-end: 8px;
-    --padding-start: 8px;
-    --padding-top: 8px;
-    --border-radius: 10px;
-    --border-width: 1px;
-}
-
-ion-textarea.custom4
-{
-    font-size: 15px;
-    font-family: CustomFont;
-    box-shadow: none !important;
-    border-bottom-color: transparent !important;
-    --padding-start: 8px;
-}
-
-.TaskBody2
-{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding-top: 1%;
-    box-shadow: none;
-   // --color:var(--ion-color-primary);
-}
-
-.addMoreTask
-{
-    display: flex;
-    //color: var(--ion-color-primary);
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 15%;
-    width: 97%;
-    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-    border-radius: 5px;
-    --background: var(--ion-color-secondary-contrast);
-    --background-opacity: 80%;
-    --border-radius: 5px;
-    --border-width: 1px;
-    --padding-bottom: 1px;
-    --padding-top: 1px;
-}
-
-.addTask
-{
-    color: rgba(237, 235, 235, 0.711);
-}
-
-.TaskDatesLabels
-{
-    ion-text{
-        font-size: 15px;
-        font-family: CustomFont;
-        display: flex;
-    }
-    padding-top: 3%;
-    margin-left: 1%;
+  }
+  padding-top: 3%;
+  margin-left: 1%;
 }
 
 //dateTime picker css
 
 // .TaskDates
 // {
-  
+
 //     // ion-grid{
 //     //     padding-left: 0px;
 //     //     padding-right: 0px;
@@ -282,269 +275,256 @@ ion-textarea.custom4
 //     // }
 // }
 
-.picker
-{
-    border-radius: 5px;
-    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-    max-width: 50%;
-    height: 30px ;
-    margin-left: 1%;
-    margin-right:1%;
-     text-align: center;
-     font-size: 12px;
-     font-family: CustomFont;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.picker {
+  border-radius: 5px;
+  border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+  max-width: 50%;
+  height: 30px;
+  margin-left: 1%;
+  margin-right: 1%;
+  text-align: center;
+  font-size: 12px;
+  font-family: CustomFont;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.date{
-    font-family: CustomFont;
+.date {
+  font-family: CustomFont;
 }
 
-ion-datetime-button{
-    //datetime-font-size: 15px;
-    font-size: 12px;
-    //border-radius: 10px;
-    //border: px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-    max-width: 97%;
-    height: 100%;
+ion-datetime-button {
+  //datetime-font-size: 15px;
+  font-size: 12px;
+  //border-radius: 10px;
+  //border: px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+  max-width: 97%;
+  height: 100%;
+  text-align: center;
+  //color: black;
+}
+
+.calendar-day {
+  .calendar-day-active {
+    background-color: blue; //var(--ion-color-secondary-contrast);
+    color: white; //var(--ion-color-primary);
+    //active button color is not right :)
+  }
+}
+
+.taskItem {
+  border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+  border-radius: 10px;
+  height: 10%;
+  width: 97%;
+  --background: var(--card-color);
+  --padding-bottom: 0px;
+  --padding-end: 0px;
+  --padding-start: 0px;
+  --padding-top: 0px;
+  --border-width: 1px;
+}
+
+.level {
+  font-size: 15px;
+  font-family: CustomFont;
+  width: 100%;
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Quiz {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
     text-align: center;
-    //color: black;
-}
-
-
-.calendar-day
-{
-    .calendar-day-active
-    {
-        background-color: blue;//var(--ion-color-secondary-contrast);
-        color: white; //var(--ion-color-primary);
-        //active button color is not right :)
-    }
-}
-
-.taskItem
-{
-    border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-    border-radius: 10px;
-    height: 10%;
-    width: 97%;
-    --background: var(--card-color);
-    --padding-bottom: 0px;
-    --padding-end: 0px;
-    --padding-start: 0px;
-    --padding-top: 0px;
-    --border-width: 1px;
-   
-}
-
-.level
-{
+    font-family: CustomFont2;
+  }
+  p {
     font-size: 15px;
     font-family: CustomFont;
-    width: 100%;
-    margin-top:2%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
+    text-align: left;
+  }
 
-
-.Quiz
-{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    h3{
-        font-size: 20px;
-        font-weight: bold;
-        text-align: center;
-        font-family: CustomFont2;
-    }
-    p{
-        font-size: 15px;
-        font-family: CustomFont;
-        text-align:left;
-    };
-    
-    --background: var(--card-color-contrast);
-    margin-top: 1%;
-    --padding-bottom: 10px;
-    --padding-end: 10px;
-    --padding-start: 10px;
-    --padding-top: 10px;
+  --background: var(--card-color-contrast);
+  margin-top: 1%;
+  --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --padding-top: 10px;
 }
 
 .validPostEvent {
-    --padding-top: 2px;
-    background-color: var(--ion-color-primary);
+  --padding-top: 2px;
+  background-color: var(--ion-color-primary);
 }
 
-::-webkit-scrollbar
-{
-    width: 40%;
-   // height: 10%;
+::-webkit-scrollbar {
+  width: 40%;
+  // height: 10%;
 }
 
-
-
-
-
+counter {
+  margin: 10px;
+}
 
 ion-textarea.custom {
-
-font-size: 15px;
-font-family: CustomFont;
-width: 97%;
---background: var(--card-color);
---padding-bottom: 10px;
---padding-end: 10px;
---padding-start: 10px;
---padding-top: 10px;
---border-radius: 10px;
---border-width: 1px;
+  font-size: 15px;
+  font-family: CustomFont;
+  width: 97%;
+  --background: var(--card-color);
+  --padding-bottom: 10px;
+  --padding-end: 10px;
+  --padding-start: 10px;
+  --padding-top: 10px;
+  --border-radius: 10px;
+  --border-width: 1px;
 }
 
 ion-textarea.custom2 {
-border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
-border-radius: 10px;
-font-size: 15px;
-font-family: CustomFont;
-width: 97%;
-height:  100%;
---background: var(--card-color);
---padding-bottom: 8px;
---padding-end: 8px;
---padding-start: 8px;
---padding-top: 8px;
---border-radius: 10px;
---border-width: 1px;
+  border: 1px solid var(--ion-color-secondary-contrast); /* Set the desired border style */
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: CustomFont;
+  width: 97%;
+  height: 100%;
+  --background: var(--card-color);
+  --padding-bottom: 8px;
+  --padding-end: 8px;
+  --padding-start: 8px;
+  --padding-top: 8px;
+  --border-radius: 10px;
+  --border-width: 1px;
 }
 
-.TextFooter{
-   height: 15%;
-width: 100%;
-display: flex;
-justify-content: space-around;
-align-items: center;
+.TextFooter {
+  height: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.TextFooterEvent
-{
-    width: 100%;
-    height: 10%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 2%;
-    margin-bottom: 1%;
+.TextFooterEvent {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: 1%;
 }
 
-.btns{
-font-family: CustomFont;
-font-size: 15px;
-border-radius: 25px;
-border: 1px solid var(--ion-color-secondary-contrast);
-padding: 10px 25px 10px 25px;
+.btns {
+  font-family: CustomFont;
+  font-size: 15px;
+  border-radius: 25px;
+  border: 1px solid var(--ion-color-secondary-contrast);
+  padding: 10px 25px 10px 25px;
 }
 
-.Image{
-padding: 0.5%;
-display: flex;
-justify-content: start;
-align-items: center;
-font-family: customFont;
+.Image {
+  padding: 0.5%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-family: customFont;
 }
 
-.file-input{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
-.icon:hover{
-color: var(--hover-color);
+.icon:hover {
+  color: var(--hover-color);
 }
 
 .validPost {
-    background-color: var(--ion-color-primary);
+  background-color: var(--ion-color-primary);
 }
 
 .tagbtn {
-    background-color: var(--ion-color-secondary-tint);
+  background-color: var(--ion-color-secondary-tint);
+  color: var(--ion-color-text);
 }
 
 .tagbtnclicked {
-    background-color: var(--ion-color-warning);
-    color: var(--ion-color-text);
+  background-color: var(--ion-color-warning);
+  color: var(--ion-color-text);
 }
 
-.imageIcon{
-    color: var(--ion-color-text);
+.imageIcon {
+  color: var(--ion-color-text);
 }
 
-
-.Prompt{
-    width: 90%;
-    border: 1px solid var(--ion-color-secondary-contrast);
-    border-radius: 15px;
-    margin-top: 2%;
-    padding:2%;
-    font-family: CustomFont;
-
-
+.Prompt {
+  width: 90%;
+  border: 1px solid var(--ion-color-secondary-contrast);
+  border-radius: 15px;
+  margin-top: 2%;
+  padding: 2%;
+  font-family: CustomFont;
 }
 
 .icon1 {
-    font-size: 25px;
+  font-size: 25px;
+  color: var(--hover-color);
+}
 
-  }
-  
-  .icon2 {
-    font-size: 25px;
-  }
-  
-  .icon1:hover {
-    cursor: pointer;
-    border-radius: 50px;
-  }
+.icon2 {
+  font-size: 35px;
+}
 
-  .input {
-    font-family: CustomFont;
-    width: 100%;
+.addBtn {
+  border-radius: 50px;
+}
 
-  }
-  
-  .input-box {
-     background-color: var(--ion-color-secondary);
-    width: 95%;
-    padding: 0px 30px 1px 30px;
-    border-radius: 25px;
-    border: 1px solid var(--ion-color-secondary-tint);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.icon1:hover {
+  cursor: pointer;
+  border-radius: 50px;
+}
 
-  }
+.input {
+  font-family: CustomFont;
+  width: 100%;
+}
 
-  .radio{
-    text-align: center;
-  }
+.input-box {
+    background-color: var(--card-color);
+  width: 95%;
+  padding: 0px 15px 1px 15px;
+  border-radius: 25px;
+  border: 1px solid var(--ion-color-secondary-tint);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ion-color-text);
+}
 
-  
+.radio {
+  text-align: center;
+}
+
 .closeBtn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: 10px;
-    margin-top: 10px;
-    text-transform: lowercase;
-    font-size: 22px;
-  }
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10px;
+  margin-top: 10px;
+  text-transform: lowercase;
+  font-size: 22px;
+}

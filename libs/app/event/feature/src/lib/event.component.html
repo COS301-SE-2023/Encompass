@@ -45,7 +45,7 @@
             </form>
           </div>
           <div class="EventList" *ngIf="events !== null && events !== undefined">
-            <ion-card *ngFor="let event of events" class="Event" (click)="goToEvent(event._id)">
+            <ion-card *ngFor="let event of events;  let i = index" class="Event" (click)="goToEvent(event._id)">
               <div class="Head">
                 <label class="EventName">{{event.name}}</label>
                 <label class="Host">Hosted by @{{event.host}}</label>
@@ -65,7 +65,11 @@
                   <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
                   <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
                 </div>
-                <ion-icon class="Lock" name="lock-closed"></ion-icon>
+                
+                <ion-icon *ngIf="!hasJoined[i]||hasExpired[i]||hasCompleted[i]"
+                class="Lock" name="lock"></ion-icon>
+                <ion-icon *ngIf="hasJoined[i]&&!hasExpired[i]&&!hasCompleted[i]"
+                class="Lock" name="lock-open"></ion-icon>
               </div>
             </ion-card>
           </div>

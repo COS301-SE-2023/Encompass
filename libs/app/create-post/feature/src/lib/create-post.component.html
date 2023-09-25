@@ -6,7 +6,6 @@
     *ngIf="createPost"
   >
     <div class="head">
-      
       <button
         type="button"
         class="btn1"
@@ -26,15 +25,12 @@
         Event
       </button>
     </div>
-
     <div class="Subhead">
       <div class="SelectCommunity">
-        <div class="title">Community:</div>
         <div class="select">
           <ion-select
             formControlName="community"
             placeholder="Add a community"
-            [(ngModel)]="inputValue2"
             (ionChange)="checkInput()"
           >
             <ion-select-option
@@ -48,7 +44,6 @@
         </div>
       </div>
       <div class="SelectCategory">
-        <div class="title">Categories:</div>
         <div class="select">
           <ion-select
             multiple
@@ -66,10 +61,8 @@
         </div>
       </div>
     </div>
-
-    <div class="TextHead">
+    <div class="TextHead" style="margin-bottom: 10px">
       <ion-textarea
-        [(ngModel)]="inputValue"
         (input)="checkInput()"
         formControlName="title"
         placeholder="Add a title"
@@ -86,12 +79,24 @@
       ></ion-textarea>
     </div>
     <div class="TextFooter">
-      <ion-icon
-        name="image-outline"
-        class="icon imageIcon"
-        style="font-size: 25px"
-        (click)="insertImage()"
-      ></ion-icon>
+      <ion-item>
+        <input
+      id="file-input"
+      type="file"
+      [accept]="requiredFileType"
+      (change)="onFileSelected($event)"
+      class="file-input"
+    />
+      <label for="file-input">
+        <ion-icon
+          name="image-outline"
+          class="icon imageIcon"
+          style="font-size: 25px"
+          (click)="insertImage()"
+        ></ion-icon>
+      </label>
+      </ion-item>
+      
 
       <button
         *ngIf="spoilers"
@@ -161,85 +166,79 @@
       </button>
     </div>
   </form>
-  <!--create a event div-->
   <form
     [formGroup]="eventForm"
     (ngSubmit)="onSubmitEvent()"
     class="form"
     *ngIf="createEvent"
   >
-    <div class="head">
-      <button
-        type="button"
-        class="btn2"
-        value="postBtn"
-        (click)="change('Post')"
-      >
-        Post
-      </button>
-      <button
-        type="button"
-        class="btn3"
-        value="eventBtn"
-        (click)="change('Event')"
-      >
-        Event
-      </button>
-    </div>
-
-    <div class="Subhead">
-      <div class="SelectCommunity">
-        <div class="title">Community:</div>
-        <div class="select">
-          <ion-select
-            formControlName="community"
-            placeholder="Add a community"
-            [(ngModel)]="inputValue2"
-            (ionChange)="checkEventInput()"
-          >
-            <ion-select-option
-              *ngFor="let community of adminCommunities"
-              [value]="community"
-              class="option"
-            >
-              {{ community }}</ion-select-option
-            >
-          </ion-select>
-        </div>
-      </div>
-      <div class="SelectCategory">
-        <div class="title">Categories:</div>
-        <div class="select">
-          <ion-select
-            multiple
-            formControlName="category"
-            placeholder="Add categories"
-            (ionChange)="limitSelection2()"
-          >
-            <ion-select-option
-              *ngFor="let category of categories"
-              [value]="category"
-            >
-              {{ category }}</ion-select-option
-            >
-          </ion-select>
-        </div>
-      </div>
-    </div>
-
-    <div class="TextHead">
-      <ion-textarea
-        formControlName="title"
-        placeholder="Add a title"
-        class="custom"
-        [counter]="true"
-        [maxlength]="100"
-        (ionChange)="checkEventInput()"
-      ></ion-textarea>
-    </div>
-
-    <!--create a event div-->
     <div class="eventClass">
+      <div class="head">
+        <button
+          type="button"
+          class="btn2"
+          value="postBtn"
+          (click)="change('Post')"
+        >
+          Post
+        </button>
+        <button
+          type="button"
+          class="btn3"
+          value="eventBtn"
+          (click)="change('Event')"
+        >
+          Event
+        </button>
+      </div>
+
+      <div class="Subhead">
+        <div class="SelectCommunity">
+          <div class="select">
+            <ion-select
+              formControlName="community"
+              placeholder="Add a community"
+              (ionChange)="checkEventInput()"
+            >
+              <ion-select-option
+                *ngFor="let community of adminCommunities"
+                [value]="community"
+                class="option"
+              >
+                {{ community }}</ion-select-option
+              >
+            </ion-select>
+          </div>
+        </div>
+        <div class="SelectCategory">
+          <div class="select">
+            <ion-select
+              multiple
+              formControlName="category"
+              placeholder="Add categories"
+              (ionChange)="limitSelection2()"
+            >
+              <ion-select-option
+                *ngFor="let category of categories"
+                [value]="category"
+              >
+                {{ category }}</ion-select-option
+              >
+            </ion-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="TextHead" style="margin-bottom: 20px">
+        <ion-textarea
+          formControlName="title"
+          placeholder="Add a title"
+          class="custom"
+          [counter]="true"
+          [maxlength]="100"
+          (ionChange)="checkEventInput()"
+        ></ion-textarea>
+      </div>
       <div class="TextBody2">
         <ion-textarea
           formControlName="text"
@@ -263,43 +262,25 @@
             type="submit"
             (click)="addTask()"
           >
-            <ion-icon name="send" class="icon1"></ion-icon>
+            <ion-icon name="add-circle" class="icon1"></ion-icon>
           </ion-button>
           <ion-button
             id="sendBtn"
             fill="clear"
             *ngIf="!Added"
-            disabled="true"
             type="submit"
             (click)="addTask()"
+            class="addBtn"
           >
-            <ion-icon name="send" class="icon2"></ion-icon>
+            <ion-icon name="add-circle" class="icon2"></ion-icon>
           </ion-button>
         </div>
-        <!-- <ion-list>
-        <ion-item class="taskItem" *ngFor="let challengeControl of challenges.controls; let i = index">
-          <ion-textarea
-            [formControl]="getFormControl(i)"
-            placeholder="Add a challenge task"
-            (ionChange)="checkEventInput()"
-            class="custom4"
-          ></ion-textarea>
-          <ion-button fill="clear" size="larger" slot="end" (click)="removeChallenge(i)" *ngIf="i !== 0">
-            <ion-icon
-              slot="icon-only"
-              class="removeTask"
-              name="remove-circle"
-            ></ion-icon>
-          </ion-button>
-        </ion-item>
-        </ion-list> -->
       </div>
       <div style="display: flex; align-items: center; flex-direction: column">
         <div *ngFor="let prompt of prompts; let k = index" class="Prompt">
           Step {{ k + 1 }}: {{ prompt }}
         </div>
       </div>
-
       <div class="TaskBody2">
         <ion-button class="addMoreTask" size="larger" (click)="RemoveTask()">
           <ion-icon
@@ -310,18 +291,20 @@
           ></ion-icon>
         </ion-button>
       </div>
-
       <div class="TaskDatesLabels">
         <ion-row>
-          <ion-col> <ion-text>Start Date</ion-text> </ion-col>
-          <ion-col> <ion-text>End Date</ion-text> </ion-col>
+          <ion-col>
+            <ion-text style="color: var(--ion-color-text)">Start Date</ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text style="color: var(--ion-color-text)">End Date</ion-text>
+          </ion-col>
         </ion-row>
       </div>
-
       <!--DATE PICKER CODE-->
       <div>
         <ion-row>
-          <ion-col class="picker">
+          <ion-col class="picker" style="color: var(--ion-color-text)">
             {{ formattedDate }}
           </ion-col>
 
@@ -352,16 +335,40 @@
           </ng-template>
         </ion-popover>
       </div>
-
-      <div class="Quiz">
+      <div class="Quiz" style="color: var(--ion-color-text)">
         <h3>Quiz</h3>
-        <p>Give a description for your quiz topic:</p>
-        <ion-textarea
-          class="custom3"
-          formControlName="quizDescription"
-          (ionChange)="checkEventInput()"
-        ></ion-textarea>
-        <ion-radio-group formControlName="selectedOption" class="level">
+        <p>Describe your quiz in three simple terms:</p>
+        <div style="width: 100%; display: flex; justify-content: space-around">
+          <ion-textarea
+            formControlName="quiz1"
+            class="custom5"
+            placeholder="Term 1"
+            [counter]="true"
+            [maxlength]="15"
+            style="padding: 10px"
+          ></ion-textarea>
+          <ion-textarea
+            formControlName="quiz2"
+            class="custom5"
+            placeholder="Term 2"
+            [counter]="true"
+            [maxlength]="15"
+            style="padding: 10px"
+          ></ion-textarea>
+          <ion-textarea
+            formControlName="quiz3"
+            class="custom5"
+            placeholder="Term 3"
+            [counter]="true"
+            [maxlength]="15"
+            style="padding: 10px"
+          ></ion-textarea>
+        </div>
+        <ion-radio-group
+          formControlName="selectedOption"
+          class="level"
+          style="margin-top: 40px; margin-bottom: 40px"
+        >
           <div class="radio">
             <ion-radio
               value="5"
@@ -391,8 +398,15 @@
           </div>
         </ion-radio-group>
       </div>
-
       <div class="TextFooterEvent">
+        <button
+          class="btns"
+          style="background-color: var(--ion-color-secondary); color: white"
+          (click)="closePopup()"
+          type="button"
+        >
+          Cancel
+        </button>
         <button
           *ngIf="isEventValid"
           type="submit"

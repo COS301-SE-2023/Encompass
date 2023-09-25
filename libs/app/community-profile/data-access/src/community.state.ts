@@ -1,12 +1,14 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts } from '@encompass/app/community-profile/util';
+import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts, GetRanking, LikePostArray, DislikePostArray } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { PostDto } from '@encompass/api/post/data-access';
 import { CommunityRequestDto } from '@encompass/api/community-request/data-access';
+import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
+import { ToastController } from '@ionic/angular';
 
 
 export interface CommunityStateModel{
@@ -21,6 +23,14 @@ export interface CommunityPostsModel{
   CommunityPostForm: {
     model:{
       posts: PostDto[] | null
+    }
+  }
+}
+
+export interface CommunityLeaderboardModel{
+  CommunityLeaderboardForm: {
+    model:{
+      leaderboard: CommunityLeaderboardDto[] | null
     }
   }
 }
@@ -68,7 +78,7 @@ export interface CommunityRequestModel{
 
 @Injectable()
 export class CommunityState{
-  constructor(private communityApi: CommunityApi){}
+  constructor(private communityApi: CommunityApi, private toastController: ToastController){}
   @Action(GetCommunity)
   async getCommunity(ctx: StateContext<CommunityStateModel>, {name}: GetCommunity){
     const response = await this.communityApi.getCommunity(name);
@@ -126,6 +136,14 @@ export class CommunityState{
       posts[index] = response;
 
       console.log(posts[index])
+
+      const toast = await this.toastController.create({
+        message: 'Community updated successfully',
+        duration: 2000,
+        color: 'success'
+      })
+
+      await toast.present();
 
       ctx.patchState({
         CommunityPostForm: {
@@ -220,6 +238,94 @@ export class CommunityState{
     await this.communityApi.addCommunity(username, communityName);
   }
 
+  @Action(GetRanking)
+  async getRanking(ctx: StateContext<CommunityLeaderboardModel>){
+    const response = await this.communityApi.getRanking();
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      CommunityLeaderboardForm:{
+        model:{
+          leaderboard: response
+        }
+      }
+    })
+  }
+
+  @Action(DislikePostArray)
+  async dislikedPostArray(ctx: StateContext<CommunityPostsModel>, { postId, userId }: DislikePostArray){
+    const response = await this.communityApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().CommunityPostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        CommunityPostForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+    
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  @Action(LikePostArray)
+  async likedProfilePost(ctx: StateContext<CommunityPostsModel>, { postId, userId }: LikePostArray){
+    const response = await this.communityApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().CommunityPostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        CommunityPostForm: {
+          model: {
+            posts: posts
+          }
+
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
   @Selector()
   static community(state: CommunityStateModel){
     return state.CommunityStateForm.model.community
@@ -233,5 +339,10 @@ export class CommunityState{
   @Selector()
   static communityRequest(state: CommunityRequestModel){
     return state.CommunityRequestForm.model.communityRequest
+  }
+
+  @Selector()
+  static leaderboard(state: CommunityLeaderboardModel){
+    return state.CommunityLeaderboardForm.model.leaderboard
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { PostSchema } from "./post.schema";
 import { Model } from "mongoose";
+import { PostDto } from "../post.dto";
 
 @Injectable()
 export class PostDtoRepository{
@@ -30,7 +31,7 @@ export class PostDtoRepository{
   }
 
   async getPostsByUserId(userId: string){
-    return await this.postModel.find({ username: userId });
+    return await this.postModel.find({ username: userId }) as PostDto[];
   }
 
   async getPostsMadeOrLikedByUser(username: string){

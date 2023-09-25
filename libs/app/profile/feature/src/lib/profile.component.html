@@ -76,15 +76,9 @@
                         (click)="DeletePost(i, post)"
                         >Delete Post</label
                       >
-                      <label
-                        class="report"
-                        *ngIf="deletePost[i] && !MarkedForPostDeletion[i]"
-                        style="color: red"
-                        >Post Deleted</label
-                      >
 
                       <button class="Options" (click)="Delete(i)">
-                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                        <ion-icon name="close-circle-outline"></ion-icon>
                       </button>
                     </div>
                   </div>
@@ -140,11 +134,8 @@
                 </div>
               </div>
               <div class="PostFooter">
-                <div class="date" *ngIf="post.dateAdded.length == 21">
-                  {{ post.dateAdded.slice(0, 9) }}
-                </div>
-                <div class="date" *ngIf="post.dateAdded.length != 21">
-                  {{ post.dateAdded.slice(0, 10) }}
+                <div class="date">
+                  {{ post.dateAdded | date: 'yyyy-MM-dd'}}
                 </div>
 
                 <div class="icons">
@@ -181,7 +172,7 @@
                         *ngIf="post.likes.includes(profile.username)"
                         id="icons2"
                         style="color: red"
-                        (click)="Dislike(i, post)"
+                        (click)="Like(i, post)"
                       ></ion-icon>
                       <ion-icon
                         name="heart-outline"
@@ -190,6 +181,24 @@
                         (click)="Like(i, post)"
                       ></ion-icon>
                       <div>{{ post.likes.length }}</div>
+                    </div>
+                  </div>
+                  <div style="text-align: center">
+                    <div *ngIf="profile != null">
+                      <ion-icon
+                        name="heart-dislike"
+                        *ngIf="post.dislikes.includes(profile.username)"
+                        id="icons2"
+                        style="color: red"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <ion-icon
+                        name="heart-dislike-outline"
+                        id="icons2"
+                        *ngIf="!post.dislikes.includes(profile.username)"
+                        (click)="Dislike(i, post)"
+                      ></ion-icon>
+                      <div>{{ post.dislikes.length }}</div>
                     </div>
                   </div>
                 </div>
@@ -229,15 +238,8 @@
                     >Delete Comment</label
                   >
 
-                  <label
-                    class="report"
-                    *ngIf="deleteComment[i] && !MarkedForCommentDeletion[i]"
-                    style="color: red"
-                    >Comment Deleted</label
-                  >
-
                   <button class="Options2" (click)="Delete2(i)">
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
 
                   <ion-icon
@@ -302,15 +304,19 @@
           </div>
           <br />
         </div>
-        <div *ngIf="seeEvents">
-          <ion-card *ngFor="let event of events" class="Event" (click)="goToEvent(event._id)">
+        <div *ngIf="seeEvents" class="EventList">
+          <ion-card
+            *ngFor="let event of events?.slice()?.reverse()"
+            class="Event"
+            (click)="goToEvent(event._id)"
+          >
             <div class="EventHead">
-              <label class="EventName">{{event.name}}</label>
-              <label class="Host">Hosted by @{{event.host}}</label>
+              <label class="EventName">{{ event.name }}</label>
+              <label class="Host">Hosted by @{{ event.host }}</label>
             </div>
             <div class="border"></div>
             <div class="EventBody">
-              {{event.description}}
+              {{ event.description }}
             </div>
             <div class="EventFooter">
               <div class="EventDetails">
@@ -320,8 +326,12 @@
                 >
                   <img src="assets/icon/{{ category }}.png" class="imgDiv" />
                 </div>
-                <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
-                <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
+                <label style="color: var(--ion-color-primary)"
+                  >{{ event.quiz.length }} MCQ</label
+                >
+                <label style="color: var(--ion-color-primary)"
+                  >{{ daysLeft(event.endDate) }} days left</label
+                >
               </div>
               <ion-icon class="EventLock" name="lock-closed"></ion-icon>
             </div>
@@ -342,6 +352,9 @@
               src="{{ profile?.profileBanner }}"
               onerror="this.src='assets/icon/Banner.png';"
             />
+            <ion-button fill="clear" class="pointsBtn">
+              {{profile?.ep}} EP
+            </ion-button>
           </div>
           <ion-card-header *ngIf="!edit">
             <ion-card-title
@@ -365,7 +378,7 @@
                 <ion-icon name="pencil"></ion-icon>
               </ion-button>
 
-              <ion-card-subtitle style="margin-top: 5px"
+              <ion-card-subtitle style="margin-top: 5px; font-size: medium"
                 >@{{ profile?.username }}</ion-card-subtitle
               >
             </ion-card-title>
@@ -373,7 +386,7 @@
 
           <ion-card-content
             *ngIf="!edit"
-            style="font-size: 15px; margin-bottom: 15px"
+            style="font-size: 15px; margin-bottom: 15px; font-size: medium"
           >
             <div>{{ profile?.bio }}</div>
             <div class="profile-info-container">
@@ -384,7 +397,7 @@
               <div
                 id="follow-trigger"
                 class="profile-info"
-                (click)="loadFollowers()"
+                (click)="loadFollowers() ; setOpen(true)"
               >
                 {{ profile.followers.length }} <br />
                 Followers
@@ -392,7 +405,7 @@
               <div
                 id="following-trigger"
                 class="profile-info"
-                (click)="loadFollowing()"
+                (click)="loadFollowing() ; setOpen2(true)"
               >
                 {{ profile.following.length }} <br />
                 Following
@@ -409,72 +422,75 @@
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder="First Name"
+                  placeholder="{{ profile?.name }}"
                   formControlName="FirstName"
                 ></ion-textarea>
 
                 <ion-textarea
                   [maxlength]="20"
                   class="DescInput"
-                  placeholder="Last Name"
+                  placeholder="{{ profile?.lastName }}"
                   formControlName="LastName"
                 ></ion-textarea>
               </div>
               <ion-textarea
                 [maxlength]="150"
                 class="DescInput2"
-                placeholder="Bio"
+                placeholder="{{ profile?.bio }}"
                 formControlName="Bio"
               ></ion-textarea>
 
-              <button
-                [hidden]="hasImage"
-                (click)="insertImage()"
-                class="EditBtn"
-              >
-                Change Photo
-              </button>
-              <div [hidden]="!hasImage" class="Image">
+              <button class="EditBtn">Change Photo</button>
+
+              <div class="Image">
                 <input
                   type="file"
                   class="file-input"
                   [accept]="requiredFileType"
                   (change)="onFileSelected($event)"
                   #fileUpload
+                  style="margin-bottom: 115px; margin-left: 130px"
                 />
               </div>
 
-              <button
-                [hidden]="hasBanner"
-                (click)="insertBanner()"
-                class="EditBtn"
-              >
-                Change Banner
-              </button>
-              <div [hidden]="!hasBanner" class="Image">
+              <button class="EditBtn">Change Banner</button>
+              <div class="ImageBanner">
                 <input
                   type="file"
                   class="file-input"
                   [accept]="requiredFileType"
                   (change)="onFileBannerSelected($event)"
                   #fileUpload
+                  style="margin-bottom: 68px; margin-left: 130px"
                 />
               </div>
 
-              <button type="submit" class="EditBtn" (click)="FinishEdit()">
-                <ion-icon name="checkmark"></ion-icon>
+              <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="EditBtn" (click)="FinishEdit()">
+                Confirm
               </button>
             </form>
           </div>
         </ion-card>
         <ion-card *ngIf="!ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
+            <ion-chip class="Button3" (click)="OpenView()">
+              <ion-label>Communities</ion-label>
+              <ion-icon
+                style="color: var(--ion-color-background)"
+                name="chevron-down-outline"
+              ></ion-icon>
+            </ion-chip>
           </div>
         </ion-card>
         <ion-card *ngIf="ViewCommunities">
           <div class="CommunityHead">
-            <button (click)="OpenView()" class="Button3">Communities:</button>
+            <ion-chip class="Button3" (click)="OpenView()">
+              <ion-label>Communities</ion-label>
+              <ion-icon
+                style="color: var(--ion-color-background)"
+                name="chevron-up-outline"
+              ></ion-icon>
+            </ion-chip>
           </div>
           <div
             class="ViewCommunity"
@@ -490,11 +506,15 @@
           #modal
           trigger="follow-trigger"
           [presentingElement]="presentingElement"
+          [isOpen]="isModalOpen"
         >
           <ng-template>
             <ion-header>
               <ion-toolbar>
                 <ion-title>Followers</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setOpen(false)">Close</ion-button>
+                </ion-buttons>
               </ion-toolbar>
             </ion-header>
             <ion-content>
@@ -522,11 +542,16 @@
           #modal
           trigger="following-trigger"
           [presentingElement]="presentingElement2"
+          [isOpen]="isModal2Open"
+
         >
           <ng-template>
             <ion-header>
               <ion-toolbar>
                 <ion-title>Following</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setOpen2(false)">Close</ion-button>
+                </ion-buttons>
               </ion-toolbar>
             </ion-header>
             <ion-content>
@@ -651,6 +676,9 @@
           src="{{ profile?.profileBanner }}"
           onerror="this.src='assets/icon/Banner.png';"
         />
+        <ion-button fill="clear" class="pointsBtn">
+          {{profile?.ep}} EP
+        </ion-button>
       </div>
       <ion-card-header *ngIf="!edit">
         <ion-card-title
@@ -718,64 +746,69 @@
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder="First Name"
+              placeholder="{{ profile?.name }}"
               formControlName="FirstName"
             ></ion-textarea>
 
             <ion-textarea
               [maxlength]="20"
               class="DescInput"
-              placeholder="Last Name"
+              placeholder="{{ profile?.lastName }}"
               formControlName="LastName"
             ></ion-textarea>
           </div>
           <ion-textarea
             [maxlength]="150"
             class="DescInput2"
-            placeholder="Bio"
+            placeholder="{{ profile?.bio }}"
             formControlName="Bio"
           ></ion-textarea>
 
-          <button [hidden]="hasImage" (click)="insertImage()" class="EditBtn">
-            Change Photo
-          </button>
-          <div [hidden]="!hasImage" class="Image">
+          <button class="EditBtn">Change Photo</button>
+
+          <div class="Image">
             <input
               type="file"
               class="file-input"
               [accept]="requiredFileType"
               (change)="onFileSelected($event)"
               #fileUpload
+              style="margin-bottom: 16%; margin-left: 24.63%"
             />
           </div>
 
-          <button [hidden]="hasBanner" (click)="insertBanner()" class="EditBtn">
-            Change Banner
-          </button>
-          <div [hidden]="!hasBanner" class="Image">
+          <button class="EditBtn">Change Banner</button>
+          <div class="ImageBanner">
             <input
               type="file"
               class="file-input"
               [accept]="requiredFileType"
               (change)="onFileBannerSelected($event)"
               #fileUpload
+              style="margin-bottom: 8%; margin-left: 24.63%"
             />
           </div>
 
-          <button type="submit" class="EditBtn" (click)="FinishEdit()">
-            <ion-icon name="checkmark"></ion-icon>
+          <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="EditBtn" (click)="FinishEdit()">
+            Confirm
           </button>
         </form>
       </div>
     </ion-card>
     <ion-card *ngIf="!ViewCommunities">
       <div class="CommunityHead">
-        <button (click)="OpenView()" class="Button3">Communities:</button>
+        <ion-chip class="Button3" (click)="OpenView()">
+          <ion-label>Communities</ion-label>
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </ion-chip>
       </div>
     </ion-card>
     <ion-card *ngIf="ViewCommunities">
       <div class="CommunityHead">
-        <button (click)="OpenView()" class="Button3">Communities:</button>
+        <ion-chip class="Button3" (click)="OpenView()">
+          <ion-label>Communities</ion-label>
+          <ion-icon name="chevron-up-outline"></ion-icon>
+        </ion-chip>
       </div>
       <div
         class="ViewCommunity"
@@ -835,9 +868,8 @@
                     style="color: red"
                     >Post Deleted</label
                   >
-
                   <button class="Options" (click)="Delete(i)">
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
                 </div>
               </div>
@@ -887,11 +919,8 @@
             </div>
           </div>
           <div class="PostFooter">
-            <div class="date" *ngIf="post.dateAdded.length == 21">
-              {{ post.dateAdded.slice(0, 9) }}
-            </div>
-            <div class="date" *ngIf="post.dateAdded.length != 21">
-              {{ post.dateAdded.slice(0, 10) }}
+            <div class="date">
+              {{ post.dateAdded | date: 'yyyy-MM-dd'}}
             </div>
 
             <div class="icons">
@@ -928,7 +957,7 @@
                     *ngIf="post.likes.includes(profile.username)"
                     id="icons2"
                     style="color: red"
-                    (click)="Dislike(i, post)"
+                    (click)="Like(i, post)"
                   ></ion-icon>
                   <ion-icon
                     name="heart-outline"
@@ -937,6 +966,24 @@
                     (click)="Like(i, post)"
                   ></ion-icon>
                   <div>{{ post.likes.length }}</div>
+                </div>
+              </div>
+              <div style="text-align: center">
+                <div *ngIf="profile != null">
+                  <ion-icon
+                    name="heart-dislike"
+                    *ngIf="post.dislikes.includes(profile.username)"
+                    id="icons2"
+                    style="color: red"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <ion-icon
+                    name="heart-dislike-outline"
+                    id="icons2"
+                    *ngIf="!post.dislikes.includes(profile.username)"
+                    (click)="Dislike(i, post)"
+                  ></ion-icon>
+                  <div>{{ post.dislikes.length }}</div>
                 </div>
               </div>
             </div>
@@ -973,15 +1020,8 @@
                 >Delete Comment</label
               >
 
-              <label
-                class="report"
-                *ngIf="deleteComment[i] && !MarkedForCommentDeletion[i]"
-                style="color: red"
-                >Comment Deleted</label
-              >
-
               <button class="Options2" (click)="Delete2(i)">
-                <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                <ion-icon name="close-circle-outline"></ion-icon>
               </button>
 
               <ion-icon
@@ -1112,85 +1152,5 @@
         </ion-content>
       </ng-template>
     </ion-modal>
-
-    <!-- <div class="awards">
-        <ion-title class="awards-header">
-          Awards
-        </ion-title>
-        <div class="badges">
-          <img src="assets/icon/Award1.jpg" class="badge">
-          <img src="assets/icon/Award2.JPG" class="badge">
-        </div>
-      </div>
-
-
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title class="topComms" color="grey">Top Communities</ion-card-title>
-        </ion-card-header>
-        <div class="community-card-container">
-
-          <ion-grid>
-            <ion-row class="content-row">
-              <ion-col size="11">
-                <ion-card class = "CommunityCard">
-                  <div class="card-color">
-                  <div class = "CommunityHeader"> 
-                    <img src = "assets/icon/Alien.jpg" class = "CommunityIcon" >
-                     <div class = "CommunityDetails" >
-                       <div class = "CommunityName">XenoMorffs</div>
-                       <div class = "CommunityMembers">92 Members</div>
-                       <div class = "CommunityGenres">
-                       <img src = "assets/icon/Science-Fiction.png" class="imgDiv" id="genreicons">
-                       <img src = "assets/icon/Adventure.png"  class="imgDiv" id="genreicons">
-                       <img src = "assets/icon/Horror.png"  class="imgDiv" id="genreicons"></div>
-                    
-                   </div>
-                   <div class = "CommunityAdd">
-                    
-                   </div>
-                   </div>
-                   <div class = "CommunityBody">
-                       <div class = "CommunityDesc">
-                        Join the ultimate extraterrestrial terror celebration! The Ridley Scott Alien Fan Club awaits you!       
-                      </div>
-                      </div>
-                    </div>
-                 </ion-card>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="content-row">
-              <ion-col size="11">
-                <ion-card class = "CommunityCard">
-                  <div class="card-color">
-                  <div class = "CommunityHeader"> 
-                    <img src = "assets/icon/HP.jpg" class = "CommunityIcon" >
-                     <div class = "CommunityDetails" >
-                       <div class = "CommunityName">Potterheads</div>
-                       <div class = "CommunityMembers">105 Members</div>
-                       <div class = "CommunityGenres">
-                       <img src = "assets/icon/Fantasy.png" class="imgDiv">
-                       <img src = "assets/icon/Adventure.png"  class="imgDiv">
-                       <img src = "assets/icon/Movies.png"  class="imgDiv">
-                      
-                      </div>
-                   </div>
-                   <div class = "CommunityAdd">
-                    
-                   </div>
-                   </div>
-                   <div class = "CommunityBody">
-                       <div class = "CommunityDesc">
-                        Join in on all things Potterverse!
-                      </div>
-                      </div>
-                    </div>
-                 </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-card> -->
   </div>
 </div>

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { EventDto } from "@encompass/api/event/data-access";
 import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
+import { ProfileDto } from "@encompass/api/profile/data-access";
 import { UpdateEventRequest, UserEventsDto } from "@encompass/api/user-events/data-access";
 
 @Injectable()
@@ -107,6 +108,19 @@ export class EventApi{
   async addToUserEvents(userId: string, eventId: string){
     try{
       const response = await this.httpClient.patch<UserEventsDto>('/api/user-events/add-event/' + userId + "/" + eventId, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async addCoins(username: string, amount: number){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-coins/' + username + '/' + amount, null).toPromise();
 
       return response;
     }

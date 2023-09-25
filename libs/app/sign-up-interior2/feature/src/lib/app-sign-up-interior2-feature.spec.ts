@@ -50,7 +50,7 @@ describe('SignUpInterior2Component', () => {
       username: 'testUser',
       name: 'John',
       lastName: 'Doe',
-      categories: ['category1', 'category2'],
+      categories: [{category: 'category1', score: 0.5}, {category: 'category2', score: 0.5}],
       communities: ['community1', 'community2'],
       awards: ['award1', 'award2'],
       events: ['event1', 'event2'],

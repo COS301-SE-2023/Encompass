@@ -16,9 +16,12 @@ import {
 import { CommunityDto } from '@encompass/api/community/data-access';
 import {
   AddCommunityRequest,
+  DislikePostArray,
   GetCommunity,
   GetCommunityPosts,
   GetCommunityRequest,
+  GetRanking,
+  LikePostArray,
   RemoveCommunityRequest,
   UpdatePostArray,
 } from '@encompass/app/community-profile/util';
@@ -37,6 +40,10 @@ import { SettingsState } from '@encompass/app/settings/data-access';
 import { GetUserSettings } from '@encompass/app/settings/util';
 import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { ToastController } from '@ionic/angular';
+import { CommunityLeaderboardDto } from '@encompass/api/community-leaderboard/data-access';
+import { EventState } from '@encompass/app/event/data-access';
+import { EventDto } from '@encompass/api/event/data-access';
+import { GetByCommunity } from '@encompass/app/event/util';
 // import { PostsState } from '@encompass/app/posts/data-access';
 // import { GetCommunityPosts, UpdatePostArray } from '@encompass/app/posts/util';
 
@@ -55,6 +62,10 @@ export class CommunityProfileComponent {
   @Select(CommunityState.communityRequest)
   communityRequest$!: Observable<CommunityRequestDto | null>;
   @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
+  @Select(CommunityState.leaderboard) communityLeaderboard$!: Observable<
+    CommunityLeaderboardDto[] | null
+  >;
+  @Select(EventState.communityEvents) events$!: Observable<EventDto[] | null>;
 
   file!: File;
   fileBanner!: File;
@@ -63,6 +74,8 @@ export class CommunityProfileComponent {
   profile!: ProfileDto | null;
   community!: CommunityDto | null;
   communityPosts!: PostDto[] | null;
+  events!: EventDto[] | null;
+  communityLeaderboard!: CommunityLeaderboardDto[] | null;
   communityRequest!: CommunityRequestDto | null;
 
   shares: number[] = [];
@@ -85,6 +98,10 @@ export class CommunityProfileComponent {
   likedComments: boolean[] = [];
 
   isSettingsFetched = false;
+  isCommunityRequestFetched = false;
+  position!: number;
+  showPosts = true;
+  showEvents = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -101,41 +118,6 @@ export class CommunityProfileComponent {
     if (communityName == null) {
       return;
     }
-
-    this.store.dispatch(new SubscribeToProfile());
-    this.profile$.subscribe((profile) => {
-      if (profile) {
-        this.profile = profile;
-
-        this.store.dispatch(new GetUserSettings(this.profile._id));
-
-        this.settings$.subscribe((settings) => {
-          if (settings) {
-            this.settings = settings;
-
-            this.document.body.setAttribute(
-              'color-theme',
-              this.settings.themes.themeColor
-            );
-            if (this.settings.themes.themeColor.startsWith('dark')) {
-              const icons = document.getElementById('genreicons');
-
-              if (icons) {
-                icons.style.filter = 'invert(1)';
-              }
-            }
-
-            if (page) {
-              console.log('testing the feed page');
-              console.log('hello ' + this.settings.themes.themeImage);
-              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-            } else {
-              console.log('page is null');
-            }
-          }
-        });
-      }
-    });
 
     this.store.dispatch(new GetCommunity(communityName));
     this.community$.subscribe((community) => {
@@ -162,14 +144,24 @@ export class CommunityProfileComponent {
         console.log('Updated My Members: ' + this.UpdatedMyMembers);
 
         if (community.type !== 'Public') {
-          this.store.dispatch(new GetCommunityRequest(community._id));
-          this.communityRequest$.subscribe((request) => {
-            if (request) {
-              console.log(request);
-              this.communityRequest = request;
-            }
-          });
+          if (!this.isCommunityRequestFetched) {
+            this.isCommunityRequestFetched = true;
+            this.store.dispatch(new GetCommunityRequest(community._id));
+            this.communityRequest$.subscribe((request) => {
+              if (request) {
+                console.log(request);
+                this.communityRequest = request;
+              }
+            });
+          }
         }
+      }
+    });
+
+    this.store.dispatch(new SubscribeToProfile());
+    this.profile$.subscribe((profile) => {
+      if (profile) {
+        this.profile = profile;
       }
     });
 
@@ -193,116 +185,120 @@ export class CommunityProfileComponent {
       }
     });
 
-    this.load();
-  }
-
-  load() {
-    const page = document.getElementById('home-page');
-
-    this.store.dispatch(new SubscribeToProfile());
-    // this.store.dispatch(new SubscribeToProfile())
-    this.profile$.subscribe((profile) => {
-      if (profile) {
-        console.log('Profile CALLED');
-        console.log(profile);
-        this.profile = profile;
-        // this.addPosts("recommended");
-        // this.newChange();
-
-        this.store.dispatch(new GetUserSettings(this.profile._id));
-
-        this.settings$.subscribe((settings) => {
-          if (settings) {
-            this.settings = settings;
-
-            this.document.body.setAttribute(
-              'color-theme',
-              this.settings.themes.themeColor
-            );
-            if (this.settings.themes.themeColor.startsWith('dark')) {
-              const icons = document.getElementById('genreicons');
-
-              if (icons) {
-                icons.style.filter = 'invert(1)';
-              }
-            }
-
-            this.themeName = this.settings.themes.themeColor;
-
-            console.log(this.themeName);
-
-            const defaultcloud = document.getElementById('cloud-default');
-            const redcloud = document.getElementById('cloud-red');
-            const bluecloud = document.getElementById('cloud-blue');
-            const greencloud = document.getElementById('cloud-green');
-            const orangecloud = document.getElementById('cloud-orange');
-
-            if (
-              defaultcloud &&
-              redcloud &&
-              bluecloud &&
-              greencloud &&
-              orangecloud
-            ) {
-              // console.log('default cloudsssssssssssssssssssssssssssssssss1');
-              console.log(this.themeName);
-              if (
-                this.themeName == 'light-red' ||
-                this.themeName == 'dark-red'
-              ) {
-                redcloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                greencloud.classList.add('visible');
-                orangecloud.classList.add('visible');
-              } else if (
-                this.themeName == 'light-blue' ||
-                this.themeName == 'dark-blue'
-              ) {
-                // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-                bluecloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                redcloud.classList.add('visible');
-                greencloud.classList.add('visible');
-                orangecloud.classList.add('visible');
-              } else if (
-                this.themeName == 'light-green' ||
-                this.themeName == 'dark-green'
-              ) {
-                greencloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                redcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                orangecloud.classList.add('visible');
-              } else if (
-                this.themeName == 'light-orange' ||
-                this.themeName == 'dark-orange'
-              ) {
-                orangecloud.classList.remove('visible');
-                defaultcloud.classList.add('visible');
-                redcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                greencloud.classList.add('visible');
-              } else {
-                defaultcloud.classList.remove('visible');
-                redcloud.classList.add('visible');
-                bluecloud.classList.add('visible');
-                greencloud.classList.add('visible');
-                orangecloud.classList.add('visible');
-              }
-            }
-
-            if (page) {
-              console.log('testing the feed page');
-              console.log('hello ' + this.settings.themes.themeImage);
-              page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-            } else {
-              console.log('page is null');
-            }
+    this.store.dispatch(new GetRanking());
+    this.communityLeaderboard$.subscribe((leaderboard) => {
+      if (leaderboard) {
+        this.communityLeaderboard = leaderboard;
+        this.communityLeaderboard.forEach((community) => {
+          if (community.name === communityName) {
+            this.position = community.position;
           }
         });
       }
     });
+
+    this.store.dispatch(new GetByCommunity(communityName));
+    this.events$.subscribe((events) => {
+      if(events){
+        console.log(events)
+        this.events = events
+      }
+    })
+
+    if (this.profile === null) {
+      return;
+    }
+
+    if (!this.isSettingsFetched) {
+      this.store.dispatch(new GetUserSettings(this.profile._id));
+      this.settings$.subscribe((settings) => {
+        if (settings) {
+          this.settings = settings;
+
+          this.document.body.setAttribute(
+            'color-theme',
+            this.settings.themes.themeColor
+          );
+          if (this.settings.themes.themeColor.startsWith('dark')) {
+            const icons = document.getElementById('genreicons');
+
+            if (icons) {
+              icons.style.filter = 'invert(1)';
+            }
+          }
+
+          this.themeName = this.settings.themes.themeColor;
+
+          console.log(this.themeName);
+
+          const defaultcloud = document.getElementById('cloud-default');
+          const redcloud = document.getElementById('cloud-red');
+          const bluecloud = document.getElementById('cloud-blue');
+          const greencloud = document.getElementById('cloud-green');
+          const orangecloud = document.getElementById('cloud-orange');
+
+          if (
+            defaultcloud &&
+            redcloud &&
+            bluecloud &&
+            greencloud &&
+            orangecloud
+          ) {
+            // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+            console.log(this.themeName);
+            if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
+              redcloud.classList.remove('visible');
+              defaultcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              greencloud.classList.add('visible');
+              orangecloud.classList.add('visible');
+            } else if (
+              this.themeName == 'light-blue' ||
+              this.themeName == 'dark-blue'
+            ) {
+              // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+              bluecloud.classList.remove('visible');
+              defaultcloud.classList.add('visible');
+              redcloud.classList.add('visible');
+              greencloud.classList.add('visible');
+              orangecloud.classList.add('visible');
+            } else if (
+              this.themeName == 'light-green' ||
+              this.themeName == 'dark-green'
+            ) {
+              greencloud.classList.remove('visible');
+              defaultcloud.classList.add('visible');
+              redcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              orangecloud.classList.add('visible');
+            } else if (
+              this.themeName == 'light-orange' ||
+              this.themeName == 'dark-orange'
+            ) {
+              orangecloud.classList.remove('visible');
+              defaultcloud.classList.add('visible');
+              redcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              greencloud.classList.add('visible');
+            } else {
+              defaultcloud.classList.remove('visible');
+              redcloud.classList.add('visible');
+              bluecloud.classList.add('visible');
+              greencloud.classList.add('visible');
+              orangecloud.classList.add('visible');
+            }
+          }
+
+          if (page) {
+            console.log('testing the feed page');
+            console.log('hello ' + this.settings.themes.themeImage);
+            page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+          } else {
+            console.log('page is null');
+          }
+        }
+      });
+    }
   }
 
   postForm = this.formBuilder.group({
@@ -340,6 +336,7 @@ export class CommunityProfileComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
@@ -357,8 +354,8 @@ export class CommunityProfileComponent {
     const toast = await this.toastController.create({
       message: 'Url Copied to Clipboard',
       duration: 2000,
-      color: 'success'
-    })
+      color: 'success',
+    });
 
     await toast.present();
   }
@@ -411,6 +408,13 @@ export class CommunityProfileComponent {
     let rulesData: string;
     let imageUrl: string | null;
     let bannerUrl: string | null;
+
+    const toast = await this.toastController.create({
+      message: 'Updating Community',
+      color: 'success'
+    })
+
+    toast.present();
 
     if (this.file) {
       imageUrl = await this.uploadImage(this.file, this.fileName);
@@ -469,6 +473,8 @@ export class CommunityProfileComponent {
     };
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
+    toast.dismiss();
+
     this.postForm.reset();
   }
 
@@ -720,6 +726,9 @@ export class CommunityProfileComponent {
       recBtn.classList.remove('active-button');
       eventBtn.classList.add('active-button');
     }
+
+    this.showPosts = false;
+    this.showEvents = true;
   }
 
   GoToProfile(username: string) {
@@ -760,6 +769,7 @@ export class CommunityProfileComponent {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares,
@@ -771,61 +781,19 @@ export class CommunityProfileComponent {
   }
 
   Like(n: number, post: PostDto) {
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
+    if (this.profile == null) {
       return;
     }
 
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePostArray(post._id, data));
-    this.communityApi.addCoins(post.username, 1);
+    this.store.dispatch(new LikePostArray(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
-    this.likedComments[n] = false;
-    this.likes[n]--;
+    if (this.profile == null) {
+      return;
+    }
 
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePostArray(post._id, data));
+    this.store.dispatch(new DislikePostArray(post._id, this.profile._id));
   }
 
   mobileview = false;
@@ -837,5 +805,17 @@ export class CommunityProfileComponent {
   ngOnInit() {
     this.updateMobileView();
     window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  async goToEvent(id: string){
+    this.router.navigate(['home/challenge-description/' + id]);
+  }
+
+  daysLeft(targetDateStr: Date): number {
+    const currentDate = new Date();
+    const targetDate = new Date(targetDateStr);
+    const timeDifference = targetDate.getTime() - currentDate.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    return daysDifference >= 0 ? daysDifference : 0;
   }
 }

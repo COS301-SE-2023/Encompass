@@ -7,6 +7,7 @@ export class CreatePostRequest{
   communityImageUrl!: string | null;
   readonly categories!: string [];
   readonly likes!: string [];
+  readonly dislikes!: string [];
   readonly spoiler!: boolean;
   readonly ageRestricted!: boolean;
 }

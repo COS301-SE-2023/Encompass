@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import {
+  DislikeProfilePost,
   GetComments,
   GetPosts,
+  LikeProfilePost,
   SubscribeToProfile,
   UpdatePost,
 } from '@encompass/app/profile/util';
@@ -60,7 +62,7 @@ export class ProfilePage {
   otherUsers!: ProfileDto[] | null;
   posts!: PostDto[] | null;
   commentsList!: CommentDto[] | null;
-  datesAdded: string[] = [];
+  datesAdded: Date[] = [];
   comments: number[] = [];
   shares: number[] = [];
   likes: number[] = [];
@@ -90,6 +92,9 @@ export class ProfilePage {
   isEventsFetched = false;
 
   ViewCommunities = false;
+
+  isModalOpen = false;
+  isModal2Open = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -180,7 +185,7 @@ export class ProfilePage {
     if (!this.isPostsFetched) {
       this.isPostsFetched = true;
       console.log('getPosts', profile);
-      this.store.dispatch(new GetPosts(profile.username));
+      this.store.dispatch(new GetPosts(profile.username, profile._id));
       this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
         if (posts) {
           console.log('posts', posts);
@@ -372,6 +377,7 @@ export class ProfilePage {
       communityImageUrl: post.communityImageUrl,
       categories: post.categories,
       likes: post.likes,
+      dislikes: post.dislikes,
       spoiler: post.spoiler,
       ageRestricted: post.ageRestricted,
       shares: post.shares + 1,
@@ -532,6 +538,13 @@ export class ProfilePage {
     let imageUrl: string | null;
     let bannerUrl: string | null;
 
+    const toast = await this.toastController.create({
+      message: 'Updating Profile',
+      color: 'success'
+    })
+
+    toast.present();
+
     if (this.file) {
       imageUrl = await this.uploadImage(this.file, this.fileName);
 
@@ -600,6 +613,8 @@ export class ProfilePage {
     };
 
     this.store.dispatch(new UpdateProfile(data, this.profile?._id));
+    toast.dismiss();
+
     this.postForm.reset();
   }
 
@@ -685,36 +700,7 @@ export class ProfilePage {
       return;
     }
 
-    let likesArr: string[];
-
-    console.log(this.profile?.username + ' LIKED POST');
-    const emptyArray: string[] = [];
-
-    if (this.profile?.username == null) {
-      return;
-    }
-
-    if (post.likes == emptyArray) {
-      likesArr = [this.profile?.username];
-    } else {
-      likesArr = [...post.likes, this.profile?.username];
-    }
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new LikeProfilePost(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
@@ -722,28 +708,9 @@ export class ProfilePage {
       return;
     }
 
-    this.likedComments[n] = false;
-    this.likes[n]--;
-
-    let likesArr = [...post.likes];
-    likesArr = likesArr.filter((like) => like !== this.profile?.username);
-
-    const data: UpdatePostRequest = {
-      title: post.title,
-      text: post.text,
-      imageUrl: post.imageUrl,
-      communityImageUrl: post.communityImageUrl,
-      categories: post.categories,
-      likes: likesArr,
-      spoiler: post.spoiler,
-      ageRestricted: post.ageRestricted,
-      shares: post.shares,
-      comments: post.comments,
-      reported: post.reported,
-    };
-
-    this.store.dispatch(new UpdatePost(post._id, data));
+    this.store.dispatch(new DislikeProfilePost(post._id, this.profile._id));
   }
+
 
   OpenView() {
     this.ViewCommunities = !this.ViewCommunities;
@@ -763,15 +730,16 @@ export class ProfilePage {
     this.mobileview = window.innerWidth <= 992;
   }
 
-  isModalOpen = false;
 
   setOpen(isOpen: boolean) {
+    this.modalController.dismiss;
     this.isModalOpen = isOpen;
   }
 
-  isModal2Open = false;
 
   setOpen2(isOpen: boolean) {
+    this.modalController.dismiss;
     this.isModal2Open = isOpen;
   }
+  
 }

@@ -355,6 +355,31 @@ ion-textarea.custom {
   padding: 2%;
 }
 
+.border{
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-color);
+  margin-bottom: 5px;
+}
+
+.input-box {
+  background-color: var(--ion-color-secondary);
+ width: 95%;
+ padding: 0px 30px 1px 30px;
+ border-radius: 25px;
+ border: 1px solid var(--ion-color-secondary-tint);
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+
+}
+
+.input {
+  font-family: CustomFont;
+  width: 100%;
+
+}
+
 //==============================================mobile======================================
 .PostCard-mobile {
   background-color: var(--card-color);

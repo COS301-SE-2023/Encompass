@@ -261,7 +261,6 @@ ion-card {
 .edit-button ion-icon {
   font-size: 25px;
   color: black;
-  margin-left: 15px;
 }
 
 .banner {
@@ -981,4 +980,16 @@ ion-button:hover {
   span {
     color: var(--ion-color-text);
   }
+}
+
+.pointsBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: var(--card-color);
+  border-radius: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  color: var(--hover-color);
+  font-weight: bold;
 }
