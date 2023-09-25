@@ -638,43 +638,49 @@
             ></ion-textarea>
           </div>
 
-          <div class="EditButtons" style="margin-left: 20px">
-            <input
-              type="file"
-              class="file-input"
-              [accept]="requiredFileType"
-              (change)="onFileSelected($event)"
-              #fileUpload
-              style="margin-right: 580px"
-            />
-            <button
-              style="margin-left: 20px"
-              class="editBtn"
-              (click)="insertImage()"
-            >
-              Change Photo
-            </button>
+          <div class="EditButtons">
+            <div class="chnageBtns">
+              <ion-item
+                class="Image"
+                style="paddling-left: 1%"
+                (click)="insertImage()"
+              >
+                <span class="image-span">
+                  <input
+                    id="file-input"
+                    type="file"
+                    class="file-input"
+                    [accept]="requiredFileType"
+                    (change)="onFileSelected($event)"
+                    #fileUpload
+                    style="margin-bottom: 115px; margin-left: 130px"
+                  />
+                  <label for="file-input">
+                    <span>Change Profile</span></label
+                  ></span
+                >
+              </ion-item>
 
-            <input
-              type="file"
-              class="file-input"
-              [accept]="requiredFileType"
-              (change)="onFileBannerSelected($event)"
-              #fileUpload
-              style="margin-right: 40px"
-            />
-            <button class="editBtn" (click)="insertBanner()">
-              Change Banner
-            </button>
+              <ion-item class="Image" (click)="insertBanner()">
+                <span class="image-span">
+                  <input
+                    id="file-input-banner"
+                    type="file"
+                    class="file-input"
+                    [accept]="requiredFileType"
+                    (change)="onFileBannerSelected($event)"
+                    #fileUpload
+                  />
+                  <label for="file-input-banner">
+                    <span class="full-width-label">Change Banner</span></label
+                  ></span
+                >
+              </ion-item>
 
-            <button
-              style="background-color: var(--ion-color-primary); color: white"
-              type="submit"
-              class="FinishEdit editBtn"
-              (click)="FinishEdit()"
-            >
-              Confirm
-            </button>
+              <button type="submit" class="EditBtn" (click)="FinishEdit()">
+                Confirm
+              </button>
+            </div>
           </div>
         </form>
       </div>
