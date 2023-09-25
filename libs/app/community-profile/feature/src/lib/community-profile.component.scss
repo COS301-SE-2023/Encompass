@@ -61,35 +61,6 @@
   margin-top: 0.5%;
 }
 
-@media (max-width: 1622px) {
-  .custom-title {
-    font-size: 250%;
-  }
-}
-
-@media (max-width: 1300px) {
-  .custom-title {
-    font-size: 200%;
-  }
-}
-
-.home-text {
-  font-size: 22px;
-  font-family: CustomFont2;
-  color: black;
-}
-
-@media (max-width: 1622px) {
-  .home-text {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 1300px) {
-  .home-text {
-    font-size: 14px;
-  }
-}
 
 .buttons-container {
   display: flex;
@@ -398,10 +369,6 @@ ion-card {
   background-color: var(--card-color);
 }
 
-.headtext {
-  color: black;
-}
-
 .imgDiv {
   width: 25px;
   height: 25px;
@@ -675,6 +642,7 @@ ion-card {
   padding: 1%;
   margin-left: 5%;
   margin-right: 5%;
+  background-color: var(--card-color);
 }
 
 .backtotop {

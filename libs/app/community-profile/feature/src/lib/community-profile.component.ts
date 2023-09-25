@@ -707,6 +707,9 @@ export class CommunityProfileComponent {
       recBtn.classList.add('active-button');
       eventBtn.classList.remove('active-button');
     }
+
+    this.showPosts = true;
+    this.showEvents = false;
   }
 
   eventChange() {
@@ -808,5 +811,9 @@ export class CommunityProfileComponent {
     const timeDifference = targetDate.getTime() - currentDate.getTime();
     const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
     return daysDifference >= 0 ? daysDifference : 0;
+  }
+
+  goToEvents() {
+    this.router.navigate(['/home/event']);
   }
 }
