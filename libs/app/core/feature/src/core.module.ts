@@ -27,7 +27,7 @@ import { EventModule } from '@encompass/app/event/data-access';
 import { UnauthGuard } from './unauth.guard';
 
 const config: SocketIoConfig = {
-  url: 'http://localhost:3000',
+  url: 'https://encompass-hosting.onrender.com',
   options: {}
 };
 @NgModule({
