@@ -85,10 +85,7 @@ describe('NotificationController (Integration with MongoDB)', () => {
     await app.close();
   });
 
-  beforeEach((): void => {
-    jest.setTimeout(60000);
-    // p = new SUT.PlaywrightFluent();
-  });
+  beforeAll(() => jest.setTimeout(60000));
 
   describe('createNotification', () => {
     it('should create a notification and return the same ID', async () => {

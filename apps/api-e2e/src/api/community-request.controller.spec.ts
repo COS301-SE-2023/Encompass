@@ -67,10 +67,7 @@ describe('CommunityRequestController (Integration with MongoDB)', () => {
     await setupTestApp();
   });
 
-  beforeEach((): void => {
-    jest.setTimeout(60000);
-    // p = new SUT.PlaywrightFluent();
-  });
+  beforeAll(() => jest.setTimeout(60000));
 
   afterAll(async () => {
     await dbConnection.collection('community-request').deleteMany({});

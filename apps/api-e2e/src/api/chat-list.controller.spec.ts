@@ -77,10 +77,7 @@ describe('ChatController (Integration with MongoDB)', () => {
     await dbConnection.collection('chat-list').deleteMany({});
   });
 
-  beforeEach((): void => {
-    jest.setTimeout(60000);
-    // p = new SUT.PlaywrightFluent();
-  });
+  beforeAll(() => jest.setTimeout(60000));
   
   beforeAll(async () => {
     await setupTestApp();

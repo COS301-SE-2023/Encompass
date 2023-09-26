@@ -104,10 +104,7 @@ describe('CommentController (Integration with MongoDB)', () => {
     await app.close();
   });
 
-  beforeEach((): void => {
-    jest.setTimeout(60000);
-    // p = new SUT.PlaywrightFluent();
-  });
+  beforeAll(() => jest.setTimeout(60000));
 
   describe('createComment', () => {
     it('should create and return the same Comment', async () => {
