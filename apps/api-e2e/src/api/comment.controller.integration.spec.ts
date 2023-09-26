@@ -97,6 +97,7 @@ describe('CommentController (Integration with MongoDB)', () => {
 
   
   beforeAll(async () => {
+    jest.setTimeout(60000)
     await setupTestApp();
   });
 
@@ -104,7 +105,6 @@ describe('CommentController (Integration with MongoDB)', () => {
     await app.close();
   });
 
-  beforeAll(() => jest.setTimeout(60000));
 
   describe('createComment', () => {
     it('should create and return the same Comment', async () => {

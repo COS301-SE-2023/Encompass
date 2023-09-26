@@ -67,11 +67,10 @@ describe('accountController', () => {
       afterEach(async () => {
         await dbConnection.collection('account').deleteMany({});
       });
-
-      beforeAll(() => jest.setTimeout(60000));
     
       
       beforeAll(async () => {
+        jest.setTimeout(60000)
         await setupTestApp();
       });
     

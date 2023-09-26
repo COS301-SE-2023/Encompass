@@ -77,6 +77,7 @@ describe('NotificationController (Integration with MongoDB)', () => {
   };
  
   beforeAll(async () => {
+    jest.setTimeout(60000)
     await setupTestApp();
   });
 
@@ -85,7 +86,7 @@ describe('NotificationController (Integration with MongoDB)', () => {
     await app.close();
   });
 
-  beforeAll(() => jest.setTimeout(60000));
+  // beforeAll(() => jest.setTimeout(60000));
 
   describe('createNotification', () => {
     it('should create a notification and return the same ID', async () => {

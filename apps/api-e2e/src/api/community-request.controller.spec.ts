@@ -64,10 +64,9 @@ describe('CommunityRequestController (Integration with MongoDB)', () => {
   };
   
   beforeAll(async () => {
+    jest.setTimeout(60000)
     await setupTestApp();
   });
-
-  beforeAll(() => jest.setTimeout(60000));
 
   afterAll(async () => {
     await dbConnection.collection('community-request').deleteMany({});
