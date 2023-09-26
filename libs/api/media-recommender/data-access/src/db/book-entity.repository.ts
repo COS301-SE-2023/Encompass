@@ -6,6 +6,7 @@ import { Model } from "mongoose";
 import { Book } from "../book";
 import { BookSchemaFactory } from "./book-schema.factory";
 import { BookDto } from "../book.dto";
+import { explicitContent } from "../queries/explicitContent";
 
 @Injectable()
 export class BookEntityRepository extends BaseEntityRepository<BookSchema, Book>{
@@ -38,11 +39,60 @@ export class BookEntityRepository extends BaseEntityRepository<BookSchema, Book>
                 return self.indexOf(value) === index;
             });
         });
+    } 
+
+    async findNonNSFW(categories: string[]): Promise<string[]> { //test for explicit genre filreting
+        // Create regular expressions for explicit genres
+        const explicitRegex = explicitContent.map(genre => new RegExp(genre, 'i'));
+    
+        const books = await this.bookModel.aggregate([
+            { 
+                $match: { 
+                    language: 'English', 
+                    genres: { $not: { $in: explicitRegex } },
+                    $or: [
+                        { genres: { $regex: categories.join('|')} },
+                    ] 
+                } 
+            }, 
+            { 
+                $sample: { 
+                    size: 200 
+                } 
+            }
+        ]);
+    
+        // Extract and deduplicate genres from the books
+        const allGenres = books
+            .flatMap(book => book.genres.split(',').map((g: string) => g.trim()))
+            .filter((value, index, self) => self.indexOf(value) === index);
+    
+        return allGenres;
     }
+    
+    
+
 
     async findSome(categories: string[]): Promise<BookDto[]> {
-        
-
-        return await this.bookModel.aggregate([{ $match: { language: 'English', genres: { $regex: categories.join('|') } } }, { $sample: { size: 200 } }]);
+        // Create regular expressions for explicit genres
+        const explicitRegex = explicitContent.map(genre => new RegExp(genre, 'i'));
+    
+        return await this.bookModel.aggregate([
+            { 
+                $match: { 
+                    language: 'English', 
+                    genres: { $not: { $in: explicitRegex } },
+                    $or: [
+                        { genres: { $regex: categories.join('|')} },
+                    ] 
+                } 
+            }, 
+            { 
+                $sample: { 
+                    size: 200 
+                } 
+            }
+        ]);
     }
+    
 } 

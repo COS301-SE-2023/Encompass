@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { LoginPage } from './login.component';
+import { LoginComponent } from './login.component';
 import { LoginRouting } from './login.routing';
 import { NgxsModule } from '@ngxs/store';
 import { LoginState } from '@encompass/app/login/data-access';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [CommonModule, IonicModule, LoginRouting, NgxsModule.forFeature([LoginState]), FormsModule],
-  declarations: [LoginPage],
+  declarations: [LoginComponent],
   providers: [],
 })
 export class LoginModule {}

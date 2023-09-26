@@ -1,5 +1,5 @@
 .settings-page {
-  overflow:auto;
+  overflow: auto;
   // background-color: var(--ion-color-background);
   width: 100%;
   height: 100%;
@@ -12,54 +12,49 @@
   background-size: cover;
 }
 
-.labelhover{
-    display: none;
+.labelhover {
+  display: none;
 }
 
 ion-toolbar {
+  --background: var(--ion-color-secondary);
+  height: 70px;
+  display: flex;
 
-    --background: var(--ion-color-secondary);
-    height: 70px;
+  .ion-button-group {
     display: flex;
-    
-
-    .ion-button-group {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      flex-grow: 1;
-    }
-
-  
-    ion-icon {
-      font-size: 24px; /* Adjust the icon size as needed */
-      color: var(--ion-color-text);
-    }
-  
-    ion-label {
-      font-size: 14px; /* Adjust the label font size as needed */
-      color: var(--ion-color-text);
-    }
-
-    
+    justify-content: space-evenly;
+    align-items: center;
+    flex-grow: 1;
   }
 
-  ion-input {
-    --border-style: none;
-  }
-  
-  .active-button {
-    background-color: var(--ion-color-secondary-contrast);
-    font-weight: bold;
-    border-radius: 50px;
+  ion-icon {
+    font-size: 24px; /* Adjust the icon size as needed */
+    color: var(--ion-color-text);
   }
 
-  .buttonStyle {
-    width: 15%;
-    height: 40px;
-    font-size: 18px;
+  ion-label {
+    font-size: 14px; /* Adjust the label font size as needed */
+    color: var(--ion-color-text);
   }
+}
 
+ion-input {
+  --border-style: none;
+}
+
+.active-button {
+  background-color: var(--ion-color-secondary-contrast);
+  font-weight: bold;
+  border-radius: 50px;
+}
+
+.buttonStyle {
+  width: auto;
+  height: 40px;
+  font-size: 18%;
+  padding: 0px 10px 0px 10px;
+}
 
 .header {
   font-size: 30px;
@@ -69,6 +64,7 @@ ion-toolbar {
   margin-top: 50px;
   padding-bottom: 10px;
   font-weight: bold;
+  box-shadow: none !important;
 }
 
 .settings {
@@ -76,7 +72,7 @@ ion-toolbar {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100vh; 
+  height: 100vh;
   height: fit-content;
 }
 
@@ -94,7 +90,7 @@ ion-toolbar {
   margin-left: 30px;
 }
 
-.info-label{
+.info-label {
   font-size: 20px;
   font-family: customFont;
   margin-bottom: 10px;
@@ -105,18 +101,17 @@ ion-toolbar {
 
 .label-box {
   width: 80%;
-  
+
   // display: flex;
   // align-items: flex-start;
 }
-
-
 
 .item-native {
   padding-left: -16px;
 }
 
-.edit-icons-toggle, .edit-toggle {
+.edit-icons-toggle,
+.edit-toggle {
   margin-right: 5px;
   --handle-background: var(--ion-color-primary-shade);
   --handle-background-checked: var(--ion-color-primary);
@@ -160,7 +155,6 @@ ion-button:hover {
 }
 
 .settings {
-
   background-color: var(--ion-color-background);
   color: var(--ion-color-text);
   .header {
@@ -182,7 +176,6 @@ ion-button:hover {
 .onClick {
   display: none;
 }
-
 
 .info {
   --background: var(--ion-color-secondary);
@@ -217,7 +210,8 @@ ion-button:hover {
   margin-top: 10px;
 }
 
-.overlay-image, .overlay-banner {
+.overlay-image,
+.overlay-banner {
   position: absolute;
   top: 0;
   left: 0;
@@ -258,7 +252,6 @@ ion-button:hover {
   cursor: pointer;
 }
 
-
 .file-label {
   position: absolute;
   top: 0;
@@ -285,5 +278,3 @@ ion-button:hover {
   color: white;
   font-size: 24px;
 }
-
-

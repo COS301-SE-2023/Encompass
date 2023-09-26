@@ -3,21 +3,21 @@ import { HomeApi } from "./home.api";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 // import { ClearNotification, GetAllPosts, GetNotifications, SendNotification, UpdatePost, getHome } from "@encompass/app/home-page/util";
 // import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, UpdatePost, getHome } from "@encompass/app/home-page/util";
-import { ClearNotification, SendNotification, GetAllPosts, GetLatestPosts, GetNotifications, GetPopularPosts, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, UpdatePost, getHome, ClearAllNotifications, UpdatePostWithType } from "@encompass/app/home-page/util";
-import { HomeDto } from "@encompass/api/home/data-access";
+import { ClearNotification, SendNotification, GetNotifications, GetRecommendedBooks, GetRecommendedCommunities, GetRecommendedMovies, ClearAllNotifications, GetRecommendedPodcasts, UpdateCommunity } from "@encompass/app/home-page/util";
 import { PostDto } from "@encompass/api/post/data-access";
 import { NotificationDto } from "@encompass/api/notifications/data-access";
 import { CommunityDto } from "@encompass/api/community/data-access";
 import { MovieDto } from "@encompass/api/media-recommender/data-access";
 import { BookDto } from "@encompass/api/media-recommender/data-access";
+import { PodcastDto } from "@encompass/api/media-recommender/data-access";
 
-export interface HomePostsModel{
-  HomePostsForm: {
-    model: {
-      homePosts: PostDto[] | null
-    }
-  }
-}
+// export interface HomePostsModel{
+//   HomePostsForm: {
+//     model: {
+//       homePosts: PostDto[] | null
+//     }
+//   }
+// }
 
 export interface HomeNotificationsModel{
   HomeNotificationsForm: {
@@ -51,6 +51,14 @@ export interface BooksModel{
   }
 }
 
+export interface PocastsModel{
+  PodcastsForm: {
+    model: {
+      podcasts: PodcastDto[] | null
+    }
+  }
+}
+
 @State<BooksModel>({
   name: 'recommendedBooks',
   defaults: {
@@ -73,6 +81,17 @@ export interface BooksModel{
   }
 })
 
+@State<PocastsModel>({
+  name: 'recommendedPodcasts',
+  defaults: {
+    PodcastsForm: {
+      model: {
+        podcasts: null
+      }
+    }
+  }
+})
+
 @State<CommunitiesModel>({
   name: 'recommendedComunities',
   defaults: {
@@ -84,16 +103,16 @@ export interface BooksModel{
   }
 })
 
-@State<HomePostsModel>({
-  name: 'homePosts',
-  defaults: {
-    HomePostsForm: {
-      model: {
-        homePosts: null
-      }
-    }
-  }
-})
+// @State<HomePostsModel>({
+//   name: 'homePosts',
+//   defaults: {
+//     HomePostsForm: {
+//       model: {
+//         homePosts: null
+//       }
+//     }
+//   }
+// })
 
 @State<HomeNotificationsModel>({
   name: 'homeNotifications',
@@ -144,6 +163,23 @@ export class HomeState{
     })
   }
 
+  @Action(GetRecommendedPodcasts)
+  async getRecommendedPodcasts(ctx: StateContext<PocastsModel>, {userId}: GetRecommendedPodcasts){
+    const response = await this.homeApi.getRecommendedPodcasts(userId);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    ctx.setState({
+      PodcastsForm: {
+        model: {
+          podcasts: response
+        }
+      }
+    })
+  }
+
   @Action(GetRecommendedCommunities)
   async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId, username}: GetRecommendedCommunities){
     const response = await this.homeApi.getRecommendedCommunites(userId, username);
@@ -163,6 +199,32 @@ export class HomeState{
     })
   }
 
+  @Action(UpdateCommunity)
+  async updateCommunity(ctx: StateContext<CommunitiesModel>, {communityId, updateCommunityRequest}: UpdateCommunity){
+    const response = await this.homeApi.updateCommunity(communityId, updateCommunityRequest);
+
+    if(response == null || response == undefined){
+      return;
+    }
+
+    const communities = ctx.getState().CommunitiesForm.model.communities;
+
+    if(communities == null){
+      return;
+    }
+
+    const index = communities?.findIndex(x => x._id === response._id)
+
+    communities[index] = response;
+
+    ctx.setState({
+      CommunitiesForm: {
+        model: {
+          communities: communities
+        }
+      }
+    })
+  }
 
   @Action(GetNotifications)
   async getNotifications(ctx: StateContext<HomeNotificationsModel>, {userId}: GetNotifications){
@@ -181,135 +243,135 @@ export class HomeState{
     })
   }
 
-  @Action(GetLatestPosts)
-  async getLatestPosts(ctx: StateContext<HomePostsModel>, {username}: GetLatestPosts){
-    const response = await this.homeApi.getLatestPosts(username);
-    console.log(response);
+  // @Action(GetLatestPosts)
+  // async getLatestPosts(ctx: StateContext<HomePostsModel>, {username}: GetLatestPosts){
+  //   const response = await this.homeApi.getLatestPosts(username);
+  //   console.log(response);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.setState({
-      HomePostsForm: {
-        model: {
-          homePosts: response
-        }
-      }
-    })
-  }
+  //   ctx.setState({
+  //     HomePostsForm: {
+  //       model: {
+  //         homePosts: response
+  //       }
+  //     }
+  //   })
+  // }
 
-  @Action(GetPopularPosts)
-  async getPopularPosts(ctx: StateContext<HomePostsModel>){
-    const response = await this.homeApi.getPopularPosts();
-    console.log(response);
+  // @Action(GetPopularPosts)
+  // async getPopularPosts(ctx: StateContext<HomePostsModel>){
+  //   const response = await this.homeApi.getPopularPosts();
+  //   console.log(response);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    ctx.setState({
-      HomePostsForm: {
-        model: {
-          homePosts: response
-        }
-      }
-    })
-  }
+  //   ctx.setState({
+  //     HomePostsForm: {
+  //       model: {
+  //         homePosts: response
+  //       }
+  //     }
+  //   })
+  // }
 
-  @Action(GetAllPosts)
-  async getAllPosts(ctx: StateContext<HomePostsModel>, {username}: GetAllPosts){
-    const response = await this.homeApi.getRecommendPosts(username);
-    console.log(response);
+  // @Action(GetAllPosts)
+  // async getAllPosts(ctx: StateContext<HomePostsModel>, {username}: GetAllPosts){
+  //   const response = await this.homeApi.getRecommendPosts(username);
+  //   console.log(response);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
     
-    ctx.setState({
-      HomePostsForm: {
-        model: {
-          homePosts: response
-        }
-      }
-    })
-  }
+  //   ctx.setState({
+  //     HomePostsForm: {
+  //       model: {
+  //         homePosts: response
+  //       }
+  //     }
+  //   })
+  // }
 
-  @Action(UpdatePost)
-  async updatePost(ctx: StateContext<HomePostsModel>, {postId, updateRequest}: UpdatePost){
+  // @Action(UpdatePost)
+  // async updatePost(ctx: StateContext<HomePostsModel>, {postId, updateRequest}: UpdatePost){
 
-    const response = await this.homeApi.updatePost(updateRequest, postId);
+  //   const response = await this.homeApi.updatePost(updateRequest, postId);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    try{
-      const posts = ctx.getState().HomePostsForm.model.homePosts;
+  //   try{
+  //     const posts = ctx.getState().HomePostsForm.model.homePosts;
 
-      if(posts == null ){
-        return
-      }
+  //     if(posts == null ){
+  //       return
+  //     }
 
-      const index = posts?.findIndex(x => x._id == response._id)
+  //     const index = posts?.findIndex(x => x._id == response._id)
 
-      posts[index] = response;
+  //     posts[index] = response;
 
-      ctx.setState({
-        HomePostsForm: {
-          model: {
-            homePosts: posts
-          }
-        }
-      })
-    }
+  //     ctx.setState({
+  //       HomePostsForm: {
+  //         model: {
+  //           homePosts: posts
+  //         }
+  //       }
+  //     })
+  //   }
 
-    catch(error){
-      console.log("here")
-    }
-  }
+  //   catch(error){
+  //     console.log("here")
+  //   }
+  // }
 
-  @Action(UpdatePostWithType)
-  async updatePostWithType(ctx: StateContext<HomePostsModel>, {postId, updateRequest, type, username}: UpdatePostWithType){
+  // @Action(UpdatePostWithType)
+  // async updatePostWithType(ctx: StateContext<HomePostsModel>, {postId, updateRequest, type, username}: UpdatePostWithType){
 
-    const response = await this.homeApi.updatePost(updateRequest, postId);
+  //   const response = await this.homeApi.updatePost(updateRequest, postId);
 
-    if(response == null || response == undefined){
-      return;
-    }
+  //   if(response == null || response == undefined){
+  //     return;
+  //   }
 
-    try{
-      let posts: PostDto[] | null | undefined = [];
+  //   try{
+  //     let posts: PostDto[] | null | undefined = [];
 
-      if(type == "latest"){
-        posts = await this.homeApi.getLatestPosts(username);
-      }
+  //     if(type == "latest"){
+  //       posts = await this.homeApi.getLatestPosts(username);
+  //     }
 
-      else if(type == "popular"){
-        posts = await this.homeApi.getPopularPosts();
-      }
+  //     else if(type == "popular"){
+  //       posts = await this.homeApi.getPopularPosts();
+  //     }
 
-      else{
-        // posts = await this.homeApi.getRecommendPosts(updateRequest.username);
-      }
+  //     else{
+  //       // posts = await this.homeApi.getRecommendPosts(updateRequest.username);
+  //     }
 
-      if(posts === undefined){
-        return;
-      }
+  //     if(posts === undefined){
+  //       return;
+  //     }
 
-      ctx.setState({
-        HomePostsForm: {
-          model: {
-            homePosts: posts
-          }
-        }
-      })
-    }
+  //     ctx.setState({
+  //       HomePostsForm: {
+  //         model: {
+  //           homePosts: posts
+  //         }
+  //       }
+  //     })
+  //   }
 
-    catch(error){
-      console.log("here")
-    }
-  }
+  //   catch(error){
+  //     console.log("here")
+  //   }
+  // }
 
   @Action(SendNotification)
   async sendNotification(ctx: StateContext<HomeNotificationsModel>, {userId, notification}: SendNotification){
@@ -351,10 +413,10 @@ export class HomeState{
     })
   }
 
-  @Selector()
-  static homePosts(state: HomePostsModel){
-    return state.HomePostsForm.model.homePosts;
-  }
+  // @Selector()
+  // static homePosts(state: HomePostsModel){
+  //   return state.HomePostsForm.model.homePosts;
+  // }
 
   @Selector()
   static notifications(state: HomeNotificationsModel){
@@ -374,5 +436,10 @@ export class HomeState{
     @Selector()
     static getBooks(state: BooksModel){ 
       return state.BooksForm.model.books;
+    }
+
+    @Selector()
+    static getPodcasts(state: PocastsModel){
+      return state.PodcastsForm.model.podcasts;
     }
 }

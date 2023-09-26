@@ -1,9 +1,7 @@
-import { Get } from "@nestjs/common";
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetRecommendedProfilesQuery } from "./getRecommendedProfiles.query";
 import { ProfileDtoRepository } from "../../db/profile-dto.repository";
 import { ProfileDto } from "../../profile.dto";
-import cluster from "cluster";
 import { HttpService } from "@nestjs/axios";
 
 @QueryHandler(GetRecommendedProfilesQuery)
@@ -26,13 +24,10 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
         const allPostsPromise = this.httpService.get(url + '/api/post/get-all').toPromise();
         
         const [allProfiles, allPosts] = await Promise.all([allProfilesPromise, allPostsPromise]);
-        //console.log('allPosts');
-        //console.log(allPosts?.data);
         const posts = getPostIdsWithProfileIds(allPosts?.data, allProfiles);
-        //console.log(posts);
-
 
         const profilesCount = allProfiles.length;
+
         if ( profilesCount <=1 ) {
             return [];
         } else {
@@ -84,7 +79,7 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
         for(let i = 0; i < allProfiles.length; i++){
             for(let j = 0; j < allProfiles[i].categories?.length; j++){
                 if(categories.length < 1 || !categories.includes(allProfiles[i].categories[j])){
-                    categories.push(allProfiles[i].categories[j]);
+                    categories.push(allProfiles[i].categories[j].category);
                 }
             }
         }
@@ -123,13 +118,11 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
                 }
             }
 
-            //for each category add 0 or one to tempProfile if profile has category
+            //for each category string match add profile's score to tempProfile if profile has category
+            //allProfiles[i].categories is like this { category: string, score: number } []
             for(let j = 0; j < categories?.length; j++){
-                if(allProfiles[i].categories?.includes(categories[j])){
-                    tempProfile.push(1);
-                } else {
-                    tempProfile.push(0);
-                }
+                const score = searchCategory(allProfiles[i].categories, categories[j]);
+                tempProfile.push(score);
             }
             //for each profile add 0 or 1 to tempProfile if profile is following user
             for(let j = 0; j < following.length; j++){
@@ -147,10 +140,18 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
                     tempProfile.push(0);
                 }
             }
-            
             profiles.push({ profile: Object.values(tempProfile), profileId: profileIds[i], postIds: posts });
         }
         return profiles;
+    }
+
+    function searchCategory(categories: any[], targetCategory: string): number {
+        for (const category of categories) {
+            if (category.category === targetCategory) {
+                return category.score;
+            }
+        }
+        return 0;
     }
 
     function kmeans(allProfiles: ProfileDto[], profiles: profileType, k: number ){
@@ -174,25 +175,16 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
 
         // make user id new ObjectId(userId)
         const currentCluster = clusters.find(cluster => cluster.clusterProfiles.find(profile => profile.profileId.toString() === userId));
-        //console.log('currentCluster');
-        //console.log(currentCluster);
-        //type singleClusterType = { clusterCentroid: number[], clusterProfiles: profileType };
 
         if ( currentCluster && currentCluster?.clusterProfiles.length > 1 ) {
             //return other profiles in cluster excluding user
             const otherProfiles = currentCluster.clusterProfiles.filter(profile => profile.profileId.toString() !== userId);
-            //console.log('otherProfiles');
-            //console.log(otherProfiles);
             const recommendedProfiles = getProfilesFromCluster(otherProfiles, allProfiles);
-            //console.log('recommendedProfiles');
-            //console.log(recommendedProfiles);
             return recommendedProfiles;
         } else {
             //get cluster with closest centroid to current cluster
             const closestCluster = getClosestCluster(clusters, currentCluster);
             const recommendedProfiles = getProfilesFromCluster(closestCluster.clusterProfiles, allProfiles);
-            //console.log('recommendedProfiles');
-            //console.log(recommendedProfiles);
             return recommendedProfiles;
         }
     }
@@ -400,36 +392,40 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
     }
     
     function calculateDistance(profile1: number[], profile2: number[]): number {
-        // Calculate Euclidean distance between two profiles
         return Math.sqrt(profile1.reduce((sum, value, index) => sum + (value - profile2[index]) ** 2, 0));
     }
-    
+
     function findElbowPoint(distortions: number[]): number {
         // Use the elbow method to find the optimal K value
         const distortionsDelta: number[] = [];
         distortions.forEach((distortion, i) => {
-            if (i === 0) {
-                distortionsDelta.push(0);
-            } else {
-                const delta = distortions[i - 1] - distortion;
-                distortionsDelta.push(delta);
-            }
+          if (i === 0) {
+            distortionsDelta.push(0);
+          } else {
+            const delta = distortions[i - 1] - distortion;
+            distortionsDelta.push(delta);
+          }
         });
-        //console.log('distortionsDelta');
-        //console.log(distortionsDelta);
-    
+      
         let elbowK = 1;
-        let maxDelta = distortionsDelta[0];
-    
+        const maxDelta = distortionsDelta[1];
+        //console.log(`Max Delta: ${maxDelta}`);
+        const threshold = 0.11 * maxDelta; // 15% of the maximum delta
+        //console.log(`Threshold: ${threshold}`);
+
         for (let k = 1; k < distortionsDelta.length; k++) {
-            if (distortionsDelta[k] > maxDelta) {
-                maxDelta = distortionsDelta[k];
-                elbowK = k + 1; // Index starts from 0, so we need to add 1 to get the actual K value
-            }
+          //console.log(`K: ${k}, Delta: ${distortionsDelta[k]}, Threshold: ${threshold}`);
+          if (Math.abs(distortionsDelta[k]) >= threshold) {
+            elbowK = k + 1; // Index starts from 0, so we need to add 1 to get the actual K value
+            //break; // Exit the loop when the condition is met
+          }
         }
-    
+      
+        //console.log(`Elbow K: ${elbowK}`);
         return elbowK;
-    }
+      }
+    
+    
     
   }
 

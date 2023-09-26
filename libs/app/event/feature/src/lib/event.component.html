@@ -1,0 +1,161 @@
+
+
+<div class="overlay-container">
+  <div class="overlay"></div>
+  <div class="content">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="7" class="EventsLayout">
+          <div class="searchEvent">
+            <form
+              #sendForm
+              class="message-form"
+              [formGroup]="messageForm"
+              class="messageInput"
+              (keyup.enter)="sendMessage()"
+            >
+              <div class="input-box">
+                <ion-input
+                  class="input"
+                  formControlName="messageInput"
+                  [(ngModel)]="inputValue"
+                  (input)="checkInput()"
+                  placeholder="Search Event..."
+                ></ion-input>
+
+                <ion-button
+                  fill="clear"
+                  *ngIf="isValid"
+                  type="submit"
+                  (click)="sendMessage()"
+                >
+                  <ion-icon name="search" class="icon1"></ion-icon>
+                </ion-button>
+                <ion-button
+                  id="sendBtn"
+                  fill="clear"
+                  *ngIf="!isValid"
+                  disabled="true"
+                  type="submit"
+                  (click)="sendMessage()"
+                >
+                  <ion-icon name="search" class="icon2"></ion-icon>
+                </ion-button>
+              </div>
+            </form>
+          </div>
+          <div class="EventList" *ngIf="events !== null && events !== undefined">
+            <ion-card *ngFor="let event of events;  let i = index" class="Event" (click)="goToEvent(event._id)">
+              <div class="Head">
+                <label class="EventName">{{event.name}}</label>
+                <label class="Host">Hosted by @{{event.host}}</label>
+              </div>
+              <div class="border"></div>
+              <div class="Body">
+                {{event.description}}
+              </div>
+              <div class="Footer">
+                <div class="Details">
+                  <div
+                    *ngFor="let category of event.categories; let k = index"
+                    class="tooltip"
+                  >
+                    <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+                  </div>
+                  <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
+                  <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
+                </div>
+                
+                <ion-icon *ngIf="!hasJoined[i]||hasExpired[i]||hasCompleted[i]"
+                class="Lock" name="lock"></ion-icon>
+                <ion-icon *ngIf="hasJoined[i]&&!hasExpired[i]&&!hasCompleted[i]"
+                class="Lock" name="lock-open"></ion-icon>
+              </div>
+            </ion-card>
+          </div>
+        </ion-col>
+        <ion-col size="5" class="ScoreLayout">
+          <ion-card class="Leaderboard">
+            <div class="Profile">
+              <img src="assets/icon/Coin.png" class="CoinImg" />
+              <label class="Name">{{profile?.name}} {{profile?.lastName}}</label>
+              <label class="Score">{{profile?.ep}} Encompass Points</label>
+            </div>
+            <div class="Top5" *ngIf="topFive !== null && topFive !== undefined">
+              <div class="User" (click)="GoToProfile(topFive[0].username)">
+                <div>
+                  <label class="Number">1</label>
+                  <label class="Suffix">st</label>
+                </div>
+                <img src={{topFive[0].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+                <div class="UserDetails">
+                  <label class="Username">{{ topFive[0].username }}</label>
+                  <label class="Points">{{ topFive[0].ep }} EP</label>
+                </div>
+                <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+              </div>
+
+              <div class="User" (click)="GoToProfile(topFive[1].username)" style="background-color: var(--ion-color-primary-tint)">
+                <div>
+                  <label class="Number">2</label>
+                  <label class="Suffix">nd</label>
+                </div>
+                <img src={{topFive[1].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+                <div class="UserDetails">
+                  <label class="Username">{{ topFive[1].username }}</label>
+                  <label class="Points">{{ topFive[1].ep }} EP</label>
+                </div>
+                <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+              </div>
+               <div class="User2" (click)="GoToProfile(topFive[2].username)" style="background-color: var(--ion-color-secondary-contrast)">
+                <div>
+                  <label class="Number">3</label>
+                  <label class="Suffix">rd</label>
+                </div>
+                <img src={{topFive[2].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+                <div class="UserDetails">
+                  <label class="Username">{{ topFive[2].username }}</label>
+                  <label class="Points">{{ topFive[2].ep }} EP</label>
+                </div>
+                <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+              </div>
+              <div
+                class="User2"
+                style="background-color: var(--ion-color-background)"
+                (click)="GoToProfile(topFive[3].username)"
+              >
+                <div>
+                  <label class="Number">4</label>
+                  <label class="Suffix">th</label>
+                </div>
+                <img src={{topFive[3].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+                <div class="UserDetails">
+                  <label class="Username">{{ topFive[3].username }}</label>
+                  <label class="Points">{{ topFive[3].ep }} EP</label>
+                </div>
+                <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+              </div>
+              <div
+                class="User2"
+                style="background-color: var(--ion-color-background)"
+                (click)="GoToProfile(topFive[4].username)"
+              >
+                <div>
+                  <label class="Number">5</label>
+                  <label class="Suffix">th</label>
+                </div>
+                <img src={{topFive[4].profileImage}} onerror="this.src='assets/icon/Profile.png';" class="ProfileImg" />
+                <div class="UserDetails">
+                  <label class="Username">{{ topFive[4].username }}</label>
+                  <label class="Points">{{ topFive[4].ep }} EP</label>
+                </div>
+                <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
+              </div>
+              <button class="More" (click)="openPopup()">More</button>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>

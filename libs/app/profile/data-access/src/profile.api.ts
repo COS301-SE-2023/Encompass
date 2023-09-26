@@ -31,9 +31,9 @@ export class ProfileApi{
     }
   }
 
-  async getPosts(username: string){
+  async getPosts(username: string, userId: string){
     try{
-      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username).toPromise();
+      const response = await this.httpClient.get<PostDto[]>('/api/post/get-by-user/' + username + '/' + userId).toPromise();
 
       return response;
     }
@@ -43,12 +43,16 @@ export class ProfileApi{
     }
   }
 
-  async updatePost(post: UpdatePostRequest, postId: string){
+  async updatePost(postId: string, postUpdateRequest: UpdatePostRequest){
     try{
-      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, post).toPromise();
+      const response = await this.httpClient.patch<PostDto>('/api/post/' + postId, postUpdateRequest).toPromise();
+
       return response;
     }
+
     catch(error){
+      console.log(error);
+
       return null;
     }
   }
@@ -85,7 +89,7 @@ export class ProfileApi{
 
   async deleteComment(commentId: string){
     try{
-      const response = await this.httpClient.delete<string>('/api/comment/delete/' + commentId).toPromise();
+      const response = await this.httpClient.delete<CommentDto>('/api/comment/delete/' + commentId).toPromise();
 
       return response;
     }
@@ -191,6 +195,47 @@ export class ProfileApi{
 
     catch(error){
       console.log(error);
+      return null;
+    }
+  }
+
+  async addCoins(username: string, amount: number){
+    try{
+      const response = await this.httpClient.patch<ProfileDto>('/api/profile/add-coins/' + username + '/' + amount, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
+  async dislikePost(postId: string, userId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/dislike/' + userId + '/' + postId, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
+      return null;
+    }
+  }
+
+  async likePost(postId: string, userId: string){
+    try{
+      const response = await this.httpClient.patch<PostDto>('/api/post/like/' + userId + '/' + postId, null).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+
       return null;
     }
   }

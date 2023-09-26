@@ -1,202 +1,271 @@
 .overlay-container {
-background-color: var(--ion-color-background);
-width: 100vw;
-height: fit-content;
-object-fit: cover;
-z-index: 1;
+  background-color: var(--ion-color-background);
+  width: 100vw;
+  height: fit-content;
+  object-fit: cover;
+  z-index: 1;
 }
 
 .Overlay1 {
-position: absolute;
-top: 80%;
-left: 10%;
-z-index: 3;
-width: 7%;
-height: auto;
+  position: absolute;
+  top: 80%;
+  left: 10%;
+  z-index: 3;
+  width: 7%;
+  height: auto;
 }
 
 .Overlay2 {
-position: absolute;
-top: 20%;
-left: 70%;
-z-index: 3;
-width: 10%;
-height: auto;
+  position: absolute;
+  top: 20%;
+  left: 70%;
+  z-index: 3;
+  width: 10%;
+  height: auto;
 }
 
 .Overlay3 {
-position: absolute;
-top: 15%;
-left: 90%;
-z-index: 3;
-width: 2%;
-height: auto;
+  position: absolute;
+  top: 15%;
+  left: 90%;
+  z-index: 3;
+  width: 2%;
+  height: auto;
 }
 
 .Overlay4 {
-position: absolute;
-top: 22%;
-left: 12%;
-z-index: 3;
-width: 15%;
-height: auto;
-transform: translate(-50%, -50%);
+  position: absolute;
+  top: 22%;
+  left: 12%;
+  z-index: 3;
+  width: 15%;
+  height: auto;
+  transform: translate(-50%, -50%);
 }
 
 .welcome-text {
-position: absolute;
-z-index: 1;
-left: 20%;
-color: #231942;
-font-family: CustomFont;
+  position: absolute;
+  z-index: 1;
+  left: 20%;
+  color: #231942;
+  font-family: CustomFont;
 }
 
 .Overlayt3 {
-position: absolute;
-z-index: 2;
-top: 95%;
-color: white;
-font-family: CustomFont;
-left: 20%;
+  position: absolute;
+  z-index: 2;
+  top: 95%;
+  color: white;
+  font-family: CustomFont;
+  left: 20%;
 }
 
 .lnk {
-position: absolute;
-top: 90%;
-left: 52%;
-z-index: 4;
-color: white;
-font-size: 300%;
-transform: translate(-50%, -50%);
+  position: absolute;
+  top: 90%;
+  left: 52%;
+  z-index: 4;
+  color: white;
+  font-size: 300%;
+  transform: translate(-50%, -50%);
 }
 
 .git {
-position: absolute;
-top: 90%;
-left: 48%;
-z-index: 4;
-color: white;
-font-size: 300%;
-transform: translate(-50%, -50%);
+  position: absolute;
+  top: 90%;
+  left: 48%;
+  z-index: 4;
+  color: white;
+  font-size: 300%;
+  transform: translate(-50%, -50%);
 }
 
 .footer {
-    
-height: 200px;
+  height: 200px;
 }
 
 .footer-row {
-margin-bottom: 2%;
-display: flex;
-justify-content: center;
-align-items: center;
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer-text {
-color: white;
-margin-left: 20%;
+  color: white;
+  margin-left: 20%;
 }
 
 .footer-grid {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-
 
 .custom-title {
-font-family: CustomFont;
-font-size: 300%;
-font-weight: bold;
-position: absolute;
-left: 2%;
-top: 1%;
-color: var(--ion-color-primary-contrast);
-display: flex;
-flex-direction: column;
+  font-family: CustomFont;
+  font-size: 300%;
+  font-weight: bold;
+  position: absolute;
+  left: 2%;
+  top: 1%;
+  color: var(--ion-color-primary-contrast);
+  display: flex;
+  flex-direction: column;
 
-.sub {
+  .sub {
     font-size: 40%;
     margin-left: 5px;
-}
+  }
 }
 
 .image-container {
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    position: relative;
-    
-  }
-  
-  .cropped-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 59%; /* Adjust the position here */
-  }
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cropped-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 59%; /* Adjust the position here */
+}
 
 .morgan-img {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .team-container img {
-    height: 320px;
-    width: 320px;
-    object-fit: cover;
-    border-radius: 15px;
+  height: 320px;
+  width: 320px;
+  object-fit: cover;
+  border-radius: 15px;
 }
 
 .team-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 80px;
-    margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
+  margin-top: 80px;
 }
 
 .team {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 .team h1 {
-    font-weight: bold;
-    font-size: 40px;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .team sub {
-    font-size: 25px;
+  font-size: 25px;
 }
 
 .full-descr {
-    width: 50%;
+  width: 50%;
 }
 
 .descr {
-    line-height: 1.2;
-    margin-right: 50px;
+  line-height: 1.2;
+  margin-right: 50px;
 }
 
 .right-align {
-    text-align: right;
-    margin-left: 10px;
+  text-align: right;
+  margin-left: 10px;
 }
 
 .right-img {
-    margin-left: 50px;
-    // margin-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+  margin-left: 50px;
+  // margin-right: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .left-img {
-    // margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+  // margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+//=======================================================mobile=======================================================
+.custom-title-mobile {
+  font-family: CustomFont;
+  font-size: 250%;
+  font-weight: bold;
+  position: absolute;
+  left: 2%;
+  top: 1%;
+  color: var(--ion-color-primary-contrast);
+  display: flex;
+  flex-direction: column;
+
+  .sub-mobile {
+    font-size: 40%;
+    margin-left: 5px;
+  }
+}
+
+//header
+.image-container-mobile {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cropped-image-mobile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.7) translateX(60px);
+}
+//footer
+
+.lnkMobile {
+  color: white;
+  font-size: 8vw;
+}
+
+.gitMobile {
+  color: white;
+  font-size: 8vw;
+}
+
+.footerMobile {
+  height: 20vh;
+  background-color: #130e27;
+}
+
+.info-options {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.info-options-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-textMobile {
+  color: white;
+  font-size: 3vw;
+}
+
+.teamText {
+  color: white;
+  font-family: CustomFont;
+  font-size: 2.5vw;
 }

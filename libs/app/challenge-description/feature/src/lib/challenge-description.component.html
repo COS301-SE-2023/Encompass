@@ -1,0 +1,55 @@
+<div class="overlay-container">
+  <h1 class="ChallengeName">{{event?.name}}</h1>
+  <h3 class="HostDetails">
+    Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text> from
+    <ion-text class="HostCommunity"> {{event?.community}}</ion-text>
+  </h3>
+  <h5 class="ChallengeDetails" *ngIf="event !== null && event !== undefined">
+     {{event.members.length}} Particicpants | {{event.quiz.length}} MCQs
+  </h5>
+  <div class="border"></div>
+  <div class="ChallengeDescription">
+    <label class="date">Start: {{event?.startDate | date: 'd MMMM y'}} | End: {{event?.endDate | date: 'd MMMM y'}}</label>
+
+    <p class="Intro">
+      {{event?.description}}
+    </p>
+
+    <p style="width: 100%;">
+      <b>Challenge Details:</b>
+      <br /><br />
+      {{event?.quizDescription}}
+    </p>
+    <div class="Join">
+      <button class="JoinChallenge1" *ngIf="hasJoined || hasExpired || !isPartOfCommunity" [disabled]="true">Join Challenge</button>
+      <button class="JoinChallenge" *ngIf="!hasJoined && !hasExpired && isPartOfCommunity" (click)="joinChallenge()">Join Challenge</button>
+      <ion-text class="CommunityQues">Not Part of this community?</ion-text>
+      <ion-text
+        >To enter the challenge, join
+        <a class="CommunityLink" href="#" (click)="goToCommunity($event)">{{event?.community}}</a>
+        now!</ion-text
+      >
+    </div>
+  </div>
+  <br /><br />
+  <div class="Prompts">
+    <div class="PromptHead"><label>Challenge Prompts:</label></div>
+    <br />
+    <div class = "Instruction" *ngFor="let instruction of event?.prompt; let i = index">
+   
+      {{i + 1}}. {{instruction }}
+    
+    </div>
+    <button class="completeQuizLock" *ngIf="!hasJoined||!isPartOfCommunity||hasExpired||hasCompleted">
+      <p>Complete the Quiz!</p>
+      <ion-icon name="lock-closed" class="lock"></ion-icon>
+      <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p>
+    </button>
+
+    <button class="completeQuiz" *ngIf="hasJoined&&isPartOfCommunity&&!hasExpired&&!hasCompleted" (click)="goToQuiz()">
+      Complete the Quiz!
+      <!-- <ion-icon name="lock-closed" class="lock"></ion-icon> -->
+      <!-- <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p> -->
+    </button>
+  </div>
+</div>

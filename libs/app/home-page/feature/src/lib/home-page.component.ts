@@ -4,17 +4,21 @@ import { HomeApi } from '@encompass/app/home-page/data-access';
 import { Select, Store } from '@ngxs/store';
 import { HomeState } from '@encompass/app/home-page/data-access';
 import { Observable } from 'rxjs';
-import { HomeDto } from '@encompass/api/home/data-access';
 import { Router } from '@angular/router';
-import { ClearAllNotifications, ClearNotification, GetAllPosts, GetNotifications, getHome } from '@encompass/app/home-page/util';
+import {
+  ClearAllNotifications,
+  ClearNotification,
+  GetNotifications,
+  getHome,
+} from '@encompass/app/home-page/util';
 import { Console } from 'console';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { SubscribeToProfile } from '@encompass/app/profile/util';
-import { ModalController } from '@ionic/angular';
-import {CreatePostComponent} from '@encompass/app/create-post/feature';
+import { MenuController, ModalController } from '@ionic/angular';
+import { CreatePostComponent } from '@encompass/app/create-post/feature';
 import { PostDto } from '@encompass/api/post/data-access';
-import {CreateCommunityComponent} from '@encompass/app/create-community/feature';
+import { CreateCommunityComponent } from '@encompass/app/create-community/feature';
 import { PopoverController } from '@ionic/angular';
 import { NotificationDto } from '@encompass/api/notifications/data-access';
 import { DatePipe } from '@angular/common';
@@ -26,9 +30,11 @@ import { SearchState } from '@encompass/app/search-explore/data-access';
 import { SearchApi } from '@encompass/app/search-explore/data-access';
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { takeUntil, pipe, Subject, take } from 'rxjs';
-import { SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/search-explore/util';
-
-
+import {
+  SearchCommunities,
+  SearchPosts,
+  SearchProfiles,
+} from '@encompass/app/search-explore/util';
 
 @Component({
   selector: 'home-page',
@@ -36,168 +42,234 @@ import { SearchCommunities, SearchPosts, SearchProfiles } from '@encompass/app/s
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePage {
-  @Select(ProfileState.profile) profile$! : Observable<ProfileDto | null>;
-  @Select(HomeState.notifications) notifications$! : Observable<NotificationDto | null>;
-  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>
+  @Select(ProfileState.profile) profile$!: Observable<ProfileDto | null>;
+  @Select(HomeState.notifications)
+  notifications$!: Observable<NotificationDto | null>;
+  @Select(SettingsState.settings) settings$!: Observable<SettingsDto | null>;
   // @Select(HomeState.homePosts) homePosts$! : Observable<PostDto[] | null>;
-  @Select(SearchState.searchPosts) searchPosts$! : Observable<PostDto[] | null>;
-  @Select(SearchState.searchProfiles) searchProfiles$! : Observable<ProfileDto[] | null>;
-  @Select(SearchState.searchCommunities) searchCommunities$! : Observable<CommunityDto[] | null>;
+  // @Select(SearchState.searchPosts) searchPosts$!: Observable<PostDto[] | null>;
+  // @Select(SearchState.searchProfiles) searchProfiles$!: Observable<
+  //   ProfileDto[] | null
+  // >;
+  // @Select(SearchState.searchCommunities) searchCommunities$!: Observable<
+  //   CommunityDto[] | null
+  // >;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   settings!: SettingsDto | null;
-  profile! : ProfileDto | null;
-  notifications! : NotificationDto | null;
+  profile!: ProfileDto | null;
+  notifications!: NotificationDto | null;
   themeName!: string;
   postsIsFetched = false;
-  communitiesIsFetched = false;
+  settingsIsFetched = false;
   peopleIsFetched = false;
+  profileIsFetched = false;
   keyword = 'term';
-  searchprofiles! : ProfileDto[];
+  searchprofiles!: ProfileDto[];
   peopleExists = false;
+  mobileview = false;
+  default = false;
+  red = false;
+  blue = false;
+  green = false;
+  orange = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private store: Store, private datePipe: DatePipe, private searchApi: SearchApi){
-    
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private router: Router,
+    private modalController: ModalController,
+    private store: Store,
+    private datePipe: DatePipe,
+    private searchApi: SearchApi,
+    public menuCtrl: MenuController
+  ) {
     const storedKeyword = localStorage.getItem('keyword');
-    console.log("STORED KEYWORD: " + storedKeyword);
+    console.log('STORED KEYWORD: ' + storedKeyword);
     this.load();
+  }
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    console.log(window.innerWidth);
+  }
+
+  openFirstMenu() {
+    // Open the menu by menu-id
+    this.menuCtrl.enable(true, 'first-menu');
+    this.menuCtrl.open('first-menu');
+  }
+
+  menuOpened() {
+    console.log('Menu opened ' + this.themeName);
+
+    this.default = false;
+    this.red = false;
+    this.blue = false;
+    this.green = false;
+    this.orange = false;
+
+    if (this.themeName == 'dark-red' || this.themeName == 'light-red') {
+      this.red = true;
+    } else if (
+      this.themeName == 'dark-blue' ||
+      this.themeName == 'light-blue'
+    ) {
+      this.blue = true;
+    } else if (
+      this.themeName == 'dark-green' ||
+      this.themeName == 'light-green'
+    ) {
+      this.green = true;
+    } else if (
+      this.themeName == 'dark-orange' ||
+      this.themeName == 'light-orange'
+    ) {
+      this.orange = true;
+    } else {
+      this.default = true;
+    }
+  }
+
+  async openPopup() {
+    this.menuCtrl.close('first-menu');
+    const modal = await this.modalController.create({
+      component: CreatePostComponent,
+      cssClass: 'custom-modal',
+      componentProps: {},
+    });
+
+    return await modal.present();
+  }
+
+  async openPopup2() {
+    this.menuCtrl.close('first-menu');
+    const modal = await this.modalController.create({
+      component: CreateCommunityComponent,
+      cssClass: 'custom-modal',
+      componentProps: {},
+    });
+
+    return await modal.present();
   }
 
   async search(event: any) {
     this.keyword = event.detail.value;
-    console.log("KEYWORD: " + this.keyword);
+    console.log('KEYWORD: ' + this.keyword);
 
     if (!this.keyword) {
       // If the search keyword is empty, return
       return;
-    }else {
+    } else {
       this.addPeople('people', this.keyword);
       this.peopleExists = true;
       localStorage.setItem('keyword', this.keyword);
     }
-
-   
   }
 
-  async addPeople(type: string, keyword: string){
-    
-    if(this.profile == null){
+  async addPeople(type: string, keyword: string) {
+    if (this.profile == null) {
       return;
     }
-  
-      if (type === "people") {
-        this.store.dispatch(new SearchProfiles(keyword));
-      }else {
-        return;
-      }
 
-      if(!this.peopleIsFetched){
-        
-        this.peopleIsFetched = true; 
-        this.searchProfiles$.pipe(takeUntil(this.unsubscribe$)).subscribe((profiles) => {
-        if(profiles){
-          // console.log("POSTS:")
-          this.searchprofiles = [];
-          const profileCount = profiles;
-          const temp = profiles;
-          temp.forEach((person) => {
-           
-              this.searchprofiles.push(person);
-              if (person.name.toLowerCase().includes(this.keyword.toLowerCase())) {
-                profileCount.push(person);
-              }
-            
-          })
-
-          if(profileCount.length!==0){
-            this.peopleExists=true;
-          }else{
-            this.peopleExists=false;
-          }
-  
-        }
-      })
-      
+    if (type === 'people') {
+      this.store.dispatch(new SearchProfiles(keyword));
+    } else {
+      return;
     }
 
-    // console.log("profiles: " + this.peopleVisible);
   }
 
   load() {
     const page = document.getElementById('home-page');
 
-    this.store.dispatch(new SubscribeToProfile())
+    this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
-      if(profile){
+      if (profile) {
         console.log(profile);
         this.profile = profile;
 
-        this.store.dispatch(new GetUserSettings(this.profile._id))
-        this.settings$.subscribe(settings => {
-          if(settings){
+        this.store.dispatch(new GetUserSettings(this.profile._id));
+        this.settings$.subscribe((settings) => {
+          if (settings) {
             this.settings = settings;
 
-            this.document.body.setAttribute('color-theme', this.settings.themes.themeColor);
-            
-            this.themeName = this.settings.themes.themeColor;
-            
-           console.log(this.themeName);
+            this.document.body.setAttribute(
+              'color-theme',
+              this.settings.themes.themeColor
+            );
 
-           const defaultLogo = document.getElementById('logo-default');
+            this.themeName = this.settings.themes.themeColor;
+
+            console.log(this.themeName);
+
+            const defaultLogo = document.getElementById('logo-default');
             const redLogo = document.getElementById('logo-red');
             const blueLogo = document.getElementById('logo-blue');
             const greenLogo = document.getElementById('logo-green');
             const orangeLogo = document.getElementById('logo-orange');
 
-            if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo){
-              // console.log('default logosssssssssssssssssssssssssssssssss1');
+            if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo) {
               console.log(this.themeName);
-              if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
+              if (
+                this.themeName == 'light-red' ||
+                this.themeName == 'dark-red'
+              ) {
                 redLogo.classList.remove('visible');
                 defaultLogo.classList.add('visible');
                 blueLogo.classList.add('visible');
                 greenLogo.classList.add('visible');
                 orangeLogo.classList.add('visible');
-              }else if (this.themeName == 'light-blue' || this.themeName == 'dark-blue') {
-                // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+              } else if (
+                this.themeName == 'light-blue' ||
+                this.themeName == 'dark-blue'
+              ) {
                 blueLogo.classList.remove('visible');
                 defaultLogo.classList.add('visible');
                 redLogo.classList.add('visible');
                 greenLogo.classList.add('visible');
                 orangeLogo.classList.add('visible');
-            } else if (this.themeName == 'light-green' || this.themeName == 'dark-green') {
+              } else if (
+                this.themeName == 'light-green' ||
+                this.themeName == 'dark-green'
+              ) {
                 greenLogo.classList.remove('visible');
                 defaultLogo.classList.add('visible');
                 redLogo.classList.add('visible');
                 blueLogo.classList.add('visible');
                 orangeLogo.classList.add('visible');
-            }else if (this.themeName == 'light-orange' || this.themeName == 'dark-orange') {
-              orangeLogo.classList.remove('visible');
-              defaultLogo.classList.add('visible');
-              redLogo.classList.add('visible');
-              blueLogo.classList.add('visible');
-              greenLogo.classList.add('visible');
-            }else {
-              defaultLogo.classList.remove('visible');
-              redLogo.classList.add('visible');
-              blueLogo.classList.add('visible');
-              greenLogo.classList.add('visible');
-              orangeLogo.classList.add('visible');
-            }
+              } else if (
+                this.themeName == 'light-orange' ||
+                this.themeName == 'dark-orange'
+              ) {
+                orangeLogo.classList.remove('visible');
+                defaultLogo.classList.add('visible');
+                redLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+              } else {
+                defaultLogo.classList.remove('visible');
+                redLogo.classList.add('visible');
+                blueLogo.classList.add('visible');
+                greenLogo.classList.add('visible');
+                orangeLogo.classList.add('visible');
+              }
             }
 
-            if(page){
+            if (page) {
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
               // page.style.backgroundImage = "blue";
             }
           }
-        })
+        });
       }
-    })
+    });
   }
-
-
 
   goToProfile() {
     this.routerClick();
@@ -207,49 +279,52 @@ export class HomePage {
   goHome() {
     this.routerClick();
     this.router.navigate(['/home/feed']);
+    this.menuCtrl.close('first-menu');
   }
 
-  GoToComments(){
+  GoToComments() {
     this.routerClick();
     this.router.navigate(['app-comments-feature']);
   }
 
-  goToExplore(){
+  goToExplore() {
     this.routerClick();
     // this.router.navigate(['/home/explore']);
-     this.router.navigate(['/home/search-explore']);
+    this.router.navigate(['/home/search-explore']);
   }
 
-  goToChat(){
-     this.router.navigate(['/home/messages']);
+  goToChat() {
+    this.router.navigate(['/home/messages']);
   }
 
-  goToSettings(){
+  goToSettings() {
     this.routerClick();
     this.router.navigate(['/home/settings']);
+    this.menuCtrl.close('first-menu');
   }
 
-  goToThemes(){
+  goToThemes() {
     this.routerClick();
     this.router.navigate(['/home/themes']);
+    this.menuCtrl.close('first-menu');
   }
 
-  goToEvents(){
+  goToEvent() {
     this.routerClick();
-    // this.router.navigate(['/home/events']);
+    this.router.navigate(['/home/event']);
+    this.menuCtrl.close('first-menu');
   }
 
-
-  clearNotification(id: string){
-    if(this.profile == null){
+  clearNotification(id: string) {
+    if (this.profile == null) {
       return;
     }
-    
+
     this.store.dispatch(new ClearNotification(this.profile._id, id));
   }
 
-  clearAllNotifications(){
-    if(this.profile == null){
+  clearAllNotifications() {
+    if (this.profile == null) {
       return;
     }
 
@@ -257,7 +332,8 @@ export class HomePage {
   }
 
   logout() {
-    localStorage.removeItem('UserID')
+    localStorage.removeItem('UserID');
+    this.clearAllCookies()
     this.router.navigate(['/']);
   }
 
@@ -265,7 +341,7 @@ export class HomePage {
   showSearch = false;
 
   toggleNotifications() {
-    if(this.profile == null){
+    if (this.profile == null) {
       console.log('you are not logged in?');
       return;
     }
@@ -273,21 +349,20 @@ export class HomePage {
     this.showSearch = false;
     this.showNotifications = !this.showNotifications;
 
-    if(this.showNotifications){
+    if (this.showNotifications) {
       this.store.dispatch(new GetNotifications(this.profile._id));
       this.notifications$.subscribe((notifications) => {
-        if(notifications){
+        if (notifications) {
           console.log(notifications);
           this.notifications = notifications;
         }
-      })
+      });
     }
   }
 
   toggleSearch() {
     this.showNotifications = false;
     this.showSearch = !this.showSearch;
-    
   }
 
   routerClick() {
@@ -295,16 +370,29 @@ export class HomePage {
     this.showSearch = false;
   }
 
-  GoToProfile(username: string){
+  GoToProfile(username: string) {
     this.showSearch = false;
-    if(this.profile?.username !== username){
+    if (this.profile?.username !== username) {
       this.router.navigate(['home/user-profile/' + username]);
-    }
-  
-    else{
+    } else {
       this.router.navigate(['home/profile']);
     }
   }
-  
 
+  clearAllCookies() {
+    const cookies = document.cookie.split(';');
+    
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf('=');
+      const cookieName = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      
+      // Set the expiration date to a past date
+      const pastDate = new Date(0);
+      const formattedPastDate = pastDate.toUTCString();
+      
+      // Clear the cookie
+      document.cookie = `${cookieName}=; expires=${formattedPastDate}; path=/`;
+    }
+  }
 }

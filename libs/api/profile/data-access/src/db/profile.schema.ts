@@ -12,8 +12,14 @@ export class ProfileSchema extends IdentifiableEntitySchema{
   @Prop( { type: String } )
   readonly lastName!: string | null;
 
-  @Prop( { type: [String] } )
-  readonly categories!: string[] | null;
+  @Prop( { type: [{
+    category: { type: String },
+    score: { type: Number },
+  },] } )
+  readonly categories!: {
+    category: string;
+    score: number;
+  }[] | null;
 
   @Prop( { type: [String] } )
   readonly communities!: string[] | null;
@@ -44,4 +50,7 @@ export class ProfileSchema extends IdentifiableEntitySchema{
   
   @Prop()
   readonly bio!: string | null;
+
+  @Prop()
+  readonly ep!: number;
 }

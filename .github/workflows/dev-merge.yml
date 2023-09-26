@@ -53,7 +53,14 @@ jobs:
       run: |
           yarn test
         # yarn nx run-many --target=lint --all --skip-nx-cache --parallel=6
-    
+
+    - name: E2E Tests
+      working-directory: ./
+      run: |
+          yarn nx e2e encompass-e2e --coverage
+        # yarn nx e2e api-e2e --coverage
+        # yarn nx run-many --target=lint --all --skip-nx-cache --parallel=6
+
     - name: Codecov
       uses: codecov/codecov-action@v3.1.0
       with:

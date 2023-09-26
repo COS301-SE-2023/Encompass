@@ -1,18 +1,13 @@
-import { AccountDto } from "@encompass/api/account/data-access"
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, GetFollowers, GetFollowing, RemoveCommunity, AddCommunity } from "@encompass/app/profile/util"
-import { SignUpState } from "@encompass/app/sign-up/data-access"
-import { LoginState } from "@encompass/app/login/data-access"
-import { profile } from "console"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, RemoveCommunity, AddCommunity, DislikeProfilePost, LikeProfilePost } from "@encompass/app/profile/util"
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { tap } from "rxjs"
 import { produce } from "immer"
-import { set } from "mongoose"
 import { PostDto } from "@encompass/api/post/data-access"
 import { CommentDto } from "@encompass/api/comment/data-access"
-import { CommunityDto } from "@encompass/api/community/data-access"
+import { ToastController } from "@ionic/angular"
 
 export interface ProfileStateModel{
   profile: ProfileDto | null
@@ -50,25 +45,25 @@ export interface ProfileCommentModel{
 })
 
 @State<ProfilePostModel>({
-  name: 'profilePost',
+  name: 'profilePosts',
   defaults: {
     ProfilePostForm: {
       model: {
         posts: null
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
 @State<ProfileCommentModel>({
-  name: 'profileComment',
+  name: 'profileComments',
   defaults: {
     ProfileCommentForm: {
       model: {
         comments: null
-      }
-    }
-  }
+      },
+    },
+  },
 })
 
 @State<OtherUsers>({
@@ -84,7 +79,7 @@ export interface ProfileCommentModel{
 
 @Injectable()
 export class ProfileState{
-  constructor(private profileApi: ProfileApi, private readonly store: Store){}
+  constructor(private profileApi: ProfileApi, private readonly store: Store, private toastController: ToastController){}
 
   @Action(SubscribeToProfile)
   subscribeToProfile(ctx: StateContext<ProfileStateModel>){
@@ -121,14 +116,22 @@ export class ProfileState{
       return;
     }
 
+    const toast = await this.toastController.create({
+      message: 'Profile successfully updated',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
+
     await ctx.patchState({
       profile: response
     })
   }
 
   @Action(GetPosts)
-  async getPosts(ctx: StateContext<ProfilePostModel>, {username}: GetPosts){
-    const response = await this.profileApi.getPosts(username);
+  async getPosts(ctx: StateContext<ProfilePostModel>, {username, userId}: GetPosts){
+    const response = await this.profileApi.getPosts(username, userId);
     
     if(response == null || response == undefined){
       return;
@@ -146,25 +149,30 @@ export class ProfileState{
   }
 
   @Action(UpdatePost)
-  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest, username}: UpdatePost){
-    const response = await this.profileApi.updatePost(updateRequest, postId);
+  async updatePost(ctx: StateContext<ProfilePostModel>, {postId, updateRequest}: UpdatePost){
+    const response = await this.profileApi.updatePost(postId, updateRequest);
 
     if(response == null || response == undefined){
       return;
     }
 
     try{
-      const posts = ctx.getState().ProfilePostForm.model.posts;
+      const posts = await ctx.getState().ProfilePostForm.model.posts;
 
       if(posts == null ){
-        return
+        console.log("POSTS IS NULL")
+        return;
       }
 
-      const index = posts?.findIndex(x => x._id == response._id)
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      console.log(posts[index])
 
       posts[index] = response;
 
-      ctx.setState({
+      console.log(posts[index])
+
+      ctx.patchState({
         ProfilePostForm: {
           model: {
             posts: posts
@@ -174,10 +182,80 @@ export class ProfileState{
     }
 
     catch(error){
-      ctx.dispatch(new GetPosts(username))
+      console.log(error)
     }
   }
 
+  @Action(LikeProfilePost)
+  async likedProfilePost(ctx: StateContext<ProfilePostModel>, { postId, userId }: LikeProfilePost){
+    const response = await this.profileApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().ProfilePostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        ProfilePostForm: {
+          model: {
+            posts: posts
+          }
+
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  @Action(DislikeProfilePost)
+  async dislikedProfilePost(ctx: StateContext<ProfilePostModel>, { postId, userId }: DislikeProfilePost){
+    const response = await this.profileApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().ProfilePostForm.model.posts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        ProfilePostForm: {
+          model: {
+            posts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
   @Action(GetComments)
   async getComments(ctx: StateContext<ProfileCommentModel>, {username}: GetComments){
     const response = await this.profileApi.getComments(username);
@@ -238,7 +316,7 @@ export class ProfileState{
       return
     }
 
-    const index = comments?.findIndex(x => x._id == response)
+    const index = comments?.findIndex(x => x._id == response._id)
 
     comments.splice(index, 1);
 

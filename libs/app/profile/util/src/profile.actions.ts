@@ -17,12 +17,12 @@ export class UpdateProfile{
 
 export class GetPosts{
   static readonly type = '[Profile] GetPosts';
-  constructor(public username: string){}
+  constructor(public username: string, public userId: string){}
 }
 
 export class UpdatePost{
   static readonly type = '[Profile] Update Post';
-  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest, public readonly username: string){}
+  constructor(public readonly postId: string, public readonly updateRequest: UpdatePostRequest){}
 }
 
 export class GetComments{
@@ -73,4 +73,14 @@ export class RemoveCommunity{
 export class AddCommunity{
   static readonly type = '[Profile] Add Community';
   constructor(public readonly communityName: string, public readonly username: string){}
+}
+
+export class LikeProfilePost{
+  static readonly type = '[Post] Like Profile Post';
+  constructor(public readonly postId: string, public readonly userId: string){}
+}
+
+export class DislikeProfilePost{
+  static readonly type = '[Post] Dislike Profile Post';
+  constructor(public readonly postId: string, public readonly userId: string){}
 }

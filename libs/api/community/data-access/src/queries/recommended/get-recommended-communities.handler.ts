@@ -14,9 +14,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
     
     async execute({ username, userId }: GetRecommendedCommunitiesQuery) {
         const communitiesUserIsNotIn = await this.communityEntityRepository.findCommunitiesByUserId(username);
-        console.log("---------------------------------------------------------------------------------------------");
-        console.log("communitiesUserIsNotIn:");
-        console.log(communitiesUserIsNotIn);
         //put an if statement here to check if there is more than one community the user is not in
         if( communitiesUserIsNotIn == undefined ){
             return [];
@@ -44,19 +41,9 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
             let finalRecommendedCommunities: CommunityDto[] = [];
             if(userCount <= 3){
                 finalRecommendedCommunities = coldStart(currentUserCategories, recommendedCommunities); //test this
-                console.log("coldstart was used:");
-                console.log("finalRecommendedCommunities:");
-                console.log(finalRecommendedCommunities);
             } else if (userCount > 3) {
-                //get recommended users Names
-                /*const recommendedUsersNames = recommendedUsersData.map((user: { _id: string; }) => user._id);
-                console.log("coldstart was not used:");
-                console.log("recommendedUsersNames:");                                              
-                console.log(recommendedUsersNames);*/
                 //get recommended userNames
                 const recommendedUsersNames = recommendedUsersData.map((user: { username: string; }) => user.username);
-                console.log("recommendedUsersNames:");
-                console.log(recommendedUsersNames);
                 //find communities recommended users are in from communitiesUserIsNotIn const
                 const recommendedUsersCommunities: any[] = [];
                 for(let i = 0; i < recommendedUsersNames.length; i++){
@@ -69,9 +56,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                         }
                     }
                 }
-
-                console.log("recommendedUsersCommunities not ordered:");
-                console.log(recommendedUsersCommunities);
 
                 //order the communities by the number of recommended users in them
                 const recommendedUsersCommunitiesWithCount = [];
@@ -87,13 +71,12 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                     recommendedUsersCommunitiesWithCount.push({community: recommendedUsersCommunities[i], count: count});
                 }
                 recommendedUsersCommunitiesWithCount.sort((a, b) => (a.count > b.count) ? -1 : 1);
+                
                 //remove count: and community: from each object in the array
                 for(let i = 0; i < recommendedUsersCommunitiesWithCount.length; i++){
                     finalRecommendedCommunities.push(recommendedUsersCommunitiesWithCount[i].community);
                 }
             }
-            console.log("finalRecommendedCommunities:");
-            console.log(finalRecommendedCommunities);
 
             return finalRecommendedCommunities;
         } catch (e) {
@@ -116,7 +99,6 @@ export class GetRecommendedCommunitiesHandler implements IQueryHandler<GetRecomm
                 recommendedCommunities.push({community: communitiesUserIsNotIn[i], count: count});
             }
             recommendedCommunities.sort((a, b) => (a.count > b.count) ? -1 : 1);
-            
             //remove count: and community: from each object in the array
             for(let i = 0; i < recommendedCommunities.length; i++){
                 result.push(recommendedCommunities[i].community);

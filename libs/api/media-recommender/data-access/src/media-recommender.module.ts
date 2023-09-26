@@ -7,13 +7,18 @@ import { MediaRecommenderController } from "./media-recommender.controller";
 import { BookEntityRepository } from "./db/book-entity.repository";
 import { BookDtoRepository } from "./db/book-dto.repository";
 import { BookSchemaFactory } from "./db/book-schema.factory";
-import { GetRecommendedBooksHandler } from "./queries";
+import { GetRecommendedBooksHandler, GetRecommendedPodcastsHandler } from "./queries";
 import { GetRecommendedMoviesHandler } from "./queries";
 import { MovieSchema } from "./db/movie-db/movie.schema";
 import { MovieSchemaFactory } from "./db/movie-db/movie-schema.factory";
 import { MovieDtoRepository } from "./db/movie-db/movie-dto.repository";
 import { MovieEntityRepository } from "./db/movie-db/movie-entity.repository";
 import { GetAllMoviesHandler } from "./queries/get-all-movies/getAllMovies.handler";
+import { PodcastSchema } from "./db/podcast-db/podcast-schema";
+import { PodcastEntityRepository } from "./db/podcast-db/podcast-entity.repository";
+import { PodcastDto } from "./podcast.dto";
+import { PodcastDtoRepository } from "./db/podcast-db/podcast-dto.repository";
+import { PodcastSchemaFactory } from "./db/podcast-db/podcast-schema.factory";
 
 @Module({
     imports: [
@@ -26,6 +31,10 @@ import { GetAllMoviesHandler } from "./queries/get-all-movies/getAllMovies.handl
             {
                 name: MovieSchema.name,
                 schema: SchemaFactory.createForClass(MovieSchema),
+            },
+            {
+                name: PodcastSchema.name,
+                schema: SchemaFactory.createForClass(PodcastSchema),
             },
         ]),
         HttpModule
@@ -44,6 +53,11 @@ import { GetAllMoviesHandler } from "./queries/get-all-movies/getAllMovies.handl
         MovieEntityRepository,
         GetRecommendedMoviesHandler,
         GetAllMoviesHandler,
+        PodcastEntityRepository,
+        PodcastDtoRepository,
+        PodcastSchema,
+        PodcastSchemaFactory,
+        GetRecommendedPodcastsHandler,
     ],
 })
 

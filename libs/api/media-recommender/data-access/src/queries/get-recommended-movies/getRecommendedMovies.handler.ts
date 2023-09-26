@@ -21,7 +21,7 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
             const [currentUserProfile, recommendedUsers] = await Promise.all([currentUserProfilePromise, recommendedUsersPromise]);
             
             
-            if (recommendedUsers?.data.length > 0) {
+            if (recommendedUsers?.data.length < 1) {
                 
                 const categories = convertUserCategories(currentUserProfile?.data);
                 const allMovies = await this.movieDtoRepository.findSome(categories);

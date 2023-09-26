@@ -11,4 +11,5 @@ export class UpdateCommunityRequest {
     posts!: string[];
     members!: string[];
     ageRestricted!: boolean;
+    communityEP!: number;
 }

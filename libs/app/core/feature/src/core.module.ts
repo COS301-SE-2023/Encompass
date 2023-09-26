@@ -14,7 +14,6 @@ import { HomeModule } from '@encompass/app/home-page/data-access';
 import { CreateCommunityModule } from '@encompass/app/create-community/data-access';
 import { CommentsModule } from '@encompass/app/comments/data-access';
 import { CommunityModule } from '@encompass/app/community-profile/data-access';
-import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { MessagesModule } from '@encompass/app/messages/data-access';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -23,6 +22,9 @@ import { SettingsModule } from '@encompass/app/settings/data-access';
 import { ThemesModule } from '@encompass/app/themes/data-access';
 import { SignUpCommunitiesModule } from '@encompass/app/sign-up-interior2/data-access';
 import { SearchModule } from '@encompass/app/search-explore/data-access';
+import { PostsModule } from '@encompass/app/posts/data-access';
+import { EventModule } from '@encompass/app/event/data-access';
+import { UnauthGuard } from './unauth.guard';
 
 const config: SocketIoConfig = {
   url: 'https://encompass-hosting.onrender.com',
@@ -50,9 +52,11 @@ const config: SocketIoConfig = {
     ThemesModule,
     SignUpCommunitiesModule,
     SearchModule,
+    PostsModule,
+    EventModule,
     SocketIoModule.forRoot(config)
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AuthGuard],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthGuard, UnauthGuard],
   bootstrap: [CoreShell],
 })
 

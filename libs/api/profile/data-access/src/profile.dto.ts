@@ -5,7 +5,10 @@ export class ProfileDto {
   readonly username!: string;
   readonly name!: string;
   readonly lastName!: string;
-  readonly categories!: string [];
+  readonly categories!: {
+    category: string;
+    score: number;
+  } [];
   readonly communities!: string [];
   readonly awards!: string [];
   readonly events!: string [];
@@ -16,4 +19,5 @@ export class ProfileDto {
   readonly profileImage!: string;
   readonly profileBanner!: string;
   readonly bio!: string;
+  readonly ep!: number;
 }

@@ -14,7 +14,8 @@ export class CreatePostHandler
     ){}
 
     async execute({ createPostRequest }: CreatePostCommand){
-      const url = process.env["BASE_URL"]
+      const url = process.env["BASE_URL"];
+
       let isPrivate = false;
 
       const {
@@ -26,12 +27,17 @@ export class CreatePostHandler
         communityImageUrl,
         categories,
         likes,
+        dislikes,
         spoiler,
         ageRestricted
       } = createPostRequest;
 
+      //console.log("did we get here at least!!!!!!!!!!!!!!!!!");
       const getCommunityPromise = this.httpService.get<CommunityDto>(url + '/api/community/get-community/' + community).toPromise();
+      //console.log("did we get a communityPromise!!!!!!!!!!!!!!!!!");
       const getCommunity = await Promise.resolve(getCommunityPromise);
+      //console.log("did we get a community!!!!!!!!!!!!!!!!!");
+      //console.log(getCommunity);
 
       if(getCommunity !== null && getCommunity !== undefined){
         if(getCommunity.data.type === "Private"){
@@ -49,6 +55,7 @@ export class CreatePostHandler
           communityImageUrl,
           categories,
           likes,
+          dislikes,
           spoiler,
           ageRestricted,
           isPrivate

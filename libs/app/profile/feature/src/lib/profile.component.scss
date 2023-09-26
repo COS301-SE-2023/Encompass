@@ -6,67 +6,64 @@ ion-card {
 
 //Posts
 
-.PostCard{
-// background-color: #f8f8f8;
-z-index: 2;
-
+.PostCard {
+  // background-color: #f8f8f8;
+  z-index: 2;
 }
 
-.PostCardHeader{
-display: flex;
-justify-content: center;
-height: 35%;
-width: 100%;
-margin-top: 10px;
-margin-bottom: 10px;
+.PostCardHeader {
+  display: flex;
+  justify-content: center;
+  height: 35%;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.PostImageContainer{
-width: 15%;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
+.PostImageContainer {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.PostBody{
-display: flex;
-justify-content: center;
-align-items: center;
-height: 50%;
-width: 100%;
-// background-color: #F0EFEF;
-}
-
-.PostBody:hover{
-cursor: pointer;
+.PostBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+  // background-color: #F0EFEF;
 }
 
-.PostFooter{
-display: flex;
+.PostBody:hover {
+  cursor: pointer;
+}
+
+.PostFooter {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 97%;
 }
 
-
-.icons{
-height: 50%;
-width: 30%;
-color:#231942;
-display: flex;
-justify-content: space-around;
-position: relative;
+.icons {
+  height: 50%;
+  width: 30%;
+  color: #231942;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
   padding-bottom: 2%;
-  padding-top:1%;
+  padding-top: 1%;
 }
 
-#icons2{
+#icons2 {
   font-size: 25px;
-  color:#231942;
+  color: #231942;
+}
 
-  }
-
-#icons2:hover{
+#icons2:hover {
   color: var(--hover-color);
   cursor: pointer;
 }
@@ -80,162 +77,135 @@ position: relative;
 // justify-content: space-around;
 // }
 
-.stats{
-
-font-size: 15px;
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-
+.stats {
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
-.date{
-font-family: CustomFont;
-font-size: 15px;
-width: 20%;
-height: 25%;
-position: relative;
-// background-color: #231942;
-display: flex;
-// justify-content: center;
-// top: 25%;
-margin-left: 3%;
+.date {
+  font-family: CustomFont;
+  font-size: 15px;
+  width: 20%;
+  height: 25%;
+  position: relative;
+  // background-color: #231942;
+  display: flex;
+  // justify-content: center;
+  // top: 25%;
+  margin-left: 3%;
 }
 
-
-.text{
-width: 97%;
-height: 90%;
-// background-color: #231942;
-font-family: CustomFont;
-font-size: medium;
-color: #000000;
-margin-left: 3%;
-margin-right: 3%;
-display: -webkit-box;
--webkit-line-clamp: 5;
--webkit-box-orient: vertical;
-overflow: hidden;
-text-overflow: ellipsis;
+.text {
+  width: 97%;
+  height: 90%;
+  // background-color: #231942;
+  font-family: CustomFont;
+  font-size: medium;
+  color: #000000;
+  margin-left: 3%;
+  margin-right: 3%;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-
-
-.postImage{
-width:70px;
-height: 70px;
-object-fit: fill;
-border-radius: 15px;
+.postImage {
+  width: 70px;
+  height: 70px;
+  object-fit: fill;
+  border-radius: 15px;
 }
-.postImage:hover{
-cursor:pointer;
+.postImage:hover {
+  cursor: pointer;
 }
-.PostDetails{
-display: flex;
-flex-direction: column;
-justify-content: space-evenly;
-width: 82%;
+.PostDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 82%;
 }
 
-
-.TitleNameOptions{
-display: flex;
-justify-content: space-between;
-height: 30%;
-width: 100%;
-color: black;
-font-family: CustomFont;
-font-size: 20px;
+.TitleNameOptions {
+  display: flex;
+  justify-content: space-between;
+  height: 30%;
+  width: 100%;
+  color: black;
+  font-family: CustomFont;
+  font-size: 20px;
 }
 
-.Title{
-display: inline-block;
-width: auto;
-
+.Title {
+  display: inline-block;
+  width: auto;
 }
 
-.Name{
-display: flex;
-align-items: center;
-font-size: 15px;
-position: relative;
-font-family: CustomFont2;
-left: 5%;
-
+.Name {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  position: relative;
+  font-family: CustomFont2;
+  left: 5%;
 }
 
-.Title:hover{
-cursor:pointer;
-color: var(--hover-color);
+.Title:hover {
+  cursor: pointer;
+  color: var(--hover-color);
 }
-.Name:hover{
-cursor:pointer;
-    color: var(--hover-color);
+.Name:hover {
+  cursor: pointer;
+  color: var(--hover-color);
 }
-.DOT{
-// background-color: red;
-font-size: larger;
-display: flex;
-position: relative;
-right: 15%;
-margin-bottom: 8px;
-}
-
-.Options{
-font-size: larger;
-position: relative;
-right:5%;
-background-color: var(--card-color);
+.DOT {
+  // background-color: red;
+  font-size: larger;
+  display: flex;
+  position: relative;
+  right: 15%;
+  margin-bottom: 8px;
 }
 
-.Options:hover{
-color: var(--hover-color);
+.Options {
+  font-size: larger;
+  position: relative;
+  right: 5%;
+  background-color: var(--card-color);
 }
 
-.Options2{
-background-color: var(--card-color);
-font-size: larger;
-position: relative;
-padding-right: 30px;
-
+.Options:hover {
+  color: var(--hover-color);
 }
 
-
-.GenreIcons{
-display: flex;
-justify-content: center;
-justify-content: space-between;
-align-items: center;
-height: 30%;
-color: black;
-font-family: CustomFont;
-margin-left: 1.5%;
-
+.Options2 {
+  background-color: var(--card-color);
+  font-size: larger;
+  position: relative;
+  padding-right: 30px;
 }
 
-
-.imgDiv{
-width: 25px;
-height: 25px;
-object-fit: fill;
+.GenreIcons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 30%;
+  color: black;
+  font-family: CustomFont;
+  margin-left: 1.5%;
 }
 
-
-
-
-
+.imgDiv {
+  width: 25px;
+  height: 25px;
+  object-fit: fill;
+}
 
 ///////////////////////////////////////////////////////////////////////
-
-.buttonStyle {
-  width: 60%;
-  height: 150%;
-  font-size: 18px;
-
-  span {
-    color: var(--ion-color-text);
-  }
-}
 
 .active-button {
   background-color: var(--ion-color-secondary-contrast);
@@ -243,13 +213,89 @@ object-fit: fill;
   border-radius: 50px;
 }
 
-
 .backtotop {
   position: fixed;
   bottom: 2%;
   right: 23%;
   --border-radius: 50px;
   color: white;
+}
+
+.EventList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Event {
+  width: 350px;
+  height: 150px;
+  border-radius: 25px;
+  background-color: var(--ion-color-secondary-tint);
+  z-index: 1;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.EventHead {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-family: CustomFont;
+}
+.EventName {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+  color: var(--hover-color);
+}
+.Host {
+  font-size: 15px;
+  margin-left: 10px;
+  color: var(--ion-color-medium);
+}
+.EventBody {
+  width: 100%;
+  height: 40%;
+  color: var(--ion-color-medium);
+  font-family: CustomFont2;
+  padding: 2%;
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+.EventFooter {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: CustomFont2;
+}
+.EventDetails {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+}
+.Eventtooltip {
+  position: relative;
+  display: inline-block;
+}
+.EventLock {
+  margin-right: 5%;
+  font-size: 20px;
+  color: var(--ion-color-medium);
 }
 //  .ProfileFilter{
 //       width:97%;
@@ -493,7 +539,6 @@ object-fit: fill;
 //   border-radius: 5px;
 //  }
 
-
 //  .CommunityText{
 //   font-size: 9px;
 //   text-align: center;
@@ -509,7 +554,6 @@ object-fit: fill;
 //   height: 10%;
 //  }
 
-
 .row-filter {
   justify-content: space-evenly;
 }
@@ -520,9 +564,9 @@ object-fit: fill;
 }
 
 .comms {
-  width: 99%;
+  width: 95%;
   height: 50px;
-  margin-bottom: 10px;
+  margin: 10px 10px 10px 10px;
   // color: var(--ion-color-text);
   background-color: var(--ion-color-success);
   font-weight: bold;
@@ -537,7 +581,7 @@ object-fit: fill;
   bottom: 0;
   left: 0;
   margin-bottom: 10px;
-  border: 2px solid black;
+  border: 2px solid grey;
   margin-left: 10px;
   object-fit: cover;
 }
@@ -550,7 +594,6 @@ object-fit: fill;
 .edit-button ion-icon {
   font-size: 25px;
   color: black;
-  margin-left: 15px;
 }
 
 .banner {
@@ -563,7 +606,6 @@ object-fit: fill;
   --background: var(--ion-color-secondary);
   height: 70px;
   display: flex;
-  
 }
 
 .toolbar-content {
@@ -571,11 +613,10 @@ object-fit: fill;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  
 }
 
 .overlay {
-  overflow:auto;
+  overflow: auto;
   // background-color: var(--ion-color-background);
   width: 100%;
   height: 100%;
@@ -586,10 +627,10 @@ object-fit: fill;
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  margin-left: 20px ;
+  margin-left: 20px;
 }
 
-.CommunityIcon{
+.CommunityIcon {
   object-fit: cover;
   width: 80px;
   height: 80px;
@@ -626,7 +667,7 @@ object-fit: fill;
   margin-bottom: 10px;
 }
 
-.specialBtn{
+.specialBtn {
   background-color: var(--ion-color-primary-tint);
   color: var(--ion-color-text);
   border-radius: 50px;
@@ -636,32 +677,28 @@ object-fit: fill;
   padding: 2%;
 }
 
-
-.lineBreakers{
+.lineBreakers {
   width: 100%;
   display: flex;
   flex-direction: column;
-align-items: center;}
-
-
-
-.lineBreakers{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-align-items: center;
-// background-color: #ECECEC;
-
-}
-.lineBreakers2{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-align-items: center;
-
+  align-items: center;
 }
 
-.Comment{
+.lineBreakers {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // background-color: #ECECEC;
+}
+.lineBreakers2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Comment {
   width: 90%;
   color: #000000;
   font-family: CustomFont;
@@ -671,62 +708,59 @@ align-items: center;
   padding: 10px 20px 10px 20px;
 }
 
-.CommentHead{
+.CommentHead {
   display: flex;
   justify-content: space-between;
 }
-.CommentIDs{
+.CommentIDs {
   display: flex;
   align-items: center;
   padding: 1%;
   font-size: larger;
 }
-.CommentStats{
+.CommentStats {
   display: flex;
   align-items: center;
   font-size: larger;
 }
-.UserName{
+.UserName {
   position: relative;
-  left:5%;
+  left: 5%;
 }
 
-
-.reply{
+.reply {
   font-size: larger;
   position: relative;
   right: 15%;
 }
 
-.reply:hover{
+.reply:hover {
   cursor: pointer;
-  color:purple;
+  color: purple;
 }
 
-.CommentReply>div>button{
+.CommentReply > div > button {
   border: 1px solid var(--ion-color-primary);
   border-radius: 50px;
   padding: 1%;
   position: relative;
 }
 
-.CommentReplies{
+.CommentReplies {
   width: 75%;
   color: #000000;
   font-family: CustomFont;
   background-color: var(--card-color);
   border-radius: 10px;
-
 }
 
-.comment:hover{
+.comment:hover {
   cursor: pointer;
   color: var(--hover-color);
 }
 
-.CommentBody:hover{
+.CommentBody:hover {
   cursor: pointer;
-
 }
 ion-card {
   border-radius: 15px;
@@ -743,8 +777,6 @@ ion-card {
   border-radius: 50px;
   width: 120px;
   height: 50px;
-  // padding-left: 15px;
-  // padding-right: 15px;
   padding-top: 3px;
   text-align: center;
   font-size: 16px;
@@ -752,14 +784,20 @@ ion-card {
   color: var(--ion-color-medium);
 }
 
-.profile-info:hover{
+.profile-info:hover {
   cursor: pointer;
   background-color: var(--hover-color);
-  color: var(--ion-color-text);
+  color: var(--ion-color-background);
 }
 .info-post {
   // padding-left: 35px;
   // padding-right: 35px;
+}
+
+.info-post:hover {
+  cursor: default;
+  color: var(--ion-color-medium);
+  background-color: var(--ion-color-secondary-contrast);
 }
 
 .profile-info-row {
@@ -780,41 +818,36 @@ ion-card {
   margin-right: 700px;
 }
 
-
-
-
-
-
-.report{
-  font-size: small; position: relative; right: 10%;
+.report {
+  font-size: small;
+  position: relative;
+  // right: 10%;
 }
-.report:hover{
-cursor:pointer;
-color: var(--hover-color);
-
+.report:hover {
+  cursor: pointer;
+  color: var(--hover-color);
 }
 
-.curve{
+.curve {
   border-radius: 25px;
 }
 
-.Rocket1{
+.Rocket1 {
   position: absolute;
   z-index: 1;
-  top:95%;
+  top: 95%;
   animation: moveDiagonal 3s forwards;
   font-size: larger;
 }
 
-@keyframes moveDiagonal{
-  0%{
+@keyframes moveDiagonal {
+  0% {
     transform: translate(0, 0);
     z-index: 1;
   }
-  100%{
+  100% {
     transform: translate(600px, -525px);
     z-index: 1;
-
   }
 }
 
@@ -826,38 +859,39 @@ color: var(--hover-color);
   width: 100%;
 }
 
-.EditButtons{
+.EditButtons {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.EditBtn{
-  width: 50%;
-  color: black;
-// background-color: #DADADA;
+.EditBtn {
+  width: 24%;
+  // color: black;
+  // background-color: #DADADA;
   border-radius: 30px;
   font-size: 15px;
   padding: 2%;
   margin-bottom: 2%;
-
-}
-.EditBtn:hover{
+  background-color: var(--ion-color-primary);
   color: white;
+}
+.EditBtn:hover {
   background-color: var(--hover-color);
 }
 
-.Image{
-  // width: 15%;
-  padding:2%;
+.chnageBtns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.DescInput{
+.DescInput {
   text-align: center;
   font-size: 15px;
   border-radius: 25px;
   width: 45%;
-  border: #D9D9D9 1px solid;
+  border: #d9d9d9 1px solid;
   color: var(--ion-color-text);
   background-color: var(--ion-color-secondary-contrast);
   font-family: CustomFont;
@@ -866,7 +900,7 @@ color: var(--hover-color);
   margin-bottom: 2%;
 }
 
-.DescInput2{
+.DescInput2 {
   text-align: center;
   font-size: 15px;
   border-radius: 25px;
@@ -877,7 +911,6 @@ color: var(--hover-color);
   padding: 1%;
   margin-bottom: 2%;
 }
-
 
 ion-button:hover {
   --border-radius: 50px;
@@ -899,9 +932,7 @@ ion-button:hover {
     height: 50px;
     object-fit: cover;
     border-radius: 15px;
-    
   }
-
 }
 
 .community-title {
@@ -913,8 +944,8 @@ ion-button:hover {
 .community-subtitle {
   // white-space: nowrap;
   // overflow: hidden;
-  text-overflow: ellipsis; 
-  width: 90%; 
+  text-overflow: ellipsis;
+  width: 90%;
   height: 100%;
   font-size: 12px;
 }
@@ -930,14 +961,14 @@ ion-button:hover {
 
 //community
 
-.CommunityHeader{
+.CommunityHeader {
   display: flex;
   justify-content: space-evenly;
   height: 50%;
   width: 100%;
 }
 
-.CommunityIcon{
+.CommunityIcon {
   object-fit: cover;
   width: 80px;
   height: 80px;
@@ -945,25 +976,24 @@ ion-button:hover {
   border-radius: 15px;
 }
 
-.CommunityDetails{
+.CommunityDetails {
   display: flex;
- height: 100%;
- width: 50%;
- flex-direction: column;
- margin-top: 10px;
- 
+  height: 100%;
+  width: 50%;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
-.CommunityName{
-    display: flex;
-    height: 50%;
-    width: 100%;
-    color: #000;
-    font-family: CustomFont;
-    font-size: 20px;
+.CommunityName {
+  display: flex;
+  height: 50%;
+  width: 100%;
+  color: #000;
+  font-family: CustomFont;
+  font-size: 20px;
 }
 
-.CommunityMembers{
+.CommunityMembers {
   display: flex;
   height: 50%;
   width: 100%;
@@ -971,7 +1001,7 @@ ion-button:hover {
   font-family: CustomFont;
 }
 
-.CommunityGenres{
+.CommunityGenres {
   display: flex;
   justify-content: space-between;
   height: 50%;
@@ -981,14 +1011,14 @@ ion-button:hover {
   margin-top: 10px;
 }
 
-.CommunityAdd{
+.CommunityAdd {
   display: flex;
   margin-top: 10px;
   height: 70%;
   width: 8%;
 }
 
-.CommunityBody{
+.CommunityBody {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1000,11 +1030,11 @@ ion-button:hover {
   width: 80%;
 }
 
-.CommunityDesc{
+.CommunityDesc {
   display: flex;
-   font-family: CustomFont2;
-   height: 90%;
-   width: 95%;
+  font-family: CustomFont2;
+  height: 90%;
+  width: 95%;
 }
 
 .card-color {
@@ -1016,35 +1046,32 @@ ion-button:hover {
 // Import FontAwesome styles
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-
-
-
 //posts
-.imgDiv{
-width: 25px;
-height: 25px;
-object-fit: fill;
+.imgDiv {
+  width: 25px;
+  height: 25px;
+  object-fit: fill;
 }
 
-.postImage{
-  width:70px;
+.postImage {
+  width: 70px;
   height: 70px;
   object-fit: fill;
   border-radius: 15px;
 }
 
-.postImage:hover{
+.postImage:hover {
   cursor: pointer;
 }
 
-.PostDetails{
+.PostDetails {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 82%;
 }
 
-.TitleNameOptions{
+.TitleNameOptions {
   display: flex;
   justify-content: space-between;
   height: 30%;
@@ -1054,16 +1081,16 @@ object-fit: fill;
   font-size: 20px;
 }
 
-.Title{
+.Title {
   display: inline-block;
   width: auto;
-  white-space: nowrap; 
-  // overflow: hidden; 
+  white-space: nowrap;
+  // overflow: hidden;
   text-overflow: ellipsis;
   color: #000;
 }
 
-.Name{
+.Name {
   display: flex;
   align-items: center;
   font-size: 15px;
@@ -1073,36 +1100,38 @@ object-fit: fill;
   margin-top: 3px;
 }
 
-.Title:hover{
-  cursor:pointer;
+.Title:hover {
+  cursor: pointer;
   color: var(--hover-color);
 }
-.Name:hover{
-  cursor:pointer;
-  color: var(--hover-color);
-}
-
-.report{
-  font-size: small; position: relative; right: 10%;
-}
-
-.report:hover{
-  cursor:pointer;
+.Name:hover {
+  cursor: pointer;
   color: var(--hover-color);
 }
 
-.Options{
+.report {
+  font-size: small;
+  position: relative;
+  right: 10%;
+}
+
+.report:hover {
+  cursor: pointer;
+  color: var(--hover-color);
+}
+
+.Options {
   background-color: var(--card-color);
   font-size: larger;
   position: relative;
-  right:5%;
+  right: 5%;
 }
 
-.Options:hover{
+.Options:hover {
   color: var(--hover-color);
 }
 
-.GenreIcons{
+.GenreIcons {
   display: flex;
   justify-content: center;
   justify-content: space-between;
@@ -1114,7 +1143,7 @@ object-fit: fill;
   margin-top: 10px;
 }
 
-.text{
+.text {
   width: 97%;
   height: 90%;
   font-family: CustomFont;
@@ -1129,7 +1158,7 @@ object-fit: fill;
   text-overflow: ellipsis;
 }
 
-.date{
+.date {
   font-family: CustomFont;
   font-size: 15px;
   width: 20%;
@@ -1140,34 +1169,34 @@ object-fit: fill;
   margin-left: 3%;
 }
 
-.icons{
+.icons {
   height: 50%;
   width: 30%;
-  color:var(--ion-color-primary-contrast);
+  color: var(--ion-color-primary-contrast);
   display: flex;
   justify-content: space-around;
   position: relative;
   padding-bottom: 2%;
-  padding-top:1%;
+  padding-top: 1%;
 }
 
-#icons2{
+#icons2 {
   font-size: 25px;
-  color:var(--ion-color-primary-contrast);
+  color: var(--ion-color-primary-contrast);
 }
 
-#icons2:hover{
+#icons2:hover {
   color: var(--hover-color);
   cursor: pointer;
 }
 
-.stats{
+.stats {
   font-size: 15px;
   display: flex;
   justify-content: space-evenly;
 }
 
-.PostCardHeader{
+.PostCardHeader {
   display: flex;
   justify-content: center;
   height: 35%;
@@ -1176,7 +1205,24 @@ object-fit: fill;
   margin-bottom: 10px;
 }
 
-.PostImageContainer{
+.Image {
+  --background: lightgrey;
+  width: 16%;
+  // color: black;
+  // background-color: #DADADA;
+  --border-radius: 30px;
+  --font-size: 15px;
+
+  margin-bottom: 2%;
+
+  cursor: pointer;
+
+  span {
+    cursor: pointer;
+  }
+}
+
+.PostImageContainer {
   width: 15%;
   height: 100%;
   display: flex;
@@ -1184,7 +1230,7 @@ object-fit: fill;
   align-items: center;
 }
 
-.PostBody{
+.PostBody {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1192,18 +1238,18 @@ object-fit: fill;
   width: 100%;
 }
 
-.PostBody:hover{
+.PostBody:hover {
   cursor: pointer;
 }
 
-.PostFooter{
+.PostFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 97%;
 }
 
-.specialBtn{
+.specialBtn {
   background-color: var(--ion-color-primary-tint);
   color: var(--ion-color-text);
   border-radius: 50px;
@@ -1243,48 +1289,145 @@ object-fit: fill;
   visibility: visible;
 }
 
-
-
 //Viewing Communities
 
-.CommunityHead{
+.CommunityHead {
   text-align: center;
   vertical-align: middle;
 }
-.ViewCommunity{
-  
+.ViewCommunity {
   margin-bottom: 2%;
 }
 
-.JoinedCommunity{
+.JoinedCommunity {
   font-size: 20px;
   color: black;
   font-family: CustomFont;
   margin-left: 5%;
 }
 
-.JoinedCommunity:hover{
+.JoinedCommunity:hover {
   cursor: pointer;
   color: var(--hover-color);
 }
 
-.Button3{
+.Button3 {
   border-radius: 30px;
-font-size: 20px;
-margin-top:2%;
-margin-bottom: 2%;
-// width:60%;
-padding: 10px 20px 10px 20px;
-color: white;
-background-color: var(--ion-color-primary-contrast);
+  font-size: 20px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  // width:60%;
+  padding: 10px 20px 10px 20px;
+  color: var(--ion-color-background);
+  background-color: var(--ion-color-primary);
 }
 
-.Button3:hover{
+.Button3:hover {
   background-color: var(--hover-color);
 }
 
-
-.User:hover{
+.User:hover {
   cursor: pointer;
- 
+}
+
+.ion-button-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.buttonStyle {
+  span {
+    color: var(--ion-color-text);
+  }
+}
+
+.avatar {
+  // height: 100%;
+  // width: 100%;
+  // object-fit: cover;
+  // margin-top: 10px;
+  // padding-left: 2px;
+}
+
+.overlay-image,
+.overlay-banner {
+  position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  z-index: 3;
+  // width: inherit;
+}
+
+.overlay-image {
+  height: 150px;
+  width: 150px;
+  border-radius: 100px;
+}
+
+.overlay-banner {
+  height: 100px;
+  width: 160px;
+  border-radius: 5px;
+  margin-top: 45px;
+}
+
+.profile-image-container .overlay-image,
+.profile-banner-container .overlay-banner {
+  opacity: 1;
+}
+
+.edit-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.file-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.file-input {
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.edit-icon {
+  color: white;
+  font-size: 24px;
+}
+
+.pointsBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: var(--card-color);
+  border-radius: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  color: var(--hover-color);
+  font-weight: bold;
 }

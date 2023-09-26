@@ -1,7 +1,7 @@
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { Injectable } from "@angular/core"
 import { Action, Selector, State, StateContext } from "@ngxs/store"
-import { GetUserProfile, GetUserProfilePosts, GetUserSettings, UpdateUserPost } from "@encompass/app/user-profile/util"
+import { DislikeUserProfilePost, GetUserProfile, GetUserProfilePosts, GetUserSettings, LikeUserProfilePost, UpdateUserPost } from "@encompass/app/user-profile/util"
 import { UserProfileApi } from "./user-profile.api"
 import { PostDto } from "@encompass/api/post/data-access"
 import { SettingsDto } from "@encompass/api/settings/data-access"
@@ -86,6 +86,16 @@ export class UserProfileState{
     // })
   }
 
+  getUserProfileSettings(username: string){
+    const response = this.userProfileApi.getUserSettings(username)
+
+    if(response == null && response == undefined){
+      return null;
+    }
+
+    return response;
+  }
+
   async addFollower(username: string, followerUsername: string){
     const response = await this.userProfileApi.addFollower(username, followerUsername)
 
@@ -108,8 +118,8 @@ export class UserProfileState{
   }
   
   @Action(GetUserProfilePosts)
-  async getUserProfilePosts(ctx: StateContext<UserProfilePostModel>, {username}: GetUserProfilePosts){
-    const response = await this.userProfileApi.getUserProfilePosts(username)
+  async getUserProfilePosts(ctx: StateContext<UserProfilePostModel>, {username, userId}: GetUserProfilePosts){
+    const response = await this.userProfileApi.getUserProfilePosts(username, userId)
 
     if(response == null && response == undefined){
       return;
@@ -126,59 +136,147 @@ export class UserProfileState{
 
   @Action(UpdateUserPost)
   async updatePost(ctx: StateContext<UserProfilePostModel>, {postId, updateRequest, username}: UpdateUserPost){
-    console.log("POST")
     const response = await this.userProfileApi.updatePost(updateRequest, postId);
 
     if(response == null || response == undefined){
       return;
     }
 
-    ctx.dispatch(new GetUserProfilePosts(username))
-    
-    // try{
-    //   const posts = ctx.getState().UserProfilePostForm.model.userProfilePosts;
+    try{
+      const posts = await ctx.getState().UserProfilePostForm.model.userProfilePosts;
 
-    //   if(posts == null ){
-    //     return
-    //   }
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
 
-    //   const index = posts.findIndex(x => x._id == response._id)
-    //   // console.log(response)
-    //   posts[index] = response;
-    //   console.log(posts[index])
-    //   console.log("HERE")
+      const index = await posts.findIndex(x => x._id == response._id)
 
-    //   ctx.patchState({
-    //     UserProfilePostForm: {
-    //       model: {
-    //         userProfilePosts: posts
-    //       }
-    //     }
-    //   })
-    // }
+      console.log(posts[index])
 
-    // catch(error){
-    //   console.log("here")
-    //   ctx.dispatch(new GetUserProfilePosts(username))
-    //   console.log(error)
-    // }
+      posts[index] = response;
+
+      console.log(posts[index])
+
+      ctx.patchState({
+        UserProfilePostForm: {
+          model: {
+            userProfilePosts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
   }
-  
-  @Action(GetUserSettings)
-  async getUserSettings(ctx: StateContext<UserProfileSettingsModel>, {userId}: GetUserSettings){
-    const response = await this.userProfileApi.getUserSettings(userId)
 
-    if(response == null && response == undefined){
+  @Action(LikeUserProfilePost)
+  async likedProfilePost(ctx: StateContext<UserProfilePostModel>, { postId, userId }: LikeUserProfilePost){
+    const response = await this.userProfileApi.likePost(postId, userId);
+
+    if (response == null || response == undefined) {
       return;
     }
 
-    ctx.setState({
-      UserProfileSettingsForm:{
-        model:{
-          userProfileSettings: response
-        }
+    try{
+      const posts = await ctx.getState().UserProfilePostForm.model.userProfilePosts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
       }
-    })
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        UserProfilePostForm: {
+          model: {
+            userProfilePosts: posts
+          }
+
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  @Action(DislikeUserProfilePost)
+  async dislikedProfilePost(ctx: StateContext<UserProfilePostModel>, { postId, userId }: DislikeUserProfilePost){
+    const response = await this.userProfileApi.dislikePost(postId, userId);
+
+    if (response == null || response == undefined) {
+      return;
+    }
+
+    try{
+      const posts = await ctx.getState().UserProfilePostForm.model.userProfilePosts;
+
+      if(posts == null ){
+        console.log("POSTS IS NULL")
+        return;
+      }
+
+      const index = await posts.findIndex(x => x._id == response._id)
+
+      posts[index] = response;
+
+      ctx.patchState({
+        UserProfilePostForm: {
+          model: {
+            userProfilePosts: posts
+          }
+        }
+      })
+    }
+
+    catch(error){
+      console.log(error)
+    }
+
+  }
+
+  async getFollowers(followerList: string[]){
+    const followers: ProfileDto[] = [];
+  
+    await Promise.all(
+      followerList.map(async (element) => {
+        const item = await this.userProfileApi.getProfile(element);
+  
+        if (item != null && item != undefined) {
+          followers.push(item);
+        }
+      })
+    );
+  
+    console.log(followers);
+  
+    return followers;
+  }
+
+  async getFollowing(followingList: string[]): Promise<ProfileDto[]> {
+    const following: ProfileDto[] = [];
+  
+    await Promise.all(
+      followingList.map(async (element) => {
+        const item = await this.userProfileApi.getProfile(element);
+  
+        if (item != null && item != undefined) {
+          following.push(item);
+        }
+      })
+    );
+  
+    console.log(following);
+  
+    return following;
   }
 
   @Selector()

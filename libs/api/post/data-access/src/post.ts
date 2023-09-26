@@ -12,7 +12,8 @@ export class Post extends AggregateRoot{
     public communityImageUrl: string | null,
     public categories: string [],
     public likes: string [],
-    public dateAdded: string,
+    public dislikes: string [],
+    public dateAdded: Date,
     public spoiler: boolean,
     public ageRestricted: boolean,
     public shares: number,
@@ -59,7 +60,11 @@ export class Post extends AggregateRoot{
     return this.likes;
   }
 
-  getDateAdded(): string {
+  getDislikes(): string []{
+    return this.dislikes;
+  }
+
+  getDateAdded(): Date {
     return this.dateAdded;
   }
   

@@ -20,12 +20,12 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             const recommendedUsersPromise = this.httpService.get(url + "/api/profile/get-recommended/" + userId).toPromise();
             const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
             const [currentUserProfile, recommendedUsers] = await Promise.all([currentUserProfilePromise, recommendedUsersPromise]);
-            //const allCategories = await this.bookEntityRepository.findAllCategories();
-            /*console.log('allCategories: ');
+            const allCategories = await this.bookEntityRepository.findAllCategories();
+            console.log('allCategories: ');
             //console all categories
-            allCategories.forEach((category) => {
-                console.log(category);
-            });*/
+            // allCategories.forEach((category) => {
+            //     console.log(category);
+            // });
             if ( recommendedUsers?.data.length > 0 ) {
                 const categories = convertUserCategories( currentUserProfile?.data );
                 const allBooks = await this.bookEntityRepository.findSome(categories);
@@ -66,6 +66,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
 
                 return recommendedBooksFromAllBooks;
             }
+            // return this.bookEntityRepository.findNonNSFW(allCategories);
 
             
 

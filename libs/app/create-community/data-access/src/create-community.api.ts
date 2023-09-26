@@ -55,6 +55,19 @@ export class CreateCommunityApi{
     }
   }
 
+  async addEvent(name: string, id: string){
+    try{
+      const response = await this.httpClient.patch<CommunityDto>('/api/community/add-event/' + name + "/" + id, {}).toPromise();
+
+      return response;
+    }
+
+    catch(error){
+      console.log(error);
+      return null;
+    }
+  }
+
   async uploadFile(request: FormData) : Promise<string | null>{
     try {
 

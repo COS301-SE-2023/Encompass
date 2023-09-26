@@ -7,7 +7,10 @@ export class Profile extends AggregateRoot{
     public username: string,
     public name: string | null,
     public lastName: string | null,
-    public categories: string [] | null,
+    public categories: {
+      category: string;
+      score: number;
+    } [] | null,
     public communities: string [] | null,
     public awards: string [] | null,
     public events: string [] | null,
@@ -18,6 +21,7 @@ export class Profile extends AggregateRoot{
     public profileImage: string | null,
     public profileBanner: string | null,
     public bio: string | null,
+    public ep: number
   ){
     super();
   }
@@ -38,7 +42,10 @@ export class Profile extends AggregateRoot{
     return this.lastName;
   }
 
-  getCategories(): string [] | null{
+  getCategories(): {
+    category: string;
+    score: number;
+  } [] | null{
     return this.categories;
   }
 
@@ -79,6 +86,10 @@ export class Profile extends AggregateRoot{
   }
   getBio(): string | null{
     return this.bio;
+  }
+
+  getEP(): number{
+    return this.ep;
   }
 
   updateProfile(updateProfileRequest: UpdateProfileRequest){
@@ -146,6 +157,45 @@ export class Profile extends AggregateRoot{
 
     else{
       this.communities = [communityName];
+    }
+  }
+
+  removeCoins(amount:number){
+    this.ep = Number(this.ep) - Number(amount);
+
+    if(this.ep < 0){
+      this.ep = 0;
+    }
+  }
+  
+  addCoins(amount: number){
+    this.ep = Number(this.ep) + Number(amount);
+  }
+
+  addAward(awardName: string){
+    if(this.awards){
+      if(this.awards.includes(awardName)) return;
+      this.awards = [...this.awards, awardName];
+    }
+
+    else{
+      this.awards = [awardName];
+    }
+  }
+
+  removeAward(awardName: string){
+    if(this.awards)
+      this.awards = this.awards.filter(award => award !== awardName);
+  }
+
+  addEvent(eventId: string){
+    if(this.events){
+      if(this.events.includes(eventId)) return;
+      this.events = [...this.events, eventId];
+    }
+
+    else{
+      this.events = [eventId];
     }
   }
 }

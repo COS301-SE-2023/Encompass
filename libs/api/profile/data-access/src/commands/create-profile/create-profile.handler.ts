@@ -60,6 +60,7 @@ export class CreateProfileHandler
         this.httpService.post(url + '/api/chat-list/create', {username: profile.username}).toPromise();
         this.httpService.post(url + '/api/notification/create/' + _id, {} ).toPromise();
         this.httpService.post(url + '/api/settings/create/' + _id, {} ).toPromise();
+        this.httpService.post(url + '/api/user-events/create/' + _id, {} ).toPromise();
       }
 
       catch(error){

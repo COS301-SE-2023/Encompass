@@ -7,8 +7,6 @@ import { UpdatePostCommand } from "./commands/update-post/update-post.command";
 import { DeletePostCommand } from "./commands/delete-post/delete-post.command";
 import { UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { Request } from "express";
-import { Multer } from "multer";
 import { UploadedFile } from "@nestjs/common";
 import { UploadImage } from "./upload-image.service";
 import { GetAllPostsQuery } from "./queries/getAllPosts.query";
@@ -20,6 +18,9 @@ import { GetPopularPostsQuery } from "./queries/get-popular/getPopularPosts.quer
 import { GetLatestPostsQuery } from "./queries/get-latest/getLatestPosts.query";
 import { GetPostsByKeywordQuery } from "./queries/search-posts/get-posts-by-keyword.query";
 import { GetRecommendedPostsQuery } from "./queries/get-recommended-posts/getRecommendedPosts.query";
+import { DislikePostCommand } from "./commands/dislike-post/dislike-post.command";
+import { LikePostCommand } from "./commands/like-post/like-post.command";
+import { Multer } from 'multer';
 
 @Controller('post')
 export class PostController {
@@ -44,27 +45,39 @@ export class PostController {
     );
   }
 
-  @Get('get-posts-by-keyword/:keyword')
-  async getPostsByKeyword(@Param('keyword') keyword: string){
+  @Get('get-posts-by-keyword/:keyword/:userId')
+  async getPostsByKeyword(@Param('keyword') keyword: string, @Param('userId') userId: string){
       return await this.queryBus.execute<GetPostsByKeywordQuery, PostDto[]>(
-          new GetPostsByKeywordQuery(keyword),
+          new GetPostsByKeywordQuery(keyword, userId),
       );
   }
 
-  @Get('get-posts-by-category/:category')
+  /*@Get('get-posts-by-category/:category')
   async getPostsByCategory(@Param('category') category: string){
       return await this.queryBus.execute<GetPostsByKeywordQuery, PostDto[]>(
           new GetPostsByKeywordQuery(category),
       );
+  }*/
+
+  
+
+  @Patch('like/:userId/:postId')
+  async likePost(
+    @Param('userId') userId: string,
+    @Param('postId') postId: string,
+  ){
+    return await this.commandBus.execute<LikePostCommand, PostDto>(
+      new LikePostCommand(userId, postId),
+    );
   }
 
-  @Patch(':id')
-  async updatePost(
-    @Param('id') id: string,
-    @Body() updatePostRequest: UpdatePostRequest,
+  @Patch('dislike/:userId/:postId')
+  async dislikePost(
+    @Param('userId') userId: string,
+    @Param('postId') postId: string,
   ){
-    return await this.commandBus.execute<UpdatePostCommand, PostDto>(
-      new UpdatePostCommand(id, updatePostRequest),
+    return await this.commandBus.execute<DislikePostCommand, PostDto>(
+      new DislikePostCommand(userId, postId),
     );
   }
 
@@ -104,22 +117,25 @@ export class PostController {
     );
   }
 
-  @Get('get-popular')
-  async getPopularPosts(){
+  @Get('get-popular/:username')
+  async getPopularPosts(
+    @Param('username') username: string,
+  ){
     return await this.queryBus.execute<GetPopularPostsQuery, PostDto[]>(
-      new GetPopularPostsQuery(),
+      new GetPopularPostsQuery(username),
     );
   }
 
   
 
 
-  @Get('get-by-user/:username')
+  @Get('get-by-user/:queriedUsername/:userId')
   async getPostsByUserId(
-    @Param('username') username: string,
+    @Param('queriedUsername') queriedUsername: string,
+    @Param('userId') userId: string,
   ){
     return await this.queryBus.execute<UserIdGetPostQuery, PostDto[]>(
-      new UserIdGetPostQuery(username),
+      new UserIdGetPostQuery(queriedUsername, userId),
     );
   }
 
@@ -129,6 +145,16 @@ export class PostController {
   ){
     return await this.queryBus.execute<GetByCommunityQuery, PostDto[]>(
       new GetByCommunityQuery(communityName),
+    );
+  }
+
+  @Patch(':id')
+  async updatePost(
+    @Param('id') id: string,
+    @Body() updatePostRequest: UpdatePostRequest,
+  ){
+    return await this.commandBus.execute<UpdatePostCommand, PostDto>(
+      new UpdatePostCommand(id, updatePostRequest),
     );
   }
 

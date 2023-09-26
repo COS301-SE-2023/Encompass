@@ -6,6 +6,7 @@ import { NgModule, importProvidersFrom } from '@angular/core';
 // } from '@angular/fire/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { UnauthGuard } from './unauth.guard';
 
 // const redirectLoggedOut = () => redirectUnauthorizedTo(['']);
 // const redirectLoggedIn = () => redirectLoggedInTo(['home']);
@@ -14,18 +15,18 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    // canActivate: [!AuthGuard],
+    canActivate: [UnauthGuard],
     loadChildren: () =>
       import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
   },
 
-  {
-    path: 'welcome',
-    // pathMatch: 'full',
-    // data: { authGuardPipe: redirectLoggedOut },
-    loadChildren: () =>
-    import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
-  },
+  // {
+  //   path: 'welcome',
+  //   // pathMatch: 'full',
+  //   // data: { authGuardPipe: redirectLoggedOut },
+  //   loadChildren: () =>
+  //   import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
+  // },
 
   {
     path: 'home',
@@ -39,17 +40,17 @@ const routes: Routes = [
   {
     path: 'login',
     pathMatch: 'full',
-    // canActivate: [!AuthGuard],
+    canActivate: [UnauthGuard],
     loadChildren: () =>
       import('@encompass/app/login/feature').then((m) => m.LoginModule)
   },
-  {
-    path: 'comments',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/comments/feature').then((m) => m.CommentsModule),
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'comments',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/comments/feature').then((m) => m.CommentsModule),
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'privacy',
     pathMatch: 'full',
@@ -75,18 +76,18 @@ const routes: Routes = [
       import('@encompass/app/forgotpassword/feature').then((m) => m.ForgotpasswordModule)
   },
 
-  {
-    path: 'profile',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/profile/feature').then((m) => m.ProfileModule),
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'profile',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/profile/feature').then((m) => m.ProfileModule),
+  //   canActivate: [AuthGuard]
+  // },
 
   {
     path: 'register',
     pathMatch: 'full',
-    // canActivate: [AuthGuard],
+    canActivate: [UnauthGuard],
     loadChildren: () =>
       import('@encompass/app/sign-up/feature').then((m) => m.SignUpModule)
   },
@@ -95,12 +96,12 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('@encompass/app/sign-up-interior1/feature').then((m) => m.SignUpInterior1Module),
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'sign-up-communities',
     pathMatch: 'full',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('@encompass/app/sign-up-interior2/feature').then((m) => m.SignUpInterior2Module)
   },
@@ -118,26 +119,33 @@ const routes: Routes = [
   //     import('@encompass/app/comments/feature').then((m) => m.CommentsModule),
   //   canActivate: [AuthGuard]
   // },
-  {
-    path: 'settings',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/settings/feature').then((m) => m.SettingsModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'themes',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/themes/feature').then((m) => m.ThemesModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'welcome',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
-  },
+  // {
+  //   path: 'settings',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/settings/feature').then((m) => m.SettingsModule),
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'themes',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/themes/feature').then((m) => m.ThemesModule),
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'welcome',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('@encompass/app/welcome/feature').then((m) => m.WelcomeModule)
+  // },
+  // {
+  //     path: 'challenge-description',
+  //     pathMatch: 'full',
+  //     loadChildren: () =>
+  //       import('@encompass/app/challenge-description/feature').then((m) => m.ChallengeDescriptionModule),
+  //     //canActivate: [AuthGuard]
+  //   },
   // {
   //   path: 'community-profile/:name',
   //   pathMatch: 'full',
