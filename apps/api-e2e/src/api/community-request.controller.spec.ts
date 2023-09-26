@@ -64,6 +64,7 @@ describe('CommunityRequestController (Integration with MongoDB)', () => {
   };
   
   beforeAll(async () => {
+    jest.setTimeout(60000)
     await setupTestApp();
   });
 

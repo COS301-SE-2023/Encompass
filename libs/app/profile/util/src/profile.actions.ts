@@ -15,6 +15,11 @@ export class UpdateProfile{
   constructor(public updateProfileRequest: UpdateProfileRequest, public userId: string){}
 }
 
+export class UpdateProfilePost{
+  static readonly type = '[Profile] UpdateProfile';
+  constructor(public updateProfileRequest: UpdateProfileRequest, public userId: string){}
+}
+
 export class GetPosts{
   static readonly type = '[Profile] GetPosts';
   constructor(public username: string, public userId: string){}

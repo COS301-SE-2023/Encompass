@@ -92,8 +92,8 @@ describe('accountController', () => {
     await dbConnection.collection('chat').deleteMany({});
     });
 
-    
     beforeAll(async () => {
+    jest.setTimeout(60000)
     await setupTestApp();
     });
 

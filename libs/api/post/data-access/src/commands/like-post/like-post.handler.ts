@@ -63,8 +63,8 @@ export class LikePostHandler implements ICommandHandler<LikePostCommand> {
                 });
     
                 //update user in database
-                await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
-                await this.httpService.patch(url + '/api/profile/add-coins/' + post.username + '/1').toPromise();
+                this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+                this.httpService.patch(url + '/api/profile/add-coins/' + post.username + '/1').toPromise();
             }
 
             if (unlikedPost) {
@@ -84,8 +84,8 @@ export class LikePostHandler implements ICommandHandler<LikePostCommand> {
                 });
 
                 //update user in database
-                await this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
-                await this.httpService.patch(url + '/api/profile/remove-coins/' + post.username + '/1').toPromise();
+                this.httpService.patch(url + '/api/profile/update/' + userId, user).toPromise();
+                this.httpService.patch(url + '/api/profile/remove-coins/' + post.username + '/1').toPromise();
             }
 
             return post;
