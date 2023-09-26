@@ -167,6 +167,10 @@ ion-textarea.custom {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  ion-item {
+    --background: transparent;
+  }
 }
 
 .btn1 {
@@ -207,9 +211,9 @@ ion-textarea.custom {
 }
 
 .image-span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   margin-left: 5px;
   cursor: pointer;
   opacity: 1;
@@ -222,4 +226,9 @@ ion-textarea.custom {
 .img{
   opacity: 1;
   background-color: #f8f8f8;
+}
+
+.label-with-icon {
+  display: flex; 
+  align-items: center; 
 }

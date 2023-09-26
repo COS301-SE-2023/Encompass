@@ -41,6 +41,7 @@ export class QuizPage {
   numberOfQuestions!: number;
   numberOfParticipants!: number;
 
+  numCorrect = 0;
   fillPercentage = 0;
   fillNumber = 0;
   totalNumber = 15;
@@ -118,7 +119,7 @@ export class QuizPage {
                       this.currentEvent = element;
                       element.userAnswers.forEach((answer, index) => {
                         this.userAnswers[index] = answer;
-
+                        
                         if (answer === this.event?.quiz[index].answer) {
                           this.fillCircle();
                         }
@@ -139,6 +140,19 @@ export class QuizPage {
         }
       });
     }
+
+    const updateEvent: UpdateEventRequest = {
+      eventId: this.currentEvent.eventId,
+      userAnswers: this.currentEvent.userAnswers,
+      numCorrect: this.currentEvent.numCorrect,
+      quizComplete: true,
+    };
+
+    if (this.profile === null || this.profile === undefined) {
+      return;
+    }
+
+    this.store.dispatch(new UpdateUserEvent(this.profile._id, updateEvent));
   }
 
   ngOnDestroy() {

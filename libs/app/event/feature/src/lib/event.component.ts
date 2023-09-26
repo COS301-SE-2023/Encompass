@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { LeaderboardComponent } from '@encompass/app/leaderboard/feature';
 import { Select, Store } from '@ngxs/store';
-import { ProfileLeaderboardDto } from '@encompass/api/profile-leaderboard/data-access';
+import { ProfileLeaderboardDto } from '@encompass/api/profile/data-access';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EventState } from '@encompass/app/event/data-access';
 import { GetEvents, GetLeaderboard, GetUserEvents } from '@encompass/app/event/util';

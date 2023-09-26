@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProfileLeaderboardDto } from '@encompass/api/profile-leaderboard/data-access';
+import { ProfileLeaderboardDto } from '@encompass/api/profile/data-access';
 import { ProfileDto } from '@encompass/api/profile/data-access';
 import { EventState } from '@encompass/app/event/data-access';
 import { GetLeaderboard } from '@encompass/app/event/util';

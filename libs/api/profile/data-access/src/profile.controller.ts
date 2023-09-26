@@ -32,7 +32,7 @@ import { AddEventCommand } from "./commands/add-event/add-event.command";
 import { AddAwardByUserIdCommand } from "./commands/add-award-by-userId/add-award-by-userId.command";
 import { AddCoinsByUserIdCommand } from "./commands/add-coins-by-userId/add-coins-by-userId.command";
 import { GetLeaderboardQuery } from "./queries/get-leaderboard/get-leaderboard.query";
-import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
+import { ProfileLeaderboardDto } from './dto/profile-leaderboard.dto';
 
 @Controller('profile')
 export class ProfileController {
