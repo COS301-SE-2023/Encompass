@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
+import { ProfileLeaderboardDto } from '@encompass/api/profile/data-access'
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { EventApi } from "./event.api";
 import { AddUserEvent, GetByCommunity, GetByUsername, GetEventById, GetEvents, GetLeaderboard, GetUserEvents, UpdateUserEvent } from "@encompass/app/event/util";

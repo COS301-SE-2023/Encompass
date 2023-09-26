@@ -33,6 +33,7 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     }),
 
     MongooseModule.forRoot(NX_MONGO_DB_URL),
+    ProfileLeaderboardModule,
     AccountModule,
     ProfileModule,
     PostModule,
@@ -47,7 +48,6 @@ const NX_MONGO_DB_URL = process.env['NX_MONGO_DB_URL']
     SearchModule,
     EventModule,
     UserEventsModule,
-    ProfileLeaderboardModule,
     CommunityLeaderboardModule,
     // DatabaseModule
   ],

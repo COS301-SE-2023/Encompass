@@ -20,12 +20,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             const recommendedUsersPromise = this.httpService.get(url + "/api/profile/get-recommended/" + userId).toPromise();
             const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
             const [currentUserProfile, recommendedUsers] = await Promise.all([currentUserProfilePromise, recommendedUsersPromise]);
-            const allCategories = await this.bookEntityRepository.findAllCategories();
-            console.log('allCategories: ');
-            //console all categories
-            // allCategories.forEach((category) => {
-            //     console.log(category);
-            // });
+            
             if ( recommendedUsers?.data.length > 0 ) {
                 const categories = convertUserCategories( currentUserProfile?.data );
                 const allBooks = await this.bookEntityRepository.findSome(categories);
@@ -79,11 +74,11 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             const updatedProfile: string[] = [];
             //console.log('currentUserProfile: ', currentUserProfile);
             currentUserProfile?.categories?.forEach((category: any) => {
-                if (categoryMappings[category]) {
+                if (categoryMappings[category.category]) {
                     //categoryMappings[category].novels is an array of strings
-                    updatedProfile.push(...categoryMappings[category].novels);
+                    updatedProfile.push(...categoryMappings[category.category].novels);
                 } else {
-                    updatedProfile.push(category);
+                    updatedProfile.push(category.category);
                 }
             });
             currentUserProfile.categories = updatedProfile;

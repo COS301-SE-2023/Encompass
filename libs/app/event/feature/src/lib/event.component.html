@@ -66,10 +66,20 @@
                   <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
                 </div>
                 
-                <ion-icon *ngIf="!hasJoined[i]||hasExpired[i]||hasCompleted[i]"
-                class="Lock" name="lock"></ion-icon>
-                <ion-icon *ngIf="hasJoined[i]&&!hasExpired[i]&&!hasCompleted[i]"
+                <ion-icon *ngIf="!hasJoined[i]"
+                class="Lock" name="lock-closed"></ion-icon>
+
+                <ion-icon *ngIf="hasJoined[i]&&!hasCompleted[i]&&hasExpired[i]"
+                class="Lock" name="lock-closed"></ion-icon>
+
+                <ion-icon *ngIf="hasJoined[i]&&!hasCompleted[i]&&!hasExpired[i]"
                 class="Lock" name="lock-open"></ion-icon>
+
+                <ion-icon *ngIf="hasJoined[i]&&hasCompleted[i]&&hasExpired[i]"
+                class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
+
+                <ion-icon *ngIf="hasJoined[i]&&hasCompleted[i]&&!hasExpired[i]"
+                class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
               </div>
             </ion-card>
           </div>
