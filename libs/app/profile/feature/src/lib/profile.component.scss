@@ -883,7 +883,7 @@ ion-card {
 .chnageBtns {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .DescInput {
@@ -1207,7 +1207,7 @@ ion-button:hover {
 
 .Image {
   --background: lightgrey;
-  width: 16%;
+  width: 24%;
   // color: black;
   // background-color: #DADADA;
   --border-radius: 30px;
