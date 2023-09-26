@@ -449,12 +449,12 @@ export class CreatePostComponent {
       this.quizWords.push(this.quiz3?.value);
     }
 
-    const toast = await this.toastController.create({
-      message: 'Creating Event',
-      color: 'success',
-    });
+    // const toast = await this.toastController.create({
+    //   message: 'Creating Event',
+    //   color: 'success',
+    // });
 
-    toast.present();
+    // toast.present();
 
     const data: CreateEventRequest = {
       name: this.eventTitle?.value,
@@ -471,7 +471,7 @@ export class CreatePostComponent {
     };
 
     this.store.dispatch(new CreateEvent(data, this.profile));
-    toast.dismiss();
+    // toast.dismiss();
   }
 
   closePopup() {
