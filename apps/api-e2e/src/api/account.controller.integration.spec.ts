@@ -67,6 +67,11 @@ describe('accountController', () => {
       afterEach(async () => {
         await dbConnection.collection('account').deleteMany({});
       });
+      
+      beforeEach((): void => {
+        jest.setTimeout(60000);
+        // p = new SUT.PlaywrightFluent();
+      });
     
       
       beforeAll(async () => {

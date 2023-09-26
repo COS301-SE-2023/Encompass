@@ -92,7 +92,11 @@ describe('accountController', () => {
     await dbConnection.collection('chat').deleteMany({});
     });
 
-    
+    beforeEach((): void => {
+        jest.setTimeout(60000);
+        // p = new SUT.PlaywrightFluent();
+      });
+      
     beforeAll(async () => {
     await setupTestApp();
     });

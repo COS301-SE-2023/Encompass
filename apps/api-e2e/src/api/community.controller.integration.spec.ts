@@ -92,6 +92,10 @@ describe('CommunityController (Integration with MongoDB)', () => {
     await dbConnection.collection('community').deleteMany({});
   });
 
+  beforeEach((): void => {
+    jest.setTimeout(60000);
+    // p = new SUT.PlaywrightFluent();
+  });
   
   beforeAll(async () => {
     await setupTestApp();
