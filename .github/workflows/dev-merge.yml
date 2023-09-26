@@ -58,7 +58,7 @@ jobs:
       working-directory: ./
       run: |
           yarn nx e2e encompass-e2e --coverage
-        # yarn nx e2e api-e2e --coverage
+          yarn nx e2e api-e2e --coverage
         # yarn nx run-many --target=lint --all --skip-nx-cache --parallel=6
 
     - name: Codecov

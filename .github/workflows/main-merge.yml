@@ -63,6 +63,7 @@ jobs:
       working-directory: ./
       run: |
           yarn nx e2e encompass-e2e --coverage
+          yarn nx e2e api-e2e --coverage
 
     - name: Codecov
       uses: codecov/codecov-action@v3.1.0
