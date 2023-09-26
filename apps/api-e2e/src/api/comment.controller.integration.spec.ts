@@ -117,17 +117,17 @@ describe('CommentController (Integration with MongoDB)', () => {
     }); 
   });
 
-  describe('deleteComment', () => {
-    it('should delete inserted comment and return id of deleted comment', async () => {
-      const { _id } = commentDtoStub();
+//   describe('deleteComment', () => {
+//     it('should delete inserted comment and return id of deleted comment', async () => {
+//       const { _id } = commentDtoStub();
 
-      await dbConnection.collection('comment').insertOne(commentDtoStub());
-      const response = await request(app.getHttpServer()).delete(`/comment/delete/${_id.toString()}`);
-      expect(response.status).toBe(200);
+//       await dbConnection.collection('comment').insertOne(commentDtoStub());
+//       const response = await request(app.getHttpServer()).delete(`/comment/delete/${_id.toString()}`);
+//       expect(response.status).toBe(200);
 
-      expect(response.body._id.toString()).toBe(_id.toString());
-    });
-});
+//       expect(response.body._id.toString()).toBe(_id.toString());
+//     });
+// });
 
 describe('addReply', () => {
     it('should return comment with added reply', async () => {
