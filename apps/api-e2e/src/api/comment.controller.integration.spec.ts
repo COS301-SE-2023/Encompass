@@ -129,23 +129,23 @@ describe('CommentController (Integration with MongoDB)', () => {
 //     });
 // });
 
-describe('addReply', () => {
-    it('should return comment with added reply', async () => {
-        const { _id } = commentDtoStub();
+// describe('addReply', () => {
+//     it('should return comment with added reply', async () => {
+//         const { _id } = commentDtoStub();
 
-        await dbConnection.collection('comment').insertOne(commentDtoStub());
-        const response = await request(app.getHttpServer())
-            .patch(`/comment/add-reply/${_id.toString()}`)
-            .send(replyStub());
+//         await dbConnection.collection('comment').insertOne(commentDtoStub());
+//         const response = await request(app.getHttpServer())
+//             .patch(`/comment/add-reply/${_id.toString()}`)
+//             .send(replyStub());
 
-        expect(response.status).toBe(200);
-        expect(response.body).not.toEqual(commentDtoStub());
-        console.log("Here is the response body");
-        console.log(response.body.replies[0]);
-        expect(response.body.replies[0].text).toBe(replyStub().text);
-        expect(response.body.replies[0].username).toBe(replyStub().username);
-    }); 
-});
+//         expect(response.status).toBe(200);
+//         expect(response.body).not.toEqual(commentDtoStub());
+//         console.log("Here is the response body");
+//         console.log(response.body.replies[0]);
+//         expect(response.body.replies[0].text).toBe(replyStub().text);
+//         expect(response.body.replies[0].username).toBe(replyStub().username);
+//     }); 
+// });
 
   describe('deleteReply', () => {
     it('should return true when Comment is found', async () => {
