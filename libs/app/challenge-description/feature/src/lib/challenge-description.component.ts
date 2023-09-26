@@ -112,7 +112,11 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
     }
 
     goToQuiz(){
-      this.router.navigate(['home/quiz/' + this.event?._id]);
+      if(this.event === null){
+        return
+      }
+      
+      this.router.navigate(['home/quiz/' + this.event._id]);
     }
 
     async joinChallenge(){
