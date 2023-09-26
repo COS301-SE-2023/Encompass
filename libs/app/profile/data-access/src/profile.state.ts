@@ -1,7 +1,7 @@
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store"
 import { Injectable } from "@angular/core"
 import { ProfileApi } from "./profile.api"
-import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, RemoveCommunity, AddCommunity, DislikeProfilePost, LikeProfilePost } from "@encompass/app/profile/util"
+import { SubscribeToProfile, SetProfile, UpdateProfile, GetPosts, UpdatePost, GetComments, DeletePost, DeleteComment, DeleteCommunity, AddFollowing, RemoveFollowing, RemoveCommunity, AddCommunity, DislikeProfilePost, LikeProfilePost, UpdateProfilePost } from "@encompass/app/profile/util"
 import { ProfileDto } from "@encompass/api/profile/data-access"
 import { tap } from "rxjs"
 import { produce } from "immer"
@@ -116,13 +116,28 @@ export class ProfileState{
       return;
     }
 
-    const toast = await this.toastController.create({
-      message: 'Profile successfully updated',
-      duration: 2000,
-      color: 'success'
-    })
+    // const toast = await this.toastController.create({
+    //   message: 'Profile successfully updated',
+    //   duration: 2000,
+    //   color: 'success'
+    // })
 
-    await toast.present();
+    // await toast.present();
+
+    await ctx.patchState({
+      profile: response
+    })
+  }
+
+  @Action(UpdateProfilePost)
+  async updateProfilePost(ctx: StateContext<ProfileStateModel>, {updateProfileRequest, userId}: UpdateProfilePost){
+    const response = await this.profileApi.updateProfile(updateProfileRequest, userId);
+
+    console.log(response);
+
+    if(response == null || response == undefined){
+      return;
+    }
 
     await ctx.patchState({
       profile: response

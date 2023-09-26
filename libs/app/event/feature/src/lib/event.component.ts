@@ -66,29 +66,38 @@ export class EventPage {
                 if(events){
                   console.log(events)
                   this.events = events;
-    
+                  
+                  for(let i=0;i<events.length;i++){
+                    this.hasCompleted.push(false);
+                    this.hasExpired.push(false);
+                    this.hasJoined.push(false);
+                  }
     
                   for(let i =0;i<events.length;i++){
                     if(events[i].members.includes(profile.username)){
-                      this.hasJoined.push(true);
-                    }else{
-                      this.hasJoined.push(false);}
+                      this.hasJoined[i]=true;
+                    }
+
                     if(this.daysLeft(events[i].endDate) == 0){
-                      this.hasExpired.push(true);
-                    }else{
-                      this.hasExpired.push(false);
+                      this.hasExpired[i]=true;
                     }
                    
                      userEvents.events.forEach((event) => {
                         if(event.eventId === events[i]._id){
-                          this.hasCompleted.push(event.quizComplete);
-                          this.found=true;
+                          console.log("!!!!!!!!!!!!!!!!!!!!FOUND "+events[i].name);
+                          if(event.quizComplete){
+                            this.hasCompleted[i]=true;
+                          }
                         }
                       })
-                      if(!this.found){
-                        this.hasCompleted.push(false);
-                      }
-                      this.found=false;
+                     
+
+                      console.log("EVENT:");
+                      console.log(events[i].name);
+                      console.log("Joined: "+this.hasJoined[i]);
+                      console.log("Expired: "+this.hasExpired[i]);
+                      console.log("Completed: "+this.hasCompleted[i]);
+
                     }
                 }
               })

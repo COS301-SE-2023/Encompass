@@ -586,6 +586,14 @@ export class ProfilePage {
     this.store.dispatch(new UpdateProfile(data, this.profile?._id));
     toast.dismiss();
 
+    const toast1 = await this.toastController.create({
+      message: 'Profile successfully updated',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast1.present();
+
     this.postForm.reset();
   }
 

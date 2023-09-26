@@ -4,7 +4,7 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { CreatePostApi } from "./create-post.api";
 import { CreateEvent, CreatePost, UploadFile } from "@encompass/app/create-post/util";
 import { AddEvent, AddPost } from "@encompass/app/create-community/util";
-import { UpdateProfile } from "@encompass/app/profile/util";
+import { UpdateProfilePost } from "@encompass/app/profile/util";
 import { ToastController } from "@ionic/angular";
 
 export interface PostStateModel {
@@ -83,7 +83,7 @@ export class CreatePostState{
       bio: profile.bio,
     }
 
-    ctx.dispatch(new UpdateProfile(data, profile._id));
+    ctx.dispatch(new UpdateProfilePost(data, profile._id));
 
     const toast = await this.toastController.create({
       message: 'Post Created',
@@ -96,8 +96,16 @@ export class CreatePostState{
 
   @Action(CreateEvent)
   async createEvent(ctx: StateContext<PostStateModel>, {createEventRequest, profile}: CreateEvent){
+    const toast1 = await this.toastController.create({
+      message: 'Creating Event',
+      color: 'success'
+    })
+
+    toast1.present();
+
     const event = await this.createPostApi.createEvent(createEventRequest);
 
+    toast1.dismiss();
     console.log(event);
 
     if(event == null || event == undefined){
@@ -135,7 +143,7 @@ export class CreatePostState{
       bio: profile.bio,
     }
 
-    ctx.dispatch(new UpdateProfile(data, profile._id));
+    ctx.dispatch(new UpdateProfilePost(data, profile._id));
 
     const toast = await this.toastController.create({
       message: 'Event Created',

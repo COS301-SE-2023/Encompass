@@ -471,6 +471,14 @@ export class CommunityProfileComponent {
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
     toast.dismiss();
 
+    // const toast1 = await this.toastController.create({
+    //   message: 'Community successfully updated',
+    //   duration: 2000,
+    //   color: 'success'
+    // })
+
+    // await toast1.present();
+
     this.postForm.reset();
   }
 
