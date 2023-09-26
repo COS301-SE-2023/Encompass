@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { EventDto } from "@encompass/api/event/data-access";
-import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
+import { ProfileLeaderboardDto } from '@encompass/api/profile/data-access';
 import { ProfileDto } from "@encompass/api/profile/data-access";
 import { UpdateEventRequest, UserEventsDto } from "@encompass/api/user-events/data-access";
 

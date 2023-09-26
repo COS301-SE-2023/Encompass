@@ -2,7 +2,7 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetLeaderboardQuery } from "./get-leaderboard.query";
 import { ProfileDtoRepository } from "../../db/profile-dto.repository";
 import { ProfileDto } from "../../profile.dto";
-import { ProfileLeaderboardDto } from "@encompass/api/profile-leaderboard/data-access";
+import { ProfileLeaderboardDto } from '../../dto/profile-leaderboard.dto'
 
 @QueryHandler(GetLeaderboardQuery)
 export class GetLeaderboardHandler implements IQueryHandler{

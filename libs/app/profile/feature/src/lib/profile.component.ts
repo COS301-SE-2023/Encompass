@@ -401,15 +401,6 @@ export class ProfilePage {
   }
 
   postChange() {
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-    if (PostBtn && CommentsBtn && eventBtn) {
-      PostBtn.classList.add('active-button');
-      CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.remove('active-button');
-    }
 
     this.seePosts = true;
     this.seeComments = false;
@@ -425,22 +416,12 @@ export class ProfilePage {
 
   async commChange() {
     if (this.profile === null) {
-      console.log('profile is null');
       return;
     }
 
     this.isCommentsFetched = false;
     await this.getComments(this.profile);
 
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
-    if (PostBtn && CommentsBtn && eventBtn) {
-      PostBtn.classList.remove('active-button');
-      CommentsBtn.classList.add('active-button');
-      eventBtn.classList.remove('active-button');
-    }
 
     this.seePosts = false;
     this.seeComments = true;
@@ -452,19 +433,9 @@ export class ProfilePage {
       return;
     }
 
-    const PostBtn = document.getElementById('PostBtn');
-    const CommentsBtn = document.getElementById('CommentsBtn');
-    const eventBtn = document.getElementById('eventBtn');
-
     this.isEventsFetched = false;
     await this.getEvents(this.profile);
-
-    if (PostBtn && CommentsBtn && eventBtn) {
-      PostBtn.classList.remove('active-button');
-      CommentsBtn.classList.remove('active-button');
-      eventBtn.classList.add('active-button');
-    }
-
+    
     this.seePosts = false;
     this.seeComments = false;
     this.seeEvents = true;

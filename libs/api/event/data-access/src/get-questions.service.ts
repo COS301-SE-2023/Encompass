@@ -179,7 +179,7 @@ export class GetQuestions {
 
     // const prompt = `Generate ${numQuestions} questions based on ${topic}. Only give the output in the JSON format {"question": string, "options": string[4], "answer": string}. Do not provide anything else.`;
 
-    const prompt = `Act as an JSON Object. Now Generate ${numQuestions} quesions based on ${topic} and ${categories} as the categories with the following format: {"question": string, "options": string[4], "answer": string}.`;
+    const prompt = `Act as an JSON Object. Now Generate ${numQuestions} quesions based on ${topic} and with the following format: {"question": string, "options": string[4], "answer": string}.`;
 
     console.log('Prompt:\n' + prompt);
 

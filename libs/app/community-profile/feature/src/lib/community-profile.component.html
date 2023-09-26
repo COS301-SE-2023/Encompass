@@ -50,40 +50,49 @@
             ></ion-textarea>
           </div>
 
-          <div class="EditButtons" style="margin-left: 20px;">
-            
-            
-              <input
-                type="file"
-                class="file-input"
-                [accept]="requiredFileType"
-                (change)="onFileSelected($event)"
-                #fileUpload
-                style="margin-right: 580px;"
-              />
-              <button style="margin-left: 20px;" class="editBtn" (click)="insertImage()">
-                Change Photo
-              </button>
-            
+          <div class="EditButtons">
+            <div class="chnageBtns">
+              <ion-item
+                class="Image"
+                style="paddling-left: 1%"
+                (click)="insertImage()"
+              >
+                <span class="image-span">
+                  <input
+                    id="file-input"
+                    type="file"
+                    class="file-input"
+                    [accept]="requiredFileType"
+                    (change)="onFileSelected($event)"
+                    #fileUpload
+                    style="margin-bottom: 115px; margin-left: 130px"
+                  />
+                  <label for="file-input">
+                    <span>Change Profile</span></label
+                  ></span
+                >
+              </ion-item>
 
-            
-           
-              <input
-                type="file"
-                class="file-input"
-                [accept]="requiredFileType"
-                (change)="onFileBannerSelected($event)"
-                #fileUpload
-                style="margin-right: 40px;"
-              />
-              <button class="editBtn" (click)="insertBanner()" >
-                Change Banner
-              </button>
-            
+              <ion-item class="Image" (click)="insertBanner()">
+                <span class="image-span">
+                  <input
+                    id="file-input-banner"
+                    type="file"
+                    class="file-input"
+                    [accept]="requiredFileType"
+                    (change)="onFileBannerSelected($event)"
+                    #fileUpload
+                  />
+                  <label for="file-input-banner">
+                    <span class="full-width-label">Change Banner</span></label
+                  ></span
+                >
+              </ion-item>
 
-            <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="FinishEdit editBtn" (click)="FinishEdit()">
-              Confirm
-            </button>
+              <button type="submit" class="EditBtn" (click)="FinishEdit()">
+                Confirm
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -223,184 +232,197 @@
               community.members.includes(profile.username)
             "
           >
-          <div *ngIf="showPosts&&!showEvents">
-            <div
-              *ngFor="
-                let post of communityPosts?.slice()?.reverse();
-                let i = index
-              "
-            >
-              <ion-card class="PostCard card-styles">
-                <div class="PostCardHeader">
-                  <div class="PostImageContainer">
-                    <img
-                      src="{{ post.communityImageUrl }}"
-                      class="postImage"
-                      onerror="this.src='assets/icon/Group.png';"
-                    />
-                  </div>
-                  <div class="PostDetails">
-                    <div class="TitleNameOptions">
-                      <div style="display: flex; margin-left: 1.5%">
-                        <div class="Title">{{ post.community }}</div>
-                        <div class="Name" (click)="GoToProfile(post.username)">
-                          @{{ post.username }}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="GenreIcons">
-                      <div
-                        style="
-                          width: 30%;
-                          display: flex;
-                          justify-content: space-around;
-                        "
-                      >
-                        <div
-                          *ngFor="
-                            let category of post.categories;
-                            let k = index
-                          "
-                          class="tooltip"
-                        >
-                          <img
-                            src="assets/icon/{{ category }}.png"
-                            class="imgDiv"
-                          />
-                          <span class="tooltiptext">{{ category }}</span>
-                        </div>
-                      </div>
-                      <div
-                        style="
-                          width: 70%;
-                          display: flex;
-                          justify-content: space-evenly;
-                        "
-                      >
-                        <button *ngIf="post.spoiler" class="specialBtn">
-                          Spoiler
-                        </button>
-                        <button *ngIf="post.ageRestricted" class="specialBtn">
-                          NSFW
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="PostBody" (click)="GoToComments(post._id)">
-                  <div class="text">
-                    <h5>{{ post.title }}</h5>
-                    <div style="display: flex; justify-content: center">
+            <div *ngIf="showPosts && !showEvents">
+              <div
+                *ngFor="
+                  let post of communityPosts?.slice()?.reverse();
+                  let i = index
+                "
+              >
+                <ion-card class="PostCard card-styles">
+                  <div class="PostCardHeader">
+                    <div class="PostImageContainer">
                       <img
-                        src="{{ post.imageUrl }}"
-                        style="border-radius: 15px"
+                        src="{{ post.communityImageUrl }}"
+                        class="postImage"
+                        onerror="this.src='assets/icon/Group.png';"
                       />
                     </div>
-                    <br />
-                    {{ post.text }}
-                  </div>
-                </div>
-                <div class="PostFooter">
-                  <div class="date">
-                    {{ post.dateAdded | date: 'yyyy-MM-dd' }}
+                    <div class="PostDetails">
+                      <div class="TitleNameOptions">
+                        <div style="display: flex; margin-left: 1.5%">
+                          <div class="Title">{{ post.community }}</div>
+                          <div
+                            class="Name"
+                            (click)="GoToProfile(post.username)"
+                          >
+                            @{{ post.username }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="GenreIcons">
+                        <div
+                          style="
+                            width: 30%;
+                            display: flex;
+                            justify-content: space-around;
+                          "
+                        >
+                          <div
+                            *ngFor="
+                              let category of post.categories;
+                              let k = index
+                            "
+                            class="tooltip"
+                          >
+                            <img
+                              src="assets/icon/{{ category }}.png"
+                              class="imgDiv"
+                            />
+                            <span class="tooltiptext">{{ category }}</span>
+                          </div>
+                        </div>
+                        <div
+                          style="
+                            width: 70%;
+                            display: flex;
+                            justify-content: space-evenly;
+                          "
+                        >
+                          <button *ngIf="post.spoiler" class="specialBtn">
+                            Spoiler
+                          </button>
+                          <button *ngIf="post.ageRestricted" class="specialBtn">
+                            NSFW
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="icons">
-                    <div style="text-align: center">
-                      <ion-icon
-                        name="share-social-outline"
-                        id="icons2"
-                        *ngIf="!sharing[i]"
-                        (click)="Share(i, post)"
-                      ></ion-icon>
-                      <ion-icon
-                        name="share-social-outline"
-                        id="icons2"
-                        style="color: purple"
-                        *ngIf="sharing[i]"
-                      ></ion-icon>
-                      <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                      <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                        Link Copied!
+                  <div class="PostBody" (click)="GoToComments(post._id)">
+                    <div class="text">
+                      <h5>{{ post.title }}</h5>
+                      <div style="display: flex; justify-content: center">
+                        <img
+                          src="{{ post.imageUrl }}"
+                          style="border-radius: 15px"
+                        />
                       </div>
+                      <br />
+                      {{ post.text }}
                     </div>
-                    <div style="text-align: center">
-                      <ion-icon
-                        name="chatbubble-outline"
-                        id="icons2"
-                        (click)="GoToComments(post._id)"
-                      ></ion-icon>
-                      <div>{{ post.comments }}</div>
+                  </div>
+                  <div class="PostFooter">
+                    <div class="date">
+                      {{ post.dateAdded | date : 'yyyy-MM-dd' }}
                     </div>
-                    <div style="text-align: center">
-                      <div *ngIf="profile !== null">
+
+                    <div class="icons">
+                      <div style="text-align: center">
                         <ion-icon
-                          name="heart"
-                          *ngIf="post.likes.includes(profile.username)"
+                          name="share-social-outline"
                           id="icons2"
-                          style="color: red"
-                          (click)="Like(i, post)"
+                          *ngIf="!sharing[i]"
+                          (click)="Share(i, post)"
                         ></ion-icon>
                         <ion-icon
-                          name="heart-outline"
+                          name="share-social-outline"
                           id="icons2"
-                          *ngIf="!post.likes.includes(profile.username)"
-                          (click)="Like(i, post)"
+                          style="color: purple"
+                          *ngIf="sharing[i]"
                         ></ion-icon>
-                        <div>{{ post.likes.length }}</div>
+                        <div *ngIf="!sharing[i]">{{ post.shares }}</div>
+                        <div *ngIf="sharing[i]" style="font-family: CustomFont">
+                          Link Copied!
+                        </div>
                       </div>
-                    </div>
-                    <div style="text-align: center">
-                      <div *ngIf="profile !== null">
+                      <div style="text-align: center">
                         <ion-icon
-                          name="heart-dislike"
-                          *ngIf="post.dislikes.includes(profile.username)"
+                          name="chatbubble-outline"
                           id="icons2"
-                          style="color: red"
-                          (click)="Dislike(i, post)"
+                          (click)="GoToComments(post._id)"
                         ></ion-icon>
-                        <ion-icon
-                          name="heart-dislike-outline"
-                          id="icons2"
-                          *ngIf="!post.dislikes.includes(profile.username)"
-                          (click)="Dislike(i, post)"
-                        ></ion-icon>
-                        <div>{{ post.dislikes.length }}</div>
+                        <div>{{ post.comments }}</div>
+                      </div>
+                      <div style="text-align: center">
+                        <div *ngIf="profile !== null">
+                          <ion-icon
+                            name="heart"
+                            *ngIf="post.likes.includes(profile.username)"
+                            id="icons2"
+                            style="color: red"
+                            (click)="Like(i, post)"
+                          ></ion-icon>
+                          <ion-icon
+                            name="heart-outline"
+                            id="icons2"
+                            *ngIf="!post.likes.includes(profile.username)"
+                            (click)="Like(i, post)"
+                          ></ion-icon>
+                          <div>{{ post.likes.length }}</div>
+                        </div>
+                      </div>
+                      <div style="text-align: center">
+                        <div *ngIf="profile !== null">
+                          <ion-icon
+                            name="heart-dislike"
+                            *ngIf="post.dislikes.includes(profile.username)"
+                            id="icons2"
+                            style="color: red"
+                            (click)="Dislike(i, post)"
+                          ></ion-icon>
+                          <ion-icon
+                            name="heart-dislike-outline"
+                            id="icons2"
+                            *ngIf="!post.dislikes.includes(profile.username)"
+                            (click)="Dislike(i, post)"
+                          ></ion-icon>
+                          <div>{{ post.dislikes.length }}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                </ion-card>
+              </div>
+            </div>
+            <div *ngIf="!showPosts && showEvents" class="EventList">
+              <ion-card
+                *ngFor="let event of events?.slice()?.reverse()"
+                class="Event"
+                (click)="goToEvent(event._id)"
+              >
+                <div class="EventHead">
+                  <label class="EventName">{{ event.name }}</label>
+                  <label class="Host">Hosted by @{{ event.host }}</label>
+                </div>
+                <div class="border"></div>
+                <div class="EventBody">
+                  {{ event.description }}
+                </div>
+                <div class="EventFooter">
+                  <div class="EventDetails">
+                    <div
+                      *ngFor="let category of event.categories; let k = index"
+                      class="Eventtooltip"
+                    >
+                      <img
+                        src="assets/icon/{{ category }}.png"
+                        class="imgDiv"
+                      />
+                    </div>
+                    <label style="color: var(--ion-color-primary)"
+                      >{{ event.quiz.length }} MCQ</label
+                    >
+                    <label style="color: var(--ion-color-primary)"
+                      >{{ daysLeft(event.endDate) }} days left</label
+                    >
+                  </div>
+                  <ion-icon class="EventLock" name="lock-closed"></ion-icon>
                 </div>
               </ion-card>
             </div>
-          </div>
-          <div *ngIf="!showPosts&&showEvents" class="EventList">
-            <ion-card *ngFor="let event of events?.slice()?.reverse()" class="Event" (click)="goToEvent(event._id)">
-              <div class="EventHead">
-                <label class="EventName">{{event.name}}</label>
-                <label class="Host">Hosted by @{{event.host}}</label>
-              </div>
-              <div class="border"></div>
-              <div class="EventBody">
-                {{event.description}}
-              </div>
-              <div class="EventFooter">
-                <div class="EventDetails">
-                  <div
-                    *ngFor="let category of event.categories; let k = index"
-                    class="Eventtooltip"
-                  >
-                    <img src="assets/icon/{{ category }}.png" class="imgDiv" />
-                  </div>
-                  <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
-                  <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
-                </div>
-                <ion-icon class="EventLock" name="lock-closed"></ion-icon>
-              </div>
-            </ion-card>
-           
-          </div>
           </div>
         </div>
       </ion-col>
@@ -444,13 +466,15 @@
             Date Created: {{ community?.createdAt }}
           </div>
           <div class="Rules">
-            <div class="RulesTitle">Community EP: {{community?.communityEP}}</div>
+            <div class="RulesTitle">
+              Community EP: {{ community?.communityEP }}
+            </div>
             <div class="RulesTitle">Community Rules:</div>
             <div class="RulesDescr">{{ community?.rules }}</div>
           </div>
           <div class="Statistics">
             <div>
-              #{{position}}<br />
+              #{{ position }}<br />
               Rank
             </div>
             <div>
@@ -459,7 +483,9 @@
             </div>
           </div>
           <div class="Buttons">
-            <button class="Button2">Community Events</button>
+            <button (click)="goToEvents()" class="Button2">
+              Community Events
+            </button>
           </div>
         </ion-card>
         <div
@@ -543,7 +569,11 @@
             <ion-button class="memberBtn" fill="clear" (click)="CancelUpdate()">
               <ion-icon class="reject2" name="close-circle"></ion-icon>
             </ion-button>
-            <ion-button class="memberBtn2" fill="clear" (click)="UpdateCommunity()">
+            <ion-button
+              class="memberBtn2"
+              fill="clear"
+              (click)="UpdateCommunity()"
+            >
               <ion-icon class="accept2" name="checkmark-circle"></ion-icon>
             </ion-button>
           </div>
@@ -608,41 +638,50 @@
             ></ion-textarea>
           </div>
 
-          <div class="EditButtons" style="margin-left: 20px;">
-            
-            
-            <input
-              type="file"
-              class="file-input"
-              [accept]="requiredFileType"
-              (change)="onFileSelected($event)"
-              #fileUpload
-              style="margin-right: 580px;"
-            />
-            <button style="margin-left: 20px;" class="editBtn" (click)="insertImage()">
-              Change Photo
-            </button>
-          
+          <div class="EditButtons">
+            <div class="chnageBtns">
+              <ion-item
+                class="Image"
+                style="paddling-left: 1%"
+                (click)="insertImage()"
+              >
+                <span class="image-span">
+                  <input
+                    id="file-input"
+                    type="file"
+                    class="file-input"
+                    [accept]="requiredFileType"
+                    (change)="onFileSelected($event)"
+                    #fileUpload
+                    style="margin-bottom: 115px; margin-left: 130px"
+                  />
+                  <label for="file-input">
+                    <span>Change Profile</span></label
+                  ></span
+                >
+              </ion-item>
 
-          
-         
-            <input
-              type="file"
-              class="file-input"
-              [accept]="requiredFileType"
-              (change)="onFileBannerSelected($event)"
-              #fileUpload
-              style="margin-right: 40px;"
-            />
-            <button class="editBtn" (click)="insertBanner()" >
-              Change Banner
-            </button>
-          
+              <ion-item class="Image" (click)="insertBanner()">
+                <span class="image-span">
+                  <input
+                    id="file-input-banner"
+                    type="file"
+                    class="file-input"
+                    [accept]="requiredFileType"
+                    (change)="onFileBannerSelected($event)"
+                    #fileUpload
+                  />
+                  <label for="file-input-banner">
+                    <span class="full-width-label">Change Banner</span></label
+                  ></span
+                >
+              </ion-item>
 
-            <button style="background-color: var(--ion-color-primary); color: white;" type="submit" class="FinishEdit editBtn" (click)="FinishEdit()">
-              Confirm
-            </button>
-        </div>
+              <button type="submit" class="EditBtn" (click)="FinishEdit()">
+                Confirm
+              </button>
+            </div>
+          </div>
         </form>
       </div>
 
@@ -754,7 +793,9 @@
     <div class="About">About this Community</div>
     <div class="DateCreated">Date Created: {{ community?.createdAt }}</div>
     <div class="Rules">
-      <div class="RulesTitle">Community Encompass Points: {{community?.communityEP}}</div>
+      <div class="RulesTitle">
+        Community Encompass Points: {{ community?.communityEP }}
+      </div>
       <div class="RulesTitle">Community Rules:</div>
       <div class="RulesDescr">{{ community?.rules }}</div>
     </div>
@@ -960,362 +1001,418 @@
                     NSFW
                   </button>
                 </div>
-              <!-- </ion-col> -->
-              <ion-col size="3">
-                <div style="display: flex; justify-content: center">
-                  <ion-button
-                    id="eventBtn"
-                    fill="clear"
-                    class="none"
-                    (click)="eventChange()"
-                  >
-                    <ion-icon
-                      name="ribbon-outline"
-                      style="margin-right: 5px; margin-bottom: 3px"
-                    ></ion-icon>
-                    Events
-                  </ion-button>
-                </div>
-              </ion-col>
-            <!-- </ion-row> -->
-          <!-- </ion-grid> -->
-        <!-- </ion-card> -->
-      <!-- </ion-col> -->
-    <!-- </ion-row> -->
-    <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)" -->
-    <ion-row class="row-filter">
-      <ion-col size="5">
-        <div
-          *ngIf="
-            community !== null &&
-            community !== undefined &&
-            profile !== undefined &&
-            profile !== null
-          "
-        >
-          <div
-            *ngIf="
-              community?.type !== 'Private' ||
-              community.members.includes(profile.username)
-            "
-          >
-            <div
-              *ngFor="
-                let post of communityPosts?.slice()?.reverse();
-                let i = index
-              "
-            >
-              <ion-card class="PostCard card-styles">
-                <div class="PostCardHeader">
-                  <div class="PostImageContainer">
-                    <img
-                      src="{{ post.communityImageUrl }}"
-                      class="postImage"
-                      onerror="this.src='assets/icon/Group.png';"
-                    />
+                <!-- </ion-col> -->
+                <ion-col size="3">
+                  <div style="display: flex; justify-content: center">
+                    <ion-button
+                      id="eventBtn"
+                      fill="clear"
+                      class="none"
+                      (click)="eventChange()"
+                    >
+                      <ion-icon
+                        name="ribbon-outline"
+                        style="margin-right: 5px; margin-bottom: 3px"
+                      ></ion-icon>
+                      Events
+                    </ion-button>
                   </div>
-                  <div class="PostDetails">
-                    <div class="TitleNameOptions">
-                      <div style="display: flex; margin-left: 1.5%">
-                        <div class="Title">{{ post.community }}</div>
-                        <div class="Name" (click)="GoToProfile(post.username)">
-                          @{{ post.username }}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="GenreIcons">
+                </ion-col>
+                <!-- </ion-row> -->
+                <!-- </ion-grid> -->
+                <!-- </ion-card> -->
+                <!-- </ion-col> -->
+                <!-- </ion-row> -->
+                <!-- *ngIf="settings != null && !(post.ageRestricted == true && settings.profile.nsfw == true)" -->
+                <ion-row class="row-filter">
+                  <ion-col size="5">
+                    <div
+                      *ngIf="
+                        community !== null &&
+                        community !== undefined &&
+                        profile !== undefined &&
+                        profile !== null
+                      "
+                    >
                       <div
-                        style="
-                          width: 30%;
-                          display: flex;
-                          justify-content: space-around;
+                        *ngIf="
+                          community?.type !== 'Private' ||
+                          community.members.includes(profile.username)
                         "
                       >
                         <div
                           *ngFor="
-                            let category of post.categories;
-                            let k = index
+                            let post of communityPosts?.slice()?.reverse();
+                            let i = index
                           "
-                          class="tooltip"
                         >
-                          <img
-                            src="assets/icon/{{ category }}.png"
-                            class="imgDiv"
-                          />
-                          <span class="tooltiptext">{{ category }}</span>
+                          <ion-card class="PostCard card-styles">
+                            <div class="PostCardHeader">
+                              <div class="PostImageContainer">
+                                <img
+                                  src="{{ post.communityImageUrl }}"
+                                  class="postImage"
+                                  onerror="this.src='assets/icon/Group.png';"
+                                />
+                              </div>
+                              <div class="PostDetails">
+                                <div class="TitleNameOptions">
+                                  <div style="display: flex; margin-left: 1.5%">
+                                    <div class="Title">
+                                      {{ post.community }}
+                                    </div>
+                                    <div
+                                      class="Name"
+                                      (click)="GoToProfile(post.username)"
+                                    >
+                                      @{{ post.username }}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="GenreIcons">
+                                  <div
+                                    style="
+                                      width: 30%;
+                                      display: flex;
+                                      justify-content: space-around;
+                                    "
+                                  >
+                                    <div
+                                      *ngFor="
+                                        let category of post.categories;
+                                        let k = index
+                                      "
+                                      class="tooltip"
+                                    >
+                                      <img
+                                        src="assets/icon/{{ category }}.png"
+                                        class="imgDiv"
+                                      />
+                                      <span class="tooltiptext">{{
+                                        category
+                                      }}</span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    style="
+                                      width: 70%;
+                                      display: flex;
+                                      justify-content: space-evenly;
+                                    "
+                                  >
+                                    <button
+                                      *ngIf="post.spoiler"
+                                      class="specialBtn"
+                                    >
+                                      Spoiler
+                                    </button>
+                                    <button
+                                      *ngIf="post.ageRestricted"
+                                      class="specialBtn"
+                                    >
+                                      NSFW
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div
+                              class="PostBody"
+                              (click)="GoToComments(post._id)"
+                            >
+                              <div class="text">
+                                <h5>{{ post.title }}</h5>
+                                <div
+                                  style="display: flex; justify-content: center"
+                                >
+                                  <img
+                                    src="{{ post.imageUrl }}"
+                                    style="border-radius: 15px"
+                                  />
+                                </div>
+                                <br />
+                                {{ post.text }}
+                              </div>
+                            </div>
+                            <div class="PostFooter">
+                              <div class="date">
+                                {{ post.dateAdded | date : 'yyyy-MM-dd' }}
+                              </div>
+
+                              <div class="icons">
+                                <div style="text-align: center">
+                                  <ion-icon
+                                    name="share-social-outline"
+                                    id="icons2"
+                                    *ngIf="!sharing[i]"
+                                    (click)="Share(i, post)"
+                                  ></ion-icon>
+                                  <ion-icon
+                                    name="share-social-outline"
+                                    id="icons2"
+                                    style="color: purple"
+                                    *ngIf="sharing[i]"
+                                  ></ion-icon>
+                                  <div *ngIf="!sharing[i]">
+                                    {{ post.shares }}
+                                  </div>
+                                  <div
+                                    *ngIf="sharing[i]"
+                                    style="font-family: CustomFont"
+                                  >
+                                    Link Copied!
+                                  </div>
+                                </div>
+                                <div style="text-align: center">
+                                  <ion-icon
+                                    name="chatbubble-outline"
+                                    id="icons2"
+                                    (click)="GoToComments(post._id)"
+                                  ></ion-icon>
+                                  <div>{{ post.comments }}</div>
+                                </div>
+                                <div style="text-align: center">
+                                  <div *ngIf="profile !== null">
+                                    <ion-icon
+                                      name="heart"
+                                      *ngIf="
+                                        post.likes.includes(profile.username)
+                                      "
+                                      id="icons2"
+                                      style="color: red"
+                                      (click)="Like(i, post)"
+                                    ></ion-icon>
+                                    <ion-icon
+                                      name="heart-outline"
+                                      id="icons2"
+                                      *ngIf="
+                                        !post.likes.includes(profile.username)
+                                      "
+                                      (click)="Like(i, post)"
+                                    ></ion-icon>
+                                    <div>{{ post.likes.length }}</div>
+                                  </div>
+                                </div>
+                                <div style="text-align: center">
+                                  <div *ngIf="profile !== null">
+                                    <ion-icon
+                                      name="heart-dislike"
+                                      *ngIf="
+                                        post.dislikes.includes(profile.username)
+                                      "
+                                      id="icons2"
+                                      style="color: red"
+                                      (click)="Dislike(i, post)"
+                                    ></ion-icon>
+                                    <ion-icon
+                                      name="heart-dislike-outline"
+                                      id="icons2"
+                                      *ngIf="
+                                        !post.dislikes.includes(
+                                          profile.username
+                                        )
+                                      "
+                                      (click)="Dislike(i, post)"
+                                    ></ion-icon>
+                                    <div>{{ post.dislikes.length }}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ion-card>
                         </div>
                       </div>
-                      <div
-                        style="
-                          width: 70%;
-                          display: flex;
-                          justify-content: space-evenly;
-                        "
+                    </div>
+                  </ion-col>
+                  <ion-col size="4">
+                    <ion-card class="CommunityCard">
+                      <div class="Cloud">
+                        <!-- <img src = "assets/WelcomeImg.png" class="cloudImg"> -->
+                        <img
+                          id="cloud-default"
+                          src="assets/WelcomeImg.png"
+                          class="cloudImg"
+                          alt="Encompass Logo"
+                        />
+                        <img
+                          id="cloud-blue"
+                          src="assets/clouds/cloud-blue.png"
+                          class="cloudImg visible"
+                          alt="Encompass Logo"
+                        />
+                        <img
+                          id="cloud-red"
+                          src="assets/clouds/cloud-red.png"
+                          class="cloudImg visible"
+                          alt="Encompass Logo"
+                        />
+                        <img
+                          id="cloud-green"
+                          src="assets/clouds/cloud-green.png"
+                          class="cloudImg visible"
+                          alt="Encompass Logo"
+                        />
+                        <img
+                          id="cloud-orange"
+                          src="assets/clouds/cloud-orange.png"
+                          class="cloudImg visible"
+                          alt="Encompass Logo"
+                        />
+                      </div>
+                      <div class="About">About this Community</div>
+                      <div class="DateCreated">
+                        Date Created: {{ community?.createdAt }}
+                      </div>
+                      <div class="Rules">
+                        <div class="RulesTitle">Community Rules:</div>
+                        <div class="RulesDescr">{{ community?.rules }}</div>
+                      </div>
+                      <div class="Statistics">
+                        <div>
+                          #2<br />
+                          Rank
+                        </div>
+                        <div>
+                          {{ members }}<br />
+                          Members
+                        </div>
+                      </div>
+                      <div class="Buttons">
+                        <button class="Button2">Community Events</button>
+                      </div>
+                    </ion-card>
+                    <div
+                      *ngIf="
+                        community !== null &&
+                        community !== undefined &&
+                        profile !== undefined &&
+                        profile !== null &&
+                        communityRequest !== null &&
+                        communityRequest !== undefined &&
+                        community.type !== 'Public'
+                      "
+                    >
+                      <ion-card
+                        class="AdminCard"
+                        *ngIf="community.admin === profile.username"
                       >
-                        <button *ngIf="post.spoiler" class="specialBtn">
-                          Spoiler
-                        </button>
-                        <button *ngIf="post.ageRestricted" class="specialBtn">
-                          NSFW
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                        <div class="AdminTitle">
+                          <label>Community Administration</label>
+                        </div>
+                        <div class="AdminList">
+                          <div
+                            *ngFor="
+                              let user of communityRequest.requestUsernames
+                            "
+                          >
+                            <label class="AdminRequest"
+                              >@{{ user }} has requested to join this
+                              community</label
+                            >
+                            <button>
+                              <ion-icon
+                                class="accept"
+                                name="checkmark-circle"
+                                (click)="acceptUser(user)"
+                              ></ion-icon>
+                            </button>
+                            <button>
+                              <ion-icon
+                                class="reject"
+                                name="close-circle"
+                                (click)="rejectUser(user)"
+                              ></ion-icon>
+                            </button>
+                          </div>
+                        </div>
+                        <!-- </div> -->
 
-                <div class="PostBody" (click)="GoToComments(post._id)">
-                  <div class="text">
-                    <h5>{{ post.title }}</h5>
-                    <div style="display: flex; justify-content: center">
-                      <img
-                        src="{{ post.imageUrl }}"
-                        style="border-radius: 15px"
-                      />
-                    </div>
-                    <br />
-                    {{ post.text }}
-                  </div>
-                </div>
-                <div class="PostFooter">
-                  <div class="date">
-                    {{ post.dateAdded | date: 'yyyy-MM-dd' }}
-                  </div>
+                        <div class="PostBody" (click)="GoToComments(post._id)">
+                          <div class="text">
+                            <h5>{{ post.title }}</h5>
+                            <div style="display: flex; justify-content: center">
+                              <img
+                                src="{{ post.imageUrl }}"
+                                style="border-radius: 15px"
+                              />
+                            </div>
+                            <br />
+                            {{ post.text }}
+                          </div>
+                        </div>
+                        <div class="PostFooter">
+                          <div class="date">
+                            {{ post.dateAdded | date : 'yyyy-MM-dd' }}
+                          </div>
 
-                  <div class="icons">
-                    <div style="text-align: center">
-                      <ion-icon
-                        name="share-social-outline"
-                        id="icons2"
-                        *ngIf="!sharing[i]"
-                        (click)="Share(i, post)"
-                      ></ion-icon>
-                      <ion-icon
-                        name="share-social-outline"
-                        id="icons2"
-                        style="color: purple"
-                        *ngIf="sharing[i]"
-                      ></ion-icon>
-                      <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                      <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                        Link Copied!
-                      </div>
-                    </div>
-                    <div style="text-align: center">
-                      <ion-icon
-                        name="chatbubble-outline"
-                        id="icons2"
-                        (click)="GoToComments(post._id)"
-                      ></ion-icon>
-                      <div>{{ post.comments }}</div>
-                    </div>
-                    <div style="text-align: center">
-                      <div *ngIf="profile !== null">
-                        <ion-icon
-                          name="heart"
-                          *ngIf="post.likes.includes(profile.username)"
-                          id="icons2"
-                          style="color: red"
-                          (click)="Like(i, post)"
-                        ></ion-icon>
-                        <ion-icon
-                          name="heart-outline"
-                          id="icons2"
-                          *ngIf="!post.likes.includes(profile.username)"
-                          (click)="Like(i, post)"
-                        ></ion-icon>
-                        <div>{{ post.likes.length }}</div>
-                      </div>
-                    </div>
-                    <div style="text-align: center">
-                      <div *ngIf="profile !== null">
-                        <ion-icon
-                          name="heart-dislike"
-                          *ngIf="post.dislikes.includes(profile.username)"
-                          id="icons2"
-                          style="color: red"
-                          (click)="Dislike(i, post)"
-                        ></ion-icon>
-                        <ion-icon
-                          name="heart-dislike-outline"
-                          id="icons2"
-                          *ngIf="!post.dislikes.includes(profile.username)"
-                          (click)="Dislike(i, post)"
-                        ></ion-icon>
-                        <div>{{ post.dislikes.length }}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ion-card>
-            </div>
-          </div>
-        </div>
-      </ion-col>
-      <ion-col size="4">
-        <ion-card class="CommunityCard">
-          <div class="Cloud">
-            <!-- <img src = "assets/WelcomeImg.png" class="cloudImg"> -->
-            <img
-              id="cloud-default"
-              src="assets/WelcomeImg.png"
-              class="cloudImg"
-              alt="Encompass Logo"
-            />
-            <img
-              id="cloud-blue"
-              src="assets/clouds/cloud-blue.png"
-              class="cloudImg visible"
-              alt="Encompass Logo"
-            />
-            <img
-              id="cloud-red"
-              src="assets/clouds/cloud-red.png"
-              class="cloudImg visible"
-              alt="Encompass Logo"
-            />
-            <img
-              id="cloud-green"
-              src="assets/clouds/cloud-green.png"
-              class="cloudImg visible"
-              alt="Encompass Logo"
-            />
-            <img
-              id="cloud-orange"
-              src="assets/clouds/cloud-orange.png"
-              class="cloudImg visible"
-              alt="Encompass Logo"
-            />
-          </div>
-          <div class="About">About this Community</div>
-          <div class="DateCreated">
-            Date Created: {{ community?.createdAt }}
-          </div>
-          <div class="Rules">
-            <div class="RulesTitle">Community Rules:</div>
-            <div class="RulesDescr">{{ community?.rules }}</div>
-          </div>
-          <div class="Statistics">
-            <div>
-              #2<br />
-              Rank
-            </div>
-            <div>
-              {{ members }}<br />
-              Members
-            </div>
-          </div>
-          <div class="Buttons">
-            <button class="Button2">Community Events</button>
-          </div>
-        </ion-card>
-        <div
-          *ngIf="
-            community !== null &&
-            community !== undefined &&
-            profile !== undefined &&
-            profile !== null &&
-            communityRequest !== null &&
-            communityRequest !== undefined &&
-            community.type !== 'Public'
-          "
-        >
-          <ion-card
-            class="AdminCard"
-            *ngIf="community.admin === profile.username"
-          >
-            <div class="AdminTitle">
-              <label>Community Administration</label>
-            </div>
-            <div class="AdminList">
-              <div *ngFor="let user of communityRequest.requestUsernames">
-                <label class="AdminRequest"
-                  >@{{ user }} has requested to join this community</label
+                          <div class="icons">
+                            <div style="text-align: center">
+                              <ion-icon
+                                name="share-social-outline"
+                                id="icons2"
+                                *ngIf="!sharing[i]"
+                                (click)="Share(i, post)"
+                              ></ion-icon>
+                              <ion-icon
+                                name="share-social-outline"
+                                id="icons2"
+                                style="color: purple"
+                                *ngIf="sharing[i]"
+                              ></ion-icon>
+                              <div *ngIf="!sharing[i]">{{ post.shares }}</div>
+                              <div
+                                *ngIf="sharing[i]"
+                                style="font-family: CustomFont"
+                              >
+                                Link Copied!
+                              </div>
+                            </div>
+                            <div style="text-align: center">
+                              <ion-icon
+                                name="chatbubble-outline"
+                                id="icons2"
+                                (click)="GoToComments(post._id)"
+                              ></ion-icon>
+                              <div>{{ post.comments }}</div>
+                            </div>
+                            <div style="text-align: center">
+                              <div *ngIf="profile !== null">
+                                <ion-icon
+                                  name="heart"
+                                  *ngIf="post.likes.includes(profile.username)"
+                                  id="icons2"
+                                  style="color: red"
+                                  (click)="Dislike(i, post)"
+                                ></ion-icon>
+                                <ion-icon
+                                  name="heart-outline"
+                                  id="icons2"
+                                  *ngIf="!post.likes.includes(profile.username)"
+                                  (click)="Like(i, post)"
+                                ></ion-icon>
+                                <div>{{ post.likes.length }}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- </ion-card> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+
+                        <!-- <ion-button class="backtotop">Back To Top</ion-button> -->
+                        <!-- </div> --></ion-card
+                      >
+                    </div></ion-col
+                  ></ion-row
                 >
-                <button>
-                  <ion-icon
-                    class="accept"
-                    name="checkmark-circle"
-                    (click)="acceptUser(user)"
-                  ></ion-icon>
-                </button>
-                <button>
-                  <ion-icon
-                    class="reject"
-                    name="close-circle"
-                    (click)="rejectUser(user)"
-                  ></ion-icon>
-                </button>
               </div>
             </div>
-          <!-- </div> -->
-
-          <div class="PostBody" (click)="GoToComments(post._id)">
-            <div class="text">
-              <h5>{{ post.title }}</h5>
-              <div style="display: flex; justify-content: center">
-                <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
-              </div>
-              <br />
-              {{ post.text }}
-            </div>
-          </div>
-          <div class="PostFooter">
-            <div class="date">
-              {{ post.dateAdded | date: 'yyyy-MM-dd' }}
-            </div>
-
-            <div class="icons">
-              <div style="text-align: center">
-                <ion-icon
-                  name="share-social-outline"
-                  id="icons2"
-                  *ngIf="!sharing[i]"
-                  (click)="Share(i, post)"
-                ></ion-icon>
-                <ion-icon
-                  name="share-social-outline"
-                  id="icons2"
-                  style="color: purple"
-                  *ngIf="sharing[i]"
-                ></ion-icon>
-                <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                  Link Copied!
-                </div>
-              </div>
-              <div style="text-align: center">
-                <ion-icon
-                  name="chatbubble-outline"
-                  id="icons2"
-                  (click)="GoToComments(post._id)"
-                ></ion-icon>
-                <div>{{ post.comments }}</div>
-              </div>
-              <div style="text-align: center">
-                <div *ngIf="profile !== null">
-                  <ion-icon
-                    name="heart"
-                    *ngIf="post.likes.includes(profile.username)"
-                    id="icons2"
-                    style="color: red"
-                    (click)="Dislike(i, post)"
-                  ></ion-icon>
-                  <ion-icon
-                    name="heart-outline"
-                    id="icons2"
-                    *ngIf="!post.likes.includes(profile.username)"
-                    (click)="Like(i, post)"
-                  ></ion-icon>
-                  <div>{{ post.likes.length }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        <!-- </ion-card> -->
-      <!-- </div> -->
-    <!-- </div> -->
-  <!-- </div> -->
-
-  <!-- <ion-button class="backtotop">Back To Top</ion-button> -->
-<!-- </div> -->
+          </div></ion-card
+        >
+      </div>
+    </div>
+  </div>
+</div>

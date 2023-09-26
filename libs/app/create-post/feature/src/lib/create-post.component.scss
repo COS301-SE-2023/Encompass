@@ -411,6 +411,11 @@ ion-textarea.custom2 {
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  ion-item {
+    --background: transparent;
+    margin-top: 10px;
+  }
 }
 
 .TextFooterEvent {
