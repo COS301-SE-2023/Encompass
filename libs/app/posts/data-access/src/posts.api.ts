@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
+import { CommunityDto } from "@encompass/api/community/data-access";
+import { CreatePostRequest, PostDto, UpdatePostRequest } from "@encompass/api/post/data-access";
 
 @Injectable()
 export class PostsApi{
@@ -128,6 +129,30 @@ export class PostsApi{
     }
 
     catch(error){
+      return null;
+    }
+  }
+
+  async createPost(request: CreatePostRequest){
+    try {
+      const response = await this.httpClient.post<PostDto>('/api/post/create', request).toPromise();
+
+      return response;
+    } 
+    catch (error) 
+    {
+      return null;
+    }
+  }
+
+  async getCommunity(communtiyName: string){
+    try {
+      const response = await this.httpClient.get<CommunityDto>('/api/community/get-community/' + communtiyName).toPromise();
+
+      return response;
+    } 
+    catch (error) 
+    {
       return null;
     }
   }

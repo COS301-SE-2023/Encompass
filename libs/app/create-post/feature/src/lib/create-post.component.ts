@@ -13,7 +13,6 @@ import {
 } from '@angular/forms';
 import {
   CreateEvent,
-  CreatePost,
   UploadFile,
 } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
@@ -26,6 +25,7 @@ import {
   CreatePostState,
 } from '@encompass/app/create-post/data-access';
 import { CreateEventRequest } from '@encompass/api/event/data-access';
+import { CreatePost } from '@encompass/app/posts/util';
 
 @Component({
   selector: 'create-post',
