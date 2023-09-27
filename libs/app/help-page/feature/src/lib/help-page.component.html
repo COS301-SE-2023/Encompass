@@ -405,6 +405,68 @@
   </div>
 
 
+<!-- ==============================events========================== -->
+
+<div class="options" *ngIf="showEvnts">
+    <ion-button fill="clear" (click)="back()" class="backBtn">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
+    <div class="sectionEvents">
+
+      <div class="sectionTitle">Open Event</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/e2.png" class="helpImg3" alt="Page" />
+        <div class="sectionText">
+          This card represents an open event. You can see the title of the event, the community it is in, and the due date. You can also see the challenge that has been set for this event. The lock <ion-icon name="lock-open" style="color: var(--ion-color-text)"></ion-icon> in the corner indicates that the quiz is open and has not been completed yet.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Closed Event</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/e1.png" class="helpImg3" alt="Page" />
+        <div class="sectionText">
+            This card represents a closed event. You can see the title of the event, the community it is in, and the due date. You can also see the challenge that has been set for this event. The lock <ion-icon name="lock-closed" style="color: var(--hover-color)"></ion-icon> in the corner indicates that the quiz is closed and has been completed. You cannot access the quiz when it is closed. Once you open the quiz, backing out submits your answers.
+        </div>
+      </div>
+
+
+      <div class="sectionTitle">Challenge Page</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/e4.png" class="helpImg" alt="Page" />
+        <div class="sectionText">
+          This page describes the challenge that has been set for this event. You can see the title of the event, the community it is in, and the due date. You can also see the challenge that has been set for this event. You can also see the tasks that have been set for this event. You can complete these tasks to prepare for the quiz. You can join the community if you are not part of it yet - only members of that community can complete the challenge. At the bottom you can start the quiz.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Answering the Quiz</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/e5.png" class="helpImgMF" alt="Page" />
+        <div class="sectionText">
+            In the quiz page you can see all the questions, and you can select an answer for each question from the multiple choice selection. Once an answer is selected you cannot change the answer, but you will be able to see if your answer was correct or not. You can see in the upper right corner of each question how many point syou get for answering the questions correctly.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Encompass Points</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/e6.png" class="helpImgEP" alt="Page" />
+        <div class="sectionText">
+          At the bottom of the quiz page you can see your total points that you have earned for this quiz. You can then submit the quiz and go back to the events page by clicking the <i style="color: var(--hover-color);">Return to Events</i> button.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Leaderboard</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/e3.png" class="helpImgM" alt="Page" />
+        <div class="sectionText">
+          Back on the events page is the leaderboard to the right. Here you can see the top 5 users who have earned the most points for events and throughout the site. You can also see your own position on the leaderboard. You can click on any of these to navigate to that user's profile page. Clicking the <i style="color: var(--hover-color);">See More</i> button will take you to the full leaderboard page.
+        </div>
+      </div>
+
+      <div style="height:50px;"></div>
+      
+    </div>
+  </div>
 
 
 

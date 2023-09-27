@@ -21,11 +21,11 @@ export class HelpPagePage {
   showContent = false;
   showCommunity = false;
   showProfile = false;
-  showSettings = true;
+  showSettings = false;
   showUsers = false;
   showSearch = false;
   showTheme = false;
-  showEvnts = false;
+  showEvnts = true;
   showMessage = false;
   showMenu = false;
 
