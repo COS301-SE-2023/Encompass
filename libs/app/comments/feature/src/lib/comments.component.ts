@@ -223,6 +223,14 @@ export class CommentsComponent {
   }
 
   AddComment() {
+
+    if (
+      this.comment?.value == null ||
+      this.comment?.value == undefined ||
+      this.comment?.value == ''
+    ) {
+      return;
+    }
     this.isValid = false;
     this.commentBool = !this.commentBool;
     if (this.comment?.value == null || this.comment?.value == undefined) {
@@ -282,6 +290,14 @@ export class CommentsComponent {
   }
 
   PostReply(comment: CommentDto, n: number) {
+
+    if (
+      this.replyField?.value == null ||
+      this.replyField?.value == undefined ||
+      this.replyField?.value == ''
+    ) {
+      return;
+    }
     this.isValid = false;
     this.reply[n] = !this.reply[n];
 
