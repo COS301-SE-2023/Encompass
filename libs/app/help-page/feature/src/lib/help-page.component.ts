@@ -19,7 +19,7 @@ export class HelpPagePage {
 
   showFeed = false;
   showContent = false;
-  showCommunity = true;
+  showCommunity = false;
   showProfile = false;
   showSettings = false;
   showUsers = false;
@@ -27,7 +27,7 @@ export class HelpPagePage {
   showTheme = false;
   showEvnts = false;
   showMessage = false;
-  showMenu = false;
+  showMenu = true;
 
   feed() {
     this.showFeed = true;
