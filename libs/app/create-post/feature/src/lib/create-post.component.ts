@@ -48,6 +48,7 @@ export class CreatePostComponent {
     'History',
     'Horror',
     'Hospitality',
+    'IT',
     'Life-Science',
     'Mathematics',
     'Musical',
