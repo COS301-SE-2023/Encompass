@@ -1,6 +1,6 @@
 
 
-<div class="overlay-container">
+<div class="overlay-container" *ngIf="!mobileview">
   <div class="overlay"></div>
   <div class="content">
     <ion-grid>
@@ -168,4 +168,92 @@
       </ion-row>
     </ion-grid>
   </div>
+</div>
+<div class="overlay-container_mobile" *ngIf="mobileview">
+<div class="Heading_mobile">
+    <img src="assets/icon/Coin.png" class="CoinImg_mobile" />
+    <label class="Name">{{profile?.name}} {{profile?.lastName}}</label>
+    <label class="Score">{{profile?.ep}} Encompass Points</label>
+    <button class="More_mobile" (click)="openPopup()">Leaderboard</button>
+    <div class="searchEvent">
+      <form
+        #sendForm
+        class="message-form"
+        [formGroup]="messageForm"
+        class="messageInput"
+        (keyup.enter)="sendMessage()"
+      >
+        <div class="input-box_mobile">
+          <ion-input
+            class="input"
+            formControlName="messageInput"
+            [(ngModel)]="inputValue"
+            (input)="checkInput()"
+            placeholder="Search Event..."
+          ></ion-input>
+
+          <ion-button
+            fill="clear"
+            *ngIf="isValid"
+            type="submit"
+            (click)="sendMessage()"
+          >
+            <ion-icon name="search" class="icon1"></ion-icon>
+          </ion-button>
+          <ion-button
+            id="sendBtn"
+            fill="clear"
+            *ngIf="!isValid"
+            disabled="true"
+            type="submit"
+            (click)="sendMessage()"
+          >
+            <ion-icon name="search" class="icon2"></ion-icon>
+          </ion-button>
+        </div>
+      </form>
+    </div>
+</div>
+<div class="Body_mobile">
+  <div class="EventList" *ngIf="events !== null && events !== undefined">
+    <ion-card *ngFor="let event of events;  let i = index" class="Event" (click)="goToEvent(event._id)">
+      <div class="Head">
+        <label class="EventName">{{event.name}}</label>
+        <label class="Host">Hosted by @{{event.host}}</label>
+      </div>
+      <div class="border"></div>
+      <div class="Body">
+        {{event.description}}
+      </div>
+      <div class="Footer">
+        <div class="Details">
+          <div
+            *ngFor="let category of event.categories; let k = index"
+            class="tooltip"
+          >
+            <img src="assets/icon/{{ category }}.png" class="imgDiv" />
+          </div>
+          <label style="color:var(--ion-color-primary)">{{event.quiz.length}} MCQ</label>
+          <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
+        </div>
+        
+        <ion-icon *ngIf="!hasJoined[i]"
+        class="Lock" name="lock-closed"></ion-icon>
+
+        <ion-icon *ngIf="hasJoined[i]&&!hasCompleted[i]&&hasExpired[i]"
+        class="Lock" name="lock-closed"></ion-icon>
+
+        <ion-icon *ngIf="hasJoined[i]&&!hasCompleted[i]&&!hasExpired[i]"
+        class="Lock" name="lock-open"></ion-icon>
+
+        <ion-icon *ngIf="hasJoined[i]&&hasCompleted[i]&&hasExpired[i]"
+        class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
+
+        <ion-icon *ngIf="hasJoined[i]&&hasCompleted[i]&&!hasExpired[i]"
+        class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
+      </div>
+    </ion-card>
+  </div>
+
+</div>
 </div>
