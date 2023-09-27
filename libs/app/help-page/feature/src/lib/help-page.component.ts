@@ -16,4 +16,145 @@ export class HelpPagePage {
   updateMobileView() {
     this.mobileview = window.innerWidth <= 992;
   }
+
+  showFeed = false;
+  showContent = false;
+  showCommunity = false;
+  showProfile = false;
+  showSettings = false;
+  showUsers = false;
+  showSearch = false;
+  showTheme = false;
+  showEvnts = false;
+  showMessage = false;
+
+  feed(){
+    this.showFeed = true;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  content(){
+    this.showFeed = false;
+    this.showContent = true;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  community(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = true;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  profile(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = true;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  settings(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = true;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  user(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = true;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  search(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = true;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  theme(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = true;
+    this.showEvnts = false;
+    this.showMessage = false;
+  }
+
+  events(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = true;
+    this.showMessage = false;
+  }
+
+  message(){
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = true;
+  }
 }

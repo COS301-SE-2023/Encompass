@@ -1,6 +1,6 @@
 <div class="help-page">
-    <ion-content>
-        <div class="overlay-container" *ngIf="!mobileview">
+
+        <div class="overlay-container">
           <div class="image-container">
             <div color="dark" class="custom-title">
               <a class="head">Help Page</a>
@@ -12,9 +12,51 @@
             />
           </div>
       
-          
+          <div class="content">
+          <div class="options">
+            <ion-card class="subject">
+                <span class="subjectName" (click)="feed()">The Feed Page</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="content()">Creating Content</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="community()">Communities</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="profile()">Your Profile</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="user()">Other Users</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="search()">Search Page</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="message()">Direct Messaging</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="theme()">Theme Customization</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="settings()">Settings</span>
+            </ion-card>
+
+            <ion-card class="subject">
+                <span class="subjectName" (click)="events()">Events</span>
+            </ion-card>
+          </div>
+        </div>
       
          
         </div>
-    </ion-content>
+
 </div>
