@@ -1205,7 +1205,7 @@ export class FeedPage {
       this.store.dispatch(new GetPopularPosts(this.profile.username));
     }
 
-    this.postsIsFetched = true;
+    // this.postsIsFetched = true;
     await this.updatePosts();
     //   this.homePosts$.subscribe((posts) => {
     //   if(posts){

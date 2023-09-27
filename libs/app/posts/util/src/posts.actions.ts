@@ -36,15 +36,15 @@ export class UpdateProfilePost{
   constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
 }
 
-export class LikeProfilePost{
-  static readonly type = '[Post] Like Profile Post';
-  constructor(public readonly postId: string, public readonly userId: string){}
-}
+// export class LikeProfilePost{
+//   static readonly type = '[Post] Like Profile Post';
+//   constructor(public readonly postId: string, public readonly userId: string){}
+// }
 
-export class DislikeProfilePost{
-  static readonly type = '[Post] Dislike Profile Post';
-  constructor(public readonly postId: string, public readonly userId: string){}
-}
+// export class DislikeProfilePost{
+//   static readonly type = '[Post] Dislike Profile Post';
+//   constructor(public readonly postId: string, public readonly userId: string){}
+// }
 
 export class GetPost{
   static readonly type = '[Comments] Get Post';

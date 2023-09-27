@@ -62,12 +62,12 @@ export class GetRanking {
   static readonly type = '[Community] Get Ranking';
 }
 
-export class LikePostArray {
+export class LikeCommunityPostArray {
   static readonly type = '[Community] Like Post Array';
   constructor(public readonly postId: string, public readonly userId: string) {}
 }
 
-export class DislikePostArray {
+export class DislikeCommunityPostArray {
   static readonly type = '[Community] Dislike Post Array';
   constructor(public readonly postId: string, public readonly userId: string) {}
 }

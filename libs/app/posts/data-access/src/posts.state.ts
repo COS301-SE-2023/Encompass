@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { PostsApi } from "./posts.api";
-import { CreatePost, DislikePost, DislikePostArray, DislikeProfilePost, GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, LikePost, LikePostArray, LikeProfilePost, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
+import { CreatePost, DislikePost, DislikePostArray, GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, LikePost, LikePostArray, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
 import { UpdateProfilePost as CreatePostProfilePost } from "@encompass/app/profile/util";
 import { AddPost } from "@encompass/app/create-community/util";
 import { ToastController } from "@ionic/angular";
@@ -404,76 +404,76 @@ export class PostsState {
 
   }
 
-  @Action(LikeProfilePost)
-  async likedProfilePost(ctx: StateContext<ProfilePostsStateModel>, { postId, userId }: LikeProfilePost){
-    const response = await this.postsApi.likePost(postId, userId);
+  // @Action(LikeProfilePost)
+  // async likedProfilePost(ctx: StateContext<ProfilePostsStateModel>, { postId, userId }: LikeProfilePost){
+  //   const response = await this.postsApi.likePost(postId, userId);
 
-    if (response == null || response == undefined) {
-      return;
-    }
+  //   if (response == null || response == undefined) {
+  //     return;
+  //   }
 
-    try{
-      const posts = await ctx.getState().ProfilePostsForm.model.posts;
+  //   try{
+  //     const posts = await ctx.getState().ProfilePostsForm.model.posts;
 
-      if(posts == null ){
-        console.log("POSTS IS NULL")
-        return;
-      }
+  //     if(posts == null ){
+  //       console.log("POSTS IS NULL")
+  //       return;
+  //     }
 
-      const index = await posts.findIndex(x => x._id == response._id)
+  //     const index = await posts.findIndex(x => x._id == response._id)
 
-      posts[index] = response;
+  //     posts[index] = response;
 
-      ctx.patchState({
-        ProfilePostsForm: {
-          model: {
-            posts: posts
-          }
+  //     ctx.patchState({
+  //       ProfilePostsForm: {
+  //         model: {
+  //           posts: posts
+  //         }
 
-        }
-      })
-    }
+  //       }
+  //     })
+  //   }
 
-    catch(error){
-      console.log(error)
-    }
+  //   catch(error){
+  //     console.log(error)
+  //   }
 
-  }
+  // }
 
-  @Action(DislikeProfilePost)
-  async dislikedProfilePost(ctx: StateContext<ProfilePostsStateModel>, { postId, userId }: DislikeProfilePost){
-    const response = await this.postsApi.dislikePost(postId, userId);
+  // @Action(DislikeProfilePost)
+  // async dislikedProfilePost(ctx: StateContext<ProfilePostsStateModel>, { postId, userId }: DislikeProfilePost){
+  //   const response = await this.postsApi.dislikePost(postId, userId);
 
-    if (response == null || response == undefined) {
-      return;
-    }
+  //   if (response == null || response == undefined) {
+  //     return;
+  //   }
 
-    try{
-      const posts = await ctx.getState().ProfilePostsForm.model.posts;
+  //   try{
+  //     const posts = await ctx.getState().ProfilePostsForm.model.posts;
 
-      if(posts == null ){
-        console.log("POSTS IS NULL")
-        return;
-      }
+  //     if(posts == null ){
+  //       console.log("POSTS IS NULL")
+  //       return;
+  //     }
 
-      const index = await posts.findIndex(x => x._id == response._id)
+  //     const index = await posts.findIndex(x => x._id == response._id)
 
-      posts[index] = response;
+  //     posts[index] = response;
 
-      ctx.patchState({
-        ProfilePostsForm: {
-          model: {
-            posts: posts
-          }
-        }
-      })
-    }
+  //     ctx.patchState({
+  //       ProfilePostsForm: {
+  //         model: {
+  //           posts: posts
+  //         }
+  //       }
+  //     })
+  //   }
 
-    catch(error){
-      console.log(error)
-    }
+  //   catch(error){
+  //     console.log(error)
+  //   }
 
-  }
+  // }
 
   @Action(UpdateProfilePost)
   async updateProfilePost(ctx: StateContext<ProfilePostsStateModel>, {postId, postUpdateRequest}: UpdatePostArray){
