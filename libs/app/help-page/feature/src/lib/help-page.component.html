@@ -1,62 +1,66 @@
 <div class="help-page">
+  <div class="overlay-container">
+    <div class="image-container">
+      <div color="dark" class="custom-title">
+        <a class="head">Help Page</a>
+      </div>
+      <img
+        src="assets/WelcomeImg.png"
+        class="cropped-image"
+        alt="Encompass Logo"
+      />
+    </div>
 
-        <div class="overlay-container">
-          <div class="image-container">
-            <div color="dark" class="custom-title">
-              <a class="head">Help Page</a>
-            </div>
-            <img
-              src="assets/WelcomeImg.png"
-              class="cropped-image"
-              alt="Encompass Logo"
-            />
-          </div>
-      
-          <div class="content">
-          <div class="options">
-            <ion-card class="subject">
-                <span class="subjectName" (click)="feed()">The Feed Page</span>
-            </ion-card>
+    <div class="content">
+      <div class="options" *ngIf="showMenu">
+        <ion-card class="subject">
+          <span class="subjectName" (click)="feed()">The Feed Page</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="content()">Creating Content</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="content()">Creating Content</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="community()">Communities</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="community()">Communities</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="profile()">Your Profile</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="profile()">Your Profile</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="user()">Other Users</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="user()">Other Users</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="search()">Search Page</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="search()">Search Page</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="message()">Direct Messaging</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="message()">Direct Messaging</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="theme()">Theme Customization</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="theme()">Theme Customization</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="settings()">Settings</span>
-            </ion-card>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="settings()">Settings</span>
+        </ion-card>
 
-            <ion-card class="subject">
-                <span class="subjectName" (click)="events()">Events</span>
-            </ion-card>
-          </div>
-        </div>
-      
-         
-        </div>
+        <ion-card class="subject">
+          <span class="subjectName" (click)="events()">Events</span>
+        </ion-card>
+      </div>
 
+      <!-- ==============================feed========================== -->
+
+      <div class="options" *ngIf="showFeed">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </div>

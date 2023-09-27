@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'help-page',
   templateUrl: './help-page.component.html',
-  styleUrls: ['./help-page.component.scss']
+  styleUrls: ['./help-page.component.scss'],
 })
 export class HelpPagePage {
   mobileview = false;
@@ -17,7 +17,7 @@ export class HelpPagePage {
     this.mobileview = window.innerWidth <= 992;
   }
 
-  showFeed = false;
+  showFeed = true;
   showContent = false;
   showCommunity = false;
   showProfile = false;
@@ -27,8 +27,9 @@ export class HelpPagePage {
   showTheme = false;
   showEvnts = false;
   showMessage = false;
+  showMenu = false;
 
-  feed(){
+  feed() {
     this.showFeed = true;
     this.showContent = false;
     this.showCommunity = false;
@@ -39,9 +40,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  content(){
+  content() {
     this.showFeed = false;
     this.showContent = true;
     this.showCommunity = false;
@@ -52,9 +54,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  community(){
+  community() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = true;
@@ -65,9 +68,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  profile(){
+  profile() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = false;
@@ -78,9 +82,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  settings(){
+  settings() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = false;
@@ -91,9 +96,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  user(){
+  user() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = false;
@@ -104,9 +110,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  search(){
+  search() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = false;
@@ -117,9 +124,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  theme(){
+  theme() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = false;
@@ -130,9 +138,10 @@ export class HelpPagePage {
     this.showTheme = true;
     this.showEvnts = false;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  events(){
+  events() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = false;
@@ -143,9 +152,10 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = true;
     this.showMessage = false;
+    this.showMenu = false;
   }
 
-  message(){
+  message() {
     this.showFeed = false;
     this.showContent = false;
     this.showCommunity = false;
@@ -156,5 +166,20 @@ export class HelpPagePage {
     this.showTheme = false;
     this.showEvnts = false;
     this.showMessage = true;
+    this.showMenu = false;
+  }
+
+  back() {
+    this.showFeed = false;
+    this.showContent = false;
+    this.showCommunity = false;
+    this.showProfile = false;
+    this.showSettings = false;
+    this.showUsers = false;
+    this.showSearch = false;
+    this.showTheme = false;
+    this.showEvnts = false;
+    this.showMessage = false;
+    this.showMenu = true;
   }
 }
