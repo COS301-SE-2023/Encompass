@@ -190,7 +190,7 @@ export class FeedPage {
         this.profile = profile;
         // this.addPosts("recommended");
         if(!this.isNewFetched){
-          this.isNewFetched = true;
+          // this.isNewFetched = true;
           this.newChange();
         }
 
@@ -1205,7 +1205,7 @@ export class FeedPage {
       this.store.dispatch(new GetPopularPosts(this.profile.username));
     }
 
-    // this.postsIsFetched = true;
+    this.postsIsFetched = true;
     await this.updatePosts();
     //   this.homePosts$.subscribe((posts) => {
     //   if(posts){
