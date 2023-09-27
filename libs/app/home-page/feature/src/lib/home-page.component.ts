@@ -277,6 +277,7 @@ export class HomePage {
   }
 
   goHome() {
+    this.store.dispatch(new SubscribeToProfile())
     this.routerClick();
     this.router.navigate(['/home/feed']);
     this.menuCtrl.close('first-menu');

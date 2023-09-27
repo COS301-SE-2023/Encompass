@@ -190,7 +190,7 @@ export class FeedPage {
         this.profile = profile;
         // this.addPosts("recommended");
         if(!this.isNewFetched){
-          this.isNewFetched = true;
+          // this.isNewFetched = true;
           this.newChange();
         }
 

@@ -16,12 +16,12 @@ import {
 import { CommunityDto } from '@encompass/api/community/data-access';
 import {
   AddCommunityRequest,
-  DislikePostArray,
+  DislikeCommunityPostArray,
   GetCommunity,
   GetCommunityPosts,
   GetCommunityRequest,
   GetRanking,
-  LikePostArray,
+  LikeCommunityPostArray,
   RemoveCommunityRequest,
   UpdatePostArray,
 } from '@encompass/app/community-profile/util';
@@ -256,26 +256,6 @@ export class CommunityProfileComponent {
       }
     });
 
-    this.store.dispatch(new GetCommunityPosts(communityName));
-    this.communityPosts$.subscribe((posts) => {
-      if (posts) {
-        this.communityPosts = posts;
-        console.log(posts);
-
-        for (let i = 0; i < posts.length; i++) {
-          this.sharing.push(false);
-
-          if (
-            posts[i].dateAdded != null &&
-            posts[i].comments != null &&
-            posts[i].shares != null
-          ) {
-            this.shares.push(posts[i].shares);
-          }
-        }
-      }
-    });
-
     this.store.dispatch(new GetRanking());
     this.communityLeaderboard$.subscribe((leaderboard) => {
       if (leaderboard) {
@@ -287,6 +267,28 @@ export class CommunityProfileComponent {
         });
       }
     });
+
+    this.store.dispatch(new GetCommunityPosts(communityName));
+    this.communityPosts$.subscribe((posts) => {
+      if (posts) {
+        this.communityPosts = posts;
+        console.log(posts);
+
+        // for (let i = 0; i < posts.length; i++) {
+        //   this.sharing.push(false);
+
+        //   if (
+        //     posts[i].dateAdded != null &&
+        //     posts[i].comments != null &&
+        //     posts[i].shares != null
+        //   ) {
+        //     this.shares.push(posts[i].shares);
+        //   }
+        // }
+      }
+    });
+
+    
 
     this.store.dispatch(new GetByCommunity(communityName));
     this.events$.subscribe((events) => {
@@ -792,7 +794,7 @@ export class CommunityProfileComponent {
       return;
     }
 
-    this.store.dispatch(new LikePostArray(post._id, this.profile._id));
+    this.store.dispatch(new LikeCommunityPostArray(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
@@ -800,7 +802,7 @@ export class CommunityProfileComponent {
       return;
     }
 
-    this.store.dispatch(new DislikePostArray(post._id, this.profile._id));
+    this.store.dispatch(new DislikeCommunityPostArray(post._id, this.profile._id));
   }
 
   mobileview = false;
