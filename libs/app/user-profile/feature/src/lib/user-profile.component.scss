@@ -452,12 +452,13 @@ ion-card {
 .profile-info:hover {
   cursor: pointer;
   background-color: var(--hover-color);
-  color: var(--ion-color-text);
+  color: var(--ion-color-background);
 }
 
-.info-post {
-  // padding-left: 35px;
-  // padding-right: 35px;
+.info-post:hover {
+  cursor: default;
+  background-color: var(--ion-color-secondary-contrast);
+  color: var(--ion-color-medium);
 }
 
 .profile-info-row {
@@ -961,7 +962,7 @@ ion-button:hover {
   margin-bottom: 2%;
   // width:60%;
   padding: 10px 20px 10px 20px;
-  // color: white;
+   color: var(--ion-color-background);
   background-color: var(--ion-color-primary);
 }
 
