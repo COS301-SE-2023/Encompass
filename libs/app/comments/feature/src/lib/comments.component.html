@@ -136,6 +136,7 @@
    <form [formGroup]="commentForm" style="display: flex;justify-content: center;">
     <div class="input-box">
       <ion-input
+        (input)="checkInput()"
         class="input"
         placeholder="Add a new comment..."
         (keyup.enter)="AddComment()"
@@ -198,8 +199,36 @@
         <div class="CommentBody">{{ comment?.text }}</div>
         <div class="CommentFooter" *ngIf="reply[i]">
           <br />
-          <form [formGroup]="replyForm">
-            <div class="CommentAddition">
+          <form [formGroup]="replyForm" style="display: flex;justify-content: center;">
+            <div class="input-box">
+              <ion-input
+                class="input"
+                (input)="checkInput2()"
+                (keyup.enter)="PostReply(comment, i)"
+                placeholder="@{{ comment?.username }}"
+                formControlName="replyField"
+              ></ion-input>
+        
+              <ion-button
+                fill="clear"
+                *ngIf="isValid"
+                type="submit"
+                (click)="AddComment()"
+              >
+                <ion-icon name="send" class="icon1"></ion-icon>
+              </ion-button>
+              <ion-button
+                id="sendBtn"
+                fill="clear"
+                *ngIf="!isValid"
+                disabled="true"
+                type="submit"
+                (click)="PostReply(comment, i)"
+              >
+                <ion-icon name="send" class="icon2"></ion-icon>
+              </ion-button>
+            </div>
+            <!-- <div class="CommentAddition">
               <button
                 class="AddCommentBtn"
                 type="button"
@@ -242,7 +271,7 @@
                 [maxlength]="250"
               >
               </ion-textarea>
-            </div>
+            </div> -->
           </form>
         </div>
         <br />
