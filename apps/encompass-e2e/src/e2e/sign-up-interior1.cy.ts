@@ -25,16 +25,6 @@ describe('SignUpInterior1Component', () => {
     ep: 0,
   }
 
-  // before(() => {
-  //   const id = {
-  //     value: '123456789abc',
-  //     expirationTime: Date.now() + 100000,
-  //   }
-  //   cy.window().then((win) =>{
-  //     win.localStorage.setItem("UserID", JSON.stringify(id));
-  //   })
-  // })
-
   beforeEach(() => {
     const id = {
       value: '123456789abc',
