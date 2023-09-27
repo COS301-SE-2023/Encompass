@@ -537,6 +537,9 @@ export class UserProfile {
   
 
   setOpen(isOpen: boolean) {
+    this.isModalOpen=false;
+    console.log("FOLLOWERS CALLED AND isModalOpen is " + this.isModalOpen);
+    this.loadFollowers();
      this.modalController.dismiss();
     this.isModalOpen = isOpen;
   }
@@ -544,6 +547,9 @@ export class UserProfile {
   
 
   setOpen2(isOpen: boolean) {
+    this.isModal2Open=false;
+    console.log("FOLLOWing CALLED AND isModalOpen is " + this.isModal2Open);
+    this.loadFollowing();
     this.modalController.dismiss();
     this.isModal2Open = isOpen;
   }
