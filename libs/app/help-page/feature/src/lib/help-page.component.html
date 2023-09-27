@@ -121,51 +121,56 @@
       <ion-icon name="arrow-back"></ion-icon>
     </ion-button>
 
-    <div class="sectionFeed">
+    <div class="sectionCon">
 
       <div class="sectionTitle">Creating a Post</div>
       <div class="sectionContent">
-        <img src="assets/HelpPage/2.png" class="helpImg" alt="Page" />
+        <img src="assets/HelpPage/c1.png" class="helpImgcon" alt="Page" />
         <div class="sectionText">
-          The feed page is the first page you see when you log in. It
-          contains all the posts from the communities you are a part of.
-          <br />
-          <br />
-          You can like a post by clicking the heart icon, and you can
-          comment on a post by clicking the comment icon. You can also share
-          a post by clicking the share icon.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Posts</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/1.png" class="helpImg" alt="Page" />
-        <div class="sectionText">
-          You can also navigate through each section of posts: new, which is a time filtered selection of posts, popular, which is a popularity filtered selection of posts, and recommended, which is recommended posts generated especially for you through your preferred categories.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Creating Content</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/3.png" class="helpImg1" alt="Page" />
-        <div class="sectionText">
-          This is also where you will find the create buttons. The top one you can navigate to the create page, where you can create a post or event. The bottom one you can use to create a community.
+          In the create a post popup that appears, you can select the community you want to post in, the category of your post, and the type of post you want to create. You can also add a title and description to your post, and add an optional image.
           <br>
-          To see how to do this, navigate to the <i class="link" (click)="content()">creating content</i> section.
+          <br>
+          You can also tag any content as a Spoiler or Not Safe For Work (NSFW). 
+          <br>
+          <br>
+          If the post cannot be created, this means you are missing some information - so check if you've added both a community and at least one category.
         </div>
       </div>
 
-      <div class="sectionTitle">Recommended Content</div>
+      <div class="sectionTitle">Creating a Community</div>
       <div class="sectionContent">
-        <img src="assets/HelpPage/4.png" class="helpImg2" alt="Page" />
+        <img src="assets/HelpPage/c2.png" class="helpImgcon" alt="Page" />
         <div class="sectionText">
-          The feed page is the first page you see when you log in. It
-          contains all the posts from the communities you are a part of.
-          <br />
-          <br />
-          You can like a post by clicking the heart icon, and you can
-          comment on a post by clicking the comment icon. You can also share
-          a post by clicking the share icon.
+          Creating a community is very much the same as creating a post. You can select the category of your community, and a name, as well as add an image to be used as your community's profile image.
+          <br>
+            <br>
+            You can select the privacy of your community - public, private, or restricted. You can also tag the community as Not Safe For Work (NSFW).
+          <br>
+            <br>
+            If the community cannot be created, this means you are missing some information - so check if you've added both a name and at least one category.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Creating an Event</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/c3.png" class="helpImgcon" alt="Page" />
+        <div class="sectionText">
+          To create an event, simply click the create event button on the feed page. You can then add a title and description to your event, as well as select categories and the community you want to post it in. This community must be one you are a creator of.
+          <br>
+          <br>
+          This challenge you described is what you want your community followers to do in preparation for the quiz, so be specific and clear.
+        </div>
+      </div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/c4.png" class="helpImgcon" alt="Page" />
+        <div class="sectionText">
+          You can then add tasks for your community members to complete. These tasks can be anything from reading an article to watching a video, and you can add as many as you want. You can also add a due date for the event.
+          <br>
+          <br>
+          For the quiz you must enter 3 keywords for the AI to generate a relavant quiz, so be sure to use words that are relavant to the challenge you described. Examples would be: "South America", "Amazon River", "Animals".
+          <br>
+          <br> 
+          You can then choose the amount of questions you want your quiz to have. If you cannot create the event, this means you are missing some information - so check if you've added both a title and at least one task.
         </div>
       </div>
 
@@ -175,6 +180,96 @@
   </div>
 
 
+
+  <!-- ==============================profile========================== -->
+
+  <div class="options" *ngIf="showProfile">
+    <ion-button fill="clear" (click)="back()" class="backBtn">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
+    <div class="sectionProfile">
+
+      <div class="sectionTitle">Navigating</div>
+      <div class="">
+        <img src="assets/HelpPage/p1.png" class="helpImgP1" alt="Page" />
+        <div class="sectionText1">
+          Here you can navigate through your personal posts, any comments you've main on posts, and events you've joined.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Your Information</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/p2.png" class="helpImgp2" alt="Page" />
+        <div class="sectionText">
+          This is all your personal information. You can see your full name, your username, and your bio. You can also see those who follow you and those you follow. You also have your profile picture and aprofile banner.
+          <br>
+          <br>
+          In the top right corner you can see your Encompass Points, which corrispond to your leaderboard position.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Editing Your Information</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/p3.png" class="helpImgp2" alt="Page" />
+        <div class="sectionText">
+          If you click on the pencil icon, you can edit your information. You can change your name, bio, profile picture, and profile banner. Unfortunately, you cannot change your username.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Your Communities</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/p4.png" class="helpImgp3" alt="Page" />
+        <div class="sectionText">
+          At the bottom of your profile information card, you can see all the communities you are a part of. You can click on any of these to navigate to that community's page.
+        </div>
+      </div>
+
+      <div style="height:50px;"></div>
+      
+    </div>
+  </div>
+
+  <!-- ==============================search========================== -->
+
+  <div class="options" *ngIf="showSearch">
+    <ion-button fill="clear" (click)="back()" class="backBtn">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
+    <div class="sectionProfile">
+
+      <div class="sectionTitle">Searching</div>
+      <div class="">
+        <img src="assets/HelpPage/p1.png" class="helpImgP1" alt="Page" />
+        <div class="sectionText1">
+          Here you can navigate through your personal posts, any comments you've main on posts, and events you've joined.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Communities</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/p2.png" class="helpImgp2" alt="Page" />
+        <div class="sectionText">
+          This is all your personal information. You can see your full name, your username, and your bio. You can also see those who follow you and those you follow. You also have your profile picture and aprofile banner.
+          <br>
+          <br>
+          In the top right corner you can see your Encompass Points, which corrispond to your leaderboard position.
+        </div>
+      </div>
+
+      <div class="sectionTitle">People</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/p3.png" class="helpImgp2" alt="Page" />
+        <div class="sectionText">
+          If you click on the pencil icon, you can edit your information. You can change your name, bio, profile picture, and profile banner. Unfortunately, you cannot change your username.
+        </div>
+      </div>
+
+      <div style="height:50px;"></div>
+      
+    </div>
+  </div>
 
 
     </div>
