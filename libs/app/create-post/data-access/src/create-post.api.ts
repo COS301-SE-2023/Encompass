@@ -12,18 +12,6 @@ export interface fileReturn{
 @Injectable()
 export class CreatePostApi{
   constructor(private httpClient: HttpClient){}
-
-  async createPost(request: CreatePostRequest){
-    try {
-      const response = await this.httpClient.post<PostDto>('/api/post/create', request).toPromise();
-
-      return response;
-    } 
-    catch (error) 
-    {
-      return null;
-    }
-  }
   
   async createEvent(request: CreateEventRequest){
     try{

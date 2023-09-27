@@ -1,4 +1,5 @@
-import { UpdatePostRequest } from "@encompass/api/post/data-access";
+import { CreatePostRequest, UpdatePostRequest } from "@encompass/api/post/data-access";
+import { ProfileDto } from "@encompass/api/profile/data-access";
 
 export class UpdatePost{
   static readonly type = '[Post] Update Post';
@@ -73,4 +74,9 @@ export class GetPopularPosts{
 export class GetAllPosts{
   static readonly type = '[Home] Get All Posts';
   constructor(public readonly username: string){}
+}
+
+export class CreatePost{
+  static readonly type = '[Post] Create Post';
+  constructor(public readonly createPostRequest: CreatePostRequest, public readonly profile: ProfileDto){}
 }

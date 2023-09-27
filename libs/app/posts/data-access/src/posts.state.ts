@@ -2,7 +2,10 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { PostsApi } from "./posts.api";
-import { DislikePost, DislikePostArray, DislikeProfilePost, GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, LikePost, LikePostArray, LikeProfilePost, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
+import { CreatePost, DislikePost, DislikePostArray, DislikeProfilePost, GetAllPosts, GetLatestPosts, GetPopularPosts, GetPost, GetUserPosts, LikePost, LikePostArray, LikeProfilePost, UpdatePost, UpdatePostArray, UpdateProfilePost } from "@encompass/app/posts/util";
+import { UpdateProfilePost as CreatePostProfilePost } from "@encompass/app/profile/util";
+import { AddPost } from "@encompass/app/create-community/util";
+import { ToastController } from "@ionic/angular";
 
 export interface PostStateModel {
   PostForm: {
@@ -63,7 +66,7 @@ export interface ProfilePostsStateModel{
 
 @Injectable()
 export class PostsState {
-  constructor(private postsApi: PostsApi) {}
+  constructor(private postsApi: PostsApi, private toastController: ToastController) {}
 
   @Action(UpdatePost)
   async updatePost(ctx: StateContext<PostStateModel>, { postId, postUpdateRequest }: UpdatePost) {
@@ -80,6 +83,78 @@ export class PostsState {
         },
       },
     });
+  }
+
+  @Action(CreatePost)
+  async createPost(ctx: StateContext<PostArrayStateModel>, {createPostRequest, profile}: CreatePost){
+    const communtiy = await this.postsApi.getCommunity(createPostRequest.community);
+
+    if(communtiy != undefined){
+      createPostRequest.communityImageUrl = communtiy?.groupImage;
+    }
+    
+    const post = await this.postsApi.createPost(createPostRequest);
+    
+    console.log(post);
+    
+    if(post == null || post == undefined){
+      return;
+    }
+
+    const posts = ctx.getState().PostArrayForm.model.posts;
+
+    if(posts == null){
+      return
+    }
+
+    posts.unshift(post);
+
+    ctx.patchState({
+      PostArrayForm: {
+        model: {
+          posts: posts
+        }
+      }
+    })
+
+    ctx.dispatch(new AddPost(post.community, post._id));
+
+    let arr;
+
+    if(profile.posts == null){
+      arr = [post._id];
+    }
+
+    else{
+      arr = [...profile.posts, post._id];
+    }
+
+    const data  = {
+      username: profile.username,
+      name: profile.name,
+      lastName: profile.lastName,
+      categories: profile.categories,
+      communities: profile.communities,
+      awards: profile.awards,
+      events: profile.events,
+      followers: profile.followers,
+      following: profile.following,
+      posts: arr,
+      reviews: profile.reviews,
+      profileImage: profile.profileImage,
+      profileBanner: profile.profileBanner,
+      bio: profile.bio,
+    }
+
+    ctx.dispatch(new CreatePostProfilePost(data, profile._id));
+
+    const toast = await this.toastController.create({
+      message: 'Post Created',
+      duration: 2000,
+      color: 'success'
+    })
+
+    await toast.present();
   }
 
   @Action(DislikePost)
