@@ -26,7 +26,7 @@
 .EventList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 20px;
 }
 .ScoreLayout {
@@ -45,7 +45,7 @@
   color: var(--ion-color-text);
   overflow: auto;
   max-height: 100vh;
-  background-color: var(--ion-color-background);
+   background-color: var(--ion-color-background);
   margin-top: 2%;
 }
 
@@ -66,7 +66,7 @@
   justify-content: space-between;
   z-index: 3;
   position: fixed;
-  background-color: var(--ion-color-background);
+  // background-color: var(--ion-color-background);
   border: 2px solid var(--ion-color-secondary-tint);
 }
 .input {
