@@ -318,23 +318,31 @@
       <ion-icon name="arrow-back"></ion-icon>
     </ion-button>
 
-    <div class="sectionMessage">
+    <div class="sectionTheme">
+
+        <div class="sectionTitle">Navigating</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/menu.png" class="helpImgMenu" alt="Page" />
+        <div class="sectionText">
+          You can navigate to the themes page by clicking the <i style="color: var(--hover-color);">More Options</i> button on the menu and then clicking the <i style="color: var(--hover-color);">Themes</i> button.
+        </div>
+      </div>
 
       <div class="sectionTitle">Change Color Theme</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/t1.png" class="helpImgM" alt="Page" />
-        <div class="sectionText">
-          On the messaging page you will see a list of all your chats to the left. You can click on any of these to navigate to that chat. You can start a new chat by clicking the <ion-icon name="chatbubble-ellipses-outline" style="color: var(--hover-color);"></ion-icon> icon.
-        </div>
-      </div>
 
-      <div class="sectionTitle">Chnage Background</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/t2.png" class="helpImgMF" alt="Page" />
-        <div class="sectionText">
-            In the chats you can send a new massgae by typing into the bar at the bottom of the page and clicking the <ion-icon name="send" style="color: var(--hover-color);"></ion-icon> icon. You can also send by pressing the enter key.
+        <img src="assets/HelpPage/t1.png" class="helpImgT" alt="Page" />
+        <div class="sectionText1">
+          Here you can select the color you want your app to be. You can choose from the default light theme, the dark theme, or the custom themes. 
         </div>
-      </div>
+
+
+      <div class="sectionTitle">Change Background</div>
+
+        <img src="assets/HelpPage/t2.png" class="helpImgT" alt="Page" />
+        <div class="sectionText1">
+            You can also select the background you want your app to have. You can choose from the pre-selected backgrounds, or you can upload your own image to use as a background.
+        </div>
+
 
 
       <div style="height:50px;"></div>
@@ -342,6 +350,59 @@
     </div>
   </div>
 
+<!-- ==============================settings========================== -->
+
+<div class="options" *ngIf="showSettings">
+    <ion-button fill="clear" (click)="back()" class="backBtn">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
+    <div class="sectionMessage">
+
+        <div class="sectionTitle">Navigating</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/menu.png" class="helpImgMenu" alt="Page" />
+        <div class="sectionText">
+          You can navigate to the themes page by clicking the <i style="color: var(--hover-color);">More Options</i> button on the menu and then clicking the <i style="color: var(--hover-color);">Settings</i> button.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Searching</div>
+
+        <img src="assets/HelpPage/set1.png" class="helpImgSet" alt="Page" />
+        <div class="sectionText1">
+          Here you can navigate through the differrent subsections of your settings. You can change your account information, your profile settings, and your notification settings. Account settings allows you to change your email, password, and filter settings. Profile settings allows you to change your name, bio, profile picture, and profile banner. Notification settings allows you to change your notification preferences.
+        </div>
+      
+
+      <div class="sectionTitle">Communities</div>
+      
+        <img src="assets/HelpPage/set2.png" class="helpImgSet" alt="Page" />
+        <div class="sectionText1">
+            Some settings require you to toggle a switch to enable them. You can do this by clicking the switch. Right switch is active and left switch is inactive.
+        </div>
+      
+
+      <div class="sectionTitle">People</div>
+     
+        <img src="assets/HelpPage/set3.png" class="helpImgSet" alt="Page" />
+        <div class="sectionText1">
+          To edit a field in the subsections, click the edit icon by the section header. 
+        </div>
+     
+
+      <div class="sectionTitle">People</div>
+      
+        <img src="assets/HelpPage/set4.png" class="helpImgSet" alt="Page" />
+        <div class="sectionText1">
+            You can then edit the field and click the <i style="color: var(--hover-color);">Save</i> button to save your changes. 
+        </div>
+     
+
+      <div style="height:50px;"></div>
+      
+    </div>
+  </div>
 
 
 
