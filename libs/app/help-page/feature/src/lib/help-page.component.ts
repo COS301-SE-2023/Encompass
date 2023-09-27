@@ -23,8 +23,8 @@ export class HelpPagePage {
   showProfile = false;
   showSettings = false;
   showUsers = false;
-  showSearch = true;
-  showTheme = false;
+  showSearch = false;
+  showTheme = true;
   showEvnts = false;
   showMessage = false;
   showMenu = false;

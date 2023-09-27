@@ -237,32 +237,32 @@
       <ion-icon name="arrow-back"></ion-icon>
     </ion-button>
 
-    <div class="sectionProfile">
+    <div class="sectionSearch">
 
       <div class="sectionTitle">Searching</div>
-      <div class="">
-        <img src="assets/HelpPage/p1.png" class="helpImgP1" alt="Page" />
-        <div class="sectionText1">
-          Here you can navigate through your personal posts, any comments you've main on posts, and events you've joined.
+      <div class="sectionContent">
+        <img src="assets/HelpPage/s1.png" class="helpImg" alt="Page" />
+        <div class="sectionText">
+          On the top of the page is the search bar. Here you can search for any community, user, or post. You can also filter your search by selecting the type of content you want to search for in the navigation bar below the search bar.
+          <br>
+          <br>
+          In this default posts tab you can see all the posts containing the searched keywords. The related communities tab shows all the communities containing the searched keywords. The related users tab shows all the users containing the searched keywords. By clicking "See More" you can see all the results for that tab.
         </div>
       </div>
 
       <div class="sectionTitle">Communities</div>
       <div class="sectionContent">
-        <img src="assets/HelpPage/p2.png" class="helpImgp2" alt="Page" />
+        <img src="assets/HelpPage/s2.png" class="helpImg" alt="Page" />
         <div class="sectionText">
-          This is all your personal information. You can see your full name, your username, and your bio. You can also see those who follow you and those you follow. You also have your profile picture and aprofile banner.
-          <br>
-          <br>
-          In the top right corner you can see your Encompass Points, which corrispond to your leaderboard position.
+          Navigating to the communities tab allows you to search through all the communities by searching a keyword or category. You can click on any of these to navigate to that community's page.
         </div>
       </div>
 
       <div class="sectionTitle">People</div>
       <div class="sectionContent">
-        <img src="assets/HelpPage/p3.png" class="helpImgp2" alt="Page" />
+        <img src="assets/HelpPage/s3.png" class="helpImg" alt="Page" />
         <div class="sectionText">
-          If you click on the pencil icon, you can edit your information. You can change your name, bio, profile picture, and profile banner. Unfortunately, you cannot change your username.
+          Here is where you see all the users that match your searched keywords. You can click on any of these to navigate to that user's profile page.
         </div>
       </div>
 
@@ -270,6 +270,81 @@
       
     </div>
   </div>
+
+
+  <!-- ==============================message========================== -->
+
+  <div class="options" *ngIf="showMessage">
+    <ion-button fill="clear" (click)="back()" class="backBtn">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
+    <div class="sectionMessage">
+
+      <div class="sectionTitle">Searching</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/m1.png" class="helpImgM" alt="Page" />
+        <div class="sectionText">
+          On the messaging page you will see a list of all your chats to the left. You can click on any of these to navigate to that chat. You can start a new chat by clicking the <ion-icon name="chatbubble-ellipses-outline" style="color: var(--hover-color);"></ion-icon> icon.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Communities</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/m2.png" class="helpImgMF" alt="Page" />
+        <div class="sectionText">
+            In the chats you can send a new massgae by typing into the bar at the bottom of the page and clicking the <ion-icon name="send" style="color: var(--hover-color);"></ion-icon> icon. You can also send by pressing the enter key.
+        </div>
+      </div>
+
+      <div class="sectionTitle">People</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/m3.png" class="helpImgM" alt="Page" />
+        <div class="sectionText">
+          By clicking the notifications button on the menu you can see all your notifications. You can remove any of the individual notifications by clicking the <ion-icon name="trash" style="color: var(--hover-color);"></ion-icon> icon. You can also clear all your notifications by clicking the <i style="color: var(--hover-color);">Delete All</i> button at the bottom.
+        </div>
+      </div>
+
+      <div style="height:50px;"></div>
+      
+    </div>
+  </div>
+
+
+<!-- ==============================theme========================== -->
+
+<div class="options" *ngIf="showTheme">
+    <ion-button fill="clear" (click)="back()" class="backBtn">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
+    <div class="sectionMessage">
+
+      <div class="sectionTitle">Change Color Theme</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/t1.png" class="helpImgM" alt="Page" />
+        <div class="sectionText">
+          On the messaging page you will see a list of all your chats to the left. You can click on any of these to navigate to that chat. You can start a new chat by clicking the <ion-icon name="chatbubble-ellipses-outline" style="color: var(--hover-color);"></ion-icon> icon.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Chnage Background</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/t2.png" class="helpImgMF" alt="Page" />
+        <div class="sectionText">
+            In the chats you can send a new massgae by typing into the bar at the bottom of the page and clicking the <ion-icon name="send" style="color: var(--hover-color);"></ion-icon> icon. You can also send by pressing the enter key.
+        </div>
+      </div>
+
+
+      <div style="height:50px;"></div>
+      
+    </div>
+  </div>
+
+
+
+
 
 
     </div>
