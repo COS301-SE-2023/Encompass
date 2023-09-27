@@ -1,12 +1,13 @@
 <div class="overlay-container" *ngIf="!mobileview">
-  <h1 class="ChallengeName">{{event?.name}}</h1>
+  <h1 class="ChallengeName">{{ event?.name }}</h1>
   <h3 class="HostDetails">
-    Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text> from
-    <ion-text class="HostCommunity"> {{event?.community}}</ion-text>
+    Hosted by <ion-text class="HostUsername"> {{ event?.host }}</ion-text> from
+    <ion-text class="HostCommunity"> {{ event?.community }}</ion-text>
   </h3>
   <h5 class="ChallengeDetails">
-    <ion-text class="partNum"> {{numberOfParticipants}} </ion-text>Particicpants |
-    <ion-text class="QuesNum">{{numberOfQuestions}} </ion-text> MCQs
+    <ion-text class="partNum"> {{ numberOfParticipants }} </ion-text
+    >Particicpants |
+    <ion-text class="QuesNum">{{ numberOfQuestions }} </ion-text> MCQs
   </h5>
   <div class="border"></div>
   <div
@@ -23,41 +24,92 @@
         >
         <label style="width: 20%; text-align: end">Score: <b>20</b></label>
       </div>
-      <div class="Text">{{question.question}}</div>
-      <div class="Options" *ngIf='userAnswers[i] === null'>
+      <div class="Text">{{ question.question }}</div>
+      <div class="Options" *ngIf="userAnswers[i] === null">
         <div class="Option" (click)="answerQuestion(i, question.options[0])">
           <label class="Letter">A.</label
-          ><label class="questionDesc">{{question.options[0]}}</label>
+          ><label class="questionDesc">{{ question.options[0] }}</label>
         </div>
         <div class="Option" (click)="answerQuestion(i, question.options[1])">
           <label class="Letter">B.</label
-          ><label class="questionDesc">{{question.options[1]}}</label>
+          ><label class="questionDesc">{{ question.options[1] }}</label>
         </div>
         <div class="Option" (click)="answerQuestion(i, question.options[2])">
           <label class="Letter">C.</label
-          ><label class="questionDesc">{{question.options[2]}}</label>
+          ><label class="questionDesc">{{ question.options[2] }}</label>
         </div>
         <div class="Option" (click)="answerQuestion(i, question.options[3])">
           <label class="Letter">D.</label
-          ><label class="questionDesc">{{question.options[3]}}</label>
+          ><label class="questionDesc">{{ question.options[3] }}</label>
         </div>
       </div>
 
       <div class="Options" *ngIf="userAnswers[i] !== null">
-        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
-          <label class="Letter">A.</label><label class="questionDesc">{{ question.options[0] }}</label>
+        <div
+          class="Option"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[0] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 10px 5px green'
+                : userAnswers[i] === question.options[0] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 10px 5px red'
+                : ''
+          }"
+        >
+          <label class="Letter">A.</label
+          ><label class="questionDesc">{{ question.options[0] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
-          <label class="Letter">B.</label><label class="questionDesc">{{ question.options[1] }}</label>
+        <div
+          class="Option"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[1] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 10px 5px green'
+                : userAnswers[i] === question.options[1] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 10px 5px red'
+                : ''
+          }"
+        >
+          <label class="Letter">B.</label
+          ><label class="questionDesc">{{ question.options[1] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
-          <label class="Letter">C.</label><label class="questionDesc">{{ question.options[2] }}</label>
+        <div
+          class="Option"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[2] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 10px 5px green'
+                : userAnswers[i] === question.options[2] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 10px 5px red'
+                : ''
+          }"
+        >
+          <label class="Letter">C.</label
+          ><label class="questionDesc">{{ question.options[2] }}</label>
         </div>
-        <div class="Option" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? '0px 0px 10px 5px green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? '0px 0px 10px 5px red' : ''}">
-          <label class="Letter">D.</label><label class="questionDesc">{{ question.options[3] }}</label>
+        <div
+          class="Option"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[3] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 10px 5px green'
+                : userAnswers[i] === question.options[3] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 10px 5px red'
+                : ''
+          }"
+        >
+          <label class="Letter">D.</label
+          ><label class="questionDesc">{{ question.options[3] }}</label>
         </div>
       </div>
-      
     </ion-card>
   </div>
 
@@ -77,19 +129,20 @@
       </div>
     </div>
   </div>
-  <button class = "finish" (click)="backToEvents()">Return to Events</button>
-
+  <button class="finish" (click)="backToEvents()">Return to Events</button>
 </div>
 
 <div class="overlay-container_mobile" *ngIf="mobileview">
-  <h1 class="ChallengeName">{{event?.name}}</h1>
+  <h1 class="ChallengeName">{{ event?.name }}</h1>
   <h3 class="HostDetails_mobile">
-    Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text> from <br>
-    <ion-text class="HostCommunity"> {{event?.community}}</ion-text>
+    Hosted by <ion-text class="HostUsername"> {{ event?.host }}</ion-text> from
+    <br />
+    <ion-text class="HostCommunity"> {{ event?.community }}</ion-text>
   </h3>
   <h5 class="ChallengeDetails">
-    <ion-text class="partNum"> {{numberOfParticipants}} </ion-text>Particicpants |
-    <ion-text class="QuesNum">{{numberOfQuestions}} </ion-text> MCQs
+    <ion-text class="partNum"> {{ numberOfParticipants }} </ion-text
+    >Particicpants |
+    <ion-text class="QuesNum">{{ numberOfQuestions }} </ion-text> MCQs
   </h5>
   <div class="border"></div>
   <div
@@ -106,43 +159,104 @@
         >
         <label style="width: 25%; text-align: end">Score: <b>20</b></label>
       </div>
-      <div class="Text">{{question.question}}</div>
-      <div class="Options_mobile" *ngIf='userAnswers[i] === null'>
-        <div class="Option_mobile" (click)="answerQuestion(i, question.options[0])">
+      <div class="Text">{{ question.question }}</div>
+      <div class="Options_mobile" *ngIf="userAnswers[i] === null">
+        <div
+          class="Option_mobile"
+          (click)="answerQuestion(i, question.options[0])"
+        >
           <label class="Letter">A.</label
-          ><label class="questionDesc">{{question.options[0]}}</label>
+          ><label class="questionDesc">{{ question.options[0] }}</label>
         </div>
-        <div class="Option_mobile" (click)="answerQuestion(i, question.options[1])">
+        <div
+          class="Option_mobile"
+          (click)="answerQuestion(i, question.options[1])"
+        >
           <label class="Letter">B.</label
-          ><label class="questionDesc">{{question.options[1]}}</label>
+          ><label class="questionDesc">{{ question.options[1] }}</label>
         </div>
-        <div class="Option_mobile" (click)="answerQuestion(i, question.options[2])">
+        <div
+          class="Option_mobile"
+          (click)="answerQuestion(i, question.options[2])"
+        >
           <label class="Letter">C.</label
-          ><label class="questionDesc">{{question.options[2]}}</label>
+          ><label class="questionDesc">{{ question.options[2] }}</label>
         </div>
-        <div class="Option_mobile" (click)="answerQuestion(i, question.options[3])">
+        <div
+          class="Option_mobile"
+          (click)="answerQuestion(i, question.options[3])"
+        >
           <label class="Letter">D.</label
-          ><label class="questionDesc">{{question.options[3]}}</label>
+          ><label class="questionDesc">{{ question.options[3] }}</label>
         </div>
       </div>
 
       <div class="Options_mobile" *ngIf="userAnswers[i] !== null">
-        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[0] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[0] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
+        <div
+          class="Option_mobile"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[0] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 5px 2.5px green'
+                : userAnswers[i] === question.options[0] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 5px 2.5px red'
+                : ''
+          }"
+        >
           <label class="Letter">A.</label>
           <label class="questionDesc">{{ question.options[0] }}</label>
         </div>
-        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[1] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[1] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
+        <div
+          class="Option_mobile"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[1] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 5px 2.5px green'
+                : userAnswers[i] === question.options[1] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 5px 2.5px red'
+                : ''
+          }"
+        >
           <label class="Letter">B.</label>
           <label class="questionDesc">{{ question.options[1] }}</label>
         </div>
-        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[2] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[2] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
-          <label class="Letter">C.</label><label class="questionDesc">{{ question.options[2] }}</label>
+        <div
+          class="Option_mobile"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[2] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 5px 2.5px green'
+                : userAnswers[i] === question.options[2] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 5px 2.5px red'
+                : ''
+          }"
+        >
+          <label class="Letter">C.</label
+          ><label class="questionDesc">{{ question.options[2] }}</label>
         </div>
-        <div class="Option_mobile" [ngStyle]="{'box-shadow': (userAnswers[i] === question.options[3] && userAnswers[i] === question.answer) ? '0px 0px 5px 2.5px green' : (userAnswers[i] === question.options[3] && userAnswers[i] !== question.answer) ? '0px 0px 5px 2.5px red' : ''}">
-          <label class="Letter">D.</label><label class="questionDesc">{{ question.options[3] }}</label>
+        <div
+          class="Option_mobile"
+          [ngStyle]="{
+            'box-shadow':
+              userAnswers[i] === question.options[3] &&
+              userAnswers[i] === question.answer
+                ? '0px 0px 5px 2.5px green'
+                : userAnswers[i] === question.options[3] &&
+                  userAnswers[i] !== question.answer
+                ? '0px 0px 5px 2.5px red'
+                : ''
+          }"
+        >
+          <label class="Letter">D.</label
+          ><label class="questionDesc">{{ question.options[3] }}</label>
         </div>
       </div>
-      
     </ion-card>
   </div>
 
@@ -162,6 +276,5 @@
       </div>
     </div>
   </div>
-  <button class = "finish" (click)="backToEvents()">Finish Quiz</button>
-
+  <button class="finish" (click)="backToEvents()">Finish Quiz</button>
 </div>
