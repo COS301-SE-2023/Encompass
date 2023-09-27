@@ -92,7 +92,7 @@
               <label class="Score">{{profile?.ep}} Encompass Points</label>
             </div>
             <div class="Top5" *ngIf="topFive !== null && topFive !== undefined">
-              <div class="User" (click)="GoToProfile(topFive[0].username)">
+              <div class="User" (click)="GoToProfile(topFive[0].username)" style="background-color: var(--l-first); color: white;">
                 <div>
                   <label class="Number">1</label>
                   <label class="Suffix">st</label>
@@ -105,7 +105,7 @@
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
 
-              <div class="User" (click)="GoToProfile(topFive[1].username)" style="background-color: var(--ion-color-primary-tint)">
+              <div class="User" (click)="GoToProfile(topFive[1].username)" style="background-color: var(--l-second); color: white;">
                 <div>
                   <label class="Number">2</label>
                   <label class="Suffix">nd</label>
@@ -117,7 +117,7 @@
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-               <div class="User2" (click)="GoToProfile(topFive[2].username)" style="background-color: var(--ion-color-secondary-contrast)">
+               <div class="User2" (click)="GoToProfile(topFive[2].username)" style="background-color: var(--l-third); color: black;">
                 <div>
                   <label class="Number">3</label>
                   <label class="Suffix">rd</label>
@@ -131,7 +131,7 @@
               </div>
               <div
                 class="User2"
-                style="background-color: var(--ion-color-background)"
+                style="background-color: var(--l-rest); color: black;"
                 (click)="GoToProfile(topFive[3].username)"
               >
                 <div>
@@ -147,7 +147,7 @@
               </div>
               <div
                 class="User2"
-                style="background-color: var(--ion-color-background)"
+                style="background-color: var(--l-rest); color: black;"
                 (click)="GoToProfile(topFive[4].username)"
               >
                 <div>
@@ -161,7 +161,7 @@
                 </div>
                 <ion-icon class="userIcon" name="chevron-forward"></ion-icon>
               </div>
-              <button class="More" (click)="openPopup()">More</button>
+              <button class="More" (click)="openPopup()">See More</button>
             </div>
           </ion-card>
         </ion-col>
