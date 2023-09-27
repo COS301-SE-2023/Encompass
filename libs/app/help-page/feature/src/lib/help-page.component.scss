@@ -110,3 +110,48 @@
         }
     }
 }
+
+.helpImg {
+    height: 350px;
+    width: 800px;
+}
+
+.helpImg1 {
+    height: 102px;
+    width: 215px;
+}
+
+.helpImg2 {
+    height: 178px;
+    width: 612px;
+}
+
+.sectionText {
+    // height: 350px;
+    width: 800px;
+    font-size: 24px;
+}
+
+.sectionContent {
+    display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    gap: 40px;
+}
+
+.sectionFeed {
+    margin-top: 60%;
+}
+
+.sectionTitle {
+    margin-top: 100px;
+    font-size: 34px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--hover-color);
+}
+
+.link {
+    color: var(--hover-color);
+    font-weight: bold;
+}

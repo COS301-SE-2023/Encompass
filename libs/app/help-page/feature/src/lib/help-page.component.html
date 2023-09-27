@@ -60,7 +60,123 @@
         <ion-button fill="clear" (click)="back()" class="backBtn">
           <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
+
+        <div class="sectionFeed">
+
+          <div class="sectionTitle">The Feed Page</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/2.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              The feed page is the first page you see when you log in. It
+              contains all the posts from the communities you are a part of.
+              <br />
+              <br />
+              You can like a post by clicking the heart icon, and you can
+              comment on a post by clicking the comment icon. You can also share
+              a post by clicking the share icon.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Posts</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/1.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              You can also navigate through each section of posts: new, which is a time filtered selection of posts, popular, which is a popularity filtered selection of posts, and recommended, which is recommended posts generated especially for you through your preferred categories.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Creating Content</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/3.png" class="helpImg1" alt="Page" />
+            <div class="sectionText">
+              This is also where you will find the create buttons. The top one you can navigate to the create page, where you can create a post or event. The bottom one you can use to create a community.
+              <br>
+              To see how to do this, navigate to the <i class="link" (click)="content()">creating content</i> section.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Recommended Content</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/4.png" class="helpImg2" alt="Page" />
+            <div class="sectionText">
+              The feed page is the first page you see when you log in. It
+              contains all the posts from the communities you are a part of.
+              <br />
+              <br />
+              You can like a post by clicking the heart icon, and you can
+              comment on a post by clicking the comment icon. You can also share
+              a post by clicking the share icon.
+            </div>
+          </div>
+
+          <div style="height:50px;"></div>
+          
+        </div>
       </div>
+
+<!-- ==============================content========================== -->
+
+<div class="options" *ngIf="showContent">
+    <ion-button fill="clear" (click)="back()" class="backBtn">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+
+    <div class="sectionFeed">
+
+      <div class="sectionTitle">Creating a Post</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/2.png" class="helpImg" alt="Page" />
+        <div class="sectionText">
+          The feed page is the first page you see when you log in. It
+          contains all the posts from the communities you are a part of.
+          <br />
+          <br />
+          You can like a post by clicking the heart icon, and you can
+          comment on a post by clicking the comment icon. You can also share
+          a post by clicking the share icon.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Posts</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/1.png" class="helpImg" alt="Page" />
+        <div class="sectionText">
+          You can also navigate through each section of posts: new, which is a time filtered selection of posts, popular, which is a popularity filtered selection of posts, and recommended, which is recommended posts generated especially for you through your preferred categories.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Creating Content</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/3.png" class="helpImg1" alt="Page" />
+        <div class="sectionText">
+          This is also where you will find the create buttons. The top one you can navigate to the create page, where you can create a post or event. The bottom one you can use to create a community.
+          <br>
+          To see how to do this, navigate to the <i class="link" (click)="content()">creating content</i> section.
+        </div>
+      </div>
+
+      <div class="sectionTitle">Recommended Content</div>
+      <div class="sectionContent">
+        <img src="assets/HelpPage/4.png" class="helpImg2" alt="Page" />
+        <div class="sectionText">
+          The feed page is the first page you see when you log in. It
+          contains all the posts from the communities you are a part of.
+          <br />
+          <br />
+          You can like a post by clicking the heart icon, and you can
+          comment on a post by clicking the comment icon. You can also share
+          a post by clicking the share icon.
+        </div>
+      </div>
+
+      <div style="height:50px;"></div>
+      
+    </div>
+  </div>
+
+
+
+
     </div>
   </div>
 </div>

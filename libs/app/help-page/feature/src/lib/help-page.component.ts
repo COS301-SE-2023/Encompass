@@ -17,8 +17,8 @@ export class HelpPagePage {
     this.mobileview = window.innerWidth <= 992;
   }
 
-  showFeed = true;
-  showContent = false;
+  showFeed = false;
+  showContent = true;
   showCommunity = false;
   showProfile = false;
   showSettings = false;
