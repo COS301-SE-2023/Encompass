@@ -131,6 +131,9 @@
       "@encompass/app/forgotpassword/feature": [
         "libs/app/forgotpassword/feature/src/index.ts"
       ],
+      "@encompass/app/help-page/feature": [
+        "libs/app/help-page/feature/src/index.ts"
+      ],
       "@encompass/app/home-page/data-access": [
         "libs/app/home-page/data-access/src/index.ts"
       ],

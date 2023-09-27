@@ -161,7 +161,7 @@
                   <ion-item
                     [button]="true"
                     [detail]="false"
-               
+                    (click)="goToHelp()"
                   >
                     <ion-icon
                       name="help-circle-outline"
@@ -347,7 +347,7 @@
           </div>
 
           <div class="MenuButton">
-            <ion-button fill="clear" (click)="goToSettings()">
+            <ion-button fill="clear" (click)="goToHelp()">
               <ion-icon
                 name="help-circle-outline"
                 style="font-size: 28px; position: relative; margin-right: 10px"

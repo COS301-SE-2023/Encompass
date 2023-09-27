@@ -310,6 +310,12 @@ export class HomePage {
     this.menuCtrl.close('first-menu');
   }
 
+  goToHelp() {
+    this.routerClick();
+    this.router.navigate(['/home/help']);
+    this.menuCtrl.close('first-menu');
+  }
+
   goToEvent() {
     this.routerClick();
     this.router.navigate(['/home/event']);
