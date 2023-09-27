@@ -115,6 +115,8 @@ export class ProfilePage {
   }
 
   async ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
     this.presentingElement = document.querySelector('.ion-page');
     this.presentingElement2 = document.querySelector('.ion-page');
 
@@ -168,6 +170,13 @@ export class ProfilePage {
       });
     }
   }
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
 
   postForm = this.formBuilder.group({
     FirstName: ['', Validators.maxLength(20)],
@@ -702,13 +711,6 @@ export class ProfilePage {
       this.router.navigate(['home/profile']);
     }
   }
-
-  mobileview = false;
-
-  updateMobileView() {
-    this.mobileview = window.innerWidth <= 992;
-  }
-
 
   setOpen(isOpen: boolean) {
     this.modalController.dismiss;

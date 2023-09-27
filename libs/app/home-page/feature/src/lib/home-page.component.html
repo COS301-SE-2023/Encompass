@@ -301,8 +301,8 @@
         </ion-button>
 
         <div class="buttons-container">
-          <ion-button class="posts" fill="clear" (click)="openPopup()"
-            >Create a Post</ion-button
+          <ion-button class="posts" fill="clear" (click)="openPopup()" style="color: white;"
+            >Create a Post/Event</ion-button
           >
           <ion-button class="comms" fill="clear" (click)="openPopup2()"
             >Create a Community</ion-button
@@ -327,6 +327,16 @@
                 style="font-size: 28px; position: relative; margin-right: 10px"
               ></ion-icon>
               <span>Settings</span>
+            </ion-button>
+          </div>
+
+          <div class="MenuButton">
+            <ion-button fill="clear" (click)="goToSettings()">
+              <ion-icon
+                name="help-circle-outline"
+                style="font-size: 28px; position: relative; margin-right: 10px"
+              ></ion-icon>
+              <span>Help</span>
             </ion-button>
           </div>
         </div>
@@ -468,7 +478,7 @@
                 />
               </ion-avatar>
               <ion-icon
-                class="delete-icon"
+                class="delete-icon-mobile"
                 name="trash-bin"
                 (click)="clearNotification(notify.notificationId)"
               ></ion-icon>
@@ -489,7 +499,7 @@
     </ion-list>
   </ion-content>
   <div style="margin-bottom: 60px"></div>
-  <div class="deleteAll" (click)="clearAllNotifications()">
+  <div class="deleteAll-mobile" (click)="clearAllNotifications()">
     <ion-icon name="trash-bin-outline"></ion-icon>
     <span>Delete All</span>
   </div>
