@@ -160,14 +160,12 @@ export class EventPage {
   }
   checkInput() {
     if(this.allEvents === null){
-      console.log("here")
       return;
     }
     let filterEvents = [...this.allEvents]
 
-    console.log(filterEvents)
     filterEvents = this.allEvents.filter(event => {
-      event.name.toLowerCase().includes(this.inputValue.toLowerCase())
+      return event.name.toLowerCase().includes(this.inputValue.toLowerCase())
     })
 
     this.events = filterEvents;
