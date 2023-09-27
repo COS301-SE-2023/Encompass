@@ -1187,8 +1187,6 @@ export class FeedPage {
               }
             });
         }
-
-        this.loading = false;
       }
     });
   }
@@ -1264,37 +1262,10 @@ export class FeedPage {
   async updatePosts() {
     this.homePosts$.subscribe((posts) => {
       if (posts) {
-        // console.log("POSTS:")
-        // this.posts = [];
-        let temp = posts;
-        // temp.forEach((post) => {
-        //   if(post.isPrivate){
-        //     if(this.profile?.communities.includes(post.community)){
-        //       this.posts.push(post);
-        //     }
-        //   }
-
-        //   else{
-        //     this.posts.push(post);
-        //   }
-        // })
-
         this.posts = posts;
 
-        //Filter posts to only show posts that are not private and if private user is a part of the community
-
-        temp = temp.filter((post) => {
-          if (post.isPrivate) {
-            return this.profile?.communities.includes(post.community);
-          } else {
-            return true;
-          }
-        });
-
-        // this.posts = temp
-
         this.size = posts.length - 1;
-        // console.log("SIZE: " + this.size)
+        
         for (let i = 0; i < posts.length; i++) {
           this.likedComments.push(false);
           this.sharing.push(false);
@@ -1323,6 +1294,7 @@ export class FeedPage {
             }
           }
         }
+        this.loading = false;
       }
     });
   }
