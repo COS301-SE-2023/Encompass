@@ -43,7 +43,8 @@ export class EventPage {
   isPartOfCommunity: boolean[] = [];
   hasCompleted: boolean[] = [];
   found = false;
-
+  mobileview = false;
+  colSize = 0;
 
   constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store, private router: Router) {
     this.store.dispatch(new SubscribeToProfile());
@@ -114,6 +115,10 @@ export class EventPage {
     
   }
   ngOnInit() {
+
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+
     if(!this.isLeaderboardFetched){
       this.isLeaderboardFetched = true;
 
@@ -128,6 +133,14 @@ export class EventPage {
     }
 
     // this.checkInput();
+  }
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    if (this.mobileview) {
+      this.colSize = 12.5;
+    } else {
+      this.colSize = 5;
+    }
   }
   ngOnDestroy() {
     // Unsubscribe to avoid memory leaks
