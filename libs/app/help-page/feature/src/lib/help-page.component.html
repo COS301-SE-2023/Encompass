@@ -62,7 +62,6 @@
         </ion-button>
 
         <div class="sectionFeed">
-
           <div class="sectionTitle">The Feed Page</div>
           <div class="sectionContent">
             <img src="assets/HelpPage/2.png" class="helpImg" alt="Page" />
@@ -81,7 +80,11 @@
           <div class="sectionContent">
             <img src="assets/HelpPage/1.png" class="helpImg" alt="Page" />
             <div class="sectionText">
-              You can also navigate through each section of posts: new, which is a time filtered selection of posts, popular, which is a popularity filtered selection of posts, and recommended, which is recommended posts generated especially for you through your preferred categories.
+              You can also navigate through each section of posts: new, which is
+              a time filtered selection of posts, popular, which is a popularity
+              filtered selection of posts, and recommended, which is recommended
+              posts generated especially for you through your preferred
+              categories.
             </div>
           </div>
 
@@ -89,9 +92,12 @@
           <div class="sectionContent">
             <img src="assets/HelpPage/3.png" class="helpImg1" alt="Page" />
             <div class="sectionText">
-              This is also where you will find the create buttons. The top one you can navigate to the create page, where you can create a post or event. The bottom one you can use to create a community.
-              <br>
-              To see how to do this, navigate to the <i class="link" (click)="content()">creating content</i> section.
+              This is also where you will find the create buttons. The top one
+              you can navigate to the create page, where you can create a post
+              or event. The bottom one you can use to create a community.
+              <br />
+              To see how to do this, navigate to the
+              <i class="link" (click)="content()">creating content</i> section.
             </div>
           </div>
 
@@ -109,367 +115,567 @@
             </div>
           </div>
 
-          <div style="height:50px;"></div>
-          
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-<!-- ==============================content========================== -->
+      <!-- ==============================content========================== -->
 
-<div class="options" *ngIf="showContent">
-    <ion-button fill="clear" (click)="back()" class="backBtn">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
+      <div class="options" *ngIf="showContent">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
 
-    <div class="sectionCon">
+        <div class="sectionCon">
+          <div class="sectionTitle">Creating a Post</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/c1.png" class="helpImgcon" alt="Page" />
+            <div class="sectionText">
+              In the create a post popup that appears, you can select the
+              community you want to post in, the category of your post, and the
+              type of post you want to create. You can also add a title and
+              description to your post, and add an optional image.
+              <br />
+              <br />
+              You can also tag any content as a Spoiler or Not Safe For Work
+              (NSFW).
+              <br />
+              <br />
+              If the post cannot be created, this means you are missing some
+              information - so check if you've added both a community and at
+              least one category.
+            </div>
+          </div>
 
-      <div class="sectionTitle">Creating a Post</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/c1.png" class="helpImgcon" alt="Page" />
-        <div class="sectionText">
-          In the create a post popup that appears, you can select the community you want to post in, the category of your post, and the type of post you want to create. You can also add a title and description to your post, and add an optional image.
-          <br>
-          <br>
-          You can also tag any content as a Spoiler or Not Safe For Work (NSFW). 
-          <br>
-          <br>
-          If the post cannot be created, this means you are missing some information - so check if you've added both a community and at least one category.
+          <div class="sectionTitle">Creating a Community</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/c2.png" class="helpImgcon" alt="Page" />
+            <div class="sectionText">
+              Creating a community is very much the same as creating a post. You
+              can select the category of your community, and a name, as well as
+              add an image to be used as your community's profile image.
+              <br />
+              <br />
+              You can select the privacy of your community - public, private, or
+              restricted. You can also tag the community as Not Safe For Work
+              (NSFW).
+              <br />
+              <br />
+              If the community cannot be created, this means you are missing
+              some information - so check if you've added both a name and at
+              least one category.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Creating an Event</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/c3.png" class="helpImgcon" alt="Page" />
+            <div class="sectionText">
+              To create an event, simply click the create event button on the
+              feed page. You can then add a title and description to your event,
+              as well as select categories and the community you want to post it
+              in. This community must be one you are a creator of.
+              <br />
+              <br />
+              This challenge you described is what you want your community
+              followers to do in preparation for the quiz, so be specific and
+              clear.
+            </div>
+          </div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/c4.png" class="helpImgcon" alt="Page" />
+            <div class="sectionText">
+              You can then add tasks for your community members to complete.
+              These tasks can be anything from reading an article to watching a
+              video, and you can add as many as you want. You can also add a due
+              date for the event.
+              <br />
+              <br />
+              For the quiz you must enter 3 keywords for the AI to generate a
+              relavant quiz, so be sure to use words that are relavant to the
+              challenge you described. Examples would be: "South America",
+              "Amazon River", "Animals".
+              <br />
+              <br />
+              You can then choose the amount of questions you want your quiz to
+              have. If you cannot create the event, this means you are missing
+              some information - so check if you've added both a title and at
+              least one task.
+            </div>
+          </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div class="sectionTitle">Creating a Community</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/c2.png" class="helpImgcon" alt="Page" />
-        <div class="sectionText">
-          Creating a community is very much the same as creating a post. You can select the category of your community, and a name, as well as add an image to be used as your community's profile image.
-          <br>
-            <br>
-            You can select the privacy of your community - public, private, or restricted. You can also tag the community as Not Safe For Work (NSFW).
-          <br>
-            <br>
-            If the community cannot be created, this means you are missing some information - so check if you've added both a name and at least one category.
+      <!-- ==============================profile========================== -->
+
+      <div class="options" *ngIf="showProfile">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+
+        <div class="sectionProfile">
+          <div class="sectionTitle">Navigating</div>
+          <div class="">
+            <img src="assets/HelpPage/p1.png" class="helpImgP1" alt="Page" />
+            <div class="sectionText1">
+              Here you can navigate through your personal posts, any comments
+              you've main on posts, and events you've joined.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Your Information</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/p2.png" class="helpImgp2" alt="Page" />
+            <div class="sectionText">
+              This is all your personal information. You can see your full name,
+              your username, and your bio. You can also see those who follow you
+              and those you follow. You also have your profile picture and
+              aprofile banner.
+              <br />
+              <br />
+              In the top right corner you can see your Encompass Points, which
+              corrispond to your leaderboard position.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Editing Your Information</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/p3.png" class="helpImgp2" alt="Page" />
+            <div class="sectionText">
+              If you click on the pencil icon, you can edit your information.
+              You can change your name, bio, profile picture, and profile
+              banner. Unfortunately, you cannot change your username.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Your Communities</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/p4.png" class="helpImgp3" alt="Page" />
+            <div class="sectionText">
+              At the bottom of your profile information card, you can see all
+              the communities you are a part of. You can click on any of these
+              to navigate to that community's page.
+            </div>
+          </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div class="sectionTitle">Creating an Event</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/c3.png" class="helpImgcon" alt="Page" />
-        <div class="sectionText">
-          To create an event, simply click the create event button on the feed page. You can then add a title and description to your event, as well as select categories and the community you want to post it in. This community must be one you are a creator of.
-          <br>
-          <br>
-          This challenge you described is what you want your community followers to do in preparation for the quiz, so be specific and clear.
-        </div>
-      </div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/c4.png" class="helpImgcon" alt="Page" />
-        <div class="sectionText">
-          You can then add tasks for your community members to complete. These tasks can be anything from reading an article to watching a video, and you can add as many as you want. You can also add a due date for the event.
-          <br>
-          <br>
-          For the quiz you must enter 3 keywords for the AI to generate a relavant quiz, so be sure to use words that are relavant to the challenge you described. Examples would be: "South America", "Amazon River", "Animals".
-          <br>
-          <br> 
-          You can then choose the amount of questions you want your quiz to have. If you cannot create the event, this means you are missing some information - so check if you've added both a title and at least one task.
-        </div>
-      </div>
+      <!-- ==============================search========================== -->
 
-      <div style="height:50px;"></div>
-      
-    </div>
-  </div>
+      <div class="options" *ngIf="showSearch">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
 
+        <div class="sectionSearch">
+          <div class="sectionTitle">Searching</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/s1.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              On the top of the page is the search bar. Here you can search for
+              any community, user, or post. You can also filter your search by
+              selecting the type of content you want to search for in the
+              navigation bar below the search bar.
+              <br />
+              <br />
+              In this default posts tab you can see all the posts containing the
+              searched keywords. The related communities tab shows all the
+              communities containing the searched keywords. The related users
+              tab shows all the users containing the searched keywords. By
+              clicking "See More" you can see all the results for that tab.
+            </div>
+          </div>
 
+          <div class="sectionTitle">Communities</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/s2.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              Navigating to the communities tab allows you to search through all
+              the communities by searching a keyword or category. You can click
+              on any of these to navigate to that community's page.
+            </div>
+          </div>
 
-  <!-- ==============================profile========================== -->
+          <div class="sectionTitle">People</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/s3.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              Here is where you see all the users that match your searched
+              keywords. You can click on any of these to navigate to that user's
+              profile page.
+            </div>
+          </div>
 
-  <div class="options" *ngIf="showProfile">
-    <ion-button fill="clear" (click)="back()" class="backBtn">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
-
-    <div class="sectionProfile">
-
-      <div class="sectionTitle">Navigating</div>
-      <div class="">
-        <img src="assets/HelpPage/p1.png" class="helpImgP1" alt="Page" />
-        <div class="sectionText1">
-          Here you can navigate through your personal posts, any comments you've main on posts, and events you've joined.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Your Information</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/p2.png" class="helpImgp2" alt="Page" />
-        <div class="sectionText">
-          This is all your personal information. You can see your full name, your username, and your bio. You can also see those who follow you and those you follow. You also have your profile picture and aprofile banner.
-          <br>
-          <br>
-          In the top right corner you can see your Encompass Points, which corrispond to your leaderboard position.
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div class="sectionTitle">Editing Your Information</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/p3.png" class="helpImgp2" alt="Page" />
-        <div class="sectionText">
-          If you click on the pencil icon, you can edit your information. You can change your name, bio, profile picture, and profile banner. Unfortunately, you cannot change your username.
+      <!-- ==============================message========================== -->
+
+      <div class="options" *ngIf="showMessage">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+
+        <div class="sectionMessage">
+          <div class="sectionTitle">Searching</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/m1.png" class="helpImgM" alt="Page" />
+            <div class="sectionText">
+              On the messaging page you will see a list of all your chats to the
+              left. You can click on any of these to navigate to that chat. You
+              can start a new chat by clicking the
+              <ion-icon
+                name="chatbubble-ellipses-outline"
+                style="color: var(--hover-color)"
+              ></ion-icon>
+              icon.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Communities</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/m2.png" class="helpImgMF" alt="Page" />
+            <div class="sectionText">
+              In the chats you can send a new massgae by typing into the bar at
+              the bottom of the page and clicking the
+              <ion-icon
+                name="send"
+                style="color: var(--hover-color)"
+              ></ion-icon>
+              icon. You can also send by pressing the enter key.
+            </div>
+          </div>
+
+          <div class="sectionTitle">People</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/m3.png" class="helpImgM" alt="Page" />
+            <div class="sectionText">
+              By clicking the notifications button on the menu you can see all
+              your notifications. You can remove any of the individual
+              notifications by clicking the
+              <ion-icon
+                name="trash"
+                style="color: var(--hover-color)"
+              ></ion-icon>
+              icon. You can also clear all your notifications by clicking the
+              <i style="color: var(--hover-color)">Delete All</i> button at the
+              bottom.
+            </div>
+          </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div class="sectionTitle">Your Communities</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/p4.png" class="helpImgp3" alt="Page" />
-        <div class="sectionText">
-          At the bottom of your profile information card, you can see all the communities you are a part of. You can click on any of these to navigate to that community's page.
+      <!-- ==============================theme========================== -->
+
+      <div class="options" *ngIf="showTheme">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+
+        <div class="sectionTheme">
+          <div class="sectionTitle">Navigating</div>
+          <div class="sectionContent">
+            <img
+              src="assets/HelpPage/menu.png"
+              class="helpImgMenu"
+              alt="Page"
+            />
+            <div class="sectionText">
+              You can navigate to the themes page by clicking the
+              <i style="color: var(--hover-color)">More Options</i> button on
+              the menu and then clicking the
+              <i style="color: var(--hover-color)">Themes</i> button.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Change Color Theme</div>
+
+          <img src="assets/HelpPage/t1.png" class="helpImgT" alt="Page" />
+          <div class="sectionText1">
+            Here you can select the color you want your app to be. You can
+            choose from the default light theme, the dark theme, or the custom
+            themes.
+          </div>
+
+          <div class="sectionTitle">Change Background</div>
+
+          <img src="assets/HelpPage/t2.png" class="helpImgT" alt="Page" />
+          <div class="sectionText1">
+            You can also select the background you want your app to have. You
+            can choose from the pre-selected backgrounds, or you can upload your
+            own image to use as a background.
+          </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div style="height:50px;"></div>
-      
-    </div>
-  </div>
+      <!-- ==============================settings========================== -->
 
-  <!-- ==============================search========================== -->
+      <div class="options" *ngIf="showSettings">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
 
-  <div class="options" *ngIf="showSearch">
-    <ion-button fill="clear" (click)="back()" class="backBtn">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
+        <div class="sectionMessage">
+          <div class="sectionTitle">Navigating</div>
+          <div class="sectionContent">
+            <img
+              src="assets/HelpPage/menu.png"
+              class="helpImgMenu"
+              alt="Page"
+            />
+            <div class="sectionText">
+              You can navigate to the themes page by clicking the
+              <i style="color: var(--hover-color)">More Options</i> button on
+              the menu and then clicking the
+              <i style="color: var(--hover-color)">Settings</i> button.
+            </div>
+          </div>
 
-    <div class="sectionSearch">
+          <div class="sectionTitle">Searching</div>
 
-      <div class="sectionTitle">Searching</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/s1.png" class="helpImg" alt="Page" />
-        <div class="sectionText">
-          On the top of the page is the search bar. Here you can search for any community, user, or post. You can also filter your search by selecting the type of content you want to search for in the navigation bar below the search bar.
-          <br>
-          <br>
-          In this default posts tab you can see all the posts containing the searched keywords. The related communities tab shows all the communities containing the searched keywords. The related users tab shows all the users containing the searched keywords. By clicking "See More" you can see all the results for that tab.
+          <img src="assets/HelpPage/set1.png" class="helpImgSet" alt="Page" />
+          <div class="sectionText1">
+            Here you can navigate through the differrent subsections of your
+            settings. You can change your account information, your profile
+            settings, and your notification settings. Account settings allows
+            you to change your email, password, and filter settings. Profile
+            settings allows you to change your name, bio, profile picture, and
+            profile banner. Notification settings allows you to change your
+            notification preferences.
+          </div>
+
+          <div class="sectionTitle">Communities</div>
+
+          <img src="assets/HelpPage/set2.png" class="helpImgSet" alt="Page" />
+          <div class="sectionText1">
+            Some settings require you to toggle a switch to enable them. You can
+            do this by clicking the switch. Right switch is active and left
+            switch is inactive.
+          </div>
+
+          <div class="sectionTitle">People</div>
+
+          <img src="assets/HelpPage/set3.png" class="helpImgSet" alt="Page" />
+          <div class="sectionText1">
+            To edit a field in the subsections, click the edit icon by the
+            section header.
+          </div>
+
+          <div class="sectionTitle">People</div>
+
+          <img src="assets/HelpPage/set4.png" class="helpImgSet" alt="Page" />
+          <div class="sectionText1">
+            You can then edit the field and click the
+            <i style="color: var(--hover-color)">Save</i> button to save your
+            changes.
+          </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div class="sectionTitle">Communities</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/s2.png" class="helpImg" alt="Page" />
-        <div class="sectionText">
-          Navigating to the communities tab allows you to search through all the communities by searching a keyword or category. You can click on any of these to navigate to that community's page.
+      <!-- ==============================events========================== -->
+
+      <div class="options" *ngIf="showEvnts">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+
+        <div class="sectionEvents">
+          <div class="sectionTitle">Open Event</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/e2.png" class="helpImg3" alt="Page" />
+            <div class="sectionText">
+              This card represents an open event. You can see the title of the
+              event, the community it is in, and the due date. You can also see
+              the challenge that has been set for this event. The lock
+              <ion-icon
+                name="lock-open"
+                style="color: var(--ion-color-text)"
+              ></ion-icon>
+              in the corner indicates that the quiz is open and has not been
+              completed yet.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Closed Event</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/e1.png" class="helpImg3" alt="Page" />
+            <div class="sectionText">
+              This card represents a closed event. You can see the title of the
+              event, the community it is in, and the due date. You can also see
+              the challenge that has been set for this event. The lock
+              <ion-icon
+                name="lock-closed"
+                style="color: var(--hover-color)"
+              ></ion-icon>
+              in the corner indicates that the quiz is closed and has been
+              completed. You cannot access the quiz when it is closed. Once you
+              open the quiz, backing out submits your answers.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Challenge Page</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/e4.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              This page describes the challenge that has been set for this
+              event. You can see the title of the event, the community it is in,
+              and the due date. You can also see the challenge that has been set
+              for this event. You can also see the tasks that have been set for
+              this event. You can complete these tasks to prepare for the quiz.
+              You can join the community if you are not part of it yet - only
+              members of that community can complete the challenge. At the
+              bottom you can start the quiz.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Answering the Quiz</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/e5.png" class="helpImgMF" alt="Page" />
+            <div class="sectionText">
+              In the quiz page you can see all the questions, and you can select
+              an answer for each question from the multiple choice selection.
+              Once an answer is selected you cannot change the answer, but you
+              will be able to see if your answer was correct or not. You can see
+              in the upper right corner of each question how many point syou get
+              for answering the questions correctly.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Encompass Points</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/e6.png" class="helpImgEP" alt="Page" />
+            <div class="sectionText">
+              At the bottom of the quiz page you can see your total points that
+              you have earned for this quiz. You can then submit the quiz and go
+              back to the events page by clicking the
+              <i style="color: var(--hover-color)">Return to Events</i> button.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Leaderboard</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/e3.png" class="helpImgM" alt="Page" />
+            <div class="sectionText">
+              Back on the events page is the leaderboard to the right. Here you
+              can see the top 5 users who have earned the most points for events
+              and throughout the site. You can also see your own position on the
+              leaderboard. You can click on any of these to navigate to that
+              user's profile page. Clicking the
+              <i style="color: var(--hover-color)">See More</i> button will take
+              you to the full leaderboard page.
+            </div>
+          </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div class="sectionTitle">People</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/s3.png" class="helpImg" alt="Page" />
-        <div class="sectionText">
-          Here is where you see all the users that match your searched keywords. You can click on any of these to navigate to that user's profile page.
+      <!-- ==============================users========================== -->
+
+      <div class="options" *ngIf="showUsers">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+
+        <div class="sectionTheme">
+          <div class="sectionTitle">Page Navigation</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/up3.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              Similar to your profile you can see all this user's posts and comments on posts that thye have made. On the right is all the user's personal profile information.
+            </div>
+          </div>
+
+          <div class="sectionTitle">
+            The User's Information and How to Follow Them
+          </div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/up1.png" class="helpImg5" alt="Page" />
+            <div class="sectionText">
+              This card contains all the user's personal information. You can see their full name, username, and bio. You can also see those who follow them and those they follow. You also can see their profile picture and profile banner.
+              You can follow them by clicking the follow <ion-icon name="person-add" style="color: var(--hover-color)"></ion-icon> button. If you are already following them, you can unfollow them by clicking the unfollow <ion-icon name="person-remove" style="color: var(--hover-color)"></ion-icon> button.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Their Communities</div>
+
+          <div class="sectionContent">
+            <img src="assets/HelpPage/up2.png" class="helpImg3" alt="Page" />
+            <div class="sectionText">
+              Under the information card you can see all the communities this user is a part of. You can click on any of these to navigate to that community's page.
+            </div>
+          </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
 
-      <div style="height:50px;"></div>
-      
-    </div>
-  </div>
+      <!-- ==============================community========================== -->
 
+      <div class="options" *ngIf="showCommunity">
+        <ion-button fill="clear" (click)="back()" class="backBtn">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
 
-  <!-- ==============================message========================== -->
+        <div class="sectionComms">
+          <div class="sectionTitle">Community Page</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/comm1.png" class="helpImg" alt="Page" />
+            <div class="sectionText">
+              This is the community page, where you can see all the posts in the community. You can like a post by clicking the heart icon, and you can comment on a post by clicking the comment icon. You can also share a post by clicking the share icon. You can also see the community's events.
 
-  <div class="options" *ngIf="showMessage">
-    <ion-button fill="clear" (click)="back()" class="backBtn">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
+                <br />
+                <br />
+                In the top bar you can see all the community's information, like the name, creator, and description. You can also see the community's profile picture and profile banner. Here you can also join or leave the community.
+            </div>
+          </div>
 
-    <div class="sectionMessage">
+          <div class="sectionTitle">Closed Event</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/comm2.png" class="helpImgC" alt="Page" />
+            <div class="sectionText">
+              In the side card you can see more deatils about the community, such as the date it was created, how many points are in the community, what rules are in place for the community, and what ranking (how popular) the community is.
+            </div>
+          </div>
 
-      <div class="sectionTitle">Searching</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/m1.png" class="helpImgM" alt="Page" />
-        <div class="sectionText">
-          On the messaging page you will see a list of all your chats to the left. You can click on any of these to navigate to that chat. You can start a new chat by clicking the <ion-icon name="chatbubble-ellipses-outline" style="color: var(--hover-color);"></ion-icon> icon.
+          <div class="sectionTitle">Challenge Page</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/comm3.png" class="helpImgC" alt="Page" />
+            <div class="sectionText">
+              Under that card you can see all the members of the community. You can click on any of these to navigate to that user's profile page. If you are the creator of that community you have the permission to remove any member from that community.
+            </div>
+          </div>
+
+          <div class="sectionTitle">Answering the Quiz</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/comm4.png" class="helpImgC1" alt="Page" />
+            <div class="sectionText">
+              If you are the creator of the community then you will see this edit icon.   
+            </div>
+          </div>
+
+          <div class="sectionTitle">Encompass Points</div>
+          <div class="sectionContent">
+            <img src="assets/HelpPage/comm5.png" class="helpImgC" alt="Page" />
+            <div class="sectionText">
+                You can click this to edit the community's information. You can change the description, rule set, profile picture, and profile banner. 
+            </div>
+        </div>
+
+          <div style="height: 50px"></div>
         </div>
       </div>
-
-      <div class="sectionTitle">Communities</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/m2.png" class="helpImgMF" alt="Page" />
-        <div class="sectionText">
-            In the chats you can send a new massgae by typing into the bar at the bottom of the page and clicking the <ion-icon name="send" style="color: var(--hover-color);"></ion-icon> icon. You can also send by pressing the enter key.
-        </div>
-      </div>
-
-      <div class="sectionTitle">People</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/m3.png" class="helpImgM" alt="Page" />
-        <div class="sectionText">
-          By clicking the notifications button on the menu you can see all your notifications. You can remove any of the individual notifications by clicking the <ion-icon name="trash" style="color: var(--hover-color);"></ion-icon> icon. You can also clear all your notifications by clicking the <i style="color: var(--hover-color);">Delete All</i> button at the bottom.
-        </div>
-      </div>
-
-      <div style="height:50px;"></div>
-      
-    </div>
-  </div>
-
-
-<!-- ==============================theme========================== -->
-
-<div class="options" *ngIf="showTheme">
-    <ion-button fill="clear" (click)="back()" class="backBtn">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
-
-    <div class="sectionTheme">
-
-        <div class="sectionTitle">Navigating</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/menu.png" class="helpImgMenu" alt="Page" />
-        <div class="sectionText">
-          You can navigate to the themes page by clicking the <i style="color: var(--hover-color);">More Options</i> button on the menu and then clicking the <i style="color: var(--hover-color);">Themes</i> button.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Change Color Theme</div>
-
-        <img src="assets/HelpPage/t1.png" class="helpImgT" alt="Page" />
-        <div class="sectionText1">
-          Here you can select the color you want your app to be. You can choose from the default light theme, the dark theme, or the custom themes. 
-        </div>
-
-
-      <div class="sectionTitle">Change Background</div>
-
-        <img src="assets/HelpPage/t2.png" class="helpImgT" alt="Page" />
-        <div class="sectionText1">
-            You can also select the background you want your app to have. You can choose from the pre-selected backgrounds, or you can upload your own image to use as a background.
-        </div>
-
-
-
-      <div style="height:50px;"></div>
-      
-    </div>
-  </div>
-
-<!-- ==============================settings========================== -->
-
-<div class="options" *ngIf="showSettings">
-    <ion-button fill="clear" (click)="back()" class="backBtn">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
-
-    <div class="sectionMessage">
-
-        <div class="sectionTitle">Navigating</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/menu.png" class="helpImgMenu" alt="Page" />
-        <div class="sectionText">
-          You can navigate to the themes page by clicking the <i style="color: var(--hover-color);">More Options</i> button on the menu and then clicking the <i style="color: var(--hover-color);">Settings</i> button.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Searching</div>
-
-        <img src="assets/HelpPage/set1.png" class="helpImgSet" alt="Page" />
-        <div class="sectionText1">
-          Here you can navigate through the differrent subsections of your settings. You can change your account information, your profile settings, and your notification settings. Account settings allows you to change your email, password, and filter settings. Profile settings allows you to change your name, bio, profile picture, and profile banner. Notification settings allows you to change your notification preferences.
-        </div>
-      
-
-      <div class="sectionTitle">Communities</div>
-      
-        <img src="assets/HelpPage/set2.png" class="helpImgSet" alt="Page" />
-        <div class="sectionText1">
-            Some settings require you to toggle a switch to enable them. You can do this by clicking the switch. Right switch is active and left switch is inactive.
-        </div>
-      
-
-      <div class="sectionTitle">People</div>
-     
-        <img src="assets/HelpPage/set3.png" class="helpImgSet" alt="Page" />
-        <div class="sectionText1">
-          To edit a field in the subsections, click the edit icon by the section header. 
-        </div>
-     
-
-      <div class="sectionTitle">People</div>
-      
-        <img src="assets/HelpPage/set4.png" class="helpImgSet" alt="Page" />
-        <div class="sectionText1">
-            You can then edit the field and click the <i style="color: var(--hover-color);">Save</i> button to save your changes. 
-        </div>
-     
-
-      <div style="height:50px;"></div>
-      
-    </div>
-  </div>
-
-
-<!-- ==============================events========================== -->
-
-<div class="options" *ngIf="showEvnts">
-    <ion-button fill="clear" (click)="back()" class="backBtn">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-button>
-
-    <div class="sectionEvents">
-
-      <div class="sectionTitle">Open Event</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/e2.png" class="helpImg3" alt="Page" />
-        <div class="sectionText">
-          This card represents an open event. You can see the title of the event, the community it is in, and the due date. You can also see the challenge that has been set for this event. The lock <ion-icon name="lock-open" style="color: var(--ion-color-text)"></ion-icon> in the corner indicates that the quiz is open and has not been completed yet.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Closed Event</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/e1.png" class="helpImg3" alt="Page" />
-        <div class="sectionText">
-            This card represents a closed event. You can see the title of the event, the community it is in, and the due date. You can also see the challenge that has been set for this event. The lock <ion-icon name="lock-closed" style="color: var(--hover-color)"></ion-icon> in the corner indicates that the quiz is closed and has been completed. You cannot access the quiz when it is closed. Once you open the quiz, backing out submits your answers.
-        </div>
-      </div>
-
-
-      <div class="sectionTitle">Challenge Page</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/e4.png" class="helpImg" alt="Page" />
-        <div class="sectionText">
-          This page describes the challenge that has been set for this event. You can see the title of the event, the community it is in, and the due date. You can also see the challenge that has been set for this event. You can also see the tasks that have been set for this event. You can complete these tasks to prepare for the quiz. You can join the community if you are not part of it yet - only members of that community can complete the challenge. At the bottom you can start the quiz.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Answering the Quiz</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/e5.png" class="helpImgMF" alt="Page" />
-        <div class="sectionText">
-            In the quiz page you can see all the questions, and you can select an answer for each question from the multiple choice selection. Once an answer is selected you cannot change the answer, but you will be able to see if your answer was correct or not. You can see in the upper right corner of each question how many point syou get for answering the questions correctly.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Encompass Points</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/e6.png" class="helpImgEP" alt="Page" />
-        <div class="sectionText">
-          At the bottom of the quiz page you can see your total points that you have earned for this quiz. You can then submit the quiz and go back to the events page by clicking the <i style="color: var(--hover-color);">Return to Events</i> button.
-        </div>
-      </div>
-
-      <div class="sectionTitle">Leaderboard</div>
-      <div class="sectionContent">
-        <img src="assets/HelpPage/e3.png" class="helpImgM" alt="Page" />
-        <div class="sectionText">
-          Back on the events page is the leaderboard to the right. Here you can see the top 5 users who have earned the most points for events and throughout the site. You can also see your own position on the leaderboard. You can click on any of these to navigate to that user's profile page. Clicking the <i style="color: var(--hover-color);">See More</i> button will take you to the full leaderboard page.
-        </div>
-      </div>
-
-      <div style="height:50px;"></div>
-      
-    </div>
-  </div>
-
-
-
     </div>
   </div>
 </div>

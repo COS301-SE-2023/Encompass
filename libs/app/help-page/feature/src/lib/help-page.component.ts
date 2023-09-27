@@ -19,13 +19,13 @@ export class HelpPagePage {
 
   showFeed = false;
   showContent = false;
-  showCommunity = false;
+  showCommunity = true;
   showProfile = false;
   showSettings = false;
   showUsers = false;
   showSearch = false;
   showTheme = false;
-  showEvnts = true;
+  showEvnts = false;
   showMessage = false;
   showMenu = false;
 
