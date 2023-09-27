@@ -43,6 +43,9 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
     isFound = false;
     hasCompleted = false;
     challengeId: string | null;
+    mobileview = false;
+    colSize=0;
+
 
     constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
       const challengeId = this.route.snapshot.paramMap.get('id');
@@ -113,6 +116,19 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
       return daysDifference >= 0 ? daysDifference : 0;
     }
 
+    ngOnInit() {
+
+      this.updateMobileView();
+      window.addEventListener('resize', this.updateMobileView.bind(this));
+    }
+    updateMobileView() {
+      this.mobileview = window.innerWidth <= 992;
+      if (this.mobileview) {
+        this.colSize = 12.5;
+      } else {
+        this.colSize = 5;
+      }
+    }
     goToQuiz(){
       if(this.challengeId == null){
         return
