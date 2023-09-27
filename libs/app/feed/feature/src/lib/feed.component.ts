@@ -125,6 +125,7 @@ export class FeedPage {
   size = 0;
   themeName!: string;
   colSize = 0;
+  loading = true;
 
   isNewFetched = false;
   // type = "recommended";
@@ -155,6 +156,9 @@ export class FeedPage {
   }
 
   ngOnInit() {
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 3500);
     this.updateMobileView();
     window.addEventListener('resize', this.updateMobileView.bind(this));
   }
@@ -1184,6 +1188,8 @@ export class FeedPage {
               }
             });
         }
+
+        this.loading = false;
       }
     });
   }

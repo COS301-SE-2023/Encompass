@@ -42,9 +42,11 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
 
     isFound = false;
     hasCompleted = false;
+    challengeId: string | null;
 
     constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
       const challengeId = this.route.snapshot.paramMap.get('id');
+      this.challengeId = challengeId;
 
       if(challengeId == null) {
         return;
@@ -112,7 +114,11 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
     }
 
     goToQuiz(){
-      this.router.navigate(['home/quiz/' + this.event?._id]);
+      if(this.challengeId == null){
+        return
+      }
+
+      this.router.navigate(['home/quiz/' + this.challengeId]);
     }
 
     async joinChallenge(){
