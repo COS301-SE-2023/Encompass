@@ -319,18 +319,21 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
     }
 
     function getDistance(centroid: number[], profile?: singleProfileType, profileA?: number[]) {
+        //manhattan distance
         let distance = 0;
         if ( profile ) {
             for(let i = 0; i < centroid.length; i++){
-                distance += Math.pow(centroid[i] - profile.profile[i], 2);
+                //distance += Math.pow(centroid[i] - profile.profile[i], 2);
+                distance += Math.abs(centroid[i] - profile.profile[i]);
             }
         } else if ( profileA ) {
             for(let i = 0; i < centroid.length; i++){
-                distance += Math.pow(centroid[i] - profileA[i], 2);
+                //distance += Math.pow(centroid[i] - profileA[i], 2);
+                distance += Math.abs(centroid[i] - profileA[i]);
             }
         }
         
-        return Math.sqrt(distance);
+        return distance;
     }
 
     function allClusterProfilesEmpty(clusters: singleClusterType[]) {
@@ -392,7 +395,8 @@ export class GetRecommendedProfilesHandler implements IQueryHandler<GetRecommend
     }
     
     function calculateDistance(profile1: number[], profile2: number[]): number {
-        return Math.sqrt(profile1.reduce((sum, value, index) => sum + (value - profile2[index]) ** 2, 0));
+        //return Math.sqrt(profile1.reduce((sum, value, index) => sum + (value - profile2[index]) ** 2, 0));
+        return profile1.reduce((sum, value, index) => sum + Math.abs(value - profile2[index]), 0);
     }
 
     function findElbowPoint(distortions: number[]): number {

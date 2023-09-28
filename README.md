@@ -3,6 +3,9 @@
 ![main](https://github.com/COS301-SE-2023/Encompass/actions/workflows/main-merge.yml/badge.svg?branch=main)
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/Encompass)
 
+## Hosted Site
+https://encompass-hosting.onrender.com/
+
 ## Description
 <p>Encompass is an innovative web app that leverages machine learning to deliver personalized recommendations tailored to the user's interests, while also facilitating connections with like-minded individuals and communities. With optional gamification features, Encompass fosters a dynamic and engaging environment where users can share their interests and resources.</p>
 
@@ -10,30 +13,25 @@
 
 Email: perfectstrangers.tuks@gmail.com
 
-## SRS Documents:
+## SRS and Architecture Documents:
 ### Current Version:
-<a align="right" href="https://drive.google.com/file/d/1tHh6vkPIemDcVFkvOskpfZ6ITMbZnV7r/view?usp=sharingg">Encompass SRS Doc Ver 3</a>
-
-### Older Versions:
-<a align="right" href="https://drive.google.com/file/d/10isCadRUUbwuoZUJAXucHE76Przm9RVR/view?usp=sharing">Encompass SRS Doc Ver 2</a>
+<a align="right" href="https://drive.google.com/file/d/1APtsknnYKQY6_gflUPTfb-VH6TGzwRUb/view?usp=sharing">SRS Doc Ver 4</a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/1ponn2JtL0heoi8CkTc_yxpLxEwspzwIj/view?usp=sharing">Encompass SRS Doc Ver 1</a>
-<br>
+<a align="right" href="https://drive.google.com/file/d/1MB0E_ytFBPO3GbVtsoHIJZ_IbBZUlwkd/view?usp=sharing">Architecture Doc Ver 3</a>
 
 ## Other Documents:
-<a align="right" href="https://drive.google.com/file/d/1sNVyIYGJbFSV6YknX2brYlxIlB8bUO_8/view?usp=sharing">Encompass Updated Architecture Documentation</a>
+<a align="right" href="https://drive.google.com/file/d/1lEO2WbftFDjEmisK-n90togR9gdDQiaq/view?usp=sharing">Coding Standards Documentation</a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/1n8mmWgblETDIzKrMevgHYZtUdVQPjRc7/view?usp=sharing">Encompass Architecture Documentation Version 1</a>
+<a align="right" href="https://drive.google.com/file/d/1Ri9Btk35lFIhf1fbpfUhWBNri6ilG5gz/view?usp=sharing">User Manual v2</a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/1dhy1m-4ChnO6DJOg6ZY5fytJL9fR1k8D/view?usp=sharing">Encompass Coding Standards Documentation </a>
+<a align="right" href="https://drive.google.com/file/d/1QjUChWQ_ILp67hKg9pDTrb57aRVUGEZ0/view?usp=sharing">Technical Installation Manual v2</a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/1vpNOToRo9uRYw8TT-m4ZkZgCXK48Cl4u/view?usp=sharing">Encompass User Manual </a>
+<a align="right" href="https://drive.google.com/file/d/1e5-LaaWmwpdfZQwC5N7ZTvbHCSD4mkxS/view?usp=sharing">Testing Policy</a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/1ZeBgGCR2MJxZb0vgyLna02BUsAw6tvUH/view?usp=sharing">Encompass Technical Installation Manual</a>
-<br>
-<a align="right" href="https://github.com/COS301-SE-2023/Encompass/files/12743771/Testing.Policy.docx">Encompass Testing Policy</a>
-<br>
-<a align="right" href="https://gamma.app/docs/AI-for-Encompass-zxpgzgzurp7496b?mode=doc">Encompass AI Documentation </a>
+<a align="right" href="https://gamma.app/docs/AI-for-Encompass-zxpgzgzurp7496b?mode=doc">AI Documentation </a>
+
+### Older Versions:
+<a align="right" href="https://drive.google.com/drive/folders/17j6vDShZBuSCw7k66IhgjHRrSeMNO1AN?usp=sharing">Older versions of documentation</a>
 
 ## Demo Video Links:
 <a align="right" href="https://drive.google.com/file/d/1tQxs1yPxbQBnUl5uCtrbVn_q0S7w_ODg/view?usp=sharing">Encompass Demo 2 Video<a>
