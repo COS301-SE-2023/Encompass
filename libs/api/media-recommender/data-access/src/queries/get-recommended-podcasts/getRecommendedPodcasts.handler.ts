@@ -14,6 +14,8 @@ export class GetRecommendedPodcastsHandler implements IQueryHandler<GetRecommend
 
     async execute({ userId }: GetRecommendedPodcastsQuery) {
         const url = process.env["BASE_URL"];
+        type Category = { category: string[]; score: number};
+        type usedCategory = { category: string; score: number};
 
         try {
             const currentUserProfilePromise = this.httpService.get(url + "/api/profile/get/" + userId).toPromise();
@@ -24,13 +26,16 @@ export class GetRecommendedPodcastsHandler implements IQueryHandler<GetRecommend
 
                 //get 10 and do a KNN on them then return top two
                 //if convertuserCategories returns null set categories to empty array
-                const categories = convertUserCategories(currentUserProfile?.data);
-                allPodcasts = await this.podcastEntityRepository.findSome(categories);
+                const categories: Category[] = convertUserCategories(currentUserProfile?.data);
+                const rankedCategories: string[] = rank(categories);
+                allPodcasts = await this.podcastEntityRepository.findSome(rankedCategories);
             } else {
                 //get all categories from recommended users
-                const recommendedUsersCategories: string[] = recommendedUsers?.data.map((user: any) => convertUserCategories(user));
-                const categories: string[] = [...new Set(recommendedUsersCategories.flat())];
-                allPodcasts = await this.podcastEntityRepository.findSome(categories);
+                const recommendedUsersCategories: Category[] = recommendedUsers?.data.map((user: any) => convertUserCategories(user));
+                const categories: Category[] = [...new Set(recommendedUsersCategories.flat())];
+                
+                const rankedCategories: string[] = rank(categories);
+                allPodcasts = await this.podcastEntityRepository.findSome(rankedCategories);
             }
 
             return allPodcasts;
@@ -39,17 +44,46 @@ export class GetRecommendedPodcastsHandler implements IQueryHandler<GetRecommend
             return [];
         }
 
-        function convertUserCategories( currentUserProfile: any ) {
-            if (currentUserProfile.categories) {
-                const updatedProfile: string[] = [];
-                currentUserProfile.categories.forEach((category: any) => {
-                    if (categoryMappings[category]) {
-                        updatedProfile.push(...categoryMappings[category].podcasts);
+        function rank( categories: Category[] ) {
+            //rank categories by cumulative score,
+            //where cumulative score is sum of all scores where the category appears in the category array
+            const rankedCategories: usedCategory[] = [];
+            categories.forEach((category: Category) => {
+                category.category.forEach((categoryName: string) => {
+                    const index = rankedCategories.findIndex((rankedCategory: usedCategory) => rankedCategory.category === categoryName);
+                    if (index === -1) {
+                        rankedCategories.push({ category: categoryName, score: category.score });
                     } else {
-                        updatedProfile.push(category);
+                        rankedCategories[index].score += category.score;
                     }
                 });
-                currentUserProfile.categories = updatedProfile;
+            });
+            //sort ranked categories by score
+            rankedCategories.sort((a: usedCategory, b: usedCategory) => b.score - a.score);
+            //take top 8 categories
+            rankedCategories.splice(8);
+            
+            //pick random 2 categories from top 8
+            const randomCategories: string[] = [];
+            while (randomCategories.length < 2) {
+                const randomIndex = Math.floor(Math.random() * rankedCategories.length);
+                if (!randomCategories.includes(rankedCategories[randomIndex].category)) {
+                    randomCategories.push(rankedCategories[randomIndex].category);
+                }
+            }
+            return randomCategories;
+        }
+
+        function convertUserCategories( currentUserProfile: any ) {
+            if (currentUserProfile.categories) {
+                const updatedProfile: Category[] = [];
+                currentUserProfile.categories.forEach((category: any) => {
+                    if (categoryMappings[category.category]&&categoryMappings[category.category].podcasts.length > 0) {
+                        //add podcastcategory identified by current user profile as key to categorymappings,
+                        //to updatedProfile with score from currentUserprofile
+                        updatedProfile.push({ category: categoryMappings[category.category].podcasts, score: category.score });
+                    }
+                });
                 return updatedProfile;
             } else {
                 return [];

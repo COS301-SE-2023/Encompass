@@ -68,7 +68,7 @@ export class QuizPage {
   ) {
     const quizId = this.route.snapshot.paramMap.get('id');
 
-    if (quizId == null) {
+    if (quizId === null) {
       return;
     }
 
@@ -119,40 +119,44 @@ export class QuizPage {
                       this.currentEvent = element;
                       element.userAnswers.forEach((answer, index) => {
                         this.userAnswers[index] = answer;
-                        
+
                         if (answer === this.event?.quiz[index].answer) {
                           this.fillCircle();
                         }
                       });
+
+                      if(!element.quizComplete){
+                        const updateEvent: UpdateEventRequest = {
+                          eventId: element.eventId,
+                          userAnswers: element.userAnswers,
+                          numCorrect: element.numCorrect,
+                          quizComplete: true,
+                        };
+      
+                        if (this.profile === null || this.profile === undefined) {
+                          return;
+                        }
+      
+                        this.store.dispatch(
+                          new UpdateUserEvent(this.profile._id, updateEvent)
+                        );
+                      }
                     }
                   });
                 }
               });
           }
 
-          if (this.event === null) {
-            return;
-          }
+          // if (this.event === null) {
+          //   return;
+          // }
 
-          if (!this.event.members.includes(profile.username)) {
-            this.presentToast();
-          }
+          // if (!this.event.members.includes(profile.username)) {
+          //   this.presentToast();
+          // }
         }
       });
     }
-
-    const updateEvent: UpdateEventRequest = {
-      eventId: this.currentEvent.eventId,
-      userAnswers: this.currentEvent.userAnswers,
-      numCorrect: this.currentEvent.numCorrect,
-      quizComplete: true,
-    };
-
-    if (this.profile === null || this.profile === undefined) {
-      return;
-    }
-
-    this.store.dispatch(new UpdateUserEvent(this.profile._id, updateEvent));
   }
 
   ngOnDestroy() {

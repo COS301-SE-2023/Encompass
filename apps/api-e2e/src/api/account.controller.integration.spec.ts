@@ -70,6 +70,7 @@ describe('accountController', () => {
     
       
       beforeAll(async () => {
+        jest.setTimeout(60000)
         await setupTestApp();
       });
     

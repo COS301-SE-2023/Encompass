@@ -324,6 +324,14 @@ export class SettingsPage {
 
       this.store.dispatch(new UpdateProfile(data, this.profile._id));
       toast.dismiss();
+
+      const toast1 = await this.toastController.create({
+        message: 'Profile successfully updated',
+        duration: 2000,
+        color: 'success'
+      })
+  
+      await toast1.present();
     }
   }
 
@@ -430,6 +438,8 @@ export class SettingsPage {
 
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
   }
 
   onSelectChange() {
@@ -538,4 +548,11 @@ export class SettingsPage {
       max: 100,
     },
   ];
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
 }

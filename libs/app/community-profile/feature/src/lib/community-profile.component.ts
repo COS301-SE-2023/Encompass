@@ -16,12 +16,12 @@ import {
 import { CommunityDto } from '@encompass/api/community/data-access';
 import {
   AddCommunityRequest,
-  DislikePostArray,
+  DislikeCommunityPostArray,
   GetCommunity,
   GetCommunityPosts,
   GetCommunityRequest,
   GetRanking,
-  LikePostArray,
+  LikeCommunityPostArray,
   RemoveCommunityRequest,
   UpdatePostArray,
 } from '@encompass/app/community-profile/util';
@@ -162,25 +162,96 @@ export class CommunityProfileComponent {
     this.profile$.subscribe((profile) => {
       if (profile) {
         this.profile = profile;
-      }
-    });
 
-    this.store.dispatch(new GetCommunityPosts(communityName));
-    this.communityPosts$.subscribe((posts) => {
-      if (posts) {
-        this.communityPosts = posts;
-        console.log(posts);
-
-        for (let i = 0; i < posts.length; i++) {
-          this.sharing.push(false);
-
-          if (
-            posts[i].dateAdded != null &&
-            posts[i].comments != null &&
-            posts[i].shares != null
-          ) {
-            this.shares.push(posts[i].shares);
-          }
+        if (!this.isSettingsFetched) {
+          this.store.dispatch(new GetUserSettings(this.profile._id));
+          this.settings$.subscribe((settings) => {
+            if (settings) {
+              this.settings = settings;
+    
+              this.document.body.setAttribute(
+                'color-theme',
+                this.settings.themes.themeColor
+              );
+              if (this.settings.themes.themeColor.startsWith('dark')) {
+                const icons = document.getElementById('genreicons');
+    
+                if (icons) {
+                  icons.style.filter = 'invert(1)';
+                }
+              }
+    
+              this.themeName = this.settings.themes.themeColor;
+    
+              console.log(this.themeName);
+    
+              const defaultcloud = document.getElementById('cloud-default');
+              const redcloud = document.getElementById('cloud-red');
+              const bluecloud = document.getElementById('cloud-blue');
+              const greencloud = document.getElementById('cloud-green');
+              const orangecloud = document.getElementById('cloud-orange');
+    
+              if (
+                defaultcloud &&
+                redcloud &&
+                bluecloud &&
+                greencloud &&
+                orangecloud
+              ) {
+                // console.log('default cloudsssssssssssssssssssssssssssssssss1');
+                console.log(this.themeName);
+                if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
+                  redcloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                } else if (
+                  this.themeName == 'light-blue' ||
+                  this.themeName == 'dark-blue'
+                ) {
+                  // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+                  bluecloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  redcloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                } else if (
+                  this.themeName == 'light-green' ||
+                  this.themeName == 'dark-green'
+                ) {
+                  greencloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  redcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                } else if (
+                  this.themeName == 'light-orange' ||
+                  this.themeName == 'dark-orange'
+                ) {
+                  orangecloud.classList.remove('visible');
+                  defaultcloud.classList.add('visible');
+                  redcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                } else {
+                  defaultcloud.classList.remove('visible');
+                  redcloud.classList.add('visible');
+                  bluecloud.classList.add('visible');
+                  greencloud.classList.add('visible');
+                  orangecloud.classList.add('visible');
+                }
+              }
+    
+              if (page) {
+                console.log('testing the feed page');
+                console.log('hello ' + this.settings.themes.themeImage);
+                page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
+              } else {
+                console.log('page is null');
+              }
+            }
+          });
         }
       }
     });
@@ -197,6 +268,28 @@ export class CommunityProfileComponent {
       }
     });
 
+    this.store.dispatch(new GetCommunityPosts(communityName));
+    this.communityPosts$.subscribe((posts) => {
+      if (posts) {
+        this.communityPosts = posts;
+        console.log(posts);
+
+        // for (let i = 0; i < posts.length; i++) {
+        //   this.sharing.push(false);
+
+        //   if (
+        //     posts[i].dateAdded != null &&
+        //     posts[i].comments != null &&
+        //     posts[i].shares != null
+        //   ) {
+        //     this.shares.push(posts[i].shares);
+        //   }
+        // }
+      }
+    });
+
+    
+
     this.store.dispatch(new GetByCommunity(communityName));
     this.events$.subscribe((events) => {
       if(events){
@@ -204,101 +297,6 @@ export class CommunityProfileComponent {
         this.events = events
       }
     })
-
-    if (this.profile === null) {
-      return;
-    }
-
-    if (!this.isSettingsFetched) {
-      this.store.dispatch(new GetUserSettings(this.profile._id));
-      this.settings$.subscribe((settings) => {
-        if (settings) {
-          this.settings = settings;
-
-          this.document.body.setAttribute(
-            'color-theme',
-            this.settings.themes.themeColor
-          );
-          if (this.settings.themes.themeColor.startsWith('dark')) {
-            const icons = document.getElementById('genreicons');
-
-            if (icons) {
-              icons.style.filter = 'invert(1)';
-            }
-          }
-
-          this.themeName = this.settings.themes.themeColor;
-
-          console.log(this.themeName);
-
-          const defaultcloud = document.getElementById('cloud-default');
-          const redcloud = document.getElementById('cloud-red');
-          const bluecloud = document.getElementById('cloud-blue');
-          const greencloud = document.getElementById('cloud-green');
-          const orangecloud = document.getElementById('cloud-orange');
-
-          if (
-            defaultcloud &&
-            redcloud &&
-            bluecloud &&
-            greencloud &&
-            orangecloud
-          ) {
-            // console.log('default cloudsssssssssssssssssssssssssssssssss1');
-            console.log(this.themeName);
-            if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
-              redcloud.classList.remove('visible');
-              defaultcloud.classList.add('visible');
-              bluecloud.classList.add('visible');
-              greencloud.classList.add('visible');
-              orangecloud.classList.add('visible');
-            } else if (
-              this.themeName == 'light-blue' ||
-              this.themeName == 'dark-blue'
-            ) {
-              // console.log('BLUEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-              bluecloud.classList.remove('visible');
-              defaultcloud.classList.add('visible');
-              redcloud.classList.add('visible');
-              greencloud.classList.add('visible');
-              orangecloud.classList.add('visible');
-            } else if (
-              this.themeName == 'light-green' ||
-              this.themeName == 'dark-green'
-            ) {
-              greencloud.classList.remove('visible');
-              defaultcloud.classList.add('visible');
-              redcloud.classList.add('visible');
-              bluecloud.classList.add('visible');
-              orangecloud.classList.add('visible');
-            } else if (
-              this.themeName == 'light-orange' ||
-              this.themeName == 'dark-orange'
-            ) {
-              orangecloud.classList.remove('visible');
-              defaultcloud.classList.add('visible');
-              redcloud.classList.add('visible');
-              bluecloud.classList.add('visible');
-              greencloud.classList.add('visible');
-            } else {
-              defaultcloud.classList.remove('visible');
-              redcloud.classList.add('visible');
-              bluecloud.classList.add('visible');
-              greencloud.classList.add('visible');
-              orangecloud.classList.add('visible');
-            }
-          }
-
-          if (page) {
-            console.log('testing the feed page');
-            console.log('hello ' + this.settings.themes.themeImage);
-            page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
-          } else {
-            console.log('page is null');
-          }
-        }
-      });
-    }
   }
 
   postForm = this.formBuilder.group({
@@ -474,6 +472,14 @@ export class CommunityProfileComponent {
 
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
     toast.dismiss();
+
+    // const toast1 = await this.toastController.create({
+    //   message: 'Community successfully updated',
+    //   duration: 2000,
+    //   color: 'success'
+    // })
+
+    // await toast1.present();
 
     this.postForm.reset();
   }
@@ -788,7 +794,7 @@ export class CommunityProfileComponent {
       return;
     }
 
-    this.store.dispatch(new LikePostArray(post._id, this.profile._id));
+    this.store.dispatch(new LikeCommunityPostArray(post._id, this.profile._id));
   }
 
   Dislike(n: number, post: PostDto) {
@@ -796,7 +802,7 @@ export class CommunityProfileComponent {
       return;
     }
 
-    this.store.dispatch(new DislikePostArray(post._id, this.profile._id));
+    this.store.dispatch(new DislikeCommunityPostArray(post._id, this.profile._id));
   }
 
   mobileview = false;

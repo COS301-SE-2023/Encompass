@@ -13,7 +13,6 @@ import {
 } from '@angular/forms';
 import {
   CreateEvent,
-  CreatePost,
   UploadFile,
 } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
@@ -26,6 +25,7 @@ import {
   CreatePostState,
 } from '@encompass/app/create-post/data-access';
 import { CreateEventRequest } from '@encompass/api/event/data-access';
+import { CreatePost } from '@encompass/app/posts/util';
 
 @Component({
   selector: 'create-post',
@@ -48,6 +48,7 @@ export class CreatePostComponent {
     'History',
     'Horror',
     'Hospitality',
+    'IT',
     'Life-Science',
     'Mathematics',
     'Musical',
@@ -449,12 +450,12 @@ export class CreatePostComponent {
       this.quizWords.push(this.quiz3?.value);
     }
 
-    const toast = await this.toastController.create({
-      message: 'Creating Event',
-      color: 'success',
-    });
+    // const toast = await this.toastController.create({
+    //   message: 'Creating Event',
+    //   color: 'success',
+    // });
 
-    toast.present();
+    // toast.present();
 
     const data: CreateEventRequest = {
       name: this.eventTitle?.value,
@@ -471,7 +472,7 @@ export class CreatePostComponent {
     };
 
     this.store.dispatch(new CreateEvent(data, this.profile));
-    toast.dismiss();
+    // toast.dismiss();
   }
 
   closePopup() {

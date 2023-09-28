@@ -342,7 +342,7 @@
 
 .specialBtn {
   background-color: var(--ion-color-primary-tint);
-  color: var(--ion-color-text);
+  color: white;
   border-radius: 50px;
   border: 1px solid var(--ion-color-primary-tint);
   font-size: 15px;
@@ -736,5 +736,26 @@ ion-segment-button {
   ion-segment-button {
     font-size: 19px;
     margin: 10px 0px 10px 0px;
+  }
+
+  .loading-spinner {
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-top: 6px solid var(--ion-color-primary);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 0.3s linear infinite;
+    position: absolute;
+     top: 45%;
+     left: 45%;
+    margin-left: -20px;
+    margin-top: -20px;
+   
+    z-index: 5;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 }

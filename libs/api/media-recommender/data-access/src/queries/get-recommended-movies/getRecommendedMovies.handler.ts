@@ -25,7 +25,6 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
                 
                 const categories = convertUserCategories(currentUserProfile?.data);
                 const allMovies = await this.movieDtoRepository.findSome(categories);
-                convertUserCategories( currentUserProfile?.data );
                 addUserToMovie(allMovies, currentUserProfile?.data);
                 //K-means clustering for Movies where K = sqrt(allMovies.length)
                 const clusters = kmeans(allMovies);
@@ -71,10 +70,10 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
         function convertUserCategories( currentUserProfile: any ) {
             const updatedProfile: string[] = [];
             currentUserProfile.categories.forEach((category: any) => {
-                if (categoryMappings[category]) {
-                    updatedProfile.push(...categoryMappings[category].movies);
+                if (categoryMappings[category.category]) {
+                    updatedProfile.push(...categoryMappings[category.category].movies);
                 } else {
-                    updatedProfile.push(category);
+                    updatedProfile.push(category.category);
                 }
             });
             currentUserProfile.categories = updatedProfile;

@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { PostDto } from "@encompass/api/post/data-access"
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { CreatePostApi } from "./create-post.api";
-import { CreateEvent, CreatePost, UploadFile } from "@encompass/app/create-post/util";
+import { CreateEvent, UploadFile } from "@encompass/app/create-post/util";
 import { AddEvent, AddPost } from "@encompass/app/create-community/util";
-import { UpdateProfile } from "@encompass/app/profile/util";
+import { UpdateProfilePost } from "@encompass/app/profile/util";
 import { ToastController } from "@ionic/angular";
 
 export interface PostStateModel {
@@ -30,74 +30,18 @@ export interface PostStateModel {
 export class CreatePostState{
   constructor(private createPostApi: CreatePostApi, private toastController: ToastController){}
 
-  @Action(CreatePost)
-  async createPost(ctx: StateContext<PostStateModel>, {createPostRequest, profile}: CreatePost){
-    const communtiy = await this.createPostApi.getCommunity(createPostRequest.community);
-
-    if(communtiy != undefined){
-      createPostRequest.communityImageUrl = communtiy?.groupImage;
-    }
-    
-    const post = await this.createPostApi.createPost(createPostRequest);
-    
-    console.log(post);
-    
-    if(post == null || post == undefined){
-      return;
-    }
-
-    ctx.patchState({
-      PostForm: {
-        model: {
-          post: post
-        }
-      }
-    })
-
-    ctx.dispatch(new AddPost(post.community, post._id));
-
-    let arr;
-
-    if(profile.posts == null){
-      arr = [post._id];
-    }
-
-    else{
-      arr = [...profile.posts, post._id];
-    }
-
-    const data  = {
-      username: profile.username,
-      name: profile.name,
-      lastName: profile.lastName,
-      categories: profile.categories,
-      communities: profile.communities,
-      awards: profile.awards,
-      events: profile.events,
-      followers: profile.followers,
-      following: profile.following,
-      posts: arr,
-      reviews: profile.reviews,
-      profileImage: profile.profileImage,
-      profileBanner: profile.profileBanner,
-      bio: profile.bio,
-    }
-
-    ctx.dispatch(new UpdateProfile(data, profile._id));
-
-    const toast = await this.toastController.create({
-      message: 'Post Created',
-      duration: 2000,
+  @Action(CreateEvent)
+  async createEvent(ctx: StateContext<PostStateModel>, {createEventRequest, profile}: CreateEvent){
+    const toast1 = await this.toastController.create({
+      message: 'Creating Event',
       color: 'success'
     })
 
-    await toast.present();
-  }
+    toast1.present();
 
-  @Action(CreateEvent)
-  async createEvent(ctx: StateContext<PostStateModel>, {createEventRequest, profile}: CreateEvent){
     const event = await this.createPostApi.createEvent(createEventRequest);
 
+    toast1.dismiss();
     console.log(event);
 
     if(event == null || event == undefined){
@@ -135,7 +79,7 @@ export class CreatePostState{
       bio: profile.bio,
     }
 
-    ctx.dispatch(new UpdateProfile(data, profile._id));
+    ctx.dispatch(new UpdateProfilePost(data, profile._id));
 
     const toast = await this.toastController.create({
       message: 'Event Created',
