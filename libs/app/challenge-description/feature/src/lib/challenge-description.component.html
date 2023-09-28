@@ -1,4 +1,4 @@
-<div class="overlay-container">
+<div class="overlay-container" *ngIf="!mobileview">
   <h1 class="ChallengeName">{{event?.name}}</h1>
   <h3 class="HostDetails">
     Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text> from
@@ -46,10 +46,60 @@
       <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p>
     </button>
 
-    <button class="completeQuiz" *ngIf="hasJoined&&isPartOfCommunity&&!hasExpired&&!hasCompleted" (click)="goToQuiz()">
+    <button class="completeQuiz" *ngIf="hasJoined&&!hasExpired&&!hasCompleted" (click)="goToQuiz()">
       Complete the Quiz!
       <!-- <ion-icon name="lock-closed" class="lock"></ion-icon> -->
       <!-- <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p> -->
     </button>
   </div>
 </div>
+<div class="overlay-container_mobile" *ngIf="mobileview">
+  <h1 class="ChallengeName">{{event?.name}}</h1>
+  <h3 class="HostDetails_mobile">
+    Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text><br> from
+    <ion-text class="HostCommunity"> {{event?.community}}</ion-text>
+  </h3>
+  <h5 class="ChallengeDetails" *ngIf="event !== null && event !== undefined">
+     {{event.members.length}} Particicpants | {{event.quiz.length}} MCQs
+  </h5>
+  <div class="border"></div>
+    <label class="date_mobile">Start: {{event?.startDate | date: 'd MMMM y'}} <br>End: {{event?.endDate | date: 'd MMMM y'}}</label>
+    <div class="border"></div>
+
+    <p class="Intro_mobile">
+      {{event?.description}}
+    </p>
+
+      <b>Challenge Details:</b>
+      ({{event?.quizDescription}})
+    
+      <button class="JoinChallenge1" *ngIf="hasJoined || hasExpired || !isPartOfCommunity" [disabled]="true">Join Challenge</button>
+      <button class="JoinChallenge" *ngIf="!hasJoined && !hasExpired && isPartOfCommunity" (click)="joinChallenge()">Join Challenge</button>
+      <ion-text class="CommunityQues">Not Part of this community?</ion-text>
+      <ion-text
+        >To enter the challenge, join
+        <a class="CommunityLink" href="#" (click)="goToCommunity($event)">{{event?.community}}</a>
+        now!</ion-text
+      >
+      <br>
+      <div class="Prompts_mobile">
+        <div class="PromptHead"><label>Challenge Prompts:</label></div>
+        <br />
+        <div class = "Instruction" *ngFor="let instruction of event?.prompt; let i = index">
+       
+          {{i + 1}}. {{instruction }}
+        
+        </div>
+        <button class="completeQuizLock" *ngIf="!hasJoined||!isPartOfCommunity||hasExpired||hasCompleted">
+          <p>Complete the Quiz!</p>
+          <ion-icon name="lock-closed" class="lock"></ion-icon>
+          <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p>
+        </button>
+    
+        <button class="completeQuiz" *ngIf="hasJoined&&!hasExpired&&!hasCompleted" (click)="goToQuiz()">
+          Complete the Quiz!
+          <!-- <ion-icon name="lock-closed" class="lock"></ion-icon> -->
+          <!-- <p class="countDown" *ngIf="event !== null && event !== undefined">{{daysLeft(event.endDate)}} days remaining</p> -->
+        </button>
+      </div>
+    </div>

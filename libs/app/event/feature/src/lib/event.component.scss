@@ -26,8 +26,9 @@
 .EventList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 20px;
+  // width: 90%;
 }
 .ScoreLayout {
   display: flex;
@@ -72,15 +73,16 @@
 .input {
   font-family: CustomFont;
   width: 100%;
+  color: black;
 }
 .icon1 {
   font-size: 30px;
-  color: var(--ion-color-medium);
+  color: black;
 }
 
 .icon2 {
   font-size: 30px;
-  color: var(--ion-color-medium);
+  color: black;
 }
 
 .icon1:hover {
@@ -92,13 +94,14 @@
   width: 350px;
   height: 150px;
   border-radius: 25px;
-  background-color: var(--ion-color-secondary-tint);
+  background-color: var(--card-color);
   z-index: 1;
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
 
 .Event:hover {
@@ -122,7 +125,7 @@
 .Host {
   font-size: 15px;
   margin-left: 10px;
-  color: var(--ion-color-medium);
+  color: black;
 }
 
 .border {
@@ -134,7 +137,7 @@
 .Body {
   width: 100%;
   height: 40%;
-  color: var(--ion-color-medium);
+  color: black;
   font-family: CustomFont2;
   padding: 2%;
   font-style: italic;
@@ -180,7 +183,7 @@
   height: 600px;
   position: fixed;
   border-radius: 25px;
-  background-color: var(--ion-color-primary-shade);
+  background-color: var(--l-profile);
 }
 
 .Profile {
@@ -190,7 +193,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--ion-color-background);
+  color: rgb(243, 229, 229);
   font-family: CustomFont;
 }
 
@@ -209,10 +212,17 @@
   object-fit: fill;
 }
 
+.CoinImg_mobile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: fill;
+}
+
 .Top5 {
   width: 100%;
   height: 60%;
-  background-color: var(--ion-color-background);
+  background-color: var(--card-color);
   border-radius: 25px;
   display: flex;
   flex-direction: column;
@@ -227,11 +237,11 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 50px;
-  background-color: var(--ion-color-primary-shade);
+  // background-color: var(--ion-color-primary-shade);
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
   cursor: pointer;
-  color: var(--ion-color-background);
+  // color: var(--ion-color-text);
 }
 
 .User2 {
@@ -245,7 +255,7 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
   cursor: pointer;
-  color: var(--ion-color-primary);
+  // color: var(--ion-color-text);
 }
 
 .User:hover {
@@ -257,20 +267,19 @@
 }
 
 .More {
-  background-color: var(--ion-color-primary-shade);
+  background-color: var(--l-profile);
   border-radius: 50px;
   width: 100px;
   padding-bottom: 2%;
   padding-top: 2%;
-  color: var(--ion-color-background);
+  color: var(--ion-color-text);
   transition: background-color 0.3s ease, border-color 0.3s ease,
     color 0.3s ease;
+    color: white;
 }
 
 .More:hover {
-  background-color: var(--ion-color-background);
-  border: 2px solid var(--ion-color-primary-shade);
-  color: var(--ion-color-primary-shade);
+  background-color: var(--hover-color);
 }
 
 .Number {
@@ -295,7 +304,7 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  object-fit: fill;
+  object-fit: cover;
   cursor: pointer;
 }
 
@@ -316,4 +325,51 @@
 .Points {
   font-size: 15px;
   cursor: pointer;
+}
+
+.Heading_mobile{
+  width: 100%;
+  height:30%;
+  background-color: var(--l-profile);
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  color: rgb(243, 229, 229);
+
+}
+.Body_mobile{
+  width: 100%;
+  height: 70%;
+  overflow:scroll;
+}
+
+.overlay-container_mobile{
+  width: 100%;
+  height: 100%;
+  font-family: CustomFont;
+}
+
+.More_mobile{
+  border-radius: 50px;
+  width: 100px;
+  padding-bottom: 2%;
+  padding-top: 2%;
+  color: var(--l-profile);
+  background-color: var(--ion-color-background);
+}
+
+.input-box_mobile {
+  width: 95%;
+  padding: 0px 30px 1px 30px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 3;
+  position: fixed;
+  background-color: var(--ion-color-background);
+  border: 2px solid var(--ion-color-secondary-tint);
 }

@@ -259,8 +259,6 @@
           <ion-button
             fill="clear"
             *ngIf="Added"
-            type="submit"
-            (click)="addTask()"
           >
             <ion-icon name="add-circle" class="icon1"></ion-icon>
           </ion-button>
@@ -268,15 +266,13 @@
             id="sendBtn"
             fill="clear"
             *ngIf="!Added"
-            type="submit"
-            (click)="addTask()"
             class="addBtn"
           >
             <ion-icon name="add-circle" class="icon2"></ion-icon>
           </ion-button>
         </div>
       </div>
-      <div style="display: flex; align-items: center; flex-direction: column">
+      <div style="display: flex; align-items: center; flex-direction: column; color: var(--ion-color-text)">
         <div *ngFor="let prompt of prompts; let k = index" class="Prompt">
           Step {{ k + 1 }}: {{ prompt }}
         </div>

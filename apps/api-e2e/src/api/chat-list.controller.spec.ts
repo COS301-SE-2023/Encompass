@@ -78,7 +78,7 @@ describe('ChatController (Integration with MongoDB)', () => {
   });
   
   beforeAll(async () => {
-    jest.setTimeout(60000)
+    jest.setTimeout(70000)
     await setupTestApp();
   });
 

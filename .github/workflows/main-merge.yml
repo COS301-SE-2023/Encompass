@@ -70,3 +70,9 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         directory: ./coverage
+
+    - name: Deploy
+      env:
+        deploy_url: ${{ secrets.DEPLOYMENT }}
+      run: |
+        curl "$deploy_url"

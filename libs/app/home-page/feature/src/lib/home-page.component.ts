@@ -277,6 +277,7 @@ export class HomePage {
   }
 
   goHome() {
+    this.store.dispatch(new SubscribeToProfile())
     this.routerClick();
     this.router.navigate(['/home/feed']);
     this.menuCtrl.close('first-menu');
@@ -306,6 +307,12 @@ export class HomePage {
   goToThemes() {
     this.routerClick();
     this.router.navigate(['/home/themes']);
+    this.menuCtrl.close('first-menu');
+  }
+
+  goToHelp() {
+    this.routerClick();
+    this.router.navigate(['/home/help']);
     this.menuCtrl.close('first-menu');
   }
 

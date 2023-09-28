@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { LeaderboardComponent } from '@encompass/app/leaderboard/feature';
 import { Select, Store } from '@ngxs/store';
 import { ProfileLeaderboardDto } from '@encompass/api/profile/data-access';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, filter, takeUntil } from 'rxjs';
 import { EventState } from '@encompass/app/event/data-access';
 import { GetEvents, GetLeaderboard, GetUserEvents } from '@encompass/app/event/util';
 import { Router } from '@angular/router';
@@ -30,6 +30,7 @@ export class EventPage {
   
   profile!: ProfileDto | null;
   events!: EventDto[] | null;
+  allEvents!: EventDto[] | null;
   userEvents!: UserEventsDto | null;
   leaderboard!: ProfileLeaderboardDto[] | null;
   topFive!: ProfileLeaderboardDto[] | null;
@@ -42,7 +43,8 @@ export class EventPage {
   isPartOfCommunity: boolean[] = [];
   hasCompleted: boolean[] = [];
   found = false;
-
+  mobileview = false;
+  colSize = 0;
 
   constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store, private router: Router) {
     this.store.dispatch(new SubscribeToProfile());
@@ -65,6 +67,7 @@ export class EventPage {
               this.events$.pipe(takeUntil(this.unsubscribe$)).subscribe((events) => {
                 if(events){
                   console.log(events)
+                  this.allEvents = events;
                   this.events = events;
                   
                   for(let i=0;i<events.length;i++){
@@ -112,6 +115,10 @@ export class EventPage {
     
   }
   ngOnInit() {
+
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+
     if(!this.isLeaderboardFetched){
       this.isLeaderboardFetched = true;
 
@@ -123,6 +130,16 @@ export class EventPage {
           this.topFive = leaderboard.slice(0, 5);
         }
       })
+    }
+
+    // this.checkInput();
+  }
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+    if (this.mobileview) {
+      this.colSize = 12.5;
+    } else {
+      this.colSize = 5;
     }
   }
   ngOnDestroy() {
@@ -149,13 +166,22 @@ export class EventPage {
 
   categories = ['Action', 'Comedy', 'Fantasy'];
   isValid = false;
-  inputValue!: string;
+  inputValue = '';
 
   sendMessage() {
     return;
   }
   checkInput() {
-    return;
+    if(this.allEvents === null){
+      return;
+    }
+    let filterEvents = [...this.allEvents]
+
+    filterEvents = this.allEvents.filter(event => {
+      return event.name.toLowerCase().includes(this.inputValue.toLowerCase())
+    })
+
+    this.events = filterEvents;
   }
 
   async openPopup() {

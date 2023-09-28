@@ -102,7 +102,13 @@ const routes: Routes = [
         loadChildren: () => 
           import('@encompass/app/quiz/feature').then((m) => m.QuizModule), 
         canActivate: [AuthGuard]
-      }
+      },
+      {
+        path: 'help',
+        // pathMatch: 'full',
+        loadChildren: () => import('@encompass/app/help-page/feature').then((m) => m.HelpPageModule), 
+        canActivate: [AuthGuard]
+      },
     ],
   },
 ];

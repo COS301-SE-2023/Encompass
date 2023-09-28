@@ -669,7 +669,7 @@ ion-card {
 
 .specialBtn {
   background-color: var(--ion-color-primary-tint);
-  color: var(--ion-color-text);
+  color: white;
   border-radius: 50px;
   border: 1px solid var(--ion-color-primary-tint);
   font-size: 15px;
@@ -883,7 +883,7 @@ ion-card {
 .chnageBtns {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .DescInput {
@@ -1207,7 +1207,7 @@ ion-button:hover {
 
 .Image {
   --background: lightgrey;
-  width: 16%;
+  width: 24%;
   // color: black;
   // background-color: #DADADA;
   --border-radius: 30px;
@@ -1251,7 +1251,7 @@ ion-button:hover {
 
 .specialBtn {
   background-color: var(--ion-color-primary-tint);
-  color: var(--ion-color-text);
+  color: white;
   border-radius: 50px;
   border: 1px solid var(--ion-color-primary-tint);
   font-size: 15px;
