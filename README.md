@@ -31,6 +31,8 @@ Email: perfectstrangers.tuks@gmail.com
 <br>
 <a align="right" href="https://drive.google.com/file/d/1ZeBgGCR2MJxZb0vgyLna02BUsAw6tvUH/view?usp=sharing">Encompass Technical Installation Manual</a>
 <br>
+<a align="right" href="https://github.com/COS301-SE-2023/Encompass/files/12743739/Testing.Policy.docx">Encompass Testing Policy</a>
+<br>
 <a align="right" href="https://gamma.app/docs/AI-for-Encompass-zxpgzgzurp7496b?mode=doc">Encompass AI Documentation </a>
 
 ## Demo Video Links:
