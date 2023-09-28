@@ -4,7 +4,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2023/Encompass)
 
 ## Hosted Site
-https://encompass-hosting.onrender.com/home/feed
+https://encompass-hosting.onrender.com/
 
 ## Description
 <p>Encompass is an innovative web app that leverages machine learning to deliver personalized recommendations tailored to the user's interests, while also facilitating connections with like-minded individuals and communities. With optional gamification features, Encompass fosters a dynamic and engaging environment where users can share their interests and resources.</p>
