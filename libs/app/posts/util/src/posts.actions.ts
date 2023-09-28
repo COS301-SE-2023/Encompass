@@ -1,4 +1,5 @@
-import { UpdatePostRequest } from "@encompass/api/post/data-access";
+import { CreatePostRequest, UpdatePostRequest } from "@encompass/api/post/data-access";
+import { ProfileDto } from "@encompass/api/profile/data-access";
 
 export class UpdatePost{
   static readonly type = '[Post] Update Post';
@@ -35,15 +36,15 @@ export class UpdateProfilePost{
   constructor(public readonly postId: string, public readonly postUpdateRequest: UpdatePostRequest){}
 }
 
-export class LikeProfilePost{
-  static readonly type = '[Post] Like Profile Post';
-  constructor(public readonly postId: string, public readonly userId: string){}
-}
+// export class LikeProfilePost{
+//   static readonly type = '[Post] Like Profile Post';
+//   constructor(public readonly postId: string, public readonly userId: string){}
+// }
 
-export class DislikeProfilePost{
-  static readonly type = '[Post] Dislike Profile Post';
-  constructor(public readonly postId: string, public readonly userId: string){}
-}
+// export class DislikeProfilePost{
+//   static readonly type = '[Post] Dislike Profile Post';
+//   constructor(public readonly postId: string, public readonly userId: string){}
+// }
 
 export class GetPost{
   static readonly type = '[Comments] Get Post';
@@ -73,4 +74,9 @@ export class GetPopularPosts{
 export class GetAllPosts{
   static readonly type = '[Home] Get All Posts';
   constructor(public readonly username: string){}
+}
+
+export class CreatePost{
+  static readonly type = '[Post] Create Post';
+  constructor(public readonly createPostRequest: CreatePostRequest, public readonly profile: ProfileDto){}
 }

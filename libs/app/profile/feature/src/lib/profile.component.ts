@@ -106,15 +106,15 @@ export class ProfilePage {
     private profileState: ProfileState,
     private toastController: ToastController
   ) {
-    if (this.profile == null || this.profile == undefined) {
-      console.log('Profile');
-      return;
-    }
-    this.isPostsFetched = true;
+    // if (this.profile == null || this.profile == undefined) {
+    //   console.log('Profile');
+    //   return;
     // }
   }
 
   async ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
     this.presentingElement = document.querySelector('.ion-page');
     this.presentingElement2 = document.querySelector('.ion-page');
 
@@ -122,13 +122,50 @@ export class ProfilePage {
 
     if (!this.isProfileFetched) {
       // this.isProfileFetched = true;
-      await this.store.dispatch(new SubscribeToProfile());
+      this.store.dispatch(new SubscribeToProfile());
       this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
         if (profile) {
           console.log('Profile CALLED');
           console.log(profile);
           this.profile = profile;
-          this.getPosts(profile);
+          // this.getPosts(profile);
+          if (!this.isPostsFetched) {
+            // this.isPostsFetched = true;
+            console.log('getPosts', profile);
+            this.store.dispatch(new GetPosts(profile.username, profile._id));
+            this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+              if (posts) {
+                console.log('posts', posts);
+                this.posts = posts;
+                this.size = posts.length - 1;
+                for (let i = 0; i < posts.length; i++) {
+                  this.likedComments.push(false);
+                  this.sharing.push(false);
+                }
+
+                for (let i = 0; i < posts.length; i++) {
+                  this.deletePost.push(false);
+                  this.MarkedForPostDeletion.push(false);
+                  if (
+                    posts[i].dateAdded != null &&
+                    posts[i].comments != null &&
+                    posts[i].shares != null
+                  ) {
+                    this.datesAdded.push(posts[i].dateAdded);
+                    this.comments.push(posts[i].comments);
+                    this.shares.push(posts[i].shares);
+                  }
+
+                  if (posts != null && posts[i].likes != null) {
+                    this.likes.push(posts[i].likes?.length);
+                    if (posts[i].likes?.includes(posts[i].username)) {
+                      this.likedComments[i] = true;
+                    }
+                  }
+                }
+              }
+            });
+          }
           // this.getComments(profile);
           // this.addPosts("recommended");
           // this.newChange();
@@ -169,6 +206,13 @@ export class ProfilePage {
     }
   }
 
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
+
   postForm = this.formBuilder.group({
     FirstName: ['', Validators.maxLength(20)],
     LastName: ['', Validators.maxLength(20)],
@@ -183,7 +227,7 @@ export class ProfilePage {
 
   getPosts(profile: ProfileDto) {
     if (!this.isPostsFetched) {
-      this.isPostsFetched = true;
+      // this.isPostsFetched = true;
       console.log('getPosts', profile);
       this.store.dispatch(new GetPosts(profile.username, profile._id));
       this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
@@ -435,7 +479,7 @@ export class ProfilePage {
 
     this.isEventsFetched = false;
     await this.getEvents(this.profile);
-    
+
     this.seePosts = false;
     this.seeComments = false;
     this.seeEvents = true;
@@ -496,7 +540,7 @@ export class ProfilePage {
     const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
     return daysDifference >= 0 ? daysDifference : 0;
   }
-  
+
   async onSubmit() {
     if (this.profile == null) {
       return;
@@ -703,13 +747,6 @@ export class ProfilePage {
     }
   }
 
-  mobileview = false;
-
-  updateMobileView() {
-    this.mobileview = window.innerWidth <= 992;
-  }
-
-
   setOpen(isOpen: boolean) {
     this.modalController.dismiss;
     this.isModalOpen = isOpen;
@@ -720,5 +757,5 @@ export class ProfilePage {
     this.modalController.dismiss;
     this.isModal2Open = isOpen;
   }
-  
+
 }

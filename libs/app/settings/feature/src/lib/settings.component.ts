@@ -438,6 +438,8 @@ export class SettingsPage {
 
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
   }
 
   onSelectChange() {
@@ -546,4 +548,11 @@ export class SettingsPage {
       max: 100,
     },
   ];
+
+  mobileview = false;
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
+  }
+
 }

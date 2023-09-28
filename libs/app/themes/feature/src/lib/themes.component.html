@@ -326,88 +326,96 @@
         <div class="image-stuff">
           <span class="image-heading">Background Images:</span>
           <div class="images">
-            <img
-              id="img-purple"
-              src="https://wallpapercave.com/dwp2x/wp10352811.jpg"
-              alt="img-purple"
-              class="temp"
-              (click)="
-                changeBorderImage(
-                  'img-purple',
-                  'https://wallpapercave.com/dwp2x/wp10352811.jpg'
-                )
-              "
-            />
-            <img
-              id="img-red"
-              src="https://wallpapercave.com/dwp2x/wp7857731.jpg"
-              alt="img-red"
-              class="temp"
-              (click)="
-                changeBorderImage(
-                  'img-red',
-                  'https://wallpapercave.com/dwp2x/wp7857731.jpg'
-                )
-              "
-            />
-            <img
-              id="img-blue"
-              src="https://wallpapercave.com/dwp2x/wp9339593.jpg"
-              alt="img-blue"
-              class="temp"
-              (click)="
-                changeBorderImage(
-                  'img-blue',
-                  'https://wallpapercave.com/dwp2x/wp9339593.jpg'
-                )
-              "
-            />
-            <img
-              id="img-green"
-              src="https://wallpapercave.com/dwp2x/wp10352814.jpg"
-              alt="img-green"
-              class="temp"
-              (click)="
-                changeBorderImage(
-                  'img-green',
-                  'https://wallpapercave.com/dwp2x/wp10352814.jpg'
-                )
-              "
-            />
-            <img
-              id="img-orange"
-              src="https://wallpapercave.com/dwp2x/wp10352821.jpg"
-              alt="img-orange"
-              class="temp"
-              (click)="
-                changeBorderImage(
-                  'img-orange',
-                  'https://wallpapercave.com/dwp2x/wp10352821.jpg'
-                )
-              "
-            />
-            <div
-              id="img-own"
-              class="temp own"
-              (click)="changeBorderImage('img-own', ''); getImg()"
-            >
-              <label for="backgroundFile" class="file-label">
-                <input
-                  id="backgroundFile"
-                  type="file"
-                  accept="image/*"
-                  (change)="onProfilePictureSelected($event)"
-                  class="file-input"
+            <ion-grid>
+              <ion-row>
+                <img
+                  id="img-purple"
+                  src="https://wallpapercave.com/dwp2x/wp10352811.jpg"
+                  alt="img-purple"
+                  class="temp-mobile"
+                  (click)="
+                    changeBorderImage(
+                      'img-purple',
+                      'https://wallpapercave.com/dwp2x/wp10352811.jpg'
+                    )
+                  "
                 />
-                <div class="fab-container">
-                  <ion-fab class="add-img">
-                    <ion-fab-button>
-                      <ion-icon name="add"></ion-icon>
-                    </ion-fab-button>
-                  </ion-fab>
+                <img
+                  id="img-red"
+                  src="https://wallpapercave.com/dwp2x/wp7857731.jpg"
+                  alt="img-red"
+                  class="temp-mobile"
+                  (click)="
+                    changeBorderImage(
+                      'img-red',
+                      'https://wallpapercave.com/dwp2x/wp7857731.jpg'
+                    )
+                  "
+                />
+              </ion-row>
+              <ion-row>
+                <img
+                  id="img-blue"
+                  src="https://wallpapercave.com/dwp2x/wp9339593.jpg"
+                  alt="img-blue"
+                  class="temp-mobile"
+                  (click)="
+                    changeBorderImage(
+                      'img-blue',
+                      'https://wallpapercave.com/dwp2x/wp9339593.jpg'
+                    )
+                  "
+                />
+                <img
+                  id="img-green"
+                  src="https://wallpapercave.com/dwp2x/wp10352814.jpg"
+                  alt="img-green"
+                  class="temp-mobile"
+                  (click)="
+                    changeBorderImage(
+                      'img-green',
+                      'https://wallpapercave.com/dwp2x/wp10352814.jpg'
+                    )
+                  "
+                />
+              </ion-row>
+              <ion-row>
+                <img
+                  id="img-orange"
+                  src="https://wallpapercave.com/dwp2x/wp10352821.jpg"
+                  alt="img-orange"
+                  class="temp-mobile"
+                  (click)="
+                    changeBorderImage(
+                      'img-orange',
+                      'https://wallpapercave.com/dwp2x/wp10352821.jpg'
+                    )
+                  "
+                />
+                <div
+                  id="img-own"
+                  class="temp-mobile own"
+                  (click)="changeBorderImage('img-own', ''); getImg()"
+                >
+                  <label for="backgroundFile" class="file-label">
+                    <input
+                      id="backgroundFile"
+                      type="file"
+                      accept="image/*"
+                      (change)="onProfilePictureSelected($event)"
+                      class="file-input"
+                    />
+                    <div class="fab-container">
+                      <ion-fab class="add-img">
+                        <ion-fab-button>
+                          <ion-icon name="add"></ion-icon>
+                        </ion-fab-button>
+                      </ion-fab>
+                    </div>
+                  </label>
                 </div>
-              </label>
-            </div>
+              </ion-row>
+            </ion-grid>
           </div>
         </div>
       </ion-row>

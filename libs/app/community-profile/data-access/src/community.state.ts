@@ -1,6 +1,6 @@
 import { CommunityDto } from '@encompass/api/community/data-access';
 import { Selector, State } from '@ngxs/store';
-import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts, GetRanking, LikePostArray, DislikePostArray } from '@encompass/app/community-profile/util';
+import { AddOtherUserCommunity, AddCommunityRequest, GetCommunity, GetCommunityRequest, RemoveOtherUserCommunity, RemoveCommunityRequest, UpdateCommunity, UpdatePostArray, GetCommunityPosts, GetRanking, LikeCommunityPostArray, DislikeCommunityPostArray } from '@encompass/app/community-profile/util';
 import { CommunityApi } from './community.api';
 import { Action } from '@ngxs/store';
 import { StateContext } from '@ngxs/store';
@@ -255,8 +255,8 @@ export class CommunityState{
     })
   }
 
-  @Action(DislikePostArray)
-  async dislikedPostArray(ctx: StateContext<CommunityPostsModel>, { postId, userId }: DislikePostArray){
+  @Action(DislikeCommunityPostArray)
+  async dislikedPostArray(ctx: StateContext<CommunityPostsModel>, { postId, userId }: DislikeCommunityPostArray){
     const response = await this.communityApi.dislikePost(postId, userId);
 
     if (response == null || response == undefined) {
@@ -290,8 +290,8 @@ export class CommunityState{
 
   }
 
-  @Action(LikePostArray)
-  async likedProfilePost(ctx: StateContext<CommunityPostsModel>, { postId, userId }: LikePostArray){
+  @Action(LikeCommunityPostArray)
+  async likedProfilePost(ctx: StateContext<CommunityPostsModel>, { postId, userId }: LikeCommunityPostArray){
     const response = await this.communityApi.likePost(postId, userId);
 
     if (response == null || response == undefined) {

@@ -294,11 +294,11 @@
                   {{ userPosts?.length }} <br />
                   Posts
                 </div>
-                <div id="follow-trigger" class="profile-info" (click)="loadFollowers()">
+                <div id="follow-trigger" class="profile-info" (click)="setOpen(true)">
                   {{ userProfile.followers.length }}<br />
                   Followers
                 </div>
-                <div id="following-trigger" class="profile-info" (click)="loadFollowing()">
+                <div id="following-trigger" class="profile-info" (click)="setOpen2(true)">
                   {{ userProfile.following.length }} <br />
                   Following
                 </div>

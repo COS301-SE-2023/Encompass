@@ -19,6 +19,7 @@ export const categoryMappings: { [key: string]: CategoryMapping } = {
   "History": { movies: ["History"], novels: ["History", "Historical", "Biography", "Memoir", "Biography Memoir", "Autobiography"], podcasts: ["History"] },
   "Horror": { movies: ["Horror"], novels: ["Horror", "Thriller", "Suspense"], podcasts: [] },
   "Hospitality": { movies: [""], novels: ["Food", "Cooking"], podcasts: ["Food"] },
+  "IT":{movies:[""],novels:["Computer Science","Programming"],podcasts:["Tech News","Gadgets","Educational Technology","Software How-To"]},
   "Life-Science": { movies: ["Science Fiction"], novels: ["Biology", "Evolution"], podcasts: ["Science & Medicine", "Natural Sciences","Medicine"] }, // Group similar categories together
   "Mathematics": { movies: ["Science Fiction"], novels: ["Mathematics"], podcasts: ["Educational Technology","Higher Education"] },
   "Musical": { movies: ["Music"], novels: ["Music"], podcasts: ["Music"] },

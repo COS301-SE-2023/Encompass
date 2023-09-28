@@ -136,7 +136,7 @@ ion-button {
     position: absolute;
     top: 0;
     left: 0;
-    padding-left: 5px;
+    // padding-left: 5px;
   }
 
   .square-image {
@@ -398,6 +398,34 @@ ion-router-outlet {
   cursor: pointer;
 }
 
+.delete-icon-mobile {
+  color: var(--ion-color-warning);
+  font-size: 22px;
+  position: relative;
+  top: 0;
+  left: 75%;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.deleteAll-mobile {
+  color: var(--ion-color-danger);
+  font-size: 16px;
+  position: fixed;
+  bottom: 9%;
+  left: 30%;
+  border: 1px solid var(--ion-color-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px 10px 20px;
+  border-radius: 25px;
+  background-color: var(--ion-color-background-menu);
+  span {
+    margin-left: 10px;
+  }
+}
+
 .deleteAll {
   color: var(--ion-color-danger);
   font-size: 16px;
@@ -547,7 +575,7 @@ ion-router-outlet {
   cursor: pointer;
   height: fit-content;
   height: fit-content;
-  margin-left: 19vw;
+  margin-left: 18vw;
 } 
 
 .mobilemenu {
@@ -576,18 +604,17 @@ ion-router-outlet {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 93%;
   z-index: 2;
 
   background-color: var(--ion-color-background);
   // display: none;
-  border-radius: 0px 20px 20px 0px;
+  // border-radius: 0px 20px 20px 0px;
   border: 2px solid var(--border-color);
   transition: all 0.3s;
 
   position: absolute;
   top: 0;
-  height: 100%;
   z-index: 2;
   overflow: auto;
 
