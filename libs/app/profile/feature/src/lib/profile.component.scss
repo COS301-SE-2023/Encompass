@@ -231,7 +231,7 @@ ion-card {
   width: 350px;
   height: 150px;
   border-radius: 25px;
-  background-color: var(--ion-color-secondary-tint);
+  background-color: var(--card-color);
   z-index: 1;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -261,7 +261,7 @@ ion-card {
 .EventBody {
   width: 100%;
   height: 40%;
-  color: var(--ion-color-medium);
+  color: black;
   font-family: CustomFont2;
   padding: 2%;
   font-style: italic;
@@ -270,8 +270,6 @@ ion-card {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: flex;
-  align-items: center;
 }
 .EventFooter {
   width: 100%;
