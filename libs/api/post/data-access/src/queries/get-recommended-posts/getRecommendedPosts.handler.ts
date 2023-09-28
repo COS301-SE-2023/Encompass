@@ -28,9 +28,16 @@ export class GetRecommendedPostsHandler implements IQueryHandler<GetRecommendedP
       const currentUserPromise = this.httpService.get(`${url}/api/profile/get/${id}`).toPromise();
       const [recommendedUsers, currentUser] = await Promise.all([ recommendedUsersPromise, currentUserPromise]);
       const currentUserCommunities = currentUser?.data?.communities;
-      const allPosts = await this.postDtoRepository.getAllowedPosts(currentUserCommunities);
+      const allPostst = await this.postDtoRepository.getAllowedPosts(currentUserCommunities);
+
       const recommendedProfiles = recommendedUsers?.data;
       const currentUserData = currentUser?.data;
+
+      //remove posts disliked by user
+      const allPostsFiltered = removePostsDislikedByUser(currentUserData.username, allPostst);
+
+      //remove posts in user communities
+      const allPosts = removePostsInUserCommunities(currentUserData.communities, allPostsFiltered);
 
       const profileNames = recommendedProfiles.map((profile: { username: string; }) => profile.username);
       
@@ -55,6 +62,23 @@ export class GetRecommendedPostsHandler implements IQueryHandler<GetRecommendedP
     } catch (error) {
       console.log(error);
       return [];
+    }
+
+    function removePostsDislikedByUser(username: string, posts: any[]) {
+      const filteredPosts = posts.filter((post: { dislikes: string[]; }) => {
+        const dislikers = post.dislikes as string[];
+        const isDisliker = dislikers.includes(username);
+        return !isDisliker;
+      })
+      return filteredPosts;
+    }
+  
+    function removePostsInUserCommunities(communities: string[], posts: any[]) {
+      const filteredPosts = posts.filter((post: { community: string; }) => {
+        const isFromSameCommunity = communities.includes(post.community);
+        return !isFromSameCommunity;
+      })
+      return filteredPosts;
     }
   }
 }
