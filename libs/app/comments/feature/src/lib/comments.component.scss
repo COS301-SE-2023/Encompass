@@ -396,3 +396,21 @@ ion-textarea.custom {
 .icon2{
   color:var(--ion-color-primary);
 }
+
+.date_mobile {
+  font-family: CustomFont;
+  font-size: 15px;
+  width: 30%;
+  height: 25%;
+  position: relative;
+  display: flex;
+  margin-left: 3%;
+}
+
+.overlay-container_mobile {
+  overflow: auto;
+  // background-color: var(--ion-color-background);
+  width: 100%;
+  overflow:scroll;
+  object-fit: fill;
+}

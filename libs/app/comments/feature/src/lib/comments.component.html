@@ -1,10 +1,5 @@
 <div class="overlay-container" id="main" *ngIf="!mobileview">
   
-  <!-- <ion-button fill="clear" class="centeredButton" (click)="goHome()">
-    <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-    <div class="text">Home</div>
-  </ion-button> -->
-
   <ion-card class="PostCard" *ngIf="show">
     <div class="PostCardHeader">
       <div class="PostImageContainer">
@@ -76,62 +71,26 @@
           </ion-icon>
           <div>{{ likes }}</div>
         </div>
+        <div style="text-align: center">
+          <div *ngIf="profile !== null">
+            <ion-icon
+              name="heart-dislike"
+              *ngIf="post?.dislikes?.includes(profile.username)"
+              id="icons2"
+              style="color: red"
+            ></ion-icon>
+            <ion-icon
+              name="heart-dislike-outline"
+              id="icons2"
+              *ngIf="!post?.dislikes?.includes(profile.username)"
+            ></ion-icon>
+            <div>{{ post?.dislikes?.length }}</div>
+          </div>
+        </div>
       </div>
     </div>
     <br />
-    <!-- <div class="CommentAddition" *ngIf="!commentBool">
-      <button class="AddCommentBtn" (click)="CancelComment()">
-        Add Comment
-      </button>
-    </div>
-    <form *ngIf="commentBool" [formGroup]="commentForm">
-      <div class="CommentAddition">
-        <button
-          class="AddCommentBtn"
-          type="button"
-          style="background-color: var(--ion-color-secondary-shade)"
-          (click)="CancelComment()"
-        >
-          Cancel
-        </button>
-
-        <button
-          class="AddCommentBtn"
-          *ngIf="!isValid"
-          type="submit"
-          style="
-            background-color: var(--ion-color-primary-tint);
-            color: var(--ion-color-medium);
-          "
-          disabled="true"
-          (click)="AddComment()"
-        >
-          Post Comment
-        </button>
-
-        <button
-          class="AddCommentBtn"
-          *ngIf="isValid"
-          type="submit"
-          style="background-color: var(--ion-color-warning)"
-          (click)="AddComment()"
-        >
-          Post Comment
-        </button>
-      </div>
-      <br />
-      <div class="TextHead">
-        <ion-textarea
-          (input)="checkInput()"
-          placeholder="Add a Comment"
-          formControlName="comment"
-          class="custom"
-          [counter]="true"
-          [maxlength]="250"
-        >
-        </ion-textarea>
-      </div>
-    </form> -->
+   
    
    <form [formGroup]="commentForm" style="display: flex;justify-content: center;">
     <div class="input-box">
@@ -192,8 +151,7 @@
               (click)="viewReplies(i)"
             ></ion-icon>
             {{ replies[i] }}
-            <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
-                    552 -->
+           
           </div>
         </div>
         <div class="CommentBody">{{ comment?.text }}</div>
@@ -228,50 +186,7 @@
                 <ion-icon name="send" class="icon2"></ion-icon>
               </ion-button>
             </div>
-            <!-- <div class="CommentAddition">
-              <button
-                class="AddCommentBtn"
-                type="button"
-                style="background-color: #f03535"
-                (click)="CancelReply(i)"
-              >
-                Cancel
-              </button>
-
-              <button
-                class="AddCommentBtn"
-                *ngIf="!isValid"
-                type="submit"
-                style="background-color: #afabc5; color: black"
-                disabled="true"
-                (click)="PostReply(comment, i)"
-              >
-                Post Reply
-              </button>
-
-              <button
-                class="AddCommentBtn"
-                *ngIf="isValid"
-                type="submit"
-                style="background-color: #8231dd"
-                (click)="PostReply(comment, i)"
-              >
-                Post Reply
-              </button>
-            </div>
-            <br />
-            <div class="TextHead">
-              <ion-textarea
-                [(ngModel)]="inputValue2"
-                (input)="checkInput2()"
-                placeholder="@{{ comment?.username }}"
-                formControlName="replyField"
-                class="custom"
-                [counter]="true"
-                [maxlength]="250"
-              >
-              </ion-textarea>
-            </div> -->
+            
           </form>
         </div>
         <br />
@@ -296,8 +211,6 @@
                   <div class="UserName">@ {{ reply?.username }}</div>
                 </div>
                 <div class="CommentStats">
-                  <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
-                            552 -->
                 </div>
               </div>
               <div class="CommentBody">{{ reply?.text }}</div>
@@ -316,13 +229,8 @@
   
 <!-- ========================================================mobile================================================== -->
   
-<div class="overlay-container" id="main" *ngIf="mobileview">
+<div class="overlay-container_mobile" id="main" *ngIf="mobileview">
   
-  <!-- <ion-button fill="clear" class="centeredButton" (click)="goHome()">
-    <img src="assets/icon/Logo.png" class="logo" alt="Encompass Logo">
-    <div class="text">Home</div>
-  </ion-button> -->
-
     <ion-card class = "PostCard-mobile" *ngIf="show">
       <div class = "PostCardHeader">
         <div class = "PostImageContainer" >
@@ -362,143 +270,191 @@
           </div>
         </div>
         <div class = "PostFooter" *ngIf="post !== null">
-          <div class = "date">{{post?.dateAdded | date: 'yyyy-MM-dd'}}</div>
+          <div class = "date_mobile">{{post?.dateAdded | date: 'yyyy-MM-dd'}}</div>
          
-            <div class = "icons">
-              <div style = "text-align: center;">
-                <ion-icon name="share-social-outline" id = "icons2" *ngIf = "!sharing"></ion-icon>
-                <div *ngIf = "!sharing">{{post?.shares}}</div>
-              </div>
-              <div style = "text-align: center;">
-                <ion-icon name="chatbubble-outline" id = "icons2" ></ion-icon>
-                <div>{{post?.comments}}</div>
-              </div>
-              <div style = "text-align: center;">
-                <ion-icon name="heart" id = "icons2" *ngIf = "likedComments" style = "color:red"></ion-icon>
-                <ion-icon name="heart-outline" id = "icons2" *ngIf = "!likedComments"> </ion-icon>
-                <div>{{likes}}</div>
-              </div>
-          </div>
-        </div>
-        <br>
-        <div class = "CommentAddition" *ngIf = "!commentBool">
-          <button class="AddCommentBtn" (click)="CancelComment()">Add Comment</button>
-        </div>
-        <form *ngIf = "commentBool" [formGroup]="commentForm">
-          <div class = "CommentAddition" >
-
-            <button class="AddCommentBtn" type = "button" 
-            style="background-color: var(--ion-color-secondary-shade);" 
-            (click)="CancelComment()">Cancel</button>
-           
-            <button class="AddCommentBtn" *ngIf = "!isValid" 
-            type = "submit" style = "background-color:var(--ion-color-primary-tint);color:var(--ion-color-medium)" 
-            disabled = true
-            (click)="AddComment()">Post Comment</button>
-
-            <button class="AddCommentBtn" *ngIf = "isValid" 
-            type = "submit" style = "background-color:var(--ion-color-warning)" 
-            (click)="AddComment()">Post Comment</button>
-          
-          </div>
-          <br>
-          <div class = "TextHead">
-              <ion-textarea
-              [(ngModel)]="inputValue" (input)="checkInput()"
-              placeholder="Add a Comment"
-              formControlName="comment"
-              class="custom"
-              [counter]="true"
-              [maxlength]="250">
-              </ion-textarea></div>
-        </form>
-
-        <br>
-        <div class = "lineBreakers" *ngFor="let comment of comments;let i = index" >
-            <div class = Comment>
-                <div class = "CommentHead">
-                  <div class = CommentIDs>
-                      <img src = "{{comment.profileImage}}" onerror="this.src='assets/icon/Profile.png'" style="object-fit: fill;
-                      width: 50px; height: 50px; border-radius: 50%;">
-                      <div class = "UserName">
-                        @{{comment?.username}}
-                      </div>
-                  </div>
-                  <div class = "CommentStats">
-                    <ion-icon name="arrow-undo-outline" class = "reply" (click)="Reply(i)"></ion-icon>
-                    <ion-icon name="chatbubble-outline" class = "comment" (click)="viewReplies(i)"></ion-icon>
-                    {{replies[i]}}
-                    <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
-                    552 -->
-                  </div>
-                </div>
-                <div class = "CommentBody">{{comment?.text}}</div>
-                <div class = "CommentFooter" *ngIf = "reply[i]">
-                  <br>
-                  <form [formGroup]="replyForm">
-                    <div class = "CommentAddition" >
-
-                      <button class="AddCommentBtn" type = "button" 
-                      style="background-color: #F03535;" 
-                      (click)="CancelReply(i)">Cancel</button>
-
-                      <button class="AddCommentBtn" *ngIf = "!isValid" 
-                      type = "submit" style = "background-color:#AFABC5;color:black" 
-                      disabled = true
-                      (click)="PostReply(comment,i)">Post Reply</button>
-
-                      <button class="AddCommentBtn" *ngIf = "isValid"  
-                      type = "submit" style = "background-color:#8231DD" 
-                      (click)="PostReply(comment,i)">Post Reply</button>
-
-                    </div>
-                       <br>
-                        <div class = "TextHead">
-                        <ion-textarea
-                        [(ngModel)]="inputValue2" (input)="checkInput2()"
-                        placeholder="@{{comment?.username}}"
-                        formControlName="replyField"
-                        class="custom"
-                        [counter]="true"
-                        [maxlength]="250">
-                        </ion-textarea></div>
-                  </form>
-                </div>
-                <br>
-                <div class = "CommentReply" *ngIf = "viewreplies[i]">
-                  <div style="width: 100%;display: flex;justify-content: center;"><button>Replies:</button></div>
-                  <div class = "lineBreakers" *ngFor="let reply of comment?.replies" >
-                    <div class = CommentReplies>
-                        <div class = "CommentHead">
-                          <div class = CommentIDs>
-                              <img src = "{{reply.profileImage}}" onerror="this.src='assets/icon/Profile.png'" style="object-fit: fill;
-                              width: 50px; height: 50px; border-radius: 50%;">
-                            <div class = "UserName">
-                                @ {{reply?.username}}
-                            </div>
-                          </div>
-                          <div class = "CommentStats">
-                            <!-- <ion-icon name="heart-outline" class = "heart"></ion-icon>
-                            552 -->
-                          </div>
-                        </div>
-                        <div class = "CommentBody">{{reply?.text}}</div>
-                        <br>
-                    </div>
-        
-                </div>
+          <div class="icons">
+            <div style="text-align: center">
+              <ion-icon
+                name="share-social-outline"
+                id="icons2"
+              ></ion-icon>
+              
+              <div >{{ post.shares }}</div>
+             
             </div>
-
-           
-
+            <div style="text-align: center">
+              <ion-icon
+                name="chatbubble-outline"
+                id="icons2"
+              ></ion-icon>
+              <div>{{ post.comments }}</div>
+            </div>
+            <div style="text-align: center">
+              <div *ngIf="profile !== null">
+                <ion-icon
+                  name="heart"
+                  *ngIf="post.likes.includes(profile.username)"
+                  id="icons2"
+                  style="color: red"
+                ></ion-icon>
+                <ion-icon
+                  name="heart-outline"
+                  id="icons2"
+                  *ngIf="!post.likes.includes(profile.username)"
+                ></ion-icon>
+                <div>{{ post.likes.length }}</div>
+              </div>
+            </div>
+            <div style="text-align: center">
+              <div *ngIf="profile !== null">
+                <ion-icon
+                  name="heart-dislike"
+                  *ngIf="post.dislikes.includes(profile.username)"
+                  id="icons2"
+                  style="color: red"
+                ></ion-icon>
+                <ion-icon
+                  name="heart-dislike-outline"
+                  id="icons2"
+                  *ngIf="!post.dislikes.includes(profile.username)"
+                ></ion-icon>
+                <div>{{ post.dislikes.length }}</div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        
-
+        <br>
        
-        
-    </div>
-
+        <form [formGroup]="commentForm" style="display: flex;justify-content: center;">
+          <div class="input-box">
+            <ion-input
+              (input)="checkInput()"
+              class="input"
+              placeholder="Add a new comment..."
+              (keyup.enter)="AddComment()"
+              formControlName="comment"
+            ></ion-input>
+      
+            <ion-button
+              fill="clear"
+              *ngIf="isValid"
+              type="submit"
+              (click)="AddComment()"
+            >
+              <ion-icon name="send" class="icon1"></ion-icon>
+            </ion-button>
+            <ion-button
+              id="sendBtn"
+              fill="clear"
+              *ngIf="!isValid"
+              disabled="true"
+              type="submit"
+              (click)="AddComment()"
+            >
+              <ion-icon name="send" class="icon2"></ion-icon>
+            </ion-button>
+          </div>
+         </form> 
+        <br>
+       
+        <div class="lineBreakers" *ngFor="let comment of comments; let i = index">
+          <div class="Comment">
+            <div class="CommentHead">
+              <div class="CommentIDs">
+                <img
+                  src="{{ comment.profileImage }}"
+                  onerror="this.src='assets/icon/Profile.png'"
+                  style="
+                    object-fit: fill;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                  "
+                />
+                <div class="UserName">@{{ comment?.username }}</div>
+              </div>
+              <div class="CommentStats">
+                <ion-icon
+                  name="arrow-undo-outline"
+                  class="reply"
+                  (click)="Reply(i)"
+                ></ion-icon>
+                <ion-icon
+                  name="chatbubble-outline"
+                  class="comment"
+                  (click)="viewReplies(i)"
+                ></ion-icon>
+                {{ replies[i] }}
+              </div>
+            </div>
+            <div class="CommentBody">{{ comment?.text }}</div>
+            <div class="CommentFooter" *ngIf="reply[i]">
+              <br />
+              <form [formGroup]="replyForm" style="display: flex;justify-content: center;">
+                <div class="input-box">
+                  <ion-input
+                    class="input"
+                    (input)="checkInput2()"
+                    (keyup.enter)="PostReply(comment, i)"
+                    placeholder="@{{ comment?.username }}"
+                    formControlName="replyField"
+                  ></ion-input>
+            
+                  <ion-button
+                    fill="clear"
+                    *ngIf="isValid"
+                    type="submit"
+                    (click)="AddComment()"
+                  >
+                    <ion-icon name="send" class="icon1"></ion-icon>
+                  </ion-button>
+                  <ion-button
+                    id="sendBtn"
+                    fill="clear"
+                    *ngIf="!isValid"
+                    disabled="true"
+                    type="submit"
+                    (click)="PostReply(comment, i)"
+                  >
+                    <ion-icon name="send" class="icon2"></ion-icon>
+                  </ion-button>
+                </div>
+               
+              </form>
+            </div>
+            <br />
+            <div class="CommentReply" *ngIf="viewreplies[i]">
+              <div style="width: 100%; display: flex; justify-content: center">
+                <button>Replies:</button>
+              </div>
+              <div class="lineBreakers" *ngFor="let reply of comment?.replies">
+                <div class="CommentReplies">
+                  <div class="CommentHead">
+                    <div class="CommentIDs">
+                      <img
+                        src="{{ reply.profileImage }}"
+                        onerror="this.src='assets/icon/Profile.png'"
+                        style="
+                          object-fit: fill;
+                          width: 50px;
+                          height: 50px;
+                          border-radius: 50%;
+                        "
+                      />
+                      <div class="UserName">@ {{ reply?.username }}</div>
+                    </div>
+                    <div class="CommentStats">
+                    
+                    </div>
+                  </div>
+                  <div class="CommentBody">{{ reply?.text }}</div>
+                  <br />
+                </div>
+              </div>
+            </div>
+            <div *ngIf="i!==comments.length-1"class = "border"></div>
+          </div>
+        </div>
 
        </ion-card> 
 
