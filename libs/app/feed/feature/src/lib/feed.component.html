@@ -73,6 +73,7 @@
 
   <div *ngIf="mobileview">
     <!-- recommended communities and content -->
+
     <ion-card class="recomcard card-styles">
       <div class="RecomCommunities" *ngIf="!collapse1" (click)="Collapse1()">
         <div class="RecomHeader">
@@ -587,7 +588,7 @@
                 <div class="Title" (click)="GoToCommunity(post.community)">
                   {{ post.community }}
                 </div>
-                <div class="Name" (click)="GoToProfile(post.username)">
+                <div class="Name" (click)="GoToProfile(post.username)"*ngIf="!reports[i]">
                   @{{ post.username }}
                 </div>
               </div>
@@ -648,7 +649,7 @@
           </div>
         </div>
         <div class="PostFooter">
-          <div class="date">
+          <div class="date_mobile">
             
             {{ post.dateAdded | date: 'yyyy-MM-dd' }}
           </div>

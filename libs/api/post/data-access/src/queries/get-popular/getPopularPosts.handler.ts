@@ -28,11 +28,12 @@ export class GetPopularPostsHandler implements IQueryHandler<GetPopularPostsQuer
             const popularity: number[] = [];
 
             postsNotByUser.forEach(post => {
-                const { shares, comments, likes } = post;
+                const { shares, comments, likes, dislikes } = post;
                 const shareWeight = 1;
                 const commentWeight = 1.2;
                 const likeWeight = 0.8;
-                const popularityUnit = shares * shareWeight + comments * commentWeight + likes.length * likeWeight;
+                const dislikeWeight = 0.6;
+                const popularityUnit = shares * shareWeight + comments * commentWeight + likes.length * likeWeight + dislikes.length * dislikeWeight;
                 popularity.push(popularityUnit);
             });
 

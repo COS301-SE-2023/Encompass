@@ -189,9 +189,11 @@ export class GetRecommendedMoviesHandler implements IQueryHandler<GetRecommended
         }
 
         function getDistance(clusterCentroid: number[], Movie: { Movie: number[], MovieId: string }) {
+            //manhattan distance
             let distance = 0;
             for(let i = 0; i < clusterCentroid.length; i++){
-                distance += Math.pow(clusterCentroid[i] - Movie.Movie[i], 2);
+                //distance += Math.pow(clusterCentroid[i] - Movie.Movie[i], 2);
+                distance += Math.abs(clusterCentroid[i] - Movie.Movie[i]);
             }
             return Math.sqrt(distance);
         }
