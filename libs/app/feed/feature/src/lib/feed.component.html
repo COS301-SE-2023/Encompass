@@ -587,7 +587,7 @@
                 <div class="Title" (click)="GoToCommunity(post.community)">
                   {{ post.community }}
                 </div>
-                <div class="Name" (click)="GoToProfile(post.username)">
+                <div class="Name" (click)="GoToProfile(post.username)"*ngIf="!reports[i]">
                   @{{ post.username }}
                 </div>
               </div>
@@ -648,7 +648,7 @@
           </div>
         </div>
         <div class="PostFooter">
-          <div class="date">
+          <div class="date_mobile">
             
             {{ post.dateAdded | date: 'yyyy-MM-dd' }}
           </div>
