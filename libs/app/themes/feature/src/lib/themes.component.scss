@@ -71,8 +71,9 @@
   width: 45%;
   height: 50px;
   text-align: center;
+  
   padding-top: 13px;
-  font-size: 20px;
+  font-size: medium;
   border-radius: 50px;
 }
 
@@ -101,7 +102,7 @@ ion-toolbar {
   }
 
   ion-label {
-    font-size: 20px; /* Adjust the label font size as needed */
+    font-size: medium; /* Adjust the label font size as needed */
   }
 }
 
@@ -116,6 +117,14 @@ ion-toolbar {
   height: 50px;
   text-align: center;
   padding-top: 13px;
+}
+
+.buttonStyle_mobile {
+  width: 20%;
+  height: 0px;
+  text-align: center;
+  padding-top: 13px;
+  font-size: 10px;
 }
 
 .pickings {
@@ -360,4 +369,8 @@ ion-toolbar {
   width: 200px;
   height: 450px;
   // margin-right: 20px;
+}
+
+.text_mobile{
+  font-size: 10px;
 }
