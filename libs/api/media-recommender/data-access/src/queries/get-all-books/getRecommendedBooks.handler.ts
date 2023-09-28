@@ -215,9 +215,11 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
         }
 
         function getDistance(clusterCentroid: number[], book: { book: number[], bookId: string }) {
+            //manhattan distance
             let distance = 0;
             for(let i = 0; i < clusterCentroid.length; i++){
-                distance += Math.pow(clusterCentroid[i] - book.book[i], 2);
+                //distance += Math.pow(clusterCentroid[i] - book.book[i], 2);
+                distance += Math.abs(clusterCentroid[i] - book.book[i]);
             }
             return Math.sqrt(distance);
         }
