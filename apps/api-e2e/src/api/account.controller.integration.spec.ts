@@ -11,14 +11,12 @@ export interface Account extends Document {
   password: string;
 }
 
-export const AccountSchema = new Schema<Account>(
-  {
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-  }
-);
+export const AccountSchema = new Schema<Account>({
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+});
 
-const dbUrl = process.env['NX_MONGO_DB_TEST']; 
+const dbUrl = process.env['NX_MONGO_DB_TEST'];
 
 const connectToDatabase = async () => {
   try {
@@ -47,91 +45,86 @@ const connectToDatabase = async () => {
 };
 
 describe('accountController', () => {
-    let app: INestApplication; 
-    let dbConnection: Connection;
+  let app: INestApplication;
+  let dbConnection: Connection;
 
-    const setupTestApp = async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-          imports: [
-            AppModule,
-            MongooseModule.forFeature([{ name: 'account', schema: AccountSchema }])
-          ],
-        }).compile();
-    
-        app = moduleFixture.createNestApplication();
-        await app.init();
-    
-        dbConnection = await connectToDatabase();
+  const setupTestApp = async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [
+        AppModule,
+        MongooseModule.forFeature([{ name: 'account', schema: AccountSchema }]),
+      ],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+
+    dbConnection = await connectToDatabase();
+  };
+
+  afterEach(async () => {
+    await dbConnection.collection('account').deleteMany({});
+  });
+
+  beforeAll(async () => {
+    jest.setTimeout(80000);
+    await setupTestApp();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  describe('createAccount', () => {
+    it('should insert account to database and return id length of 24', async () => {
+      const { _id, ...temp } = accountStub();
+
+      const response = await request(app.getHttpServer())
+        .post(`/account`)
+        .send(temp);
+
+      expect(response.status).toBe(201);
+      expect(response.body._id).toHaveLength(24);
+    });
+  });
+
+  describe('getAccount', () => {
+    it('should return the account inserted', async () => {
+      const { _id, ...temp } = accountStub();
+      const accountStubWithStringId = {
+        _id: _id.toString(),
+        ...temp,
       };
-    
-      afterEach(async () => {
-        await dbConnection.collection('account').deleteMany({});
-      });
-    
-      
-      beforeAll(async () => {
-        jest.setTimeout(80000)
-        await setupTestApp();
-      });
-    
-      afterAll(async () => {
-        await app.close();
-      });
 
-    describe('createAccount', () => {
-        it('should insert account to database and return id length of 24', async () => {
-            const { _id, ...temp } = accountStub();
+      await dbConnection.collection('account').insertOne(accountStub());
+      const response = await request(app.getHttpServer())
+        .post(`/account/login`)
+        .send(temp);
 
-            const response = await request(app.getHttpServer())
-                .post(`/account`)
-                .send(temp);
-
-            expect(response.status).toBe(201);
-            expect(response.body._id).toHaveLength(24);
-        });
-        
+      expect(response.status).toBe(201);
+      expect(response.body).toBeDefined();
+      //expect(response.body).toMatchObject(accountStubWithStringId);
     });
+  });
 
-    describe('getAccount', () => {
-        it('should return the account inserted', async () => {
-            const { _id, ...temp } = accountStub();
-            const accountStubWithStringId = {
-                _id: _id.toString(),
-                ...temp
-            };
+  describe('getAccountById', () => {
+    it('should return true when given the email of the inserted account', async () => {
+      const { _id, ...temp } = accountStub();
+      await dbConnection.collection('account').insertOne(accountStub());
+      const response = await request(app.getHttpServer()).get(
+        `/account/${temp.email}`
+      );
 
-            await dbConnection.collection('account').insertOne(accountStub());
-            const response = await request(app.getHttpServer())
-                .post(`/account/login`)
-                .send(temp);
-
-            expect(response.status).toBe(201);
-            expect(response.body).toBeDefined();
-            //expect(response.body).toMatchObject(accountStubWithStringId);
-        });
-        
+      expect(response.status).toBe(200);
+      expect(response.text).toBe('true');
     });
+  });
 
-    describe('getAccountById', () => {
-        it('should return true when given the email of the inserted account', async () => {
-            const { _id, ...temp } = accountStub();
-            await dbConnection.collection('account').insertOne(accountStub());
-            const response = await request(app.getHttpServer()).get(`/account/${temp.email}`);
+  afterEach(async () => {
+    await dbConnection.collection('account').deleteMany({});
+  });
 
-            expect(response.status).toBe(200);
-            expect(response.text).toBe('true');
-        });
-        
-    });
-
-    afterEach(async () => {
-        await dbConnection.collection('account').deleteMany({});
-    })
-
-    afterAll(async () => {
-        await dbConnection.close();
-    });
+  afterAll(async () => {
+    await dbConnection.close();
+  });
 });
-
-
-
