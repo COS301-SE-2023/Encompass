@@ -24,7 +24,7 @@ Contact: perfectstrangers.tuks@gmail.com
 <a align="right" href="https://linktr.ee/perfectstrangerstuks">Other Documentation</a>
 
 ## Demo Links:
-<a align="right" href="">Demo Video</a>
+<a align="right" href="https://drive.google.com/file/d/1BG2sd_KgtFObQwJmyqgyXUrNcsnjc8SY/view?usp=sharing">Project Day Demo Video</a>
 <br>
 <a align="right" href="">Advertisement</a>
 <br>
