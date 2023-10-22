@@ -110,17 +110,10 @@ Email: perfectstrangers.tuks@gmail.com
   <div>
     <h3>Ronin Brookes</h3>
     <ul>
-      <li>Designer</li>
-      <li>UI Engineer</li>
-      <li>Integration Engineer</li>
-      <li>Services Engineer</li>
-    </ul>
-    <details>
-    <summary>See More...</summary>
+      <li>Frontend Engineer</li>
     <p>
-      I am responsible for backend services, integration, and UI design. With experience in Angular and Ionic, I can guarantee a fully responsive interface that fits the project requirements. I also have advanced knowledge in the field of human-computer interaction, which will allow me to develop an effective, efficient, and enjoyable user experience. I am proficient in mathematics and software modeling and have strong problem-solving skills, giving me an edge when it comes to visualizing and implementing a software solution. I am also experienced with NestJS and other web development frameworks and software tools, giving me the upper hand when it comes to backend development and integration.
+     
     </p>
-    </details>
     <div>
       <a href="https://github.com/RoninBrookesTuks" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
