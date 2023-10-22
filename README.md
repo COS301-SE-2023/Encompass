@@ -114,6 +114,7 @@ Contact: perfectstrangers.tuks@gmail.com
     <ul>
       <li>Frontend Engineer</li>
       <li>Designer</li>
+      <li>Integration & Backend Engineer</li>
      </ul>
     <details>
     <summary>See More...</summary>
