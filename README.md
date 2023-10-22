@@ -115,6 +115,8 @@ Contact: perfectstrangers.tuks@gmail.com
       <li>Frontend Engineer</li>
       <li>Designer</li>
       <li>Integration & Backend Engineer</li>
+      <li>Data Engineering Assist</li>
+      <li>Unit testing</li>
      </ul>
     <details>
     <summary>See More...</summary>
