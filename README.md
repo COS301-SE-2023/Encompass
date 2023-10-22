@@ -111,8 +111,9 @@ Email: perfectstrangers.tuks@gmail.com
     <h3>Ronin Brookes</h3>
     <ul>
       <li>Frontend Engineer</li>
+      <br>
     <p>
-     
+     I'm a passion-focused software engineer with advanced knowledge in the field of human-computer interaction, software modelling and problem solving using software solutions. I have hobbies in gaming and game design, enjoy the odd coding all-nighter, and I am a loyal lover of great coffee. I believe passion, ambition, hard work, and dedication persists over any amount of given talent.
     </p>
     <div>
       <a href="https://github.com/RoninBrookesTuks" target="_blank">
@@ -121,7 +122,11 @@ Email: perfectstrangers.tuks@gmail.com
       <a href="https://www.linkedin.com/in/ronin-brookes/" target="_blank">
         <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn">
       </a>
+      <a href = "">
+        <img src = "https://cdn-icons-png.flaticon.com/512/1604/1604478.png" width = "50">
+      </a>
     </div>
+       Email: roninbrookes@gmail.com
   </div>
 </div>
 
