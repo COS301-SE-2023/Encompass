@@ -34,9 +34,7 @@ Email: perfectstrangers.tuks@gmail.com
 <a align="right" href="https://drive.google.com/drive/folders/17j6vDShZBuSCw7k66IhgjHRrSeMNO1AN?usp=sharing">Older versions of documentation</a>
 
 ## Demo Video Links:
-<a align="right" href="https://drive.google.com/file/d/1tQxs1yPxbQBnUl5uCtrbVn_q0S7w_ODg/view?usp=sharing">Encompass Demo 2 Video<a>
-<br>
-<a align="right" href="https://drive.google.com/file/d/1AIWL4a7hAJPSfrxHBm-lo8dylBDR2QPa/view?usp=sharing">Encompass Demo 1 Video</a>
+<a align="right" href="https://docs.google.com/document/d/16TBpEasJzGtnugd-AZj1VSUVDxoJhqZkh-rlzZiJRco/edit">Demo Video Links<a>
 
 ## Project Board:
 <a href="https://github.com/orgs/COS301-SE-2023/projects/25" target="_blank">
