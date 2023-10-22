@@ -98,7 +98,7 @@ Email: perfectstrangers.tuks@gmail.com
       <a href="https://github.com/Morgan-Bentley" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
       </a>
-      <a href="https://www.linkedin.com/mwlite/in/morgan-bentley-0bb21a149/" target="_blank">
+      <a href="https://www.linkedin.com/in/morgan-bentley-0bb21a149/" target="_blank">
         <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn">
       </a>
     </div>
