@@ -113,7 +113,7 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Frontend Engineer</li>
       <br>
     <p>
-     I'm a passion-focused software engineer with advanced knowledge in the field of human-computer interaction, software modelling and problem solving using software solutions. I have hobbies in gaming and game design, enjoy the odd coding all-nighter, and I am a loyal lover of great coffee. I believe passion, ambition, hard work, and dedication persists over any amount of given talent.
+     I'm a passion-focused software engineer with advanced knowledge in the field of human-computer interaction, software modelling and problem solving using software solutions. I have hobbies in gaming and game design, and am a loyal consumer of great coffee. I believe passion, ambition, hard work, and dedication persists over any amount of given talent.
     </p>
     <div>
       <a href="https://github.com/RoninBrookesTuks" target="_blank">
