@@ -106,21 +106,15 @@ Email: perfectstrangers.tuks@gmail.com
 
 <br><br>
 <div style="display: flex; align-items: center;">
-  <img src="https://github.com/COS301-SE-2023/Encompass/assets/89075980/9cf0de27-e5cd-4828-b9e8-39df0b4a41c3" width="150" style="margin-right: 20px;">
+  <img src="https://github.com/COS301-SE-2023/Encompass/assets/89075980/9cf0de27-e5cd-4828-b9e8-39df0b4a41c3" width="150">
+  <h3>Ronin Brookes</h3>
+  Frontend Engineer
   <div>
-    <h3>Ronin Brookes</h3>
-    <ul>
-      <li>Designer</li>
-      <li>UI Engineer</li>
-      <li>Integration Engineer</li>
-      <li>Services Engineer</li>
-    </ul>
-    <details>
-    <summary>See More...</summary>
+     <br>
     <p>
-      I am responsible for backend services, integration, and UI design. With experience in Angular and Ionic, I can guarantee a fully responsive interface that fits the project requirements. I also have advanced knowledge in the field of human-computer interaction, which will allow me to develop an effective, efficient, and enjoyable user experience. I am proficient in mathematics and software modeling and have strong problem-solving skills, giving me an edge when it comes to visualizing and implementing a software solution. I am also experienced with NestJS and other web development frameworks and software tools, giving me the upper hand when it comes to backend development and integration.
+      I'm a passion-focused software engineer with advanced knowledge in the field of human-computer interaction, software modelling and problem solving using software solutions. I enjoy game design, the odd coding all-nighter, and great coffee. I believe ambition, passion, hard work, and dedication persist over any amount of given talent.
     </p>
-    </details>
+    <br>
     <div>
       <a href="https://github.com/RoninBrookesTuks" target="_blank">
         <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
@@ -128,7 +122,11 @@ Email: perfectstrangers.tuks@gmail.com
       <a href="https://www.linkedin.com/in/ronin-brookes/" target="_blank">
         <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn">
       </a>
+      <a href="">
+        <img src = "https://cdn-icons-png.flaticon.com/512/1604/1604478.png" width = "50">
+      </a>
     </div>
+    Email: roninbrookes@gmail.com
   </div>
 </div>
 
