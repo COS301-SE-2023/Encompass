@@ -73,6 +73,7 @@ Email: perfectstrangers.tuks@gmail.com
         <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn">
       </a>
     </div>
+    Email: juliannaventer@gmail.com
   </div>
 </div>
 
