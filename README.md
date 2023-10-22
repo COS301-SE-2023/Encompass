@@ -55,7 +55,6 @@ Email: perfectstrangers.tuks@gmail.com
       <li>Designer</li>
       <li>UI Engineer</li>
       <li>System Architecture Design</li>
-      <li>Integration and Data Engineering assist</li>
     </ul>
     <details>
     <summary>See More...</summary>
