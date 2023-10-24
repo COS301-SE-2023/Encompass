@@ -165,7 +165,7 @@ Contact: perfectstrangers.tuks@gmail.com
         <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn">
       </a>
       <br>
-      <a href="mailto:sameet.keshav@gmail.com">
+      <a href="mailto:sameet.keshav1@gmail.com">
         <img src="https://img.shields.io/badge/gmail-%23DD0031.svg?&style=for-the-badge&logo=gmail&logoColor=white"/>
       </a>
     </div>
