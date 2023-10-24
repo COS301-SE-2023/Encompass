@@ -121,6 +121,6 @@
     "typescript": "~5.0.2"
   },
   "engines": {
-    "node": ">15"
+    "node": "20.x.x"
   }
 }
