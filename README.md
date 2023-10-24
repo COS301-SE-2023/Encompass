@@ -26,7 +26,7 @@ Contact: perfectstrangers.tuks@gmail.com
 ## Demo Links:
 <a align="right" href="https://drive.google.com/file/d/1BG2sd_KgtFObQwJmyqgyXUrNcsnjc8SY/view?usp=sharing">Project Day Demo Video</a>
 <br>
-<a align="right" href="https://drive.google.com/file/d/155-RJKEekmbvzPL_6OthTz-fw2047Hm2/view?usp=sharing">Advertisement</a>
+<a align="right" href="https://drive.google.com/file/d/1aQoXizZ4NHYmAUnzSznzINxWC2E3EbW7/view?usp=sharing">Advertisement</a>
 <br>
 <a align="right" href="https://www.canva.com/design/DAFvXSDGAQA/fBYRgl1QAep2CMWBRdXWAw/edit">Demo Presentation</a>
 <br>
