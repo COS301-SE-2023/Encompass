@@ -616,6 +616,12 @@ ion-button:hover {
   border-radius: 10px;
 }
 
+.MediaImage_mobile{
+  width: 140px;
+  height: 204px;
+  object-fit: fill;
+  border-radius: 10px;
+}
 .contentrecs {
   display: flex;
   flex-wrap: wrap;
@@ -641,6 +647,14 @@ ion-button:hover {
   margin: 10px;
 }
 
+.media-item_mobile{
+  position: relative;
+  flex: 0 0 auto;
+  width: inherit;
+  height: inherit;
+  margin: 5px;
+}
+
 .media-info {
   border-radius: 10px;
   position: absolute;
@@ -659,6 +673,10 @@ ion-button:hover {
 }
 
 .media-item:hover .media-info {
+  opacity: 1;
+}
+
+.media-item_mobile:hover .media-info {
   opacity: 1;
 }
 
