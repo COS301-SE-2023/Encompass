@@ -1,6 +1,6 @@
 .overlay-container {
   display: flex;
-  background-color: var(--ion-color-background);
+  // background-color: var(--ion-color-background);
 }
 
 .Profile {
@@ -47,7 +47,7 @@
   color: var(--ion-color-text);
   overflow: auto;
   max-height: 100vh;
-  background-color: var(--ion-color-background);
+  // background-color: var(--ion-color-background);
   margin-top: 2%;
 }
 
@@ -74,16 +74,16 @@
 .input {
   font-family: CustomFont;
   width: 100%;
-  color: black;
+  color: var(--ion-color-text);
 }
 .icon1 {
   font-size: 30px;
-  color: black;
+  color: var(--ion-color-text);
 }
 
 .icon2 {
   font-size: 30px;
-  color: black;
+  color: var(--ion-color-text);
 }
 
 .icon1:hover {
