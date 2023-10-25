@@ -678,7 +678,8 @@
       >
         <div>{{ profile?.bio }}</div>
         <div class="profile-info-container">
-          <div class="profile-info info-post">
+          <div class="profile-info info-post"
+          style="font-size: 15px;">
             {{ posts?.length }} <br />
             Posts
           </div>
@@ -686,6 +687,7 @@
             id="follow-trigger"
             class="profile-info"
             (click)="loadFollowers(); setOpen(true)"
+            style="font-size: 15px;"
           >
             {{ profile.followers.length }} <br />
             Followers
@@ -694,6 +696,7 @@
             id="following-trigger"
             class="profile-info"
             (click)="loadFollowing(); setOpen2(true)"
+            style="font-size: 15px;"
           >
             {{ profile.following.length }} <br />
             Following
@@ -741,7 +744,7 @@
                   style="margin-bottom: 115px; margin-left: 130px"
                 />
                 <label for="file-input">
-                  <span>Change Profile</span></label
+                  <span class="full-width-label_mobile">Change Profile</span></label
                 ></span
               >
             </ion-item>
@@ -757,7 +760,7 @@
                   #fileUpload
                 />
                 <label for="file-input-banner">
-                  <span class="full-width-label">Change Banner</span></label
+                  <span class="full-width-label_mobile">Change Banner</span></label
                 ></span
               >
             </ion-item>
