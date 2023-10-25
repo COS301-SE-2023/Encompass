@@ -11,14 +11,6 @@ ion-card {
   z-index: 2;
 }
 
-.PostCardHeader {
-  display: flex;
-  justify-content: center;
-  height: 35%;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
 .PostImageContainer {
   width: 15%;
@@ -129,15 +121,7 @@ ion-card {
   width: 82%;
 }
 
-.TitleNameOptions {
-  display: flex;
-  justify-content: space-between;
-  height: 30%;
-  width: 100%;
-  color: black;
-  font-family: CustomFont;
-  font-size: 20px;
-}
+
 
 .Title {
   display: inline-block;
@@ -196,7 +180,6 @@ ion-card {
   height: 30%;
   color: black;
   font-family: CustomFont;
-  margin-left: 1.5%;
 }
 
 .imgDiv {
@@ -1062,6 +1045,13 @@ ion-button:hover {
   border-radius: 15px;
 }
 
+.postImage_mobile{
+  width: 60px;
+  height: 60px;
+  object-fit: fill;
+  border-radius: 15px;
+}
+
 .postImage:hover {
   cursor: pointer;
 }
@@ -1071,6 +1061,13 @@ ion-button:hover {
   flex-direction: column;
   justify-content: space-evenly;
   width: 82%;
+}
+
+.PostDetails_mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
 }
 
 .TitleNameOptions {
@@ -1083,6 +1080,15 @@ ion-button:hover {
   font-size: 20px;
 }
 
+.TitleNameOptions_mobile {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  overflow: hidden;
+  font-family: CustomFont;
+  font-size: 20px;
+}
+
 .Title {
   display: inline-block;
   width: auto;
@@ -1091,7 +1097,15 @@ ion-button:hover {
   text-overflow: ellipsis;
   color: #000;
 }
-
+.Title_mobile {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+  width: 80%;
+}
 .Name {
   display: flex;
   align-items: center;
@@ -1122,6 +1136,14 @@ ion-button:hover {
   color: var(--hover-color);
 }
 
+.report_mobile{
+  font-size: small;
+  height: 30px;
+}
+.report_mobile2{
+  font-size: 11px;
+  height: 30px;
+}
 .Options {
   background-color: var(--card-color);
   font-size: larger;
@@ -1133,17 +1155,12 @@ ion-button:hover {
   color: var(--hover-color);
 }
 
-.GenreIcons {
-  display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  align-items: center;
-  height: 30%;
-  // color: var(--ion-color-dark);
-  font-family: CustomFont;
-  // margin-left: 1.5%;
-  margin-top: 10px;
+.Options_mobile{
+  background-color: var(--card-color);
+font-size: 30px;
+margin-right:5px;
 }
+
 
 .text {
   width: 97%;
@@ -1173,7 +1190,7 @@ ion-button:hover {
 
 .icons {
   height: 50%;
-  width: 30%;
+  width: 40%;
   color: var(--ion-color-primary-contrast);
   display: flex;
   justify-content: space-around;
@@ -1204,7 +1221,7 @@ ion-button:hover {
   height: 35%;
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 10px;
+
 }
 
 .Image {
@@ -1226,6 +1243,13 @@ ion-button:hover {
 
 .PostImageContainer {
   width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.PostImageContainer_mobile {
+  width: 20%;
   height: 100%;
   display: flex;
   justify-content: center;
