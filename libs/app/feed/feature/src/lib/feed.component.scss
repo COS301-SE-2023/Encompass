@@ -194,18 +194,24 @@
 
 .TitleNameOptions {
   display: flex;
-  height: 30%;
+  height: 30px;
   width: 100%;
-  // color: var(--ion-color-text);
+  overflow: hidden;
   font-family: CustomFont;
   font-size: 20px;
 }
-
+.TitleNameOptions_mobile {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  overflow: hidden;
+  font-family: CustomFont;
+  font-size: 20px;
+}
 .Title {
   display: inline-block;
   width: auto;
   white-space: nowrap;
-  // overflow: hidden;
   text-overflow: ellipsis;
   color: #000;
 }
@@ -242,13 +248,17 @@
 .report {
   font-size: small;
   position: relative;
+  height: 30px;
+  
 }
 
 .report_mobile{
   font-size: small;
+  height: 30px;
 }
 .report_mobile2{
   font-size: 11px;
+  height: 30px;
 }
 
 .report:hover {
@@ -258,13 +268,15 @@
 
 .Options {
   background-color: var(--card-color);
-  font-size: larger;
+  font-size: 30px;
   position: relative;
+
 }
 
 .Options_mobile{
   background-color: var(--card-color);
-font-size: large;
+font-size: 30px;
+margin-right:5px;
 }
 
 .Options:hover {
@@ -311,10 +323,10 @@ font-size: large;
 
 .icons {
   height: 50%;
-  width: 30%;
+  width: 40%;
   color: var(--ion-color-primary-contrast);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   position: relative;
   padding-bottom: 2%;
   padding-top: 1%;
@@ -823,6 +835,26 @@ ion-segment-button {
   ion-segment-button {
     max-font-size: 15px;
   }
+
+  .loading-spinner {
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-top: 6px solid var(--ion-color-primary);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 0.3s linear infinite;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    margin-left: -20px;
+    margin-top: -20px;
+    z-index: 10;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 }
 
 @media (min-width: 992px) {
@@ -839,14 +871,13 @@ ion-segment-button {
     height: 80px;
     animation: spin 0.3s linear infinite;
     position: absolute;
-     top: 45%;
-     left: 45%;
+    top: 45%;
+    left: 45%;
     margin-left: -20px;
     margin-top: -20px;
-   
-    z-index: 5;
-  }
-  
+    z-index: 10;
+}
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
