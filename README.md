@@ -190,11 +190,14 @@ Contact: perfectstrangers.tuks@gmail.com
 <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white">
 <img src="https://img.shields.io/badge/nestjs-e0234e?style=for-the-badge&logo=nestjs&logoColor=white">
 <img src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white">
+<img src="https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white">
+  
 </div>
 
-#### Database
+#### Database and Storage
 <div>
 <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white">
+<img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
 </div>
 
 #### Hosting
@@ -204,12 +207,3 @@ Contact: perfectstrangers.tuks@gmail.com
 <div>
   <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white">
 </div>
-
-<br><br><br>
-<p>Documentation done by Keabetswe Mothapo</p>
-<a href="https://github.com/keamothapo" target="_blank">
-  <img src="https://skillicons.dev/icons?i=github" alt="GitHub">
-</a>
-<a href="https://www.linkedin.com/in/keabetswe-mothapo/" target="_blank">
-  <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn">
-</a>
