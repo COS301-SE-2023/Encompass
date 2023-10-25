@@ -107,10 +107,11 @@
                         class="report"
                         *ngIf="deletePost[i] && MarkedForPostDeletion[i]"
                         (click)="DeletePost(i, post)"
-                        >Delete Post</label
+                        >Delete</label
                       >
 
-                      <button class="Options" (click)="Delete(i)">
+                      <button class="Options" (click)="Delete(i)"
+                      *ngIf="!deletePost[i] && !MarkedForPostDeletion[i]">
                         <ion-icon name="close-circle-outline"></ion-icon>
                       </button>
                     </div>
@@ -807,36 +808,29 @@
       <div *ngFor="let post of posts?.slice()?.reverse(); let i = index">
         <ion-card class="PostCard card-styles">
           <div class="PostCardHeader">
-            <div class="PostImageContainer">
+            <div class="PostImageContainer_mobile">
               <img
                 src="{{ post.communityImageUrl }}"
-                class="postImage"
+                class="postImage_mobile"
                 onerror="this.src='assets/icon/Group.png';"
                 (click)="GoToCommunity(post.community)"
               />
             </div>
-            <div class="PostDetails">
-              <div class="TitleNameOptions">
-                <div style="display: flex; margin-left: 1.5%">
-                  <div class="Title" (click)="GoToCommunity(post.community)">
+            <div class="PostDetails_mobile">
+              <div class="TitleNameOptions_mobile">
+                  <div class="Title_mobile" (click)="GoToCommunity(post.community)">
                     {{ post.community }}
                   </div>
-                  <!-- <div class="Name">@{{ post.username }}</div> -->
-                </div>
-                <div style="display: flex; margin-right: 1.5%">
+                <div style="width: 20%; padding-right: 5px;text-align: end;">
                   <label
-                    class="report"
+                    class="report_mobile"
                     *ngIf="deletePost[i] && MarkedForPostDeletion[i]"
                     (click)="DeletePost(i, post)"
-                    >Delete Post</label
+                    >Delete</label
                   >
-                  <label
-                    class="report"
-                    *ngIf="deletePost[i] && !MarkedForPostDeletion[i]"
-                    style="color: red"
-                    >Post Deleted</label
-                  >
-                  <button class="Options" (click)="Delete(i)">
+                 
+                  <button class="Options_mobile" (click)="Delete(i)"
+                    *ngIf="!deletePost[i]&&!MarkedForPostDeletion[i]">
                     <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
                 </div>
@@ -882,7 +876,7 @@
               <div style="display: flex; justify-content: center">
                 <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
               </div>
-              <br />
+             
               {{ post.text }}
             </div>
           </div>
