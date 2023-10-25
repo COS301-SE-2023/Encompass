@@ -767,6 +767,9 @@ ion-card {
 .PostCard {
   padding-bottom: 10px;
 }
+.full-width-label_mobile{
+  font-size: 14px;
+}
 .profile-info {
   flex: 1;
   margin: 0 5px;
@@ -780,6 +783,7 @@ ion-card {
   font-size: 16px;
   font-weight: bold;
   color: var(--ion-color-medium);
+  
 }
 
 .profile-info:hover {
