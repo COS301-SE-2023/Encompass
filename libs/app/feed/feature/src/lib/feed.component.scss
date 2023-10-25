@@ -172,16 +172,28 @@
   cursor: pointer;
 }
 
+.postImage_mobile{
+  width: 60px;
+  height: 60px;
+  object-fit: fill;
+  border-radius: 15px;
+}
+
 .PostDetails {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 82%;
 }
+.PostDetails_mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+}
 
 .TitleNameOptions {
   display: flex;
-  justify-content: space-between;
   height: 30%;
   width: 100%;
   // color: var(--ion-color-text);
@@ -196,6 +208,16 @@
   // overflow: hidden;
   text-overflow: ellipsis;
   color: #000;
+}
+
+.Title_mobile {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+  width: 80%;
 }
 
 .Name {
@@ -220,7 +242,13 @@
 .report {
   font-size: small;
   position: relative;
-  right: 10%;
+}
+
+.report_mobile{
+  font-size: small;
+}
+.report_mobile2{
+  font-size: 11px;
 }
 
 .report:hover {
@@ -232,7 +260,11 @@
   background-color: var(--card-color);
   font-size: larger;
   position: relative;
-  right: 5%;
+}
+
+.Options_mobile{
+  background-color: var(--card-color);
+font-size: large;
 }
 
 .Options:hover {
@@ -252,6 +284,7 @@
 }
 
 .text {
+ 
   width: 97%;
   height: 90%;
   font-family: CustomFont;
@@ -309,7 +342,6 @@
   height: 35%;
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .PostImageContainer {
@@ -320,6 +352,13 @@
   align-items: center;
 }
 
+.PostImageContainer_mobile {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .PostBody {
   display: flex;
   justify-content: center;
@@ -534,6 +573,7 @@ ion-button:hover {
   height: 70%;
   width: 8%;
 }
+
 .CommunityAdd_mobile{
   display: flex;
   margin-top: 10px;
@@ -569,6 +609,7 @@ ion-button:hover {
 // Import FontAwesome styles
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
+
 // Button styles
 .cta {
   border: none;
@@ -577,6 +618,7 @@ ion-button:hover {
   transition: all 0.3s ease;
   padding: 10px;
 }
+
 
 .icon {
   transition: all 0.3s ease;
@@ -608,6 +650,8 @@ ion-button:hover {
   height: 25px;
   object-fit: fill;
 }
+
+
 
 .MediaImage {
   width: 165px;
