@@ -105,7 +105,7 @@
   background-color: #20173f;
   color: white;
   position: relative;
-  bottom: 63%;
+  bottom: 60%;
   left: 5%;
   z-index: 3;
   width: 15%;
@@ -121,7 +121,7 @@
   background-color: #cecae3;
   color: #231942;
   position: relative;
-  bottom: 63%;
+  bottom: 60%;
   z-index: 3;
   left: 7%;
   width: 15%;
@@ -160,19 +160,56 @@ span {
 }
 
 .left-align {
-  text-align: left;
-  margin-top: 10%;
-  margin-bottom: 10%;
-  margin-right: 20px;
+  // text-align: left;
+  // margin-top: 10%;
+  // margin-bottom: 10%;
+  // margin-right: 20px;
+  position: absolute;
+  left: 7%;
+  top:1050px;
+}
+
+.shot1 {
+  width: 1100px;
+  position: absolute;
+  right: -18%;
+  top: 950px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.shot2 {
+  width: 1100px;
+  position: absolute;
+  left: -18%;
+  top: 1550px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.shot4 {
+  width: 1100px;
+  position: absolute;
+  right: -18%;
+  top: 2150px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.left-other {
+  top: 2200px;
 }
 
 .right-align {
   text-align: right;
-  margin-top: 10%;
-  margin-bottom: 10%;
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
+  // margin-top: 10%;
+  // margin-bottom: 10%;
+  // margin-left: 20px;
+  // display: flex;
+  // align-items: center;
+  position: absolute;
+  right: 7%;
+  top: 1600px;
 }
 
 .tagline {
@@ -185,7 +222,18 @@ span {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 230vh;
   margin-bottom: 50px;
+}
+
+.features-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // height: 230vh;
+  padding: 20px;
+  margin-bottom: 50px;
+  gap: 50px;
 }
 
 .part3 {
@@ -203,29 +251,6 @@ span {
   width: 550px;
 }
 
-.temp {
-  border: #20173f 2px solid;
-  height: 400px;
-  width: 600px;
-}
-
-.temp-left {
-  border: #20173f 2px solid;
-  height: 400px;
-  width: 600px;
-}
-
-.left-align,
-.temp {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.temp-left,
-.right-align {
-  display: inline-block;
-  vertical-align: top;
-}
 
 .image-row {
   margin-left: 10%;
@@ -269,6 +294,19 @@ h2 {
 
 a {
   font-weight: bold;
+}
+
+.left-align-mobile {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 20px;
 }
 
 .icon-block {
@@ -490,4 +528,9 @@ a {
   background-image: url('WelcomeImg.png');
   background-size: cover;
   background-position: center left;
+}
+
+shot1 {
+  width: 100%;
+  height: 100%;
 }
