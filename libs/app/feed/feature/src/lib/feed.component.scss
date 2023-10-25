@@ -401,6 +401,10 @@
   justify-content: space-evenly;
 }
 
+.recomText{
+  display: flex;
+  align-items: center;
+}
 .RecomCommunities {
   display: flex;
   flex-direction: column;
@@ -481,6 +485,15 @@ ion-button:hover {
   margin-top: 10px;
 }
 
+.CommunityDetails_mobile{
+  display: flex;
+  height: 100%;
+  width: 50%;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: center;
+}
+
 .CommunityName {
   display: flex;
   height: 50%;
@@ -520,6 +533,12 @@ ion-button:hover {
   margin-top: 10px;
   height: 70%;
   width: 8%;
+}
+.CommunityAdd_mobile{
+  display: flex;
+  margin-top: 10px;
+  height: 70%;
+  width: 16%;
 }
 
 .CommunityBody {
@@ -597,6 +616,12 @@ ion-button:hover {
   border-radius: 10px;
 }
 
+.MediaImage_mobile{
+  width: 140px;
+  height: 204px;
+  object-fit: fill;
+  border-radius: 10px;
+}
 .contentrecs {
   display: flex;
   flex-wrap: wrap;
@@ -622,6 +647,14 @@ ion-button:hover {
   margin: 10px;
 }
 
+.media-item_mobile{
+  position: relative;
+  flex: 0 0 auto;
+  width: inherit;
+  height: inherit;
+  margin: 5px;
+}
+
 .media-info {
   border-radius: 10px;
   position: absolute;
@@ -640,6 +673,10 @@ ion-button:hover {
 }
 
 .media-item:hover .media-info {
+  opacity: 1;
+}
+
+.media-item_mobile:hover .media-info {
   opacity: 1;
 }
 
@@ -678,6 +715,19 @@ ion-button:hover {
   margin-left: 4.5%;
   height: 50px;
   border-radius: 15px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 3;
+  font-size: 12px;
+}
+
+.filter-content_mobile {
+  margin-top: 5px;
+  background-color: var(--card-color-contrast);
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.411);
+  width: 100%;
+  height: 50px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
