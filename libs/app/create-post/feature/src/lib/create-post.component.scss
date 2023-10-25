@@ -18,7 +18,7 @@
   // height:10%;
   width: 100%;
   display: flex;
-  height: 15%;
+  // height: 15%;
 }
 
 .form {
@@ -434,6 +434,7 @@ ion-textarea.custom2 {
   border-radius: 25px;
   border: 1px solid var(--ion-color-secondary-contrast);
   padding: 10px 25px 10px 25px;
+  height: 40px;
 }
 
 .Image {
@@ -474,6 +475,7 @@ ion-textarea.custom2 {
 
 .imageIcon {
   color: var(--ion-color-text);
+  
 }
 
 .Prompt {
@@ -532,4 +534,20 @@ ion-textarea.custom2 {
   margin-top: 10px;
   text-transform: lowercase;
   font-size: 22px;
+}
+
+.desktopBtns {
+  width: 100%;;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mobileBtns {
+  margin-top: 40px;
+  width: 100%;;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 20px;
 }

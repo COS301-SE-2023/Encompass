@@ -11,10 +11,7 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import {
-  CreateEvent,
-  UploadFile,
-} from '@encompass/app/create-post/util';
+import { CreateEvent, UploadFile } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
@@ -564,6 +561,17 @@ export class CreatePostComponent {
     } else {
       this.Added = true;
     }
+  }
+
+  mobileview = false;
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
   }
 
   // AddWord(n:number){
