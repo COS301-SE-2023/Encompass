@@ -469,12 +469,23 @@ ion-card {
   border-radius: 15px;
   object-fit: fill;
   position: absolute;
-  top: 0;
-  left: 0;
   top: 15px;
   left: 15px;
   z-index: 5;
   margin-left: 20px;
+}
+
+.CommunityImageMobile {
+  height: 120px;
+  width: 120px;
+  border-radius: 15px;
+  object-fit: fill;
+  position: absolute;
+  top: 15px;
+  left: 31%;
+
+  z-index: 5;
+  // margin-left: 20px;
 }
 
 .Community {
@@ -512,6 +523,15 @@ ion-card {
   display: flex;
   justify-content: space-between;
 }
+
+.CommunityNameMobile {
+  font-weight: bold;
+  font-size: 150%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .Admin {
   color: #4e4d4d;
   font-size: 18px;
