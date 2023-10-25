@@ -535,7 +535,7 @@
           }"
         >
           <ion-icon
-            name="alert-circle-outline"
+            name="heart-circle"
             style="margin-bottom: 3px"
           ></ion-icon>
           Recommended
@@ -563,7 +563,7 @@
                 : 'black'
           }"
         >
-          <ion-icon name="star-outline" style="margin-bottom: 3px"></ion-icon>
+          <ion-icon name="star" style="margin-bottom: 3px"></ion-icon>
           Popular
         </ion-segment-button>
       </ion-segment>
@@ -580,39 +580,34 @@
         "
       >
         <div class="PostCardHeader">
-          <div class="PostImageContainer">
+          <div class="PostImageContainer_mobile">
             <img
               src="{{ post.communityImageUrl }}"
-              class="postImage"
+              class="postImage_mobile"
               onerror="this.src='assets/icon/Group.png';"
               (click)="GoToCommunity(post.community)"
             />
           </div>
-          <div class="PostDetails">
+          <div class="PostDetails_mobile">
             <div class="TitleNameOptions">
-              <div style="display: flex; margin-left: 1.5%">
-                <div class="Title" (click)="GoToCommunity(post.community)">
+                <div class="Title_mobile" (click)="GoToCommunity(post.community)">
                   {{ post.community }}
                 </div>
-                <div class="Name" (click)="GoToProfile(post.username)"*ngIf="!reports[i]">
-                  @{{ post.username }}
-                </div>
-              </div>
-              <div style="display: flex; margin-right: 1.5%">
+              <div style="width: 20%; padding-right: 5px;text-align: end;">
                 <label
-                  class="report"
+                  class="report_mobile"
                   *ngIf="reports[i]"
                   (click)="ReportPost(i, post)"
-                  >Report Post</label
+                  >Report</label
                 >
 
-                <label class="report" *ngIf="post.reported" style="color: red"
-                  >Post Reported.</label
+                <label class="report_mobile2" *ngIf="post.reported" style="color: red"
+                  >Reported</label
                 >
 
                 <button
-                  class="Options tooltip"
-                  *ngIf="!post.reported"
+                  class="Options_mobile"
+                  *ngIf="!post.reported&&!reports[i]"
                   (click)="Report(i)"
                 >
                 <ion-icon name="alert-circle-outline"></ion-icon>
@@ -646,11 +641,10 @@
 
         <div class="PostBody" (click)="GoToComments(post._id)">
           <div class="text">
-            <h5>{{ post.title }}</h5>
+            <h5>{{ post.title }} <label style="font-size: small;">@{{post.username}}</label></h5>
             <div style="display: flex; justify-content: center">
               <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
             </div>
-            <br />
             {{ post.text }}
           </div>
         </div>
@@ -745,13 +739,13 @@
               [ngStyle]="{
                 color:
                   selectedSegment === 'recommended'
-                    ? 'var(--ion-color-primary)'
+                    ? 'var(--hover-color)'
                     : 'black'
               }"
             >
               <div style="display: flex; align-items: center">
                 <ion-icon
-                  name="alert-circle-outline"
+                  name="heart-circle"
                   style="margin-right: 5px"
                 ></ion-icon>
                 <span>Recommended</span>
@@ -762,7 +756,7 @@
               [ngStyle]="{
                 color:
                   selectedSegment === 'new'
-                    ? 'var(--ion-color-primary)'
+                    ? 'var(--hover-color)'
                     : 'black'
               }"
             >
@@ -780,13 +774,13 @@
               [ngStyle]="{
                 color:
                   selectedSegment === 'popular'
-                    ? 'var(--ion-color-primary)'
+                    ? 'var(--hover-color)'
                     : 'black'
               }"
             >
               <div style="display: flex; align-items: center">
                 <ion-icon
-                  name="star-outline"
+                  name="star"
                   style="margin-right: 5px"
                 ></ion-icon>
                 <span>Popular</span>
@@ -815,8 +809,8 @@
                 />
               </div>
               <div class="PostDetails">
-                <div class="TitleNameOptions">
-                  <div style="display: flex; margin-left: 1.5%">
+                <div class="TitleNameOptions" >
+                  <div style="width: 85%; display: flex;">
                     <div class="Title" (click)="GoToCommunity(post.community)">
                       {{ post.community }}
                     </div>
@@ -824,24 +818,24 @@
                       @{{ post.username }}
                     </div>
                   </div>
-                  <div style="display: flex; margin-right: 1.5%">
+                  <div style = " width: 15%;text-align: end;">
                     <label
                       class="report"
                       *ngIf="reports[i]"
                       (click)="ReportPost(i, post)"
-                      >Report Post</label
+                      >Report</label
                     >
 
                     <label
                       class="report"
                       *ngIf="post.reported"
                       style="color: red"
-                      >Post Reported.</label
+                      >Reported</label
                     >
 
                     <button
                       class="Options"
-                      *ngIf="!post.reported"
+                      *ngIf="!post.reported&&!reports[i]"
                       (click)="Report(i)"
                     >
                     <ion-icon name="alert-circle-outline"></ion-icon>
