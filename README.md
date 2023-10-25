@@ -84,7 +84,7 @@ Contact: perfectstrangers.tuks@gmail.com
       <li>Services Engineer</li>
       <li>Backend and Integration Tester</li>
       <li>AI Algorithm Engineer</li>
-      <li>Data Engineering</li>
+      <li>Data Engineer</li>
     </ul>
     <details>
     <summary>See More...</summary>
