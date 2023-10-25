@@ -587,6 +587,7 @@
 <!-- ======================================================mobile===================================================== -->
 
 <div class="overlay-container" *ngIf="mobileview">
+  <div style="height: 20px"></div>
   <ion-card class="headerCard">
     <div class="Banner">
       <img
@@ -600,31 +601,27 @@
         class="CommunityImageMobile"
       />
     </div>
-    <div class="Community">
+    <div class="CommunityMobile" *ngIf="!edit">
       <label class="CommunityNameMobile">{{ community?.name }}</label>
-      <!--
-      <div class="CommunityDetails" *ngIf="!edit">
-        <div class="CommunityName">
-          
-           <button
-            class="Edit"
+      <div class="Admin">Created by @{{ community?.admin }}</div>
+        <div class="CommunityDescription">{{ community?.about }}</div>
+        <button
+            class="EditMobile"
             (click)="Edit()"
             *ngIf="community?.admin === profile?.username"
           >
             <ion-icon name="pencil-outline"></ion-icon>
           </button> 
-        </div>
-         <div class="Admin">Created by @{{ community?.admin }}</div>
-        <div class="CommunityDescription">{{ community?.about }}</div> 
-      </div>
+    </div>
+      
  
-      <div [hidden]="!edit" class="editCommunityDetails">
+       <div [hidden]="!edit" class="editCommunityDetailsMobile">
         <form
           [formGroup]="postForm"
           (ngSubmit)="onSubmit()"
-          class="EditDetails"
-        >
-          <div class="textInput">
+          class="EditDetailsMobile"
+        > 
+           <div class="textInput">
             <ion-textarea
               [maxlength]="80"
               class="DescInput"
@@ -638,12 +635,12 @@
               placeholder="Enter New Rules"
               formControlName="rules"
             ></ion-textarea>
-          </div>
+          </div> 
 
-          <div class="EditButtons">
+           <div class="EditButtons">
             <div class="chnageBtns">
               <ion-item
-                class="Image"
+                class="ImageMobile"
                 style="paddling-left: 1%"
                 (click)="insertImage()"
               >
@@ -663,7 +660,7 @@
                 >
               </ion-item>
 
-              <ion-item class="Image" (click)="insertBanner()">
+              <ion-item class="ImageMobile" (click)="insertBanner()">
                 <span class="image-span">
                   <input
                     id="file-input-banner"
@@ -679,17 +676,17 @@
                 >
               </ion-item>
 
-              <button type="submit" class="EditBtn" (click)="FinishEdit()">
+              <button type="submit" class="EditBtnMobile" (click)="FinishEdit()">
                 Confirm
               </button>
             </div>
-          </div>
-        </form>
-      </div>
+          </div> 
+         </form>
+      </div> 
 
-      <div class="CommunityOptions">
+       <div class="CommunityOptionsMobile">
         <div
-          class="ListOfOptions"
+          class="ListOfOptionsMobile"
           *ngIf="
             profile !== null &&
             profile !== undefined &&
@@ -697,25 +694,25 @@
             community !== undefined &&
             profile.username !== community.admin
           "
-        >
-          <div *ngIf="community.type === 'Public'">
+        > 
+           <div *ngIf="community.type === 'Public'">
             <button
-              class="Join"
+              class="JoinMobile"
               (click)="join()"
               *ngIf="!community.members.includes(profile.username)"
             >
-              Join
+            <ion-icon name="add-circle"></ion-icon>
             </button>
             <button
-              class="Join"
+              class="JoinMobile"
               (click)="leave()"
               *ngIf="community.members.includes(profile.username)"
             >
-              Leave
+              <ion-icon name="remove-circle"></ion-icon>
             </button>
-          </div>
+          </div> 
 
-          <div
+           <div
             *ngIf="
               community.type !== 'Public' &&
               communityRequest !== null &&
@@ -723,39 +720,39 @@
             "
           >
             <button
-              class="Join"
+              class="JoinMobile"
               (click)="requestJoin()"
               *ngIf="
                 !community.members.includes(profile.username) &&
                 !communityRequest.requestUsernames.includes(profile.username)
               "
             >
-              Request
+            <ion-icon name="add-circle"></ion-icon>
             </button>
             <button
-              class="Join"
+              class="JoinMobile"
               (click)="leave()"
               *ngIf="community.members.includes(profile.username)"
             >
-              Leave
+            <ion-icon name="remove-circle"></ion-icon>
             </button>
             <button
-              class="Join"
+              class="JoinMobile"
               (click)="requestUnjoin()"
               *ngIf="
                 !community.members.includes(profile.username) &&
                 communityRequest.requestUsernames.includes(profile.username)
               "
             >
-              Unrequest
+            <ion-icon name="remove-circle"></ion-icon>
             </button>
-          </div>
+          </div> 
 
-          <ion-icon class="icon" name="share-social"></ion-icon>
-          <ion-icon class="icon" name="notifications"></ion-icon>
+           <!-- <ion-icon class="icon" name="share-social"></ion-icon>
+          <ion-icon class="icon" name="notifications"></ion-icon>  -->
         </div>
-      </div> -->
-    </div>
+      </div>  
+
   </ion-card>
 
 

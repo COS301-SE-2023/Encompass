@@ -482,7 +482,7 @@ ion-card {
   object-fit: fill;
   position: absolute;
   top: 15px;
-  left: 31%;
+  left: 20px;
 
   z-index: 5;
   // margin-left: 20px;
@@ -498,11 +498,30 @@ ion-card {
   font-family: CustomFont;
 }
 
+.CommunityMobile {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  font-family: CustomFont;
+  gap: 10px;
+}
+
 .editCommunityDetails {
   width: 50%;
   height: 100%;
   margin-left: 20px;
 }
+
+.editCommunityDetailsMobile {
+  padding: 10px;
+  // display: flex;
+//   justify-content: space-evenly;
+//   flex-wrap: wrap;
+//   gap: 10px;
+}
+
 .CommunityDetails {
   display: flex;
   flex-direction: column;
@@ -527,9 +546,7 @@ ion-card {
 .CommunityNameMobile {
   font-weight: bold;
   font-size: 150%;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+  // margin-left: 10px;
 }
 
 .Admin {
@@ -566,6 +583,18 @@ ion-card {
   font-size: large;
   color: white;
   width: fit-content;
+}
+
+.JoinMobile {
+  padding: 10px 20px 10px 20px;
+  border-radius: 25px;
+  background-color: transparent;
+  font-size: 30px;
+  color: var(--ion-color-primary);
+  width: fit-content;
+  position: absolute;
+  top: 60%;
+  right: 0;
 }
 
 .Join:hover {
@@ -690,6 +719,19 @@ ion-card {
   background-color: #dadada;
 }
 
+.EditMobile {
+  border-radius: 30px;
+  font-size: 23px;
+  width: 15%;
+  height: 15%;
+  padding: 2%;
+  color: black;
+  background-color: #dadada;
+  position: absolute;
+  top: 60%;
+  right: 10px;
+}
+
 .Edit:hover {
   color: white;
   background-color: var(--hover-color);
@@ -708,6 +750,17 @@ ion-card {
   align-items: center;
   height: 100%;
   width: 100%;
+}
+
+.EditDetailsMobile {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .EditButtons {
@@ -751,6 +804,23 @@ ion-card {
   }
 }
 
+.ImageMobile {
+  --background: lightgrey;
+  width: 40%;
+  // color: black;
+  // background-color: #DADADA;
+  --border-radius: 30px;
+  --font-size: 15px;
+
+  margin-bottom: 2%;
+
+  cursor: pointer;
+
+  span {
+    cursor: pointer;
+  }
+}
+
 .EditBtn {
   width: 28%;
   // color: black;
@@ -765,6 +835,19 @@ ion-card {
 .EditBtn:hover {
   background-color: var(--hover-color);
 }
+
+.EditBtnMobile {
+  width: 38%;
+  // color: black;
+  // background-color: #DADADA;
+  border-radius: 30px;
+  font-size: 15px;
+  padding: 2%;
+  margin-bottom: 2%;
+  background-color: var(--ion-color-primary);
+  color: white;
+}
+
 
 .textInput {
   width: 100%;
