@@ -641,7 +641,7 @@
 
         <div class="PostBody" (click)="GoToComments(post._id)">
           <div class="text">
-            <h5>{{ post.title }} <label style="font-size: small;">@{{post.username}}</label></h5>
+            <h5>{{ post.title }} <label style="font-size: small;" (click)="GoToProfile(post.username)">@{{post.username}}</label></h5>
             <div style="display: flex; justify-content: center">
               <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
             </div>
