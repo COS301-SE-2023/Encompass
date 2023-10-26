@@ -145,7 +145,6 @@
     >Particicpants |
     <ion-text class="QuesNum">{{ numberOfQuestions }} </ion-text> MCQs
   </h5>
-  <div class="border"></div>
   <div
     *ngFor="let question of event?.quiz; let i = index"
     class="QuestionContainer"
@@ -160,7 +159,7 @@
         >
         <label style="width: 25%; text-align: end">Score: <b>20</b></label>
       </div>
-      <div class="Text">{{ question.question }}</div>
+      <div class="Text_mobile">{{ question.question }}</div>
       <div class="Options_mobile" *ngIf="userAnswers[i] === null">
         <div
           class="Option_mobile"
@@ -261,21 +260,21 @@
     </ion-card>
   </div>
 
-  <div class="circle-container">
-    <div class="glass">
+  <div class="circle-container_mobile">
+    <div class="glass_mobile">
       <div
         class="water"
         [style.transform]="'scaleY(' + fillPercentage + ')'"
       ></div>
       <div class="score1" *ngIf="LessThanHalf">
-        <label class="score">{{ fillNumber }} / {{ totalNumber }}</label>
+        <label class="score_mobile">{{ fillNumber }} / {{ totalNumber }}</label>
         <label class="points">{{ points }} points</label>
       </div>
       <div class="score2" *ngIf="MoreThanHalf">
-        <label class="score">{{ fillNumber }} / {{ totalNumber }}</label>
-        <label class="points">{{ points }} points</label>
+        <label class="score_mobile">{{ fillNumber }} / {{ totalNumber }}</label>
+        <label class="points_mobile">{{ points }} points</label>
       </div>
     </div>
   </div>
-  <button class="finish" (click)="backToEvents()">Finish Quiz</button>
+  <button class="finish_mobile" (click)="backToEvents()">Finish Quiz</button>
 </div>
