@@ -75,7 +75,7 @@ export class ProfileApi{
     try{
       const response = await this.httpClient.delete('/api/post/delete/' + postId, {responseType: 'text'}).toPromise();
 
-      console.log(response);
+      // console.log(response);
 
       return response;
     }

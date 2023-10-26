@@ -12,7 +12,7 @@ export class SignUpApi{
     try {
       const response = await this.httpClient.post<AccountDto>('/api/account', request).toPromise();
 
-      console.log(response);
+      // console.log(response);
       return response;
     } 
     catch (error) 

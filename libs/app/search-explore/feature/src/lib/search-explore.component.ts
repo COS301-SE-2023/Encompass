@@ -481,10 +481,10 @@ export class SearchExploreComponent {
     // Implement your logic here (e.g., adding or removing the community)
     if (this.buttonStates[buttonId]) {
       // Community is added
-      console.log(`Added ${communityName}`);
+      // console.log(`Added ${communityName}`);
     } else {
       // Community is removed
-      console.log(`Removed ${communityName}`);
+      // console.log(`Removed ${communityName}`);
     }
   }
 
@@ -498,10 +498,10 @@ export class SearchExploreComponent {
     // Implement your logic here for following/unfollowing the person
     if (this.buttonStatesPeople[buttonId]) {
       // Person is followed
-      console.log(`You are now following ${username}`);
+      // console.log(`You are now following ${username}`);
     } else {
       // Person is unfollowed
-      console.log(`You have unfollowed ${username}`);
+      // console.log(`You have unfollowed ${username}`);
     }
   }
 }

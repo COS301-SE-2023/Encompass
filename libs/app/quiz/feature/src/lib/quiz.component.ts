@@ -59,6 +59,8 @@ export class QuizPage {
   mobileview = false;
   colSize = 0;
 
+  loading = true;
+
   constructor(
     private route: ActivatedRoute,
     private store: Store,
@@ -78,7 +80,7 @@ export class QuizPage {
       this.store.dispatch(new GetEventById(quizId));
       this.event$.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
         if (event) {
-          console.log(event);
+          // console.log(event);
           this.event = event;
 
           this.numberOfQuestions = event.quiz.length;
@@ -96,7 +98,7 @@ export class QuizPage {
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
         if (profile) {
-          console.log(profile);
+          // console.log(profile);
           this.profile = profile;
 
           if (!this.isProfileEventFetched) {
@@ -107,7 +109,7 @@ export class QuizPage {
               .pipe(takeUntil(this.unsubscribe$))
               .subscribe((userEvents) => {
                 if (userEvents) {
-                  console.log(userEvents);
+                  // console.log(userEvents);
                   this.userEvents = userEvents;
 
                   this.fillNumber = 0;
@@ -141,6 +143,8 @@ export class QuizPage {
                           new UpdateUserEvent(this.profile._id, updateEvent)
                         );
                       }
+
+                      this.loading = false;
                     }
                   });
                 }
@@ -195,7 +199,7 @@ export class QuizPage {
     this.userAnswers[questionIndex] = answer;
 
     if (answer === this.event.quiz[questionIndex].answer) {
-      console.log('correct');
+      // console.log('correct');
       numCorrect++;
       this.eventApi.addCoins(this.profile.username, 20);
     }
@@ -217,8 +221,8 @@ export class QuizPage {
   }
 
   fillCircle() {
-    console.log('Fill circle Called');
-    console.log('Points: ' + this.points);
+    // console.log('Fill circle Called');
+    // console.log('Points: ' + this.points);
     this.fillPercentage += 1 / this.totalNumber; // Increase by 1/totalNumber
     this.fillNumber += 1;
     this.points += 20;

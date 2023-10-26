@@ -216,7 +216,7 @@
 
     <div class="chat-area-mobile" *ngIf="mobileview">
       <div class="User" [hidden]="!hasMessages" style="margin-top: 10px;">
-        <div style="display: flex; align-items: center; height: 100%">
+        <div style="display: flex; align-items: center; height: 100%; color: var(--ion-color-text)">
           <ion-icon
             (click)="closeChats(true)"
             name="chevron-back"
@@ -226,8 +226,9 @@
             src="{{ userImage }}"
             onerror="this.src='assets/icon/Profile.png';"
             class="imgDiv3"
+            (click)="GoToProfile(username)"
           />
-          {{ firstName }} {{ lastName }}
+          <span (click)="GoToProfile(username)">{{ firstName }} {{ lastName }}</span>
         </div>
       </div>
 
@@ -264,6 +265,7 @@
             />
           </div>
         </div>
+        <div style="height: 100px"></div>
       </div>
 
       <div class="Typer-mobile" [hidden]="!hasMessages">

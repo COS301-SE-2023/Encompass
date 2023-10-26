@@ -90,7 +90,7 @@ export class SettingsApi {
     try{
       const response = await this.httpClient.get<AccountDto>("/api/account/get/" + userId).toPromise();
 
-      console.log(response);
+      // console.log(response);
       return response;
     }
 

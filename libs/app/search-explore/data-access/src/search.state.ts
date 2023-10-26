@@ -164,17 +164,17 @@ export class SearchState {
       const posts = await ctx.getState().SearchPostsForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       ctx.patchState({
         SearchPostsForm: {
@@ -192,11 +192,11 @@ export class SearchState {
 
   @Action(LikeArray)
   async likedPostArray(ctx: StateContext<SearchModel>, { postId, userId }: LikeArray){
-    console.log("HEREWEE")
+    // console.log("HEREWEE")
     const response = await this.searchApi.likePost(postId, userId);
 
     if (response == null || response == undefined) {
-      console.log("state")
+      // console.log("state")
       return;
     }
 
@@ -204,17 +204,17 @@ export class SearchState {
       const posts = await ctx.getState().SearchPostsForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       ctx.patchState({
         SearchPostsForm: {
@@ -244,17 +244,17 @@ export class SearchState {
       const posts = await ctx.getState().SearchPostsForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       ctx.patchState({
         SearchPostsForm: {
@@ -264,7 +264,7 @@ export class SearchState {
         }
       })
 
-      console.log(await ctx.getState().SearchPostsForm.model.posts)
+      // console.log(await ctx.getState().SearchPostsForm.model.posts)
     }
 
     catch(error){

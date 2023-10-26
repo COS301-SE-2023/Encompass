@@ -53,7 +53,7 @@ export class LoginState{
     }
 
     else{
-      console.log("Error");
+      // console.log("Error");
 
       const toast = await this.toastController.create({
         message: 'Incorrect Email or Password',

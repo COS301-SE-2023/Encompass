@@ -96,7 +96,7 @@ export class MessagesPage implements OnDestroy {
                     .pipe(takeUntil(this.unsubscribe$))
                     .subscribe((chatProfiles) => {
                       if (chatProfiles) {
-                        console.log(chatProfiles);
+                        // console.log(chatProfiles);
                         this.chatProfiles = chatProfiles;
                         if (chatProfiles[0]){
                           this.fetchMessages(chatProfiles[0].chatId, chatProfiles[0].name, chatProfiles[0].lastName, chatProfiles[0].profilePicture, chatProfiles[0].username);
@@ -148,7 +148,7 @@ export class MessagesPage implements OnDestroy {
     ) {
       return;
     }
-    console.log(this.messageInput.value);
+    // console.log(this.messageInput.value);
     if (!this.profile || !this.messages) {
       return;
     }
@@ -184,12 +184,20 @@ export class MessagesPage implements OnDestroy {
     this.lastName = last;
     this.store.dispatch(new GetMessages(chatId));
     this.messages$.subscribe((messages) => {
-      console.log(messages);
+      // console.log(messages);
       if (messages) {
         this.messages = messages;
         this.hasMessages = true;
       }
     });
+  }
+
+  GoToProfile(username: string) {
+    if (this.profile?.username !== username) {
+      this.router.navigate(['home/user-profile/' + username]);
+    } else {
+      this.router.navigate(['home/profile']);
+    }
   }
 
   toggleSelect() {
@@ -215,7 +223,7 @@ export class MessagesPage implements OnDestroy {
     this.chatList$.subscribe((chatList) => {
       if (chatList) {
 
-        console.log(chatList);
+        // console.log(chatList);
 
         this.chatList = chatList;
 
@@ -224,7 +232,7 @@ export class MessagesPage implements OnDestroy {
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe((chatProfiles) => {
             if (chatProfiles) {
-              console.log(chatProfiles);
+              // console.log(chatProfiles);
               this.chatProfiles = chatProfiles;
               if (chatProfiles.length > 0) {
                 const lastProfile = chatProfiles[chatProfiles.length - 1]; 
@@ -246,12 +254,12 @@ export class MessagesPage implements OnDestroy {
 
   getUsers() {
     if (!this.profile) {
-      console.log('Profile is null');
+      // console.log('Profile is null');
       return;
     }
 
     if (this.isGetNewChatsDispatched) {
-      console.log('Get new chats already dispatched');
+      // console.log('Get new chats already dispatched');
       return;
     }
 
@@ -267,7 +275,7 @@ export class MessagesPage implements OnDestroy {
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((messagesProfile) => {
           if (messagesProfile) {
-            console.log(messagesProfile);
+            // console.log(messagesProfile);
             this.messagesProfile = messagesProfile;
           }
         });

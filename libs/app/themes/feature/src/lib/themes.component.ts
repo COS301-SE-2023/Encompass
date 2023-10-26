@@ -33,6 +33,7 @@ export class ThemesPage {
   settings!: SettingsDto | null;
 
   activeButton!: string;
+  loading = true;
 
   changeBorder(btnName: string) {
     const btn = document.getElementById(btnName);
@@ -144,7 +145,7 @@ export class ThemesPage {
       formData.append('file', this.file, this.fileName);
 
       const uploadFile = this.themesApi.uploadFile(formData);
-      console.log(uploadFile);
+      // console.log(uploadFile);
       resolve(uploadFile);
     });
   }
@@ -167,7 +168,7 @@ export class ThemesPage {
         this.store.dispatch(new GetUserSettings(profile._id));
         this.settings$.subscribe((settings) => {
           if (settings) {
-            console.log(settings);
+            // console.log(settings);
             this.settings = settings;
 
             const page = document.getElementById('theme-page');
@@ -229,6 +230,8 @@ export class ThemesPage {
               }
               this.activeImage = background;
             }
+
+            this.loading = false;
           }
         });
       }
@@ -264,7 +267,7 @@ export class ThemesPage {
 
   enableDarkBlue() {
     const color = 'dark-blue';
-    console.log('here');
+    // console.log('here');
     this.document.body.setAttribute('color-theme', 'dark-blue');
     this.updateThemeColour(color);
   }

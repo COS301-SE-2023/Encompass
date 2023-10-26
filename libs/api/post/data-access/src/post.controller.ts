@@ -95,7 +95,7 @@ export class PostController {
   async uploadImage(
     @UploadedFile() file: Express.Multer.File,
   ){
-    console.log("Here")
+    // console.log("Here")
     const uploadImage = new UploadImage();
     
     return await uploadImage.uploadImage(file.buffer, file.originalname);

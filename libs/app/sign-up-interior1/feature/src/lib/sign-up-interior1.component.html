@@ -105,7 +105,7 @@
       </button>
     </div>
     <div class="TopicList">
-      <button class="Topic" id="History" (click)="buttonPressed('History')">
+      <button class="Topic" id="History" (click)="('History')">
         <img src="assets/icon/History.png" /><span>History</span>
       </button>
       <button class="Topic" id="IT" (click)="buttonPressed('IT')">
@@ -137,6 +137,7 @@
 
 <div class="main" *ngIf="mobileview">
   <div class="Signin1-mobile">
+    <div style="height:20px"></div>
     <div class="Rocket">
       <img src="assets/icon/Rocket.png" width="80px" height="80px" />
     </div>
@@ -245,6 +246,9 @@
       <button class="Topic-mobile" id="History" (click)="buttonPressed('History')">
         <img src="assets/icon/History.png" /><span>History</span>
       </button>
+      <button class="Topic-mobile" id="IT" (click)="buttonPressed('IT')">
+        <img src="assets/icon/IT.png" /><span>IT</span>
+      </button>
       <button class="Topic-mobile" id="Comedy" (click)="buttonPressed('Comedy')">
         <img src="assets/icon/Comedy.png" /><span>Comedy</span>
       </button>
@@ -260,9 +264,10 @@
         ></ion-icon>
       </button>
       <button *ngIf="!isValid" class="btn2" (click)="next()" disabled="true">
-        <span class="next-text">Next</span>
+        <span class="next-text_mobile">Next</span>
         <!-- <ion-icon name="chevron-forward-outline" class="back-icon" color="primary"></ion-icon> -->
       </button>
     </div>
+    <div style="height:100px"></div>
   </div>
 </div>

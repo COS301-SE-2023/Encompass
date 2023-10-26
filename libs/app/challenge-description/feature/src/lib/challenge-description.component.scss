@@ -4,7 +4,7 @@
   color: var(--ion-color-text);
   overflow: auto;
   max-height: 100vh;
-  background-color: var(--ion-color-background);
+  // background-color: var(--ion-color-background);
   margin-top: 2%;
   margin-right: 20px;
   display: flex;
@@ -15,7 +15,7 @@
 .ChallengeName {
   font-family: CustomFont;
   font-weight: bold;
-  color: var(--hover-color);
+  // color: var(--hover-color);
   font-size: 45px;
 }
 
@@ -72,6 +72,7 @@
   justify-content: center;
   color: var(--hover-color);
   margin-bottom: 10px;
+  text-align: center;
 }
 .Join {
   display: flex;
@@ -163,6 +164,22 @@
   border-radius: 25px;
   transition: all 0.3s;
 }
+
+.completeQuizLock_mobile {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--ion-color-secondary-contrast);
+  color: var(--ion-color-medium-shade);
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: CustomFont2;
+  font-size: 15px;
+  border-radius: 25px;
+  transition: all 0.3s;
+}
+
 .completeQuiz {
   background-color: var(--ion-color-primary);
   color: var(--ion-color-background);
@@ -171,7 +188,7 @@
   font-family: CustomFont2;
   font-size: 20px;
   border-radius: 25px;
-  padding: 1%;
+  padding: 2%;
   transition: all 0.3s;
 }
 .completeQuiz:hover {
@@ -181,6 +198,10 @@
 .lock {
   font-size: 50px;
 }
+.lock_mobile {
+  font-size: 20px;
+}
+
 .countDown {
   font-size: 15px;
 }
@@ -223,4 +244,24 @@
   align-items: center;
   flex-direction: column;
   font-family: CustomFont2;
+}
+
+.loading-spinner {
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid var(--ion-color-primary);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 0.3s linear infinite;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  margin-left: -20px;
+  margin-top: -20px;
+  z-index: 10;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -13,7 +13,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
     ) {}
 
     async execute( { userId }: GetRecommendedBooksQuery ) {
-        console.log('GetRecommendedBooksQuery...');
+        // console.log('GetRecommendedBooksQuery...');
         //make AI recommendation here
         const url = process.env["BASE_URL"];
         try {
@@ -66,7 +66,7 @@ export class GetRecommendedBooksHandler implements IQueryHandler<GetRecommendedB
             
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             return [];
         }
 

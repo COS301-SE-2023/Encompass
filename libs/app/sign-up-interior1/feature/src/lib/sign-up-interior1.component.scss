@@ -49,6 +49,7 @@
   color: #625d5d;
   position: relative;
   bottom: 2%;
+  text-align: center;
 }
 
 .TopicList {
@@ -170,13 +171,39 @@ ion-button:hover {
   height: 110vh;
   width: 100vw;
   display: flex;
+  justify-content: space-around;
+  flex-direction: column;
   flex-wrap: wrap;
   padding: 70px 20px 50px 20px;
 }
+.Topic {
+  height: 90%;
+  border-radius: 20px;
+  background-color: #cecae3;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  align-items: center;
+  // display: inline-block;
+}
 
+.Topic-mobile {
+  height: 90%;
+  border-radius: 20px;
+  background-color: #cecae3;
+  padding: 5px;
+  margin:2px;
+  display: flex;
+  align-items: center;
+
+}
 .Topic-mobile > span {
     font-family: CustomFont;
-    font-size: 15px;
+    font-size: 12px;
     flex: 1; /* Allow the span to grow and shrink to fit its content */
     overflow: hidden; /* Hide any content overflow */
   }
@@ -186,8 +213,8 @@ ion-button:hover {
 // }
 
 .Topic-mobile > img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   max-width: 100%;
   height: auto;
   margin-right: 3px;
@@ -204,14 +231,7 @@ ion-button:hover {
   color: #231942;
 }
 
-.Topic-mobile {
-  height: 90%;
-  border-radius: 20px;
-  background-color: #cecae3;
-  display: inline-flex; 
-  align-items: center; 
-  white-space: nowrap; 
-  padding: 8px; 
-  margin: 4px;
-
+.topic-active {
+  background-color: #8231dd;
+  color: white;
 }

@@ -17,7 +17,7 @@ export class MessagesApi {
     getMessages(chatId: string): Observable<ChatDto> {
       return new Observable<ChatDto>(observer => {
         this.socket.on('messages/' + chatId, (item: ChatDto) => {
-          console.log(item);
+          // console.log(item);
           observer.next(item);
         });
     
@@ -51,7 +51,7 @@ export class MessagesApi {
     }
 
     async getProfile(username: string){
-      console.log("TIME")
+      // console.log("TIME")
       try{
         const response = this.http.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
 
@@ -67,7 +67,7 @@ export class MessagesApi {
 
     async getProfileSettings(userId: string){
       try{
-        console.log("HERE")
+        // console.log("HERE")
         const response = this.http.get<SettingsDto>('/api/settings/get/' + userId).toPromise();
 
         return response;
@@ -96,7 +96,7 @@ export class MessagesApi {
 
     async sendNotification(userId: string, notification: AddNotificationRequest){
       try{
-        console.log("twice")
+        // console.log("twice")
         const response = await this.http.patch<NotificationDto>('/api/notification/add/' + userId, notification).toPromise();
   
         return response

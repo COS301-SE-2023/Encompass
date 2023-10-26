@@ -8,7 +8,7 @@ export class GetProfileHandler implements IQueryHandler<GetProfileQuery>{
   constructor(private readonly profileEntityRepository: ProfileEntityRepository){}
 
   async execute({ userId }: GetProfileQuery){
-    console.log(userId)
+    // console.log(userId)
     return this.profileEntityRepository.findOneById(userId);
   }
 }

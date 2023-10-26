@@ -88,7 +88,7 @@ export class ProfileState{
 
     if(!id)
     {
-      console.log("User is null");
+      // console.log("User is null");
       return null
     } 
 
@@ -110,7 +110,7 @@ export class ProfileState{
   async updateProfile(ctx: StateContext<ProfileStateModel>, {updateProfileRequest, userId}: UpdateProfile){
     const response = await this.profileApi.updateProfile(updateProfileRequest, userId);
 
-    console.log(response);
+    // console.log(response);
 
     if(response == null || response == undefined){
       return;
@@ -133,7 +133,7 @@ export class ProfileState{
   async updateProfilePost(ctx: StateContext<ProfileStateModel>, {updateProfileRequest, userId}: UpdateProfilePost){
     const response = await this.profileApi.updateProfile(updateProfileRequest, userId);
 
-    console.log(response);
+    // console.log(response);
 
     if(response == null || response == undefined){
       return;
@@ -152,7 +152,7 @@ export class ProfileState{
       return;
     }
 
-    console.log(response);
+    // console.log(response);
 
     return ctx.setState({
       ProfilePostForm: {
@@ -175,17 +175,17 @@ export class ProfileState{
       const posts = await ctx.getState().ProfilePostForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       ctx.patchState({
         ProfilePostForm: {
@@ -213,7 +213,7 @@ export class ProfileState{
       const posts = await ctx.getState().ProfilePostForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
@@ -249,7 +249,7 @@ export class ProfileState{
       const posts = await ctx.getState().ProfilePostForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
@@ -279,7 +279,7 @@ export class ProfileState{
       return;
     }
 
-    console.log(response);
+    // console.log(response);
 
     ctx.setState({
       ProfileCommentForm: {
@@ -448,7 +448,7 @@ export class ProfileState{
       })
     );
   
-    console.log(followers);
+    // console.log(followers);
   
     return followers;
   }
@@ -467,7 +467,7 @@ export class ProfileState{
       })
     );
   
-    console.log(following);
+    // console.log(following);
   
     return following;
   }

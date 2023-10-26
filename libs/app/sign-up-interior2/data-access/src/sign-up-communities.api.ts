@@ -8,7 +8,7 @@ export class SignUpCommunitiesApi{
 
   async getCommunities(userId: string, username: string){
     try{
-      console.log(userId)
+      // console.log(userId)
       const response = await this.httpClient.get<CommunityDto[]>('/api/community/get-recommended-communities/' + userId + '/' + username).toPromise();
       return response;
     }

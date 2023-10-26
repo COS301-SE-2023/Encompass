@@ -77,7 +77,7 @@ export class CommentsApi{
   // }
 
   async getProfile(username: string){
-    console.log("TIME")
+    // console.log("TIME")
     try{
       const response = this.httpClient.get<ProfileDto>('/api/profile/get-user/' + username).toPromise();
 
@@ -93,7 +93,7 @@ export class CommentsApi{
 
   async getProfileSettings(userId: string){
     try{
-      console.log("HERE")
+      // console.log("HERE")
       const response = this.httpClient.get<SettingsDto>('/api/settings/get/' + userId).toPromise();
 
       return response;

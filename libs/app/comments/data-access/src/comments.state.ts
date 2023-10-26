@@ -176,7 +176,7 @@ export class CommentsState{
   async sendNotification(ctx: StateContext<CommentStateModel>, {username, notification}: SendNotification){
     const user = await this.commentsApi.getProfile(username);
 
-    console.log(user);
+    // console.log(user);
     if(user == null || user == undefined){
       return;
     }

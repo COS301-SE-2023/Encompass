@@ -146,17 +146,17 @@ export class UserProfileState{
       const posts = await ctx.getState().UserProfilePostForm.model.userProfilePosts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       ctx.patchState({
         UserProfilePostForm: {
@@ -184,7 +184,7 @@ export class UserProfileState{
       const posts = await ctx.getState().UserProfilePostForm.model.userProfilePosts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
@@ -220,7 +220,7 @@ export class UserProfileState{
       const posts = await ctx.getState().UserProfilePostForm.model.userProfilePosts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
@@ -256,7 +256,7 @@ export class UserProfileState{
       })
     );
   
-    console.log(followers);
+    // console.log(followers);
   
     return followers;
   }
@@ -274,7 +274,7 @@ export class UserProfileState{
       })
     );
   
-    console.log(following);
+    // console.log(following);
   
     return following;
   }

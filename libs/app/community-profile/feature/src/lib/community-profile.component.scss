@@ -179,16 +179,7 @@ ion-button:hover {
   color: #8231dd;
 }
 
-.GenreIcons {
-  display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  align-items: center;
-  height: 30%;
-  color: black;
-  font-family: CustomFont;
-  margin-left: 1.5%;
-}
+
 
 .text {
   width: 97%;
@@ -215,26 +206,9 @@ ion-button:hover {
   // justify-content: center;
   margin-left: 3%;
 }
-.icons {
-  height: 50%;
-  width: 30%;
-  color: #231942;
-  display: flex;
-  justify-content: space-around;
-  position: relative;
-  padding-bottom: 2%;
-  padding-top: 1%;
-}
 
-#icons2 {
-  font-size: 25px;
-  color: #231942;
-}
 
-// #icons2:hover{
-//   color: #8231DD;
-//   cursor: pointer;
-// }
+
 
 .stats {
   font-size: 15px;
@@ -245,14 +219,7 @@ ion-button:hover {
 .PostCard {
   background-color: var(--card-color);
 }
-.PostCardHeader {
-  display: flex;
-  justify-content: center;
-  height: 35%;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+
 
 .PostImageContainer {
   width: 15%;
@@ -321,7 +288,7 @@ ion-button:hover {
 .EventBody {
   width: 100%;
   height: 40%;
-  color: var(--ion-color-medium);
+  color: black;
   font-family: CustomFont2;
   padding: 2%;
   font-style: italic;
@@ -330,8 +297,6 @@ ion-button:hover {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: flex;
-  align-items: center;
 }
 .EventFooter {
   width: 100%;
@@ -469,12 +434,23 @@ ion-card {
   border-radius: 15px;
   object-fit: fill;
   position: absolute;
-  top: 0;
-  left: 0;
   top: 15px;
   left: 15px;
   z-index: 5;
   margin-left: 20px;
+}
+
+.CommunityImageMobile {
+  height: 120px;
+  width: 120px;
+  border-radius: 15px;
+  object-fit: fill;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+
+  z-index: 5;
+  // margin-left: 20px;
 }
 
 .Community {
@@ -487,11 +463,30 @@ ion-card {
   font-family: CustomFont;
 }
 
+.CommunityMobile {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  font-family: CustomFont;
+  gap: 10px;
+}
+
 .editCommunityDetails {
   width: 50%;
   height: 100%;
   margin-left: 20px;
 }
+
+.editCommunityDetailsMobile {
+  padding: 10px;
+  // display: flex;
+//   justify-content: space-evenly;
+//   flex-wrap: wrap;
+//   gap: 10px;
+}
+
 .CommunityDetails {
   display: flex;
   flex-direction: column;
@@ -512,6 +507,13 @@ ion-card {
   display: flex;
   justify-content: space-between;
 }
+
+.CommunityNameMobile {
+  font-weight: bold;
+  font-size: 150%;
+  // margin-left: 10px;
+}
+
 .Admin {
   color: #4e4d4d;
   font-size: 18px;
@@ -546,6 +548,18 @@ ion-card {
   font-size: large;
   color: white;
   width: fit-content;
+}
+
+.JoinMobile {
+  padding: 10px 20px 10px 20px;
+  border-radius: 25px;
+  background-color: transparent;
+  font-size: 30px;
+  color: var(--ion-color-primary);
+  width: fit-content;
+  position: absolute;
+  top: 60%;
+  right: 0;
 }
 
 .Join:hover {
@@ -670,6 +684,19 @@ ion-card {
   background-color: #dadada;
 }
 
+.EditMobile {
+  border-radius: 30px;
+  font-size: 23px;
+  width: 15%;
+  height: 15%;
+  padding: 2%;
+  color: black;
+  background-color: #dadada;
+  position: absolute;
+  top: 60%;
+  right: 10px;
+}
+
 .Edit:hover {
   color: white;
   background-color: var(--hover-color);
@@ -688,6 +715,17 @@ ion-card {
   align-items: center;
   height: 100%;
   width: 100%;
+}
+
+.EditDetailsMobile {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .EditButtons {
@@ -731,6 +769,23 @@ ion-card {
   }
 }
 
+.ImageMobile {
+  --background: lightgrey;
+  width: 40%;
+  // color: black;
+  // background-color: #DADADA;
+  --border-radius: 30px;
+  --font-size: 15px;
+
+  margin-bottom: 2%;
+
+  cursor: pointer;
+
+  span {
+    cursor: pointer;
+  }
+}
+
 .EditBtn {
   width: 28%;
   // color: black;
@@ -745,6 +800,19 @@ ion-card {
 .EditBtn:hover {
   background-color: var(--hover-color);
 }
+
+.EditBtnMobile {
+  width: 38%;
+  // color: black;
+  // background-color: #DADADA;
+  border-radius: 30px;
+  font-size: 15px;
+  padding: 2%;
+  margin-bottom: 2%;
+  background-color: var(--ion-color-primary);
+  color: white;
+}
+
 
 .textInput {
   width: 100%;
@@ -983,17 +1051,7 @@ ion-card {
   color: var(--hover-color);
 }
 
-.GenreIcons {
-  display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  align-items: center;
-  height: 30%;
-  // color: var(--ion-color-dark);
-  font-family: CustomFont;
-  // margin-left: 1.5%;
-  margin-top: 10px;
-}
+
 
 .text {
   width: 97%;
@@ -1023,8 +1081,8 @@ ion-card {
 
 .icons {
   height: 50%;
-  width: 30%;
-  color: var(--ion-color-primary-contrast);
+  width: 40%;
+  color: var(--ion-color-primary);
   display: flex;
   justify-content: space-around;
   position: relative;
@@ -1034,13 +1092,10 @@ ion-card {
 
 #icons2 {
   font-size: 25px;
-  color: var(--ion-color-primary-contrast);
+  color: var(--ion-color-primary);
 }
 
-#icons2:hover {
-  color: var(--hover-color);
-  cursor: pointer;
-}
+
 
 .stats {
   font-size: 15px;
@@ -1054,7 +1109,6 @@ ion-card {
   height: 35%;
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .PostImageContainer {
@@ -1144,4 +1198,100 @@ ion-card {
   width: 135px;
   height: 30px;
   display: none;
+}
+
+.PostImageContainer_mobile {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postImage_mobile{
+  width: 60px;
+  height: 60px;
+  object-fit: fill;
+  border-radius: 15px;
+}
+
+.PostDetails_mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+.TitleNameOptions_mobile {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  overflow: hidden;
+  font-family: CustomFont;
+  font-size: 20px;
+}
+
+.Title_mobile {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+  width: 80%;
+}
+
+.report_mobile{
+  font-size: small;
+  height: 30px;
+}
+.report_mobile2{
+  font-size: 11px;
+  height: 30px;
+}
+
+.Options_mobile{
+  background-color: var(--card-color);
+font-size: 30px;
+margin-right:5px;
+}
+
+.GenreIcons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 30%;
+  color: black;
+  font-family: CustomFont;
+}
+
+.date_mobile {
+  font-family: CustomFont;
+  font-size: 15px;
+  width: 30%;
+  height: 25%;
+  position: relative;
+  display: flex;
+  margin-left: 3%;
+}
+
+.loading-spinner {
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid var(--ion-color-primary);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 0.3s linear infinite;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  margin-left: -20px;
+  margin-top: -20px;
+  z-index: 10;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

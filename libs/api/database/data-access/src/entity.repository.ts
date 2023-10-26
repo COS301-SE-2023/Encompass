@@ -64,7 +64,7 @@ export abstract class EntityRepository<
     entityFilterQuery: FilterQuery<TSchema>,
     entity: TEntity
   ): Promise<void> {
-    console.log("findoneandreplace");
+    // console.log("findoneandreplace");
     const updatedEntityDocument = await this.entityModel.findOneAndReplace(
       entityFilterQuery,
       this.entitySchemaFactory.create(entity),
@@ -74,7 +74,7 @@ export abstract class EntityRepository<
         lean: true,
       }
     );
-      console.log("updatedEntityDocument", updatedEntityDocument);
+      // console.log("updatedEntityDocument", updatedEntityDocument);
     if (!updatedEntityDocument) {
       throw new NotFoundException('Unable to find the entity to replace.');
     }

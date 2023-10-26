@@ -1,4 +1,6 @@
 <div class="Top5" *ngIf="topThree !== null && topThree !== undefined && leaderboard !== null && leaderboard !== undefined">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
     <div class="User" (click)="GoToProfile(topThree[0].username)" style="background-color: var(--l-first)">
       <div>
         <label class="Number">1</label>

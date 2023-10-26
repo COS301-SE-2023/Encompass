@@ -127,7 +127,7 @@ export class MessagesState{
     }
 
     if(settings.notifications.dms !== false){
-      console.log("here")
+      // console.log("here")
       // ctx.dispatch(new HomeSendNotification(user._id, notification));
       this.messagesApi.sendNotification(user._id, notification);
     }
@@ -149,7 +149,7 @@ export class MessagesState{
           chatId: element.chatRef
         }
 
-        console.log(data);
+        // console.log(data);
         currentList = [...currentList, data];
       }
     }
@@ -184,7 +184,7 @@ export class MessagesState{
     // Wait for all the promises to complete using Promise.all
     await Promise.all(promises);
 
-    console.log(userList);
+    // console.log(userList);
     // Now the userList is fully populated, and you can update the context state
     ctx.setState({
       MessagesProfileForm: {

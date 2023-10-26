@@ -31,7 +31,7 @@ export class DoesExistHandler implements IQueryHandler<DoesExistQuery>{
     }
 
     catch(e){
-      // console.log(e)
+      console.log(e)
       return false;
     }
   }

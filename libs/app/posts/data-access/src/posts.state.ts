@@ -95,7 +95,7 @@ export class PostsState {
     
     const post = await this.postsApi.createPost(createPostRequest);
     
-    console.log(post);
+    // console.log(post);
     
     if(post == null || post == undefined){
       return;
@@ -199,7 +199,7 @@ export class PostsState {
       return;
     }
 
-    console.log(response);
+    // console.log(response);
 
     return ctx.setState({
       ProfilePostsForm: {
@@ -307,17 +307,17 @@ export class PostsState {
       const posts = await ctx.getState().PostArrayForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       ctx.patchState({
         PostArrayForm: {
@@ -329,7 +329,7 @@ export class PostsState {
     }
 
     catch(error){
-      console.log(error)
+      // console.log(error)
     }
   }
 
@@ -345,7 +345,7 @@ export class PostsState {
       const posts = await ctx.getState().PostArrayForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
@@ -363,7 +363,7 @@ export class PostsState {
     }
 
     catch(error){
-      console.log(error)
+      // console.log(error)
     }
 
   }
@@ -381,7 +381,7 @@ export class PostsState {
       const posts = await ctx.getState().PostArrayForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
@@ -399,7 +399,7 @@ export class PostsState {
     }
     
     catch(error){
-      console.log(error)
+      // console.log(error)
     }
 
   }
@@ -487,17 +487,17 @@ export class PostsState {
       const posts = await ctx.getState().ProfilePostsForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       ctx.patchState({
         ProfilePostsForm: {
