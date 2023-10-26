@@ -164,6 +164,22 @@
   border-radius: 25px;
   transition: all 0.3s;
 }
+
+.completeQuizLock_mobile {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--ion-color-secondary-contrast);
+  color: var(--ion-color-medium-shade);
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: CustomFont2;
+  font-size: 15px;
+  border-radius: 25px;
+  transition: all 0.3s;
+}
+
 .completeQuiz {
   background-color: var(--ion-color-primary);
   color: var(--ion-color-background);
@@ -182,6 +198,10 @@
 .lock {
   font-size: 50px;
 }
+.lock_mobile {
+  font-size: 20px;
+}
+
 .countDown {
   font-size: 15px;
 }
