@@ -482,7 +482,7 @@
   </ion-header>
   <ion-content>
     <ion-list class="custom-list">
-      <div *ngFor="let notify of notifications?.notifications">
+      <div *ngFor="let notify of notifications?.notifications?.slice()?.reverse()">
         <ion-item color="var(--ion-color-background)">
           <div class="noti-background">
             <div class="user">
