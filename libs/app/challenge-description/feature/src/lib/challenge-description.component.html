@@ -76,7 +76,7 @@
       <button class="JoinChallenge1" *ngIf="hasJoined || hasExpired || !isPartOfCommunity" [disabled]="true">Join Challenge</button>
       <button class="JoinChallenge" *ngIf="!hasJoined && !hasExpired && isPartOfCommunity" (click)="joinChallenge()">Join Challenge</button>
       <ion-text class="CommunityQues">Not Part of this community?</ion-text>
-      <ion-text
+      <ion-text style="text-align: center;"
         >To enter the challenge, join
         <a class="CommunityLink" href="#" (click)="goToCommunity($event)">{{event?.community}}</a>
         now!</ion-text
