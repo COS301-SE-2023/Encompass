@@ -38,6 +38,7 @@ export class CreateCommunityComponent {
     'History',
     'Horror',
     'Hospitality',
+    'IT',
     'Life-Science',
     'Mathematics',
     'Musical',
