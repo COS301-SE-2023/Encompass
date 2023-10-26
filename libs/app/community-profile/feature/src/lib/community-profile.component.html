@@ -324,19 +324,9 @@
                         <ion-icon
                           name="share-social-outline"
                           id="icons2"
-                          *ngIf="!sharing[i]"
                           (click)="Share(i, post)"
                         ></ion-icon>
-                        <ion-icon
-                          name="share-social-outline"
-                          id="icons2"
-                          style="color: purple"
-                          *ngIf="sharing[i]"
-                        ></ion-icon>
-                        <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                        <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                          Link Copied!
-                        </div>
+                        <div>{{ post.shares }}</div>
                       </div>
                       <div style="text-align: center">
                         <ion-icon
@@ -802,7 +792,7 @@
     </div>
     <div class="Statistics">
       <div>
-        #2<br />
+        #{{position}}<br />
         Rank
       </div>
       <div>
@@ -964,24 +954,16 @@
           >
             <ion-card class="PostCard card-styles">
               <div class="PostCardHeader">
-                <div class="PostImageContainer">
+                <div class="PostImageContainer_mobile">
                   <img
                     src="{{ post.communityImageUrl }}"
-                    class="postImage"
+                    class="postImage_mobile"
                     onerror="this.src='assets/icon/Group.png';"
                   />
                 </div>
-                <div class="PostDetails">
-                  <div class="TitleNameOptions">
-                    <div style="display: flex; margin-left: 1.5%">
-                      <div class="Title">{{ post.community }}</div>
-                      <div
-                        class="Name"
-                        (click)="GoToProfile(post.username)"
-                      >
-                        @{{ post.username }}
-                      </div>
-                    </div>
+                <div class="PostDetails_mobile">
+                  <div class="TitleNameOptions_mobile">
+                      <div class="Title_mobile">{{ post.community }}</div>
                   </div>
 
                   <div class="GenreIcons">
@@ -1026,19 +1008,19 @@
 
               <div class="PostBody" (click)="GoToComments(post._id)">
                 <div class="text">
-                  <h5>{{ post.title }}</h5>
+                  <h5>{{ post.title }} <label style="font-size: small;" (click)="GoToProfile(post.username)">@{{post.username}}</label></h5>
                   <div style="display: flex; justify-content: center">
                     <img
                       src="{{ post.imageUrl }}"
                       style="border-radius: 15px"
                     />
                   </div>
-                  <br />
+                 
                   {{ post.text }}
                 </div>
               </div>
               <div class="PostFooter">
-                <div class="date">
+                <div class="date_mobile">
                   {{ post.dateAdded | date : 'yyyy-MM-dd' }}
                 </div>
 
@@ -1047,19 +1029,10 @@
                     <ion-icon
                       name="share-social-outline"
                       id="icons2"
-                      *ngIf="!sharing[i]"
                       (click)="Share(i, post)"
                     ></ion-icon>
-                    <ion-icon
-                      name="share-social-outline"
-                      id="icons2"
-                      style="color: purple"
-                      *ngIf="sharing[i]"
-                    ></ion-icon>
-                    <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                    <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                      Link Copied!
-                    </div>
+                    <div>{{ post.shares }}</div>
+                   
                   </div>
                   <div style="text-align: center">
                     <ion-icon
@@ -1076,13 +1049,11 @@
                         *ngIf="post.likes.includes(profile.username)"
                         id="icons2"
                         style="color: red"
-                        (click)="Like(i, post)"
                       ></ion-icon>
                       <ion-icon
                         name="heart-outline"
                         id="icons2"
                         *ngIf="!post.likes.includes(profile.username)"
-                        (click)="Like(i, post)"
                       ></ion-icon>
                       <div>{{ post.likes.length }}</div>
                     </div>
@@ -1094,13 +1065,11 @@
                         *ngIf="post.dislikes.includes(profile.username)"
                         id="icons2"
                         style="color: red"
-                        (click)="Dislike(i, post)"
                       ></ion-icon>
                       <ion-icon
                         name="heart-dislike-outline"
                         id="icons2"
                         *ngIf="!post.dislikes.includes(profile.username)"
-                        (click)="Dislike(i, post)"
                       ></ion-icon>
                       <div>{{ post.dislikes.length }}</div>
                     </div>
