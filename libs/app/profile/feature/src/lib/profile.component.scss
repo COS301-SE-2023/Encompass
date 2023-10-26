@@ -172,15 +172,7 @@ ion-card {
   padding-right: 30px;
 }
 
-.GenreIcons {
-  display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  align-items: center;
-  height: 30%;
-  color: black;
-  font-family: CustomFont;
-}
+
 
 .imgDiv {
   width: 25px;
@@ -1045,12 +1037,7 @@ ion-button:hover {
   border-radius: 15px;
 }
 
-.postImage_mobile{
-  width: 60px;
-  height: 60px;
-  object-fit: fill;
-  border-radius: 15px;
-}
+
 
 .postImage:hover {
   cursor: pointer;
@@ -1063,12 +1050,6 @@ ion-button:hover {
   width: 82%;
 }
 
-.PostDetails_mobile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 80%;
-}
 
 .TitleNameOptions {
   display: flex;
@@ -1080,14 +1061,7 @@ ion-button:hover {
   font-size: 20px;
 }
 
-.TitleNameOptions_mobile {
-  display: flex;
-  height: 30px;
-  width: 100%;
-  overflow: hidden;
-  font-family: CustomFont;
-  font-size: 20px;
-}
+
 
 .Title {
   display: inline-block;
@@ -1097,15 +1071,7 @@ ion-button:hover {
   text-overflow: ellipsis;
   color: #000;
 }
-.Title_mobile {
-  display: inline-block;
-  width: auto;
-  white-space: nowrap;
-  // overflow: hidden;
-  text-overflow: ellipsis;
-  color: #000;
-  width: 80%;
-}
+
 .Name {
   display: flex;
   align-items: center;
@@ -1136,14 +1102,7 @@ ion-button:hover {
   color: var(--hover-color);
 }
 
-.report_mobile{
-  font-size: small;
-  height: 30px;
-}
-.report_mobile2{
-  font-size: 11px;
-  height: 30px;
-}
+
 .Options {
   background-color: var(--card-color);
   font-size: larger;
@@ -1154,13 +1113,6 @@ ion-button:hover {
 .Options:hover {
   color: var(--hover-color);
 }
-
-.Options_mobile{
-  background-color: var(--card-color);
-font-size: 30px;
-margin-right:5px;
-}
-
 
 .text {
   width: 97%;
@@ -1248,13 +1200,7 @@ margin-right:5px;
   justify-content: center;
   align-items: center;
 }
-.PostImageContainer_mobile {
-  width: 20%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .PostBody {
   display: flex;
@@ -1465,4 +1411,70 @@ margin-right:5px;
   position: relative;
   display: flex;
   margin-left: 3%;
+}
+
+.PostImageContainer_mobile {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postImage_mobile{
+  width: 60px;
+  height: 60px;
+  object-fit: fill;
+  border-radius: 15px;
+}
+
+.PostDetails_mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+.TitleNameOptions_mobile {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  overflow: hidden;
+  font-family: CustomFont;
+  font-size: 20px;
+}
+
+.Title_mobile {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+  width: 80%;
+}
+
+.report_mobile{
+  font-size: small;
+  height: 30px;
+}
+.report_mobile2{
+  font-size: 11px;
+  height: 30px;
+}
+
+.Options_mobile{
+  background-color: var(--card-color);
+font-size: 30px;
+margin-right:5px;
+}
+
+.GenreIcons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 30%;
+  color: black;
+  font-family: CustomFont;
 }
