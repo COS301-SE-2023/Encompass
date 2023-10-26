@@ -128,13 +128,13 @@ export class GetQuestions {
         numQuestions
       );
 
-      console.log('Generated Questions:\n' + generatedQuestions);
+      // console.log('Generated Questions:\n' + generatedQuestions);
 
       // Check if generatedQuestions is a string
       if (typeof generatedQuestions !== 'string') {
-        console.log(
-          'Unexpected response format: generatedQuestions is not a string.'
-        );
+        // console.log(
+        //   'Unexpected response format: generatedQuestions is not a string.'
+        // );
 
         if (count < 5)
           return this.getQuestions(topic, categories, numQuestions, count + 1);
@@ -148,7 +148,7 @@ export class GetQuestions {
       const jsonMatches = generatedQuestions.match(jsonPattern);
 
       if (!jsonMatches) {
-        console.log('No JSON Data ' + count);
+        // console.log('No JSON Data ' + count);
 
         if (count < 5)
           return this.getQuestions(topic, categories, numQuestions, count + 1);
@@ -181,7 +181,7 @@ export class GetQuestions {
 
     const prompt = `Act as an JSON Object. Now Generate ${numQuestions} quesions based on ${topic} and with the following format: {"question": string, "options": string[4], "answer": string}.`;
 
-    console.log('Prompt:\n' + prompt);
+    // console.log('Prompt:\n' + prompt);
 
     try {
       const response = await axios.post(
@@ -198,10 +198,10 @@ export class GetQuestions {
         }
       );
 
-      console.log(response);
-      console.log(response.data);
-      console.log(response.data.choices[0]);
-      console.log(response.data.choices[0].text);
+      // console.log(response);
+      // console.log(response.data);
+      // console.log(response.data.choices[0]);
+      // console.log(response.data.choices[0].text);
       const generatedQuestions = await response.data.choices[0].text;
 
       return generatedQuestions;

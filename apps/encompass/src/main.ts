@@ -13,7 +13,7 @@ if (ENVIRONMENT === 'production') {
 }
 
 else if (ENVIRONMENT === 'development') {
-  console.log('Development mode!');
+  // console.log('Development mode!');
 }
 
 platformBrowserDynamic()

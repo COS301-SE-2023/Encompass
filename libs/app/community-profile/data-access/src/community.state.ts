@@ -125,17 +125,17 @@ export class CommunityState{
       const posts = await ctx.getState().CommunityPostForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
       const index = await posts.findIndex(x => x._id == response._id)
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       posts[index] = response;
 
-      console.log(posts[index])
+      // console.log(posts[index])
 
       const toast = await this.toastController.create({
         message: 'Community updated successfully',
@@ -234,7 +234,7 @@ export class CommunityState{
 
   @Action(AddOtherUserCommunity)
   async addCommunity(ctx: StateContext<CommunityStateModel>, {communityName, username} : AddOtherUserCommunity){
-    console.log("In here")
+    // console.log("In here")
     await this.communityApi.addCommunity(username, communityName);
   }
 
@@ -267,7 +267,7 @@ export class CommunityState{
       const posts = await ctx.getState().CommunityPostForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 
@@ -302,7 +302,7 @@ export class CommunityState{
       const posts = await ctx.getState().CommunityPostForm.model.posts;
 
       if(posts == null ){
-        console.log("POSTS IS NULL")
+        // console.log("POSTS IS NULL")
         return;
       }
 

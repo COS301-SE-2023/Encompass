@@ -127,17 +127,17 @@ export class ProfilePage {
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.pipe(takeUntil(this.unsubscribe$)).subscribe((profile) => {
         if (profile) {
-          console.log('Profile CALLED');
-          console.log(profile);
+          // console.log('Profile CALLED');
+          // console.log(profile);
           this.profile = profile;
           // this.getPosts(profile);
           if (!this.isPostsFetched) {
             // this.isPostsFetched = true;
-            console.log('getPosts', profile);
+            // console.log('getPosts', profile);
             this.store.dispatch(new GetPosts(profile.username, profile._id));
             this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
               if (posts) {
-                console.log('posts', posts);
+                // console.log('posts', posts);
                 this.posts = posts;
                 this.size = posts.length - 1;
                 for (let i = 0; i < posts.length; i++) {
@@ -196,11 +196,11 @@ export class ProfilePage {
                   }
 
                   if (page) {
-                    console.log('testing the feed page');
-                    console.log('hello ' + this.settings.themes.themeImage);
+                    // console.log('testing the feed page');
+                    // console.log('hello ' + this.settings.themes.themeImage);
                     page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
                   } else {
-                    console.log('page is null');
+                    // console.log('page is null');
                   }
                 }
               });
@@ -232,11 +232,11 @@ export class ProfilePage {
   getPosts(profile: ProfileDto) {
     if (!this.isPostsFetched) {
       // this.isPostsFetched = true;
-      console.log('getPosts', profile);
+      // console.log('getPosts', profile);
       this.store.dispatch(new GetPosts(profile.username, profile._id));
       this.posts$.pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
         if (posts) {
-          console.log('posts', posts);
+          // console.log('posts', posts);
           this.posts = posts;
           this.size = posts.length - 1;
           for (let i = 0; i < posts.length; i++) {
@@ -303,7 +303,7 @@ export class ProfilePage {
       this.store.dispatch(new GetByUsername(profile.username));
       this.events$.subscribe((events) => {
         if(events){
-          console.log(events);
+          // console.log(events);
           this.events = events;
         }
       })
@@ -655,7 +655,7 @@ export class ProfilePage {
       formData.append('file', file, fileName);
 
       const uploadFile = this.profileApi.uploadFile(formData);
-      console.log(uploadFile);
+      // console.log(uploadFile);
       resolve(uploadFile);
     });
   }
@@ -665,8 +665,8 @@ export class ProfilePage {
     if (this.profile == null) {
       return;
     }
-    console.log('here');
-    console.log(this.profile.followers);
+    // console.log('here');
+    // console.log(this.profile.followers);
     this.otherUsers = await this.profileState.getFollowers(
       this.profile.followers
     );
@@ -687,8 +687,8 @@ export class ProfilePage {
       return;
     }
 
-    console.log('here as well');
-    console.log(this.profile.following);
+    // console.log('here as well');
+    // console.log(this.profile.following);
     this.otherUsers = await this.profileState.getFollowing(
       this.profile.following
     );
@@ -702,7 +702,7 @@ export class ProfilePage {
   }
 
   async goToProfile(username: string | undefined) {
-    console.log('Route is ' + username);
+    // console.log('Route is ' + username);
     await this.modalController.dismiss();
     this.router.navigate(['home/user-profile/' + username]);
   }

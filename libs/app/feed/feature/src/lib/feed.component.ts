@@ -185,8 +185,8 @@ export class FeedPage {
     // this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if (profile) {
-        console.log('Profile CALLED');
-        console.log(profile);
+        // console.log('Profile CALLED');
+        // console.log(profile);
         this.profile = profile;
         // this.addPosts("recommended");
         if(!this.isNewFetched){
@@ -219,7 +219,7 @@ export class FeedPage {
 
                 this.themeName = this.settings.themes.themeColor;
 
-                console.log(this.themeName);
+                // console.log(this.themeName);
 
                 const defaultcloud = document.getElementById('cloud-default');
                 const redcloud = document.getElementById('cloud-red');
@@ -235,7 +235,7 @@ export class FeedPage {
                   orangecloud
                 ) {
                   // console.log('default cloudsssssssssssssssssssssssssssssssss1');
-                  console.log(this.themeName);
+                  // console.log(this.themeName);
                   if (
                     this.themeName == 'light-red' ||
                     this.themeName == 'dark-red'
@@ -283,11 +283,11 @@ export class FeedPage {
                 }
 
                 if (page) {
-                  console.log('testing the feed page');
-                  console.log('hello ' + this.settings.themes.themeImage);
+                  // console.log('testing the feed page');
+                  // console.log('hello ' + this.settings.themes.themeImage);
                   page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
                 } else {
-                  console.log('page is null');
+                  // console.log('page is null');
                 }
               }
             });
@@ -306,13 +306,13 @@ export class FeedPage {
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((communities) => {
               if (communities) {
-                console.log('Communities Found');
-                console.log(communities);
+                // console.log('Communities Found');
+                // console.log(communities);
                 this.myCommunities = communities.slice(0, 3);
-                console.log('COMMUNITIES: ');
-                for (let k = 0; k < this.myCommunities.length; k++) {
-                  console.log(this.myCommunities[k].name);
-                }
+                // console.log('COMMUNITIES: ');
+                // for (let k = 0; k < this.myCommunities.length; k++) {
+                //   // console.log(this.myCommunities[k].name);
+                // }
                 // console.log("END OF COMMUNITIES: ")
               }
             });
@@ -326,19 +326,19 @@ export class FeedPage {
               if (books.length == undefined) {
                 this.booksIsFetched = false;
               } else {
-                console.log('Books:');
-                console.log(books);
+                // console.log('Books:');
+                // console.log(books);
                 this.books = books;
-                console.log('My Books:');
-                console.log(this.books);
+                // console.log('My Books:');
+                // console.log(this.books);
                 if (this.books) {
                   this.BookTitle1 = this.books[0].title;
                   this.BookTitle2 = this.books[1].title;
                   this.BookAuthor1 = this.books[0].author;
                   this.BookAuthor2 = this.books[1].author;
-                  console.log('Book Titles:');
-                  console.log(this.BookTitle1);
-                  console.log(this.BookTitle2);
+                  // console.log('Book Titles:');
+                  // console.log(this.BookTitle1);
+                  // console.log(this.BookTitle2);
                   if (this.books[0].title.includes(',')) {
                     const Index = this.books[0].title.indexOf(',');
                     if (Index !== -1) {
@@ -418,11 +418,11 @@ export class FeedPage {
                     }
                   }
 
-                  console.log('AUTHORS:');
-                  console.log(this.books[0].author);
-                  console.log(this.BookAuthor1);
-                  console.log(this.books[1].author);
-                  console.log(this.BookAuthor2);
+                  // console.log('AUTHORS:');
+                  // console.log(this.books[0].author);
+                  // console.log(this.BookAuthor1);
+                  // console.log(this.books[1].author);
+                  // console.log(this.BookAuthor2);
 
                   if (this.books[0].genres) {
                     const sanitizedString = this.books[0].genres.replace(
@@ -440,9 +440,9 @@ export class FeedPage {
                     this.BookGenres2 = JSON.parse(sanitizedString);
                   }
 
-                  console.log('GENRES:');
-                  console.log(this.BookGenres1);
-                  console.log(this.BookGenres2);
+                  // console.log('GENRES:');
+                  // console.log(this.BookGenres1);
+                  // console.log(this.BookGenres2);
 
                   for (let i = 0; i < this.BookGenres1.length; i++) {
                     if (
@@ -560,8 +560,8 @@ export class FeedPage {
                       this.BookGenres1[i] = 'IT';}
                   }
 
-                  console.log('NEW GENRES AFTER REPLACING (1):');
-                  console.log(this.BookGenres1);
+                  // console.log('NEW GENRES AFTER REPLACING (1):');
+                  // console.log(this.BookGenres1);
 
                   this.BookGenres1 = Array.from(new Set(this.BookGenres1));
 
@@ -599,8 +599,8 @@ export class FeedPage {
                     }
                   }
 
-                  console.log('NEW GENRES AFTER FILTERING (1):');
-                  console.log(this.myBookGenres1);
+                  // console.log('NEW GENRES AFTER FILTERING (1):');
+                  // console.log(this.myBookGenres1);
 
                   for (let i = 0; i < this.BookGenres2.length; i++) {
                     if (
@@ -717,8 +717,8 @@ export class FeedPage {
                       this.BookGenres2[i] = 'IT';}
                   }
 
-                  console.log('NEW GENRES AFTER REPLACING (2):');
-                  console.log(this.BookGenres2);
+                  // console.log('NEW GENRES AFTER REPLACING (2):');
+                  // console.log(this.BookGenres2);
 
                   this.BookGenres2 = Array.from(new Set(this.BookGenres2));
 
@@ -755,12 +755,12 @@ export class FeedPage {
                       }
                     }
                   }
-                  console.log('NEW GENRES AFTER FILTERING (2):');
-                  console.log(this.myBookGenres2);
+                  // console.log('NEW GENRES AFTER FILTERING (2):');
+                  // console.log(this.myBookGenres2);
 
-                  console.log('REFINED GENRES:');
-                  console.log(this.myBookGenres1);
-                  console.log(this.myBookGenres2);
+                  // console.log('REFINED GENRES:');
+                  // console.log(this.myBookGenres1);
+                  // console.log(this.myBookGenres2);
                 }
               }
             }
@@ -768,7 +768,7 @@ export class FeedPage {
         }
 
         if (!this.moviesIsFetched) {
-          console.log('Movies CALLED:');
+          // console.log('Movies CALLED:');
           this.moviesIsFetched = true;
           this.store.dispatch(new GetRecommendedMovies(this.profile._id));
           this.movies$.pipe().subscribe((movies) => {
@@ -776,33 +776,33 @@ export class FeedPage {
               if (movies.length == undefined) {
                 this.moviesIsFetched = false;
               } else {
-                console.log(movies);
+                // console.log(movies);
                 this.movies = movies;
-                console.log('My Movies:');
-                console.log(this.movies);
+                // console.log('My Movies:');
+                // console.log(this.movies);
                 if (this.movies) {
                   this.MovieTitle1 = this.movies[0].Title;
                   this.MovieTitle2 = this.movies[1].Title;
 
-                  console.log('Movie Titles:');
-                  console.log(this.MovieTitle1);
-                  console.log(this.MovieTitle2);
+                  // console.log('Movie Titles:');
+                  // console.log(this.MovieTitle1);
+                  // console.log(this.MovieTitle2);
 
                   if (this.movies[0].Genre) {
                     const newString = this.movies[0].Genre.replace(/\s/g, '');
                     this.MovieGenres1 = newString.split(',');
-                    console.log('New String: ' + newString);
+                    // console.log('New String: ' + newString);
                   }
 
                   if (this.movies[1].Genre) {
                     const newString = this.movies[1].Genre.replace(/\s/g, '');
                     this.MovieGenres2 = newString.split(',');
-                    console.log('New String2: ' + newString);
+                    // console.log('New String2: ' + newString);
                   }
 
-                  console.log('GENRES AGAIN:');
-                  console.log(this.MovieGenres1);
-                  console.log(this.MovieGenres2);
+                  // console.log('GENRES AGAIN:');
+                  // console.log(this.MovieGenres1);
+                  // console.log(this.MovieGenres2);
 
                   for (let i = 0; i < this.MovieGenres1.length; i++) {
                     if (
@@ -914,33 +914,33 @@ export class FeedPage {
                 if (podcasts.length == undefined) {
                   this.podcastsIsFetched = false;
                 } else {
-                  console.log(podcasts);
+                  // console.log(podcasts);
                   this.podcasts = podcasts;
-                  console.log('My Podcasts:');
-                  console.log(this.podcasts);
+                  // console.log('My Podcasts:');
+                  // console.log(this.podcasts);
                   if (this.podcasts) {
                     this.PodcastTitle1 = this.podcasts[0].title;
                     this.PodcastTitle2 = this.podcasts[1].title;
   
-                    console.log('Podcast Titles:');
-                    console.log(this.PodcastTitle1);
-                    console.log(this.PodcastTitle2);
+                    // console.log('Podcast Titles:');
+                    // console.log(this.PodcastTitle1);
+                    // console.log(this.PodcastTitle2);
   
                     if (this.podcasts[0].categories) {
                       const newString = this.podcasts[0].categories.replace(/\s/g, '');
                       this.PodcastGenres1 = newString.split('|');
-                      console.log('New String: ' + newString);
+                      // console.log('New String: ' + newString);
                     }
   
                     if (this.podcasts[1].categories) {
                       const newString = this.podcasts[1].categories.replace(/\s/g, '');
                       this.PodcastGenres2 = newString.split('|');
-                      console.log('New String2: ' + newString);
+                      // console.log('New String2: ' + newString);
                     }
   
-                    console.log('GENRES AGAIN:');
-                    console.log(this.PodcastGenres1);
-                    console.log(this.PodcastGenres2);
+                    // console.log('GENRES AGAIN:');
+                    // console.log(this.PodcastGenres1);
+                    // console.log(this.PodcastGenres2);
   
                     for (let i = 0; i < this.PodcastGenres1.length; i++) {
                       if (
@@ -1197,7 +1197,7 @@ export class FeedPage {
     }
     // if(!this.postsIsFetched){
     if (this.type === 'recommended') {
-      console.log('GETTING RECOMMENDED POSTS');
+      // console.log('GETTING RECOMMENDED POSTS');
       this.store.dispatch(new GetAllPosts(this.profile?._id));
     } else if (this.type === 'latest') {
       this.store.dispatch(new GetLatestPosts(this.profile.username));

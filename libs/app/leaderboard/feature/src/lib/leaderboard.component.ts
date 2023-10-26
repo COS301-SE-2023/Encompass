@@ -43,7 +43,7 @@ export class LeaderboardComponent {
       this.store.dispatch(new GetLeaderboard());
       this.leaderboard$.pipe(takeUntil(this.unsubscribe$)).subscribe((leaderboard) => {
         if(leaderboard){
-          console.log(leaderboard);
+          // console.log(leaderboard);
           this.leaderboard = leaderboard.slice(3);
           this.topThree = leaderboard.slice(0, 3);
         }

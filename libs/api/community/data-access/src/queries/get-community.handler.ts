@@ -8,7 +8,7 @@ export class GetCommunityHandler implements IQueryHandler<GetCommunityQuery> {
     constructor(private readonly communityEntityRepository: CommunityEntityRepository){}
 
     async execute({ communityId }: GetCommunityQuery){
-        console.log(communityId)
+        // console.log(communityId)
         return this.communityEntityRepository.findOneById(communityId);
     }
 }

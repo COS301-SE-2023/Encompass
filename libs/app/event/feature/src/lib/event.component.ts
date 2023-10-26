@@ -67,7 +67,7 @@ export class EventPage {
               this.store.dispatch(new GetEvents(profile.communities));
               this.events$.pipe(takeUntil(this.unsubscribe$)).subscribe((events) => {
                 if(events){
-                  console.log(events)
+                  // console.log(events)
                   this.allEvents = events;
                   this.events = events;
                   
@@ -88,7 +88,7 @@ export class EventPage {
                    
                      userEvents.events.forEach((event) => {
                         if(event.eventId === events[i]._id){
-                          console.log("!!!!!!!!!!!!!!!!!!!!FOUND "+events[i].name);
+                          // console.log("!!!!!!!!!!!!!!!!!!!!FOUND "+events[i].name);
                           if(event.quizComplete){
                             this.hasCompleted[i]=true;
                           }
@@ -96,11 +96,11 @@ export class EventPage {
                       })
                      
 
-                      console.log("EVENT:");
-                      console.log(events[i].name);
-                      console.log("Joined: "+this.hasJoined[i]);
-                      console.log("Expired: "+this.hasExpired[i]);
-                      console.log("Completed: "+this.hasCompleted[i]);
+                      // console.log("EVENT:");
+                      // console.log(events[i].name);
+                      // console.log("Joined: "+this.hasJoined[i]);
+                      // console.log("Expired: "+this.hasExpired[i]);
+                      // console.log("Completed: "+this.hasCompleted[i]);
 
                     }
                 }
@@ -128,7 +128,7 @@ export class EventPage {
       this.store.dispatch(new GetLeaderboard());
       this.leaderboard$.pipe(takeUntil(this.unsubscribe$)).subscribe((leaderboard) => {
         if(leaderboard){
-          console.log(leaderboard);
+          // console.log(leaderboard);
           this.leaderboard = leaderboard;
           this.topFive = leaderboard.slice(0, 5);
         }

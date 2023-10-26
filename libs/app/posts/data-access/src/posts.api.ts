@@ -121,10 +121,10 @@ export class PostsApi{
 
   async getAllPosts(username : string){
     try{
-      console.log("I am fetching the AI Posts")
+      // console.log("I am fetching the AI Posts")
       const response = await this.httpClient.get<PostDto[]>('/api/post/get-all/' + username).toPromise();
 
-      console.log(response);
+      // console.log(response);
       return response;
     }
 

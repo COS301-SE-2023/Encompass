@@ -126,7 +126,7 @@ export class CommunityProfileComponent {
         this.myMembers = [];
         this.UpdatedMyMembers = [];
         this.community = community;
-        console.log(community);
+        // console.log(community);
         this.members = community.members.length;
         for (let i = 0; i < community.members.length; i++) {
           if (
@@ -140,9 +140,9 @@ export class CommunityProfileComponent {
         }
 
         this.UpdatedMyMembers = this.myMembers;
-        console.log('CONSTRUCTOR CALLED');
-        console.log('My Members: ' + this.myMembers);
-        console.log('Updated My Members: ' + this.UpdatedMyMembers);
+        // console.log('CONSTRUCTOR CALLED');
+        // console.log('My Members: ' + this.myMembers);
+        // console.log('Updated My Members: ' + this.UpdatedMyMembers);
 
         if (community.type !== 'Public') {
           if (!this.isCommunityRequestFetched) {
@@ -150,7 +150,7 @@ export class CommunityProfileComponent {
             this.store.dispatch(new GetCommunityRequest(community._id));
             this.communityRequest$.subscribe((request) => {
               if (request) {
-                console.log(request);
+                // console.log(request);
                 this.communityRequest = request;
               }
             });
@@ -184,7 +184,7 @@ export class CommunityProfileComponent {
     
               this.themeName = this.settings.themes.themeColor;
     
-              console.log(this.themeName);
+              // console.log(this.themeName);
     
               const defaultcloud = document.getElementById('cloud-default');
               const redcloud = document.getElementById('cloud-red');
@@ -200,7 +200,7 @@ export class CommunityProfileComponent {
                 orangecloud
               ) {
                 // console.log('default cloudsssssssssssssssssssssssssssssssss1');
-                console.log(this.themeName);
+                // console.log(this.themeName);
                 if (this.themeName == 'light-red' || this.themeName == 'dark-red') {
                   redcloud.classList.remove('visible');
                   defaultcloud.classList.add('visible');
@@ -245,11 +245,11 @@ export class CommunityProfileComponent {
               }
     
               if (page) {
-                console.log('testing the feed page');
-                console.log('hello ' + this.settings.themes.themeImage);
+                // console.log('testing the feed page');
+                // console.log('hello ' + this.settings.themes.themeImage);
                 page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
               } else {
-                console.log('page is null');
+                // console.log('page is null');
               }
             }
           });
@@ -273,7 +273,7 @@ export class CommunityProfileComponent {
     this.communityPosts$.subscribe((posts) => {
       if (posts) {
         this.communityPosts = posts;
-        console.log(posts);
+        // console.log(posts);
 
         // for (let i = 0; i < posts.length; i++) {
         //   this.sharing.push(false);
@@ -295,7 +295,7 @@ export class CommunityProfileComponent {
     this.store.dispatch(new GetByCommunity(communityName));
     this.events$.subscribe((events) => {
       if(events){
-        console.log(events)
+        // console.log(events)
         this.events = events
       }
     })
@@ -399,7 +399,7 @@ export class CommunityProfileComponent {
   }
 
   async onSubmit() {
-    console.log('OH HELLO THERE!!!!!!');
+    // console.log('OH HELLO THERE!!!!!!');
     if (this.community == null) {
       return;
     }
@@ -492,7 +492,7 @@ export class CommunityProfileComponent {
       formData.append('file', file, fileName);
 
       const uploadFile = this.communityApi.uploadFile(formData);
-      console.log(uploadFile);
+      // console.log(uploadFile);
       resolve(uploadFile);
     });
   }
@@ -500,9 +500,9 @@ export class CommunityProfileComponent {
   Remove(m: string, i: number) {
     this.removedMember[i] = true;
     this.UpdatedMyMembers = this.UpdatedMyMembers.filter((x) => x != m);
-    console.log('REMOVE CALLED');
-    console.log('My Members: ' + this.myMembers);
-    console.log('Updated My Members: ' + this.UpdatedMyMembers);
+    // console.log('REMOVE CALLED');
+    // console.log('My Members: ' + this.myMembers);
+    // console.log('Updated My Members: ' + this.UpdatedMyMembers);
     this.removedlist.push(m);
   }
 
@@ -510,9 +510,9 @@ export class CommunityProfileComponent {
     this.removedMember[i] = false;
     this.UpdatedMyMembers.push(m);
 
-    console.log('UNDO CALLED');
-    console.log('My Members: ' + this.myMembers);
-    console.log('Updated My Members: ' + this.UpdatedMyMembers);
+    // console.log('UNDO CALLED');
+    // console.log('My Members: ' + this.myMembers);
+    // console.log('Updated My Members: ' + this.UpdatedMyMembers);
     this.removedlist = this.removedlist.filter((x) => x != m);
   }
 
@@ -523,9 +523,9 @@ export class CommunityProfileComponent {
     this.UpdatedMyMembers = this.myMembers;
     this.RemoveMember = false;
 
-    console.log('CANCEL CALLED');
-    console.log('My Members: ' + this.myMembers);
-    console.log('Updated My Members: ' + this.UpdatedMyMembers);
+    // console.log('CANCEL CALLED');
+    // console.log('My Members: ' + this.myMembers);
+    // console.log('Updated My Members: ' + this.UpdatedMyMembers);
     this.removedlist = [];
   }
   async UpdateCommunity() {
@@ -540,9 +540,9 @@ export class CommunityProfileComponent {
 
     this.myMembers = this.UpdatedMyMembers;
     this.myMembers.push(this.profile?.username);
-    console.log('UPDATE CALLED');
-    console.log('My Members: ' + this.myMembers);
-    console.log('Updated My Members: ' + this.UpdatedMyMembers);
+    // console.log('UPDATE CALLED');
+    // console.log('My Members: ' + this.myMembers);
+    // console.log('Updated My Members: ' + this.UpdatedMyMembers);
 
     let newEP = this.community.communityEP;
 
@@ -696,14 +696,14 @@ export class CommunityProfileComponent {
       communityEP: newEP,
     };
 
-    console.log(this.profile);
+    // console.log(this.profile);
     this.store.dispatch(new UpdateCommunity(this.community?._id, data));
     this.store.dispatch(
       new RemoveCommunityRequest(this.community?._id, username)
     );
     this.communityApi.addCommunity(username, this.community.name);
 
-    console.log(this.profile);
+    // console.log(this.profile);
   }
 
   rejectUser(username: string) {

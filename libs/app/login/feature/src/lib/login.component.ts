@@ -40,7 +40,7 @@ export class LoginComponent {
     this.loginModel$.subscribe(async (data) => {
       if (data) {
         this.account = data;
-        console.log(this.account._id);
+        // console.log(this.account._id);
 
         if (this.account._id != null || this.account._id != undefined) {
           if (this.account._id != '') {
@@ -56,7 +56,7 @@ export class LoginComponent {
     const loginbtn = document.getElementById('loginBtn');
     if (event.key === 'Enter') {
       if (loginbtn) {
-        console.log('enter pressed');
+        // console.log('enter pressed');
         loginbtn.style.backgroundColor = 'var(--hover-color)';
       }
       const loginButton: HTMLButtonElement | null =

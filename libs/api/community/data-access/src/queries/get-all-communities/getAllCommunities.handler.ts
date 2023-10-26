@@ -7,7 +7,7 @@ export class GetAllCommunitiesHandler implements IQueryHandler<GetAllCommunities
     constructor(private readonly communityEntityRepository: CommunityEntityRepository) {}
 
     async execute() {
-        console.log("GetAllCommunitiesQuery was called");
+        // console.log("GetAllCommunitiesQuery was called");
         return this.communityEntityRepository.findAll();
     }
 }

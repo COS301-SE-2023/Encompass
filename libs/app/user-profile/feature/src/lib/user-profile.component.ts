@@ -94,7 +94,7 @@ export class UserProfile {
     this.userProfileState.getUserProfile(username).then((userProfile) => {
       if (userProfile) {
         this.userProfile = userProfile;
-        console.log('Userprofile', this.userProfile);
+        // console.log('Userprofile', this.userProfile);
         // if(!this.isPostsFetched){
         this.isPostsFetched = true;
 
@@ -121,7 +121,7 @@ export class UserProfile {
               //   }
               // })
               this.userPosts = userPosts;
-              console.log(this.userPosts);
+              // console.log(this.userPosts);
               for (let i = 0; i < userPosts.length; i++) {
                 this.likedComments.push(false);
                 this.sharing.push(false);
@@ -146,14 +146,14 @@ export class UserProfile {
 
               this.loading = false;
             } else {
-              console.log('USER PROFILE IS', userProfile);
+              // console.log('USER PROFILE IS', userProfile);
             }
           });
         // }
         this.userProfileState.getUserProfileSettings(userProfile._id)?.then((settings) => {
           if(settings){
             this.userProfileSettings = settings;
-            console.log(this.userProfileSettings);
+            // console.log(this.userProfileSettings);
           }
         })
       }
@@ -181,8 +181,8 @@ export class UserProfile {
     // this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if (profile) {
-        console.log('Profile CALLED');
-        console.log(profile);
+        // console.log('Profile CALLED');
+        // console.log(profile);
         this.profile = profile;
         // this.addPosts("recommended");
         // this.newChange();
@@ -206,11 +206,11 @@ export class UserProfile {
             }
 
             if (page) {
-              console.log('testing the feed page');
-              console.log('hello ' + this.settings.themes.themeImage);
+              // console.log('testing the feed page');
+              // console.log('hello ' + this.settings.themes.themeImage);
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
             } else {
-              console.log('page is null');
+              // console.log('page is null');
             }
           }
         });
@@ -336,7 +336,7 @@ export class UserProfile {
       .then((userProfile) => {
         if (userProfile) {
           this.userProfile = userProfile;
-          console.log(this.userProfile);
+          // console.log(this.userProfile);
         }
       });
 
@@ -368,7 +368,7 @@ export class UserProfile {
       .then((userProfile) => {
         if (userProfile) {
           this.userProfile = userProfile;
-          console.log(this.userProfile);
+          // console.log(this.userProfile);
         }
       });
 
@@ -462,8 +462,8 @@ export class UserProfile {
     if (this.userProfile == null) {
       return;
     }
-    console.log('here');
-    console.log(this.userProfile.followers);
+    // console.log('here');
+    // console.log(this.userProfile.followers);
     this.otherUsers = await this.userProfileState.getFollowers(
       this.userProfile.followers
     );
@@ -484,8 +484,8 @@ export class UserProfile {
       return;
     }
 
-    console.log('here as well');
-    console.log(this.userProfile.following);
+    // console.log('here as well');
+    // console.log(this.userProfile.following);
     this.otherUsers = await this.userProfileState.getFollowing(
       this.userProfile.following
     );
@@ -527,7 +527,7 @@ export class UserProfile {
   // }
 
   async goToProfile(username : string | undefined){
-    console.log("Route is " + username);
+    // console.log("Route is " + username);
     await this.modalController.dismiss();
     this.router.navigate(['home/user-profile/' + username]);
   }
@@ -542,7 +542,7 @@ export class UserProfile {
 
   setOpen(isOpen: boolean) {
     this.isModalOpen=false;
-    console.log("FOLLOWERS CALLED AND isModalOpen is " + this.isModalOpen);
+    // console.log("FOLLOWERS CALLED AND isModalOpen is " + this.isModalOpen);
     this.loadFollowers();
      this.modalController.dismiss();
     this.isModalOpen = isOpen;
@@ -552,7 +552,7 @@ export class UserProfile {
 
   setOpen2(isOpen: boolean) {
     this.isModal2Open=false;
-    console.log("FOLLOWing CALLED AND isModalOpen is " + this.isModal2Open);
+    // console.log("FOLLOWing CALLED AND isModalOpen is " + this.isModal2Open);
     this.loadFollowing();
     this.modalController.dismiss();
     this.isModal2Open = isOpen;

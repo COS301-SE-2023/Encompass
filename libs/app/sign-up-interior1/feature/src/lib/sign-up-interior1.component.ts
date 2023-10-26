@@ -33,7 +33,7 @@ export class SignUpInterior1Component {
 
     this.profile$.subscribe((profile) => {
       if (profile) {
-        console.log(profile);
+        // console.log(profile);
         this.profile = profile;
       }
     });
@@ -63,7 +63,7 @@ export class SignUpInterior1Component {
     } else {
       this.isValid = false;
     }
-    console.log(this.categories);
+    // console.log(this.categories);
   }
 
   next() {

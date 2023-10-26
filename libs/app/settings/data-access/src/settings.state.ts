@@ -119,7 +119,7 @@ export class SettingsState {
 
   @Action(GetAccount)
   async getAccount(ctx: StateContext<SettingsAccountModel>, {userId}: GetAccount){
-    console.log("here")
+    // console.log("here")
     const response = await this.settingsApi.getAccount(userId);
 
     if(response == null || response == undefined){

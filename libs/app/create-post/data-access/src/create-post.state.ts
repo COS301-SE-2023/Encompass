@@ -42,7 +42,7 @@ export class CreatePostState{
     const event = await this.createPostApi.createEvent(createEventRequest);
 
     toast1.dismiss();
-    console.log(event);
+    // console.log(event);
 
     if(event == null || event == undefined){
       return;
