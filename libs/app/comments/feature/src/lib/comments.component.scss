@@ -76,16 +76,7 @@
   right: 5%;
 }
 
-.GenreIcons {
-  display: flex;
-  justify-content: center;
-  justify-content: space-between;
-  align-items: center;
-  height: 30%;
-  color: black;
-  font-family: CustomFont;
-  margin-left: 1.5%;
-}
+
 
 .text {
   width: 97%;
@@ -125,7 +116,6 @@
   height: 35%;
   width: 100%;
   margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .PostImageContainer {
@@ -312,7 +302,7 @@ ion-textarea.custom {
 
 .icons {
   height: 50%;
-  width: 30%;
+  width: 40%;
   color: var(--ion-color-primary);
   display: flex;
   justify-content: space-around;
@@ -413,4 +403,70 @@ ion-textarea.custom {
   width: 100%;
   overflow:scroll;
   object-fit: fill;
+}
+
+.PostImageContainer_mobile {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postImage_mobile{
+  width: 60px;
+  height: 60px;
+  object-fit: fill;
+  border-radius: 15px;
+}
+
+.PostDetails_mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
+.TitleNameOptions_mobile {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  overflow: hidden;
+  font-family: CustomFont;
+  font-size: 20px;
+}
+
+.Title_mobile {
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  // overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+  width: 80%;
+}
+
+.report_mobile{
+  font-size: small;
+  height: 30px;
+}
+.report_mobile2{
+  font-size: 11px;
+  height: 30px;
+}
+
+.Options_mobile{
+  background-color: var(--card-color);
+font-size: 30px;
+margin-right:5px;
+}
+
+.GenreIcons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 30%;
+  color: black;
+  font-family: CustomFont;
 }
