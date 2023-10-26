@@ -180,7 +180,7 @@
         </ion-list>
       </div>
 
-      <ion-modal
+      <!-- <ion-modal
         #modal
         trigger="open-modal"
         [presentingElement]="presentingElement"
@@ -235,11 +235,11 @@
             </ion-list>
           </ion-content>
         </ng-template>
-      </ion-modal>
+      </ion-modal> -->
 
       <div id="account-click" class="content onClick" *ngIf="settings != null">
         <ion-list class="custom-list">
-          <ion-item lines="none" color="var(--ion-color-background)">
+          <ion-item lines="none" color="var(--ion-color-background)" *ngIf="!mobileview">
             <div class="label-box">
               <ion-label class="info-label">Name</ion-label>
             </div>
@@ -249,7 +249,22 @@
               class="info"
             ></ion-input>
           </ion-item>
-          <ion-item lines="none" color="var(--ion-color-background)">
+          <ion-item lines="none" color="var(--ion-color-background)" *ngIf="mobileview">
+            <div style="display: flex; flex-direction: column;">
+              <div class="label-box">
+                <ion-label class="info-label">Name</ion-label>
+              </div>
+              <ion-input
+                value="{{ profile?.name }}"
+                [(ngModel)]="nameEdit"
+                class="info"
+              ></ion-input>
+            </div>
+            
+          </ion-item>
+
+          <ion-item lines="none" color="var(--ion-color-background)" *ngIf="!mobileview">
+            
             <div class="label-box">
               <ion-label class="info-label">Surname</ion-label>
             </div>
@@ -258,8 +273,22 @@
               class="info"
               value="{{ profile?.lastName }}"
             ></ion-input>
+        
           </ion-item>
-          <ion-item lines="none" color="var(--ion-color-background)">
+          <ion-item lines="none" color="var(--ion-color-background)" *ngIf="mobileview">
+            <div style="display: flex; flex-direction: column;">
+            <div class="label-box">
+              <ion-label class="info-label">Surname</ion-label>
+            </div>
+            <ion-input
+              [(ngModel)]="lastNameEdit"
+              class="info"
+              value="{{ profile?.lastName }}"
+            ></ion-input>
+          </div>
+          </ion-item>
+
+          <ion-item lines="none" color="var(--ion-color-background)" *ngIf="!mobileview">
             <div class="label-box">
               <ion-label class="info-label">Email</ion-label>
             </div>
@@ -269,6 +298,19 @@
               value="{{ loginModel?.email }}"
             ></ion-input>
           </ion-item>
+          <ion-item lines="none" color="var(--ion-color-background)" *ngIf="mobileview">
+            <div style="display: flex; flex-direction: column;">
+            <div class="label-box">
+              <ion-label class="info-label">Email</ion-label>
+            </div>
+            <ion-input
+              [(ngModel)]="emailEdit"
+              class="info"
+              value="{{ loginModel?.email }}"
+            ></ion-input>
+          </div>
+          </ion-item>
+
           <ion-item lines="none" color="var(--ion-color-background)">
             <div class="label-box">
               <ion-label class="info-label">Username</ion-label>
@@ -316,7 +358,7 @@
             ></ion-toggle
             ><br /><br />
           </ion-item>
-          <ion-item lines="none" color="var(--ion-color-background)">
+          <!-- <ion-item lines="none" color="var(--ion-color-background)">
             <ion-label class="info-label">People Blocked</ion-label>
             <ion-icon
               id="open-modal"
@@ -324,7 +366,7 @@
               color="dark"
               class="edit-icons blocked-arrow"
             ></ion-icon>
-          </ion-item>
+          </ion-item> -->
         </ion-list>
       </div>
     </div>
