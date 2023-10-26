@@ -400,6 +400,7 @@ export class ProfilePage {
 
   DeleteComment(n: number, comment: CommentDto) {
     this.MarkedForCommentDeletion[n] = false;
+    this.deleteComment[n]=false;
     this.store.dispatch(new DeleteComment(comment._id));
   }
 

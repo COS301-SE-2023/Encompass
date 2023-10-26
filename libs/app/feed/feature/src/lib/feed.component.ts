@@ -593,7 +593,7 @@ export class FeedPage {
                       this.BookGenres1[i] == 'Adventure'
                     ) {
                       this.myBookGenres1.push(this.BookGenres1[i]);
-                      if (this.myBookGenres1.length == 3) {
+                      if (this.myBookGenres1.length === 3) {
                         break;
                       }
                     }
@@ -750,7 +750,7 @@ export class FeedPage {
                       this.BookGenres2[i] == 'Adventure'
                     ) {
                       this.myBookGenres2.push(this.BookGenres2[i]);
-                      if (this.myBookGenres2.length == 3) {
+                      if (this.myBookGenres2.length === 3) {
                         break;
                       }
                     }

@@ -983,7 +983,8 @@
                 >Delete Comment</label
               >
 
-              <button class="Options2" (click)="Delete2(i)">
+              <button class="Options2" (click)="Delete2(i)"
+              *ngIf="!deleteComment[i] && !MarkedForCommentDeletion[i]">
                 <ion-icon name="close-circle-outline"></ion-icon>
               </button>
 
