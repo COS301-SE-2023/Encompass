@@ -42,6 +42,13 @@ ion-card {
   gap: 100%;
 }
 
+.searchButtonsMobile {
+  margin-top: 10px; 
+  display: flex;
+  justify-content: space-evenly;
+  // gap: 100%;
+}
+
 .row-filter {
   justify-content: space-evenly;
 }
@@ -63,6 +70,16 @@ ion-card {
   width: fit-content;
   height: 150%;
   font-size: 18px;
+
+  span {
+    color: var(--ion-color-text);
+  }
+}
+
+.buttonStyleMobile {
+  width: fit-content;
+  height: 150%;
+  font-size: 15px;
 
   span {
     color: var(--ion-color-text);

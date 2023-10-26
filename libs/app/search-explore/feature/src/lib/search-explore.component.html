@@ -696,11 +696,11 @@
           (ionClear)="clearSearch()"
         ></ion-searchbar>
 
-        <div class="searchButtons">
+        <div class="searchButtonsMobile">
           <ion-button
             id="PostBtn"
             fill="clear"
-            class="active-button buttonStyle"
+            class="active-button buttonStyleMobile"
             (click)="postsTab()"
             *ngIf="postsExists"
           >
@@ -710,7 +710,7 @@
           <ion-button
             id="PostBtn"
             fill="clear"
-            class="none buttonStyle"
+            class="none buttonStyleMobile"
             (click)="postsTab()"
             *ngIf="!postsExists"
           >
@@ -720,7 +720,7 @@
           <ion-button
             id="CommentsBtn"
             fill="clear"
-            class="active-button buttonStyle"
+            class="active-button buttonStyleMobile"
             (click)="commsTab()"
             *ngIf="commsExists"
           >
@@ -730,7 +730,7 @@
           <ion-button
             id="CommentsBtn"
             fill="clear"
-            class="none buttonStyle"
+            class="none buttonStyleMobile"
             (click)="commsTab()"
             *ngIf="!commsExists"
           >
@@ -740,7 +740,7 @@
           <ion-button
             id="PeopleBtn"
             fill="clear"
-            class="active-button buttonStyle"
+            class="active-button buttonStyleMobile"
             (click)="profilesTab()"
             *ngIf="profilesExists"
           >
@@ -750,7 +750,7 @@
           <ion-button
             id="PeopleBtn"
             fill="clear"
-            class="none buttonStyle"
+            class="none buttonStyleMobile"
             (click)="profilesTab()"
             *ngIf="!profilesExists"
           >
