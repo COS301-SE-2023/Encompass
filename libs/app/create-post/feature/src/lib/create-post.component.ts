@@ -11,10 +11,7 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import {
-  CreateEvent,
-  UploadFile,
-} from '@encompass/app/create-post/util';
+import { CreateEvent, UploadFile } from '@encompass/app/create-post/util';
 import { Select, Store } from '@ngxs/store';
 import { ProfileState } from '@encompass/app/profile/data-access';
 import { Observable } from 'rxjs';
@@ -102,6 +99,7 @@ export class CreatePostComponent {
 
   createPost = true;
   createEvent = false;
+  loading = true;
 
   selectedDate!: string;
 
@@ -124,7 +122,7 @@ export class CreatePostComponent {
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.subscribe((profile) => {
         if (profile) {
-          console.log(profile);
+          // console.log(profile);
           this.profile = profile;
 
           this.adminCommunities = this.createPostState.getAdminCommunities(
@@ -132,6 +130,8 @@ export class CreatePostComponent {
             profile.username
           );
         }
+
+        this.loading = false;
       });
     }
 
@@ -286,9 +286,9 @@ export class CreatePostComponent {
   }
 
   checkEventInput() {
-    console.log(this.eventCommunity?.value);
-    console.log(this.eventTitle?.value);
-    console.log(this.prompts.length);
+    // console.log(this.eventCommunity?.value);
+    // console.log(this.eventTitle?.value);
+    // console.log(this.prompts.length);
 
     if (
       this.eventCommunity?.value == null ||
@@ -323,7 +323,7 @@ export class CreatePostComponent {
 
     if (this.file && this.hasImage) {
       imageUrl = await this.uploadFile();
-      console.log(imageUrl);
+      // console.log(imageUrl);
     } else {
       imageUrl = null;
     }
@@ -369,7 +369,7 @@ export class CreatePostComponent {
       spoiler: this.spoilers,
       ageRestricted: this.agerestricted,
     };
-    console.log(data.imageUrl);
+    // console.log(data.imageUrl);
     this.store.dispatch(new CreatePost(data, this.profile));
 
     toast.dismiss();
@@ -507,7 +507,7 @@ export class CreatePostComponent {
       formData.append('file', this.file, this.fileName);
 
       const uploadFile = this.createPostApi.uploadFile(formData);
-      console.log(uploadFile);
+      // console.log(uploadFile);
       resolve(uploadFile);
     });
   }
@@ -526,7 +526,7 @@ export class CreatePostComponent {
   // }
 
   addTask() {
-    console.log('adding task');
+    // console.log('adding task');
 
     if (
       this.eventChallenge?.value == null ||
@@ -535,7 +535,7 @@ export class CreatePostComponent {
     ) {
       return;
     }
-    console.log(this.eventChallenge?.value);
+    // console.log(this.eventChallenge?.value);
 
     this.prompts.push(this.eventChallenge?.value);
     this.inputValue = '';
@@ -549,7 +549,7 @@ export class CreatePostComponent {
   }
 
   RemoveTask() {
-    console.log('removing task');
+    // console.log('removing task');
     this.prompts.pop();
     this.checkEventInput();
   }
@@ -564,6 +564,17 @@ export class CreatePostComponent {
     } else {
       this.Added = true;
     }
+  }
+
+  mobileview = false;
+
+  ngOnInit() {
+    this.updateMobileView();
+    window.addEventListener('resize', this.updateMobileView.bind(this));
+  }
+
+  updateMobileView() {
+    this.mobileview = window.innerWidth <= 992;
   }
 
   // AddWord(n:number){

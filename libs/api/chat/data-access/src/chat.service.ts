@@ -22,7 +22,7 @@ export class ChatService {
   }
 
     async sendMessage(data: AddMessageRequest, chatId: string){
-      console.log(data);
+      // console.log(data);
       const url = process.env["BASE_URL"];
 
       try{

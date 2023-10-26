@@ -12,7 +12,7 @@ export class UploadImage{
     try{
       
       if(!this.bucketName){
-        console.log('No bucket name');
+        // console.log('No bucket name');
         return {key: 'error', url: ''};
       }
 

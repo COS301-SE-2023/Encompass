@@ -61,7 +61,7 @@ export class CreateCommunityState{
     {
       const community = await this.createCommunityApi.createCommunity(createCommunityRequest);
     
-      console.log(community);
+      // console.log(community);
       
       if(community == null || community == undefined){
         return;
@@ -108,7 +108,7 @@ export class CreateCommunityState{
         bio: profile.bio,
       }
 
-      console.log(profile._id);
+      // console.log(profile._id);
       ctx.dispatch(new UpdateProfile(request, profile._id))
 
       const toast = await this.toastController.create({

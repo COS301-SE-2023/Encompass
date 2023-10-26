@@ -79,16 +79,16 @@
         <div class="RecomHeader">
           <ion-grid>
             <ion-row class="recomRow">
-              <ion-col size="10">
+              <ion-col size="11" class = "recomText">
                 <div
                   class="headtext"
-                  style="font-size: 18px; margin-top: 10px; margin-left: 10px"
+                  style="font-size: 18px; "
                 >
                   Recommended Communities
                 </div>
               </ion-col>
-              <ion-col size="1">
-                <ion-button fill="clear" style="width: 80px; margin-top: 3px">
+              <ion-col size="1" class = "recomText">
+                <ion-button fill="clear" style="width: 80px;" (click)="Collapse1()">
                   <ion-icon
                     name="arrow-down-circle-outline"
                     size="large"
@@ -105,13 +105,13 @@
           <div class="RecomHeader">
             <ion-grid>
               <ion-row class="recomRow">
-                <ion-col size="10">
-                  <div style="font-size: 18px; margin-top: 10px">
-                    Top Recommended Communities:
+                <ion-col size="11" class = "recomText">
+                  <div class="headtext" style="font-size: 18px; color: var(--hover-color)">
+                    Recommended Communities
                   </div>
                 </ion-col>
-                <ion-col size="1">
-                  <ion-button fill="clear" style="width: 80px; margin-top: 3px">
+                <ion-col size="1" class = "recomText">
+                  <ion-button fill="clear" style="width: 80px;" (click)="Collapse1()">
                     <ion-icon
                       class="arrow"
                       name="arrow-up-circle-outline"
@@ -138,7 +138,7 @@
                       class="CommunityIcon"
                       (click)="GoToCommunity(myCommunities[0].name)"
                     />
-                    <div class="CommunityDetails">
+                    <div class="CommunityDetails" style = "padding-left: 10px;">
                       <div
                         class="CommunityName"
                         (click)="GoToCommunity(myCommunities[0].name)"
@@ -164,7 +164,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="CommunityAdd">
+                    <div class="CommunityAdd_mobile" >
                       <button
                         id="toggleButton1"
                         class="cta"
@@ -209,7 +209,7 @@
                       class="CommunityIcon"
                       (click)="GoToCommunity(myCommunities[1].name)"
                     />
-                    <div class="CommunityDetails">
+                    <div class="CommunityDetails" style = "padding-left: 10px;">
                       <div
                         class="CommunityName"
                         (click)="GoToCommunity(myCommunities[1].name)"
@@ -235,7 +235,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="CommunityAdd">
+                    <div class="CommunityAdd_mobile">
                       <button
                         id="toggleButton2"
                         class="cta"
@@ -277,19 +277,19 @@
         <div class="RecomHeader">
           <ion-grid>
             <ion-row class="recomRow">
-              <ion-col size="10">
+              <ion-col size="11" class = "recomText">
                 <div
                   class="headtext"
-                  style="font-size: 18px; margin-top: 10px; margin-left: 10px"
+                  style="font-size: 18px;"
                 >
                   Recommended Content
                 </div>
               </ion-col>
-              <ion-col size="1">
-                <ion-button
+              <ion-col size="1" class = "recomText">
+                <ion-button (click)="Collapse2()"
                   class="arrow"
                   fill="clear"
-                  style="width: 80px; margin-top: 3px"
+                  style="width: 80px;"
                 >
                   <ion-icon
                     name="arrow-down-circle-outline"
@@ -307,13 +307,15 @@
           <div class="RecomHeader">
             <ion-grid>
               <ion-row class="recomRow">
-                <ion-col size="10">
-                  <div style="font-size: 18px; margin-top: 10px">
-                    We think you'd like:
+                <ion-col size="11" class = "recomText">
+                  <div style="font-size: 18px; color: var(--hover-color);">
+                    Recommended Content
                   </div>
                 </ion-col>
-                <ion-col size="1">
-                  <ion-button fill="clear" style="width: 80px; margin-top: 3px">
+                <ion-col size="1" class = "recomText">
+                  <ion-button fill="clear" 
+                  style="width: 80px;"
+                  (click)="Collapse2()">
                     <ion-icon
                       name="arrow-up-circle-outline"
                       size="large"
@@ -324,8 +326,9 @@
             </ion-grid>
           </div>
         </div>
-        <div class="filter-content">
+        <div class="filter-content_mobile">
           <ion-button
+            style = "font-size: 13px;"
             id="all"
             fill="clear"
             class="select active-select"
@@ -333,6 +336,7 @@
             >All</ion-button
           >
           <ion-button
+          style = "font-size: 13px;"
             id="movies"
             fill="clear"
             class="select"
@@ -340,6 +344,7 @@
             >Movies</ion-button
           >
           <ion-button
+          style = "font-size: 13px;"
             id="books"
             fill="clear"
             class="select"
@@ -348,6 +353,7 @@
           >
 
           <ion-button
+          style = "font-size: 13px;"
             id="podcasts"
             fill="clear"
             class="select"
@@ -359,11 +365,11 @@
         <!-- content -->
 
         <div class="contentrecs">
-          <div class="media-item" *ngIf="movies && ShowMovies">
+          <div class="media-item_mobile" *ngIf="movies && ShowMovies">
             <div class="imges">
               <img
                 src="{{ movies[0].Poster_Url }}"
-                class="MediaImage"
+                class="MediaImage_mobile"
                 onerror="this.src='assets/icon/Movies.png';"
               />
             </div>
@@ -384,11 +390,11 @@
               </div>
             </div>
           </div>
-          <div class="media-item" *ngIf="movies && ShowMovies">
+          <div class="media-item_mobile" *ngIf="movies && ShowMovies">
             <div class="imges">
               <img
                 src="{{ movies[1].Poster_Url }}"
-                class="MediaImage"
+                class="MediaImage_mobile"
                 onerror="this.src='assets/icon/Movies.png';"
               />
             </div>
@@ -409,11 +415,11 @@
               </div>
             </div>
           </div>
-          <div class="media-item" *ngIf="books && ShowBooks">
+          <div class="media-item_mobile" *ngIf="books && ShowBooks">
             <div class="imges">
               <img
                 src="{{ books[0].coverImg }}"
-                class="MediaImage"
+                class="MediaImage_mobile"
                 onerror="this.src='assets/icon/Books.png';"
               />
             </div>
@@ -434,11 +440,11 @@
               </div>
             </div>
           </div>
-          <div class="media-item" *ngIf="books && ShowBooks">
+          <div class="media-item_mobile" *ngIf="books && ShowBooks">
             <div class="imges">
               <img
                 src="{{ books[1].coverImg }}"
-                class="MediaImage"
+                class="MediaImage_mobile"
                 onerror="this.src='assets/icon/Books.png';"
               />
             </div>
@@ -459,11 +465,11 @@
               </div>
             </div>
           </div>
-          <div class="media-item" *ngIf="podcasts && showPodcasts">
+          <div class="media-item_mobile" *ngIf="podcasts && showPodcasts">
             <div class="imges">
               <img
                 src="{{ podcasts[0].image}}"
-                class="MediaImage"
+                class="MediaImage_mobile"
                 onerror="this.src='assets/icon/Podcast.png';"
               />
             </div>
@@ -484,11 +490,11 @@
               </div>
             </div>
           </div>
-          <div class="media-item" *ngIf="podcasts && showPodcasts">
+          <div class="media-item_mobile" *ngIf="podcasts && showPodcasts">
             <div class="imges">
               <img
                 src="{{ podcasts[1].image}}"
-                class="MediaImage"
+                class="MediaImage_mobile"
                 onerror="this.src='assets/icon/Podcast.png';"
               />
             </div>
@@ -529,7 +535,7 @@
           }"
         >
           <ion-icon
-            name="alert-circle-outline"
+            name="heart-circle"
             style="margin-bottom: 3px"
           ></ion-icon>
           Recommended
@@ -557,7 +563,7 @@
                 : 'black'
           }"
         >
-          <ion-icon name="star-outline" style="margin-bottom: 3px"></ion-icon>
+          <ion-icon name="star" style="margin-bottom: 3px"></ion-icon>
           Popular
         </ion-segment-button>
       </ion-segment>
@@ -574,39 +580,34 @@
         "
       >
         <div class="PostCardHeader">
-          <div class="PostImageContainer">
+          <div class="PostImageContainer_mobile">
             <img
               src="{{ post.communityImageUrl }}"
-              class="postImage"
+              class="postImage_mobile"
               onerror="this.src='assets/icon/Group.png';"
               (click)="GoToCommunity(post.community)"
             />
           </div>
-          <div class="PostDetails">
-            <div class="TitleNameOptions">
-              <div style="display: flex; margin-left: 1.5%">
-                <div class="Title" (click)="GoToCommunity(post.community)">
+          <div class="PostDetails_mobile">
+            <div class="TitleNameOptions_mobile">
+                <div class="Title_mobile" (click)="GoToCommunity(post.community)">
                   {{ post.community }}
                 </div>
-                <div class="Name" (click)="GoToProfile(post.username)"*ngIf="!reports[i]">
-                  @{{ post.username }}
-                </div>
-              </div>
-              <div style="display: flex; margin-right: 1.5%">
+              <div style="width: 20%; padding-right: 5px;text-align: end;">
                 <label
-                  class="report"
+                  class="report_mobile"
                   *ngIf="reports[i]"
                   (click)="ReportPost(i, post)"
-                  >Report Post</label
+                  >Report</label
                 >
 
-                <label class="report" *ngIf="post.reported" style="color: red"
-                  >Post Reported.</label
+                <label class="report_mobile2" *ngIf="post.reported" style="color: red"
+                  >Reported</label
                 >
 
                 <button
-                  class="Options tooltip"
-                  *ngIf="!post.reported"
+                  class="Options_mobile"
+                  *ngIf="!post.reported&&!reports[i]"
                   (click)="Report(i)"
                 >
                 <ion-icon name="alert-circle-outline"></ion-icon>
@@ -640,11 +641,10 @@
 
         <div class="PostBody" (click)="GoToComments(post._id)">
           <div class="text">
-            <h5>{{ post.title }}</h5>
+            <h5>{{ post.title }} <label style="font-size: small;" (click)="GoToProfile(post.username)">@{{post.username}}</label></h5>
             <div style="display: flex; justify-content: center">
               <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
             </div>
-            <br />
             {{ post.text }}
           </div>
         </div>
@@ -658,19 +658,9 @@
               <ion-icon
                 name="share-social-outline"
                 id="icons2"
-                *ngIf="!sharing[i]"
                 (click)="Share(i, post)"
               ></ion-icon>
-              <ion-icon
-                name="share-social-outline"
-                id="icons2"
-                style="color: purple"
-                *ngIf="sharing[i]"
-              ></ion-icon>
-              <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-              <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                Link Copied!
-              </div>
+              <div>{{ post.shares }}</div>
             </div>
             <div style="text-align: center">
               <ion-icon
@@ -739,13 +729,13 @@
               [ngStyle]="{
                 color:
                   selectedSegment === 'recommended'
-                    ? 'var(--ion-color-primary)'
+                    ? 'var(--hover-color)'
                     : 'black'
               }"
             >
               <div style="display: flex; align-items: center">
                 <ion-icon
-                  name="alert-circle-outline"
+                  name="heart-circle"
                   style="margin-right: 5px"
                 ></ion-icon>
                 <span>Recommended</span>
@@ -756,7 +746,7 @@
               [ngStyle]="{
                 color:
                   selectedSegment === 'new'
-                    ? 'var(--ion-color-primary)'
+                    ? 'var(--hover-color)'
                     : 'black'
               }"
             >
@@ -774,13 +764,13 @@
               [ngStyle]="{
                 color:
                   selectedSegment === 'popular'
-                    ? 'var(--ion-color-primary)'
+                    ? 'var(--hover-color)'
                     : 'black'
               }"
             >
               <div style="display: flex; align-items: center">
                 <ion-icon
-                  name="star-outline"
+                  name="star"
                   style="margin-right: 5px"
                 ></ion-icon>
                 <span>Popular</span>
@@ -809,8 +799,8 @@
                 />
               </div>
               <div class="PostDetails">
-                <div class="TitleNameOptions">
-                  <div style="display: flex; margin-left: 1.5%">
+                <div class="TitleNameOptions" >
+                  <div style="width: 85%; display: flex;">
                     <div class="Title" (click)="GoToCommunity(post.community)">
                       {{ post.community }}
                     </div>
@@ -818,24 +808,24 @@
                       @{{ post.username }}
                     </div>
                   </div>
-                  <div style="display: flex; margin-right: 1.5%">
+                  <div style = " width: 15%;text-align: end;">
                     <label
                       class="report"
                       *ngIf="reports[i]"
                       (click)="ReportPost(i, post)"
-                      >Report Post</label
+                      >Report</label
                     >
 
                     <label
                       class="report"
                       *ngIf="post.reported"
                       style="color: red"
-                      >Post Reported.</label
+                      >Reported</label
                     >
 
                     <button
                       class="Options"
-                      *ngIf="!post.reported"
+                      *ngIf="!post.reported&&!reports[i]"
                       (click)="Report(i)"
                     >
                     <ion-icon name="alert-circle-outline"></ion-icon>
@@ -900,19 +890,9 @@
                   <ion-icon
                     name="share-social-outline"
                     id="icons2"
-                    *ngIf="!sharing[i]"
                     (click)="Share(i, post)"
                   ></ion-icon>
-                  <ion-icon
-                    name="share-social-outline"
-                    id="icons2"
-                    style="color: purple"
-                    *ngIf="sharing[i]"
-                  ></ion-icon>
-                  <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                  <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                    Link Copied!
-                  </div>
+                  <div>{{ post.shares }}</div>
                 </div>
                 <div style="text-align: center">
                   <ion-icon

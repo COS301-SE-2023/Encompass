@@ -1,6 +1,8 @@
 
 
 <div class="overlay-container" *ngIf="!mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <div class="overlay"></div>
   <div class="content">
     <ion-grid>
@@ -66,7 +68,7 @@
                   <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
                 </div>
                 
-                <ion-icon *ngIf="!hasJoined[i]"
+                <!-- <ion-icon *ngIf="!hasJoined[i]"
                 class="Lock" name="lock-closed"></ion-icon>
 
                 <ion-icon *ngIf="hasJoined[i]&&!hasCompleted[i]&&hasExpired[i]"
@@ -79,7 +81,7 @@
                 class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
 
                 <ion-icon *ngIf="hasJoined[i]&&hasCompleted[i]&&!hasExpired[i]"
-                class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
+                class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon> -->
               </div>
             </ion-card>
           </div>
@@ -170,17 +172,19 @@
   </div>
 </div>
 <div class="overlay-container_mobile" *ngIf="mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
 <div class="Heading_mobile">
     <img src="assets/icon/Coin.png" class="CoinImg_mobile" />
     <label class="Name">{{profile?.name}} {{profile?.lastName}}</label>
     <label class="Score">{{profile?.ep}} Encompass Points</label>
     <button class="More_mobile" (click)="openPopup()">Leaderboard</button>
-    <div class="searchEvent">
+   
       <form
         #sendForm
         class="message-form"
         [formGroup]="messageForm"
-        class="messageInput"
+        class="messageInput_mobile"
         (keyup.enter)="sendMessage()"
       >
         <div class="input-box_mobile">
@@ -212,7 +216,7 @@
           </ion-button>
         </div>
       </form>
-    </div>
+    
 </div>
 <div class="Body_mobile">
   <div class="EventList" *ngIf="events !== null && events !== undefined">
@@ -237,7 +241,7 @@
           <label style="color:var(--ion-color-primary)">{{daysLeft(event.endDate)}} days left</label>
         </div>
         
-        <ion-icon *ngIf="!hasJoined[i]"
+        <!-- <ion-icon *ngIf="!hasJoined[i]"
         class="Lock" name="lock-closed"></ion-icon>
 
         <ion-icon *ngIf="hasJoined[i]&&!hasCompleted[i]&&hasExpired[i]"
@@ -250,7 +254,7 @@
         class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
 
         <ion-icon *ngIf="hasJoined[i]&&hasCompleted[i]&&!hasExpired[i]"
-        class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon>
+        class="Lock" name="lock-closed" style="color: var(--hover-color);"></ion-icon> -->
       </div>
     </ion-card>
   </div>

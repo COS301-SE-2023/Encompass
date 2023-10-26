@@ -29,7 +29,7 @@ export class DeletePostHandler
     
     await this.postEntityRepository.findAndDelete(id);
 
-    console.log(id)
+    // console.log(id)
     return id;
   }
 }

@@ -1,4 +1,6 @@
 <div class="overlay">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <ion-header>
     <ion-toolbar class="profileToolbar">
       <div class="ion-button-group">
@@ -155,19 +157,10 @@
                     <ion-icon
                       name="share-social-outline"
                       id="icons2"
-                      *ngIf="!sharing[i]"
                       (click)="Share(i, post)"
                     ></ion-icon>
-                    <ion-icon
-                      name="share-social-outline"
-                      id="icons2"
-                      style="color: purple"
-                      *ngIf="sharing[i]"
-                    ></ion-icon>
-                    <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                    <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                      Link Copied!
-                    </div>
+                    <div>{{ post.shares }}</div>
+                    
                   </div>
                   <div style="text-align: center">
                     <ion-icon
@@ -565,7 +558,8 @@
         <ion-card-content style="font-size: 15px; margin-bottom: 15px">
           <div>{{ userProfile?.bio }}</div>
           <div class="profile-info-container">
-            <div class="profile-info info-post">
+            <div class="profile-info info-post"
+            style="font-size: 15px;">
               {{ userPosts?.length }} <br />
               Posts
             </div>
@@ -573,6 +567,7 @@
               id="follow-trigger"
               class="profile-info"
               (click)="setOpen(true)"
+              style="font-size: 15px;"
             >
               {{ userProfile.followers.length }}<br />
               Followers
@@ -581,6 +576,7 @@
               id="following-trigger"
               class="profile-info"
               (click)="setOpen2(true)"
+              style="font-size: 15px;"
             >
               {{ userProfile.following.length }} <br />
               Following
@@ -628,38 +624,21 @@
       <div *ngFor="let post of userPosts.slice().reverse(); let i = index">
         <ion-card class="PostCard card-styles">
           <div class="PostCardHeader">
-            <div class="PostImageContainer">
+            <div class="PostImageContainer_mobile">
               <img
                 src="{{ post.communityImageUrl }}"
-                class="postImage"
+                class="postImage_mobile"
                 onerror="this.src='assets/icon/Group.png';"
                 (click)="GoToCommunity(post.community)"
               />
             </div>
-            <div class="PostDetails">
-              <div class="TitleNameOptions">
-                <div style="display: flex; margin-left: 1.5%">
-                  <div class="Title" (click)="GoToCommunity(post.community)">
+            <div class="PostDetails_mobile">
+              <div class="TitleNameOptions_mobile">
+                  <div class="Title_mobile" (click)="GoToCommunity(post.community)">
                     {{ post.community }}
                   </div>
-                  <div class="Name" (click)="GoToProfile(post.username)">
-                    @{{ post.username }}
-                  </div>
-                </div>
-                <div style="display: flex; margin-right: 1.5%">
-                  <label
-                    class="report"
-                    *ngIf="reports[i]"
-                    (click)="ReportPost(i, post)"
-                    >Report Post</label
-                  >
-
-                  <label class="report" *ngIf="post.reported" style="color: red"
-                    >Post Reported.</label
-                  >
-
-                  <!-- <button class = "Options" *ngIf="!post.reported" (click)="Report(i)"> 
-                <ion-icon name="ellipsis-horizontal-outline"></ion-icon></button> -->
+                  <div style="width: 20%; padding-right: 5px;text-align: end;">
+                   
                 </div>
               </div>
 
@@ -703,7 +682,7 @@
               <div style="display: flex; justify-content: center">
                 <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
               </div>
-              <br />
+             
               {{ post.text }}
             </div>
           </div>
@@ -717,19 +696,11 @@
                 <ion-icon
                   name="share-social-outline"
                   id="icons2"
-                  *ngIf="!sharing[i]"
                   (click)="Share(i, post)"
                 ></ion-icon>
-                <ion-icon
-                  name="share-social-outline"
-                  id="icons2"
-                  style="color: purple"
-                  *ngIf="sharing[i]"
-                ></ion-icon>
-                <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                  Link Copied!
-                </div>
+              
+                <div >{{ post.shares }}</div>
+               
               </div>
               <div style="text-align: center">
                 <ion-icon

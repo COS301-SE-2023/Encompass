@@ -60,6 +60,7 @@ export class CommentsComponent {
   settings!: SettingsDto | null;
   isThemesCalled = false;
   show = true;
+  loading = true;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -82,7 +83,7 @@ export class CommentsComponent {
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
       if (profile) {
-        console.log(profile);
+        // console.log(profile);
         this.profile = profile;
 
         this.store.dispatch(new GetUserSettings(profile._id));
@@ -98,7 +99,7 @@ export class CommentsComponent {
     this.store.dispatch(new GetPost(postId));
     this.post$.subscribe((post) => {
       if (post) {
-        console.log(post);
+        // console.log(post);
         if (post.isPrivate) {
           if (this.profile.communities.includes(post.community)) {
             this.post = post;
@@ -133,6 +134,8 @@ export class CommentsComponent {
           this.viewreplies.push(false);
         }
       }
+
+      this.loading = false;
     });
 
     this.setTheme();
@@ -387,11 +390,11 @@ export class CommentsComponent {
       }
 
       if (page) {
-        console.log('testing the feed page');
-        console.log('hello ' + this.settings.themes.themeImage);
+        // console.log('testing the feed page');
+        // console.log('hello ' + this.settings.themes.themeImage);
         page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
       } else {
-        console.log('page is null');
+        // console.log('page is null');
       }
     }
   }

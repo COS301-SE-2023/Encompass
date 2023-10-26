@@ -53,16 +53,16 @@ export class SignUpInterior2Component {
           new GetCommunities(this.profile._id, this.profile.username)
         );
         this.communities$.subscribe((communities) => {
-          console.log('communities:');
+          // console.log('communities:');
           if (communities) {
-            console.log('communities:');
-            console.log(communities);
+            // console.log('communities:');
+            // console.log(communities);
             this.communities = communities;
             this.myCommunities = communities.slice(0, 3);
           }
         });
       } else {
-        console.log('profile is null');
+        // console.log('profile is null');
       }
     });
   }
@@ -82,7 +82,7 @@ export class SignUpInterior2Component {
       );
     }
 
-    console.log(this.selectedCommunities);
+    // console.log(this.selectedCommunities);
   }
 
   done() {

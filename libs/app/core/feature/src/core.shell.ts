@@ -14,7 +14,7 @@ import { ModalController } from '@ionic/angular';
 
 export class CoreShell {
   constructor() {
-    console.log("In constructor")
+    // console.log("In constructor")
   }
 
 //   ngOnInit() {}

@@ -1,4 +1,6 @@
 <div class="overlay">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <ion-header>
     <ion-toolbar class="profileToolbar">
       <div class="ion-button-group">
@@ -107,10 +109,11 @@
                         class="report"
                         *ngIf="deletePost[i] && MarkedForPostDeletion[i]"
                         (click)="DeletePost(i, post)"
-                        >Delete Post</label
+                        >Delete</label
                       >
 
-                      <button class="Options" (click)="Delete(i)">
+                      <button class="Options" (click)="Delete(i)"
+                      *ngIf="!deletePost[i] && !MarkedForPostDeletion[i]">
                         <ion-icon name="close-circle-outline"></ion-icon>
                       </button>
                     </div>
@@ -678,7 +681,8 @@
       >
         <div>{{ profile?.bio }}</div>
         <div class="profile-info-container">
-          <div class="profile-info info-post">
+          <div class="profile-info info-post"
+          style="font-size: 15px;">
             {{ posts?.length }} <br />
             Posts
           </div>
@@ -686,6 +690,7 @@
             id="follow-trigger"
             class="profile-info"
             (click)="loadFollowers(); setOpen(true)"
+            style="font-size: 15px;"
           >
             {{ profile.followers.length }} <br />
             Followers
@@ -694,6 +699,7 @@
             id="following-trigger"
             class="profile-info"
             (click)="loadFollowing(); setOpen2(true)"
+            style="font-size: 15px;"
           >
             {{ profile.following.length }} <br />
             Following
@@ -707,26 +713,26 @@
           class="EditDetails"
         >
           <div style="display: flex; justify-content: space-evenly">
-            <ion-textarea
+            <textarea
               [maxlength]="20"
               class="DescInput"
               placeholder="{{ profile?.name }}"
               formControlName="FirstName"
-            ></ion-textarea>
+            ></textarea>
 
-            <ion-textarea
+            <textarea
               [maxlength]="20"
               class="DescInput"
               placeholder="{{ profile?.lastName }}"
               formControlName="LastName"
-            ></ion-textarea>
+            ></textarea>
           </div>
-          <ion-textarea
+          <textarea
             [maxlength]="150"
             class="DescInput2"
             placeholder="{{ profile?.bio }}"
             formControlName="Bio"
-          ></ion-textarea>
+          ></textarea>
 
           <div class="chnageBtns">
             <ion-item class="Image" style="paddling-left: 1%">
@@ -741,7 +747,7 @@
                   style="margin-bottom: 115px; margin-left: 130px"
                 />
                 <label for="file-input">
-                  <span>Change Profile</span></label
+                  <span class="full-width-label_mobile">Change Profile</span></label
                 ></span
               >
             </ion-item>
@@ -757,7 +763,7 @@
                   #fileUpload
                 />
                 <label for="file-input-banner">
-                  <span class="full-width-label">Change Banner</span></label
+                  <span class="full-width-label_mobile">Change Banner</span></label
                 ></span
               >
             </ion-item>
@@ -804,36 +810,29 @@
       <div *ngFor="let post of posts?.slice()?.reverse(); let i = index">
         <ion-card class="PostCard card-styles">
           <div class="PostCardHeader">
-            <div class="PostImageContainer">
+            <div class="PostImageContainer_mobile">
               <img
                 src="{{ post.communityImageUrl }}"
-                class="postImage"
+                class="postImage_mobile"
                 onerror="this.src='assets/icon/Group.png';"
                 (click)="GoToCommunity(post.community)"
               />
             </div>
-            <div class="PostDetails">
-              <div class="TitleNameOptions">
-                <div style="display: flex; margin-left: 1.5%">
-                  <div class="Title" (click)="GoToCommunity(post.community)">
+            <div class="PostDetails_mobile">
+              <div class="TitleNameOptions_mobile">
+                  <div class="Title_mobile" (click)="GoToCommunity(post.community)">
                     {{ post.community }}
                   </div>
-                  <!-- <div class="Name">@{{ post.username }}</div> -->
-                </div>
-                <div style="display: flex; margin-right: 1.5%">
+                <div style="width: 20%; padding-right: 5px;text-align: end;">
                   <label
-                    class="report"
+                    class="report_mobile"
                     *ngIf="deletePost[i] && MarkedForPostDeletion[i]"
                     (click)="DeletePost(i, post)"
-                    >Delete Post</label
+                    >Delete</label
                   >
-                  <label
-                    class="report"
-                    *ngIf="deletePost[i] && !MarkedForPostDeletion[i]"
-                    style="color: red"
-                    >Post Deleted</label
-                  >
-                  <button class="Options" (click)="Delete(i)">
+                 
+                  <button class="Options_mobile" (click)="Delete(i)"
+                    *ngIf="!deletePost[i]&&!MarkedForPostDeletion[i]">
                     <ion-icon name="close-circle-outline"></ion-icon>
                   </button>
                 </div>
@@ -879,7 +878,7 @@
               <div style="display: flex; justify-content: center">
                 <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
               </div>
-              <br />
+             
               {{ post.text }}
             </div>
           </div>

@@ -85,7 +85,7 @@ export class HomePage {
     public menuCtrl: MenuController
   ) {
     const storedKeyword = localStorage.getItem('keyword');
-    console.log('STORED KEYWORD: ' + storedKeyword);
+    // console.log('STORED KEYWORD: ' + storedKeyword);
     this.load();
   }
 
@@ -96,7 +96,7 @@ export class HomePage {
 
   updateMobileView() {
     this.mobileview = window.innerWidth <= 992;
-    console.log(window.innerWidth);
+    // console.log(window.innerWidth);
   }
 
   openFirstMenu() {
@@ -106,7 +106,7 @@ export class HomePage {
   }
 
   menuOpened() {
-    console.log('Menu opened ' + this.themeName);
+    // console.log('Menu opened ' + this.themeName);
 
     this.default = false;
     this.red = false;
@@ -160,7 +160,7 @@ export class HomePage {
 
   async search(event: any) {
     this.keyword = event.detail.value;
-    console.log('KEYWORD: ' + this.keyword);
+    // console.log('KEYWORD: ' + this.keyword);
 
     if (!this.keyword) {
       // If the search keyword is empty, return
@@ -191,7 +191,7 @@ export class HomePage {
     this.store.dispatch(new SubscribeToProfile());
     this.profile$.subscribe((profile) => {
       if (profile) {
-        console.log(profile);
+        // console.log(profile);
         this.profile = profile;
 
         this.store.dispatch(new GetUserSettings(this.profile._id));
@@ -206,7 +206,7 @@ export class HomePage {
 
             this.themeName = this.settings.themes.themeColor;
 
-            console.log(this.themeName);
+            // console.log(this.themeName);
 
             const defaultLogo = document.getElementById('logo-default');
             const redLogo = document.getElementById('logo-red');
@@ -215,7 +215,7 @@ export class HomePage {
             const orangeLogo = document.getElementById('logo-orange');
 
             if (defaultLogo && redLogo && blueLogo && greenLogo && orangeLogo) {
-              console.log(this.themeName);
+              // console.log(this.themeName);
               if (
                 this.themeName == 'light-red' ||
                 this.themeName == 'dark-red'
@@ -349,7 +349,7 @@ export class HomePage {
 
   toggleNotifications() {
     if (this.profile == null) {
-      console.log('you are not logged in?');
+      // console.log('you are not logged in?');
       return;
     }
 
@@ -360,7 +360,7 @@ export class HomePage {
       this.store.dispatch(new GetNotifications(this.profile._id));
       this.notifications$.subscribe((notifications) => {
         if (notifications) {
-          console.log(notifications);
+          // console.log(notifications);
           this.notifications = notifications;
         }
       });

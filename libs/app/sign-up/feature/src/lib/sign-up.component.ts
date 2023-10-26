@@ -30,7 +30,7 @@ export class SignUpComponent {
       })
     );
     this.signup$.subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       if (data !== null) {
         this.router.navigate(['sign-up-categories']);
       }

@@ -93,7 +93,7 @@ export class SettingsPage {
         this.store.dispatch(new GetAccount(profile._id));
         this.loginModel$.subscribe((loginModel) => {
           if (loginModel) {
-            console.log(loginModel);
+            // console.log(loginModel);
             this.loginModel = loginModel;
             this.emailEdit = loginModel.email;
           }
@@ -123,8 +123,8 @@ export class SettingsPage {
     // this.store.dispatch(new SubscribeToProfile())
     this.profile$.subscribe((profile) => {
       if (profile) {
-        console.log('Profile CALLED');
-        console.log(profile);
+        // console.log('Profile CALLED');
+        // console.log(profile);
         this.profile = profile;
         // this.addPosts("recommended");
         // this.newChange();
@@ -148,11 +148,11 @@ export class SettingsPage {
             }
 
             if (page) {
-              console.log('testing the feed page');
-              console.log('hello ' + this.settings.themes.themeImage);
+              // console.log('testing the feed page');
+              // console.log('hello ' + this.settings.themes.themeImage);
               page.style.backgroundImage = `url(${this.settings.themes.themeImage})`;
             } else {
-              console.log('page is null');
+              // console.log('page is null');
             }
           }
         });
@@ -201,13 +201,13 @@ export class SettingsPage {
       saveBtn.classList.remove('onClick');
       editBtn.classList.add('onClick');
     } else if (account == null) {
-      console.log('account is null');
+      // console.log('account is null');
     } else if (editAccount == null) {
-      console.log('editAccount is null');
+      // console.log('editAccount is null');
     } else if (saveBtn == null) {
-      console.log('saveBtn is null');
+      // console.log('saveBtn is null');
     } else if (editBtn == null) {
-      console.log('editBtn is null');
+      // console.log('editBtn is null');
     }
   }
 
@@ -224,13 +224,13 @@ export class SettingsPage {
       saveBtn.classList.add('onClick');
       editBtn.classList.remove('onClick');
     } else if (account == null) {
-      console.log('account is null');
+      // console.log('account is null');
     } else if (editAccount == null) {
-      console.log('editAccount is null');
+      // console.log('editAccount is null');
     } else if (saveBtn == null) {
-      console.log('saveBtn is null');
+      // console.log('saveBtn is null');
     } else if (editBtn == null) {
-      console.log('editBtn is null');
+      // console.log('editBtn is null');
     }
 
     if (this.profile === null || this.loginModel === null) {
@@ -303,7 +303,7 @@ export class SettingsPage {
         bannerUrl = this.profile.profileBanner;
       }
 
-      console.log(this.bioEdit);
+      // console.log(this.bioEdit);
 
       const data: UpdateProfileRequest = {
         username: this.profile.username,
@@ -339,7 +339,7 @@ export class SettingsPage {
   bannerPictureUrl = '';
 
   onProfilePictureSelected(event: any): void {
-    console.log('Profile');
+    // console.log('Profile');
     const file: File = event.target.files[0];
 
     if (file) {
@@ -357,7 +357,7 @@ export class SettingsPage {
 
   onBannerPictureSelected(event: any): void {
     // const inputElement = event.target as HTMLInputElement;
-    console.log('Banner');
+    // console.log('Banner');
     const file: File = event.target.files[0];
 
     if (file) {
@@ -374,7 +374,7 @@ export class SettingsPage {
   }
 
   toggleChangedNotifications(event: any, toggleName: string) {
-    console.log(toggleName + ': ' + event.detail.checked);
+    // console.log(toggleName + ': ' + event.detail.checked);
 
     if (this.settings == null || this.profile == null) {
       return;
@@ -410,7 +410,7 @@ export class SettingsPage {
   }
 
   toggleChangedProfile(event: any, toggleName: string) {
-    console.log(toggleName + ': ' + event.detail.checked);
+    // console.log(toggleName + ': ' + event.detail.checked);
 
     if (this.settings == null || this.profile == null) {
       return;
@@ -447,7 +447,7 @@ export class SettingsPage {
       return;
     }
 
-    console.log(this.selectedValue);
+    // console.log(this.selectedValue);
 
     this.store.dispatch(
       new UpdateMessageSettings(this.profile._id, this.selectedValue)
@@ -460,7 +460,7 @@ export class SettingsPage {
       formData.append('file', file, fileName);
 
       const uploadFile = this.settingsApi.uploadFile(formData);
-      console.log(uploadFile);
+      // console.log(uploadFile);
       resolve(uploadFile);
     });
   }
@@ -509,8 +509,8 @@ export class SettingsPage {
             if (enteredData) {
               this.newPassword = enteredData.pass;
               this.confirmNewPassword = enteredData.confirmPass;
-              console.log('New Password:', this.newPassword);
-              console.log('Confirm New Password:', this.confirmNewPassword);
+              // console.log('New Password:', this.newPassword);
+              // console.log('Confirm New Password:', this.confirmNewPassword);
 
               // You can use the captured values 'this.newPassword' and 'this.confirmNewPassword' as needed.
             }

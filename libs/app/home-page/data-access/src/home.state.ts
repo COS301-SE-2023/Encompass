@@ -184,7 +184,7 @@ export class HomeState{
   async getRecommendedCommunities(ctx: StateContext<CommunitiesModel>, {userId, username}: GetRecommendedCommunities){
     const response = await this.homeApi.getRecommendedCommunites(userId, username);
 
-    console.log("Response", response)
+    // console.log("Response", response)
 
     if(response == null || response == undefined){
       return;

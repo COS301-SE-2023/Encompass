@@ -46,6 +46,7 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
     mobileview = false;
     colSize=0;
 
+    loading = true;
 
     constructor(private route: ActivatedRoute, private store: Store, private router: Router, private toastController: ToastController) {
       const challengeId = this.route.snapshot.paramMap.get('id');
@@ -82,6 +83,8 @@ import { UserEventsDto } from '@encompass/api/user-events/data-access';
                   if(profile.communities.includes(event.community)){
                     this.isPartOfCommunity = true;
                   }
+
+                  this.loading = false;
                 }
               })
             }

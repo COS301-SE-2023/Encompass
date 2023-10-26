@@ -38,6 +38,7 @@ export class CreateCommunityComponent {
     'History',
     'Horror',
     'Hospitality',
+    'IT',
     'Life-Science',
     'Mathematics',
     'Musical',
@@ -63,6 +64,7 @@ export class CreateCommunityComponent {
   inputValue!: string;
   inputValue2!: string;
   isValid!: boolean;
+  loading = true;
 
   constructor(
     private modalController: ModalController,
@@ -75,9 +77,10 @@ export class CreateCommunityComponent {
       this.store.dispatch(new SubscribeToProfile());
       this.profile$.subscribe((profile) => {
         if (profile) {
-          console.log(profile);
+          // console.log(profile);
           this.profile = profile;
         }
+        this.loading = false;
       });
     }
   }
@@ -222,7 +225,7 @@ export class CreateCommunityComponent {
       formData.append('file', this.file, this.fileName);
 
       const uploadFile = this.createCommunityApi.uploadFile(formData);
-      console.log(uploadFile);
+      // console.log(uploadFile);
       resolve(uploadFile);
     });
   }
