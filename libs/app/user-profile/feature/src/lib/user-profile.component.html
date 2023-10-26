@@ -1,53 +1,8 @@
 <div class="overlay">
-  <div class="loading-spinner" *ngIf="loading"></div>
-
-  <ion-header>
-    <ion-toolbar class="profileToolbar">
-      <div class="ion-button-group">
-        <ion-button
-        *ngIf="seePosts"
-          id="PostBtn"
-          fill="clear"
-          class="active-button buttonStyle"
-          (click)="postChange()"
-        >
-          <span>Posts</span>
-        </ion-button>
-
-        <ion-button
-        *ngIf="!seePosts"
-          id="PostBtn"
-          fill="clear"
-          class="buttonStyle"
-          (click)="postChange()"
-        >
-          <span>Posts</span>
-        </ion-button>
-
-        <ion-button
-        *ngIf="seeComments"
-          id="CommentsBtn"
-          fill="clear"
-          class="active-button buttonStyle"
-          (click)="commChange()"
-        >
-          <span>Comments</span>
-        </ion-button>
-
-        <ion-button
-        *ngIf="!seeComments"
-          id="CommentsBtn"
-          fill="clear"
-          class="buttonStyle"
-          (click)="commChange()"
-        >
-          <span>Comments</span>
-        </ion-button>
-      </div>
-    </ion-toolbar>
-  </ion-header>
+ 
 
   <!-- Posts -->
+  <div class="loading-spinner" *ngIf="loading"></div>
 
   <ion-grid *ngIf="!mobileview">
     <ion-row class="filter-row">
@@ -497,6 +452,7 @@
         profile != null && userProfile != null && userProfileSettings != null
       "
     >
+      <div style="height:20px"></div>
       <ion-card class="curve">
         <div style="position: relative">
           <img
@@ -1035,5 +991,6 @@
           </ion-grid>
         </div>
       </ion-card> -->
+      <div style="height: 100px;"></div>
   </div>
 </div>

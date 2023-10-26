@@ -955,6 +955,7 @@
         </ion-card>
       </div>
     </div>
+
     <div *ngIf="seeComments">
       <div
         class="lineBreakers"
@@ -984,7 +985,8 @@
                 >Delete Comment</label
               >
 
-              <button class="Options2" (click)="Delete2(i)">
+              <button class="Options2" (click)="Delete2(i)"
+              *ngIf="!deleteComment[i] && !MarkedForCommentDeletion[i]">
                 <ion-icon name="close-circle-outline"></ion-icon>
               </button>
 
@@ -1077,6 +1079,7 @@
         </div>
       </ion-card>
     </div>
+
     <ion-modal
       #modal
       trigger="follow-trigger"
@@ -1148,5 +1151,6 @@
         </ion-content>
       </ng-template>
     </ion-modal>
+    <div style="height: 100px;"></div>
   </div>
 </div>

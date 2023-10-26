@@ -5,8 +5,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
+}
+.main_mobile{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0efef;
+
+}
 .next {
   background-color: #8231dd;
   color: white;
@@ -187,13 +196,28 @@ ion-button:hover {
   justify-content: space-evenly;
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 60vh;
   font-weight: 550;
   padding: 10;
-  background-color: #f0efef;
 }
 
 .CommunityCard-mobile{
   width: 90vw;
   border-radius: 15px;
+}
+
+.next_mobile{
+  background-color: #8231dd;
+  color: white;
+  border-radius: 25px;
+  font-size: 22px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: #cecae3 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 65px;
 }

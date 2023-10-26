@@ -27,6 +27,13 @@ ion-card {
   position: sticky;
 }
 
+.profileToolbarMobile {
+  --background: var(--ion-color-secondary);
+  height: 160px;
+  display: flex;
+  position: sticky;
+}
+
 .toolbar-content {
   display: flex;
   flex-direction: column; 
@@ -43,7 +50,7 @@ ion-card {
 }
 
 .searchButtonsMobile {
-  margin-top: 10px; 
+  // margin-top: 10px; 
   display: flex;
   justify-content: space-evenly;
   // gap: 100%;
