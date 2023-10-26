@@ -211,45 +211,10 @@
 
 <!-- =============================================mobile============================================= -->
 <div id="theme-page" class="theme-page mobile" *ngIf="mobileview">
-  <div class="top-stuff">
-    <ion-grid>
-      <ion-row>
-        <ion-card class="display-card-mobile">
-          <ion-header>
-            <ion-toolbar id="toolbar">
-              <div class="ion-button-group">
-                <div class="active-button buttonStyle" fill="clear">
-                  <ion-label>Posts</ion-label>
-                </div>
-
-                <div class="none buttonStyle" fill="clear">
-                  <ion-label>Events</ion-label>
-                </div>
-
-                <!-- <div class="none buttonStyle" fill="clear">
-                  <ion-label>Comments</ion-label>
-                </div> -->
-              </div>
-            </ion-toolbar>
-          </ion-header>
-
-          <ion-content class="card-content">
-            <div class="card-content-inner">
-              <div class="post">Create a Post</div>
-
-              <!-- <ion-fab class="add-sample">
-                <ion-fab-button>
-                  <ion-icon name="add"></ion-icon>
-                </ion-fab-button>
-              </ion-fab> -->
-            </div>
-          </ion-content>
-        </ion-card>
-      </ion-row>
-      <ion-row>
+  <div class="top-stuff-mobile">
+ 
         <div class="theme-options-mobile">
-          <ion-grid>
-            <ion-row>
+
               <div class="light-theme-mobile">
                 <div class="heading">
                   <span class="light-heading">Light Themes:</span>
@@ -282,8 +247,7 @@
                   ></div>
                 </div>
               </div>
-            </ion-row>
-            <ion-row>
+              <div style="height: 20px;"></div>
               <div class="dark-theme-mobile">
                 <div class="heading">
                   <span class="dark-heading">Dark Themes:</span>
@@ -316,17 +280,13 @@
                   ></div>
                 </div>
               </div>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-row>
 
-      <ion-row>
+        </div>
+
         <div class="image-stuff">
           <span class="image-heading">Background Images:</span>
           <div class="images">
-            <ion-grid>
-              <ion-row>
+
                 <img
                   id="img-purple"
                   src="https://wallpapercave.com/dwp2x/wp10352811.jpg"
@@ -351,8 +311,7 @@
                     )
                   "
                 />
-              </ion-row>
-              <ion-row>
+
                 <img
                   id="img-blue"
                   src="https://wallpapercave.com/dwp2x/wp9339593.jpg"
@@ -377,8 +336,7 @@
                     )
                   "
                 />
-              </ion-row>
-              <ion-row>
+
                 <img
                   id="img-orange"
                   src="https://wallpapercave.com/dwp2x/wp10352821.jpg"
@@ -413,11 +371,9 @@
                     </div>
                   </label>
                 </div>
-              </ion-row>
-            </ion-grid>
+       
           </div>
         </div>
-      </ion-row>
-    </ion-grid>
+
   </div>
 </div>

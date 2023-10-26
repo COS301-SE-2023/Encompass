@@ -321,8 +321,8 @@ ion-toolbar {
 
 //==============================================mobile==================================================
 .square-mobile {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   border-radius: 10px;
   // margin-left: 10px;
   margin-right: 10px;
@@ -338,7 +338,9 @@ ion-toolbar {
 
 .theme-options-mobile {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .light-theme-mobile,
@@ -352,6 +354,7 @@ ion-toolbar {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-top: 10px;
 }
 
 .display-card-mobile {
@@ -373,4 +376,9 @@ ion-toolbar {
 
 .text_mobile{
   font-size: 10px;
+}
+
+.top-stuff-mobile {
+  display: flex;
+  flex-direction: column;
 }
