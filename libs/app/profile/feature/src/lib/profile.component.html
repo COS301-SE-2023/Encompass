@@ -713,26 +713,26 @@
           class="EditDetails"
         >
           <div style="display: flex; justify-content: space-evenly">
-            <ion-textarea
+            <textarea
               [maxlength]="20"
               class="DescInput"
               placeholder="{{ profile?.name }}"
               formControlName="FirstName"
-            ></ion-textarea>
+            ></textarea>
 
-            <ion-textarea
+            <textarea
               [maxlength]="20"
               class="DescInput"
               placeholder="{{ profile?.lastName }}"
               formControlName="LastName"
-            ></ion-textarea>
+            ></textarea>
           </div>
-          <ion-textarea
+          <textarea
             [maxlength]="150"
             class="DescInput2"
             placeholder="{{ profile?.bio }}"
             formControlName="Bio"
-          ></ion-textarea>
+          ></textarea>
 
           <div class="chnageBtns">
             <ion-item class="Image" style="paddling-left: 1%">

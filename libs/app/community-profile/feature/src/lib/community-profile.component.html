@@ -411,7 +411,7 @@
                       >{{ daysLeft(event.endDate) }} days left</label
                     >
                   </div>
-                  <ion-icon class="EventLock" name="lock-closed"></ion-icon>
+                  
                 </div>
               </ion-card>
             </div>
@@ -616,19 +616,19 @@
           class="EditDetailsMobile"
         > 
            <div class="textInput">
-            <ion-textarea
+            <textarea
               [maxlength]="80"
               class="DescInput"
               placeholder="Enter New Description"
               formControlName="text"
-            ></ion-textarea>
+            ></textarea>
 
-            <ion-textarea
+            <textarea
               [maxlength]="200"
               class="DescInput"
               placeholder="Enter New Rules"
               formControlName="rules"
-            ></ion-textarea>
+            ></textarea>
           </div> 
 
            <div class="EditButtons">
@@ -1115,7 +1115,7 @@
                   >{{ daysLeft(event.endDate) }} days left</label
                 >
               </div>
-              <ion-icon class="EventLock" name="lock-closed"></ion-icon>
+              
             </div>
           </ion-card>
         </div>

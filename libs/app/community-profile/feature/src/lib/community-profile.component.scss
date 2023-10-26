@@ -288,7 +288,7 @@ ion-button:hover {
 .EventBody {
   width: 100%;
   height: 40%;
-  color: var(--ion-color-medium);
+  color: black;
   font-family: CustomFont2;
   padding: 2%;
   font-style: italic;
@@ -297,8 +297,6 @@ ion-button:hover {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: flex;
-  align-items: center;
 }
 .EventFooter {
   width: 100%;

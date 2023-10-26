@@ -24,6 +24,7 @@
   z-index: 3;
 }
 
+
 .EventList {
   display: flex;
   flex-wrap: wrap;
@@ -53,6 +54,14 @@
 
 .messageInput {
   margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+}
+
+.messageInput_mobile {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -218,6 +227,7 @@
   height: 50px;
   border-radius: 50%;
   object-fit: fill;
+  margin-top: 15px;
 }
 
 .Top5 {
@@ -330,20 +340,20 @@
 
 .Heading_mobile{
   width: 100%;
-  height:30%;
+  height:36%;
   background-color: var(--l-profile);
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
   color: rgb(243, 229, 229);
+  // padding-top: 10px;
 
 }
 .Body_mobile{
   width: 100%;
-  height: 70%;
+  height: 64%;
   overflow:scroll;
 }
 
@@ -360,6 +370,8 @@
   padding-top: 2%;
   color: var(--l-profile);
   background-color: var(--ion-color-background);
+  margin-bottom: 5px;
+  margin-top: 5px ;
 }
 
 .input-box_mobile {

@@ -696,11 +696,11 @@
           (ionClear)="clearSearch()"
         ></ion-searchbar>
 
-        <div class="searchButtons">
+        <div class="searchButtonsMobile">
           <ion-button
             id="PostBtn"
             fill="clear"
-            class="active-button buttonStyle"
+            class="active-button buttonStyleMobile"
             (click)="postsTab()"
             *ngIf="postsExists"
           >
@@ -710,7 +710,7 @@
           <ion-button
             id="PostBtn"
             fill="clear"
-            class="none buttonStyle"
+            class="none buttonStyleMobile"
             (click)="postsTab()"
             *ngIf="!postsExists"
           >
@@ -720,7 +720,7 @@
           <ion-button
             id="CommentsBtn"
             fill="clear"
-            class="active-button buttonStyle"
+            class="active-button buttonStyleMobile"
             (click)="commsTab()"
             *ngIf="commsExists"
           >
@@ -730,7 +730,7 @@
           <ion-button
             id="CommentsBtn"
             fill="clear"
-            class="none buttonStyle"
+            class="none buttonStyleMobile"
             (click)="commsTab()"
             *ngIf="!commsExists"
           >
@@ -740,7 +740,7 @@
           <ion-button
             id="PeopleBtn"
             fill="clear"
-            class="active-button buttonStyle"
+            class="active-button buttonStyleMobile"
             (click)="profilesTab()"
             *ngIf="profilesExists"
           >
@@ -750,7 +750,7 @@
           <ion-button
             id="PeopleBtn"
             fill="clear"
-            class="none buttonStyle"
+            class="none buttonStyleMobile"
             (click)="profilesTab()"
             *ngIf="!profilesExists"
           >
@@ -802,14 +802,12 @@
                 </div>
                 <div class="PostDetails_mobile">
                   <div class="TitleNameOptions_mobile">
-                      <div
-                        class="Title_mobile"
-                        (click)="GoToCommunity(post.community)"
-                      >
-                        {{ post.community }}
-                      </div>
-                     
-                   
+                    <div
+                      class="Title_mobile"
+                      (click)="GoToCommunity(post.community)"
+                    >
+                      {{ post.community }}
+                    </div>
                   </div>
 
                   <div class="GenreIcons">
@@ -851,7 +849,14 @@
 
               <div class="PostBody" (click)="GoToComments(post._id)">
                 <div class="text">
-                  <h5>{{ post.title }}<label style="font-size: small;" (click)="GoToProfile(post.username)">@{{post.username}}</label></h5>
+                  <h5>
+                    {{ post.title
+                    }}<label
+                      style="font-size: small"
+                      (click)="GoToProfile(post.username)"
+                      >@{{ post.username }}</label
+                    >
+                  </h5>
                   <div style="display: flex; justify-content: center">
                     <img
                       src="{{ post.imageUrl }}"
@@ -955,7 +960,7 @@
           <div>
             <div *ngFor="let community of communities">
               <ion-card
-                class="SearchCommunityCard"
+                class="SearchCommunityCardMobile"
                 *ngIf="
                   community.name &&
                   community.name
@@ -964,41 +969,31 @@
                 "
               >
                 <div class="card-color">
-                  <div class="SearchCommunityHeader">
+                  <div class="SearchCommunityHeaderMobile">
                     <img
                       src="{{ community?.groupImage }}"
                       onerror="this.src='assets/icon/Group.png';"
-                      class="SearchCommunityIcon"
+                      class="SearchCommunityIconMobile"
                       (click)="GoToCommunity(community.name)"
                     />
-                    <div class="SearchCommunityDetails">
+
+                    <div class="SearchCommunityDetailsMobile">
                       <div class="nameAndMembers">
                         <div
-                          class="SearchCommunityName"
+                          class="SearchCommunityNameMobile"
                           (click)="GoToCommunity(community.name)"
                         >
                           {{ community.name }}
                         </div>
                         <div
-                          class="SearchCommunityMembers"
+                          class="SearchCommunityMembersMobile"
                           (click)="GoToCommunity(community.name)"
                         >
                           Members: {{ community.members.length }}
                         </div>
                       </div>
                     </div>
-                    <div class="SearchCommunityGenres">
-                      <div
-                        *ngFor="let category of community.categories"
-                        class="tooltip"
-                      >
-                        <img
-                          src="assets/icon/{{ category }}.png"
-                          class="SearchimgDiv"
-                        />
-                        <span class="tooltiptextcomm">{{ category }}</span>
-                      </div>
-                    </div>
+
                     <!-- <div class="CommunityAdd FollowPerson larger-icons">
                       <button
                         id="toggleButton2"
@@ -1022,14 +1017,30 @@
                       </button>
                     </div> -->
                   </div>
-                  <div class="SearchCommunityBody">
-                    <div class="SearchCommunityDesc">
-                      {{ community.about }}
+                  <div class="bodyMobile">
+                    <div class="SearchCommunityBodyMobile">
+                      <div class="SearchCommunityDescMobile">
+                        {{ community.about }}
+                      </div>
+                    </div>
+
+                    <div class="SearchCommunityGenresMobile">
+                      <div
+                        *ngFor="let category of community.categories"
+                        class="tooltip"
+                      >
+                        <img
+                          src="assets/icon/{{ category }}.png"
+                          class="SearchimgDivMobile"
+                        />
+                        <span class="tooltiptextcomm">{{ category }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </ion-card>
             </div>
+            <div style="height: 100px"></div>
           </div>
         </div>
       </div>
@@ -1058,56 +1069,59 @@
       <!-- people -->
       <div>
         <div class="peopleSearch" *ngIf="profilesExists">
-          <ion-card class="peopleCard" *ngIf="profileHasContent">
+          <ion-card class="peopleCardMobile" *ngIf="profileHasContent">
             <ion-list class="peopleList">
-              <ion-item class="peopleItem" *ngFor="let people of profiles">
-                <ion-avatar class="peopleAvatar">
-                  <img
-                    src="{{ people?.profileImage }}"
-                    class="peopleIcon"
-                    (click)="GoToProfile(people.username)"
-                  />
-                </ion-avatar>
-                <div class="personDetails">
-                  <div
-                    class="nameAndUsername"
-                    (click)="GoToProfile(people.username)"
-                  >
-                    <span class="personName"
-                      >{{ people?.name }} {{ people?.lastName }}</span
-                    >
-                    <span class="personUsername">@{{ people?.username }}</span>
-                  </div>
-                  <span class="personDesc">{{ people?.bio }}</span>
-                </div>
-                <!-- <div
-                  class="FollowPerson larger-icons"
-                  *ngIf="!(people.username === profile.username)"
+              <ion-item
+                class="peopleItemMobile"
+                *ngFor="let people of profiles"
+              >
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                  "
                 >
-                  <button
-                    id="toggleButton3"
-                    class="cta"
-                    [ngClass]="{
-                      clicked: buttonStatesPeople['toggleButton3']
-                    }"
-                    (click)="
-                      handleFollowButtonClick('toggleButton3', people.username)
-                    "
-                  >
-                    <i
-                      id="icon3"
-                      class="icon fas"
-                      [ngClass]="
-                        buttonStatesPeople['toggleButton3']
-                          ? 'fa-user-check'
-                          : 'fa-user-plus'
+                  <div class="peopleHeaderMobile">
+                    <div
+                      style="
+                        height: 100%;
+                        width: 70px;
+                        align-items: center;
+                        padding-top: 5px;
                       "
-                    ></i>
-                  </button>
-                </div> -->
+                    >
+                      <ion-avatar class="peopleAvatarMobile">
+                        <img
+                          src="{{ people?.profileImage }}"
+                          class="peopleIcon"
+                          (click)="GoToProfile(people.username)"
+                        />
+                      </ion-avatar>
+                    </div>
+
+                    <div class="personDetailsMobile">
+                      <div
+                        class="nameAndUsernameMobile"
+                        (click)="GoToProfile(people.username)"
+                      >
+                        <span class="personName"
+                          >{{ people?.name }} {{ people?.lastName }}</span
+                        >
+                        <span class="personUsername"
+                          >@{{ people?.username }}</span
+                        >
+                      </div>
+                      <div class="bodyPeopleMobile">
+                        <span class="personDescMobile">{{ people?.bio }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </ion-item>
             </ion-list>
           </ion-card>
+          <div style="height: 100px"></div>
         </div>
       </div>
     </div>

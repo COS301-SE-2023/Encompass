@@ -228,6 +228,31 @@ ion-button {
   }
 }
 
+.notifications-card-mobile {
+  left: 72px;
+  background-color: var(--ion-color-background);
+  // display: none;
+  border-radius: 0px 20px 20px 0px;
+  width: 25%;
+  border: 2px solid var(--border-color);
+
+  ion-content {
+    --background: var(--ion-color-background);
+  }
+
+  ion-list {
+    --background: var(--ion-color-background);
+  }
+
+  span {
+    color: var(--ion-color-text);
+  }
+
+  p {
+    color: var(--ion-color-text);
+  }
+}
+
 ion-searchbar {
   --border-radius: 25px;
   --background: var(--ion-color-secondary-tint);
@@ -252,6 +277,7 @@ ion-searchbar {
     height: 50px;
     display: flex;
     align-items: center;
+    color: var(--ion-color-text);
   }
 
   .alert {
