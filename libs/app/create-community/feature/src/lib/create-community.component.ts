@@ -63,6 +63,7 @@ export class CreateCommunityComponent {
   inputValue!: string;
   inputValue2!: string;
   isValid!: boolean;
+  loading = true;
 
   constructor(
     private modalController: ModalController,
@@ -78,6 +79,7 @@ export class CreateCommunityComponent {
           console.log(profile);
           this.profile = profile;
         }
+        this.loading = false;
       });
     }
   }

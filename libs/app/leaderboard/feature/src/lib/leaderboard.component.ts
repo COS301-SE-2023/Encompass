@@ -26,6 +26,7 @@ export class LeaderboardComponent {
   topThree!: ProfileLeaderboardDto[] | null;
 
   isLeaderboardFetched = false;
+  loading = true;
 
   constructor(private modalController: ModalController, private store: Store, private router: Router) { 
     this.store.dispatch(new SubscribeToProfile());
@@ -46,6 +47,8 @@ export class LeaderboardComponent {
           this.leaderboard = leaderboard.slice(3);
           this.topThree = leaderboard.slice(0, 3);
         }
+
+        this.loading = false;
       })
     }
   }

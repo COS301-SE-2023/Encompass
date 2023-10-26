@@ -60,6 +60,7 @@ export class CommentsComponent {
   settings!: SettingsDto | null;
   isThemesCalled = false;
   show = true;
+  loading = true;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -133,6 +134,8 @@ export class CommentsComponent {
           this.viewreplies.push(false);
         }
       }
+
+      this.loading = false;
     });
 
     this.setTheme();

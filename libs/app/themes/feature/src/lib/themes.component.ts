@@ -33,6 +33,7 @@ export class ThemesPage {
   settings!: SettingsDto | null;
 
   activeButton!: string;
+  loading = true;
 
   changeBorder(btnName: string) {
     const btn = document.getElementById(btnName);
@@ -229,6 +230,8 @@ export class ThemesPage {
               }
               this.activeImage = background;
             }
+
+            this.loading = false;
           }
         });
       }

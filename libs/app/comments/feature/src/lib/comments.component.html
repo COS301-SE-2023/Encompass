@@ -1,4 +1,5 @@
 <div class="overlay-container" id="main" *ngIf="!mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
   
   <ion-card class="PostCard" *ngIf="show">
     <div class="PostCardHeader">
@@ -230,6 +231,7 @@
 <!-- ========================================================mobile================================================== -->
   
 <div class="overlay-container_mobile" id="main" *ngIf="mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
   
     <ion-card class = "PostCard-mobile" *ngIf="show">
       <div class = "PostCardHeader">

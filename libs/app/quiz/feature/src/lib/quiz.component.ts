@@ -59,6 +59,8 @@ export class QuizPage {
   mobileview = false;
   colSize = 0;
 
+  loading = true;
+
   constructor(
     private route: ActivatedRoute,
     private store: Store,
@@ -141,6 +143,8 @@ export class QuizPage {
                           new UpdateUserEvent(this.profile._id, updateEvent)
                         );
                       }
+
+                      this.loading = false;
                     }
                   });
                 }

@@ -1,4 +1,5 @@
 <div class="overlay-container" *ngIf="!mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
   <h1 class="ChallengeName">{{event?.name}}</h1>
   <h3 class="HostDetails">
     Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text> from
@@ -54,6 +55,8 @@
   </div>
 </div>
 <div class="overlay-container_mobile" *ngIf="mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <h1 class="ChallengeName">{{event?.name}}</h1>
   <h3 class="HostDetails_mobile">
     Hosted by <ion-text class="HostUsername"> {{event?.host}}</ion-text><br> from

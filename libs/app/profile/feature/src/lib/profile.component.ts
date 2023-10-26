@@ -96,6 +96,8 @@ export class ProfilePage {
   isModalOpen = false;
   isModal2Open = false;
 
+  loading = true;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private router: Router,
@@ -163,6 +165,8 @@ export class ProfilePage {
                     }
                   }
                 }
+
+                this.loading = false;
               }
             });
           }

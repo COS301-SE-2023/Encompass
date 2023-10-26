@@ -1,6 +1,8 @@
 
 
 <div class="overlay-container" *ngIf="!mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <div class="overlay"></div>
   <div class="content">
     <ion-grid>
@@ -170,6 +172,8 @@
   </div>
 </div>
 <div class="overlay-container_mobile" *ngIf="mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
 <div class="Heading_mobile">
     <img src="assets/icon/Coin.png" class="CoinImg_mobile" />
     <label class="Name">{{profile?.name}} {{profile?.lastName}}</label>

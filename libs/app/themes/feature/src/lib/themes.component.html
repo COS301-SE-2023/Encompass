@@ -1,6 +1,8 @@
 <!-- images sourced from: https://wallpapercave.com/abstract-forest-wallpapers -->
 
 <div id="theme-page" class="theme-page" *ngIf="!mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <div class="top-stuff">
     <ion-card class="display-card">
       <ion-header>
@@ -211,6 +213,8 @@
 
 <!-- =============================================mobile============================================= -->
 <div id="theme-page" class="theme-page mobile" *ngIf="mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <div class="top-stuff">
     <ion-grid>
       <ion-row>

@@ -99,6 +99,7 @@ export class CreatePostComponent {
 
   createPost = true;
   createEvent = false;
+  loading = true;
 
   selectedDate!: string;
 
@@ -129,6 +130,8 @@ export class CreatePostComponent {
             profile.username
           );
         }
+
+        this.loading = false;
       });
     }
 

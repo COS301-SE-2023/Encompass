@@ -102,6 +102,7 @@ export class CommunityProfileComponent {
   position!: number;
   showPosts = true;
   showEvents = false;
+  loading = true;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -285,6 +286,7 @@ export class CommunityProfileComponent {
         //     this.shares.push(posts[i].shares);
         //   }
         // }
+        this.loading = false;
       }
     });
 

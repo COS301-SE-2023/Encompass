@@ -71,6 +71,8 @@ export class UserProfile {
   isModalOpen = false;
   isModal2Open = false;
 
+  loading = true;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private store: Store,
@@ -141,6 +143,8 @@ export class UserProfile {
                   }
                 }
               }
+
+              this.loading = false;
             } else {
               console.log('USER PROFILE IS', userProfile);
             }

@@ -1,4 +1,6 @@
 <div class="overlay-container" *ngIf="!mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <ion-card class="headerCard">
     <div class="Banner">
       <img
@@ -577,6 +579,8 @@
 <!-- ======================================================mobile===================================================== -->
 
 <div class="overlay-container" *ngIf="mobileview">
+  <div class="loading-spinner" *ngIf="loading"></div>
+
   <div style="height: 20px"></div>
   <ion-card class="headerCard">
     <div class="Banner">

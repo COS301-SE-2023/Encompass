@@ -45,6 +45,7 @@ export class EventPage {
   found = false;
   mobileview = false;
   colSize = 0;
+  loading = true;
 
   constructor(private formBuilder: FormBuilder,private modalController: ModalController, private store: Store, private router: Router) {
     this.store.dispatch(new SubscribeToProfile());
@@ -109,6 +110,8 @@ export class EventPage {
 
          
         }
+
+        this.loading = false;
       }
     })
 

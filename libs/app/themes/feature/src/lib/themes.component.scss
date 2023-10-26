@@ -374,3 +374,23 @@ ion-toolbar {
 .text_mobile{
   font-size: 10px;
 }
+
+.loading-spinner {
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid var(--ion-color-primary);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 0.3s linear infinite;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  margin-left: -20px;
+  margin-top: -20px;
+  z-index: 10;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
