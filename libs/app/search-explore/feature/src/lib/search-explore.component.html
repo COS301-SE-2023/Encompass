@@ -686,14 +686,16 @@
 <!-- ===========================================mobile view=========================================== -->
 <div class="overlay" *ngIf="mobileview">
   <ion-header>
-    <ion-toolbar class="profileToolbar">
+    <ion-toolbar class="profileToolbarMobile">
       <div class="toolbar-content">
+        <!-- <div style="height: 100px;"></div> -->
         <ion-searchbar
           id="search-bar"
           class="searchbar"
           placeholder="Search"
           (ionChange)="search($event)"
           (ionClear)="clearSearch()"
+          style="margin-top: 30px;"
         ></ion-searchbar>
 
         <div class="searchButtonsMobile">
@@ -939,6 +941,7 @@
             </ion-card>
           </div>
         </div>
+        <div style="height: 100px"></div>
       </div>
     </div>
 

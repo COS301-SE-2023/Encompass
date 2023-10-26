@@ -192,6 +192,14 @@ export class MessagesPage implements OnDestroy {
     });
   }
 
+  GoToProfile(username: string) {
+    if (this.profile?.username !== username) {
+      this.router.navigate(['home/user-profile/' + username]);
+    } else {
+      this.router.navigate(['home/profile']);
+    }
+  }
+
   toggleSelect() {
     this.selectOpen = !this.selectOpen;
   }
