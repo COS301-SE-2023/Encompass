@@ -641,7 +641,7 @@
 
         <div class="PostBody" (click)="GoToComments(post._id)">
           <div class="text">
-            <h5>{{ post.title }} <label style="font-size: small;">@{{post.username}}</label></h5>
+            <h5>{{ post.title }} <label style="font-size: small;" (click)="GoToProfile(post.username)">@{{post.username}}</label></h5>
             <div style="display: flex; justify-content: center">
               <img src="{{ post.imageUrl }}" style="border-radius: 15px" />
             </div>
@@ -658,19 +658,9 @@
               <ion-icon
                 name="share-social-outline"
                 id="icons2"
-                *ngIf="!sharing[i]"
                 (click)="Share(i, post)"
               ></ion-icon>
-              <ion-icon
-                name="share-social-outline"
-                id="icons2"
-                style="color: purple"
-                *ngIf="sharing[i]"
-              ></ion-icon>
-              <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-              <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                Link Copied!
-              </div>
+              <div>{{ post.shares }}</div>
             </div>
             <div style="text-align: center">
               <ion-icon
@@ -900,19 +890,9 @@
                   <ion-icon
                     name="share-social-outline"
                     id="icons2"
-                    *ngIf="!sharing[i]"
                     (click)="Share(i, post)"
                   ></ion-icon>
-                  <ion-icon
-                    name="share-social-outline"
-                    id="icons2"
-                    style="color: purple"
-                    *ngIf="sharing[i]"
-                  ></ion-icon>
-                  <div *ngIf="!sharing[i]">{{ post.shares }}</div>
-                  <div *ngIf="sharing[i]" style="font-family: CustomFont">
-                    Link Copied!
-                  </div>
+                  <div>{{ post.shares }}</div>
                 </div>
                 <div style="text-align: center">
                   <ion-icon

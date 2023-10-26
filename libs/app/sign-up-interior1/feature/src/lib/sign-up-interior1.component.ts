@@ -94,6 +94,7 @@ export class SignUpInterior1Component {
     };
 
     this.store.dispatch(new UpdateProfile(data, this.profile._id));
+    
     this.router.navigate(['sign-up-communities']);
   }
 

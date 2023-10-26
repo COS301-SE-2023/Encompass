@@ -233,19 +233,14 @@
   
     <ion-card class = "PostCard-mobile" *ngIf="show">
       <div class = "PostCardHeader">
-        <div class = "PostImageContainer" >
-          <img src = {{post?.communityImageUrl}}  class = "postImage" 
+        <div class = "PostImageContainer_mobile" >
+          <img src = {{post?.communityImageUrl}}  class = "postImage_mobile" 
           onerror="this.src='assets/icon/Group.png';">
         </div>
-        <div class = "PostDetails" >
-          <div class = "TitleNameOptions">
-            <div style = "display: flex;">
-              <div class = "Title">{{post?.community}}</div>
-              <div class = "Name">@{{post?.username}}</div>
+        <div class = "PostDetails_mobile" >
+          <div class = "TitleNameOptions_mobile">
+              <div class = "Title_mobile">{{post?.community}}</div>
             </div>
-           
-  
-           </div>
           
            <div class = "GenreIcons" >
             <div style = "width: 30%; display: flex; justify-content: space-around;">
@@ -265,7 +260,6 @@
             <div style = "display:flex;justify-content: center;">
               <img src = {{post?.imageUrl}} style="border-radius: 10px;" >
             </div>
-            <br>
             {{post?.text}}
           </div>
         </div>

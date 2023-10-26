@@ -792,50 +792,24 @@
               class="PostCard card-styles"
             >
               <div class="PostCardHeader">
-                <div class="PostImageContainer">
+                <div class="PostImageContainer_mobile">
                   <img
                     src="{{ post.communityImageUrl }}"
-                    class="postImage"
+                    class="postImage_mobile"
                     onerror="this.src='assets/icon/Group.png';"
                     (click)="GoToCommunity(post.community)"
                   />
                 </div>
-                <div class="PostDetails">
-                  <div class="TitleNameOptions">
-                    <div style="display: flex; margin-left: 1.5%">
+                <div class="PostDetails_mobile">
+                  <div class="TitleNameOptions_mobile">
                       <div
-                        class="Title"
+                        class="Title_mobile"
                         (click)="GoToCommunity(post.community)"
                       >
                         {{ post.community }}
                       </div>
-                      <div class="Name" (click)="GoToProfile(post.username)">
-                        @{{ post.username }}
-                      </div>
-                    </div>
-                    <div style="display: flex; margin-right: 1.5%">
-                      <label
-                        class="report"
-                        *ngIf="reports[i]"
-                        (click)="ReportPost(i, post)"
-                        >Report Post</label
-                      >
-
-                      <label
-                        class="report"
-                        *ngIf="post.reported"
-                        style="color: red"
-                        >Post Reported.</label
-                      >
-
-                      <button
-                        class="Options"
-                        *ngIf="!post.reported"
-                        (click)="Report(i)"
-                      >
-                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                      </button>
-                    </div>
+                     
+                   
                   </div>
 
                   <div class="GenreIcons">
@@ -877,19 +851,18 @@
 
               <div class="PostBody" (click)="GoToComments(post._id)">
                 <div class="text">
-                  <h5>{{ post.title }}</h5>
+                  <h5>{{ post.title }}<label style="font-size: small;" (click)="GoToProfile(post.username)">@{{post.username}}</label></h5>
                   <div style="display: flex; justify-content: center">
                     <img
                       src="{{ post.imageUrl }}"
                       style="border-radius: 15px"
                     />
                   </div>
-                  <br />
                   <span>{{ post.text }}</span>
                 </div>
               </div>
               <div class="PostFooter">
-                <div class="date">
+                <div class="date_mobile">
                   {{ post.dateAdded | date : 'yyyy-MM-dd' }}
                 </div>
 

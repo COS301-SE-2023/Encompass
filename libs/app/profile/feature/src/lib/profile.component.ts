@@ -364,6 +364,9 @@ export class ProfilePage {
       for (let k = 0; k < this.deletePost.length; k++) {
         this.deletePost[k] = false;
       }
+      for(let k=0; k< this.MarkedForPostDeletion.length; k++){
+        this.MarkedForPostDeletion[k]=false;
+      }
       this.deletePost[n] = true;
     }
 
@@ -391,6 +394,7 @@ export class ProfilePage {
 
   DeletePost(n: number, post: PostDto) {
     this.MarkedForPostDeletion[n] = false;
+    this.deletePost[n]=false;
     this.store.dispatch(new DeletePost(post._id));
   }
 
