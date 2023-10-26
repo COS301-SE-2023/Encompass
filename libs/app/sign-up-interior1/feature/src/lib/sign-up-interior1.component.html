@@ -137,6 +137,7 @@
 
 <div class="main" *ngIf="mobileview">
   <div class="Signin1-mobile">
+    <div style="height:20px"></div>
     <div class="Rocket">
       <img src="assets/icon/Rocket.png" width="80px" height="80px" />
     </div>
@@ -263,9 +264,10 @@
         ></ion-icon>
       </button>
       <button *ngIf="!isValid" class="btn2" (click)="next()" disabled="true">
-        <span class="next-text">Next</span>
+        <span class="next-text_mobile">Next</span>
         <!-- <ion-icon name="chevron-forward-outline" class="back-icon" color="primary"></ion-icon> -->
       </button>
     </div>
+    <div style="height:100px"></div>
   </div>
 </div>
