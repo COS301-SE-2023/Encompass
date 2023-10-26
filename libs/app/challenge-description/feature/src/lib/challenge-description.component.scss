@@ -72,6 +72,7 @@
   justify-content: center;
   color: var(--hover-color);
   margin-bottom: 10px;
+  text-align: center;
 }
 .Join {
   display: flex;
@@ -171,7 +172,7 @@
   font-family: CustomFont2;
   font-size: 20px;
   border-radius: 25px;
-  padding: 1%;
+  padding: 2%;
   transition: all 0.3s;
 }
 .completeQuiz:hover {
