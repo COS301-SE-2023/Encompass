@@ -988,6 +988,14 @@ ion-button:hover {
   gap: 20px;
 }
 
+.SearchCommunityCardMobile {
+  // left: 2.5%;
+  // width: 100%;
+  background-color: var(--card-color);
+  height: 200px;
+  // gap: 20px;
+}
+
 .SearchCommunityHeader {
   display: flex;
   justify-content: left;
@@ -995,6 +1003,15 @@ ion-button:hover {
   width: 100%;
   gap: 30px;
   padding: 10px 30px 10px 30px;
+}
+
+.SearchCommunityHeaderMobile {
+  display: flex;
+  justify-content: left;
+  height: 50%;
+  width: 100%;
+  gap: 15px;
+  padding: 15px 10px 5px 10px;
 }
 
 .SearchCommunityIcon {
@@ -1005,6 +1022,13 @@ ion-button:hover {
   border-radius: 5px;
 }
 
+.SearchCommunityIconMobile {
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  // margin-top: 10px;
+  border-radius: 5px;
+}
 
 
 .nameAndMembers {
@@ -1023,6 +1047,31 @@ ion-button:hover {
   font-size: 28px;
   font-weight: bold;
   margin-top: 10px;
+}
+
+.SearchCommunityNameMobile {
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+  height: 50%;
+  width: 100%;
+  color: black;
+  font-family: CustomFont;
+  font-size: 23px;
+  font-weight: bold;
+  // margin-top: 10px;
+}
+
+.SearchCommunityMembersMobile {
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+  height: 50%;
+  width: 100%;
+  color: rgb(87, 87, 87);
+  font-family: CustomFont;
+  font-size: 15px;
+  // margin-top: 20px;
 }
 
 .SearchCommunityMembers {
@@ -1050,6 +1099,18 @@ ion-button:hover {
   gap: 50px;
 }
 
+.SearchCommunityGenresMobile {
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-family: CustomFont;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  // margin-right: 30px;
+  // margin-top: 60px;
+  gap: 50px;
+}
 
 .SearchCommunityBody {
   // display: flex;
@@ -1060,6 +1121,17 @@ ion-button:hover {
   margin: 50px 30px 10px 30px;
   height: 50%;
   width: 100%;
+}
+
+.bodyMobile {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
 }
 
 .SearchCommunityDesc {
@@ -1074,6 +1146,11 @@ ion-button:hover {
   object-fit: fill;
 }
 
+.SearchimgDivMobile {
+  width: 25px;
+  height: 25px;
+  object-fit: fill;
+}
 //people list
 
 .peopleCard {
@@ -1091,7 +1168,25 @@ ion-button:hover {
   // display: flex;
 }
 
+.peopleItemMobile {
+  --background: var(--card-color-contrast);
+  // display: flex;
+  // flex-direction: column;
+}
+
+.peopleHeaderMobile {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+}
+
 .peopleAvatar {
+  height: 70px;
+  width: 70px;
+}
+
+.peopleAvatarMobile {
   height: 70px;
   width: 70px;
 }
@@ -1104,11 +1199,26 @@ ion-button:hover {
   align-items: flex-start;
 }
 
+.personDetailsMobile {
+  display: flex;
+  flex-direction: column;
+  // margin-left: 20px;
+  gap: 7px;
+  // align-items: flex-start;
+}
+
 .nameAndUsername {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   font-size: 18px;
+}
+
+.nameAndUsernameMobile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 16px;
 }
 
 .personName {
@@ -1121,6 +1231,15 @@ ion-button:hover {
 
 .personDesc {
   color: #333;
+}
+
+.personDescMobile {
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .followButton {
